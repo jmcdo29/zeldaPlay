@@ -1,0 +1,139 @@
+<div *ngIf="character">
+
+  <h2>{{ character.name | uppercase }} Details</h2>
+
+  <button (click)="setEdit()">{{ !editMode ? 'Edit Charcater' : 'Save Charcater' }} </button>
+  <div *ngIf="editMode">
+    <label>Name:
+      <input [(ngModel)]="character.name" placeholder="Name" />
+    </label>
+
+    <div>
+      <label>Strength:
+        <input [(ngModel)]="character.strength" placeholder="Strength" />
+      </label>
+    </div>
+
+    <div>
+      <label>Dexterity:
+        <input [(ngModel)]="character.dexterity" placeholder="Dexterity" />
+      </label>
+    </div>
+
+    <div>
+      <label>Constitution:
+        <input [(ngModel)]="character.constitution" placeholder="Constitution" />
+      </label>
+    </div>
+
+    <div>
+      <label>Intelligence:
+        <input [(ngModel)]="character.intelligence" placeholder="Intelligence" />
+      </label>
+    </div>
+
+    <div>
+      <label>Wisdom:
+        <input [(ngModel)]="character.wisdom" placeholder="Wisdom" />
+      </label>
+    </div>
+
+    <div>
+      <label>Charisma:
+        <input [(ngModel)]="character.charisma" placeholder="Charisma" />
+      </label>
+    </div>
+
+    <div>
+      <label>Health Points:
+        <input [(ngModel)]="character.health" placeholder="Health Points" />
+      </label>
+    </div>
+
+    <div>
+      <label>Magic Points:
+        <input [(ngModel)]="character.magic" placeholder="Magic Points" />
+      </label>
+    </div>
+
+    <div>
+      <label>Experience Points:
+        <input [(ngModel)]="character.exp" placeholder="Experience Points" />
+      </label>
+    </div>
+  </div>
+  <div *ngIf="!editMode">
+    <table>
+      <thead>
+        <tr>
+          <th>Traits</th>
+          <th>Value/Score</th>
+          <th>Modifier</th>
+        </tr>
+      </thead>
+      <br/>
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td>{{ character.name }}</td>
+        </tr>
+        <br/>
+        <tr>
+          <td>Strength</td>
+          <td>{{ character.strength }}</td>
+          <td>{{ calcMod(character.strength) }}</td>
+        </tr>
+        <tr>
+          <td>Dexterity</td>
+          <td>{{ character.dexterity }}</td>
+          <td>{{ calcMod(character.dexterity) }}</td>
+        </tr>
+        <tr>
+          <td>Constitution</td>
+          <td>{{ character.constitution }}</td>
+          <td>{{ calcMod(character.constitution) }}</td>
+        </tr>
+        <tr>
+          <td>Intelligence</td>
+          <td>{{ character.intelligence }}</td>
+          <td>{{ calcMod(character.intelligence) }}</td>
+        </tr>
+        <tr>
+          <td>Wisdom</td>
+          <td>{{ character.wisdom }}</td>
+          <td>{{ calcMod(character.wisdom) }}</td>
+        </tr>
+        <tr>
+          <td>Charisma</td>
+          <td>{{ character.charisma }}</td>
+          <td>{{ calcMod(character.charisma) }}</td>
+        </tr>
+        <br/>
+        <tr>
+          <td>Health Points</td>
+          <td>{{ character.health }}</td>
+        </tr>
+        <tr>
+          <td>Magic Points</td>
+          <td>{{ character.magic }}</td>
+        </tr>
+        <tr>
+          <td>Experience Points</td>
+          <td>{{ character.exp }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br/>
+    <die [sides]="4" [character]="this"></die>
+    <die [sides]="6" [character]="this"></die>
+    <die [sides]="8" [character]="this"></die>
+    <die [sides]="12" [character]="this"></die>
+    <die [sides]="20" [character]="this"></die>
+    <die [sides]="100" [character]="this"></die>
+
+    <div *ngIf="roll">
+      {{ roll }}
+    </div>
+  </div>
+
+</div>

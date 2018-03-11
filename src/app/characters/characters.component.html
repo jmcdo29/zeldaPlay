@@ -1,0 +1,22 @@
+<div class="column-holder">
+  <div class="character-column">
+    <h2>My Characters</h2>
+    <ul class="charcters">
+      <li *ngFor="let character of characters" (click)="onSelect(character)" [class.selected]="character===selectedCharcter">
+        <span class="badge"> {{character.name}} </span> 
+      </li>
+    </ul>
+
+    <button *ngIf="selectedCharacter" (click)="hide()">Hide Character Sheet</button>
+  </div>
+  <div class="animate">
+    <div class="details-column">
+      <character-detail [character]="selectedCharacter"></character-detail>
+    </div>
+    <div class="skill-column">
+      <div *ngIf="selectedCharacter">
+        Here is where the skills page will go
+      </div>
+    </div>
+  </div>
+</div>
