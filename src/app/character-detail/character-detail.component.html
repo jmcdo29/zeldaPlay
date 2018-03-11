@@ -2,7 +2,7 @@
 
   <h2>{{ character.name | uppercase }} Details</h2>
 
-  <button (click)="setEdit()">{{ !editMode ? 'Edit Charcater' : 'Save Charcater' }} </button>
+  <button (click)="setEdit()">{{ !editMode ? 'Edit Character' : 'Save Character' }} </button>
   <div *ngIf="editMode">
     <label>Name:
       <input [(ngModel)]="character.name" placeholder="Name" />
@@ -131,7 +131,7 @@
     <die [sides]="20" [character]="this"></die>
     <die [sides]="100" [character]="this"></die>
 
-    <div *ngIf="roll">
+    <div *ngIf="roll" [class.crit]="this.crit" [class.critmiss]="this.critmiss" [class.maxDmg]="this.maxDmg">
       {{ roll }}
     </div>
   </div>

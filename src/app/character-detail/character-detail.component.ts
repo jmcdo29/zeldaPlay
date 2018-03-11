@@ -12,10 +12,14 @@ export class CharacterDetailComponent implements OnInit {
 
   roll: string;
   editMode: boolean = false;
+  crit: boolean = false;
+  critmiss: boolean = false;
+  maxDmg: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
+    this.roll = null;
   }
 
   setRoll(value : string): void{

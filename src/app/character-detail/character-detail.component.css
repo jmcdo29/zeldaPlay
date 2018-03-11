@@ -1,0 +1,12 @@
+.crit{
+  font-size: 14pt;
+  color: gold;
+}
+.critmiss{
+  font-size: 14pt;
+  color:red;
+}
+.maxDmg{
+  font-size: 14pt;
+  color: green;
+}
