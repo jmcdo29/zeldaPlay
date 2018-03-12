@@ -26,3 +26,21 @@
 .scrollable{
   overflow-y: scroll;
 }
+
+@media (max-width: 900px){
+  .skills{
+    width: 100%;
+  }
+  .details{
+    width: 100%
+  }
+}
+
+@media (max-width: 600px){
+  .skills{
+    width: 100%;
+  }
+  .details{
+    width: 100%
+  }
+}
