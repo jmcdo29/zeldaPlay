@@ -20,11 +20,28 @@
   float: left;
 }
 .info{
-  color: lightgray;
+  color: rgb(143, 142, 142);
   float: right;
 }
 .scrollable{
   overflow-y: scroll;
+}
+tr:nth-child(even){
+  background-color: #eeeeee;
+}
+td{
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+}
+td.name{
+  text-align: left;
+}
+td.mod{
+  text-align:left;
+}
+th{
+  margin: 5px;
 }
 
 @media (max-width: 900px){

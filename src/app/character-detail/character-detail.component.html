@@ -45,26 +45,26 @@
           <br/>
           <tbody>
             <tr>
-              <td>Name</td>
+              <td class="name">Name</td>
               <td>{{ character.name }}</td>
             </tr>
             <br/>
             <tr *ngFor="let attr of character.attributes">
-              <td>{{ attr.name }}</td>
+              <td class="name">{{ attr.name }}</td>
               <td>{{ attr.value }}</td>
               <td>{{ attr.modifier }}</td>
             </tr>
             <br/>
             <tr>
-              <td>Health Points</td>
+              <td class="name">Health Points</td>
               <td>{{ character.health }}</td>
             </tr>
             <tr>
-              <td>Magic Points</td>
+              <td class="name">Magic Points</td>
               <td>{{ character.magic }}</td>
             </tr>
             <tr>
-              <td>Experience Points</td>
+              <td class="name">Experience Points</td>
               <td>{{ character.exp }}</td>
             </tr>
           </tbody>
@@ -100,12 +100,12 @@
         <tbody>
           <tr *ngFor="let skill of character.skills">
             <td>
-              <input type="checkbox" ng-checked="skill.trained" disabled="true"/>
+              <input type="checkbox" [checked]="skill.trained" disabled="true"/>
             </td>
-            <td>{{ skill.skillName }}</td>
+            <td class="name">{{ skill.skillName }}</td>
             <td>{{ skill.ranks }}</td>
             <td>{{ skill.racial }}</td>
-            <td>{{ getMod(skill.modifier) }}<span class="info">{{ skill.modifier.substr(0,3) |uppercase }}</span></td>
+            <td class="mod">{{ skill.modifier.substr(0,3) | uppercase }}<span class="info">{{ getMod(skill.modifier) }}</span></td>
             <td>{{ skill.item }}</td>
             <td>{{ skill.misc }}</td>
             <td>{{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}</td>
@@ -126,9 +126,9 @@
         <tbody>
           <tr *ngFor="let weapon of character.weaponSkills">
             <td>
-                <input type="checkbox" ng-checked="weapon.trained" disabled="true"/>
+                <input type="checkbox" [checked]="weapon.trained" disabled="true"/>
             </td>
-            <td>{{ weapon.skillName }}</td>
+            <td class="name">{{ weapon.skillName }}</td>
             <td>{{ weapon.ranks }}</td>
             <td>{{ weapon.racial }}</td>
             <td>{{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}</td> 
@@ -147,8 +147,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let magic of character.magicSkills">
-              <td>{{ magic.skillName }}</td>
-              <td>{{ getMod(magic.modifier) }}<span class="info">{{ magic.modifier.substr(0,3) |uppercase }}</span></td>
+              <td class="name">{{ magic.skillName }}</td>
+              <td class="mod">{{ magic.modifier.substr(0,3) | uppercase }}<span class="info">{{ getMod(magic.modifier)}}</span></td>
               <td>{{ magic.ranks }}</td>
               <td>{{ magic.ranks+getMod(magic.modifier) }}</td>
             </tr>
