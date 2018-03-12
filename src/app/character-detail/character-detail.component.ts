@@ -26,12 +26,25 @@ export class CharacterDetailComponent implements OnInit {
     this.roll = value;
   }
 
+  calcMod(stat : number): number{
+    return stat % 2 == 0 ? (stat - 10) / 2 : (stat - 11) / 2;
+  }
+
   setEdit(): void{
+    if(this.setEdit){
+      for(let i = 0; i < this.character.attributes.length; i++){
+        this.character.attributes[i].modifier = this.calcMod(this.character.attributes[i].value);
+      }
+    }
     this.editMode = !this.editMode;
   }
 
-  calcMod(stat : number): number{
-    return stat % 2 == 0 ? (stat - 10) / 2 : (stat - 11) / 2;
+  getMod(modName : string): number{
+    for(let i = 0; i <  this.character.attributes.length; i++){
+      if(this.character.attributes[i].name === modName){
+        return this.character.attributes[i].modifier;
+      }
+    }
   }
 
 }

@@ -51,11 +51,7 @@
   float: left;
 }
 .details-column{
-  width: 25%;
-  float: left;
-}
-.skills-column{
-  width: 50%;
+  width: 75%;
   float: left;
 }
 .column-holder::after{
@@ -72,9 +68,6 @@
   .details-column{
     width: 50%;
   }
-  .skills-column{
-    width: 100%;
-  }
 }
 
 @media (max-width: 600px){
@@ -82,9 +75,6 @@
     width: 100%;
   }
   .details-column{
-    width: 100%;
-  }
-  .skills-column{
     width: 100%;
   }
 }

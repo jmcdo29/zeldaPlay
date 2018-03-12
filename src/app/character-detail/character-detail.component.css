@@ -10,3 +10,19 @@
   font-size: 14pt;
   color: green;
 }
+.details{
+  width: 33%;
+  float: left;
+}
+.skills{
+  height: 100vh;
+  width: 67%;
+  float: left;
+}
+.info{
+  color: lightgray;
+  float: right;
+}
+.scrollable{
+  overflow-y: scroll;
+}
