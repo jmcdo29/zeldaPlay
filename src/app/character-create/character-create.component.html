@@ -1,0 +1,158 @@
+<div class="column-holder">
+  <div class="details">
+    <h2>{{ newCharacter.name }} Details</h2>
+
+    <button (click)="save()">Save Character</button>
+    <button (click)="cancel()">Cancel New Character</button>
+    <br/>
+    <table>
+      <thead>
+        <tr>
+          <th>Traits</th>
+          <th>Value/Score</th>
+          <th>Modifier</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td>
+            <input type="text" [(ngModel)]="newCharacter.name" placeholder="Name">
+          </td>
+        </tr>
+
+        <br/>
+
+        <tr *ngFor="let attr of newCharacter.attributes">
+          <td>{{ attr.name }}</td>
+          <td>
+            <input type="number" [(ngModel)]="attr.value">
+          </td>
+          <td>
+            {{ calcMod(attr) }} {{ attr.modifier }}
+          </td>
+        </tr>
+
+        <br/>
+
+        <tr>
+          <td>Health</td>
+          <td>
+            {{ 48+calcModtemp(newCharacter.attributes[2].value) }}
+          </td>
+        </tr>
+        <tr>
+          <td>Magic</td>
+          <td>
+            {{ 20+calcModtemp(newCharacter.attributes[4].value) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="skills scrollable">
+    <h2>{{ newCharacter.name }} Skills</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Trained</th>
+          <th>Skill Name</th>
+          <th>Skill Ranks</th>
+          <th>Racial Bonus</th>
+          <th>Modifier</th>
+          <th>Item Bonus</th>
+          <th>Misc Bonus</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let skill of newCharacter.skills">
+          <td>
+            <input class="skill-input" type="checkbox" [(ngModel)]="skill.trained">
+          </td>
+          <td class="name">
+            {{ skill.skillName }}
+          </td>
+          <td>
+            <input class="skill-input" type="number" [(ngModel)]="skill.ranks">
+          </td>
+          <td>
+            <input class="skill-input" type="number" [(ngModel)]="skill.racial">
+          </td>
+          <td class="mod">
+            {{ skill.modifier.substr(0,3) | uppercase }}
+            <span class="info">{{ getMod(skill.modifier) }}</span>
+          </td>
+          <td>
+            <input class="skill-input" type="number" [(ngModel)]="skill.item">
+          </td>
+          <td>
+            <input class="skill-input" type="number" [(ngModel)]="skill.misc">
+          </td>
+          <td>
+            {{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>{{ newCharacter.name }} Weapon Skills</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Trained</th>
+          <th>Weapon Type</th>
+          <th>Skill Ranks</th>
+          <th>Racial Bonus</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let weapon of newCharacter.weaponSkills">
+          <td>
+            <input type="checkbox" [(ngModel)]="weapon.trained">
+          </td>
+          <td>{{weapon.skillName }}</td>
+          <td>
+            <input type="number" [(ngModel)]="weapon.ranks">
+          </td>
+          <td>
+            <input type="number" [(ngModel)]="weapon.racial">
+          </td>
+          <td>
+            {{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>{{ newCharacter.name }} Magic Skills</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Magic Type</th>
+          <th>Modifier</th>
+          <th>Skill Ranks</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let magic of newCharacter.magicSkills">
+          <td>{{ magic.skillName }}</td>
+          <td class="mod">
+            {{ magic.modifier.substr(0,3) | uppercase }}
+            <span class="info">{{ getMod(magic.modifier) }}</span>
+          </td>
+          <td>
+            <input [(ngModel)]="magic.ranks">
+          </td>
+          <td>
+            {{ magic.ranks + getMod(magic.modifier) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { CharactersComponent } from './characters/characters.component';
 import { CharacterDetailComponent } from './character-detail/character-detail.component';
 import { DieComponent } from './die/die.component';
+import { CharacterCreateComponent } from './character-create/character-create.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { DieComponent } from './die/die.component';
     AppComponent,
     CharactersComponent,
     CharacterDetailComponent,
-    DieComponent
+    DieComponent,
+    CharacterCreateComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
 h1 {
-  color: #369;
+  color: rgb(19, 85, 41);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 250%;
 }
@@ -16,6 +16,74 @@ body {
 body, input[text], button {
   color: #888;
   font-family: Cambria, Georgia;
+}
+.crit{
+  font-size: 14pt;
+  color: gold;
+}
+.critmiss{
+  font-size: 14pt;
+  color:red;
+}
+.maxDmg{
+  font-size: 14pt;
+  color: green;
+}
+.details{
+  width: 33%;
+  float: left;
+}
+.skills{
+  height: 100vh;
+  width: 67%;
+  float: left;
+}
+.info{
+  color: rgb(143, 142, 142);
+  float: right;
+}
+.scrollable{
+  overflow-y: scroll;
+}
+tr:nth-child(even){
+  background-color: #eeeeee;
+}
+td{
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+}
+td.name{
+  text-align: left;
+}
+td.mod{
+  text-align:left;
+}
+th{
+  margin: 5px;
+}
+.column-holder::after{
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media (max-width: 900px){
+  .skills{
+    width: 100%;
+  }
+  .details{
+    width: 100%
+  }
+}
+
+@media (max-width: 600px){
+  .skills{
+    width: 100%;
+  }
+  .details{
+    width: 100%
+  }
 }
 /* everywhere else */
 * {

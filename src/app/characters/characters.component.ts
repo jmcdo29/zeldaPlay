@@ -9,6 +9,7 @@ import { Character } from "../character";
 export class CharactersComponent implements OnInit {
 
   selectedCharacter: Character;
+  newChar: boolean;
 
   onSelect(character: Character): void {
     this.selectedCharacter = character;
@@ -18,6 +19,11 @@ export class CharactersComponent implements OnInit {
   }
   calcMod(stat : number): number{
     return stat % 2 == 0 ? (stat - 10) / 2 : (stat - 11) / 2;
+  }
+
+  newCharacter(): void{
+    this.hide();
+    this.newChar = true;
   }
 
   characters: Character[] = [

@@ -54,11 +54,7 @@
   width: 75%;
   float: left;
 }
-.column-holder::after{
-  content: "";
-  display: table;
-  clear: both;
-}
+
 
 
 @media (max-width: 900px){

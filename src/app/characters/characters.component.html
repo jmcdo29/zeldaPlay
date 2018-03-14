@@ -7,11 +7,17 @@
       </li>
     </ul>
 
-    <button *ngIf="selectedCharacter" (click)="hide()">Hide Character Sheet</button>
+    <button *ngIf="selectedCharacter" (click)="hide()">Hide Character Sheet</button><br/>
+    <button (click)="newCharacter()">Create Character</button>
   </div>
+  
   <div class="animate">
     <div class="details-column">
       <character-detail [character]="selectedCharacter"></character-detail>
+      <div *ngIf="newChar">
+        <character-create [CharacterParent]="this"></character-create>
+      </div>
     </div>
   </div>
+
 </div>

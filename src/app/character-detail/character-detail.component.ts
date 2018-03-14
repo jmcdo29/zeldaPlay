@@ -19,7 +19,6 @@ export class CharacterDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.roll = null;
   }
 
   setRoll(value : string): void{

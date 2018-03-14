@@ -21,7 +21,9 @@ export class DieComponent implements OnInit {
     this.character.crit = false;
     this.character.critmiss = false;
     this.character.maxDmg = false;
+
     this.character.setRoll(((Math.round((Math.random()*100)) % sides) + 1).toString());
+    
     if(this.character.roll === sides.toString() && sides === 20){
       this.character.crit = true;
     }

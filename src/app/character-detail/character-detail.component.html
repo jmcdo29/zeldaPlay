@@ -4,6 +4,7 @@
       <h2>{{ character.name | uppercase }} Details</h2>
 
       <button (click)="setEdit()">{{ !editMode ? 'Edit Character' : 'Save Character' }} </button>
+      <br/>
       <div *ngIf="editMode">
         <label>Name:
           <input [(ngModel)]="character.name" placeholder="Name" />
@@ -70,6 +71,7 @@
           </tbody>
         </table>
         <br/>
+        <h3> Roll Dice </h3>
         <die [sides]="4" [character]="this"></die>
         <die [sides]="6" [character]="this"></die>
         <die [sides]="8" [character]="this"></die>
