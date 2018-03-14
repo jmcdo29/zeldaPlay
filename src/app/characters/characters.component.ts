@@ -13,9 +13,11 @@ export class CharactersComponent implements OnInit {
 
   onSelect(character: Character): void {
     this.selectedCharacter = character;
+    this.newChar = false;
   }
   hide(): void {
     this.selectedCharacter = null;
+    this.newChar = false;
   }
   calcMod(stat : number): number{
     return stat % 2 == 0 ? (stat - 10) / 2 : (stat - 11) / 2;
