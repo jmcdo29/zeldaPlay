@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Character } from '../character';
+import { Attribute } from '../attribute';
 
 @Component({
   selector: 'character-detail',
@@ -23,6 +24,10 @@ export class CharacterDetailComponent implements OnInit {
 
   setRoll(value : string): void{
     this.roll = value;
+  }
+
+  setMod(attr: Attribute): void{
+    attr.modifier = attr.value % 2 === 0 ? (attr.value - 10) / 2 : (attr.value - 11) / 2;
   }
 
   calcMod(stat : number): number{

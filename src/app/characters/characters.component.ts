@@ -314,7 +314,7 @@ export class CharactersComponent implements OnInit {
       weaponSkills: [
         {
           skillName: "Short Swords",
-          trained: true,
+          trained: false,
           ranks: 0,
           racial: 0
         },{

@@ -67,6 +67,9 @@ th{
   display: table;
   clear: both;
 }
+input{
+  width: 50px;
+}
 
 @media (max-width: 900px){
   .skills{

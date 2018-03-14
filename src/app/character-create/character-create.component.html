@@ -38,13 +38,13 @@
         <tr>
           <td>Health</td>
           <td>
-            {{ 48+calcModtemp(newCharacter.attributes[2].value) }}
+            {{ 48+newCharacter.attributes[2].modifier }}
           </td>
         </tr>
         <tr>
           <td>Magic</td>
           <td>
-            {{ 20+calcModtemp(newCharacter.attributes[4].value) }}
+            {{ 20+newCharacter.attributes[4].modifier }}
           </td>
         </tr>
       </tbody>

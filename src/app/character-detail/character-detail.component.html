@@ -4,9 +4,56 @@
       <h2>{{ character.name | uppercase }} Details</h2>
 
       <button (click)="setEdit()">{{ !editMode ? 'Edit Character' : 'Save Character' }} </button>
-      <br/>
       <div *ngIf="editMode">
-        <label>Name:
+        <table>
+          <thead>
+            <tr>
+              <th>Trait</th>
+              <th>Value/Score</th>
+              <th>Modifier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">Name</td>
+              <td>
+                <input [(ngModel)]="character.name" placeholder="Name" />
+              </td>
+            </tr>
+            <tr></tr>
+            <br/>
+            <tr *ngFor="let attr of character.attributes">
+              <td class="name">{{ attr.name }}</td>
+              <td>
+                <input type="number" [(ngModel)]='attr.value'>
+              </td>
+              <td>
+                {{ setMod(attr) }} {{ attr.modifier }}
+              </td>
+            </tr>
+            <tr></tr>
+            <br/>
+            <tr>
+              <td class="name">Health</td>
+              <td>
+                <input type="number" [(ngModel)]="character.health">
+              </td>
+            </tr>
+            <tr>
+              <td class="name">Magic</td>
+              <td>
+                <input type="number" [(ngModel)]="character.magic">
+              </td>
+            </tr>
+            <tr>
+              <td class="name">Experience</td>
+              <td>
+                <input type="number" [(ngModel)]="character.exp">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!--<label>Name:
           <input [(ngModel)]="character.name" placeholder="Name" />
         </label>
 
@@ -32,7 +79,7 @@
           <label>Experience Points:
             <input [(ngModel)]="character.exp" placeholder="Experience Points" />
           </label>
-        </div>
+        </div> -->
       </div>
       <div *ngIf="!editMode">
         <table>
@@ -49,6 +96,7 @@
               <td class="name">Name</td>
               <td>{{ character.name }}</td>
             </tr>
+            <tr></tr>
             <br/>
             <tr *ngFor="let attr of character.attributes">
               <td class="name">{{ attr.name }}</td>
@@ -56,6 +104,7 @@
               <td>{{ attr.modifier }}</td>
             </tr>
             <br/>
+            <tr></tr>
             <tr>
               <td class="name">Health Points</td>
               <td>{{ character.health }}</td>
@@ -94,7 +143,7 @@
             <th>Skill Ranks</th>
             <th>Racial Bonus</th>
             <th>Modifier</th>
-            <th>Item Bonus</th> 
+            <th>Item Bonus</th>
             <th>Misc. Ranks</th>
             <th>Total</th>
           </tr>
@@ -102,12 +151,14 @@
         <tbody>
           <tr *ngFor="let skill of character.skills">
             <td>
-              <input type="checkbox" [checked]="skill.trained" disabled="true"/>
+              <input type="checkbox" [checked]="skill.trained" disabled="true" />
             </td>
             <td class="name">{{ skill.skillName }}</td>
             <td>{{ skill.ranks }}</td>
             <td>{{ skill.racial }}</td>
-            <td class="mod">{{ skill.modifier.substr(0,3) | uppercase }}<span class="info">{{ getMod(skill.modifier) }}</span></td>
+            <td class="mod">{{ skill.modifier.substr(0,3) | uppercase }}
+              <span class="info">{{ getMod(skill.modifier) }}</span>
+            </td>
             <td>{{ skill.item }}</td>
             <td>{{ skill.misc }}</td>
             <td>{{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}</td>
@@ -128,34 +179,36 @@
         <tbody>
           <tr *ngFor="let weapon of character.weaponSkills">
             <td>
-                <input type="checkbox" [checked]="weapon.trained" disabled="true"/>
+              <input type="checkbox" [checked]="weapon.trained" disabled="true" />
             </td>
             <td class="name">{{ weapon.skillName }}</td>
             <td>{{ weapon.ranks }}</td>
             <td>{{ weapon.racial }}</td>
-            <td>{{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}</td> 
+            <td>{{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}</td>
           </tr>
         </tbody>
-        </table>
+      </table>
       <h2>{{ character.name | uppercase }} Magic Skills </h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Magic Type</th>
-              <th>Modifier</th>
-              <th>Skill Ranks</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let magic of character.magicSkills">
-              <td class="name">{{ magic.skillName }}</td>
-              <td class="mod">{{ magic.modifier.substr(0,3) | uppercase }}<span class="info">{{ getMod(magic.modifier)}}</span></td>
-              <td>{{ magic.ranks }}</td>
-              <td>{{ magic.ranks+getMod(magic.modifier) }}</td>
-            </tr>
-          </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Magic Type</th>
+            <th>Modifier</th>
+            <th>Skill Ranks</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let magic of character.magicSkills">
+            <td class="name">{{ magic.skillName }}</td>
+            <td class="mod">{{ magic.modifier.substr(0,3) | uppercase }}
+              <span class="info">{{ getMod(magic.modifier)}}</span>
+            </td>
+            <td>{{ magic.ranks }}</td>
+            <td>{{ magic.ranks+getMod(magic.modifier) }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
   </div>
