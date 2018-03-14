@@ -29,6 +29,7 @@
   left: .1em;
 }
 .characters .text {
+  display: inline-block;
   position: relative;
   top: -3px;
 }
