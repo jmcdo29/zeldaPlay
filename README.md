@@ -20,10 +20,10 @@
 * Magic Points
 ### Adventure Related
 * Notes
-#### To Be Added
-* Weapons
+* Magic Skills
 * Skills
 * Weapon Skills
+#### To Be Added
 * Inventory
 ---
 ## Race Guide
@@ -66,8 +66,5 @@
 >
 > The smallest and second largest creatures of Hyrule. Fairies are known to be found all across Hyrule; however, most of the fairies found are of the common variety, small glowing orbs of light with wings. Humanoid fairies, however, are small chunks of a Great Fairy's power that has split off from the Great Fairy herself. These fairies are Great Fairies in training, working on growing their powers to one day become a Great Fairy themselves. It's hard to say what motivates a fairy, as it ranges from a thirst for power to defend itself and the ones it loves to wanting to do good for the world. The one thing that is for sure is that an adventurer can get a general idea of a fairy's motives based on its color, as the fairy's aura will likely align with the Great Fairy it spawned from. Those resonating a red hue will likely be following the path of Din, the Goddess of Power. The fairies that glow a vibrant green or gold tend to align to the path of Farore, the Goddess of Courage, giving adventurers the strength to move forward when times look bleak. Finally, the faries that pulse a shade of blue or purple believe in the path of Nayru, the Goddess of Love and Wisdom. These fairies are likely to be the healers in a group, but that doesn't mean that is all they are limited to.
 ---
-## Java Version
->A Java web application. Will be completed before the Node counterpart to have a stronger structure, more re-usable code, and better performance (or so that's the idea).
-
-## Node Version
->To be completed in the future.
+## Angular
+> This is an Angular SPA. Hosted on Heroku.com
