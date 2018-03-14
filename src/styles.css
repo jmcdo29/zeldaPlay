@@ -4,6 +4,7 @@ h1 {
   color: rgb(19, 85, 41);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 250%;
+  text-align: center;
 }
 h2, h3 {
   color: #444;
@@ -34,7 +35,7 @@ body, input[text], button {
   float: left;
 }
 .skills{
-  height: 100vh;
+  height: 75vh;
   width: 67%;
   float: left;
 }
