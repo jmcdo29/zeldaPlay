@@ -1,0 +1,12 @@
+.race-input{
+  width: 100%;
+}
+.radio{
+  width: 100%;
+  float: left;
+  position: relative;
+}
+.button{
+  width: 40%;
+  float: left;
+}

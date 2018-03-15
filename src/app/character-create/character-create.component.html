@@ -4,6 +4,44 @@
 
     <button (click)="save()">Save Character</button>
     <button (click)="cancel()">Cancel New Character</button>
+    <div class="race-input">
+      <div class="radio">
+        <div class="button">
+          <input type="radio" value="Hylian" id="hylian" name="race" [(ngModel)]="newCharacter.race">
+          <label for="hylian">Hylian</label>
+        </div>
+        <div class="button">
+          <input type="radio" id="goron" value="Goron" name="race" [(ngModel)]="newCharacter.race">
+          <label for="goron">Goron</label>
+        </div>
+      </div>
+      <div class="radio">
+        <div class="button">
+          <input type="radio" value="Zora" id="zora" name="race" [(ngModel)]="newCharacter.race">
+          <label for="zora">Zora</label>
+        </div>
+        <div class="button">
+          <input type="radio" value="Gerudo" id="gerudo" name="race" [(ngModel)]="newCharacter.race">
+          <label for="gerudo">Gerudo</label>
+        </div>
+      </div>
+      <div class="radio">
+        <div class="button">
+          <input type="radio" value="Twili" id="twili" name="race" [(ngModel)]="newCharacter.race">
+          <label for="twili">Twili</label>
+        </div>
+        <div class="button">
+          <input type="radio" value="Rito" id="rito" name="race" [(ngModel)]="newCharacter.race">
+          <label for="rito">Rito</label>
+        </div>
+      </div>
+      <div class="radio">
+        <div class="button">
+          <input type="radio" value="Fairy" id="fairy" name="race" [(ngModel)]="newCharacter.race">
+          <label for="fairy">Fairy</label>
+        </div>
+      </div>
+    </div>
     <br/>
     <table>
       <thead>

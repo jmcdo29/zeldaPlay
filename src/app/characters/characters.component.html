@@ -3,7 +3,7 @@
     <h2>My Characters</h2>
     <ul class="characters">
       <li *ngFor="let character of characters" (click)="onSelect(character)" [class.selected]="character===selectedCharcter">
-        <span class="badge">&nbsp;</span> 
+        <span class="badge">{{ character.race }}</span> 
         <span class="text">{{ character.name }}</span>
       </li>
     </ul>

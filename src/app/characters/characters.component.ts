@@ -31,6 +31,7 @@ export class CharactersComponent implements OnInit {
   characters: Character[] = [
     {
       name: "Bryte",
+      race: "Fairy",
       attributes: [
         {
           name: "Strength",

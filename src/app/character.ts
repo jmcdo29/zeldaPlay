@@ -3,6 +3,7 @@ import { Skill } from "./skill";
 export class Character {
   _id?: number;
   name: string;
+  race: string;
   attributes: Attribute[];
   health: number;
   magic: number;
