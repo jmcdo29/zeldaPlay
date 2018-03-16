@@ -1,5 +1,6 @@
 import { Attribute } from "./attribute";
 import { Skill } from "./skill";
+
 export class Character {
   _id?: number;
   name: string;
@@ -8,11 +9,15 @@ export class Character {
   health: number;
   magic: number;
   exp: number;
+  craftOne?: string;
+  craftTwo?: string;
+  performCust?: string;
+  profession?: string;
   skills: Skill[];
   weaponSkills: Skill[];
   magicSkills: Skill[];
 
-  constructor() {
+  constructor(raceName?: string) {
     this.attributes = [
       {
         name: "Strength",
@@ -83,7 +88,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Craft (Fairy Made Armor)",
+        skillName: "Craft 1",
         trained: false,
         ranks: 0,
         modifier: "Intelligence",
@@ -92,7 +97,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Craft (Magic Potions)",
+        skillName: "Craft 2",
         trained: false,
         ranks: 0,
         racial: 0,
@@ -254,7 +259,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Perform (Other)",
+        skillName: "Perform",
         trained: false,
         ranks: 0,
         racial: 0,
@@ -263,7 +268,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Profession (Armor Smith)",
+        skillName: "Profession",
         trained: false,
         ranks: 0,
         racial: 0,
@@ -502,5 +507,56 @@ export class Character {
       }
     ];
     this.exp = 0;
+  }
+
+  changeRace?(raceName: string): void{
+    console.log('Race chagned to',raceName);
+    switch(raceName){
+      case "Hylian Farmer":{
+        break;
+      }
+      case "Hylian Sheikah":{
+        break;
+      }
+      case "Hylian Guard":{
+        break;
+      }
+      case "Rock Spine Goron":{
+        break;
+      }
+      case "Soft Belly Goron":{
+        break;
+      }
+      case "River Zora":{
+        break;
+      }
+      case "Ocean Zora":{
+        break;
+      }
+      case "Swamp Zora":{
+        break;
+      }
+      case "Gerudo":{
+        break;
+      }
+      case "Sheikah":{
+        break;
+      }
+      case "Twili":{
+        break;
+      }
+      case "Rito":{
+        break;
+      }
+      case "Din Fairy":{
+        break;
+      }
+      case "Farore Fairy":{
+        break;
+      }
+      case "Nayru Fairy":{
+        break;
+      }
+    }
   }
 }

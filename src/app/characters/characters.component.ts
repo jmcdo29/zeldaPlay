@@ -31,7 +31,10 @@ export class CharactersComponent implements OnInit {
   characters: Character[] = [
     {
       name: "Bryte",
-      race: "Fairy",
+      race: "Nayru Fairy",
+      craftOne: "Fairy Made Armor",
+      craftTwo: "Magic Potions",
+      profession: "Armor Smith",
       attributes: [
         {
           name: "Strength",
@@ -101,7 +104,7 @@ export class CharactersComponent implements OnInit {
           item: 0,
           misc: 0
         },{
-          skillName: "Craft (Fairy Made Armor)",
+          skillName: "Craft 1",
           trained: true,
           ranks: 3,
           modifier: "Intelligence",
@@ -109,7 +112,7 @@ export class CharactersComponent implements OnInit {
           item: 0,
           misc: 5
         },{
-          skillName: "Craft (Magic Potions)",
+          skillName: "Craft 2",
           trained: true,
           ranks: 2,
           racial: 0,
@@ -253,7 +256,7 @@ export class CharactersComponent implements OnInit {
           item: 0,
           misc: 0
         },{
-          skillName: "Perform (Other)",
+          skillName: "Perform",
           trained: false,
           ranks: 0,
           racial: 0,
@@ -261,7 +264,7 @@ export class CharactersComponent implements OnInit {
           item: 0,
           misc: 0
         },{
-          skillName: "Profession (Armor Smith)",
+          skillName: "Profession",
           trained: false,
           ranks: 2,
           racial: 0,

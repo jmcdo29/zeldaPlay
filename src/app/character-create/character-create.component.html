@@ -4,45 +4,27 @@
 
     <button (click)="save()">Save Character</button>
     <button (click)="cancel()">Cancel New Character</button>
+    <h3> Choose your race.</h3>
     <div class="race-input">
-      <div class="radio">
-        <div class="button">
-          <input type="radio" value="Hylian" id="hylian" name="race" [(ngModel)]="newCharacter.race">
-          <label for="hylian">Hylian</label>
-        </div>
-        <div class="button">
-          <input type="radio" id="goron" value="Goron" name="race" [(ngModel)]="newCharacter.race">
-          <label for="goron">Goron</label>
-        </div>
-      </div>
-      <div class="radio">
-        <div class="button">
-          <input type="radio" value="Zora" id="zora" name="race" [(ngModel)]="newCharacter.race">
-          <label for="zora">Zora</label>
-        </div>
-        <div class="button">
-          <input type="radio" value="Gerudo" id="gerudo" name="race" [(ngModel)]="newCharacter.race">
-          <label for="gerudo">Gerudo</label>
-        </div>
-      </div>
-      <div class="radio">
-        <div class="button">
-          <input type="radio" value="Twili" id="twili" name="race" [(ngModel)]="newCharacter.race">
-          <label for="twili">Twili</label>
-        </div>
-        <div class="button">
-          <input type="radio" value="Rito" id="rito" name="race" [(ngModel)]="newCharacter.race">
-          <label for="rito">Rito</label>
-        </div>
-      </div>
-      <div class="radio">
-        <div class="button">
-          <input type="radio" value="Fairy" id="fairy" name="race" [(ngModel)]="newCharacter.race">
-          <label for="fairy">Fairy</label>
-        </div>
-      </div>
+      <select [(ngModel)]="newCharacter.race" (change)="raceChange()">
+        <option value="Hylian Farmer">Hylian Farmer</option>
+        <option value="Hylian Sheikah">Hylian Sheikah</option>
+        <option value="Hylian Guard">Hylian Guard</option>
+        <option value="River Zora">River Zora</option>
+        <option value="Ocean Zora">Ocean Zora</option>
+        <option value="Swamp Zora">Swamp Zora</option>
+        <option value="Soft Belly Goron">Soft Belly Goron</option>
+        <option value="Rock Spine Goron">Rock Spine Goron</option>
+        <option value="Gerudo">Gerudo</option>
+        <option value="Sheikah">Sheikah</option>
+        <option value="Twili">Twili</option>
+        <option value="Rito">Rito</option>
+        <option value="Din Fairy">Din Fairy</option>
+        <option value="Farore Fairy">Farore Fairy</option>
+        <option value="Nayru Fairy">Nayru Fairy</option>
+      </select>
     </div>
-    <br/>
+    &nbsp;
     <table>
       <thead>
         <tr>
@@ -55,7 +37,7 @@
         <tr>
           <td>Name</td>
           <td>
-            <input type="text" [(ngModel)]="newCharacter.name" placeholder="Name">
+            <input class="skill" type="text" [(ngModel)]="newCharacter.name" placeholder="Name">
           </td>
         </tr>
 
@@ -106,16 +88,38 @@
       <tbody>
         <tr *ngFor="let skill of newCharacter.skills">
           <td>
-            <input class="skill-input" type="checkbox" [(ngModel)]="skill.trained">
+            <input class="skill-input" disabled type="checkbox" [(ngModel)]="skill.trained">
           </td>
           <td class="name">
-            {{ skill.skillName }}
+              <div *ngIf="skill.skillName==='Craft 1' || skill.skillName==='Craft 2' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
+
+              <ng-template #specialSkill>
+                <div *ngIf="skill.skillName==='Craft 1'">
+                  {{ skill.skillName.substr(0, skill.skillName.length-1)}}
+                  <input class="skill" type="text" [(ngModel)]="newCharacter.craftOne" placeholder="Craft One">
+                </div>
+                <div *ngIf="skill.skillName==='Craft 2'">
+                  {{ skill.skillName.substr(0, skill.skillName.length-1)}}
+                  <input class="skill" type="text" [(ngModel)]="newCharacter.craftTwo" placeholder="Craft Two">
+                </div>
+                <div *ngIf="skill.skillName==='Profession'">
+                  {{ skill.skillName }}
+                  <input class="skill" type="text" [(ngModel)]="newCharacter.profession" placeholder="Profession">
+                </div>
+                <div *ngIf="skill.skillName==='Perform'">
+                  {{ skill.skillName }}
+                  <input class="skill" type="text" [(ngModel)]="newCharacter.performCust" placeholder="(Other)">
+                </div>
+              </ng-template>
+              <ng-template #normalSkill>
+                {{ skill.skillName }}
+              </ng-template>
           </td>
           <td>
             <input class="skill-input" type="number" [(ngModel)]="skill.ranks">
           </td>
           <td>
-            <input class="skill-input" type="number" [(ngModel)]="skill.racial">
+            {{ skill.racial }}
           </td>
           <td class="mod">
             {{ skill.modifier.substr(0,3) | uppercase }}
@@ -149,14 +153,14 @@
       <tbody>
         <tr *ngFor="let weapon of newCharacter.weaponSkills">
           <td>
-            <input type="checkbox" [(ngModel)]="weapon.trained">
+            <input type="checkbox"disabled [(ngModel)]="weapon.trained">
           </td>
           <td>{{weapon.skillName }}</td>
           <td>
             <input type="number" [(ngModel)]="weapon.ranks">
           </td>
           <td>
-            <input type="number" [(ngModel)]="weapon.racial">
+            {{ weapon.racial }}
           </td>
           <td>
             {{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}
