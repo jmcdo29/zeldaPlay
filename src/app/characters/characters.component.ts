@@ -31,7 +31,8 @@ export class CharactersComponent implements OnInit {
   characters: Character[] = [
     {
       name: "Bryte",
-      race: "Nayru Fairy",
+      race: "Fairy",
+      subRace: "Nayru",
       craftOne: "Fairy Made Armor",
       craftTwo: "Magic Potions",
       profession: "Armor Smith",
