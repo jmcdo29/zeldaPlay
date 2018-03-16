@@ -76,6 +76,10 @@
               <td class="name">Race</td>
               <td>{{ character.race }}</td>
             </tr>
+              <tr [hidden]="!character.subRace">
+                <td class="name">Sub Race</td>
+                <td>{{ character.subRace }}</td>
+              </tr>
             <br/>
             <tr *ngFor="let attr of character.attributes">
               <td class="name">{{ attr.name }}</td>

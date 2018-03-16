@@ -1,7 +1,7 @@
 /* charactersComponent's private CSS styles */
 .selected {
   background-color: #CFD8DC !important;
-  color: white;
+  color: darkslategray;
 }
 .characters {
   margin: 0 0 2em 0;
@@ -13,6 +13,7 @@
   cursor: pointer;
   position: relative;
   left: 0;
+  width: 18em;
   background-color: #EEE;
   margin: .5em;
   padding: .3em 0;
@@ -21,7 +22,7 @@
 }
 .characters li.selected:hover {
   background-color: #BBD8DC !important;
-  color: white;
+  color: darkslategray;
 }
 .characters li:hover {
   color: #607D8B;
@@ -32,6 +33,7 @@
   display: inline-block;
   position: relative;
   top: -3px;
+  text-align: center;
 }
 .characters .badge {
   display: inline-block;

@@ -34,16 +34,14 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   raceChange(): void{
-    for(let key in Object.keys(this.newCharacter.skills)){
-      this.newCharacter.skills[key].trained = false;
-    }
-    for(let key in Object.keys(this.newCharacter.weaponSkills)){
-      this.newCharacter.weaponSkills[key].trained = false;
-    }
-    for(let key in Object.keys(this.newCharacter.magicSkills)){
-      this.newCharacter.weaponSkills[key].trained = false;
-    }
-    this.newCharacter.changeRace(this.newCharacter.race);
+    let raceName = this.newCharacter.race;
+    let subRace = this.newCharacter.subRace;
+    let name = this.newCharacter.name;
+    this.newCharacter = new Character();
+    this.newCharacter.race = raceName;
+    this.newCharacter.subRace = subRace;
+    this.newCharacter.name = name;
+    this.newCharacter.changeRace(raceName,subRace);
   }
   
   calcMod(stat : Attribute): void{
