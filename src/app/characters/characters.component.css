@@ -7,13 +7,13 @@
   margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
-  width: 15em;
+  width: 10em;
 }
 .characters li {
   cursor: pointer;
   position: relative;
   left: 0;
-  width: 18em;
+  width: 14em;
   background-color: #EEE;
   margin: .5em;
   padding: .3em 0;

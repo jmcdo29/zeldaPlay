@@ -58,50 +58,52 @@
       </div>
     </div>
     &nbsp;
-    <table>
-      <thead>
-        <tr>
-          <th>Traits</th>
-          <th>Value/Score</th>
-          <th>Modifier</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Name</td>
-          <td>
-            <input class="skill" type="text" [(ngModel)]="newCharacter.name" placeholder="Name" maxlength="10">
-          </td>
-        </tr>
+    <div class="attributes">
+      <table>
+        <thead>
+          <tr>
+            <th>Traits</th>
+            <th>Value/Score</th>
+            <th>Modifier</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td>
+              <input class="skill" type="text" [(ngModel)]="newCharacter.name" placeholder="Name" maxlength="10">
+            </td>
+          </tr>
 
-        <br/>
+          <br/>
 
-        <tr *ngFor="let attr of newCharacter.attributes">
-          <td>{{ attr.name }}</td>
-          <td>
-            <input type="number" [(ngModel)]="attr.value" max="24">
-          </td>
-          <td>
-            {{ calcMod(attr) }} {{ attr.modifier }}
-          </td>
-        </tr>
+          <tr *ngFor="let attr of newCharacter.attributes">
+            <td>{{ attr.name }}</td>
+            <td>
+              <input type="number" [(ngModel)]="attr.value" max="24">
+            </td>
+            <td>
+              {{ calcMod(attr) }} {{ attr.modifier }}
+            </td>
+          </tr>
 
-        <br/>
+          <br/>
 
-        <tr>
-          <td>Health</td>
-          <td>
-            {{ 48+newCharacter.attributes[2].modifier }}
-          </td>
-        </tr>
-        <tr>
-          <td>Magic</td>
-          <td>
-            {{ 20+newCharacter.attributes[4].modifier }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          <tr>
+            <td>Health</td>
+            <td>
+              {{ 48+newCharacter.attributes[2].modifier }}
+            </td>
+          </tr>
+          <tr>
+            <td>Magic</td>
+            <td>
+              {{ 20+newCharacter.attributes[4].modifier }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
   <div class="skills scrollable">
     <h2>{{ newCharacter.name }} Skills</h2>
@@ -164,7 +166,7 @@
           <td>
             <input class="skill-input" type="number" [(ngModel)]="skill.misc">
           </td>
-          <td>
+          <td class="total">
             {{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}
           </td>
         </tr>
@@ -195,7 +197,7 @@
           <td>
             {{ weapon.racial }}
           </td>
-          <td>
+          <td class="total">
             {{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}
           </td>
         </tr>
@@ -223,7 +225,7 @@
           <td>
             <input [(ngModel)]="magic.ranks">
           </td>
-          <td>
+          <td class="total">
             {{ magic.ranks + getMod(magic.modifier) }}
           </td>
         </tr>
