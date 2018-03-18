@@ -3,7 +3,7 @@
 h1 {
   color: rgb(19, 85, 41);
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
+  font-size: 175%;
   text-align: center;
 }
 h2, h3 {
@@ -13,11 +13,18 @@ h2, h3 {
 }
 body {
   margin: 2em;
+  overflow: hidden;
+  /* background: url('./Hylian_Crest.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100vw 100vh; */
 }
 body, input[text], button {
   color: #888;
   font-family: Cambria, Georgia;
 }
+
+
 .crit{
   font-size: 14pt;
   color: gold;
@@ -70,6 +77,13 @@ th{
 }
 input{
   width: 50px;
+}
+td.total{
+  font-weight: bold;
+}
+.attributes{
+  height: 38vh;
+  overflow-y: scroll;
 }
 
 @media (max-width: 900px){

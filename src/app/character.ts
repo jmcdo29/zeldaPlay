@@ -53,7 +53,7 @@ export class Character {
     ];
     this.skills = [
       {
-        skillName: "Acrobatics", //0
+      skillName: "Acrobatics", //0
         trained: false,
         ranks: 0,
         racial: 0,
@@ -62,7 +62,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Appraise", //1
+      skillName: "Appraise", //1
         trained: false,
         ranks: 0,
         modifier: "Intelligence",
@@ -71,7 +71,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Bluff", //2
+      skillName: "Bluff", //2
         trained: false,
         ranks: 0,
         modifier: "Charisma",
@@ -80,7 +80,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Climb", //3
+      skillName: "Climb", //3
         trained: false,
         ranks: 0,
         modifier: "Strength",
@@ -89,7 +89,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Craft 1", //4
+      skillName: "Craft 1", //4
         trained: false,
         ranks: 0,
         modifier: "Intelligence",
@@ -98,7 +98,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Craft 2", //5
+      skillName: "Craft 2", //5
         trained: false,
         ranks: 0,
         racial: 0,
@@ -107,7 +107,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Diplomacy", //6
+      skillName: "Diplomacy", //6
         trained: false,
         ranks: 0,
         racial: 0,
@@ -116,7 +116,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Escape Artist", //7
+      skillName: "Escape Artist", //7
         trained: false,
         ranks: 0,
         racial: 0,
@@ -125,7 +125,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Fly", //8
+      skillName: "Fly", //8
         trained: false,
         ranks: 0,
         racial: 0,
@@ -134,7 +134,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Handle Animal", //9
+      skillName: "Handle Animal", //9
         trained: false,
         ranks: 0,
         racial: 0,
@@ -143,7 +143,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Heal", //10
+      skillName: "Heal", //10
         trained: false,
         ranks: 0,
         racial: 0,
@@ -152,7 +152,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Intimidate", //11
+      skillName: "Intimidate", //11
         trained: false,
         ranks: 0,
         racial: 0,
@@ -161,7 +161,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Knowledge (Geography)", //12
+      skillName: "Knowledge (Geography)", //12
         trained: false,
         ranks: 0,
         racial: 0,
@@ -170,7 +170,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Knowledge (History)", //13
+      skillName: "Knowledge (History)", //13
         trained: false,
         ranks: 0,
         racial: 0,
@@ -179,7 +179,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Knowledge (Language)", //14
+      skillName: "Knowledge (Language)", //14
         trained: false,
         ranks: 0,
         racial: 0,
@@ -188,7 +188,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Knowledge (Local)", //15
+      skillName: "Knowledge (Local)", //15
         trained: false,
         ranks: 0,
         racial: 0,
@@ -197,7 +197,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Knowledge (Magic)", //16
+      skillName: "Knowledge (Magic)", //16
         trained: false,
         ranks: 0,
         racial: 0,
@@ -206,7 +206,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Knowledge (Monster)", //17
+      skillName: "Knowledge (Monster)", //17
         trained: false,
         ranks: 0,
         racial: 0,
@@ -215,7 +215,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Knowledge (Nature)", //18
+      skillName: "Knowledge (Nature)", //18
         trained: false,
         ranks: 0,
         racial: 0,
@@ -224,7 +224,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Knowledge (Nobility)", //19
+      skillName: "Knowledge (Nobility)", //19
         trained: false,
         ranks: 0,
         racial: 0,
@@ -233,7 +233,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Knowledge (Religion)", //20
+      skillName: "Knowledge (Religion)", //20
         trained: false,
         ranks: 0,
         racial: 0,
@@ -242,7 +242,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Perception", //21
+      skillName: "Perception", //21
         trained: false,
         ranks: 0,
         racial: 0,
@@ -251,7 +251,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Perform (Music)", //22
+      skillName: "Perform (Music)", //22
         trained: true,
         ranks: 0,
         racial: 0,
@@ -260,7 +260,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Perform", //23
+      skillName: "Perform", //23
         trained: false,
         ranks: 0,
         racial: 0,
@@ -269,7 +269,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Profession", //24
+      skillName: "Profession", //24
         trained: false,
         ranks: 0,
         racial: 0,
@@ -278,7 +278,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Ride", //25
+      skillName: "Ride", //25
         ranks: 0,
         racial: 0,
         modifier: "Dexterity",
@@ -286,7 +286,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Sense Motive", //26
+      skillName: "Sense Motive", //26
         ranks: 0,
         racial: 0,
         modifier: "Wisdom",
@@ -294,7 +294,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Sleight of Hand", //27
+      skillName: "Sleight of Hand", //27
         ranks: 0,
         racial: 0,
         modifier: "Dexterity",
@@ -302,7 +302,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Stealth", //28
+      skillName: "Stealth", //28
         ranks: 0,
         racial: 0,
         modifier: "Dexterity",
@@ -310,7 +310,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Survival", //29
+      skillName: "Survival", //29
         ranks: 0,
         racial: 0,
         modifier: "Wisdom",
@@ -318,7 +318,7 @@ export class Character {
         misc: 0
       },
       {
-        skillName: "Swim", //30
+      skillName: "Swim", //30
         ranks: 0,
         racial: 0,
         modifier: "Strength",
@@ -328,163 +328,163 @@ export class Character {
     ];
     this.weaponSkills = [
       {
-        skillName: "Short Swords", //0
+      skillName: "Short Swords", //0
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Long Swords", //1
+      skillName: "Long Swords", //1
         ranks: 0,
         trained: false,
         racial: 0
       },
       {
-        skillName: "Dual Swords", //2
+      skillName: "Dual Swords", //2
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Great Swords", //3
+      skillName: "Great Swords", //3
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Light Shields", //4
+      skillName: "Light Shields", //4
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Heavy Shields", //5
+      skillName: "Heavy Shields", //5
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Tower Shields", //6
+      skillName: "Tower Shields", //6
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "One-Handed Hammers", //7
+      skillName: "One-Handed Hammers", //7
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Two-Handed Hammers", //8
+      skillName: "Two-Handed Hammers", //8
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Spears", //9
+      skillName: "Spears", //9
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Halberds", //10
+      skillName: "Halberds", //10
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Naginatas", //11
+      skillName: "Naginatas", //11
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Boomerangs", //12
+      skillName: "Boomerangs", //12
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Slings", //13
+      skillName: "Slings", //13
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Bows", //14
+      skillName: "Bows", //14
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Small Bombs", //15
+      skillName: "Small Bombs", //15
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Medium Bombs", //16
+      skillName: "Medium Bombs", //16
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Large Bombs", //17
+      skillName: "Large Bombs", //17
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Bombs (Other)", //18
+      skillName: "Bombs (Other)", //18
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Fire Rods", //19
+      skillName: "Fire Rods", //19
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Ice Rods", //20
+      skillName: "Ice Rods", //20
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Lightning Rods", //21
+      skillName: "Lightning Rods", //21
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Tornado Rods", //22
+      skillName: "Tornado Rods", //22
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Sand Rods", //23
+      skillName: "Sand Rods", //23
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Whips", //24
+      skillName: "Whips", //24
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Ball & Chains", //25
+      skillName: "Ball & Chains", //25
         trained: false,
         ranks: 0,
         racial: 0
       },
       {
-        skillName: "Unarmed", //26
+      skillName: "Unarmed", //26
         trained: false,
         ranks: 0,
         racial: 0
@@ -492,17 +492,17 @@ export class Character {
     ];
     this.magicSkills = [
       {
-        skillName: "Din",
+      skillName: "Din",
         modifier: "Intelligence",
         ranks: 0
       },
       {
-        skillName: "Nayru",
+      skillName: "Nayru",
         modifier: "Wisdom",
         ranks: 0
       },
       {
-        skillName: "Farore",
+      skillName: "Farore",
         modifier: "Charisma",
         ranks: 0
       }
@@ -517,51 +517,51 @@ export class Character {
       case "Hylian": {
         //All Hylian Skills
         this.skills[6].racial = 4;
-        this.skills[3].trained = true; //Climb
-        this.skills[4].trained = true; //Craft 1
-        this.skills[14].trained = true; //Knowledge (History)
-        this.skills[15].trained = true; //Knowledge (Local)
-        this.skills[21].trained = true; //Perception
+        this.skills[3].trained = true;          //Climb
+        this.skills[4].trained = true;          //Craft 1
+        this.skills[14].trained = true;         //Knowledge (History)
+        this.skills[15].trained = true;         //Knowledge (Local)
+        this.skills[21].trained = true;         //Perception
         switch (subRaceName) {
           case "Farmer": {
             //Farmhand Hylian Skills
-            this.attributes[0].value += 2; //Strength Buff
-            this.skills[0].trained = true; //Acrobatics
-            this.skills[9].trained = true; //Handle Animal
-            this.skills[12].trained = true; //Knowledge (Geography)
-            this.skills[18].trained = true; //Knowledge (Nature)
-            this.skills[25].trained = true; //Ride
-            this.skills[29].trained = true; //Survival
-            this.skills[30].trained = true; //Swim
+            this.attributes[0].value += 2;      //Strength Buff
+            this.skills[0].trained = true;      //Acrobatics
+            this.skills[9].trained = true;      //Handle Animal
+            this.skills[12].trained = true;     //Knowledge (Geography)
+            this.skills[18].trained = true;     //Knowledge (Nature)
+            this.skills[25].trained = true;     //Ride
+            this.skills[29].trained = true;     //Survival
+            this.skills[30].trained = true;     //Swim
             break;
           }
           case "Sheikah": {
             //Sheikah Hylian Skills
-            this.attributes[1].value += 2; //Dexterity Buff
-            this.skills[0].trained = true; //Acronatics
-            this.skills[1].trained = true; //Appraise
-            this.skills[2].trained = true; //Bluff
-            this.skills[7].trained = true; //Escpe Artist
-            this.skills[11].trained = true; //Intimidate
-            this.skills[14].trained = true; //Knowledge (Language)
-            this.skills[19].trained = true; //Knowledge (Nobility)
-            this.skills[20].trained = true; //Knowledge (Religion)
-            this.skills[26].trained = true; //Sense Motive
-            this.skills[28].trained = true; //Stealth
+            this.attributes[1].value += 2;      //Dexterity Buff
+            this.skills[0].trained = true;      //Acronatics
+            this.skills[1].trained = true;      //Appraise
+            this.skills[2].trained = true;      //Bluff
+            this.skills[7].trained = true;      //Escpe Artist
+            this.skills[11].trained = true;     //Intimidate
+            this.skills[14].trained = true;     //Knowledge (Language)
+            this.skills[19].trained = true;     //Knowledge (Nobility)
+            this.skills[20].trained = true;     //Knowledge (Religion)
+            this.skills[26].trained = true;     //Sense Motive
+            this.skills[28].trained = true;     //Stealth
             break;
           }
           case "Guard": {
             //Guard Hylian Skills
-            this.attributes[2].value += 2; //Consitution Buff
-            this.skills[2].trained = true; //Bluff
-            this.skills[4].trained = true; //Diplomacy
-            this.skills[10].trained = true; //Heal
-            this.skills[11].trained = true; //Intimidate
-            this.skills[19].trained = true; //Knowledge (Nobility)
-            this.skills[20].trained = true; //Knowledge (Religion)
-            this.skills[24].trained = true; //Profession
-            this.skills[25].trained = true; //Ride
-            this.skills[26].trained = true; //Sense Motive
+            this.attributes[2].value += 2;      //Consitution Buff
+            this.skills[2].trained = true;      //Bluff
+            this.skills[4].trained = true;      //Diplomacy
+            this.skills[10].trained = true;     //Heal
+            this.skills[11].trained = true;     //Intimidate
+            this.skills[19].trained = true;     //Knowledge (Nobility)
+            this.skills[20].trained = true;     //Knowledge (Religion)
+            this.skills[24].trained = true;     //Profession
+            this.skills[25].trained = true;     //Ride
+            this.skills[26].trained = true;     //Sense Motive
             break;
           }
         }
@@ -570,20 +570,20 @@ export class Character {
       }
       case "Goron": {
         
-        this.skills[1].trained = true; //Appraise
-        this.skills[3].trained = true; //Climb
-        this.skills[11].trained = true; //Intimidate
-        this.weaponSkills[7].trained = true; //Hammers
-        this.weaponSkills[8].trained = true; //Hammers
+        this.skills[1].trained = true;          //Appraise
+        this.skills[3].trained = true;          //Climb
+        this.skills[11].trained = true;         //Intimidate
+        this.weaponSkills[7].trained = true;    //Hammers
+        this.weaponSkills[8].trained = true;    //Hammers
 
         switch(subRaceName){
           case "Rock Spine":{
-            this.attributes[0].value += 2; //Strength Buff
+            this.attributes[0].value += 2;      //Strength Buff
         
             break;
           }
           case "Soft Belly":{
-            this.attributes[4].value += 1; //Wisdom Buff
+            this.attributes[4].value += 1;      //Wisdom Buff
             break;
           }
         }
@@ -604,9 +604,9 @@ export class Character {
         break;
       }
       case "Gerudo": {
-        this.attributes[0].value += 2; //Strength Buff
-        this.attributes[2].value += 1; //Constitution Buff
-        this.skills[11].trained = true; //Intimidate
+        this.attributes[0].value += 2;          //Strength Buff
+        this.attributes[2].value += 1;          //Constitution Buff
+        this.skills[11].trained = true;         //Intimidate
         break;
       }
       case "Sheikah": {
@@ -617,28 +617,28 @@ export class Character {
       }
       case "Rito": {
         //All Rito Skills
-        this.skills[0].trained = true; //Acrobatics
-        this.skills[4].trained = true; //Craft One
-        this.skills[5].trained = true; //Craft Two
-        this.skills[15].trained = true; //Knowledge (Local)
-        this.skills[18].trained = true; //Knowledge (Nature)
-        this.skills[21].trained = true; //Perception
+        this.skills[0].trained = true;          //Acrobatics
+        this.skills[4].trained = true;          //Craft One
+        this.skills[5].trained = true;          //Craft Two
+        this.skills[15].trained = true;         //Knowledge (Local)
+        this.skills[18].trained = true;         //Knowledge (Nature)
+        this.skills[21].trained = true;         //Perception
 
         switch(subRaceName){
           case "Sharp Eye":{
-            this.attributes[3].value += 1;
+            this.attributes[3].value += 1;      //Intelligence Buff
             break;
           }
           case "Telescopic Sight":{
-            //All Rito already have Perception
+                                                //All Rito already have Perception
             break;
           }
           case "Sharp Tongue":{
-            this.attributes[5].value += 1;
+            this.attributes[5].value += 1;      //Charisma Buff
             break;
           }
           case "Skilled Mimicry":{
-            //Maybe Bluff?
+                                                //Maybe Bluff?
             break;
           }
         }

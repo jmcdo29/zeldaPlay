@@ -11,6 +11,7 @@ export class CharacterDetailComponent implements OnInit {
 
   @Input() character: Character;
 
+  rollMod: string = 'null';
   roll: string;
   editMode: boolean = false;
   crit: boolean = false;

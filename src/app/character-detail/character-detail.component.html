@@ -15,6 +15,7 @@
               <th>Modifier</th>
             </tr>
           </thead>
+          <br/>
           <tbody>
             <tr>
               <td class="name">Name</td>
@@ -22,7 +23,14 @@
                 <input [(ngModel)]="character.name" placeholder="Name" />
               </td>
             </tr>
-            <tr></tr>
+            <tr>
+              <td class="name">Race</td>
+              <td>{{ character.race }}</td>
+            </tr>
+            <tr>
+              <td class="name">Sub Race</td>
+              <td>{{ character.subRace }}</td>
+            </tr>
             <br/>
             <tr *ngFor="let attr of character.attributes">
               <td class="name">{{ attr.name }}</td>
@@ -58,62 +66,75 @@
       </ng-template>
 
       <ng-template #show_character>
-        <table>
-          <thead>
-            <tr>
-              <th>Traits</th>
-              <th>Value/Score</th>
-              <th>Modifier</th>
-            </tr>
-          </thead>
-          <br/>
-          <tbody>
-            <tr>
-              <td class="name">Name</td>
-              <td>{{ character.name }}</td>
-            </tr>
-            <tr>
-              <td class="name">Race</td>
-              <td>{{ character.race }}</td>
-            </tr>
+        <div class="attributes">
+          <table>
+            <thead>
+              <tr>
+                <th>Trait</th>
+                <th>Value/Score</th>
+                <th>Modifier</th>
+              </tr>
+            </thead>
+            <br/>
+            <tbody>
+              <tr>
+                <td class="name">Name</td>
+                <td>{{ character.name }}</td>
+              </tr>
+              <tr>
+                <td class="name">Race</td>
+                <td>{{ character.race }}</td>
+              </tr>
               <tr [hidden]="!character.subRace">
                 <td class="name">Sub Race</td>
                 <td>{{ character.subRace }}</td>
               </tr>
-            <br/>
-            <tr *ngFor="let attr of character.attributes">
-              <td class="name">{{ attr.name }}</td>
-              <td>{{ attr.value }}</td>
-              <td>{{ attr.modifier }}</td>
-            </tr>
-            <br/>
-            <tr></tr>
-            <tr>
-              <td class="name">Health Points</td>
-              <td>{{ character.health }}</td>
-            </tr>
-            <tr>
-              <td class="name">Magic Points</td>
-              <td>{{ character.magic }}</td>
-            </tr>
-            <tr>
-              <td class="name">Experience Points</td>
-              <td>{{ character.exp }}</td>
-            </tr>
-          </tbody>
-        </table>
+              <br/>
+              <tr *ngFor="let attr of character.attributes">
+                <td class="name">{{ attr.name }}</td>
+                <td>{{ attr.value }}</td>
+                <td>{{ attr.modifier }}</td>
+              </tr>
+              <br/>
+              <tr></tr>
+              <tr>
+                <td class="name">Health</td>
+                <td>{{ character.health }}</td>
+              </tr>
+              <tr>
+                <td class="name">Magic</td>
+                <td>{{ character.magic }}</td>
+              </tr>
+              <tr>
+                <td class="name">Experience</td>
+                <td>{{ character.exp }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <br/>
-        <h3> Roll Dice </h3>
-        <die [sides]="4" [character]="this"></die>
-        <die [sides]="6" [character]="this"></die>
-        <die [sides]="8" [character]="this"></die>
-        <die [sides]="12" [character]="this"></die>
-        <die [sides]="20" [character]="this"></die>
+
+        <h3> Roll Dice
+          <span style="float: right; padding-right:5em;" *ngIf="roll" [class.crit]="this.crit" [class.critmiss]="this.critmiss" [class.maxDmg]="this.maxDmg">
+            {{ roll }}
+          </span>
+        </h3>
+
+        <h4> Add a modifier to your roll.</h4>
+        <select [(ngModel)]="rollMod" (change)="modChange">
+          <option value="null" selected="selected">None</option>
+          <option *ngFor="let attr of character.attributes" [value]="attr.name">{{ attr.name }}</option>
+        </select>
+        <br>
+        <br>
+        <die [sides]="4" [character]="this" [mod]="rollMod"></die>
+        <die [sides]="6" [character]="this" [mod]="rollMod"></die>
+        <die [sides]="8" [character]="this" [mod]="rollMod"></die>
+        <die [sides]="12" [character]="this" [mod]="rollMod"></die>
+        <die [sides]="20" [character]="this" [mod]="rollMod"></die>
         <die [sides]="100" [character]="this"></die>
 
-        <div *ngIf="roll" [class.crit]="this.crit" [class.critmiss]="this.critmiss" [class.maxDmg]="this.maxDmg">
-          {{ roll }}
-        </div>
+
 
       </ng-template>
 
@@ -169,7 +190,7 @@
               </td>
               <td>{{ skill.item }}</td>
               <td>{{ skill.misc }}</td>
-              <td>{{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}</td>
+              <td class="total">{{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}</td>
             </tr>
           </tbody>
         </table>
@@ -192,7 +213,7 @@
               <td class="name">{{ weapon.skillName }}</td>
               <td>{{ weapon.ranks }}</td>
               <td>{{ weapon.racial }}</td>
-              <td>{{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}</td>
+              <td class="total">{{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}</td>
             </tr>
           </tbody>
         </table>
@@ -213,7 +234,7 @@
                 <span class="info">{{ getMod(magic.modifier)}}</span>
               </td>
               <td>{{ magic.ranks }}</td>
-              <td>{{ magic.ranks+getMod(magic.modifier) }}</td>
+              <td class="total">{{ magic.ranks+getMod(magic.modifier) }}</td>
             </tr>
           </tbody>
         </table>
@@ -239,9 +260,33 @@
               <td>
                 <input type="checkbox" [checked]="skill.trained" disabled="true" />
               </td>
-              <td class="name">{{ skill.skillName }}</td>
+              <td class="name">
+                <div *ngIf="skill.skillName==='Craft 1' || skill.skillName==='Craft 2' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
+
+                <ng-template #specialSkill>
+                  <div *ngIf="skill.skillName==='Craft 1'">
+                    {{ skill.skillName.substr(0, skill.skillName.length-1)}}
+                    <input class="skill" type="text" [(ngModel)]="character.craftOne" placeholder="Craft One">
+                  </div>
+                  <div *ngIf="skill.skillName==='Craft 2'">
+                    {{ skill.skillName.substr(0, skill.skillName.length-1)}}
+                    <input class="skill" type="text" [(ngModel)]="character.craftTwo" placeholder="Craft Two">
+                  </div>
+                  <div *ngIf="skill.skillName==='Profession'">
+                    {{ skill.skillName }}
+                    <input class="skill" type="text" [(ngModel)]="character.profession" placeholder="Profession">
+                  </div>
+                  <div *ngIf="skill.skillName==='Perform'">
+                    {{ skill.skillName }}
+                    <input class="skill" type="text" [(ngModel)]="character.performCust" placeholder="(Other)">
+                  </div>
+                </ng-template>
+                <ng-template #normalSkill>
+                  {{ skill.skillName }}
+                </ng-template>
+              </td>
               <td>
-                <input type="number" [(ngModel)]="skill.ranks">
+              <input type="number" [(ngModel)]="skill.ranks">
               </td>
               <td>{{ skill.racial }}</td>
               <td class="mod">{{ skill.modifier.substr(0,3) | uppercase }}
