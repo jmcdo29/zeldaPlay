@@ -1,3 +1,14 @@
+<div class="modal" [class.showModal]="showRaceModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close" (click)="aboutRace()">&times;</span>
+      <h2>Races!</h2>
+    </div>
+    <div class="modal-body">
+      This modal contains inofmration about the different races of ZeldaPlay! Chose which one you would like to learn about!.
+    </div>
+  </div>
+</div>
 <div class="column-holder">
   <div class="details">
     <h2>{{ newCharacter.name }} Details</h2>
@@ -16,6 +27,7 @@
         <option value="Rito">Rito</option>
         <option value="Fairy">Fairy</option>
       </select>
+      <button (click)="aboutRace()">About Races</button>
       <div *ngIf="newCharacter.race && !(newCharacter.race ==='Gerudo' || newCharacter.race === 'Twili' || newCharacter.raace === 'Sheikah')">
         <h3>Choose your sub-race.</h3>
 

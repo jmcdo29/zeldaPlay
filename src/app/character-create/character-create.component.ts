@@ -11,6 +11,8 @@ import { Attribute } from '../attribute';
 export class CharacterCreateComponent implements OnInit {
 
   @Input() CharacterParent: CharactersComponent;
+  
+  showRaceModal: boolean = false;
 
   newCharacter : Character;
 
@@ -18,6 +20,10 @@ export class CharacterCreateComponent implements OnInit {
 
   ngOnInit() {
     this.newCharacter = new Character();
+  }
+
+  aboutRace(): void{
+    this.showRaceModal = !this.showRaceModal;
   }
 
   save(): void{

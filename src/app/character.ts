@@ -8,7 +8,9 @@ export class Character {
   subRace?: string;
   attributes: Attribute[];
   health: number;
+  maxHealth: number;
   magic: number;
+  maxMagic: number;
   exp: number;
   craftOne?: string;
   craftTwo?: string;

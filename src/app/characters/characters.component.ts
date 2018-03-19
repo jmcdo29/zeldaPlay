@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Character } from "../character";
+import { ChartistModule } from "ng-chartist";
+import Chartist = require("chartist");
 
 @Component({
   selector: "app-characters",
@@ -68,8 +70,10 @@ export class CharactersComponent implements OnInit {
           modifier: this.calcMod(16)
         }
       ],
-      health: 83,
-      magic: 47,
+      health: 116,
+      maxHealth: 116,
+      magic: 57,
+      maxMagic: 57,
       exp: 6510,
       skills: [
         {
@@ -476,6 +480,8 @@ export class CharactersComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
 }

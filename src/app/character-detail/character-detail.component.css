@@ -2,3 +2,36 @@
 input.skill{
   width: 8em;
 }
+.accordian{
+  background: #EEE;
+  color: #444444;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  padding-top: 2px;
+  padding-bottom: 2px;
+
+}
+.accordian:hover{
+  background-color: #ccc;
+}
+.panel{
+  padding: 5px 0px;
+  background-color: #FFF;
+  display: none;
+}
+.active{
+  display: block
+}
+.crit{
+  color: gold;
+}
+.critmiss{
+  color:red;
+}
+.maxDmg{
+  color: #00aa00;
+}
