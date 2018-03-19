@@ -19,7 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "scss/style.scss",
+        "../node_modules/chartist/dist/chartist.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

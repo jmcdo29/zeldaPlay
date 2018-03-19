@@ -57,6 +57,16 @@
   width: 75%;
   float: left;
 }
+.accordian{
+  background: #EEE;
+  color: #444444;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
 
 
 

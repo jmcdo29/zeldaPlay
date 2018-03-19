@@ -1,3 +1,50 @@
+<div class="modal" [class.showModal]="showRaceModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close" (click)="aboutRace()">&times;</span>
+      <h2>Races!</h2>
+    </div>
+    <div class="modal-body">
+      <div class="body-header">
+        <button class="tab" (click)="show('Hylian')">Hylian</button>
+        <button class="tab" (click)="show('Goron')">Goron</button>
+        <button class="tab" (click)="show('Zora')">Zora</button>
+        <button class="tab" (click)="show('Gerudo')">Gerudo</button>
+        <button class="tab" (click)="show('Sheikah')">Sheikah</button>
+        <button class="tab" (click)="show('Rito')">Rito</button>
+        <button class="tab" (click)="show('Twili')">Twili</button>
+        <button class="tab" (click)="show('Fairy')">Fairy</button>
+      </div>
+      <div *ngIf="!showRace[0] && !showRace[1] && !showRace[2] && !showRace[3] && !showRace[4] && !showRace[5] && !showRace[6] && !showRace[7]">
+        <p>This modal contains inofmration about the different races of ZeldaPlay! Chose which one you would like to learn about!</p>
+      </div>
+      <div *ngIf="showRace[0]">
+        <p>Hylian Description</p>
+      </div>
+      <div *ngIf="showRace[1]"> 
+        <p>Goron Description</p>
+      </div>
+      <div *ngIf="showRace[2]">
+        <p>Zora Description</p>
+      </div>
+      <div *ngIf="showRace[3]">
+        <p>Gerudo Description</p>
+      </div>
+      <div *ngIf="showRace[4]">
+        <p>Sheikah Description</p>
+      </div>
+      <div *ngIf="showRace[5]">
+        <p>Rito Description</p>
+      </div>
+      <div *ngIf="showRace[6]">
+        <p>Twili Description</p>
+      </div>
+      <div *ngIf="showRace[7]">
+        <p>Fairy Description</p>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="column-holder">
   <div class="details">
     <h2>{{ newCharacter.name }} Details</h2>
@@ -16,6 +63,7 @@
         <option value="Rito">Rito</option>
         <option value="Fairy">Fairy</option>
       </select>
+      <button (click)="aboutRace()">About Races</button>
       <div *ngIf="newCharacter.race && !(newCharacter.race ==='Gerudo' || newCharacter.race === 'Twili' || newCharacter.raace === 'Sheikah')">
         <h3>Choose your sub-race.</h3>
 
@@ -49,9 +97,7 @@
         <div *ngIf="newCharacter.race==='Rito'" (change)="raceChange()">
           <select [(ngModel)]="newCharacter.subRace">
             <option value="Sharp Eye">Sharp Eye</option>
-            <option value="Telescopic Sight">Telescopic Sight</option>
             <option value="Sharp Tongue">Sharp Tongue</option>
-            <option value="Skilled Mimicry">Skilled Mimicry</option>
           </select>
         </div>
 

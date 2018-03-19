@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ZeldaPlay Character Tracker';
+  showModal = false;
+
+  about(){
+    this.showModal = !this.showModal;
+  }
 }
