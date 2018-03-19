@@ -28,7 +28,6 @@
     "express": "^4.16.2",
     "mongodb": "^3.0.4",
     "mongoose": "^5.0.10",
-    "ng-chartist": "^1.1.1",
     "path": "^0.12.7",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
@@ -37,7 +36,6 @@
     "@angular/cli": "^1.6.7",
     "@angular/compiler-cli": "^5.2.8",
     "@angular/language-service": "^5.2.0",
-    "@types/chartist": "^0.9.38",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
