@@ -1,7 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Character } from "../character";
-import { ChartistModule } from "ng-chartist";
-import Chartist = require("chartist");
 
 @Component({
   selector: "app-characters",
