@@ -2,8 +2,6 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Character } from "../character";
 import { Attribute } from "../attribute";
 
-import Chartist = require("chartist");
-
 @Component({
   selector: "character-detail",
   templateUrl: "./character-detail.component.html",
