@@ -35,3 +35,15 @@ input.skill{
 .maxDmg{
   color: #00aa00;
 }
+button.square{
+  height: 3m;
+  width: 3em;
+}
+.right{
+  margin-left: 83%;
+  margin-bottom: .5em;
+  margin-top: .5em;
+}
+.body-head{
+  margin: 1em .2em;
+}

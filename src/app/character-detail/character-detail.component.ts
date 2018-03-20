@@ -22,28 +22,68 @@ export class CharacterDetailComponent implements OnInit {
   showWeapon: boolean =true;
   showMagic: boolean = true;
 
+  changeHP: boolean = false;
+  changeMP: boolean = false;
+
+  hpDmg: number;
+  mpDmg: number;
+
+  type: number = 1;
+
+  expMod: number;
+
   constructor() {}
 
   ngOnInit() {}
 
-  expandDets(){
+  finalizeHealthMod(): void{
+    this.character.health + this.hpDmg * this.type > this.character.maxHealth ? this.character.health = this.character.maxHealth : this.character.health += this.hpDmg * this.type;
+    this.character.health < -10 ? this.character.health = -10 : this.character.health = this.character. health;
+    this.changeHP = false;
+  }
+
+  modTheHMod(addition : number): void{
+    this.hpDmg + addition > this.character.maxHealth + 10 ? this.hpDmg = this.character.maxHealth + 10 : this.hpDmg += addition;
+  }
+
+  finalizeMagicMod(): void{
+    this.character.magic + this.mpDmg * this.type > this.character.maxMagic ? this.character.magic = this.character.maxMagic : this.character.magic += this.mpDmg * this.type;
+    this.character.magic < 0 ? this.character.magic = 0 : this.character.magic = this.character.magic;
+    this.changeMP = false;
+  }
+
+  modTheMMod(addition: number): void{
+    this.mpDmg + addition > this.character.maxMagic ? this.mpDmg = this.character.maxMagic : this.mpDmg += addition;
+  }
+
+  modHealth(): void{
+    this.hpDmg = 0;
+    this.changeHP = !this.changeHP;
+  }
+
+  modMagic(): void{
+    this.mpDmg = 0;
+    this.changeMP = !this.changeMP;
+  }
+
+  expandDets(): void{
     this.showDets = !this.showDets;
     console.log(this.showDets);
   }
 
-  expandSkill(){
+  expandSkill(): void{
     this.showSkills = !this.showSkills;
   }
 
-  expandWeapon(){
+  expandWeapon(): void{
     this.showWeapon = !this.showWeapon;
   }
 
-  expandMagic(){
+  expandMagic(): void{
     this.showMagic = !this.showMagic;
   }
 
-  print(value: string) {
+  print(value: string): void{
     console.log(value);
   }
 
