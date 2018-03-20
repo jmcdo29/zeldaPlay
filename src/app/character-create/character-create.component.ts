@@ -1,35 +1,35 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { CharactersComponent } from "../characters/characters.component";
-import { Character } from "../character";
-import { Attribute } from "../attribute";
-import { Hylian } from "../Races/Hylian";
-import { Goron } from "../Races/Goron";
-import { Zora } from "../Races/Zora";
-import { Gerudo } from "../Races/Gerudo";
-import { Sheikah } from "../Races/Sheikah";
-import { Rito } from "../Races/Rito";
-import { Twili } from "../Races/Twili";
-import { Fairy } from "../Races/Fairy";
+import { Component, Input, OnInit } from '@angular/core';
+import { CharactersComponent } from '../characters/characters.component';
+import { Character } from '../character';
+import { Attribute } from '../attribute';
+import { Hylian } from '../Races/Hylian';
+import { Goron } from '../Races/Goron';
+import { Zora } from '../Races/Zora';
+import { Gerudo } from '../Races/Gerudo';
+import { Sheikah } from '../Races/Sheikah';
+import { Rito } from '../Races/Rito';
+import { Twili } from '../Races/Twili';
+import { Fairy } from '../Races/Fairy';
 
 @Component({
-  selector: "character-create",
-  templateUrl: "./character-create.component.html",
-  styleUrls: ["./character-create.component.css"]
+  selector: 'app-character-create',
+  templateUrl: './character-create.component.html',
+  styleUrls: ['./character-create.component.css']
 })
 export class CharacterCreateComponent implements OnInit {
   @Input() CharacterParent: CharactersComponent;
 
-  showRaceModal: boolean = false;
+  showRaceModal = false;
 
   showRace: boolean[] = [
-    false,    //Hylian 0
-    false,    //Goron 1
-    false,    //Zora 2
-    false,    //Gerudo 3
-    false,    //Sheikah 4
-    false,    //Rito 5
-    false,    //Twili 6
-    false     //Fairy 7
+    false,    // Hylian 0
+    false,    // Goron 1
+    false,    // Zora 2
+    false,    // Gerudo 3
+    false,    // Sheikah 4
+    false,    // Rito 5
+    false,    // Twili 6
+    false     // Fairy 7
   ];
 
   newCharacter: Character;
@@ -50,35 +50,35 @@ export class CharacterCreateComponent implements OnInit {
     }
     console.log(race);
     switch (race) {
-      case "Hylian": {
+      case 'Hylian': {
         this.showRace[0] = true;
         break;
       }
-      case "Goron": {
+      case 'Goron': {
         this.showRace[1] = true;
         break;
       }
-      case "Zora": {
+      case 'Zora': {
         this.showRace[2] = true;
         break;
       }
-      case "Gerudo": {
+      case 'Gerudo': {
         this.showRace[3] = true;
         break;
       }
-      case "Sheikah": {
+      case 'Sheikah': {
         this.showRace[4] = true;
         break;
       }
-      case "Rito": {
+      case 'Rito': {
         this.showRace[5] = true;
         break;
       }
-      case "Twili": {
+      case 'Twili': {
         this.showRace[6] = true;
         break;
       }
-      case "Fairy": {
+      case 'Fairy': {
         this.showRace[7] = true;
         break;
       }
@@ -102,35 +102,35 @@ export class CharacterCreateComponent implements OnInit {
 
   raceChange(): void {
     switch (this.newCharacter.race) {
-      case "Hylian": {
+      case 'Hylian': {
         this.newCharacter = new Hylian(this.newCharacter.subRace ? this.newCharacter.subRace : null);
         break;
       }
-      case "Goron": {
+      case 'Goron': {
         this.newCharacter = new Goron(this.newCharacter.subRace ? this.newCharacter.subRace : null);
         break;
       }
-      case "Zora": {
+      case 'Zora': {
         this.newCharacter = new Zora(this.newCharacter.subRace ? this.newCharacter.subRace : null);
         break;
       }
-      case "Gerudo": {
+      case 'Gerudo': {
         this.newCharacter = new Gerudo();
         break;
       }
-      case "Sheikah": {
+      case 'Sheikah': {
         this.newCharacter = new Sheikah();
         break;
       }
-      case "Rito": {
+      case 'Rito': {
         this.newCharacter = new Rito(this.newCharacter.subRace ? this.newCharacter.subRace : null);
         break;
       }
-      case "Twili": {
+      case 'Twili': {
         this.newCharacter = new Twili();
         break;
       }
-      case "Fairy": {
+      case 'Fairy': {
         this.newCharacter = new Fairy(this.newCharacter.subRace ? this.newCharacter.subRace : null);
         break;
       }

@@ -1,9 +1,9 @@
-export interface Skill{
+export interface Skill {
   trained?: boolean;
   skillName: string;
   ranks: number;
   modifier?: string;
-  item? :number;
+  item?: number;
   racial?: number;
   misc?: number;
 }
