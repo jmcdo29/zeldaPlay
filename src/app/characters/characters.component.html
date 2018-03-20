@@ -14,9 +14,9 @@
   
   <div class="animate">
     <div class="details-column">
-      <character-detail [character]="selectedCharacter"></character-detail>
+      <app-character-detail [character]="selectedCharacter"></app-character-detail>
       <div *ngIf="newChar">
-        <character-create [CharacterParent]="this"></character-create>
+        <app-character-create [CharacterParent]="this"></app-character-create>
       </div>
     </div>
   </div>

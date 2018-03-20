@@ -9,7 +9,7 @@ export class AppComponent {
   title = 'ZeldaPlay Character Tracker';
   showModal = false;
 
-  about(){
+  about() {
     this.showModal = !this.showModal;
   }
 }
