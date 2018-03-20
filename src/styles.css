@@ -152,16 +152,11 @@ td.total{
   .details{
     width: 100%
   }
+  .small{
+    width: 50%;
+  }
 }
 
-@media (max-width: 600px){
-  .skills{
-    width: 100%;
-  }
-  .details{
-    width: 100%
-  }
-}
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
