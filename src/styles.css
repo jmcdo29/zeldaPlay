@@ -76,11 +76,11 @@ td.total{
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 10em;
+  padding: 5% 0%;
   left: 0;
   top: 0;
   width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  height: 80%;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
@@ -94,6 +94,7 @@ td.total{
   background-color: #5cb85c;
   color: white;
   text-align: center;
+  border-bottom: solid black 1px;
 }
 
 /* Modal Body */
@@ -116,6 +117,31 @@ td.total{
 
 .small{
   width: 25%;
+}
+
+.body-header{
+  align-content: stretch;
+  margin-right: 0%;
+  margin-left: 0%;
+  padding-right: 0%;
+  padding-left: 0%;
+}
+.tab{
+  color: #444;
+  border: none;
+  background-color: #5cb85c;
+  margin-right: 0em;
+  margin-left: 0em;
+  cursor: pointer;
+  width: calc(100% / 8);
+  padding: .25em 0em;
+  border-width: 0em;
+  float: left;
+  text-align: center;
+  transition: 0.6s;
+}
+.tab:hover{
+  background-color: #229e22;
 }
 
 /* The Close Button */

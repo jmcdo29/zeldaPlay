@@ -1,54 +1,55 @@
-<div class="modal" [class.showModal]="changeHP">
-  <div class="modal-content small">
-    <div class="modal-header">
-      <span class="close" (click)="modHealth()">&times;</span>
-      <h2>Modify Health</h2>
-    </div>
-    <div class="modal-body">
-      <div class="body-head">
-        Current HP:
-        <span style="float:right; padding-right:5em; ">{{ character.health }}</span>
+<div *ngIf="character">
+  <div class="modal" [class.showModal]="changeHP">
+    <div class="modal-content small">
+      <div class="modal-header">
+        <span class="close" (click)="modHealth()">&times;</span>
+        <h2>Modify Health</h2>
       </div>
-      <select [(ngModel)]="type">
-        <option value="-1">Take Damage</option>
-        <option value="1">Regain Health</option>
-      </select>
-      <input type="number" [(ngModel)]="hpDmg" placeholder="{{ hpDmg }}" min="0" max="{{ character.maxHealth + 10 }}">
-      <button class="square" (click)="modTheHMod(1)">+1</button>
-      <button class="square" (click)="modTheHMod(5)">+5</button>
-      <button class="square" (click)="modTheHMod(10)">+10</button>
-      <div class="right">
-        <button (click)="finalizeHealthMod()">Done</button>
+      <div class="modal-body">
+        <div class="body-head">
+          Current HP:
+          <span style="float:right; padding-right:5em; ">{{ character.health }}</span>
+        </div>
+        <select [(ngModel)]="type">
+          <option value="-1">Take Damage</option>
+          <option value="1">Regain Health</option>
+        </select>
+        <input type="number" [(ngModel)]="hpDmg" placeholder="{{ hpDmg }}" min="0" max="{{ character.maxHealth + 10 }}">
+        <button class="square" (click)="modTheHMod(1)">+1</button>
+        <button class="square" (click)="modTheHMod(5)">+5</button>
+        <button class="square" (click)="modTheHMod(10)">+10</button>
+        <div class="right">
+          <button (click)="finalizeHealthMod()">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" [class.showModal]="changeMP">
+    <div class="modal-content small">
+      <div class="modal-header">
+        <span class="close" (click)="modMagic()">&times;</span>
+        <h2>Modify Magic</h2>
+      </div>
+      <div class="modal-body">
+        <div class="body-head">
+          Current MP:
+          <span style="float:right; padding-right:5em; ">{{ character.magic }}</span>
+        </div>
+        <select [(ngModel)]="type">
+          <option value="1">Restore Magic</option>
+          <option value="-1">Cast Magic</option>
+        </select>
+        <input type="number" min="0" [(ngModel)]="mpDmg" placeholder="{{ mpDmg }}" max="{{ character.maxMagic }}">
+        <button class="square" (click)="modTheMMod(1)">+1</button>
+        <button class="square" (click)="modTheMMod(5)">+5</button>
+        <button class="square" (click)="modTheMMod(10)">+10</button>
+        <div class="right">
+          <button (click)="finalizeMagicMod()">Done</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<div class="modal" [class.showModal]="changeMP">
-  <div class="modal-content small">
-    <div class="modal-header">
-      <span class="close" (click)="modMagic()">&times;</span>
-      <h2>Modify Magic</h2>
-    </div>
-    <div class="modal-body">
-      <div class="body-head">
-        Current MP:
-        <span style="float:right; padding-right:5em; ">{{ character.magic }}</span>
-      </div>
-      <select [(ngModel)]="type" >
-        <option value="1">Restore Magic</option>
-        <option value="-1">Cast Magic</option>
-      </select>
-      <input type="number" min="0" [(ngModel)]="mpDmg" placeholder="{{ mpDmg }}" max="{{ character.maxMagic }}">
-      <button class="square" (click)="modTheMMod(1)">+1</button>
-      <button class="square" (click)="modTheMMod(5)">+5</button>
-      <button class="square" (click)="modTheMMod(10)">+10</button>
-      <div class="right">
-        <button (click)="finalizeMagicMod()">Done</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="column-holder">
   <div *ngIf="character">
     <div class="details">
