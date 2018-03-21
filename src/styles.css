@@ -195,6 +195,9 @@ td.total{
     width: 50%;
     height: 100%;
   }
+  .tab{
+    width: calc(200% / 8);
+  }
 }
 
 /* everywhere else */
