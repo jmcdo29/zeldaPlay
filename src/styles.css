@@ -84,7 +84,7 @@ td.total{
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding:  0%;
+  padding: 0%;
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -95,7 +95,6 @@ td.total{
 }
 .showModal{
   display: block;
-  
 }
 
 .modal-header {
@@ -116,8 +115,8 @@ td.total{
   position: relative;
   background-color: #fefefe;
   margin: auto;
-  padding: 0;
   border: 1px solid #888;
+  margin: 5% 10%;
   width: 80%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   animation-name: animatetop;
@@ -126,6 +125,8 @@ td.total{
 
 .small{
   width: 25%;
+  margin-left: calc(75% /2 );
+  margin-right: calc(75% /2 );
 }
 
 .body-header{
@@ -195,6 +196,8 @@ td.total{
   }
   .small{
     width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
   }
   .tab{
     width: calc(200% / 8);
