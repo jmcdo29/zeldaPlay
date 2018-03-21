@@ -51,6 +51,7 @@ td{
   margin: 5px;
   padding: 5px;
   text-align: center;
+  word-wrap: break-word;
 }
 td.name{
   text-align: left;
@@ -60,6 +61,7 @@ td.mod{
 }
 th{
   margin: 5px;
+  width: 3.5em;
 }
 .column-holder::after{
   content: "";
