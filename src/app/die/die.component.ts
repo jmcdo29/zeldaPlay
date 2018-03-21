@@ -35,7 +35,7 @@ export class DieComponent implements OnInit {
     ) {
       this.character.maxDmg = true;
     }
-    if (this.mod !== 'null') {
+    if (this.mod !== 'null' && this.mod) {
     for (const key in Object.keys(this.character.character.attributes)) {
       if (this.character.character.attributes[key].name === this.mod) {
         modVal = this.character.character.attributes[key].modifier;

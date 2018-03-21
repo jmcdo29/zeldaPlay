@@ -377,178 +377,184 @@
     &nbsp;
     <div class="attributes">
       <h3 [class.error]="attPointsUsed > attPoints">Attribute Points: {{ attPoints - attPointsUsed }}</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Traits</th>
-            <th>Value/Score</th>
-            <th>Modifier</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Name</td>
-            <td>
-              <input class="skill" type="text" [(ngModel)]="newCharacter.name" placeholder="Name" maxlength="10">
-            </td>
-          </tr>
+      <div class="table">
+        <table>
+          <thead>
+            <tr>
+              <th>Traits</th>
+              <th>Value/Score</th>
+              <th>Modifier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td>
+                <input class="skill" type="text" [(ngModel)]="newCharacter.name" placeholder="Name" maxlength="10">
+              </td>
+            </tr>
 
-          <br/>
+            <br/>
 
-          <tr *ngFor="let attr of newCharacter.attributes; index as i">
-            <td>{{ attr.name }}</td>
-            <td>
-              <input type="number" [(ngModel)]="attr.value" max="24" min="{{ getMin(i) }}" (change)="trackAtt()">
-            </td>
-            <td>
-              {{ calcMod(attr) }} {{ attr.modifier }}
-            </td>
-          </tr>
+            <tr *ngFor="let attr of newCharacter.attributes; index as i">
+              <td>{{ attr.name }}</td>
+              <td>
+                <input type="number" [(ngModel)]="attr.value" max="24" min="{{ getMin(i) }}" (change)="trackAtt()">
+              </td>
+              <td>
+                {{ calcMod(attr) }} {{ attr.modifier }}
+              </td>
+            </tr>
 
-          <br/>
+            <br/>
 
-          <tr>
-            <td>Health</td>
-            <td>
-              {{ 48+newCharacter.attributes[2].modifier }}
-            </td>
-          </tr>
-          <tr>
-            <td>Magic</td>
-            <td>
-              {{ 20+newCharacter.attributes[4].modifier }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            <tr>
+              <td>Health</td>
+              <td>
+                {{ 48+newCharacter.attributes[2].modifier }}
+              </td>
+            </tr>
+            <tr>
+              <td>Magic</td>
+              <td>
+                {{ 20+newCharacter.attributes[4].modifier }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div class="skills scrollable">
     <h2>{{ newCharacter.name }} Skills</h2>
     <h3 [class.error]="pointsUsed > skillPoints">Skill Points: {{ skillPoints - pointsUsed }}</h3> 
-    <table>
-      <thead>
-        <tr>
-          <th>Trained</th>
-          <th>Skill Name</th>
-          <th>Skill Ranks</th>
-          <th>Racial Bonus</th>
-          <th>Modifier</th>
-          <th>Item Bonus</th>
-          <th>Misc Bonus</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let skill of newCharacter.skills; index as j">
-          <td>
-            <input class="skill-input" disabled type="checkbox" [(ngModel)]="skill.trained">
-          </td>
-          <td class="name">
-            <div *ngIf="skill.skillName==='Craft 1' || skill.skillName==='Craft 2' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>Trained</th>
+            <th>Skill Name</th>
+            <th>Skill Ranks</th>
+            <th>Racial Bonus</th>
+            <th>Modifier</th>
+            <th>Item Bonus</th>
+            <th>Misc Bonus</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let skill of newCharacter.skills; index as j">
+            <td>
+              <input class="skill-input" disabled type="checkbox" [(ngModel)]="skill.trained">
+            </td>
+            <td class="name">
+              <div *ngIf="skill.skillName==='Craft 1' || skill.skillName==='Craft 2' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
 
-            <ng-template #specialSkill>
-              <div *ngIf="skill.skillName==='Craft 1'">
-                {{ skill.skillName.substr(0, skill.skillName.length-1)}}
-                <input class="skill" type="text" [(ngModel)]="newCharacter.craftOne" placeholder="Craft One">
-              </div>
-              <div *ngIf="skill.skillName==='Craft 2'">
-                {{ skill.skillName.substr(0, skill.skillName.length-1)}}
-                <input class="skill" type="text" [(ngModel)]="newCharacter.craftTwo" placeholder="Craft Two">
-              </div>
-              <div *ngIf="skill.skillName==='Profession'">
+              <ng-template #specialSkill>
+                <div *ngIf="skill.skillName==='Craft 1'">
+                  {{ skill.skillName.substr(0, skill.skillName.length-1)}}
+                  <input class="skill" type="text" [(ngModel)]="newCharacter.craftOne" placeholder="Craft One">
+                </div>
+                <div *ngIf="skill.skillName==='Craft 2'">
+                  {{ skill.skillName.substr(0, skill.skillName.length-1)}}
+                  <input class="skill" type="text" [(ngModel)]="newCharacter.craftTwo" placeholder="Craft Two">
+                </div>
+                <div *ngIf="skill.skillName==='Profession'">
+                  {{ skill.skillName }}
+                  <input class="skill" type="text" [(ngModel)]="newCharacter.profession" placeholder="Profession">
+                </div>
+                <div *ngIf="skill.skillName==='Perform'">
+                  {{ skill.skillName }}
+                  <input class="skill" type="text" [(ngModel)]="newCharacter.performCust" placeholder="(Other)">
+                </div>
+              </ng-template>
+              <ng-template #normalSkill>
                 {{ skill.skillName }}
-                <input class="skill" type="text" [(ngModel)]="newCharacter.profession" placeholder="Profession">
-              </div>
-              <div *ngIf="skill.skillName==='Perform'">
-                {{ skill.skillName }}
-                <input class="skill" type="text" [(ngModel)]="newCharacter.performCust" placeholder="(Other)">
-              </div>
-            </ng-template>
-            <ng-template #normalSkill>
-              {{ skill.skillName }}
-            </ng-template>
-          </td>
-          <td>
-            <input class="skill-input" type="number" [(ngModel)]="skill.ranks" min="0" (change)="usePoint(j, 'skill', skill.ranks)">
-          </td>
-          <td>
-            {{ skill.racial }}
-          </td>
-          <td class="mod">
-            {{ skill.modifier.substr(0,3) | uppercase }}
-            <span class="info">{{ getMod(skill.modifier) }}</span>
-          </td>
-          <td>
-            <input class="skill-input" type="number" [(ngModel)]="skill.item">
-          </td>
-          <td>
-            <input class="skill-input" type="number" [(ngModel)]="skill.misc">
-          </td>
-          <td class="total">
-            {{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              </ng-template>
+            </td>
+            <td>
+              <input class="skill-input" type="number" [(ngModel)]="skill.ranks" min="0" (change)="usePoint(j, 'skill', skill.ranks)">
+            </td>
+            <td>
+              {{ skill.racial }}
+            </td>
+            <td class="mod">
+              {{ skill.modifier.substr(0,3) | uppercase }}
+              <span class="info">{{ getMod(skill.modifier) }}</span>
+            </td>
+            <td>
+              <input class="skill-input" type="number" [(ngModel)]="skill.item">
+            </td>
+            <td>
+              <input class="skill-input" type="number" [(ngModel)]="skill.misc">
+            </td>
+            <td class="total">
+              {{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <h2>{{ newCharacter.name }} Weapon Skills</h2>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Trained</th>
-          <th>Weapon Type</th>
-          <th>Skill Ranks</th>
-          <th>Racial Bonus</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let weapon of newCharacter.weaponSkills">
-          <td>
-            <input type="checkbox" disabled [(ngModel)]="weapon.trained">
-          </td>
-          <td>{{weapon.skillName }}</td>
-          <td>
-            <input type="number" [(ngModel)]="weapon.ranks" min="0" (change)="usePoint(i, 'weapon', weapon.ranks)">
-          </td>
-          <td>
-            {{ weapon.racial }}
-          </td>
-          <td class="total">
-            {{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>Trained</th>
+            <th>Weapon Type</th>
+            <th>Skill Ranks</th>
+            <th>Racial Bonus</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let weapon of newCharacter.weaponSkills">
+            <td>
+              <input type="checkbox" disabled [(ngModel)]="weapon.trained">
+            </td>
+            <td>{{weapon.skillName }}</td>
+            <td>
+              <input type="number" [(ngModel)]="weapon.ranks" min="0" (change)="usePoint(i, 'weapon', weapon.ranks)">
+            </td>
+            <td>
+              {{ weapon.racial }}
+            </td>
+            <td class="total">
+              {{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <h2>{{ newCharacter.name }} Magic Skills</h2>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Magic Type</th>
-          <th>Modifier</th>
-          <th>Skill Ranks</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let magic of newCharacter.magicSkills">
-          <td>{{ magic.skillName }}</td>
-          <td class="mod">
-            {{ magic.modifier.substr(0,3) | uppercase }}
-            <span class="info">{{ getMod(magic.modifier) }}</span>
-          </td>
-          <td>
-            <input [(ngModel)]="magic.ranks" min="0" (change)="usePoint(i, 'magic')">
-          </td>
-          <td class="total">
-            {{ magic.ranks + getMod(magic.modifier) }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>Magic Type</th>
+            <th>Modifier</th>
+            <th>Skill Ranks</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let magic of newCharacter.magicSkills">
+            <td>{{ magic.skillName }}</td>
+            <td class="mod">
+              {{ magic.modifier.substr(0,3) | uppercase }}
+              <span class="info">{{ getMod(magic.modifier) }}</span>
+            </td>
+            <td>
+              <input [(ngModel)]="magic.ranks" min="0" (change)="usePoint(i, 'magic')">
+            </td>
+            <td class="total">
+              {{ magic.ranks + getMod(magic.modifier) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
