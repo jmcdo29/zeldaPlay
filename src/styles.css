@@ -39,10 +39,14 @@ body, input[text], button {
 .skills{
   width: 67%;
   float: left;
+  overflow-x: auto;
 }
 .info{
   color: rgb(143, 142, 142);
   float: right;
+}
+table{
+  width: 100%;
 }
 tr:nth-child(even){
   background-color: #eeeeee;
@@ -82,13 +86,14 @@ td.total{
   left: 0;
   top: 0;
   width: 100%; /* Full width */
-  height: 80%;
+  height: 100%;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 .showModal{
   display: block;
+  
 }
 
 .modal-header {
@@ -174,6 +179,12 @@ td.total{
 
 
 @media (max-width: 900px){
+  .character-column{
+    width: 100%;
+  }
+  .details-column{
+    width: 100%;
+  }
   .skills{
     width: 100%;
   }
@@ -182,6 +193,7 @@ td.total{
   }
   .small{
     width: 50%;
+    height: 100%;
   }
 }
 
