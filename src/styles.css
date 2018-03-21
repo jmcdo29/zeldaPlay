@@ -39,6 +39,8 @@ body, input[text], button {
 .skills{
   width: 67%;
   float: left;
+}
+.table{
   overflow-x: auto;
 }
 .info{
