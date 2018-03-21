@@ -19,6 +19,21 @@ import { Fairy } from '../Races/Fairy';
 export class CharacterCreateComponent implements OnInit {
   @Input() CharacterParent: CharactersComponent;
 
+  skillPoints: number;
+  pointsUsed = 0;
+
+  error = false;
+
+  strMin: number;
+  dexMin: number;
+  conMin: number;
+  intMin: number;
+  wisMin: number;
+  chaMin: number;
+
+  attPoints = 48;
+  attPointsUsed = 0;
+
   showRaceModal = false;
 
   showRace: boolean[] = [
@@ -38,61 +53,53 @@ export class CharacterCreateComponent implements OnInit {
 
   ngOnInit() {
     this.newCharacter = new Character();
+    this.skillPoints = (Math.round(Math.random() * 100) % 4 + 1) * 5;
+    this.strMin = this.newCharacter.attributes[0].value;
+    this.dexMin = this.newCharacter.attributes[1].value;
+    this.conMin = this.newCharacter.attributes[2].value;
+    this.intMin = this.newCharacter.attributes[3].value;
+    this.wisMin = this.newCharacter.attributes[4].value;
+    this.chaMin = this.newCharacter.attributes[5].value;
   }
 
   aboutRace(): void {
     this.showRaceModal = !this.showRaceModal;
   }
 
-  show(race: string): void {
+  show(race: number): void {
     for (let i = 0; i < this.showRace.length; i++) {
       this.showRace[i] = false;
     }
-    console.log(race);
-    switch (race) {
-      case 'Hylian': {
-        this.showRace[0] = true;
-        break;
-      }
-      case 'Goron': {
-        this.showRace[1] = true;
-        break;
-      }
-      case 'Zora': {
-        this.showRace[2] = true;
-        break;
-      }
-      case 'Gerudo': {
-        this.showRace[3] = true;
-        break;
-      }
-      case 'Sheikah': {
-        this.showRace[4] = true;
-        break;
-      }
-      case 'Rito': {
-        this.showRace[5] = true;
-        break;
-      }
-      case 'Twili': {
-        this.showRace[6] = true;
-        break;
-      }
-      case 'Fairy': {
-        this.showRace[7] = true;
-        break;
-      }
-    }
+    this.showRace[race] = true;
   }
 
   save(): void {
-    this.newCharacter.health =
-      48 + this.calcModtemp(this.newCharacter.attributes[2].value);
-    this.newCharacter.magic =
-      20 + this.calcModtemp(this.newCharacter.attributes[4].value);
-    this.CharacterParent.newChar = false;
-    this.CharacterParent.characters.push(this.newCharacter);
-    this.CharacterParent.selectedCharacter = this.newCharacter;
+    if (this.pointsUsed < this.skillPoints && this.attPointsUsed < this.attPoints) {
+      this.newCharacter.health = 48 + this.newCharacter.attributes[2].modifier;
+      this.newCharacter.magic = 20 + this.newCharacter.attributes[4].modifier;
+      this.CharacterParent.newChar = false;
+      this.CharacterParent.characters.push(this.newCharacter);
+      this.CharacterParent.selectedCharacter = this.newCharacter;
+    } else {
+      for (let i = 0; i < this.newCharacter.skills.length; i++) {
+        this.newCharacter.skills[i].ranks = 0;
+      }
+      for (let i = 0; i < this.newCharacter.weaponSkills.length; i++) {
+        this.newCharacter.weaponSkills[i].ranks = 0;
+      }
+      for (let i = 0; i < this.newCharacter.magicSkills.length; i++) {
+        this.newCharacter.magicSkills[i].ranks = 0;
+      }
+      this.newCharacter.attributes[0].value = this.strMin;
+      this.newCharacter.attributes[1].value = this.dexMin;
+      this.newCharacter.attributes[2].value = this.conMin;
+      this.newCharacter.attributes[3].value = this.intMin;
+      this.newCharacter.attributes[4].value = this.wisMin;
+      this.newCharacter.attributes[5].value = this.chaMin;
+      this.pointsUsed = 0;
+      this.attPointsUsed = 0;
+      this.error = true;
+    }
   }
 
   cancel(): void {
@@ -135,14 +142,12 @@ export class CharacterCreateComponent implements OnInit {
         break;
       }
     }
-    // let raceName = this.newCharacter.race;
-    // let subRace = this.newCharacter.subRace;
-    // let name = this.newCharacter.name;
-    // this.newCharacter = new Character();
-    // this.newCharacter.race = raceName;
-    // this.newCharacter.subRace = subRace;
-    // this.newCharacter.name = name;
-    // this.newCharacter.changeRace(raceName,subRace);
+    this.strMin = this.newCharacter.attributes[0].value;
+    this.dexMin = this.newCharacter.attributes[1].value;
+    this.conMin = this.newCharacter.attributes[2].value;
+    this.intMin = this.newCharacter.attributes[3].value;
+    this.wisMin = this.newCharacter.attributes[4].value;
+    this.chaMin = this.newCharacter.attributes[5].value;
   }
 
   calcMod(stat: Attribute): void {
@@ -162,11 +167,57 @@ export class CharacterCreateComponent implements OnInit {
     }
   }
 
-  /* finalizeMod(stat: string): void{
-     for(let i = 0; i < this.newCharacter.attributes.length; i++){
-      if(this.newCharacter.attributes[i].name === stat){
-        this.newCharacter.attributes[i].modifier = this.calcMod(this.newCharacter.attributes[i].value)
+  getMin(attr: number): number {
+    switch (attr) {
+      case 0: {
+        return this.strMin;
+      }
+      case 1: {
+        return this.dexMin;
+      }
+      case 2: {
+        return this.conMin;
+      }
+      case 3: {
+        return this.intMin;
+      }
+      case 4: {
+        return this.wisMin;
+      }
+      case 5: {
+        return this.chaMin;
       }
     }
-  } */
+  }
+
+  usePoint(index: number, kind: string, originalRanks: number): void {
+    let used = 0;
+    for (let i = 0; i < this.newCharacter.skills.length; i++) {
+      used += this.newCharacter.skills[i].ranks;
+    }
+    for (let i = 0; i < this.newCharacter.weaponSkills.length; i++) {
+      used += this.newCharacter.weaponSkills[i].ranks;
+    }
+    for (let i = 0; i < this.newCharacter.magicSkills.length; i++) {
+      used += this.newCharacter.magicSkills[i].ranks;
+    }
+    this.pointsUsed = used;
+  }
+
+  closeError(): void {
+    this.error = false;
+  }
+
+  trackAtt(): void {
+    let used = 0;
+
+    used += this.newCharacter.attributes[0].value - this.strMin;
+    used += this.newCharacter.attributes[1].value - this.dexMin;
+    used += this.newCharacter.attributes[2].value - this.conMin;
+    used += this.newCharacter.attributes[3].value - this.intMin;
+    used += this.newCharacter.attributes[4].value - this.wisMin;
+    used += this.newCharacter.attributes[5].value - this.chaMin;
+
+    this.attPointsUsed = used;
+  }
 }

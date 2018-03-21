@@ -10,6 +10,20 @@
   width: 40%;
   float: left;
 }
+
 input.skill{
   width: 8em;
+}
+h4{
+  color: #444;
+}
+.error{
+  color: red;
+}
+.title{
+  display: inline;
+  font-weight: bold;
+}
+.description{
+  position: relative;
 }
