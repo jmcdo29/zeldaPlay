@@ -84,7 +84,7 @@ td.total{
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding: 5% 0%;
+  padding:  0%;
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -195,7 +195,6 @@ td.total{
   }
   .small{
     width: 50%;
-    height: 100%;
   }
   .tab{
     width: calc(200% / 8);
