@@ -36,7 +36,7 @@ input.skill{
   color: #00aa00;
 }
 button.square{
-  height: 3m;
+  height: 3em;
   width: 3em;
 }
 .right{
@@ -46,5 +46,10 @@ button.square{
 }
 .body-head{
   margin: 1em .2em;
+}
+@media(max-width: 900px){
+  .right{
+    margin-left: 50%;
+  }
 }
 
