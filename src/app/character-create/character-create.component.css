@@ -12,7 +12,10 @@
 }
 
 input.skill{
-  width: 8em;
+  width: 5em;
+}
+.skill-input{
+  width: 3em;
 }
 h4{
   color: #444;
