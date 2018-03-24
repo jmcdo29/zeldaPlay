@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CharactersComponent } from '../characters/characters.component';
-import { Character } from '../character';
-import { Attribute } from '../attribute';
+import { Character } from '../Character/character';
+import { Attribute } from '../Character/attribute';
 import { Hylian } from '../Races/Hylian';
 import { Goron } from '../Races/Goron';
 import { Zora } from '../Races/Zora';
@@ -74,7 +74,7 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   save(): void {
-    if (this.pointsUsed < this.skillPoints && this.attPointsUsed < this.attPoints) {
+    if (this.newCharacter.name !== null || (this.pointsUsed < this.skillPoints && this.attPointsUsed < this.attPoints)) {
       this.newCharacter.health = 48 + this.newCharacter.attributes[2].modifier;
       this.newCharacter.magic = 20 + this.newCharacter.attributes[4].modifier;
       this.CharacterParent.newChar = false;
@@ -190,7 +190,7 @@ export class CharacterCreateComponent implements OnInit {
     }
   }
 
-  usePoint(index: number, kind: string, originalRanks: number): void {
+  usePoint(): void {
     let used = 0;
     for (let i = 0; i < this.newCharacter.skills.length; i++) {
       used += this.newCharacter.skills[i].ranks;
@@ -219,5 +219,22 @@ export class CharacterCreateComponent implements OnInit {
     used += this.newCharacter.attributes[5].value - this.chaMin;
 
     this.attPointsUsed = used;
+  }
+
+  resetSkills(): void {
+    for (let i = 0; i < this.newCharacter.skills.length; i++) {
+      this.newCharacter.skills[i].ranks = 0;
+    }
+    for (let i = 0; i < this.newCharacter.weaponSkills.length; i++) {
+      this.newCharacter.weaponSkills[i].ranks = 0;
+    }
+    for (let i = 0; i < this.newCharacter.magicSkills.length; i++) {
+      this.newCharacter.magicSkills[i].ranks = 0;
+    }
+    this.pointsUsed = 0;
+  }
+
+  validateSkill(): void {
+    return;
   }
 }

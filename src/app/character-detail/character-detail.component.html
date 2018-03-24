@@ -1,3 +1,4 @@
+<!--Modals for various actions liking taking damage and healing, maybe leveling up!-->
 <div *ngIf="character">
   <div class="modal" [class.showModal]="changeHP">
     <div class="modal-content small">
@@ -50,13 +51,13 @@
     </div>
   </div>
 </div>
+<!--The rest of the application the shows the characters attributes and skills-->
 <div class="column-holder">
   <div *ngIf="character">
+    <!--The table to show the characters attributes and the ability to roll dice with modifiers-->
     <div class="details">
 
-      <button (click)="setEdit()">{{ !editMode ? 'Edit Character' : 'Save Character' }} </button>
-      <br/>
-      <br/>
+      <button style="margin-bottom:1em;" (click)="setEdit()">{{ !editMode ? 'Level Up' : 'Save Character' }} </button>
       <div *ngIf="editMode;then edit_character; else show_character"> </div>
 
       <ng-template #edit_character>
@@ -150,30 +151,34 @@
                     <td>{{ character.subRace }}</td>
                   </tr>
                   <br/>
-                  <tr *ngFor="let attr of character.attributes">
+                  <tr *ngFor="let attr of character.attributes" 
+                  [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'"
+                  [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'"
+                  [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
                     <td class="name">{{ attr.name }}</td>
                     <td>{{ attr.value }}</td>
                     <td>{{ attr.modifier }}</td>
                   </tr>
                   <br/>
                   <tr></tr>
-                  <tr>
+                  <tr class="din">
                     <td class="name">Health</td>
                     <td>{{ character.health }} / {{ character.maxHealth }}</td>
                     <td>
                       <button (click)="modHealth()">Modify HP</button>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="nayru">
                     <td class="name">Magic</td>
                     <td>{{ character.magic }} / {{ character.maxMagic }}</td>
                     <td>
                       <button (click)="modMagic()">Modify MP</button>
                     </td>
                   </tr>
-                  <tr>
+                  <tr class="farore">
                     <td class="name">Experience</td>
                     <td>{{ character.exp }}</td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -205,6 +210,7 @@
       </ng-template>
 
     </div>
+    <!--The table to show the character's skills (weapon, magic and normal)-->
     <div class="skills scrollable">
       <div *ngIf="editMode;then edit_skills; else show_skills"></div>
 
@@ -228,7 +234,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let skill of character.skills">
+                <tr *ngFor="let skill of character.skills"
+                [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'"
+                [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'"
+                [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
                   <td>
                     <input type="checkbox" [checked]="skill.trained" disabled="true" />
                   </td>
@@ -282,7 +291,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let weapon of character.weaponSkills">
+                <tr *ngFor="let weapon of character.weaponSkills" class="weapon">
                   <td>
                     <input type="checkbox" [checked]="weapon.trained" disabled="true" />
                   </td>
@@ -310,7 +319,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let magic of character.magicSkills">
+                <tr *ngFor="let magic of character.magicSkills"
+                [class.din]="magic.modifier === 'Intelligence'"
+                [class.farore]="magic.modifier === 'Charisma'"
+                [class.nayru]="magic.modifier === 'Wisdom'">
                   <td class="name">{{ magic.skillName }}</td>
                   <td class="mod">{{ magic.modifier.substr(0,3) | uppercase }}
                     <span class="info">{{ getMod(magic.modifier)}}</span>

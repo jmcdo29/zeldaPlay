@@ -44,14 +44,23 @@ body, input[text], button {
   overflow-x: auto;
 }
 .info{
-  color: rgb(143, 142, 142);
+  color: rgba(0, 0, 0, 0.666);
   float: right;
 }
 table{
   width: 100%;
 }
-tr:nth-child(even){
-  background-color: #eeeeee;
+tr.weapon:nth-child(3n+1){
+  background-color: rgba(233, 150, 150, 0.74);
+  color: black;
+} 
+tr.weapon:nth-child(3n+2){
+  background-color: rgba(150, 233, 150, 0.74);
+  color: black;
+}
+tr.weapon:nth-child(3n){
+  background-color: rgba(150, 150, 233, 0.74);
+  color: black;
 }
 td{
   margin: 5px;
@@ -168,6 +177,20 @@ td.total{
   text-decoration: none;
   cursor: pointer;
 }
+
+.din{
+  background-color: rgba(233, 150, 150, 0.74);
+  color: black;
+}
+.farore{
+  background-color: rgba(150, 233, 150, 0.74);
+  color: black;
+}
+.nayru{
+  background-color: rgba(150, 150, 233, 0.74);
+  color: black;
+}
+
 /* Add Animation */
 @keyframes animatetop {
   from {
