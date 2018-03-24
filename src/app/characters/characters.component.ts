@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Character } from '../character';
+import { Character } from '../Character/character';
 
 @Component({
   selector: 'app-characters',
@@ -465,6 +465,19 @@ export class CharactersComponent implements OnInit {
           skillName: 'Farore',
           modifier: 'Charisma',
           ranks: 1
+        }
+      ],
+      rangedWeapons: [
+        {
+          name: 'Tornado Rod',
+          attack: 8,
+          numberOfAttacks: 1,
+          critRange: [20],
+          cirtDamage: 3,
+          range: 30,
+          modifier: 'Wisdom',
+          // tslint:disable-next-line:max-line-length
+          description: 'A powerful rod of wind. When the weilder takes a turn to charge this rod up, it can blast enemies ackwards with a powerful gust of wind. Costs 2MP to charge up.'
         }
       ]
     }

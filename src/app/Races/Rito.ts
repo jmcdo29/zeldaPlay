@@ -1,4 +1,4 @@
-import { Character } from '../character';
+import { Character } from '../Character/character';
 
 export class Rito extends Character {
 

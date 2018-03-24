@@ -388,7 +388,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>Name</td>
+              <td class="name">Name</td>
               <td>
                 <input class="skill" type="text" [(ngModel)]="newCharacter.name" placeholder="Name" maxlength="10">
               </td>
@@ -396,8 +396,11 @@
 
             <br/>
 
-            <tr *ngFor="let attr of newCharacter.attributes; index as i">
-              <td>{{ attr.name }}</td>
+            <tr *ngFor="let attr of newCharacter.attributes; index as i"
+            [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'"
+            [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'"
+            [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
+              <td class="name">{{ attr.name }}</td>
               <td>
                 <input type="number" [(ngModel)]="attr.value" max="24" min="{{ getMin(i) }}" (change)="trackAtt()">
               </td>
@@ -408,14 +411,14 @@
 
             <br/>
 
-            <tr>
+            <tr class="din">
               <td>Health</td>
-              <td>
+              <td class="name">
                 {{ 48+newCharacter.attributes[2].modifier }}
               </td>
             </tr>
-            <tr>
-              <td>Magic</td>
+            <tr class="nayru">
+              <td class="name">Magic</td>
               <td>
                 {{ 20+newCharacter.attributes[4].modifier }}
               </td>
@@ -427,7 +430,10 @@
   </div>
   <div class="skills scrollable">
     <h2>{{ newCharacter.name }} Skills</h2>
-    <h3 [class.error]="pointsUsed > skillPoints">Skill Points: {{ skillPoints - pointsUsed }}</h3> 
+    <div class="abv-table">
+      <h3 [class.error]="pointsUsed > skillPoints">Skill Points: {{ skillPoints - pointsUsed }}</h3> 
+      <button (click)="resetSkills()">Reset Skills</button>
+    </div>
     <div class="table">
       <table>
         <thead>
@@ -443,7 +449,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let skill of newCharacter.skills; index as j">
+            <tr *ngFor="let skill of newCharacter.skills"
+            [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'"
+            [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'"
+            [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
             <td>
               <input class="skill-input" disabled type="checkbox" [(ngModel)]="skill.trained">
             </td>
@@ -473,7 +482,13 @@
               </ng-template>
             </td>
             <td>
-              <input class="skill-input" type="number" [(ngModel)]="skill.ranks" min="0" (change)="usePoint(j, 'skill', skill.ranks)">
+              <input class="skill-input" 
+                    type="number" 
+                    [(ngModel)]="skill.ranks" 
+                    min="0" 
+                    max="{{ skillPoints }}" 
+                    (change)="usePoint()"
+                    (blur)="validateSkill()">
             </td>
             <td>
               {{ skill.racial }}
@@ -509,13 +524,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let weapon of newCharacter.weaponSkills">
+          <tr *ngFor="let weapon of newCharacter.weaponSkills" class="weapon">
             <td>
               <input type="checkbox" disabled [(ngModel)]="weapon.trained">
             </td>
-            <td>{{weapon.skillName }}</td>
+            <td class="name">{{weapon.skillName }}</td>
             <td>
-              <input type="number" [(ngModel)]="weapon.ranks" min="0" (change)="usePoint(i, 'weapon', weapon.ranks)">
+              <input type="number" 
+                    [(ngModel)]="weapon.ranks" 
+                    min="0" 
+                    max="{{ skillPoints }}" 
+                    (change)="usePoint()"
+                    (blur)="validateSkill()">
             </td>
             <td>
               {{ weapon.racial }}
@@ -540,14 +560,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let magic of newCharacter.magicSkills">
-            <td>{{ magic.skillName }}</td>
+          <tr *ngFor="let magic of newCharacter.magicSkills"
+          [class.din]="magic.modifier === 'Intelligence'"
+          [class.farore]="magic.modifier === 'Charisma'"
+          [class.nayru]="magic.modifier === 'Wisdom'">
+            <td class="name">{{ magic.skillName }}</td>
             <td class="mod">
               {{ magic.modifier.substr(0,3) | uppercase }}
               <span class="info">{{ getMod(magic.modifier) }}</span>
             </td>
             <td>
-              <input [(ngModel)]="magic.ranks" min="0" (change)="usePoint(i, 'magic')">
+              <input type="number" 
+                    [(ngModel)]="magic.ranks" 
+                    min="0"
+                    max="{{ skillPoints }}" 
+                    (change)="usePoint()"
+                    (blur)="validateSkill()">
             </td>
             <td class="total">
               {{ magic.ranks + getMod(magic.modifier) }}

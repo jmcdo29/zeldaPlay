@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Character } from '../character';
-import { Attribute } from '../attribute';
+import { Character } from '../Character/character';
+import { Attribute } from '../Character/attribute';
 
 @Component({
   selector: 'app-character-detail',

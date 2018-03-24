@@ -1,4 +1,4 @@
-import { Character } from '../character';
+import { Character } from '../Character/character';
 
 export class Goron extends Character {
   constructor(subRace?: string) {
