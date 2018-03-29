@@ -10,6 +10,7 @@ import { CharacterDetailComponent } from './character-detail/character-detail.co
 import { DieComponent } from './die/die.component';
 import { CharacterCreateComponent } from './character-create/character-create.component';
 import { CharacterLevelUpComponent } from './character-level-up/character-level-up.component';
+import { CharacterService } from './character.service';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { CharacterLevelUpComponent } from './character-level-up/character-level-
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [CharacterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

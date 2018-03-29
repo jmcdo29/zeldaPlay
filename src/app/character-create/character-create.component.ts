@@ -134,20 +134,32 @@ export class CharacterCreateComponent implements OnInit {
         break;
       }
     }
+    this.resetPriors();
+    this.attPoints = 48;
+    this.skillPoints = this.originalPoints;
+  }
+
+  resetPriors(): void {
     for (let i = 0; i < this.newCharacter.attributes.length; i++) {
       this.attrMins[i] = this.newCharacter.attributes[i].value;
     }
-    this.attPoints = 48;
-    this.skillPoints = this.originalPoints;
+    for (let j = 0; j < this.attrPrior.length; j++) {
+      this.attrPrior[j] = null;
+    }
+    for (let k = 0; k < this.skillsPrior.length; k++) {
+      this.skillsPrior[k] = null;
+    }
+    for (let m = 0; m < this.weaponPrior.length; m++) {
+      this.weaponPrior[m] = null;
+    }
+    for (let n = 0; n < this.magicPrior.length; n++) {
+      this.magicPrior[n] = null;
+    }
   }
 
   calcMod(stat: Attribute): void {
     stat.modifier =
       stat.value % 2 === 0 ? (stat.value - 10) / 2 : (stat.value - 11) / 2;
-  }
-
-  calcModtemp(stat: number): number {
-    return stat % 2 === 0 ? (stat - 10) / 2 : (stat - 11) / 2;
   }
 
   getMod(modName: string): number {
@@ -214,10 +226,8 @@ export class CharacterCreateComponent implements OnInit {
     for (let i = 0; i < this.newCharacter.magicSkills.length; i++) {
       this.newCharacter.magicSkills[i].ranks = 0;
     }
+    this.resetPriors();
     this.skillPoints = this.originalPoints;
   }
 
-  validateSkill(): void {
-    return;
-  }
 }
