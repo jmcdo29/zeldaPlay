@@ -376,7 +376,16 @@
         <h2 class="error">Error!</h2>
     </div>
     <div class="modal-body">
-      <p>When creating your character, please make sure not to allocate too many skill points or attribute points. Failure to recognize the limits of your character will result in an infinite loop of not being able to save. Thank you.</p>
+      <p>When creating your character, please make sure not to allocate too many or too few skill points or attribute points. Failure to recognize the limits of your character will result in an infinite loop of not being able to save. Thank you.</p>
+      <div *ngIf="!newCharacter.name">
+        <p>Please make sure to give your character a name. You don't want to be the nameless adventurer for this epic quest, do you?</p>
+      </div>
+      <div *ngIf="!newCharacter.race">
+        <p>Make sure to include a race for your character. Otherwise we shall call you a blob!</p>
+      </div>
+      <div *ngIf="newCharacter.race && !newCharacter.subRace">
+        <p>If you are playing a race that has a subrace, make sure to choose one. Subraces give awesome bonuses to your character! <br>If you are a Gerudo, Twili, or Sheikah disregard this message. You are already awesome.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -472,7 +481,7 @@
               <td>
                 <input  type="number" 
                         [(ngModel)]="attr.value" 
-                        max="24" 
+                        max="{{ 24 < attr.value + attPoints ? 24 : attr.value + attPoints }}" 
                         min="{{ attrMins[i] }}" 
                         (change)="trackAtt(i)">
               </td>
