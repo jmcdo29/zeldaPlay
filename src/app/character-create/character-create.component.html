@@ -1,3 +1,4 @@
+
 <div class="modal" [class.showModal]="showRaceModal">
   <div class="modal-content">
     <div class="modal-header">
@@ -18,7 +19,7 @@
       <div *ngIf="!showRace[0] && !showRace[1] && !showRace[2] && !showRace[3] && !showRace[4] && !showRace[5] && !showRace[6] && !showRace[7]">
         <p>This modal contains inofmration about the different races of ZeldaPlay! Chose which one you would like to learn about!</p>
       </div>
-      <div *ngIf="showRace[0]">
+      <div *ngIf="showRace[0]">   <!--Done for now-->
         <h2>Hylians</h2>
         <div class="description">
           <p>Hylians are the most common race of Hyrule. Players who chose to play a Hylian will more than likely follow the Goddess Hylia and come from a normal background. Most Hylians are soldiers or farm/ranch hands, though a select few have been known to be chosen in the past for special training from the Sheikah tribe, learning the ways of the assassin and the art of stealth.</p>
@@ -26,16 +27,20 @@
             <h3>Bonuses</h3>
             <ul>
               <li>
-                <p class="title">Attributes:</p><span class="description">+2 to any attribute</span>
+                <p class="title">Attributes:</p><span class="description">&#43;2 to any attribute</span>
               </li>
               <li>
                 <p class="title">Skills:</p><span class="description">Climb, Craft, Knowledge (History), Knowledge (Local), Perform (Music), Perception</span>
               </li>
               <li>
-                <p class="title">Eternal Hope:</p><span class="description">+2 racial bonus on fear and despair saves</span>
+                <p class="title">Eternal Hope:</p><span class="description">&#43;2 racial bonus on fear and despair saves</span>
               </li>
               <li>
-                <p class="title">Curiosity:</p><span class="description">+4 bonus on Diplomacy checks to gain information</span>
+                <p class="title">Curiosity:</p><span class="description">&#43;4 bonus on Diplomacy checks to gain information</span>
+              </li>
+              <li>
+                <p class="title">Known Languages:</p>
+                <span class="description">Hylian (common)</span>
               </li>
           </ul>
           </div>
@@ -50,7 +55,7 @@
                 <h4>Bonuses</h4>
                 <ul>
                   <li>
-                    <p class=title>Attributes:</p><span class="description">+2 Strength</span>
+                    <p class=title>Attributes:</p><span class="description">&#43;2 Strength</span>
                   </li>
                   <li>
                     <p class="title">Skills:</p>
@@ -77,7 +82,7 @@
                 <ul>
                   <li>
                     <p class="title">Attributes:</p>
-                    <span class="description">+2 Dexterity</span>
+                    <span class="description">&#43;2 Dexterity</span>
                   </li>
                   <li>
                     <p class="title">Skills:</p>
@@ -100,7 +105,7 @@
                   <ul>
                     <li>
                       <p class="title">Attributes:</p>
-                      <span class="description">+2 Constitution</span>
+                      <span class="description">&#43;2 Constitution</span>
                     </li>
                     <li>
                       <p class="title">Skills:</p>
@@ -120,13 +125,42 @@
             </li>
         </ul>
       </div>
-      <div *ngIf="showRace[1]">
+      <div *ngIf="showRace[1]">   <!--TODO: Add Race and subrace descriptions-->
         <h2>Gorons</h2>
         <div class="description">
           <p>Goron Description</p>
           <div class="bonus">
             <h3>Bonuses</h3>
-            <ul></ul>
+            <ul>
+              <li>
+                <p class="title">Attributes:</p>
+                <span class="description">&#43;2 Constitution</span>
+              </li>
+              <li>
+                <p class="title">Skills:</p>
+                <span class="description">Appraise, Climb, Intimidate</span>
+              </li>
+              <li>
+                <p class="title">Starting Gear:</p>
+                <span class="description">5 Bombs, Goron Hammer, 1 Bottle of Red Potion</span>
+              </li>
+              <li>
+                <p class="title">Mountain Mother, Stone Father:</p>
+                <span class="description">All Gorons may use their Constitution modifier for calculating AC instead of Dexterity.</span>
+              </li>
+              <li>
+                <p class="title">Mineral Diet:</p>
+                <span class="description">Gorons have a love of stone. They gain advantage in checks to investigate stonework Also Gorons can consume stone at a rate of 1 cubic foot per minute.</span>
+              </li>
+              <li>
+                <p class="title">Roll Out:</p>
+                <span class="description">When a Goron uses the Charge or Run ability, they can roll to move up to 3x their base speed. They also had &#189; their level as damage to the charge attack.</span>
+              </li>
+              <li>
+                <p class="title">Known Languages:</p>
+                <span class="description">Hylian (common) and Goron</span>
+              </li>
+            </ul>
           </div>
         </div>
         <h3>Sub Race Options</h3>
@@ -137,7 +171,20 @@
               <p>Rock Spine Goron Description</p>
               <div class="bonus">
                 <h4>Bonuses</h4>
-                <ul></ul>
+                <ul>
+                  <li>
+                    <p class="title">Attributes:</p>
+                    <span class="description">&#43;2 Strength</span>
+                  </li>
+                  <li>
+                    <p class="title">Avalanche:</p>
+                    <span class="description">The rocky protrusions from a Goron's back can be utilized to make a charge particularly deadly. Rock Spine Gorons akso add their Constitution Mod to the damage of their charge attacks.</span>
+                  </li>
+                  <li>
+                    <p class="title">Forged in the Hearth:</p>
+                    <span class="description">Gain resistance to fire damage and gain advantage to saves against sources of fire damage.</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </li>
@@ -147,13 +194,30 @@
               <p>Soft Belly Goron Description</p>
               <div class="bonus">
                 <h4>Bonuses</h4>
-                <ul></ul>
+                <ul>
+                  <li>
+                    <p class="title">Attributes:</p>
+                    <span class="description">&#43;1 Wisdom</span>
+                  </li>
+                  <li>
+                    <p class="title">Craftsman:</p>
+                    <span class="description">Gain proficiency in one of the following crafts: Armor OR Hammers</span>
+                  </li>
+                  <li>
+                    <p class="title">Strong Body, Strong Mind:</p>
+                    <span class="description">You gain proficiency in one Intelligence or Wisdom based skill.</span>
+                  </li>
+                  <li>
+                    <p class="title">Inorganic Origins:</p>
+                    <span class="description">You are resistant to poison damage and gain advantages to saves against sources of poison damage.</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </li>
         </ul>
       </div>
-      <div *ngIf="showRace[2]">
+      <div *ngIf="showRace[2]">   <!--TODO: Add All-->
         <h2>Zora</h2>
         <div class="description">
           <p>Zora Description</p>
@@ -196,7 +260,7 @@
           </li>
         </ul>
       </div>
-      <div *ngIf="showRace[3]">
+      <div *ngIf="showRace[3]">   <!--TODO: Add All-->
         <h2>Gerudo</h2>
         <div class="description">
           <p>Gerudo Description</p>
@@ -206,7 +270,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="showRace[4]">
+      <div *ngIf="showRace[4]">   <!--TODO: Add All-->
         <h2>Sheikah</h2>
         <div class="description">
           <p>Sheikah Description</p>
@@ -216,7 +280,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="showRace[5]">
+      <div *ngIf="showRace[5]">   <!--TODO: Add All-->
         <h2>Rito</h2>
         <div class="description">
           <p>Rito Description</p>
@@ -249,7 +313,7 @@
           </li>
         </ul>
       </div>
-      <div *ngIf="showRace[6]">
+      <div *ngIf="showRace[6]">   <!--TODO: Add All-->
         <h2>Twili</h2>
         <div class="description">
           <p>Twili Description</p>
@@ -259,7 +323,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="showRace[7]">
+      <div *ngIf="showRace[7]">   <!--TODO: Add All-->
         <h2>Faries</h2>
         <div class="description">
           <p>Fariy Description</p>
@@ -390,19 +454,27 @@
             <tr>
               <td class="name">Name</td>
               <td>
-                <input class="skill" type="text" [(ngModel)]="newCharacter.name" placeholder="Name" maxlength="10">
+                <input  class="skill" 
+                        type="text" 
+                        [(ngModel)]="newCharacter.name" 
+                        placeholder="Name" 
+                        maxlength="10">
               </td>
             </tr>
 
             <br/>
 
             <tr *ngFor="let attr of newCharacter.attributes; index as i"
-            [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'"
-            [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'"
-            [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
+                [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'"
+                [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'"
+                [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
               <td class="name">{{ attr.name }}</td>
               <td>
-                <input type="number" [(ngModel)]="attr.value" max="24" min="{{ getMin(i) }}" (change)="trackAtt()">
+                <input  type="number" 
+                        [(ngModel)]="attr.value" 
+                        max="24" 
+                        min="{{ getMin(i) }}" 
+                        (change)="trackAtt()">
               </td>
               <td>
                 {{ calcMod(attr) }} {{ attr.modifier }}
@@ -412,8 +484,8 @@
             <br/>
 
             <tr class="din">
-              <td>Health</td>
-              <td class="name">
+              <td class="name">Health</td>
+              <td>
                 {{ 48+newCharacter.attributes[2].modifier }}
               </td>
             </tr>
@@ -450,11 +522,14 @@
         </thead>
         <tbody>
             <tr *ngFor="let skill of newCharacter.skills"
-            [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'"
-            [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'"
-            [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
+                [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'"
+                [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'"
+                [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
             <td>
-              <input class="skill-input" disabled type="checkbox" [(ngModel)]="skill.trained">
+              <input  class="skill-input" 
+                      disabled 
+                      type="checkbox" 
+                      [(ngModel)]="skill.trained">
             </td>
             <td class="name">
               <div *ngIf="skill.skillName==='Craft 1' || skill.skillName==='Craft 2' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
@@ -498,10 +573,14 @@
               <span class="info">{{ getMod(skill.modifier) }}</span>
             </td>
             <td>
-              <input class="skill-input" type="number" [(ngModel)]="skill.item">
+              <input  class="skill-input" 
+                      type="number" 
+                      [(ngModel)]="skill.item">
             </td>
             <td>
-              <input class="skill-input" type="number" [(ngModel)]="skill.misc">
+              <input  class="skill-input" 
+                      type="number" 
+                      [(ngModel)]="skill.misc">
             </td>
             <td class="total">
               {{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}
@@ -526,16 +605,18 @@
         <tbody>
           <tr *ngFor="let weapon of newCharacter.weaponSkills" class="weapon">
             <td>
-              <input type="checkbox" disabled [(ngModel)]="weapon.trained">
+              <input  type="checkbox" 
+                      disabled 
+                      [(ngModel)]="weapon.trained">
             </td>
             <td class="name">{{weapon.skillName }}</td>
             <td>
-              <input type="number" 
-                    [(ngModel)]="weapon.ranks" 
-                    min="0" 
-                    max="{{ skillPoints }}" 
-                    (change)="usePoint()"
-                    (blur)="validateSkill()">
+              <input  type="number" 
+                      [(ngModel)]="weapon.ranks" 
+                      min="0" 
+                      max="{{ skillPoints }}" 
+                      (change)="usePoint()"
+                      (blur)="validateSkill()">
             </td>
             <td>
               {{ weapon.racial }}
@@ -561,21 +642,21 @@
         </thead>
         <tbody>
           <tr *ngFor="let magic of newCharacter.magicSkills"
-          [class.din]="magic.modifier === 'Intelligence'"
-          [class.farore]="magic.modifier === 'Charisma'"
-          [class.nayru]="magic.modifier === 'Wisdom'">
+              [class.din]="magic.modifier === 'Intelligence'"
+              [class.farore]="magic.modifier === 'Charisma'"
+              [class.nayru]="magic.modifier === 'Wisdom'">
             <td class="name">{{ magic.skillName }}</td>
             <td class="mod">
               {{ magic.modifier.substr(0,3) | uppercase }}
               <span class="info">{{ getMod(magic.modifier) }}</span>
             </td>
             <td>
-              <input type="number" 
-                    [(ngModel)]="magic.ranks" 
-                    min="0"
-                    max="{{ skillPoints }}" 
-                    (change)="usePoint()"
-                    (blur)="validateSkill()">
+              <input  type="number" 
+                      [(ngModel)]="magic.ranks" 
+                      min="0"
+                      max="{{ skillPoints }}" 
+                      (change)="usePoint()"
+                      (blur)="validateSkill()">
             </td>
             <td class="total">
               {{ magic.ranks + getMod(magic.modifier) }}

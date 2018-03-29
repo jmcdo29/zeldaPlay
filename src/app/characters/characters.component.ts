@@ -32,6 +32,10 @@ export class CharactersComponent implements OnInit {
   characters: Character[] = [
     {
       name: 'Bryte',
+      size: 'tiny',
+      ac: 17,
+      flat_footed: 10,
+      touch: 17,
       race: 'Fairy',
       subRace: 'Nayru',
       craftOne: 'Fairy Made Armor',

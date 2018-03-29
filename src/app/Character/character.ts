@@ -9,6 +9,10 @@ export class Character {
   name: string;
   race: string;
   subRace?: string;
+  ac: number;
+  flat_footed: number;
+  touch: number;
+  size: string;
   attributes: Attribute[];
   health: number;
   maxHealth: number;

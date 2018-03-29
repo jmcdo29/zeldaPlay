@@ -49,6 +49,7 @@ body, input[text], button {
 }
 table{
   width: 100%;
+  background-color: inherit;
 }
 tr.weapon:nth-child(3n+1){
   background-color: rgba(233, 150, 150, 0.74);
