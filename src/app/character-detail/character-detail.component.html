@@ -1,5 +1,6 @@
 <!--Modals for various actions liking taking damage and healing, maybe leveling up!-->
 <div *ngIf="character">
+  <!--Modify Health Modal-->
   <div class="modal" [class.showModal]="changeHP">
     <div class="modal-content small">
       <div class="modal-header">
@@ -25,6 +26,7 @@
       </div>
     </div>
   </div>
+  <!--Modify Magic Modal-->
   <div class="modal" [class.showModal]="changeMP">
     <div class="modal-content small">
       <div class="modal-header">
@@ -50,6 +52,16 @@
       </div>
     </div>
   </div>
+  <!--Level Up Modal-->
+  <div class="modal" [class.showModal]="editMode">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" (click)="setEdit()">&times;</span>
+          <h2>Level Up</h2>
+        </div>
+        <app-character-level-up [currChar]="character" #levelUp></app-character-level-up>
+      </div>
+    </div>
 </div>
 <!--The rest of the application the shows the characters attributes and skills-->
 <div class="column-holder">
@@ -57,71 +69,8 @@
     <!--The table to show the characters attributes and the ability to roll dice with modifiers-->
     <div class="details">
 
-      <button style="margin-bottom:1em;" (click)="setEdit()">{{ !editMode ? 'Level Up' : 'Save Character' }} </button>
-      <div *ngIf="editMode;then edit_character; else show_character"> </div>
+      <button style="margin-bottom:1em;" (click)="setEdit()">Level Up</button>
 
-      <ng-template #edit_character>
-        <div class="table">
-          <table>
-            <thead>
-              <tr>
-                <th>Trait</th>
-                <th>Value/Score</th>
-                <th>Modifier</th>
-              </tr>
-            </thead>
-            <br/>
-            <tbody>
-              <tr>
-                <td class="name">Name</td>
-                <td>
-                  <input [(ngModel)]="character.name" placeholder="Name" />
-                </td>
-              </tr>
-              <tr>
-                <td class="name">Race</td>
-                <td>{{ character.race }}</td>
-              </tr>
-              <tr>
-                <td class="name">Sub Race</td>
-                <td>{{ character.subRace }}</td>
-              </tr>
-              <br/>
-              <tr *ngFor="let attr of character.attributes">
-                <td class="name">{{ attr.name }}</td>
-                <td>
-                  <input type="number" [(ngModel)]='attr.value'>
-                </td>
-                <td>
-                  {{ setMod(attr) }} {{ attr.modifier }}
-                </td>
-              </tr>
-              <tr></tr>
-              <br/>
-              <tr>
-                <td class="name">Health</td>
-                <td>
-                  <input type="number" [(ngModel)]="character.health">
-                </td>
-              </tr>
-              <tr>
-                <td class="name">Magic</td>
-                <td>
-                  <input type="number" [(ngModel)]="character.magic">
-                </td>
-              </tr>
-              <tr>
-                <td class="name">Experience</td>
-                <td>
-                  <input type="number" [(ngModel)]="character.exp">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </ng-template>
-
-      <ng-template #show_character>
         <button class="accordian" (click)="expandDets()">
           <h2>{{ character.name | uppercase }} Details</h2>
         </button>
@@ -194,7 +143,7 @@
         </h3>
 
         <h4> Add a modifier to your roll.</h4>
-        <select [(ngModel)]="rollMod" (change)="modChange">
+        <select [(ngModel)]="rollMod">
           <option value="null" selected="selected">None</option>
           <option *ngFor="let attr of character.attributes" [value]="attr.name">{{ attr.name }}</option>
         </select>
@@ -207,14 +156,10 @@
         <app-die [sides]="20" [character]="this" [mod]="rollMod"></app-die>
         <app-die [sides]="100" [character]="this"></app-die>
 
-      </ng-template>
 
     </div>
     <!--The table to show the character's skills (weapon, magic and normal)-->
     <div class="skills scrollable">
-      <div *ngIf="editMode;then edit_skills; else show_skills"></div>
-
-      <ng-template #show_skills>
         <button class="accordian" (click)="expandSkill()">
           <h2>{{ character.name | uppercase }} Skills</h2>
         </button>
@@ -334,10 +279,8 @@
             </table>
           </div>
         </div>
-      </ng-template>
 
-      <ng-template #edit_skills>
-        <h2>{{ character.name | uppercase }} Skills</h2>
+        <!-- <h2>{{ character.name | uppercase }} Skills</h2>
         <div class="table">
           <table>
             <thead>
@@ -451,8 +394,7 @@
               </tr>
             </tbody>
           </table>
-        </div>
-      </ng-template>
+        </div> -->
     </div>
 
   </div>

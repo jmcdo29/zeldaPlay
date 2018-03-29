@@ -20,7 +20,7 @@ input.skill{
 }
 .panel{
   padding: 5px 0px;
-  background-color: #FFF;
+  background-color: inherit;
   display: none;
 }
 .active{

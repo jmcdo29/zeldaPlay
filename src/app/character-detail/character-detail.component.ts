@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Character } from '../Character/character';
 import { Attribute } from '../Character/attribute';
+import { CharacterLevelUpComponent } from '../character-level-up/character-level-up.component';
 
 @Component({
   selector: 'app-character-detail',
@@ -8,6 +9,9 @@ import { Attribute } from '../Character/attribute';
   styleUrls: ['./character-detail.component.css']
 })
 export class CharacterDetailComponent implements OnInit {
+
+  @ViewChild('levelUp') private levelUp: CharacterLevelUpComponent;
+
   @Input() character: Character;
 
   rollMod = 'null';
@@ -27,6 +31,9 @@ export class CharacterDetailComponent implements OnInit {
 
   hpDmg: number;
   mpDmg: number;
+
+  skillPoints: number;
+  attrPoints: number;
 
   type = 1;
 
@@ -105,13 +112,7 @@ export class CharacterDetailComponent implements OnInit {
   }
 
   setEdit(): void {
-    if (this.setEdit) {
-      for (let i = 0; i < this.character.attributes.length; i++) {
-        this.character.attributes[i].modifier = this.calcMod(
-          this.character.attributes[i].value
-        );
-      }
-    }
+    this.levelUp.ngOnInit();
     this.editMode = !this.editMode;
   }
 
@@ -122,4 +123,5 @@ export class CharacterDetailComponent implements OnInit {
       }
     }
   }
+
 }

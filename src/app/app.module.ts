@@ -9,6 +9,7 @@ import { CharactersComponent } from './characters/characters.component';
 import { CharacterDetailComponent } from './character-detail/character-detail.component';
 import { DieComponent } from './die/die.component';
 import { CharacterCreateComponent } from './character-create/character-create.component';
+import { CharacterLevelUpComponent } from './character-level-up/character-level-up.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { CharacterCreateComponent } from './character-create/character-create.co
     CharactersComponent,
     CharacterDetailComponent,
     DieComponent,
-    CharacterCreateComponent
+    CharacterCreateComponent,
+    CharacterLevelUpComponent
   ],
   imports: [
     BrowserModule,

@@ -74,7 +74,7 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   save(): void {
-    if (this.newCharacter.name !== null || (this.pointsUsed < this.skillPoints && this.attPointsUsed < this.attPoints)) {
+    if (this.newCharacter.name != null && (this.pointsUsed < this.skillPoints && this.attPointsUsed < this.attPoints)) {
       this.newCharacter.health = 48 + this.newCharacter.attributes[2].modifier;
       this.newCharacter.magic = 20 + this.newCharacter.attributes[4].modifier;
       this.CharacterParent.newChar = false;
