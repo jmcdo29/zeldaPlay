@@ -4,3 +4,9 @@
 .skill{
   width: calc(100% / 3);
 }
+@media(max-width: 900px){
+  .skill{
+    height: 2em;
+    vertical-align: auto;
+  }
+}

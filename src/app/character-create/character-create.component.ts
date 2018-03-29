@@ -20,7 +20,7 @@ export class CharacterCreateComponent implements OnInit {
   @Input() CharacterParent: CharactersComponent;
 
   skillPoints: number;
-  pointsUsed = 0;
+  originalPoints: number;
 
   error = false;
 
@@ -31,8 +31,10 @@ export class CharacterCreateComponent implements OnInit {
   wisMin: number;
   chaMin: number;
 
+  attrMins: number[];
+  attrPrior: number[];
+
   attPoints = 48;
-  attPointsUsed = 0;
 
   showRaceModal = false;
 
@@ -47,19 +49,33 @@ export class CharacterCreateComponent implements OnInit {
     false     // Fairy 7
   ];
 
+  skillsPrior: number[];
+  weaponPrior: number[];
+  magicPrior: number[];
+
   newCharacter: Character;
 
   constructor() {}
 
   ngOnInit() {
+
+    this.attrMins = new Array();
+    this.attrPrior = new Array();
+    this.skillsPrior = new Array();
+    this.weaponPrior = new Array();
+    this.magicPrior = new Array();
+
     this.newCharacter = new Character();
-    this.skillPoints = (Math.round(Math.random() * 100) % 4 + 1) * 5;
+    this.originalPoints = this.skillPoints = (Math.round(Math.random() * 100) % 4 + 1) * 5;
     this.strMin = this.newCharacter.attributes[0].value;
     this.dexMin = this.newCharacter.attributes[1].value;
     this.conMin = this.newCharacter.attributes[2].value;
     this.intMin = this.newCharacter.attributes[3].value;
     this.wisMin = this.newCharacter.attributes[4].value;
     this.chaMin = this.newCharacter.attributes[5].value;
+    for (let i = 0; i < this.newCharacter.attributes.length; i++) {
+      this.attrMins.push(this.newCharacter.attributes[i].value);
+    }
   }
 
   aboutRace(): void {
@@ -74,7 +90,7 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   save(): void {
-    if (this.newCharacter.name != null && (this.pointsUsed < this.skillPoints && this.attPointsUsed < this.attPoints)) {
+    if (this.newCharacter.name != null && (this.skillPoints === 0 && this.attPoints === 0)) {
       this.newCharacter.health = 48 + this.newCharacter.attributes[2].modifier;
       this.newCharacter.magic = 20 + this.newCharacter.attributes[4].modifier;
       this.CharacterParent.newChar = false;
@@ -96,8 +112,6 @@ export class CharacterCreateComponent implements OnInit {
       this.newCharacter.attributes[3].value = this.intMin;
       this.newCharacter.attributes[4].value = this.wisMin;
       this.newCharacter.attributes[5].value = this.chaMin;
-      this.pointsUsed = 0;
-      this.attPointsUsed = 0;
       this.error = true;
     }
   }
@@ -142,12 +156,9 @@ export class CharacterCreateComponent implements OnInit {
         break;
       }
     }
-    this.strMin = this.newCharacter.attributes[0].value;
-    this.dexMin = this.newCharacter.attributes[1].value;
-    this.conMin = this.newCharacter.attributes[2].value;
-    this.intMin = this.newCharacter.attributes[3].value;
-    this.wisMin = this.newCharacter.attributes[4].value;
-    this.chaMin = this.newCharacter.attributes[5].value;
+    for (let i = 0; i < this.newCharacter.attributes.length; i++) {
+      this.attrMins[i] = this.newCharacter.attributes[i].value;
+    }
   }
 
   calcMod(stat: Attribute): void {
@@ -167,30 +178,8 @@ export class CharacterCreateComponent implements OnInit {
     }
   }
 
-  getMin(attr: number): number {
-    switch (attr) {
-      case 0: {
-        return this.strMin;
-      }
-      case 1: {
-        return this.dexMin;
-      }
-      case 2: {
-        return this.conMin;
-      }
-      case 3: {
-        return this.intMin;
-      }
-      case 4: {
-        return this.wisMin;
-      }
-      case 5: {
-        return this.chaMin;
-      }
-    }
-  }
 
-  usePoint(): void {
+  /* usePoint(): void {
     let used = 0;
     for (let i = 0; i < this.newCharacter.skills.length; i++) {
       used += this.newCharacter.skills[i].ranks;
@@ -202,23 +191,52 @@ export class CharacterCreateComponent implements OnInit {
       used += this.newCharacter.magicSkills[i].ranks;
     }
     this.pointsUsed = used;
-  }
+  } */
 
   closeError(): void {
     this.error = false;
   }
 
-  trackAtt(): void {
-    let used = 0;
+  trackAtt(attrIndex: number): void {
+    const val = this.newCharacter.attributes[attrIndex].value;
+    const modifier = val % 2 === 0 ? (val - 10) / 2 : (val - 11) / 2;
+    this.newCharacter.attributes[attrIndex].modifier = modifier;
+    if (this.attrPrior[attrIndex]) {
+      this.attPoints = this.attPoints - (val - this.attrPrior[attrIndex]);
+    } else {
+      this.attPoints = this.attPoints - (val - this.attrMins[attrIndex]);
+    }
+    this.attrPrior[this.attPoints] = val;
+  }
 
-    used += this.newCharacter.attributes[0].value - this.strMin;
-    used += this.newCharacter.attributes[1].value - this.dexMin;
-    used += this.newCharacter.attributes[2].value - this.conMin;
-    used += this.newCharacter.attributes[3].value - this.intMin;
-    used += this.newCharacter.attributes[4].value - this.wisMin;
-    used += this.newCharacter.attributes[5].value - this.chaMin;
+  trackSkill(skillIndex: number): void {
+    const val = this.newCharacter.skills[skillIndex].ranks;
+    if (this.skillsPrior[skillIndex]) {
+      this.skillPoints = this.skillPoints - (val - this.skillsPrior[skillIndex]);
+    } else {
+      this.skillPoints = this.skillPoints - val;
+    }
+    this.skillsPrior[skillIndex] = val;
+  }
 
-    this.attPointsUsed = used;
+  trackWeapon(weaponIndex: number): void {
+    const val = this.newCharacter.weaponSkills[weaponIndex].ranks;
+    if (this.weaponPrior[weaponIndex]) {
+      this.skillPoints = this.skillPoints - (val - this.weaponPrior[weaponIndex]);
+    } else {
+      this.skillPoints = this.skillPoints - val;
+    }
+    this.weaponPrior[weaponIndex] = val;
+  }
+
+  trackMagic(magicIndex: number): void {
+    const val = this.newCharacter.magicSkills[magicIndex].ranks;
+    if (this.magicPrior[magicIndex]) {
+      this.skillPoints = this.skillPoints - (val - this.magicPrior[magicIndex]);
+    } else {
+      this.skillPoints = this.skillPoints - val;
+    }
+    this.magicPrior[magicIndex] = val;
   }
 
   resetSkills(): void {
@@ -231,7 +249,7 @@ export class CharacterCreateComponent implements OnInit {
     for (let i = 0; i < this.newCharacter.magicSkills.length; i++) {
       this.newCharacter.magicSkills[i].ranks = 0;
     }
-    this.pointsUsed = 0;
+    this.skillPoints = this.originalPoints;
   }
 
   validateSkill(): void {

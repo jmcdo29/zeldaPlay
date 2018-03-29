@@ -21,6 +21,7 @@ export class CharacterLevelUpComponent implements OnInit {
   weaponStarts: number[];
   magicStarts: number[];
 
+  attrPrior: number[];
   skillPrior: number[];
   weaponPrior: number[];
   magicPrior: number[];
@@ -35,6 +36,7 @@ export class CharacterLevelUpComponent implements OnInit {
     this.skillPrior = new Array();
     this.weaponPrior = new Array();
     this.magicPrior = new Array();
+    this.attrPrior = new Array();
     this.attrPoints = 1;
     this.skillPoints = 10;
     const minimums = new Array();
@@ -85,7 +87,12 @@ export class CharacterLevelUpComponent implements OnInit {
     const modifier = val % 2 === 0 ? (val - 10) / 2 : (val - 11) / 2;
     this.currChar.attributes[attrIndex].modifier = modifier;
     console.log(this.currChar.attributes[attrIndex].value - this.minimums[attrIndex]);
-    this.attrPoints = this.attrPoints - (this.currChar.attributes[attrIndex].value - this.minimums[attrIndex]);
+    if (this.attrPrior[attrIndex]) {
+      this.attrPoints = this.attrPoints - (val - this.attrPrior[attrIndex]);
+    } else {
+      this.attrPoints = this.attrPoints - (val - this.minimums[attrIndex]);
+    }
+    this.attrPrior[attrIndex] = val;
   }
 
   trackSkill(skillIndex: number): void {
