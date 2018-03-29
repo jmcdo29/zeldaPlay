@@ -40,9 +40,12 @@ body, input[text], button {
   width: 67%;
   float: left;
 }
+
 .table{
   overflow-x: auto;
+  width: 100%;
 }
+
 .info{
   color: rgba(0, 0, 0, 0.666);
   float: right;
