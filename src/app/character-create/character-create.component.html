@@ -1,4 +1,3 @@
-
 <div class="modal" [class.showModal]="showRaceModal">
   <div class="modal-content">
     <div class="modal-header">
@@ -19,30 +18,38 @@
       <div *ngIf="!showRace[0] && !showRace[1] && !showRace[2] && !showRace[3] && !showRace[4] && !showRace[5] && !showRace[6] && !showRace[7]">
         <p>This modal contains inofmration about the different races of ZeldaPlay! Chose which one you would like to learn about!</p>
       </div>
-      <div *ngIf="showRace[0]">   <!--Done for now-->
+      <div *ngIf="showRace[0]">
+        <!--Done for now-->
         <h2>Hylians</h2>
         <div class="description">
-          <p>Hylians are the most common race of Hyrule. Players who chose to play a Hylian will more than likely follow the Goddess Hylia and come from a normal background. Most Hylians are soldiers or farm/ranch hands, though a select few have been known to be chosen in the past for special training from the Sheikah tribe, learning the ways of the assassin and the art of stealth.</p>
+          <p>Hylians are the most common race of Hyrule. Players who chose to play a Hylian will more than likely follow the
+            Goddess Hylia and come from a normal background. Most Hylians are soldiers or farm/ranch hands, though a select
+            few have been known to be chosen in the past for special training from the Sheikah tribe, learning the ways of
+            the assassin and the art of stealth.</p>
           <div class="bonus">
             <h3>Bonuses</h3>
             <ul>
               <li>
-                <p class="title">Attributes:</p><span class="description">&#43;2 to any attribute</span>
+                <p class="title">Attributes:</p>
+                <span class="description">&#43;2 to any attribute</span>
               </li>
               <li>
-                <p class="title">Skills:</p><span class="description">Climb, Craft, Knowledge (History), Knowledge (Local), Perform (Music), Perception</span>
+                <p class="title">Skills:</p>
+                <span class="description">Climb, Craft, Knowledge (History), Knowledge (Local), Perform (Music), Perception</span>
               </li>
               <li>
-                <p class="title">Eternal Hope:</p><span class="description">&#43;2 racial bonus on fear and despair saves</span>
+                <p class="title">Eternal Hope:</p>
+                <span class="description">&#43;2 racial bonus on fear and despair saves</span>
               </li>
               <li>
-                <p class="title">Curiosity:</p><span class="description">&#43;4 bonus on Diplomacy checks to gain information</span>
+                <p class="title">Curiosity:</p>
+                <span class="description">&#43;4 bonus on Diplomacy checks to gain information</span>
               </li>
               <li>
                 <p class="title">Known Languages:</p>
                 <span class="description">Hylian (common)</span>
               </li>
-          </ul>
+            </ul>
           </div>
         </div>
         <h3>Sub Race Options</h3>
@@ -50,12 +57,17 @@
           <li>
             <h3>Farmers</h3>
             <div class="description">
-              <p>Those who are farm hands are more likely to be hospitable to those who visit their homes and are usually considered friendlier in general. These Hylians, while kind, are also known to be strong, durable, and very headstrong. Hylians of the farm hand background will be skilled in unarmed combat, as herding goats can really be a workout. Along with the unarmed bonus, farm hands are also trained to use swords in the case of being called upon by the militia.</p>
+              <p>Those who are farm hands are more likely to be hospitable to those who visit their homes and are usually considered
+                friendlier in general. These Hylians, while kind, are also known to be strong, durable, and very headstrong.
+                Hylians of the farm hand background will be skilled in unarmed combat, as herding goats can really be a workout.
+                Along with the unarmed bonus, farm hands are also trained to use swords in the case of being called upon
+                by the militia.</p>
               <div class="bonus">
                 <h4>Bonuses</h4>
                 <ul>
                   <li>
-                    <p class=title>Attributes:</p><span class="description">&#43;2 Strength</span>
+                    <p class=title>Attributes:</p>
+                    <span class="description">&#43;2 Strength</span>
                   </li>
                   <li>
                     <p class="title">Skills:</p>
@@ -76,7 +88,10 @@
           <li>
             <h3>Sheikah</h3>
             <div class="description">
-              <p>The few select Hylians who the Sheikah have deemed worthy of training are very withdrawn and reserved. They seem to always have their eyes out for those who are untrustworthy. These Hylians speak seldom and when they do, it is usually a warning. Those trained by the Sheikah are skilled in stealth combat, meaning they have a bonus when using daggers or swords.</p>
+              <p>The few select Hylians who the Sheikah have deemed worthy of training are very withdrawn and reserved. They
+                seem to always have their eyes out for those who are untrustworthy. These Hylians speak seldom and when they
+                do, it is usually a warning. Those trained by the Sheikah are skilled in stealth combat, meaning they have
+                a bonus when using daggers or swords.</p>
               <div class="bonus">
                 <h4>Bonuses</h4>
                 <ul>
@@ -86,46 +101,51 @@
                   </li>
                   <li>
                     <p class="title">Skills:</p>
-                    <span class="description">Acrobatics, Appraise, Bluff, Escape Artist, Intimidate, Knowledeg (Language), Knowledge (Nobility), Knowledge (Religion), Sense Motive, stealth</span>
+                    <span class="description">Acrobatics, Appraise, Bluff, Escape Artist, Intimidate, Knowledeg (Language), Knowledge (Nobility), Knowledge
+                      (Religion), Sense Motive, stealth</span>
                   </li>
                   <li>
                     <p class="title">Starting Gear:</p>
-                    <span class="description">2 Daggers or a Naginate, 15 throwing knives, 1-4 vials of poison, 1-2 Bottles (contents vary), 10 smoke bombs</span>
+                    <span class="description">2 Daggers or a Naginate, 15 throwing knives, 1-4 vials of poison, 1-2 Bottles (contents vary), 10 smoke
+                      bombs</span>
                   </li>
                 </ul>
               </div>
             </div>
           </li>
           <li>
-              <h3>Guards</h3>
-              <div class="description">
-                <p>Those who are soldiers will have a bonus to using a sword and shield combo, and will be known to be on the front line of the battle, not wavering in the face of danger, and ready to fight for their kingdom and Goddess.</p>
-                <div class="bonus">
-                  <h4>Bonuses</h4>
-                  <ul>
-                    <li>
-                      <p class="title">Attributes:</p>
-                      <span class="description">&#43;2 Constitution</span>
-                    </li>
-                    <li>
-                      <p class="title">Skills:</p>
-                      <span class="description">Bluff, Diplomacy, Heal, Intimidate, Knowledge (Nobility), Knowledge (Religion), Profession, Ride, Sense Motive</span>
-                    </li>
-                    <li>
-                      <p class="title">Starting Gear:</p>
-                      <span class="description">Long Sword OR Greatsword, Iron Shield OR Iron Braces, 2-4 Bottles (Contents vary)</span>
-                    </li>
-                    <li>
-                      <p class="title">Possible Animal Companions (Optional):</p>
-                      <span class="description">Horse, Dog</span>
-                    </li>
-                  </ul>
-                </div>
+            <h3>Guards</h3>
+            <div class="description">
+              <p>Those who are soldiers will have a bonus to using a sword and shield combo, and will be known to be on the
+                front line of the battle, not wavering in the face of danger, and ready to fight for their kingdom and Goddess.</p>
+              <div class="bonus">
+                <h4>Bonuses</h4>
+                <ul>
+                  <li>
+                    <p class="title">Attributes:</p>
+                    <span class="description">&#43;2 Constitution</span>
+                  </li>
+                  <li>
+                    <p class="title">Skills:</p>
+                    <span class="description">Bluff, Diplomacy, Heal, Intimidate, Knowledge (Nobility), Knowledge (Religion), Profession, Ride, Sense
+                      Motive</span>
+                  </li>
+                  <li>
+                    <p class="title">Starting Gear:</p>
+                    <span class="description">Long Sword OR Greatsword, Iron Shield OR Iron Braces, 2-4 Bottles (Contents vary)</span>
+                  </li>
+                  <li>
+                    <p class="title">Possible Animal Companions (Optional):</p>
+                    <span class="description">Horse, Dog</span>
+                  </li>
+                </ul>
               </div>
-            </li>
+            </div>
+          </li>
         </ul>
       </div>
-      <div *ngIf="showRace[1]">   <!--TODO: Add Race and subrace descriptions-->
+      <div *ngIf="showRace[1]">
+        <!--TODO: Add Race and subrace descriptions-->
         <h2>Gorons</h2>
         <div class="description">
           <p>Goron Description</p>
@@ -150,11 +170,13 @@
               </li>
               <li>
                 <p class="title">Mineral Diet:</p>
-                <span class="description">Gorons have a love of stone. They gain advantage in checks to investigate stonework Also Gorons can consume stone at a rate of 1 cubic foot per minute.</span>
+                <span class="description">Gorons have a love of stone. They gain advantage in checks to investigate stonework Also Gorons can consume
+                  stone at a rate of 1 cubic foot per minute.</span>
               </li>
               <li>
                 <p class="title">Roll Out:</p>
-                <span class="description">When a Goron uses the Charge or Run ability, they can roll to move up to 3x their base speed. They also had &#189; their level as damage to the charge attack.</span>
+                <span class="description">When a Goron uses the Charge or Run ability, they can roll to move up to 3x their base speed. They also had
+                  &#189; their level as damage to the charge attack.</span>
               </li>
               <li>
                 <p class="title">Known Languages:</p>
@@ -178,7 +200,8 @@
                   </li>
                   <li>
                     <p class="title">Avalanche:</p>
-                    <span class="description">The rocky protrusions from a Goron's back can be utilized to make a charge particularly deadly. Rock Spine Gorons akso add their Constitution Mod to the damage of their charge attacks.</span>
+                    <span class="description">The rocky protrusions from a Goron's back can be utilized to make a charge particularly deadly. Rock
+                      Spine Gorons akso add their Constitution Mod to the damage of their charge attacks.</span>
                   </li>
                   <li>
                     <p class="title">Forged in the Hearth:</p>
@@ -217,7 +240,8 @@
           </li>
         </ul>
       </div>
-      <div *ngIf="showRace[2]">   <!--TODO: Add All-->
+      <div *ngIf="showRace[2]">
+        <!--TODO: Add All-->
         <h2>Zora</h2>
         <div class="description">
           <p>Zora Description</p>
@@ -260,7 +284,8 @@
           </li>
         </ul>
       </div>
-      <div *ngIf="showRace[3]">   <!--TODO: Add All-->
+      <div *ngIf="showRace[3]">
+        <!--TODO: Add All-->
         <h2>Gerudo</h2>
         <div class="description">
           <p>Gerudo Description</p>
@@ -270,7 +295,8 @@
           </div>
         </div>
       </div>
-      <div *ngIf="showRace[4]">   <!--TODO: Add All-->
+      <div *ngIf="showRace[4]">
+        <!--TODO: Add All-->
         <h2>Sheikah</h2>
         <div class="description">
           <p>Sheikah Description</p>
@@ -280,7 +306,8 @@
           </div>
         </div>
       </div>
-      <div *ngIf="showRace[5]">   <!--TODO: Add All-->
+      <div *ngIf="showRace[5]">
+        <!--TODO: Add All-->
         <h2>Rito</h2>
         <div class="description">
           <p>Rito Description</p>
@@ -313,7 +340,8 @@
           </li>
         </ul>
       </div>
-      <div *ngIf="showRace[6]">   <!--TODO: Add All-->
+      <div *ngIf="showRace[6]">
+        <!--TODO: Add All-->
         <h2>Twili</h2>
         <div class="description">
           <p>Twili Description</p>
@@ -323,7 +351,8 @@
           </div>
         </div>
       </div>
-      <div *ngIf="showRace[7]">   <!--TODO: Add All-->
+      <div *ngIf="showRace[7]">
+        <!--TODO: Add All-->
         <h2>Faries</h2>
         <div class="description">
           <p>Fariy Description</p>
@@ -332,7 +361,7 @@
             <ul></ul>
           </div>
         </div>
-        <h3>Sub Race Options</h3>        
+        <h3>Sub Race Options</h3>
         <ul>
           <li>
             <h3>Din</h3>
@@ -363,7 +392,7 @@
                 <ul></ul>
               </div>
             </div>
-        </li>
+          </li>
         </ul>
       </div>
     </div>
@@ -372,19 +401,23 @@
 <div class="modal" [class.showModal]="error">
   <div class="modal-content">
     <div class="modal-header">
-        <span class="close" (click)="closeError()">&times;</span>
-        <h2 class="error">Error!</h2>
+      <span class="close" (click)="closeError()">&times;</span>
+      <h2 class="error">Error!</h2>
     </div>
     <div class="modal-body">
-      <p>When creating your character, please make sure not to allocate too many or too few skill points or attribute points. Failure to recognize the limits of your character will result in an infinite loop of not being able to save. Thank you.</p>
+      <p>When creating your character, please make sure not to allocate too many or too few skill points or attribute points.
+        Failure to recognize the limits of your character will result in an infinite loop of not being able to save. Thank
+        you.</p>
       <div *ngIf="!newCharacter.name">
-        <p>Please make sure to give your character a name. You don't want to be the nameless adventurer for this epic quest, do you?</p>
+        <p>Please make sure to give your character a name. You don't want to be the nameless adventurer for this epic quest,
+          do you?</p>
       </div>
       <div *ngIf="!newCharacter.race">
         <p>Make sure to include a race for your character. Otherwise we shall call you a blob!</p>
       </div>
       <div *ngIf="newCharacter.race && !newCharacter.subRace">
-        <p>If you are playing a race that has a subrace, make sure to choose one. Subraces give awesome bonuses to your character! <br>If you are a Gerudo, Twili, or Sheikah disregard this message. You are already awesome.</p>
+        <p>If you are playing a race that has a subrace, make sure to choose one. Subraces give awesome bonuses to your character!
+          <br>If you are a Gerudo, Twili, or Sheikah disregard this message. You are already awesome.</p>
       </div>
     </div>
   </div>
@@ -463,27 +496,18 @@
             <tr>
               <td class="name">Name</td>
               <td>
-                <input  class="skill" 
-                        type="text" 
-                        [(ngModel)]="newCharacter.name" 
-                        placeholder="Name" 
-                        maxlength="10">
+                <input class="skill" type="text" [(ngModel)]="newCharacter.name" placeholder="Name" maxlength="10">
               </td>
             </tr>
 
             <br/>
 
-            <tr *ngFor="let attr of newCharacter.attributes; index as i"
-                [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'"
-                [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'"
-                [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
+            <tr *ngFor="let attr of newCharacter.attributes; index as i" [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'"
+              [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'" [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
               <td class="name">{{ attr.name }}</td>
               <td>
-                <input  type="number" 
-                        [(ngModel)]="attr.value" 
-                        max="{{ 24 < attr.value + attPoints ? 24 : attr.value + attPoints }}" 
-                        min="{{ attrMins[i] }}" 
-                        (change)="trackAtt(i)">
+                <input type="number" [(ngModel)]="attr.value" max="{{ 24 < attr.value + attPoints ? 24 : attr.value + attPoints }}" min="{{ attrMins[i] }}"
+                  (change)="trackAtt(i)">
               </td>
               <td>
                 {{ calcMod(attr) }} {{ attr.modifier }}
@@ -512,7 +536,7 @@
   <div class="skills scrollable">
     <h2>{{ newCharacter.name }} Skills</h2>
     <div class="abv-table">
-      <h3 [class.error]="0 > skillPoints">Skill Points: {{ skillPoints }}</h3> 
+      <h3 [class.error]="0 > skillPoints">Skill Points: {{ skillPoints }}</h3>
       <button (click)="resetSkills()">Reset Skills</button>
     </div>
     <div class="table">
@@ -530,15 +554,10 @@
           </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let skill of newCharacter.skills; index as j"
-                [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'"
-                [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'"
-                [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
+          <tr *ngFor="let skill of newCharacter.skills; index as j" [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'"
+            [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'" [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
             <td>
-              <input  class="skill-input" 
-                      disabled 
-                      type="checkbox" 
-                      [(ngModel)]="skill.trained">
+              <input class="skill-input" disabled type="checkbox" [(ngModel)]="skill.trained">
             </td>
             <td class="name">
               <div *ngIf="skill.skillName==='Craft 1' || skill.skillName==='Craft 2' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
@@ -566,13 +585,7 @@
               </ng-template>
             </td>
             <td>
-              <input class="skill-input" 
-                    type="number" 
-                    [(ngModel)]="skill.ranks" 
-                    min="0" 
-                    max="{{ skill.ranks + skillPoints }}" 
-                    (change)="trackSkill(j)"
-                    (blur)="validateSkill()">
+              <input class="skill-input" type="number" [(ngModel)]="skill.ranks" min="0" max="{{ skill.ranks + skillPoints }}" (change)="trackSkill(j)">
             </td>
             <td>
               {{ skill.racial }}
@@ -582,14 +595,10 @@
               <span class="info">{{ getMod(skill.modifier) }}</span>
             </td>
             <td>
-              <input  class="skill-input" 
-                      type="number" 
-                      [(ngModel)]="skill.item">
+              <input class="skill-input" type="number" [(ngModel)]="skill.item">
             </td>
             <td>
-              <input  class="skill-input" 
-                      type="number" 
-                      [(ngModel)]="skill.misc">
+              <input class="skill-input" type="number" [(ngModel)]="skill.misc">
             </td>
             <td class="total">
               {{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}
@@ -614,18 +623,11 @@
         <tbody>
           <tr *ngFor="let weapon of newCharacter.weaponSkills; index as k" class="weapon">
             <td>
-              <input  type="checkbox" 
-                      disabled 
-                      [(ngModel)]="weapon.trained">
+              <input type="checkbox" disabled [(ngModel)]="weapon.trained">
             </td>
             <td class="name">{{ weapon.skillName }}</td>
             <td>
-              <input  type="number" 
-                      [(ngModel)]="weapon.ranks" 
-                      min="0" 
-                      max="{{ weapon.ranks + skillPoints }}" 
-                      (change)="trackWeapon(k)"
-                      (blur)="validateSkill()">
+              <input type="number" [(ngModel)]="weapon.ranks" min="0" max="{{ weapon.ranks + skillPoints }}" (change)="trackWeapon(k)">
             </td>
             <td>
               {{ weapon.racial }}
@@ -650,22 +652,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let magic of newCharacter.magicSkills; index as m"
-              [class.din]="magic.modifier === 'Intelligence'"
-              [class.farore]="magic.modifier === 'Charisma'"
-              [class.nayru]="magic.modifier === 'Wisdom'">
+          <tr *ngFor="let magic of newCharacter.magicSkills; index as m" [class.din]="magic.modifier === 'Intelligence'" [class.farore]="magic.modifier === 'Charisma'"
+            [class.nayru]="magic.modifier === 'Wisdom'">
             <td class="name">{{ magic.skillName }}</td>
             <td class="mod">
               {{ magic.modifier.substr(0,3) | uppercase }}
               <span class="info">{{ getMod(magic.modifier) }}</span>
             </td>
             <td>
-              <input  type="number" 
-                      [(ngModel)]="magic.ranks" 
-                      min="0"
-                      max="{{ magic.ranks + skillPoints }}" 
-                      (change)="trackMagic(m)"
-                      (blur)="validateSkill()">
+              <input type="number" [(ngModel)]="magic.ranks" min="0" max="{{ magic.ranks + skillPoints }}" (change)="trackMagic(m)">
             </td>
             <td class="total">
               {{ magic.ranks + getMod(magic.modifier) }}

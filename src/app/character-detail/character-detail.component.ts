@@ -107,10 +107,6 @@ export class CharacterDetailComponent implements OnInit {
       attr.value % 2 === 0 ? (attr.value - 10) / 2 : (attr.value - 11) / 2;
   }
 
-  calcMod(stat: number): number {
-    return stat % 2 === 0 ? (stat - 10) / 2 : (stat - 11) / 2;
-  }
-
   setEdit(): void {
     this.levelUp.ngOnInit();
     this.editMode = !this.editMode;
