@@ -6,7 +6,7 @@ input.skill{
   background: #EEE;
   color: #444444;
   cursor: pointer;
-  width: 80%;
+  width: 100%;
   text-align: left;
   border: none;
   outline: none;
@@ -20,7 +20,7 @@ input.skill{
 }
 .panel{
   padding: 5px 0px;
-  background-color: #FFF;
+  background-color: inherit;
   display: none;
 }
 .active{
@@ -35,3 +35,21 @@ input.skill{
 .maxDmg{
   color: #00aa00;
 }
+button.square{
+  height: 3em;
+  width: 3em;
+}
+.right{
+  margin-left: 83%;
+  margin-bottom: .5em;
+  margin-top: .5em;
+}
+.body-head{
+  margin: 1em .2em;
+}
+@media(max-width: 900px){
+  .right{
+    margin-left: 50%;
+  }
+}
+

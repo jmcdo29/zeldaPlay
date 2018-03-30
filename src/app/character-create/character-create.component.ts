@@ -1,98 +1,97 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { CharactersComponent } from "../characters/characters.component";
-import { Character } from "../character";
-import { Attribute } from "../attribute";
-import { Hylian } from "../Races/Hylian";
-import { Goron } from "../Races/Goron";
-import { Zora } from "../Races/Zora";
-import { Gerudo } from "../Races/Gerudo";
-import { Sheikah } from "../Races/Sheikah";
-import { Rito } from "../Races/Rito";
-import { Twili } from "../Races/Twili";
-import { Fairy } from "../Races/Fairy";
+import { Component, Input, OnInit } from '@angular/core';
+import { CharactersComponent } from '../characters/characters.component';
+import { Character } from '../Character/character';
+import { Attribute } from '../Character/attribute';
+import { Hylian } from '../Races/Hylian';
+import { Goron } from '../Races/Goron';
+import { Zora } from '../Races/Zora';
+import { Gerudo } from '../Races/Gerudo';
+import { Sheikah } from '../Races/Sheikah';
+import { Rito } from '../Races/Rito';
+import { Twili } from '../Races/Twili';
+import { Fairy } from '../Races/Fairy';
 
 @Component({
-  selector: "character-create",
-  templateUrl: "./character-create.component.html",
-  styleUrls: ["./character-create.component.css"]
+  selector: 'app-character-create',
+  templateUrl: './character-create.component.html',
+  styleUrls: ['./character-create.component.css']
 })
 export class CharacterCreateComponent implements OnInit {
   @Input() CharacterParent: CharactersComponent;
 
-  showRaceModal: boolean = false;
+  skillPoints: number;
+  originalPoints: number;
+
+  error = false;
+
+  attrMins: number[];
+  attrPrior: number[];
+
+  attPoints = 48;
+
+  showRaceModal = false;
 
   showRace: boolean[] = [
-    false,    //Hylian 0
-    false,    //Goron 1
-    false,    //Zora 2
-    false,    //Gerudo 3
-    false,    //Sheikah 4
-    false,    //Rito 5
-    false,    //Twili 6
-    false     //Fairy 7
+    false,    // Hylian 0
+    false,    // Goron 1
+    false,    // Zora 2
+    false,    // Gerudo 3
+    false,    // Sheikah 4
+    false,    // Rito 5
+    false,    // Twili 6
+    false     // Fairy 7
   ];
+
+  skillsPrior: number[];
+  weaponSkillsPrior: number[];
+  magicSkillsPrior: number[];
 
   newCharacter: Character;
 
   constructor() {}
 
   ngOnInit() {
+
+    this.attrMins = new Array();
+    this.attrPrior = new Array();
+    this.skillsPrior = new Array();
+    this.weaponSkillsPrior = new Array();
+    this.magicSkillsPrior = new Array();
+
     this.newCharacter = new Character();
+    this.originalPoints = this.skillPoints = (Math.round(Math.random() * 100) % 4 + 1) * 5;
+    for (let i = 0; i < this.newCharacter.attributes.length; i++) {
+      this.attrMins.push(this.newCharacter.attributes[i].value);
+    }
   }
 
   aboutRace(): void {
     this.showRaceModal = !this.showRaceModal;
   }
 
-  show(race: string): void {
+  show(race: number): void {
     for (let i = 0; i < this.showRace.length; i++) {
       this.showRace[i] = false;
     }
-    console.log(race);
-    switch (race) {
-      case "Hylian": {
-        this.showRace[0] = true;
-        break;
-      }
-      case "Goron": {
-        this.showRace[1] = true;
-        break;
-      }
-      case "Zora": {
-        this.showRace[2] = true;
-        break;
-      }
-      case "Gerudo": {
-        this.showRace[3] = true;
-        break;
-      }
-      case "Sheikah": {
-        this.showRace[4] = true;
-        break;
-      }
-      case "Rito": {
-        this.showRace[5] = true;
-        break;
-      }
-      case "Twili": {
-        this.showRace[6] = true;
-        break;
-      }
-      case "Fairy": {
-        this.showRace[7] = true;
-        break;
-      }
-    }
+    this.showRace[race] = true;
   }
 
   save(): void {
-    this.newCharacter.health =
-      48 + this.calcModtemp(this.newCharacter.attributes[2].value);
-    this.newCharacter.magic =
-      20 + this.calcModtemp(this.newCharacter.attributes[4].value);
-    this.CharacterParent.newChar = false;
-    this.CharacterParent.characters.push(this.newCharacter);
-    this.CharacterParent.selectedCharacter = this.newCharacter;
+    let nullSubRace;
+    if (this.newCharacter.race !== 'Gerudo' && this.newCharacter.race !== 'Sheikah' && this.newCharacter.race !== 'Twili') {
+      nullSubRace = this.newCharacter.subRace ? false : true;
+    } else {
+      nullSubRace = false;
+    }
+    if (this.newCharacter.name != null && (this.skillPoints === 0 && this.attPoints === 0) && !nullSubRace) {
+      this.newCharacter.health = 48 + this.newCharacter.attributes[2].modifier;
+      this.newCharacter.magic = 20 + this.newCharacter.attributes[4].modifier;
+      this.CharacterParent.newChar = false;
+      this.CharacterParent.characters.push(this.newCharacter);
+      this.CharacterParent.selectedCharacter = this.newCharacter;
+    } else {
+      this.error = true;
+    }
   }
 
   cancel(): void {
@@ -102,56 +101,65 @@ export class CharacterCreateComponent implements OnInit {
 
   raceChange(): void {
     switch (this.newCharacter.race) {
-      case "Hylian": {
+      case 'Hylian': {
         this.newCharacter = new Hylian(this.newCharacter.subRace ? this.newCharacter.subRace : null);
         break;
       }
-      case "Goron": {
+      case 'Goron': {
         this.newCharacter = new Goron(this.newCharacter.subRace ? this.newCharacter.subRace : null);
         break;
       }
-      case "Zora": {
+      case 'Zora': {
         this.newCharacter = new Zora(this.newCharacter.subRace ? this.newCharacter.subRace : null);
         break;
       }
-      case "Gerudo": {
+      case 'Gerudo': {
         this.newCharacter = new Gerudo();
         break;
       }
-      case "Sheikah": {
+      case 'Sheikah': {
         this.newCharacter = new Sheikah();
         break;
       }
-      case "Rito": {
+      case 'Rito': {
         this.newCharacter = new Rito(this.newCharacter.subRace ? this.newCharacter.subRace : null);
         break;
       }
-      case "Twili": {
+      case 'Twili': {
         this.newCharacter = new Twili();
         break;
       }
-      case "Fairy": {
+      case 'Fairy': {
         this.newCharacter = new Fairy(this.newCharacter.subRace ? this.newCharacter.subRace : null);
         break;
       }
     }
-    // let raceName = this.newCharacter.race;
-    // let subRace = this.newCharacter.subRace;
-    // let name = this.newCharacter.name;
-    // this.newCharacter = new Character();
-    // this.newCharacter.race = raceName;
-    // this.newCharacter.subRace = subRace;
-    // this.newCharacter.name = name;
-    // this.newCharacter.changeRace(raceName,subRace);
+    this.resetPriors();
+    this.attPoints = 48;
+    this.skillPoints = this.originalPoints;
+  }
+
+  resetPriors(): void {
+    for (let i = 0; i < this.newCharacter.attributes.length; i++) {
+      this.attrMins[i] = this.newCharacter.attributes[i].value;
+    }
+    for (let j = 0; j < this.attrPrior.length; j++) {
+      this.attrPrior[j] = null;
+    }
+    for (let k = 0; k < this.skillsPrior.length; k++) {
+      this.skillsPrior[k] = null;
+    }
+    for (let m = 0; m < this.weaponSkillsPrior.length; m++) {
+      this.weaponSkillsPrior[m] = null;
+    }
+    for (let n = 0; n < this.magicSkillsPrior.length; n++) {
+      this.magicSkillsPrior[n] = null;
+    }
   }
 
   calcMod(stat: Attribute): void {
     stat.modifier =
       stat.value % 2 === 0 ? (stat.value - 10) / 2 : (stat.value - 11) / 2;
-  }
-
-  calcModtemp(stat: number): number {
-    return stat % 2 === 0 ? (stat - 10) / 2 : (stat - 11) / 2;
   }
 
   getMod(modName: string): number {
@@ -162,11 +170,78 @@ export class CharacterCreateComponent implements OnInit {
     }
   }
 
-  /* finalizeMod(stat: string): void{
-     for(let i = 0; i < this.newCharacter.attributes.length; i++){
-      if(this.newCharacter.attributes[i].name === stat){
-        this.newCharacter.attributes[i].modifier = this.calcMod(this.newCharacter.attributes[i].value)
-      }
+  closeError(): void {
+    this.error = false;
+  }
+
+  trackAtt(attrIndex: number): void {
+    const val = this.newCharacter.attributes[attrIndex].value;
+    const modifier = val % 2 === 0 ? (val - 10) / 2 : (val - 11) / 2;
+    this.newCharacter.attributes[attrIndex].modifier = modifier;
+    if (this.attrPrior[attrIndex]) {
+      this.attPoints = this.attPoints - (val - this.attrPrior[attrIndex]);
+    } else {
+      this.attPoints = this.attPoints - (val - this.attrMins[attrIndex]);
     }
-  } */
+    this.attrPrior[attrIndex] = val;
+  }
+
+  track(index: number, type: string): void {
+    const val = this.newCharacter[type][index].ranks;
+    const PRIOR = 'Prior';
+    if (this[type + PRIOR][index]) {
+      this.skillPoints = this.skillPoints - (val - this[type + PRIOR][index]);
+    } else {
+      this.skillPoints = this.skillPoints - val;
+    }
+    this[type + PRIOR][index] = val;
+  }
+
+  validateAttr(attrIndex: number): void {
+    const input = document.getElementById('attr' + attrIndex);
+    if ( this.newCharacter.attributes[attrIndex].value < this.attrMins[attrIndex]) {
+      input.classList.add('bad-input');
+      this.attPoints += (this.newCharacter.attributes[attrIndex].value - this.attrMins[attrIndex]);
+      this.attrPrior[attrIndex] = this.newCharacter.attributes[attrIndex].value = this.attrMins[attrIndex];
+    } else if (this.attPoints < 0) {
+      input.classList.add('bad-input');
+      this.newCharacter.attributes[attrIndex].value += this.attPoints;
+      this.attrPrior[attrIndex] = this.newCharacter.attributes[attrIndex].value;
+      this.attPoints -= this.attPoints;
+    } else if (input.classList.contains('bad-input')) {
+      input.classList.remove('bad-input');
+    }
+  }
+
+  validate(index: number, type: string): void {
+    const input = document.getElementById(type + index);
+    const PRIOR = 'Prior';
+    if (this.newCharacter[type][index].ranks < 0) {
+      input.classList.add('bad-input');
+      this.skillPoints += (this.newCharacter[type][index].ranks);
+      this[type + PRIOR][index] = this.newCharacter[type][index].ranks = 0;
+    } else if (this.skillPoints < 0) {
+      input.classList.add('bad-input');
+      this.newCharacter[type][index].ranks += this.skillPoints;
+      this[type + PRIOR][index] = this.newCharacter[type][index].ranks;
+      this.skillPoints -= this.skillPoints;
+    } else if (input.classList.contains('bad-input')) {
+      input.classList.remove('bad-input');
+    }
+  }
+
+  resetSkills(): void {
+    for (let i = 0; i < this.newCharacter.skills.length; i++) {
+      this.newCharacter.skills[i].ranks = 0;
+    }
+    for (let i = 0; i < this.newCharacter.weaponSkills.length; i++) {
+      this.newCharacter.weaponSkills[i].ranks = 0;
+    }
+    for (let i = 0; i < this.newCharacter.magicSkills.length; i++) {
+      this.newCharacter.magicSkills[i].ranks = 0;
+    }
+    this.resetPriors();
+    this.skillPoints = this.originalPoints;
+  }
+
 }

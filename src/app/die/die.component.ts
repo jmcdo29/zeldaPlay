@@ -1,28 +1,26 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { CharacterDetailComponent } from "../character-detail/character-detail.component";
+import { Component, OnInit, Input } from '@angular/core';
+import { CharacterDetailComponent } from '../character-detail/character-detail.component';
 
 @Component({
-  selector: "die",
-  templateUrl: "./die.component.html",
-  styleUrls: ["./die.component.css"]
+  selector: 'app-die',
+  templateUrl: './die.component.html',
+  styleUrls: ['./die.component.css']
 })
 export class DieComponent implements OnInit {
   @Input() character: CharacterDetailComponent;
   @Input() sides: number;
   @Input() mod: string;
-  crit: boolean = false;
-
-  
+  crit = false;
 
   constructor() {}
 
   ngOnInit() {}
 
-  roll(sides: number,): void {
+  roll(sides: number): void {
     this.character.crit = false;
     this.character.critmiss = false;
     this.character.maxDmg = false;
-    let roll = Math.round(Math.random() * 100) % sides + 1;
+    const roll = Math.round(Math.random() * 100) % sides + 1;
     let modVal;
 
     if (roll === sides && sides === 20) {
@@ -37,15 +35,15 @@ export class DieComponent implements OnInit {
     ) {
       this.character.maxDmg = true;
     }
-    if(this.mod !== 'null'){
-    for(let key in Object.keys(this.character.character.attributes)){
-      if(this.character.character.attributes[key].name === this.mod){
+    if (this.mod !== 'null' && this.mod) {
+    for (const key in Object.keys(this.character.character.attributes)) {
+      if (this.character.character.attributes[key].name === this.mod) {
         modVal = this.character.character.attributes[key].modifier;
       }
     }
     this.character.setRoll((roll + modVal).toString());
-  }else{
-    this.character.setRoll(roll.toString())
+  } else {
+    this.character.setRoll(roll.toString());
   }
   }
 }

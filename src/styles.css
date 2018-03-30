@@ -40,17 +40,37 @@ body, input[text], button {
   width: 67%;
   float: left;
 }
+
+.table{
+  overflow-x: auto;
+  width: 100%;
+}
+
 .info{
-  color: rgb(143, 142, 142);
+  color: rgba(0, 0, 0, 0.666);
   float: right;
 }
-tr:nth-child(even){
-  background-color: #eeeeee;
+table{
+  width: 100%;
+  background-color: inherit;
+}
+tr.weapon:nth-child(3n+1){
+  background-color: rgba(233, 150, 150, 0.74);
+  color: black;
+} 
+tr.weapon:nth-child(3n+2){
+  background-color: rgba(150, 233, 150, 0.74);
+  color: black;
+}
+tr.weapon:nth-child(3n){
+  background-color: rgba(150, 150, 233, 0.74);
+  color: black;
 }
 td{
   margin: 5px;
   padding: 5px;
   text-align: center;
+  word-wrap: break-word;
 }
 td.name{
   text-align: left;
@@ -60,6 +80,7 @@ td.mod{
 }
 th{
   margin: 5px;
+  width: 3.5em;
 }
 .column-holder::after{
   content: "";
@@ -76,16 +97,15 @@ td.total{
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 10em;
+  padding: 0%;
   left: 0;
   top: 0;
   width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  height: 100%;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-
 .showModal{
   display: block;
 }
@@ -95,6 +115,7 @@ td.total{
   background-color: #5cb85c;
   color: white;
   text-align: center;
+  border-bottom: solid black 1px;
 }
 
 /* Modal Body */
@@ -107,13 +128,45 @@ td.total{
   position: relative;
   background-color: #fefefe;
   margin: auto;
-  padding: 0;
   border: 1px solid #888;
+  margin: 5% 10%;
   width: 80%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   animation-name: animatetop;
   animation-duration: 0.4s;
 }
+
+.small{
+  width: 25%;
+  margin-left: calc(75% /2 );
+  margin-right: calc(75% /2 );
+}
+
+.body-header{
+  align-content: stretch;
+  margin-right: 0%;
+  margin-left: 0%;
+  padding-right: 0%;
+  padding-left: 0%;
+}
+.tab{
+  color: #444;
+  border: none;
+  background-color: #5cb85c;
+  margin-right: 0em;
+  margin-left: 0em;
+  cursor: pointer;
+  width: calc(100% / 8);
+  padding: .25em 0em;
+  border-width: 0em;
+  float: left;
+  text-align: center;
+  transition: 0.6s;
+}
+.tab:hover{
+  background-color: #229e22;
+}
+
 /* The Close Button */
 .close {
   color: #aaa;
@@ -128,6 +181,20 @@ td.total{
   text-decoration: none;
   cursor: pointer;
 }
+
+.din{
+  background-color: rgba(233, 150, 150, 0.74);
+  color: black;
+}
+.farore{
+  background-color: rgba(150, 233, 150, 0.74);
+  color: black;
+}
+.nayru{
+  background-color: rgba(150, 150, 233, 0.74);
+  color: black;
+}
+
 /* Add Animation */
 @keyframes animatetop {
   from {
@@ -142,22 +209,28 @@ td.total{
 
 
 @media (max-width: 900px){
+  .character-column{
+    width: 100%;
+  }
+  .details-column{
+    width: 100%;
+  }
   .skills{
     width: 100%;
   }
   .details{
     width: 100%
+  }
+  .small{
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+  .tab{
+    width: calc(200% / 8);
   }
 }
 
-@media (max-width: 600px){
-  .skills{
-    width: 100%;
-  }
-  .details{
-    width: 100%
-  }
-}
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
