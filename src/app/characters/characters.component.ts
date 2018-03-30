@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Character } from '../Character/character';
-import {CHARACTERS } from '../mock-character';
+import { CHARACTERS } from '../mock-character';
 import { CharacterService } from '../character.service';
 
 @Component({
@@ -32,11 +32,13 @@ export class CharactersComponent implements OnInit {
     this.newChar = true;
   }
 
-
   constructor(private characterService: CharacterService) {}
 
   getCharacters(): void {
-    this.characterService.getCharacters().subscribe(characters => this.characters = characters);
+    this.characterService.getCharacters()
+      .subscribe(characters => {
+        this.characters = characters;
+      });
   }
 
   ngOnInit() {

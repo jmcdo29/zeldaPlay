@@ -30,6 +30,6 @@ h4{
 .description{
   position: relative;
 }
-/* input:out-of-range{
+.bad-input, input:out-of-range{
   background-color: lightcoral;
-}  */
+}  

@@ -43,8 +43,8 @@ export class CharacterCreateComponent implements OnInit {
   ];
 
   skillsPrior: number[];
-  weaponPrior: number[];
-  magicPrior: number[];
+  weaponSkillsPrior: number[];
+  magicSkillsPrior: number[];
 
   newCharacter: Character;
 
@@ -55,8 +55,8 @@ export class CharacterCreateComponent implements OnInit {
     this.attrMins = new Array();
     this.attrPrior = new Array();
     this.skillsPrior = new Array();
-    this.weaponPrior = new Array();
-    this.magicPrior = new Array();
+    this.weaponSkillsPrior = new Array();
+    this.magicSkillsPrior = new Array();
 
     this.newCharacter = new Character();
     this.originalPoints = this.skillPoints = (Math.round(Math.random() * 100) % 4 + 1) * 5;
@@ -149,11 +149,11 @@ export class CharacterCreateComponent implements OnInit {
     for (let k = 0; k < this.skillsPrior.length; k++) {
       this.skillsPrior[k] = null;
     }
-    for (let m = 0; m < this.weaponPrior.length; m++) {
-      this.weaponPrior[m] = null;
+    for (let m = 0; m < this.weaponSkillsPrior.length; m++) {
+      this.weaponSkillsPrior[m] = null;
     }
-    for (let n = 0; n < this.magicPrior.length; n++) {
-      this.magicPrior[n] = null;
+    for (let n = 0; n < this.magicSkillsPrior.length; n++) {
+      this.magicSkillsPrior[n] = null;
     }
   }
 
@@ -186,34 +186,48 @@ export class CharacterCreateComponent implements OnInit {
     this.attrPrior[attrIndex] = val;
   }
 
-  trackSkill(skillIndex: number): void {
-    const val = this.newCharacter.skills[skillIndex].ranks;
-    if (this.skillsPrior[skillIndex]) {
-      this.skillPoints = this.skillPoints - (val - this.skillsPrior[skillIndex]);
+  track(index: number, type: string): void {
+    const val = this.newCharacter[type][index].ranks;
+    const PRIOR = 'Prior';
+    if (this[type + PRIOR][index]) {
+      this.skillPoints = this.skillPoints - (val - this[type + PRIOR][index]);
     } else {
       this.skillPoints = this.skillPoints - val;
     }
-    this.skillsPrior[skillIndex] = val;
+    this[type + PRIOR][index] = val;
   }
 
-  trackWeapon(weaponIndex: number): void {
-    const val = this.newCharacter.weaponSkills[weaponIndex].ranks;
-    if (this.weaponPrior[weaponIndex]) {
-      this.skillPoints = this.skillPoints - (val - this.weaponPrior[weaponIndex]);
-    } else {
-      this.skillPoints = this.skillPoints - val;
+  validateAttr(attrIndex: number): void {
+    const input = document.getElementById('attr' + attrIndex);
+    if ( this.newCharacter.attributes[attrIndex].value < this.attrMins[attrIndex]) {
+      input.classList.add('bad-input');
+      this.attPoints += (this.newCharacter.attributes[attrIndex].value - this.attrMins[attrIndex]);
+      this.attrPrior[attrIndex] = this.newCharacter.attributes[attrIndex].value = this.attrMins[attrIndex];
+    } else if (this.attPoints < 0) {
+      input.classList.add('bad-input');
+      this.newCharacter.attributes[attrIndex].value += this.attPoints;
+      this.attrPrior[attrIndex] = this.newCharacter.attributes[attrIndex].value;
+      this.attPoints -= this.attPoints;
+    } else if (input.classList.contains('bad-input')) {
+      input.classList.remove('bad-input');
     }
-    this.weaponPrior[weaponIndex] = val;
   }
 
-  trackMagic(magicIndex: number): void {
-    const val = this.newCharacter.magicSkills[magicIndex].ranks;
-    if (this.magicPrior[magicIndex]) {
-      this.skillPoints = this.skillPoints - (val - this.magicPrior[magicIndex]);
-    } else {
-      this.skillPoints = this.skillPoints - val;
+  validate(index: number, type: string): void {
+    const input = document.getElementById(type + index);
+    const PRIOR = 'Prior';
+    if (this.newCharacter[type][index].ranks < 0) {
+      input.classList.add('bad-input');
+      this.skillPoints += (this.newCharacter[type][index].ranks);
+      this[type + PRIOR][index] = this.newCharacter[type][index].ranks = 0;
+    } else if (this.skillPoints < 0) {
+      input.classList.add('bad-input');
+      this.newCharacter[type][index].ranks += this.skillPoints;
+      this[type + PRIOR][index] = this.newCharacter[type][index].ranks;
+      this.skillPoints -= this.skillPoints;
+    } else if (input.classList.contains('bad-input')) {
+      input.classList.remove('bad-input');
     }
-    this.magicPrior[magicIndex] = val;
   }
 
   resetSkills(): void {
