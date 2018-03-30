@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { HttpClientModule } from '@angular/common/http';
+import { InMemoryDataService } from './in-memory-data.service';
+
 
 import { AppComponent } from './app.component';
 import { CharactersComponent } from './characters/characters.component';
@@ -11,7 +15,6 @@ import { DieComponent } from './die/die.component';
 import { CharacterCreateComponent } from './character-create/character-create.component';
 import { CharacterLevelUpComponent } from './character-level-up/character-level-up.component';
 import { CharacterService } from './character.service';
-
 
 @NgModule({
   declarations: [
@@ -24,7 +27,11 @@ import { CharacterService } from './character.service';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, {passThruUnknownUrl: true, dataEncapsulation: false}
+    )
   ],
   providers: [CharacterService],
   bootstrap: [AppComponent]

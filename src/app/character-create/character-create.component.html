@@ -506,8 +506,8 @@
               [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'" [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
               <td class="name">{{ attr.name }}</td>
               <td>
-                <input type="number" [(ngModel)]="attr.value" max="{{ 24 < attr.value + attPoints ? 24 : attr.value + attPoints }}" min="{{ attrMins[i] }}"
-                  (change)="trackAtt(i)">
+                <input id="{{ 'attr'+i }}" type="number" [(ngModel)]="attr.value" max="{{ 24 < attr.value + attPoints ? 24 : attr.value + attPoints }}" min="{{ attrMins[i] }}"
+                  (change)="trackAtt(i)" (blur)="validateAttr(i)">
               </td>
               <td>
                 {{ calcMod(attr) }} {{ attr.modifier }}
@@ -585,7 +585,7 @@
               </ng-template>
             </td>
             <td>
-              <input class="skill-input" type="number" [(ngModel)]="skill.ranks" min="0" max="{{ skill.ranks + skillPoints }}" (change)="trackSkill(j)">
+              <input id="{{ 'skills'+j }}" class="skill-input" type="number" [(ngModel)]="skill.ranks" min="0" max="{{ skill.ranks + skillPoints }}" (change)="track(j, 'skills')" (blur)="validate(j, 'skills')">
             </td>
             <td>
               {{ skill.racial }}
@@ -627,7 +627,7 @@
             </td>
             <td class="name">{{ weapon.skillName }}</td>
             <td>
-              <input type="number" [(ngModel)]="weapon.ranks" min="0" max="{{ weapon.ranks + skillPoints }}" (change)="trackWeapon(k)">
+              <input id="{{ 'weaponSkills'+k }}" class="skill-input" type="number" [(ngModel)]="weapon.ranks" min="0" max="{{ weapon.ranks + skillPoints }}" (change)="track(k, 'weaponSkills')" (blur)="validate(k, 'weaponSkills')">
             </td>
             <td>
               {{ weapon.racial }}
@@ -660,7 +660,7 @@
               <span class="info">{{ getMod(magic.modifier) }}</span>
             </td>
             <td>
-              <input type="number" [(ngModel)]="magic.ranks" min="0" max="{{ magic.ranks + skillPoints }}" (change)="trackMagic(m)">
+              <input id="{{ 'magicSkills'+m }}" class="skill-input" type="number" [(ngModel)]="magic.ranks" min="0" max="{{ magic.ranks + skillPoints }}" (change)="track(m, 'magicSkills')" (blur)="validate(m, 'magicSkills')">
             </td>
             <td class="total">
               {{ magic.ranks + getMod(magic.modifier) }}

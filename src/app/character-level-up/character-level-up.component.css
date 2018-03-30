@@ -4,6 +4,9 @@
 .skill{
   width: calc(100% / 3);
 }
+.bad-input, input:out-of-range{
+  background-color: lightcoral;
+} 
 @media(max-width: 900px){
   .skill{
     height: 2em;
