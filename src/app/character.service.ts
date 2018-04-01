@@ -7,7 +7,6 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Character } from './Character/character';
-import { CHARACTERS } from './mock-character';
 
 @Injectable()
 export class CharacterService {
@@ -23,7 +22,7 @@ export class CharacterService {
         const outcome = ch ? 'Got charcaters' : 'Found a problem';
         console.log(outcome);
       }),
-      catchError(this.handleError('fetchCharacters', CHARACTERS))
+      catchError(this.handleError('fetchCharacters', []))
     );
   }
 

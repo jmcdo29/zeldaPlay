@@ -229,6 +229,10 @@ td.total{
   .tab{
     width: calc(200% / 8);
   }
+  .modal-content{
+    margin-top: 25%;
+    margin-bottom: 25%;
+  }
 }
 
 /* everywhere else */
