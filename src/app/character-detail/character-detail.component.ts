@@ -109,6 +109,9 @@ export class CharacterDetailComponent implements OnInit {
 
   setEdit(): void {
     this.levelUp.ngOnInit();
+    if (this.editMode) {
+      this.character.levelUp();
+    }
     this.editMode = !this.editMode;
   }
 

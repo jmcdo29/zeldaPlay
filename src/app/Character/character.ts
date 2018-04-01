@@ -6,6 +6,7 @@ import { RangedWeapon } from '../Weapons/rangeWeapon';
 const BASE = 8;
 export class Character {
   _id?: number;
+  level: number;
   name: string;
   race: string;
   subRace?: string;
@@ -521,5 +522,20 @@ export class Character {
     this.exp = 0;
   }
 
+  calcMods(): void {
+    for (let i = 0; i < this.attributes.length; i++) {
+      const attVal = this.attributes[i].value;
+      const modVal = attVal % 2 === 0 ? (attVal - 10) / 2 : (attVal - 11) / 2;
+      this.attributes[i].modifier = modVal;
+    }
+  }
+
+  levelUp(): void {
+    this.maxHealth += 16 + this.attributes[2].modifier;
+    this.maxMagic += 3 + this.attributes[4].modifier;
+    this.health = this.maxHealth;
+    this.magic = this.maxMagic;
+    this.level++;
+  }
 
 }
