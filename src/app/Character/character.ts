@@ -530,12 +530,4 @@ export class Character {
     }
   }
 
-  levelUp(): void {
-    this.maxHealth += 16 + this.attributes[2].modifier;
-    this.maxMagic += 3 + this.attributes[4].modifier;
-    this.health = this.maxHealth;
-    this.magic = this.maxMagic;
-    this.level++;
-  }
-
 }
