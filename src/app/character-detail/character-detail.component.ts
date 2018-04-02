@@ -109,8 +109,8 @@ export class CharacterDetailComponent implements OnInit {
 
   setEdit(): void {
     this.levelUp.ngOnInit();
-    if (this.editMode) {
-      this.character.levelUp();
+    if (!this.editMode) {
+      this.upLevel();
     }
     this.editMode = !this.editMode;
   }
@@ -121,6 +121,14 @@ export class CharacterDetailComponent implements OnInit {
         return this.character.attributes[i].modifier;
       }
     }
+  }
+
+  upLevel(): void {
+    this.character.maxHealth += 16 + this.character.attributes[2].modifier;
+    this.character.maxMagic += 3 + this.character.attributes[4].modifier;
+    this.character.health = this.character.maxHealth;
+    this.character.magic = this.character.maxMagic;
+    this.character.level++;
   }
 
 }
