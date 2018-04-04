@@ -1,7 +1,8 @@
 import { Attribute } from './attribute';
 import { Skill } from './skill';
-import { Weapon } from '../Weapons/weapon';
-import { RangedWeapon } from '../Weapons/rangeWeapon';
+import { Weapon } from './Weapons/weapon';
+import { RangedWeapon } from './Weapons/rangeWeapon';
+import { Spell } from './spells';
 
 const BASE = 8;
 export class Character {
@@ -29,6 +30,7 @@ export class Character {
   magicSkills: Skill[];
   meleeWeapons?: Weapon[];
   rangedWeapons?: RangedWeapon[];
+  spells?: Spell[];
 
   constructor() {
     this.attributes = [
@@ -520,14 +522,6 @@ export class Character {
       }
     ];
     this.exp = 0;
-  }
-
-  calcMods(): void {
-    for (let i = 0; i < this.attributes.length; i++) {
-      const attVal = this.attributes[i].value;
-      const modVal = attVal % 2 === 0 ? (attVal - 10) / 2 : (attVal - 11) / 2;
-      this.attributes[i].modifier = modVal;
-    }
   }
 
 }

@@ -128,7 +128,7 @@
                   {{ weapon.skillName }}
                 </td>
                 <td>
-                  <input id="{{ 'weaponSkills'+j }}" class="skill-input" type="number" min="{{ weaponStarts[j] }}" max="{{ weapon.ranks + skillPoints > weaponStarts[j] ? weapon.ranks + skillpoints : weaponStarts[j] }}" [(ngModel)]="weapon.ranks" (change)="track(j, 'weaponSkills')" (blur)="validate(j, 'weaponSkills')">
+                  <input id="{{ 'weaponSkills'+j }}" class="skill-input" type="number" min="{{ weaponStarts[j] }}" max="{{ weapon.ranks + skillPoints > weaponStarts[j] ? weapon.ranks + skillPoints : weaponStarts[j] }}" [(ngModel)]="weapon.ranks" (change)="track(j, 'weaponSkills')" (blur)="validate(j, 'weaponSkills')">
                 </td>
                 <td>
                   {{ weapon.racial }}

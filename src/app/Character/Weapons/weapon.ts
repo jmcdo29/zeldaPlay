@@ -1,6 +1,6 @@
 import { Elemental } from './elemental';
 
-export interface Weapon {
+export class Weapon {
   name: string;
   attack: number;               // Number of sides the damage dice has
   numberOfAttacks: number;      // For the in case you have multiple attack dice
