@@ -1,6 +1,7 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 import { Character } from './Character/character';
+import { methods } from './Character/character-methods';
 
 import { Fairy } from './Races/Fairy';
 import { Gerudo } from './Races/Gerudo';
@@ -47,7 +48,7 @@ export class InMemoryDataService implements InMemoryDbService {
     Bryte.weaponSkills[23].ranks = 3;
     Bryte.magicSkills[1].ranks = 8;
     Bryte.magicSkills[2].ranks = 1;
-    Bryte.calcMods();
+    methods.calcMod(Bryte);
 
     const Rya = new Gerudo();
     Rya.level = 4;
@@ -70,7 +71,7 @@ export class InMemoryDataService implements InMemoryDbService {
     Rya.weaponSkills[10].ranks = 4;
     Rya.weaponSkills[13].ranks = 5;
     Rya.weaponSkills[26].ranks = 4;
-    Rya.calcMods();
+    methods.calcMod(Rya);
 
     const Greyson = new Goron('Rock Spine');
     Greyson.name = 'Greyson';
@@ -104,7 +105,7 @@ export class InMemoryDataService implements InMemoryDbService {
     Greyson.weaponSkills[17].ranks = 3;
     Greyson.weaponSkills[18].ranks = 3;
     Greyson.weaponSkills[26].ranks = 13;
-    Greyson.calcMods();
+    methods.calcMod(Greyson);
 
     const Golo = new Hylian('Farmer');
     Golo.name = 'Golo';
@@ -126,9 +127,9 @@ export class InMemoryDataService implements InMemoryDbService {
     Golo.skills[9].ranks = 1;
     Golo.skills[22].ranks = 4;
     Golo.skills[29].ranks = 2;
-    Golo.calcMods();
+    methods.calcMod(Golo);
 
-    const characters = [Bryte, Rya, Greyson, Golo];
+    const characters: Character[] = [Bryte, Rya, Greyson, Golo];
     return {characters};
   }
 }

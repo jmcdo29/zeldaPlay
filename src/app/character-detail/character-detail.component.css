@@ -47,9 +47,41 @@ button.square{
 .body-head{
   margin: 1em .2em;
 }
+.menuBar{
+  color: black;
+  float: left;
+  width: calc(100% / 3);
+  background-color: #5cb85c;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.6s;
+  margin-bottom: 2em;
+}
+h4.menu{
+  padding: 0.5em 1em;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+.menuBar:hover{
+  background-color: #229e22;
+}
+.menuBar.active{
+  background-color: #229e22;
+}
 @media(max-width: 900px){
   .right{
     margin-left: 50%;
   }
+  .menuBar{
+    line-height: 3;
+  }
+  .menu{
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: center;
+    line-height: 1;
+    word-wrap: normal;
+  }
 }
-

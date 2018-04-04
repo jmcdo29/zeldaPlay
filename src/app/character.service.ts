@@ -19,7 +19,9 @@ export class CharacterService {
     return this.httpClient.get<Character[]>(this.characterUrl)
     .pipe(
       tap(ch => {
-        const outcome = ch ? 'Got charcaters' : 'Found a problem';
+        console.log(ch);
+        console.log(typeof ch);
+        const outcome = ch ? 'Got characters' : 'Found a problem';
         console.log(outcome);
       }),
       catchError(this.handleError('fetchCharacters', []))
@@ -29,7 +31,6 @@ export class CharacterService {
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error('ERROR:', error);
-
       return of(result as T);
     };
   }

@@ -7,6 +7,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { HttpClientModule } from '@angular/common/http';
 import { InMemoryDataService } from './in-memory-data.service';
 
+import { SharedModule } from './CustomPipes/customPipes';
 
 import { AppComponent } from './app.component';
 import { CharactersComponent } from './characters/characters.component';
@@ -15,6 +16,9 @@ import { DieComponent } from './die/die.component';
 import { CharacterCreateComponent } from './character-create/character-create.component';
 import { CharacterLevelUpComponent } from './character-level-up/character-level-up.component';
 import { CharacterService } from './character.service';
+import { CharacterSkillsComponent } from './character-skills/character-skills.component';
+import { CharacterWeaponComponent } from './character-weapon/character-weapon.component';
+import { CharacterSpellComponent } from './character-spell/character-spell.component';
 
 @NgModule({
   declarations: [
@@ -23,11 +27,15 @@ import { CharacterService } from './character.service';
     CharacterDetailComponent,
     DieComponent,
     CharacterCreateComponent,
-    CharacterLevelUpComponent
+    CharacterLevelUpComponent,
+    CharacterSkillsComponent,
+    CharacterWeaponComponent,
+    CharacterSpellComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    SharedModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, {passThruUnknownUrl: true, dataEncapsulation: false}

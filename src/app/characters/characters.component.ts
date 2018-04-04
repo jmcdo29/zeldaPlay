@@ -38,6 +38,7 @@ export class CharactersComponent implements OnInit {
       .subscribe(characters => {
         this.characters = characters;
         console.log(this.characters);
+        console.log(typeof this.characters[0]);
       });
   }
 

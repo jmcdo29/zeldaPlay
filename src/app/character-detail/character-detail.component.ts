@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Character } from '../Character/character';
 import { Attribute } from '../Character/attribute';
 import { CharacterLevelUpComponent } from '../character-level-up/character-level-up.component';
+import { methods } from '../Character/character-methods';
 
 @Component({
   selector: 'app-character-detail',
@@ -22,12 +23,11 @@ export class CharacterDetailComponent implements OnInit {
   maxDmg = false;
 
   showDets = true;
-  showSkills = true;
-  showWeapon = true;
-  showMagic = true;
 
   changeHP = false;
   changeMP = false;
+
+  showSet = [true, false, false];
 
   hpDmg: number;
   mpDmg: number;
@@ -82,53 +82,22 @@ export class CharacterDetailComponent implements OnInit {
     console.log(this.showDets);
   }
 
-  expandSkill(): void {
-    this.showSkills = !this.showSkills;
-  }
-
-  expandWeapon(): void {
-    this.showWeapon = !this.showWeapon;
-  }
-
-  expandMagic(): void {
-    this.showMagic = !this.showMagic;
-  }
-
-  print(value: string): void {
-    console.log(value);
-  }
-
   setRoll(value: string): void {
     this.roll = value;
-  }
-
-  setMod(attr: Attribute): void {
-    attr.modifier =
-      attr.value % 2 === 0 ? (attr.value - 10) / 2 : (attr.value - 11) / 2;
   }
 
   setEdit(): void {
     this.levelUp.ngOnInit();
     if (!this.editMode) {
-      this.upLevel();
+      methods.levelUp(this.character);
     }
     this.editMode = !this.editMode;
   }
 
-  getMod(modName: string): number {
-    for (let i = 0; i < this.character.attributes.length; i++) {
-      if (this.character.attributes[i].name === modName) {
-        return this.character.attributes[i].modifier;
-      }
+  changeSection(index: number): void {
+    for (let i = 0; i < this.showSet.length; i++) {
+      this.showSet[i] = false;
     }
+    this.showSet[index] = true;
   }
-
-  upLevel(): void {
-    this.character.maxHealth += 16 + this.character.attributes[2].modifier;
-    this.character.maxMagic += 3 + this.character.attributes[4].modifier;
-    this.character.health = this.character.maxHealth;
-    this.character.magic = this.character.maxMagic;
-    this.character.level++;
-  }
-
 }

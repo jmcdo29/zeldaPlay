@@ -1,0 +1,87 @@
+<datalist id="defaultDice">
+  <option value="4">4</option>
+  <option value="6">6</option>
+  <option value="8">8</option>
+  <option value="10">10</option>
+  <option value="12">12</option>
+</datalist>
+<datalist id="defaultNumbers">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+</datalist>
+<div *ngIf="newSpell">
+  <div class="modal" [class.showModal]="newSpell">
+    <div class="modal-content smaller">
+      <div class="modal-header">
+        <span class="close" (click)="addSpell()">&times;</span>
+        <h2>Add Spell</h2>
+      </div>
+      <div class="modal-body">
+        <div class="table-holder">
+          <div class="improv-table">
+            <b class="head">Spell name</b>
+            <input id="spellName" type="text" [(ngModel)]="spell.name" title="Enter the spell's name here" class="name" (blur)="removeError('spellName', 'name')">
+          </div>
+          <div class="improv-table">
+            <b class="head">Spell Effect</b>
+            <textarea id="spellEffect" rows="2" [(ngModel)]="spell.effect" title="Enter what the spell does" class="description" (blur)="removeError('spellEffect', 'effect')"></textarea>
+          </div>
+          <div class="improv-table">
+            <b class="head">Number of Dice</b>
+            <input id="spellMult" type="number" [(ngModel)]="spell.multiplier" min="1" max="4" list="defaultNumbers" class="dropdown" (blur)="removeError('spellMult', 'multiplier')">
+          </div>
+          <div class="improv-table">
+            <b class="head">Spell Dice Type</b>
+            <input id="spellDam" type="number" [(ngModel)]="spell.damage" list="defaultDice" class="dropdown" (blur)="removeError('spellDam', 'damage')">
+          </div>
+          <div class="improv-table">
+            <b class="head">Modifier (if any)</b>
+            <select id="spellMod" [(ngModel)]="spell.modifier">
+              <option value="null" default=true>None</option>
+              <option *ngFor="let attr of attributes | enumToArray " value="attr"> {{ attr }} </option>
+            </select>
+          </div>
+          <div class="improv-table">
+            <b class="head">MP Use</b><br/>
+            <input type="number" id="mpUse" [(ngModel)]="spell.mpUse" min="0" (blur)="removeError('mpUse', 'mpUse')">
+          </div>
+          <div class="improv-table">
+            <b class="head">Magic Type</b>
+            <select id="spellGod" [(ngModel)]="spell.diety" (blur)="removeError('spellGod', 'diety')">
+              <option *ngFor="let diety of dieties | enumToArray" value="{{ diety }}">{{ diety }}</option>
+            </select>
+          </div>
+          <div class="improv-table">
+            <b class="head">Submit</b><br/>
+            <button class="save" (click)="saveSpell()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button (click)="addSpell()">New Spell</button>
+<div *ngIf="character.spells">
+  <table>
+    <thead>
+      <tr>
+        <th>Spell name</th>
+        <th>Spell Description</th>
+        <th>Effect Die</th>
+        <th>MP Use</th>
+        <th>Magic Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let spell of character.spells">
+        <td>{{ spell.name }}</td>
+        <td>{{ spell.effect }}</td>
+        <td>{{ spell.multiplier }}D{{ spell.damage }}</td>
+        <td>{{ spell.mpUse }}</td>
+        <td>{{ spell.diety }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
