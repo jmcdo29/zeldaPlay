@@ -44,24 +44,28 @@ export class CharacterLevelUpComponent implements OnInit {
       minimums.push(this.currChar.attributes[i].value);
     }
     this.minimums = minimums;
+    this.attrPrior = this.minimums;
 
     const skillStarts = new Array();
     for (let j = 0; j < this.currChar.skills.length; j++) {
       skillStarts.push(this.currChar.skills[j].ranks);
     }
     this.skillStarts = skillStarts;
+    this.skillsPrior = this.skillStarts;
 
     const weaponStarts = new Array();
     for (let k = 0; k < this.currChar.weaponSkills.length; k++) {
       weaponStarts.push(this.currChar.weaponSkills[k].ranks);
     }
     this.weaponStarts = weaponStarts;
+    this.weaponSkillsPrior = this.weaponStarts;
 
     const magicStarts = new Array();
     for (let m = 0; m < this.currChar.magicSkills.length; m++) {
       magicStarts.push(this.currChar.magicSkills[m].ranks);
     }
     this.magicStarts = magicStarts;
+    this.magicSkillsPrior = this.magicStarts;
   }
 
   showTab(tabIndex: number): void {

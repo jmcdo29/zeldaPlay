@@ -2,14 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CharactersComponent } from '../characters/characters.component';
 import { Character } from '../Character/character';
 import { Attribute } from '../Character/attribute';
-import { Hylian } from '../Races/Hylian';
-import { Goron } from '../Races/Goron';
-import { Zora } from '../Races/Zora';
-import { Gerudo } from '../Races/Gerudo';
-import { Sheikah } from '../Races/Sheikah';
-import { Rito } from '../Races/Rito';
-import { Twili } from '../Races/Twili';
-import { Fairy } from '../Races/Fairy';
+import { Fairy, Gerudo, Goron, Hylian, Rito, Sheikah, Twili, Zora } from '../Races/Races';
 
 @Component({
   selector: 'app-character-create',

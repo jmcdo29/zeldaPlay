@@ -3,10 +3,7 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Character } from './Character/character';
 import { methods } from './Character/character-methods';
 
-import { Fairy } from './Races/Fairy';
-import { Gerudo } from './Races/Gerudo';
-import { Goron } from './Races/Goron';
-import { Hylian } from './Races/Hylian';
+import { Fairy, Gerudo, Goron, Hylian } from './Races/Races';
 
 export class InMemoryDataService implements InMemoryDbService {
 

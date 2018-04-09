@@ -1,7 +1,6 @@
 import { Attribute } from './attribute';
 import { Skill } from './skill';
-import { Weapon } from './Weapons/weapon';
-import { RangedWeapon } from './Weapons/rangeWeapon';
+import { Weapon, RangedWeapon } from './Weapons/weapon';
 import { Spell } from './spells';
 
 const BASE = 8;

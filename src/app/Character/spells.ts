@@ -5,5 +5,5 @@ export class Spell {
   damage: number;
   multiplier: number;
   modifier?: string;
-  diety: number;
+  diety: string;
 }

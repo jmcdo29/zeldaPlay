@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Character } from '../Character/character';
+import { Weapon, RangedWeapon } from '../Character/Weapons/weapon';
 
 @Component({
   selector: 'app-character-weapon',
@@ -13,13 +14,31 @@ export class CharacterWeaponComponent implements OnInit {
 
   newWeapon = false;
 
+  mWeapon: Weapon;
+  meleeWeapons: Weapon[];
+
+  rWeapon: RangedWeapon;
+  rangedWeapons: RangedWeapon[];
+
   constructor() { }
 
   ngOnInit() {
+    this.mWeapon = new Weapon();
+    this.rWeapon = new RangedWeapon();
+    this.meleeWeapons = this.character.meleeWeapons;
+    this.rangedWeapons = this.character.rangedWeapons;
   }
 
   addWeapon(): void {
     this.newWeapon = !this.newWeapon;
+  }
+
+  saveWeapon(): void {
+
+  }
+
+  validate(id: string, key: string): void {
+
   }
 
 }

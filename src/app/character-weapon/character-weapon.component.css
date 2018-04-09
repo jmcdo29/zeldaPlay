@@ -1,0 +1,38 @@
+input.dropdown::-webkit-inner-spin-button, input.dropdown::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
+input, textarea, select, button.save{
+  width: 90%; 
+}
+
+.improv-table{
+  float: left; 
+  width: calc(98% / 8); 
+  /* max-width: calc(100% / 8); */
+  padding: 5px 1px;
+}
+.table-holder::after{
+  content: "";
+  display: table;
+  clear: both;
+}
+.bad-input{
+  background-color: lightcoral;
+}
+
+@media(max-width: 900px){
+  /* .table-data-for-mobile{
+    float: left;
+  } */
+  .improv-table{
+    float: none;
+    width: 100%;
+    max-width: 100%;
+  }
+  .smaller{
+    width: 80%;
+    margin: 10% 10%;
+  }
+  
+}
