@@ -19,4 +19,3 @@ export class EnumToArrayPipe implements PipeTransform {
   exports: [EnumToArrayPipe]
 })
 export class SharedModule {}
-

@@ -31,8 +31,8 @@ input, textarea, select, button.save{
     max-width: 100%;
   }
   .smaller{
-    width: 50%;
-    margin: 10% 25%;
+    width: 80%;
+    margin: 10% 10%;
   }
   
 }

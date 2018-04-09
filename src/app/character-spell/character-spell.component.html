@@ -22,34 +22,36 @@
         <div class="table-holder">
           <div class="improv-table">
             <b class="head">Spell name</b>
-            <input id="spellName" type="text" [(ngModel)]="spell.name" title="Enter the spell's name here" class="name" (blur)="removeError('spellName', 'name')">
+            <input id="spellName" type="text" [(ngModel)]="spell.name" title="Enter the spell's name here" class="name" (blur)="validate('spellName', 'name')">
           </div>
           <div class="improv-table">
             <b class="head">Spell Effect</b>
-            <textarea id="spellEffect" rows="2" [(ngModel)]="spell.effect" title="Enter what the spell does" class="description" (blur)="removeError('spellEffect', 'effect')"></textarea>
+            <textarea id="spellEffect" rows="2" [(ngModel)]="spell.effect" title="Enter what the spell does" class="description" (blur)="validate('spellEffect', 'effect')"></textarea>
           </div>
           <div class="improv-table">
             <b class="head">Number of Dice</b>
-            <input id="spellMult" type="number" [(ngModel)]="spell.multiplier" min="1" max="4" list="defaultNumbers" class="dropdown" (blur)="removeError('spellMult', 'multiplier')">
+            <input id="spellMult" type="number" [(ngModel)]="spell.multiplier" min="1" max="4" list="defaultNumbers" class="dropdown" (blur)="validate('spellMult', 'multiplier')">
           </div>
           <div class="improv-table">
             <b class="head">Spell Dice Type</b>
-            <input id="spellDam" type="number" [(ngModel)]="spell.damage" list="defaultDice" class="dropdown" (blur)="removeError('spellDam', 'damage')">
+            <input id="spellDam" type="number" [(ngModel)]="spell.damage" list="defaultDice" class="dropdown" (blur)="validate('spellDam', 'damage')">
           </div>
           <div class="improv-table">
             <b class="head">Modifier (if any)</b>
             <select id="spellMod" [(ngModel)]="spell.modifier">
-              <option value="null" default=true>None</option>
-              <option *ngFor="let attr of attributes | enumToArray " value="attr"> {{ attr }} </option>
+              <option value="null">None</option>
+              <option value="Intelligence">Intelligence</option>
+              <option value="Wisdom">Wisdom</option>
+              <option value="Charisma">Charisma</option>
             </select>
           </div>
           <div class="improv-table">
             <b class="head">MP Use</b><br/>
-            <input type="number" id="mpUse" [(ngModel)]="spell.mpUse" min="0" (blur)="removeError('mpUse', 'mpUse')">
+            <input type="number" id="mpUse" [(ngModel)]="spell.mpUse" min="0" (blur)="validate('mpUse', 'mpUse')">
           </div>
           <div class="improv-table">
             <b class="head">Magic Type</b>
-            <select id="spellGod" [(ngModel)]="spell.diety" (blur)="removeError('spellGod', 'diety')">
+            <select id="spellGod" [(ngModel)]="spell.diety" (blur)="validate('spellGod', 'diety')">
               <option *ngFor="let diety of dieties | enumToArray" value="{{ diety }}">{{ diety }}</option>
             </select>
           </div>
@@ -75,7 +77,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let spell of character.spells">
+      <tr *ngFor="let spell of character.spells" [class.nayru]="spell.diety === 'Nayru'" [class.farore]="spell.diety === 'Farore'" [class.din]="spell.diety === 'Din'">
         <td>{{ spell.name }}</td>
         <td>{{ spell.effect }}</td>
         <td>{{ spell.multiplier }}D{{ spell.damage }}</td>

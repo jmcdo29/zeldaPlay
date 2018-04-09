@@ -70,8 +70,11 @@ export class CharacterSpellComponent implements OnInit {
     }
   }
 
-  removeError(id: string, key: string): void {
-    if (document.getElementById(id).classList.contains('bad-input') && this.spell[key]) {
+  validate(id: string, key: string): void {
+    if (this.spell[key].trim() === '' || ((key === 'name' || key === 'effect') && !/^[a-zA-Z\s]+$/i.test(this.spell[key]))) {
+      document.getElementById(id).classList.add('bad-input');
+      this.spell[key] = '';
+    } else if (document.getElementById(id).classList.contains('bad-input') && this.spell[key]) {
       document.getElementById(id).classList.remove('bad-input');
     }
   }

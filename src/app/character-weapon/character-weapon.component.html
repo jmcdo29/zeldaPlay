@@ -4,3 +4,110 @@
   {{ character.name }} weapons<br/>
   This is where I am going to show you your weapons and allow you to add new ones. It's going to be a lot of work! Yay!!!
 </p>
+<div class="modal" [class.showModal]="newWeapon">
+  <div class="modal-content smaller">
+    <div class="modal-header">
+      <span class="close" (click)="addWeapon()">&times;</span>
+      <h2>Add Weapon</h2>
+    </div>
+    <div class="modal-body">
+      <div class="table-holder">
+        <div class="improv-table">
+          <b>Weapon name</b>
+          <p>Add the weapons Name</p>
+        </div>
+        <div class="improv-table">
+          <b>Weapon Type</b>
+          <p>Drop down list of the weapon types</p>
+        </div>
+        <div class="improv-table">
+          <b>Number of Dice</b>
+          <p>The number of dice used to attack</p>
+        </div>
+        <div class="improv-table">
+          <b>Number of Die Sides</b>
+          <p>The kind of dice used to attack. Drop down list</p>
+        </div>
+        <div class="improv-table">
+          <b>Critial Hit Range</b>
+          <p>Critical hit range. Figure out how to parse this</p>
+        </div>
+        <div class="improv-table">
+          <b>Critical Hit Multiplier</b>
+          <p>The number you multiply the crit hit by</p>
+        </div>
+        <div class="improv-table">
+          <b>Damage Modifier</b>
+          <p>The attribute tied to the weapon</p>
+        </div>
+        <div class="improv-table">
+          <b>Element</b>
+          <p>If there is an element and it's type</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button (click)="addWeapon()">New Weapon</button>
+
+<div *ngIf="character.meleeWeapons">
+  <table>
+    <thead>
+      <tr>
+        <th>Weapon Name</th>
+        <th>Weapon Type</th>
+        <th>Weapon Damage</th>
+        <th>Critical Hit Range</th>
+        <th>Critical Multiplier</th>
+        <th>Damage Modifier</th>
+        <th>Element</th>
+        <th>Elemental Damage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let melee of character.meleeWeapons">
+        <td>{{ melee.name }}</td>
+        <td>{{ melee.type }}</td>
+        <td>{{ melee.numberOfAttacks }}D{{ melee.attack }}</td>
+        <td>{{ melee.critRange }}</td>
+        <td>X{{ melee.critDamage }}</td>
+        <td>{{ melee.modifier }}</td>
+        <td>{{ melee.element ? melee.element.type : 'N/A'}}</td>
+        <td>{{ melee.element ? melee.element.numberOfAttacks + 'D' + melee.element.attack : ''}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="character.rangedWeapons">
+  <table>
+    <thead>
+      <tr>
+        <th>Weapon Name</th>
+        <th>Weapon Type</th>
+        <th>Weapon Damage</th>
+        <th>Critical Hit Range</th>
+        <th>Critical Multiplier</th>
+        <th>Damage Modifier</th>
+        <th>Range</th>
+        <th>Ammo</th>
+        <th>Element</th>
+        <th>Elemental Damage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let range of character.rangedWeapons">
+        <td>{{ range.name }}</td>
+        <td>{{ range.type }}</td>
+        <td>{{ range.numberOfAttacks }}D{{ range.attack }}</td>
+        <td>{{ range.critRange }}</td>
+        <td>{{ range.critDamage }}</td>
+        <td>{{ range.modifier }}</td>
+        <td>{{ range.range }}</td>
+        <td>{{ range.ammo ? range.ammo : 'N/A' }}</td>
+        <td>{{ range.element ? range.element.type : 'N/A' }}</td>
+        <td>{{ range.element ? range.element.numberOfAttacks + 'D' + range.element.attack : ''}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
