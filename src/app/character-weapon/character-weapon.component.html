@@ -74,11 +74,13 @@
         <div *ngIf="isElemental">
           <div class="improv-table">
             <b>Element Type</b>
-            <input id="eType" type="text" [(ngModel)]="elemental.type" (blur)="validateElement('eType','type')">
+            <select id="eType" [(ngModel)]="elemental.type" (blur)="validateElement('eType','type')">
+              <option *ngFor="let elem of elements | enumToArray" value="{{ elem }}">{{ elem }}</option>
+            </select>
           </div>
           <div class="improv-table">
             <b>Number of Elemental Dice</b>
-            <select id="elementalMut" [(ngModel)]="elemental.numberOfAttacks" (blur)="validateElement('elementalMut', 'numberOfAttacks')">
+            <select id="elementalMult" [(ngModel)]="elemental.numberOfAttacks" (blur)="validateElement('elementalMult', 'numberOfAttacks')">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>

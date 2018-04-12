@@ -5,6 +5,8 @@ import { Weapon } from '../Character/Weapons/weapon';
 
 import { Weapons } from '../Character/Enums/weaponSkills';
 import { Attributes } from '../Character/Enums/attributes';
+import { Elements } from '../Character/Enums/Elements';
+
 import { Elemental } from '../Character/Weapons/elemental';
 
 @Component({
@@ -27,6 +29,7 @@ export class CharacterWeaponComponent implements OnInit {
   isElemental = false;
 
   elemental: Elemental;
+  elements = Elements;
 
   rangeList = [
     'Spear',
@@ -104,11 +107,11 @@ export class CharacterWeaponComponent implements OnInit {
     if (this.isElemental) {
       if (! this.weapon.element.type) {
         error = true;
-        document.getElementById('eTpye').classList.add('bad-input');
+        document.getElementById('eType').classList.add('bad-input');
       }
       if (! this.weapon.element.numberOfAttacks) {
         error = true;
-        document.getElementById('elementalMut').classList.add('bad-input');
+        document.getElementById('elementalMult').classList.add('bad-input');
       }
       if (! this.weapon.element.attack) {
         error = true;
