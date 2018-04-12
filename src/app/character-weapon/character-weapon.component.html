@@ -124,7 +124,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let weapon of character.weapons">
+      <tr *ngFor="let weapon of character.weapons" [class.din]="weapon.modifier === 'Strength' || weapon.modifier === 'Intelligence'"
+      [class.farore]="weapon.modifier === 'Dexterity' || weapon.modifier === 'Charisma'" [class.nayru]="weapon.modifier === 'Wisdom' || weapon.modifier === 'Constitution'">
         <td>{{ weapon.name }}</td>
         <td>{{ weapon.type }}</td>
         <td>{{ weapon.numberOfAttacks }}D{{ weapon.attack }}</td>
