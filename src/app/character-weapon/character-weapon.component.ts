@@ -5,7 +5,7 @@ import { Weapon } from '../Character/Weapons/weapon';
 
 import { Weapons } from '../Character/Enums/weaponSkills';
 import { Attributes } from '../Character/Enums/attributes';
-import { Elements } from '../Character/Enums/Elements';
+import { Elements } from '../Character/Enums/elements';
 
 import { Elemental } from '../Character/Weapons/elemental';
 
