@@ -1,6 +1,6 @@
 import { Attribute } from './attribute';
 import { Skill } from './skill';
-import { Weapon, RangedWeapon } from './Weapons/weapon';
+import { Weapon } from './Weapons/weapon';
 import { Spell } from './spells';
 
 const BASE = 8;
@@ -27,8 +27,7 @@ export class Character {
   skills: Skill[];
   weaponSkills: Skill[];
   magicSkills: Skill[];
-  meleeWeapons?: Weapon[];
-  rangedWeapons?: RangedWeapon[];
+  weapons?: Weapon[];
   spells?: Spell[];
 
   constructor() {

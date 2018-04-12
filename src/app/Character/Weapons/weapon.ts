@@ -10,8 +10,5 @@ export class Weapon {
   modifier: string;
   range: number;
   element?: Elemental;
-}
-
-export class RangedWeapon extends Weapon {
   ammo?: number;
 }

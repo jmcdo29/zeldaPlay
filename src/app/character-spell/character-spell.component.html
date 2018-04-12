@@ -1,16 +1,3 @@
-<datalist id="defaultDice">
-  <option value="4">4</option>
-  <option value="6">6</option>
-  <option value="8">8</option>
-  <option value="10">10</option>
-  <option value="12">12</option>
-</datalist>
-<datalist id="defaultNumbers">
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-  <option value="4">4</option>
-</datalist>
 <div *ngIf="newSpell">
   <div class="modal" [class.showModal]="newSpell">
     <div class="modal-content smaller">
@@ -30,11 +17,22 @@
           </div>
           <div class="improv-table">
             <b class="head">Number of Dice</b>
-            <input id="spellMult" type="number" [(ngModel)]="spell.multiplier" min="1" max="4" list="defaultNumbers" class="dropdown" (blur)="validate('spellMult', 'multiplier')">
+            <select id="spellMult" [(ngModel)]="spell.multiplier" (blur)="validate('spellMult', 'multiplier')">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
           </div>
           <div class="improv-table">
-            <b class="head">Spell Dice Type</b>
-            <input id="spellDam" type="number" [(ngModel)]="spell.damage" list="defaultDice" class="dropdown" (blur)="validate('spellDam', 'damage')">
+            <b class="head">Dice Type</b>
+            <select id="spellDam" [(ngModel)]="spell.damage" (blur)="validate('spellDam','damage')">
+              <option value="4">D4</option>
+              <option value="6">D6</option>
+              <option value="8">D8</option>
+              <option value="10">D10</option>
+              <option value="12">D12</option>
+            </select>
           </div>
           <div class="improv-table">
             <b class="head">Modifier (if any)</b>

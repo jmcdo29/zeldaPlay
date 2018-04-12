@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+import { mongoose } from "mongoose";
+import { bcrypt } from "bcryptjs";
 
 let userSchema = mongoose.Schema({
   email: {

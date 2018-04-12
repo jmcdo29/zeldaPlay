@@ -1,9 +1,3 @@
-<h2>Caution!!!</h2>
-<h3>Still in Development!</h3>
-<p>
-  {{ character.name }} weapons<br/>
-  This is where I am going to show you your weapons and allow you to add new ones. It's going to be a lot of work! Yay!!!
-</p>
 <div class="modal" [class.showModal]="newWeapon">
   <div class="modal-content smaller">
     <div class="modal-header">
@@ -14,36 +8,98 @@
       <div class="table-holder">
         <div class="improv-table">
           <b>Weapon name</b>
-          <p>Add the weapons Name</p>
+          <input id="weaponName" type="text" [(ngModel)]="weapon.name" (blur)="validate('weaponName', 'name')">
         </div>
         <div class="improv-table">
           <b>Weapon Type</b>
-          <p>Drop down list of the weapon types</p>
+          <select id="weaponType" [(ngModel)]="weapon.type" (blur)="validate('weaponType', 'type')" (change)="checkForRanged()">
+            <option *ngFor="let weaponS of allWeapons | enumToArray" value="{{ weaponS }}">{{ weaponS }}</option>
+          </select>
         </div>
         <div class="improv-table">
           <b>Number of Dice</b>
-          <p>The number of dice used to attack</p>
+          <select id="weaponMult" [(ngModel)]="weapon.numberOfAttacks" (blur)="validate('weaponMult', 'numberOfAttacks')">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
         </div>
         <div class="improv-table">
-          <b>Number of Die Sides</b>
-          <p>The kind of dice used to attack. Drop down list</p>
+          <b>Dice Type</b>
+          <select id="weaponDam" [(ngModel)]="weapon.attack" (blur)="validate('weaponDam','attack')">
+            <option value="4">D4</option>
+            <option value="6">D6</option>
+            <option value="8">D8</option>
+            <option value="10">D10</option>
+            <option value="12">D12</option>
+          </select>
         </div>
         <div class="improv-table">
           <b>Critial Hit Range</b>
-          <p>Critical hit range. Figure out how to parse this</p>
+          <select id="critRange" [(ngModel)]="weapon.critRange" (blur)="validate('critRange', 'critRange')" (change)="setCrit()">
+            <option value="18,19,20">18-20</option>
+            <option value="19,20">19-20</option>
+            <option value="20">20</option>
+          </select>
         </div>
         <div class="improv-table">
           <b>Critical Hit Multiplier</b>
-          <p>The number you multiply the crit hit by</p>
+          <select id="weaponCrit" [(ngModel)]="weapon.critDamage" (blur)="validate('weaponCrit', 'critDamage')">
+            <option value="2">X 2</option>
+            <option value="3">X 3</option>
+            <option value="4">X 4</option>
+          </select>
         </div>
         <div class="improv-table">
           <b>Damage Modifier</b>
-          <p>The attribute tied to the weapon</p>
+          <select id="weaponMod" [(ngModel)]="weapon.modifier" (blur)="validate('weaponMod', 'modifier')">
+            <option *ngFor="let attr of attributes | enumToArray" value="{{ attr }}">{{ attr }}</option>
+          </select>
         </div>
-        <div class="improv-table">
-          <b>Element</b>
-          <p>If there is an element and it's type</p>
+        <div *ngIf="isRangedWeapon">
+          <div class="improv-table rangedWeapon">
+            <b>Range</b>
+            <input id="weaponRange" [(ngModel)]="weapon.range" step="5" (blur)="validate('weaponRange', 'range')">
+          </div>
+          <div class="improv-table rangedWeapon">
+            <b>Ammo (if any)</b>
+            <input id="weaponAmmo" [(ngModel)]="weapon.ammo" step="5" (blur)="validate('weaponAmmo', 'ammo')">
+          </div>
         </div>
+        <div class="improv-table" >
+            <b>Element</b>
+            <input type="checkbox" [(ngModel)]="isElemental" (click)="makeElement()">
+          </div>
+        <div *ngIf="isElemental">
+          <div class="improv-table">
+            <b>Element Type</b>
+            <input id="eType" type="text" [(ngModel)]="elemental.type" (blur)="validateElement('eType','type')">
+          </div>
+          <div class="improv-table">
+            <b>Number of Elemental Dice</b>
+            <select id="elementalMut" [(ngModel)]="elemental.numberOfAttacks" (blur)="validateElement('elementalMut', 'numberOfAttacks')">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+          </div>
+          <div class="improv-table">
+            <b>Elemental Dice Type</b>
+            <select id="elementDam" [(ngModel)]="elemental.attack" (blur)="validateElement('elementDam','attack')">
+                <option value="4">D4</option>
+                <option value="6">D6</option>
+                <option value="8">D8</option>
+                <option value="10">D10</option>
+                <option value="12">D12</option>
+              </select>
+          </div>
+        </div>
+        
+      </div>
+      <div class="submit-button">
+        <button class="center" (click)="saveWeapon()">Save Weapon</button>
       </div>
     </div>
   </div>
@@ -51,7 +107,7 @@
 
 <button (click)="addWeapon()">New Weapon</button>
 
-<div *ngIf="character.meleeWeapons">
+<div *ngIf="character.weapons">
   <table>
     <thead>
       <tr>
@@ -66,47 +122,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let melee of character.meleeWeapons">
-        <td>{{ melee.name }}</td>
-        <td>{{ melee.type }}</td>
-        <td>{{ melee.numberOfAttacks }}D{{ melee.attack }}</td>
-        <td>{{ melee.critRange }}</td>
-        <td>X{{ melee.critDamage }}</td>
-        <td>{{ melee.modifier }}</td>
-        <td>{{ melee.element ? melee.element.type : 'N/A'}}</td>
-        <td>{{ melee.element ? melee.element.numberOfAttacks + 'D' + melee.element.attack : ''}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div *ngIf="character.rangedWeapons">
-  <table>
-    <thead>
-      <tr>
-        <th>Weapon Name</th>
-        <th>Weapon Type</th>
-        <th>Weapon Damage</th>
-        <th>Critical Hit Range</th>
-        <th>Critical Multiplier</th>
-        <th>Damage Modifier</th>
-        <th>Range</th>
-        <th>Ammo</th>
-        <th>Element</th>
-        <th>Elemental Damage</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let range of character.rangedWeapons">
-        <td>{{ range.name }}</td>
-        <td>{{ range.type }}</td>
-        <td>{{ range.numberOfAttacks }}D{{ range.attack }}</td>
-        <td>{{ range.critRange }}</td>
-        <td>{{ range.critDamage }}</td>
-        <td>{{ range.modifier }}</td>
-        <td>{{ range.range }}</td>
-        <td>{{ range.ammo ? range.ammo : 'N/A' }}</td>
-        <td>{{ range.element ? range.element.type : 'N/A' }}</td>
-        <td>{{ range.element ? range.element.numberOfAttacks + 'D' + range.element.attack : ''}}</td>
+      <tr *ngFor="let weapon of character.weapons">
+        <td>{{ weapon.name }}</td>
+        <td>{{ weapon.type }}</td>
+        <td>{{ weapon.numberOfAttacks }}D{{ weapon.attack }}</td>
+        <td>{{ weapon.critRange }}</td>
+        <td>X{{ weapon.critDamage }}</td>
+        <td>{{ weapon.modifier }}</td>
+        <td>{{ weapon.element ? weapon.element.type : 'N/A'}}</td>
+        <td>{{ weapon.element ? weapon.element.numberOfAttacks + 'D' + weapon.element.attack : ''}}</td>
       </tr>
     </tbody>
   </table>

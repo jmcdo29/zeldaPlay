@@ -22,9 +22,6 @@ export class CharactersComponent implements OnInit {
     this.selectedCharacter = null;
     this.newChar = false;
   }
-  calcMod(stat: number): number {
-    return stat % 2 === 0 ? (stat - 10) / 2 : (stat - 11) / 2;
-  }
 
   newCharacter(): void {
     this.hide();
@@ -37,8 +34,6 @@ export class CharactersComponent implements OnInit {
     this.characterService.getCharacters()
       .subscribe(characters => {
         this.characters = characters;
-        console.log(this.characters);
-        console.log(typeof this.characters[0]);
       });
   }
 

@@ -19,8 +19,6 @@ export class CharacterService {
     return this.httpClient.get<Character[]>(this.characterUrl)
     .pipe(
       tap(ch => {
-        console.log(ch);
-        console.log(typeof ch);
         const outcome = ch ? 'Got characters' : 'Found a problem';
         console.log(outcome);
       }),
