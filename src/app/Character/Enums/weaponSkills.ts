@@ -10,7 +10,7 @@ export enum Weapons {
   'Two-Handed Hammer',
   'Spear',
   'Halberd',
-  'Nagitnata',
+  'Naginata',
   'Boomerang',
   'Sling',
   'Bow',

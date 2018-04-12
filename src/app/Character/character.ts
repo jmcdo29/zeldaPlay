@@ -2,6 +2,10 @@ import { Attribute } from './attribute';
 import { Skill } from './skill';
 import { Weapon } from './Weapons/weapon';
 import { Spell } from './spells';
+import { Attributes } from './Enums/attributes';
+import { Weapons } from './Enums/weaponSkills';
+import { Skills } from './Enums/skills';
+import { Magics } from './Enums/magicSkills';
 
 const BASE = 8;
 export class Character {
@@ -31,494 +35,73 @@ export class Character {
   spells?: Spell[];
 
   constructor() {
-    this.attributes = [
-      {
-        name: 'Strength',
-        value: BASE,
-        modifier: 0
-      },
-      {
-        name: 'Dexterity',
-        value: BASE,
-        modifier: 0
-      },
-      {
-        name: 'Constitution',
-        value: BASE,
-        modifier: 0
-      },
-      {
-        name: 'Intelligence',
-        value: BASE,
-        modifier: 0
-      },
-      {
-        name: 'Wisdom',
-        value: BASE,
-        modifier: 0
-      },
-      {
-        name: 'Charisma',
-        value: BASE,
-        modifier: 0
+
+    this.skills = new Array();
+    this.weaponSkills = new Array();
+    this.magicSkills = new Array();
+    this.attributes = new Array();
+
+    for (const key in Attributes) {
+      if (isNaN(Number(key))) {
+        const attr = new Attribute();
+        attr.name = key;
+        attr.value = BASE;
+        attr.modifier = -1;
+        this.attributes.push(attr);
       }
-    ];
-    this.skills = [
-      {
-      skillName: 'Acrobatics', // 0
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Dexterity',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Appraise', // 1
-        trained: false,
-        ranks: 0,
-        modifier: 'Intelligence',
-        racial: 0,
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Bluff', // 2
-        trained: false,
-        ranks: 0,
-        modifier: 'Charisma',
-        racial: 0,
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Climb', // 3
-        trained: false,
-        ranks: 0,
-        modifier: 'Strength',
-        racial: 0,
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Craft 1', // 4
-        trained: false,
-        ranks: 0,
-        modifier: 'Intelligence',
-        racial: 0,
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Craft 2', // 5
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Intelligence',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Diplomacy', // 6
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Charisma',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Escape Artist', // 7
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Dexterity',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Fly', // 8
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Dexterity',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Handle Animal', // 9
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Charisma',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Heal', // 10
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Wisdom',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Intimidate', // 11
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Strength',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Knowledge (Geography)', // 12
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Intelligence',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Knowledge (History)', // 13
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Intelligence',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Knowledge (Language)', // 14
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Intelligence',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Knowledge (Local)', // 15
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Intelligence',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Knowledge (Magic)', // 16
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Intelligence',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Knowledge (Monster)', // 17
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Intelligence',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Knowledge (Nature)', // 18
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Intelligence',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Knowledge (Nobility)', // 19
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Intelligence',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Knowledge (Religion)', // 20
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Intelligence',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Perception', // 21
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Wisdom',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Perform (Music)', // 22
-        trained: true,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Charisma',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Perform', // 23
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Charisma',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Profession', // 24
-        trained: false,
-        ranks: 0,
-        racial: 0,
-        modifier: 'Wisdom',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Ride', // 25
-        ranks: 0,
-        racial: 0,
-        modifier: 'Dexterity',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Sense Motive', // 26
-        ranks: 0,
-        racial: 0,
-        modifier: 'Wisdom',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Sleight of Hand', // 27
-        ranks: 0,
-        racial: 0,
-        modifier: 'Dexterity',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Stealth', // 28
-        ranks: 0,
-        racial: 0,
-        modifier: 'Dexterity',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Survival', // 29
-        ranks: 0,
-        racial: 0,
-        modifier: 'Wisdom',
-        item: 0,
-        misc: 0
-      },
-      {
-      skillName: 'Swim', // 30
-        ranks: 0,
-        racial: 0,
-        modifier: 'Strength',
-        item: 0,
-        misc: 0
+    }
+
+    for (const key in Skills) {
+      if (isNaN(Number(key))) {
+        const skill = {
+          skillName: key,
+          ranks: 0,
+          racial: 0,
+          trained: false,
+          item: 0,
+          misc: 0,
+          modifier: ''
+        };
+        this.skills.push(skill);
       }
-    ];
-    this.weaponSkills = [
-      {
-      skillName: 'Short Swords', // 0
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Long Swords', // 1
-        ranks: 0,
-        trained: false,
-        racial: 0
-      },
-      {
-      skillName: 'Dual Swords', // 2
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Great Swords', // 3
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Light Shields', // 4
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Heavy Shields', // 5
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Tower Shields', // 6
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'One-Handed Hammers', // 7
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Two-Handed Hammers', // 8
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Spears', // 9
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Halberds', // 10
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Naginatas', // 11
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Boomerangs', // 12
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Slings', // 13
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Bows', // 14
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Small Bombs', // 15
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Medium Bombs', // 16
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Large Bombs', // 17
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Bombs (Other)', // 18
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Fire Rods', // 19
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Ice Rods', // 20
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Lightning Rods', // 21
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Tornado Rods', // 22
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Sand Rods', // 23
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Whips', // 24
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Ball & Chains', // 25
-        trained: false,
-        ranks: 0,
-        racial: 0
-      },
-      {
-      skillName: 'Unarmed', // 26
-        trained: false,
-        ranks: 0,
-        racial: 0
+    }
+
+    for (const key in Weapons) {
+      if (isNaN(Number(key))) {
+        const weapon = {
+          skillName: key,
+          trained: false,
+          ranks: 0,
+          racial: 0
+        };
+        this.weaponSkills.push(weapon);
       }
-    ];
-    this.magicSkills = [
-      {
-      skillName: 'Din',
-        modifier: 'Intelligence',
-        ranks: 0
-      },
-      {
-      skillName: 'Nayru',
-        modifier: 'Wisdom',
-        ranks: 0
-      },
-      {
-      skillName: 'Farore',
-        modifier: 'Charisma',
-        ranks: 0
+    }
+
+    const strArray = [3, 11, 30];
+    const dexArray = [0, 7, 8, 25, 27, 28];
+    const conArray = [];
+    const intArray = [1, 4, 5, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    const wisArray = [10, 21, 24, 26, 29];
+    const chaArray = [2, 6, 9, 22, 23];
+    const attrArrays = [strArray, dexArray, conArray, intArray, wisArray, chaArray];
+    for (let i = 0; i < attrArrays.length; i++) {
+      for (let j = 0; j < attrArrays[i].length; j++) {
+        this.skills[attrArrays[i][j]].modifier = Attributes[i];
       }
-    ];
+    }
+
+    for (const key in Magics) {
+      if (isNaN(Number(key))) {
+        const magic = {
+          skillName: key,
+          ranks: 0,
+          modifier: key === 'Din' ? 'Intelligence' : key === 'Nayru' ? 'Wisdom' : 'Charisma'
+        };
+        this.magicSkills.push(magic);
+      }
+    }
+
     this.exp = 0;
   }
 
