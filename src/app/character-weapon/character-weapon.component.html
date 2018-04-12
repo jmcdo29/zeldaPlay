@@ -109,7 +109,7 @@
 
 <button (click)="addWeapon()">New Weapon</button>
 
-<div *ngIf="character.weapons">
+<div *ngIf="character.weapons" class="table">
   <table>
     <thead>
       <tr>
@@ -119,6 +119,8 @@
         <th>Critical Hit Range</th>
         <th>Critical Multiplier</th>
         <th>Damage Modifier</th>
+        <th>Range</th>
+        <th>Ammo</th>
         <th>Element</th>
         <th>Elemental Damage</th>
       </tr>
@@ -132,8 +134,10 @@
         <td>{{ weapon.critRange }}</td>
         <td>X{{ weapon.critDamage }}</td>
         <td>{{ weapon.modifier }}</td>
+        <td>{{ weapon.range ? weapon.range : 'N/A' }}</td>
+        <td>{{ weapon.ammo ? weapon.ammo : 'N/A' }}</td>
         <td>{{ weapon.element ? weapon.element.type : 'N/A'}}</td>
-        <td>{{ weapon.element ? weapon.element.numberOfAttacks + 'D' + weapon.element.attack : ''}}</td>
+        <td>{{ weapon.element ? weapon.element.numberOfAttacks + 'D' + weapon.element.attack : 'N/A'}}</td>
       </tr>
     </tbody>
   </table>
