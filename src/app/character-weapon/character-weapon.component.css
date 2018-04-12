@@ -8,9 +8,11 @@ input, textarea, select, button.save{
 
 .improv-table{
   float: left; 
-  width: calc(98% / 8); 
-  /* max-width: calc(100% / 8); */
+  width: 48%; 
   padding: 5px 1px;
+}
+.table-holder{
+  padding: 0.5% 5%;
 }
 .table-holder::after{
   content: "";
@@ -20,11 +22,18 @@ input, textarea, select, button.save{
 .bad-input{
   background-color: lightcoral;
 }
+.submit-button{
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.center{
+  align-items: center;
+}
 
 @media(max-width: 900px){
-  /* .table-data-for-mobile{
-    float: left;
-  } */
+  
   .improv-table{
     float: none;
     width: 100%;

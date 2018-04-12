@@ -100,4 +100,8 @@ export class CharacterDetailComponent implements OnInit {
     }
     this.showSet[index] = true;
   }
+
+  gotHeartContainer(): void {
+    this.character.health = this.character.maxHealth += 16;
+  }
 }

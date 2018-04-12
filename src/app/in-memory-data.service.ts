@@ -42,7 +42,7 @@ export class InMemoryDataService implements InMemoryDbService {
     Bryte.weaponSkills[20].ranks = 3;
     Bryte.weaponSkills[21].ranks = 3;
     Bryte.weaponSkills[22].ranks = 9;
-    Bryte.weaponSkills[23].ranks = 3;
+    Bryte.weaponSkills[23].ranks = 2;
     Bryte.magicSkills[1].ranks = 8;
     Bryte.magicSkills[2].ranks = 1;
     methods.calcMod(Bryte);

@@ -66,16 +66,28 @@ export class CharacterSpellComponent implements OnInit {
     if (! error) {
       this.spellArray.push(this.spell);
       this.character.spells = this.spellArray;
+      this.spell = new Spell();
       this.newSpell = false;
     }
   }
 
   validate(id: string, key: string): void {
-    if (this.spell[key].trim() === '' || ((key === 'name' || key === 'effect') && !/^[a-zA-Z\s]+$/i.test(this.spell[key]))) {
+    if (!this.spell[key]) {
       document.getElementById(id).classList.add('bad-input');
       this.spell[key] = '';
-    } else if (document.getElementById(id).classList.contains('bad-input') && this.spell[key]) {
-      document.getElementById(id).classList.remove('bad-input');
+    } else if (typeof this.spell[key] === 'string') {
+      if (this.spell[key].trim() === '' || ((key === 'name' || key === 'effect') && !/^[a-zA-Z\s]+$/i.test(this.spell[key]))) {
+        document.getElementById(id).classList.add('bad-input');
+      } else if (document.getElementById(id).classList.contains('bad-input')) {
+        document.getElementById(id).classList.remove('bad-input');
+      }
+    } else {
+      if (this.spell[key] === '' ) {
+      document.getElementById(id).classList.add('bad-input');
+      this.spell[key] = '';
+      } else if (document.getElementById(id).classList.contains('bad-input')) {
+        document.getElementById(id).classList.remove('bad-input');
+      }
     }
   }
 }
