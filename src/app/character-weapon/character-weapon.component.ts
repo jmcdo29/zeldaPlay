@@ -3,9 +3,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Character } from '../Character/character';
 import { Weapon } from '../Character/Weapons/weapon';
 
-import { Weapons } from '../Character/Enums/weaponSkills';
-import { Attributes } from '../Character/Enums/attributes';
-import { Elements } from '../Character/Enums/elements';
+import { Weapons } from '../Character/Enums/weapon-skills.enum';
+import { Attributes } from '../Character/Enums/attributes.enum';
+import { Elements } from '../Character/Enums/elements.enum';
 
 import { Elemental } from '../Character/Weapons/elemental';
 

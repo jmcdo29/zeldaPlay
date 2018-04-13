@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Character } from '../Character/character';
 import { Spell } from '../Character/spells';
-import { Diety } from '../Character/Enums/dieties';
-import { Attributes } from '../Character/Enums/attributes';
+import { Diety } from '../Character/Enums/dieties.enum';
+import { Attributes } from '../Character/Enums/attributes.enum';
 
 @Component({
   selector: 'app-character-spell',
