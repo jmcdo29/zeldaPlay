@@ -19,6 +19,8 @@ import { CharacterService } from './character.service';
 import { CharacterSkillsComponent } from './character-skills/character-skills.component';
 import { CharacterWeaponComponent } from './character-weapon/character-weapon.component';
 import { CharacterSpellComponent } from './character-spell/character-spell.component';
+import { MessagesComponent } from './messages/messages.component';
+import { MessageService } from './message.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { CharacterSpellComponent } from './character-spell/character-spell.compo
     CharacterLevelUpComponent,
     CharacterSkillsComponent,
     CharacterWeaponComponent,
-    CharacterSpellComponent
+    CharacterSpellComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,7 @@ import { CharacterSpellComponent } from './character-spell/character-spell.compo
       InMemoryDataService, {passThruUnknownUrl: true, dataEncapsulation: false}
     )
   ],
-  providers: [CharacterService],
+  providers: [CharacterService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

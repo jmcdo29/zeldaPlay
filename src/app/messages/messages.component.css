@@ -1,0 +1,9 @@
+.messages{
+  margin-top: 1em;
+  height: 50vh;
+  overflow: auto;
+}
+
+.accordian{
+  width: 60%;
+}

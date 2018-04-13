@@ -13,7 +13,7 @@
   cursor: pointer;
   position: relative;
   left: 0;
-  width: 100%;
+  width: 60%;
   background-color: #EEE;
   margin: .5em;
   padding: .3em 0;
@@ -67,7 +67,14 @@
   outline: none;
   transition: 0.4s;
 }
-
+.characters{
+  height: 50%;
+  width: 100%;
+}
+.messages{
+  height: 50%;
+  width: 100%;
+}
 
 
 @media (max-width: 900px){

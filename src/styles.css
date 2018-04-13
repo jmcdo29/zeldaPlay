@@ -194,6 +194,30 @@ td.total{
   background-color: rgba(150, 150, 233, 0.74);
   color: black;
 }
+.accordian{
+  background: #EEE;
+  color: #444444;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  padding-top: 2px;
+  padding-bottom: 2px;
+
+}
+.accordian:hover{
+  background-color: #ccc;
+}
+.panel{
+  padding: 5px 0px;
+  background-color: inherit;
+  display: none;
+}
+.active{
+  display: block
+}
 
 /* Add Animation */
 @keyframes animatetop {

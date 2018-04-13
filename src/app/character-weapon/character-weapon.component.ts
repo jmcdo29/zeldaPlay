@@ -43,7 +43,8 @@ export class CharacterWeaponComponent implements OnInit {
     'Tornado Rod',
     'Sand Rod',
     'Lightning Rod',
-    'Whip'
+    'Whip',
+    'Ball & Chain'
   ];
 
   constructor() {}
@@ -173,9 +174,13 @@ export class CharacterWeaponComponent implements OnInit {
   }
 
   makeElement(): void {
-    this.elemental = {
-      'type': '', 'attack': null, 'numberOfAttacks': null
-    };
+    if (this.isElemental) {
+      this.elemental = {
+        'type': '', 'attack': null, 'numberOfAttacks': null
+      };
+    } else {
+      this.elemental = null;
+    }
     console.log(this.elemental);
   }
 
