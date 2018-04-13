@@ -1,6 +1,6 @@
-import { express } from 'express';
-import { bodyParser } from 'body-parser';
-import { path } from 'path';
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
 //const db = require('./db/index');
 
 const PORT = process.env.PORT || 4200;
