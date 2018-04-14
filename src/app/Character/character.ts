@@ -2,10 +2,10 @@ import { Attribute } from './attribute';
 import { Skill } from './skill';
 import { Weapon } from './Weapons/weapon';
 import { Spell } from './spells';
-import { Attributes } from './Enums/attributes';
-import { Weapons } from './Enums/weaponSkills';
-import { Skills } from './Enums/skills';
-import { Magics } from './Enums/magicSkills';
+import { Attributes } from './Enums/attributes.enum';
+import { Weapons } from './Enums/weapon-skills.enum';
+import { Skills } from './Enums/skills.enum';
+import { Magics } from './Enums/magic-skills.enum';
 
 const BASE = 8;
 export class Character {

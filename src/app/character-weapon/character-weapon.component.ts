@@ -3,11 +3,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Character } from '../Character/character';
 import { Weapon } from '../Character/Weapons/weapon';
 
-import { Weapons } from '../Character/Enums/weaponSkills';
-import { Attributes } from '../Character/Enums/attributes';
-import { Elements } from '../Character/Enums/elements';
+import { Weapons } from '../Character/Enums/weapon-skills.enum';
+import { Attributes } from '../Character/Enums/attributes.enum';
+import { Elements } from '../Character/Enums/elements.enum';
 
 import { Elemental } from '../Character/Weapons/elemental';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-character-weapon',
@@ -47,7 +48,7 @@ export class CharacterWeaponComponent implements OnInit {
     'Ball & Chain'
   ];
 
-  constructor() {}
+  constructor(public message: MessageService) {}
 
   ngOnInit() {
     this.weapon = new Weapon();
@@ -122,8 +123,9 @@ export class CharacterWeaponComponent implements OnInit {
     if (! error) {
       this.weapons.push(this.weapon);
       this.character.weapons = this.weapons;
-      this.weapon = new Weapon();
       this.addWeapon();
+      this.createMessage();
+      this.weapon = new Weapon();
     }
   }
 
@@ -199,5 +201,16 @@ export class CharacterWeaponComponent implements OnInit {
       rangeArray.push(Number.parseInt(range[i]));
     }
     this.weapon.critRange = rangeArray;
+  }
+
+  createMessage(): void {
+    const name = this.character.name;
+    const weapon = this.character.weapons[this.character.weapons.length - 1];
+    const weaponName = weapon.name;
+    const weaponType = weapon.type;
+
+    const message = name + ' added a ' + weaponType + ' called ' + weaponName + '.';
+
+    this.message.add(message);
   }
 }

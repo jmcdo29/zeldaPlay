@@ -1,8 +1,8 @@
 import { Character } from '../Character/character';
-import { Skills } from '../Character/Enums/skills';
-import { Magics } from '../Character/Enums/magicSkills';
-import { Weapons } from '../Character/Enums/weaponSkills';
-import { Attributes } from '../Character/Enums/attributes';
+import { Skills } from '../Character/Enums/skills.enum';
+import { Magics } from '../Character/Enums/magic-skills.enum';
+import { Weapons } from '../Character/Enums/weapon-skills.enum';
+import { Attributes } from '../Character/Enums/attributes.enum';
 
 export class Fairy extends Character {
 

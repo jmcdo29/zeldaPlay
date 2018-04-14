@@ -137,7 +137,7 @@
         <td>{{ weapon.range ? weapon.range : 'N/A' }}</td>
         <td>{{ weapon.ammo ? weapon.ammo : 'N/A' }}</td>
         <td>{{ weapon.element ? weapon.element.type : 'N/A'}}</td>
-        <td>{{ (weapon.element.numberOfAttacks !== null && weapon.element.attack !== null) ? weapon.element.numberOfAttacks + 'D' + weapon.element.attack : 'N/A'}}</td>
+        <td>{{ weapon.element ? ((weapon.element.numberOfAttacks !== null && weapon.element.attack !== null) ? weapon.element.numberOfAttacks + 'D' + weapon.element.attack : 'N/A'): 'N/A'}}</td>
       </tr>
     </tbody>
   </table>

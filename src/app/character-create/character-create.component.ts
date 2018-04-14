@@ -3,6 +3,8 @@ import { CharactersComponent } from '../characters/characters.component';
 import { Character } from '../Character/character';
 import { Attribute } from '../Character/attribute';
 import { Fairy, Gerudo, Goron, Hylian, Rito, Sheikah, Twili, Zora } from '../Races/Races';
+import { Attributes } from '../Character/Enums/attributes.enum';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-character-create',
@@ -41,7 +43,7 @@ export class CharacterCreateComponent implements OnInit {
 
   newCharacter: Character;
 
-  constructor() {}
+  constructor(public message: MessageService) {}
 
   ngOnInit() {
 
@@ -77,11 +79,12 @@ export class CharacterCreateComponent implements OnInit {
       nullSubRace = false;
     }
     if (this.newCharacter.name != null && (this.skillPoints === 0 && this.attPoints === 0) && !nullSubRace) {
-      this.newCharacter.health = 48 + this.newCharacter.attributes[2].modifier;
-      this.newCharacter.magic = 20 + this.newCharacter.attributes[4].modifier;
+      this.newCharacter.maxHealth = this.newCharacter.health = 48 + this.newCharacter.attributes[2].modifier;
+      this.newCharacter.maxMagic = this.newCharacter.magic = 20 + this.newCharacter.attributes[4].modifier;
       this.CharacterParent.newChar = false;
       this.CharacterParent.characters.push(this.newCharacter);
       this.CharacterParent.selectedCharacter = this.newCharacter;
+      this.createMessage();
     } else {
       this.error = true;
     }
@@ -156,11 +159,7 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   getMod(modName: string): number {
-    for (let i = 0; i < this.newCharacter.attributes.length; i++) {
-      if (this.newCharacter.attributes[i].name === modName) {
-        return this.newCharacter.attributes[i].modifier;
-      }
-    }
+    return this.newCharacter.attributes[Attributes[modName]].modifier;
   }
 
   closeError(): void {
@@ -235,6 +234,15 @@ export class CharacterCreateComponent implements OnInit {
     }
     this.resetPriors();
     this.skillPoints = this.originalPoints;
+  }
+
+  createMessage(): void {
+    const name = this.newCharacter.name;
+    const race = this.newCharacter.race;
+    const subRace = this.newCharacter.subRace ? this.newCharacter.subRace : '';
+    const message = name + ' the ' + subRace + ' ' + race + ' was created.';
+
+    this.message.add(message);
   }
 
 }

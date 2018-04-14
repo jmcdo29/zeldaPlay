@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Character } from '../Character/character';
+import { Attributes } from '../Character/Enums/attributes.enum';
 
 @Component({
   selector: 'app-character-level-up',
@@ -74,11 +75,7 @@ export class CharacterLevelUpComponent implements OnInit {
   }
 
   getMod(modName: string): number {
-    for (let i = 0; i < this.currChar.attributes.length; i++) {
-      if (this.currChar.attributes[i].name === modName) {
-        return this.currChar.attributes[i].modifier;
-      }
-    }
+    return this.currChar.attributes[Attributes[modName]].modifier;
   }
 
   showSkillTab(skillTabIndex: number): void {
