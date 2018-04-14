@@ -4,6 +4,7 @@ import { Character } from '../Character/character';
 import { Spell } from '../Character/spells';
 import { Diety } from '../Character/Enums/dieties.enum';
 import { Attributes } from '../Character/Enums/attributes.enum';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-character-spell',
@@ -21,7 +22,7 @@ export class CharacterSpellComponent implements OnInit {
   spell: Spell;
   spellArray: Spell[];
 
-  constructor() { }
+  constructor(public message: MessageService) { }
 
   ngOnInit() {
     this.spellArray = new Array();
@@ -66,6 +67,7 @@ export class CharacterSpellComponent implements OnInit {
     if (! error) {
       this.spellArray.push(this.spell);
       this.character.spells = this.spellArray;
+      this.createMessage();
       this.spell = new Spell();
       this.newSpell = false;
     }
@@ -89,5 +91,15 @@ export class CharacterSpellComponent implements OnInit {
         document.getElementById(id).classList.remove('bad-input');
       }
     }
+  }
+
+  createMessage(): void {
+    const name = this.character.name;
+    const spell = this.character.spells[this.character.spells.length - 1];
+    const spellName = spell.name;
+    const spellType = spell.diety;
+
+    const message = name + ' added a spell of ' + spellType + ' called ' + spellName + '.';
+    this.message.add(message);
   }
 }

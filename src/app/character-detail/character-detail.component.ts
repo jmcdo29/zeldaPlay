@@ -3,6 +3,7 @@ import { Character } from '../Character/character';
 import { Attribute } from '../Character/attribute';
 import { CharacterLevelUpComponent } from '../character-level-up/character-level-up.component';
 import { methods } from '../Character/character-methods';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-character-detail',
@@ -39,7 +40,7 @@ export class CharacterDetailComponent implements OnInit {
 
   expMod: number;
 
-  constructor() {}
+  constructor(public message: MessageService) {}
 
   ngOnInit() {}
 
@@ -103,5 +104,22 @@ export class CharacterDetailComponent implements OnInit {
 
   gotHeartContainer(): void {
     this.character.health = this.character.maxHealth += 16;
+    this.createMessage(16, 'heart');
+  }
+
+  gotMagicContainer(): void {
+    this.character.magic = this.character.maxMagic += 6;
+    this.createMessage(6, 'magic');
+  }
+
+  createMessage(value: number, type: string): void {
+
+    const name = this.character.name;
+    const obtained = ' obtained a ' + type + ' container ';
+    const val = 'for ' + value + (type === 'heart' ? 'HP' : 'MP') + '.';
+
+    const message = name + obtained + val;
+
+    this.message.add(message);
   }
 }
