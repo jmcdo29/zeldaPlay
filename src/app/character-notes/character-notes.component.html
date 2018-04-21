@@ -1,0 +1,11 @@
+<div *ngIf="character">
+  <button class="accordian" (click)="expandNotes()">
+    <h2>Campign Notes</h2>
+  </button>
+  <div class="notes panel" [class.active]="show">
+    <h3>Important Notes</h3>
+    <div *ngFor="let note of character.importantNotes">{{ note }}</div>
+    <h3>Other Notes</h3>
+    <div *ngFor="let note of character.notes">{{ note }}</div>
+  </div>
+</div>

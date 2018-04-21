@@ -21,6 +21,9 @@ import { CharacterWeaponComponent } from './character-weapon/character-weapon.co
 import { CharacterSpellComponent } from './character-spell/character-spell.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
+import { CharacterNotesComponent } from './character-notes/character-notes.component';
+import { CharacterInventoryComponent } from './character-inventory/character-inventory.component';
+import { CharacterSavesComponent } from './character-saves/character-saves.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { MessageService } from './message.service';
     CharacterSkillsComponent,
     CharacterWeaponComponent,
     CharacterSpellComponent,
-    MessagesComponent
+    MessagesComponent,
+    CharacterNotesComponent,
+    CharacterInventoryComponent,
+    CharacterSavesComponent
   ],
   imports: [
     BrowserModule,

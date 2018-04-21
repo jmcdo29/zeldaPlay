@@ -54,6 +54,7 @@
         <div class="improv-table">
           <b>Damage Modifier</b>
           <select id="weaponMod" [(ngModel)]="weapon.modifier" (blur)="validate('weaponMod', 'modifier')">
+            <option selected hidden>--Select the Damage Modifier</option>
             <option *ngFor="let attr of attributes | enumToArray" value="{{ attr }}">{{ attr }}</option>
           </select>
         </div>

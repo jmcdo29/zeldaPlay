@@ -1,4 +1,4 @@
-export const enum Level {
+export enum Level {
   level1 = 0,
   level2 = 3000,
   level3 = 7500,

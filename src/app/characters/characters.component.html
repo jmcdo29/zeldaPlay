@@ -13,6 +13,9 @@
       <br/>
       <button (click)="newCharacter()">Create Character</button>
     </div>
+    <div class="messages" *ngIf="selectedCharacter">
+      <app-character-notes [character]="selectedCharacter"></app-character-notes>
+    </div>
     <div class="messages">
       <app-messages></app-messages>
     </div>

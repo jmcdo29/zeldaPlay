@@ -19,8 +19,8 @@ export class CharacterCreateComponent implements OnInit {
 
   error = false;
 
-  attrMins: number[];
-  attrPrior: number[];
+  attrMins: number[] = [];
+  attrPrior: number[] = [];
 
   attPoints = 48;
 
@@ -37,9 +37,9 @@ export class CharacterCreateComponent implements OnInit {
     false     // Fairy 7
   ];
 
-  skillsPrior: number[];
-  weaponSkillsPrior: number[];
-  magicSkillsPrior: number[];
+  skillsPrior: number[] = [];
+  weaponSkillsPrior: number[] = [];
+  magicSkillsPrior: number[] = [];
 
   newCharacter: Character;
 
@@ -47,11 +47,11 @@ export class CharacterCreateComponent implements OnInit {
 
   ngOnInit() {
 
-    this.attrMins = new Array();
-    this.attrPrior = new Array();
-    this.skillsPrior = new Array();
-    this.weaponSkillsPrior = new Array();
-    this.magicSkillsPrior = new Array();
+    this.attrMins = [];
+    this.attrPrior = [];
+    this.skillsPrior = [];
+    this.weaponSkillsPrior = [];
+    this.magicSkillsPrior = [];
 
     this.newCharacter = new Character();
     this.originalPoints = this.skillPoints = (Math.round(Math.random() * 100) % 4 + 1) * 5;

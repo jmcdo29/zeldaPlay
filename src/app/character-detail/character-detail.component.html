@@ -101,6 +101,10 @@
                   <td class="name">Sub Race</td>
                   <td>{{ character.subRace }}</td>
                 </tr>
+                <tr>
+                  <td class="name">Level</td>
+                  <td>{{ character.level }}</td>
+                </tr>
                 <br/>
                 <tr *ngFor="let attr of character.attributes" [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'" [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'"
                   [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
@@ -135,6 +139,16 @@
         </div>
       </div>
       <br/>
+
+      <div>
+        <button class="accordian" (click)="expandSaves()">
+            <h2>Saving Thorws</h2>
+        </button>
+        <div class="panel" [class.active]="showSaves">
+          <app-character-saves [characterDetailComponent]="this"></app-character-saves>
+        </div>
+        
+      </div>
 
       <h3> Roll Dice
         <span style="float: right; padding-right:5em;" *ngIf="roll" [class.crit]="this.crit" [class.critmiss]="this.critmiss" [class.maxDmg]="this.maxDmg">

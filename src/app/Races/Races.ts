@@ -168,6 +168,7 @@ export class Rito extends Character {
     this.skills[Skills['Acrobatics']].trained = true;         // Acrobatics
     this.skills[Skills['CraftOne']].trained = true;           // Craft One
     this.skills[Skills['CraftTwo']].trained = true;           // Craft Two
+    this.skills[Skills['Fly']].trained = true;                // Fly
     this.skills[Skills['Knowledge Local']].trained = true;    // Knowledge (Local)
     this.skills[Skills['Knowledge Nature']].trained = true;   // Knowledge (Nature)
     this.skills[Skills['Perception']].trained = true;         // Perception

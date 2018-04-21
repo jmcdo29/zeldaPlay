@@ -20,12 +20,11 @@ export class CharacterSpellComponent implements OnInit {
   dieties = Diety;
   attributes = Attributes;
   spell: Spell;
-  spellArray: Spell[];
+  spellArray: Spell[] = [];
 
   constructor(public message: MessageService) { }
 
   ngOnInit() {
-    this.spellArray = new Array();
     if (this.character.spells) {
       this.spellArray = this.character.spells;
     }

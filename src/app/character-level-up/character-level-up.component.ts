@@ -17,15 +17,15 @@ export class CharacterLevelUpComponent implements OnInit {
   attrPoints: number;
   skillPoints: number;
 
-  minimums: number[];
-  skillStarts: number[];
-  weaponStarts: number[];
-  magicStarts: number[];
+  minimums: number[] = [];
+  skillStarts: number[] = [];
+  weaponStarts: number[] = [];
+  magicStarts: number[] = [];
 
-  attrPrior: number[];
-  skillsPrior: number[];
-  weaponSkillsPrior: number[];
-  magicSkillsPrior: number[];
+  attrPrior: number[] = [];
+  skillsPrior: number[] = [];
+  weaponSkillsPrior: number[] = [];
+  magicSkillsPrior: number[] = [];
 
   @Input() currChar: Character;
 
@@ -34,34 +34,30 @@ export class CharacterLevelUpComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.skillsPrior = new Array();
-    this.weaponSkillsPrior = new Array();
-    this.magicSkillsPrior = new Array();
-    this.attrPrior = new Array();
     this.attrPoints = 1;
     this.skillPoints = 10;
-    const minimums = new Array();
+    const minimums = [];
     for (let i = 0; i < this.currChar.attributes.length; i++) {
       minimums.push(this.currChar.attributes[i].value);
     }
     this.minimums = minimums;
     this.attrPrior = this.minimums;
 
-    const skillStarts = new Array();
+    const skillStarts = [];
     for (let j = 0; j < this.currChar.skills.length; j++) {
       skillStarts.push(this.currChar.skills[j].ranks);
     }
     this.skillStarts = skillStarts;
     this.skillsPrior = this.skillStarts;
 
-    const weaponStarts = new Array();
+    const weaponStarts = [];
     for (let k = 0; k < this.currChar.weaponSkills.length; k++) {
       weaponStarts.push(this.currChar.weaponSkills[k].ranks);
     }
     this.weaponStarts = weaponStarts;
     this.weaponSkillsPrior = this.weaponStarts;
 
-    const magicStarts = new Array();
+    const magicStarts = [];
     for (let m = 0; m < this.currChar.magicSkills.length; m++) {
       magicStarts.push(this.currChar.magicSkills[m].ranks);
     }
