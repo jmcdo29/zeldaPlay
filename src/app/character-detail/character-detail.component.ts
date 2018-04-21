@@ -24,6 +24,7 @@ export class CharacterDetailComponent implements OnInit {
   maxDmg = false;
 
   showDets = true;
+  showSaves = true;
 
   changeHP = false;
   changeMP = false;
@@ -80,7 +81,10 @@ export class CharacterDetailComponent implements OnInit {
 
   expandDets(): void {
     this.showDets = !this.showDets;
-    console.log(this.showDets);
+  }
+
+  expandSaves(): void {
+    this.showSaves = !this.showSaves;
   }
 
   setRoll(value: string): void {

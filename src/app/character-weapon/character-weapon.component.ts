@@ -24,7 +24,7 @@ export class CharacterWeaponComponent implements OnInit {
   newWeapon = false;
 
   weapon: Weapon;
-  weapons: Weapon[];
+  weapons: Weapon[] = [];
 
   isRangedWeapon = false;
   isElemental = false;
@@ -54,8 +54,6 @@ export class CharacterWeaponComponent implements OnInit {
     this.weapon = new Weapon();
     if (this.character.weapons) {
       this.weapons = this.character.weapons;
-    } else {
-      this.weapons = new Array();
     }
   }
 
@@ -176,7 +174,8 @@ export class CharacterWeaponComponent implements OnInit {
   }
 
   makeElement(): void {
-    if (this.isElemental) {
+    console.log(this.isElemental);
+    if (!this.isElemental) {
       this.elemental = {
         'type': '', 'attack': null, 'numberOfAttacks': null
       };

@@ -1,5 +1,5 @@
 {
-  "name": "tour-of-heroes-again",
+  "name": "zelda-play",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -27,10 +27,10 @@
     "body-parser": "^1.18.2",
     "core-js": "^2.4.1",
     "express": "^4.16.2",
-    "mongodb": "^3.0.4",
-    "mongoose": "^5.0.10",
     "path": "^0.12.7",
+    "pg": "^7.4.1",
     "rxjs": "^5.5.6",
+    "url": "^0.11.0",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

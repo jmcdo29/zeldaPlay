@@ -3,18 +3,17 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Character } from './Character/character';
 import { methods } from './Character/character-methods';
 
-import { Fairy, Gerudo, Goron, Hylian } from './Races/Races';
+import { Fairy, Gerudo, Goron, Hylian, Rito } from './Races/Races';
 
 export class InMemoryDataService implements InMemoryDbService {
 
   createDb() {
 
-    const EXP = 15905;
+    const EXP = 25740;
 
     const Bryte = new Fairy('Nayru');
     Bryte.name = 'Bryte';
     Bryte.ac = 17;
-    Bryte.level = 4;
     Bryte.flat_footed = 10;
     Bryte.touch = 17;
     Bryte.craftOne = 'Fairy Made Armor';
@@ -28,7 +27,6 @@ export class InMemoryDataService implements InMemoryDbService {
     Bryte.attributes[5].value = 16;
     Bryte.health = Bryte.maxHealth = 116;
     Bryte.magic = Bryte.maxMagic = 57;
-    Bryte.exp = EXP;
     Bryte.skills[4].ranks = 3;
     Bryte.skills[4].misc = 5;
     Bryte.skills[5].ranks = 2;
@@ -46,11 +44,10 @@ export class InMemoryDataService implements InMemoryDbService {
     Bryte.magicSkills[1].ranks = 8;
     Bryte.magicSkills[2].ranks = 1;
     methods.calcMod(Bryte);
+    methods.gainExp(Bryte, EXP);
 
     const Rya = new Gerudo();
-    Rya.level = 4;
     Rya.name = 'Rya';
-    Rya.exp = EXP;
     Rya.ac = 19;
     Rya.flat_footed = 10;
     Rya.touch = 17;
@@ -69,11 +66,10 @@ export class InMemoryDataService implements InMemoryDbService {
     Rya.weaponSkills[13].ranks = 5;
     Rya.weaponSkills[26].ranks = 4;
     methods.calcMod(Rya);
+    methods.gainExp(Rya, EXP);
 
     const Greyson = new Goron('Rock Spine');
     Greyson.name = 'Greyson';
-    Greyson.level = 4;
-    Greyson.exp = EXP;
     Greyson.craftOne = 'Elemental Bomb';
     Greyson.health = Greyson.maxHealth = 140;
     Greyson.magic = Greyson.maxMagic = 19;
@@ -103,11 +99,10 @@ export class InMemoryDataService implements InMemoryDbService {
     Greyson.weaponSkills[18].ranks = 3;
     Greyson.weaponSkills[26].ranks = 13;
     methods.calcMod(Greyson);
+    methods.gainExp(Greyson, EXP);
 
     const Golo = new Hylian('Farmer');
     Golo.name = 'Golo';
-    Golo.level = 4;
-    Golo.exp = EXP;
     Golo.health = Golo.maxHealth = 76;
     Golo.magic = Golo.maxMagic = 19;
     Golo.attributes[0].value = 23;
@@ -125,6 +120,7 @@ export class InMemoryDataService implements InMemoryDbService {
     Golo.skills[22].ranks = 4;
     Golo.skills[29].ranks = 2;
     methods.calcMod(Golo);
+    methods.gainExp(Golo, EXP);
 
     const characters: Character[] = [Bryte, Rya, Greyson, Golo];
     return {characters};

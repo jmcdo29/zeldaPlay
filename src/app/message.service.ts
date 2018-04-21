@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { methods } from './Character/character-methods';
 
 @Injectable()
 export class MessageService {
@@ -6,23 +7,8 @@ export class MessageService {
   messages: String[] = [];
 
   add(message: String): void {
-    const time = new Date(Date.now());
-
-    const month = time.getMonth() + 1;
-    const day = time.getDate();
-    const hour = time.getHours();
-    const minute = time.getMinutes();
-    const second = time.getSeconds();
-
-    const dateString = month + '/' + day + ' ' + hour + ':' + minute + ':' + second;
-
-    message = dateString + ' :: ' + message;
-
+    message = methods.getDateString() + ' :: ' + message;
     this.messages.unshift(message);
-  }
-
-  clear(): void {
-    this.messages = [];
   }
 
 }
