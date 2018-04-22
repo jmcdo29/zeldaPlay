@@ -175,14 +175,20 @@
     <!--The table to show the character's skills (weapon, magic and normal)-->
     <div class="skills scrollable">
       <div class="menuBar" [class.active]="showSet[0]" (click)="changeSection(0)">
-        <h4 class="menu">{{ character.name }} Skills</h4>
+        <h4 class="menu">{{ character.name }}<br/>Skills</h4>
       </div>
       <div class="menuBar" [class.active]="showSet[1]" (click)="changeSection(1)">
-        <h4 class="menu">{{ character.name }} Weapons</h4>
+        <h4 class="menu">{{ character.name }}<br/>Weapons</h4>
       </div>
       <div class="menuBar" [class.active]="showSet[2]" (click)="changeSection(2)">
-        <h4 class="menu">{{ character.name }} Spells</h4>
+        <h4 class="menu">{{ character.name }}<br/>Spells</h4>
       </div>
+      <div class="menuBar" [class.active]="showSet[3]" (click)="changeSection(3)">
+          <h4 class="menu">{{ character.name }}<br/>Inventory</h4>
+        </div>
+        <div class="menuBar" [class.active]="showSet[4]" (click)="changeSection(4)">
+            <h4 class="menu">{{ character.name }}<br/>Notes</h4>
+          </div>
       <div *ngIf="showSet[0]">
         <app-character-skills [character]="character"></app-character-skills>
       </div>
@@ -192,6 +198,12 @@
       <div *ngIf="showSet[2]">
         <app-character-spell [character]="character"></app-character-spell>
       </div>
+      <div *ngIf="showSet[3]">
+          <app-character-inventory [character]="character"></app-character-inventory>
+        </div>
+        <div *ngIf="showSet[4]">
+            <app-character-notes [character]="character"></app-character-notes>
+          </div>
     </div>
   </div>
 </div>

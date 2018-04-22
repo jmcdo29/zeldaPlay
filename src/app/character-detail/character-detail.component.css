@@ -27,12 +27,13 @@ button.square{
 .menuBar{
   color: black;
   float: left;
-  width: calc(100% / 3);
+  width: calc(100% / 5);
   background-color: #5cb85c;
   cursor: pointer;
   text-align: center;
   transition: 0.6s;
   margin-bottom: 2em;
+  height: 3.5em;
 }
 h4.menu{
   padding: 0.5em 1em;
