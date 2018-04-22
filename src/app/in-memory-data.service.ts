@@ -30,9 +30,9 @@ export class InMemoryDataService implements InMemoryDbService {
     Bryte.attributes[Attributes['Charisma']].value = 16;
     Bryte.health = Bryte.maxHealth = 149;
     Bryte.magic = Bryte.maxMagic = 67;
-    Bryte.skills[Skills['craftOne']].ranks = 3;
-    Bryte.skills[Skills['craftOne']].misc = 5;
-    Bryte.skills[Skills['craftTwo']].ranks = 2;
+    Bryte.skills[Skills['CraftOne']].ranks = 3;
+    Bryte.skills[Skills['CraftOne']].misc = 5;
+    Bryte.skills[Skills['CraftTwo']].ranks = 2;
     Bryte.skills[Skills['Fly']].ranks = 1;
     Bryte.skills[Skills['Knowledge Geography']].ranks = 2;
     Bryte.skills[21].ranks = 1;
