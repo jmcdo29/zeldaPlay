@@ -29,7 +29,7 @@ export class CharacterDetailComponent implements OnInit {
   changeHP = false;
   changeMP = false;
 
-  showSet = [true, false, false];
+  showSet = [true, false, false, false, false];
 
   hpDmg: number;
   mpDmg: number;

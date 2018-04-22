@@ -2,9 +2,17 @@
   margin-top: 1em;
   margin-bottom: 1em;
   height: 50vh;
-  overflow: auto;
 }
 
-.accordian{
-  width: 60%;
+.noteInput{
+  width: 50%;
+  height: 2em;
+}
+
+.noteButton{
+  float: right;
+}
+
+.newNoteComps{
+  margin-bottom: 1em;
 }

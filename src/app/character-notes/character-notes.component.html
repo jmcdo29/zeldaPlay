@@ -1,11 +1,27 @@
-<div *ngIf="character">
-  <button class="accordian" (click)="expandNotes()">
-    <h2>Campign Notes</h2>
+<div class="notes">
+
+  <div class="newNoteComps">
+    <input class="noteInput" type="text" [(ngModel)]="newMsg" placeholder="New Note">
+    Important: <input type="checkbox" [(ngModel)]="important">
+    <button class="noteButton" (click)="addNote()">Make Note</button>
+  </div>
+
+  <button class="accordian" (click)="expandNotes(0)">
+    <h2>Important Notes</h2>
   </button>
-  <div class="notes panel" [class.active]="show">
-    <h3>Important Notes</h3>
-    <div *ngFor="let note of character.importantNotes">{{ note }}</div>
-    <h3>Other Notes</h3>
-    <div *ngFor="let note of character.notes">{{ note }}</div>
+  <div class="panel" [class.active]="showNotes[0]">
+    <ul>
+      <li *ngFor="let note of character.importantNotes">{{ note.time }} <span class="message">{{ note.msg }}</span></li>
+    </ul>
+  </div>
+
+  <button class="accordian" (click)="expandNotes(1)">
+    <h2>Other Notes</h2>
+  </button>
+
+  <div class="panel" [class.active]="showNotes[1]">
+    <ul>
+      <li *ngFor="let note of character.notes">{{ note.time }} <span class="message">{{ note.msg }}</span></li>
+    </ul>
   </div>
 </div>
