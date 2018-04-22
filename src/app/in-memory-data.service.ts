@@ -4,6 +4,9 @@ import { Character } from './Character/character';
 import { methods } from './Character/character-methods';
 
 import { Fairy, Gerudo, Goron, Hylian, Rito } from './Races/Races';
+import { Attributes } from './Character/Enums/attributes.enum';
+import { Magics } from './Character/Enums/magic-skills.enum';
+import { Skills } from './Character/Enums/skills.enum';
 
 export class InMemoryDataService implements InMemoryDbService {
 
@@ -19,19 +22,19 @@ export class InMemoryDataService implements InMemoryDbService {
     Bryte.craftOne = 'Fairy Made Armor';
     Bryte.craftTwo = 'Magic Potions';
     Bryte.profession = 'Armor Smith';
-    Bryte.attributes[0].value = 10;
-    Bryte.attributes[1].value = 14;
-    Bryte.attributes[2].value = 12;
-    Bryte.attributes[3].value = 13;
-    Bryte.attributes[4].value = 24;
-    Bryte.attributes[5].value = 16;
-    Bryte.health = Bryte.maxHealth = 116;
-    Bryte.magic = Bryte.maxMagic = 57;
-    Bryte.skills[4].ranks = 3;
-    Bryte.skills[4].misc = 5;
-    Bryte.skills[5].ranks = 2;
-    Bryte.skills[8].ranks = 1;
-    Bryte.skills[10].ranks = 2;
+    Bryte.attributes[Attributes['Strength']].value = 10;
+    Bryte.attributes[Attributes['Dexterity']].value = 14;
+    Bryte.attributes[Attributes['Constitution']].value = 12;
+    Bryte.attributes[Attributes['Intelligence']].value = 13;
+    Bryte.attributes[Attributes['Wisdom']].value = 24;
+    Bryte.attributes[Attributes['Charisma']].value = 16;
+    Bryte.health = Bryte.maxHealth = 149;
+    Bryte.magic = Bryte.maxMagic = 67;
+    Bryte.skills[Skills['craftOne']].ranks = 3;
+    Bryte.skills[Skills['craftOne']].misc = 5;
+    Bryte.skills[Skills['craftTwo']].ranks = 2;
+    Bryte.skills[Skills['Fly']].ranks = 1;
+    Bryte.skills[Skills['Knowledge Geography']].ranks = 2;
     Bryte.skills[21].ranks = 1;
     Bryte.skills[22].ranks = 2;
     Bryte.skills[24].ranks = 2;
@@ -41,8 +44,9 @@ export class InMemoryDataService implements InMemoryDbService {
     Bryte.weaponSkills[21].ranks = 3;
     Bryte.weaponSkills[22].ranks = 9;
     Bryte.weaponSkills[23].ranks = 2;
-    Bryte.magicSkills[1].ranks = 8;
-    Bryte.magicSkills[2].ranks = 1;
+    Bryte.magicSkills[Magics['Din']].ranks = 2;
+    Bryte.magicSkills[Magics['Nayru']].ranks = 8;
+    Bryte.magicSkills[Magics['Farore']].ranks = 1;
     methods.calcMod(Bryte);
     methods.gainExp(Bryte, EXP);
 
@@ -51,11 +55,11 @@ export class InMemoryDataService implements InMemoryDbService {
     Rya.ac = 19;
     Rya.flat_footed = 10;
     Rya.touch = 17;
-    Rya.health = Rya.maxHealth = 108;
-    Rya.magic = Rya.maxMagic = 25;
+    Rya.health = Rya.maxHealth = 130;
+    Rya.magic = Rya.maxMagic = 27;
     Rya.attributes[0].value = 24;
     Rya.attributes[1].value = 24;
-    Rya.attributes[2].value = 8;
+    Rya.attributes[2].value = 9;
     Rya.attributes[3].value = 16;
     Rya.attributes[4].value = 10;
     Rya.attributes[5].value = 8;
