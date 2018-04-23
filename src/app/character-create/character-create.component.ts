@@ -41,6 +41,8 @@ export class CharacterCreateComponent implements OnInit {
   weaponSkillsPrior: number[] = [];
   magicSkillsPrior: number[] = [];
 
+  nullSubRaceClasses = ['Sheikah', 'Gerudo', 'Twili'];
+
   newCharacter: Character;
 
   constructor(public message: MessageService) {}
@@ -73,7 +75,8 @@ export class CharacterCreateComponent implements OnInit {
 
   save(): void {
     let nullSubRace;
-    if (this.newCharacter.race !== 'Gerudo' && this.newCharacter.race !== 'Sheikah' && this.newCharacter.race !== 'Twili') {
+    console.log('Race:', this.newCharacter.race);
+    if (!this.nullSubRaceClasses.includes(this.newCharacter.race)) {
       nullSubRace = this.newCharacter.subRace ? false : true;
     } else {
       nullSubRace = false;
@@ -88,6 +91,10 @@ export class CharacterCreateComponent implements OnInit {
     } else {
       this.error = true;
     }
+    console.log('NullSubRace: ', nullSubRace);
+    console.log('Skill Points Remaining: ', this.skillPoints);
+    console.log('Attribute Points Left: ', this.attPoints);
+    console.log('Character Name:', this.newCharacter.name);
   }
 
   cancel(): void {
@@ -96,6 +103,7 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   raceChange(): void {
+    const raceTemp = this.newCharacter.race;
     switch (this.newCharacter.race) {
       case 'Hylian': {
         this.newCharacter = new Hylian(this.newCharacter.subRace ? this.newCharacter.subRace : null);
@@ -133,6 +141,9 @@ export class CharacterCreateComponent implements OnInit {
     this.resetPriors();
     this.attPoints = 48;
     this.skillPoints = this.originalPoints;
+    this.newCharacter.race = raceTemp;
+    this.newCharacter.level = 1;
+    this.newCharacter.exp = 0;
   }
 
   resetPriors(): void {

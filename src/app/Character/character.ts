@@ -103,12 +103,12 @@ export class Character {
       }
     }
 
-    const strArray = [3, 11, 30];
-    const dexArray = [0, 7, 8, 25, 27, 28];
+    const strArray = [3, 11, 31];
+    const dexArray = [0, 7, 8, 26, 28, 29];
     const conArray = [];
-    const intArray = [1, 4, 5, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-    const wisArray = [10, 21, 24, 26, 29];
-    const chaArray = [2, 6, 9, 22, 23];
+    const intArray = [1, 4, 5, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+    const wisArray = [10, 22, 25, 27, 30];
+    const chaArray = [2, 6, 9, 23, 24];
     const attrArrays = [
       strArray,
       dexArray,
@@ -122,7 +122,6 @@ export class Character {
         this.skills[attrArrays[i][j]].modifier = Attributes[i];
       }
     }
-
     this.exp = 0;
   }
 }

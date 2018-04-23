@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Character } from '../Character/character';
 import { Attributes } from '../Character/Enums/attributes.enum';
 import { CharacterDetailComponent } from '../character-detail/character-detail.component';
@@ -10,18 +10,24 @@ import { Saves } from '../Character/Enums/saves.enum';
   templateUrl: './character-saves.component.html',
   styleUrls: ['./character-saves.component.css']
 })
-export class CharacterSavesComponent implements OnInit {
+export class CharacterSavesComponent implements OnInit, OnChanges {
 
   @Input() characterDetailComponent: CharacterDetailComponent;
 
-  character: Character;
+  @Input() character: Character;
 
   attributes = Attributes;
 
   constructor(public message: MessageService) { }
 
-  ngOnInit() {
+
+  ngOnChanges() {
+    console.log('Called onChanges()');
     this.character = this.characterDetailComponent.character;
+    this.characterDetailComponent.roll = '';
+  }
+
+  ngOnInit() {
     console.log(this.character);
   }
 

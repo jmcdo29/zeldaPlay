@@ -28,6 +28,7 @@ export class Fairy extends Character {
     this.skills[Skills['Knowledge Monsters']].trained = true;         // Knowledge (Monster)
     this.skills[Skills['Knowledge Nature']].trained = true;           // Knowledge (Nature)
     this.skills[Skills['Knowledge Nobility']].trained = true;         // Knowledge (Nobility)
+    this.skills[Skills['Knowledge Plains']].trained = true;
     this.skills[Skills['Knowledge Religion']].trained = true;         // Knowledge (Religion)
     this.skills[Skills['Perception']].trained = true;                 // Perception
 
@@ -210,6 +211,7 @@ export class Sheikah extends Character {
     this.skills[Skills['Knowledge Language']].trained = true;       // Knowledge (Language)
     this.skills[Skills['Knowledge Local']].trained = true;          // Knowledge (Local)
     this.skills[Skills['Knowledge Nobility']].trained = true;       // Knowledge (Nobility)
+    this.skills[Skills['Knowledge Plains']].trained = true;
     this.skills[Skills['Knowledge Religion']].trained = true;       // Knowledge (Religion)
     this.skills[Skills['Perception']].trained = true;               // Perception
     this.skills[Skills['Sense Motive']].trained = true;             // Sense Motive
@@ -236,6 +238,7 @@ export class Twili extends Character {
     this.skills[Skills['Bluff']].trained = true;                // Bluff
     this.skills[Skills['Intimidate']].trained = true;           // Intimidate
     this.skills[Skills['Knowledge History']].trained = true;    // Knowledge (History)
+    this.skills[Skills['Knowledge Plains']].trained = true;
     this.skills[Skills['Stealth']].trained = true;              // Stealth
 
   }

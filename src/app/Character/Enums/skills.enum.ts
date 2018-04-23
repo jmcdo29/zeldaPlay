@@ -19,6 +19,7 @@ export enum Skills {
   'Knowledge Monsters',
   'Knowledge Nature',
   'Knowledge Nobility',
+  'Knowledge Plains',
   'Knowledge Religion',
   'Perception',
   'Perform Music',

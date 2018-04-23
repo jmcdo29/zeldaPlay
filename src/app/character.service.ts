@@ -24,15 +24,21 @@ export class CharacterService {
         const outcome = ch ? 'Got characters' : 'Found a problem';
         this.messageService.add(outcome);
       }),
-      catchError(this.handleError('fetchCharacters', []))
+      catchError(this.handleError('get characters', []))
     );
   }
 
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      const errMsg = 'ERROR: ' + error;
+  private handleError<T> (operation: String, result?: T) {
+    return (error: CustErr): Observable<T> => {
+      console.log(error);
+      const errMsg = 'ERROR IN ' + operation.toUpperCase() + ': ' + error.body.error;
       this.messageService.add(errMsg);
       return of(result as T);
     };
   }
+}
+
+
+interface CustErr {
+  body: {error: String};
 }
