@@ -250,8 +250,8 @@ export class CharacterCreateComponent implements OnInit {
   createMessage(): void {
     const name = this.newCharacter.name;
     const race = this.newCharacter.race;
-    const subRace = this.newCharacter.subRace ? this.newCharacter.subRace : '';
-    const message = name + ' the ' + subRace + ' ' + race + ' was created.';
+    const subRace = this.newCharacter.subRace ? this.newCharacter.subRace + ' ' : '';
+    const message = name + ' the ' + subRace + race + ' was created.';
 
     this.message.add(message);
   }
