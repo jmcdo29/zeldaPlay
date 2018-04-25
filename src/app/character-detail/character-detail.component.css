@@ -32,15 +32,12 @@ button.square{
   cursor: pointer;
   text-align: center;
   transition: 0.6s;
-  margin-bottom: 2em;
-  height: 3.5em;
+  margin-bottom: 1em;
+  /* height: 3.5em; */
 }
 h4.menu{
   padding: 0.5em 1em;
-  -webkit-margin-before: 0em;
-  -webkit-margin-after: 0em;
-  -webkit-margin-start: 0px;
-  -webkit-margin-end: 0px;
+  margin: 0;
 }
 .menuBar:hover{
   background-color: #229e22;
