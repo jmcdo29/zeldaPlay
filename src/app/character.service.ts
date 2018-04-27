@@ -38,7 +38,6 @@ export class CharacterService {
   }
 }
 
-
 interface CustErr {
   body: {error: String};
 }

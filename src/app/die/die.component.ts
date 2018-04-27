@@ -38,7 +38,7 @@ export class DieComponent implements OnInit {
     const roll = Math.round(Math.random() * 100) % sides + 1;
     let modVal;
 
-    let rollVal: Number;
+    let rollVal: number;
 
     if (roll === sides && sides === 20) {
       this.character.crit = true;

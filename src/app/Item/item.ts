@@ -1,4 +1,4 @@
 export class Item {
-  name: String;
-  description: String;
+  name: string;
+  description: string;
 }

@@ -4,9 +4,9 @@ import { methods } from './Character/character-methods';
 @Injectable()
 export class MessageService {
 
-  messages: String[] = [];
+  messages: string[] = [];
 
-  add(message: String): void {
+  add(message: string): void {
     message = methods.getDateString() + ' :: ' + message;
     this.messages.unshift(message);
   }

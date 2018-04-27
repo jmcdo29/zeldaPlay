@@ -22,35 +22,26 @@ export class CharacterSavesComponent implements OnInit, OnChanges {
 
 
   ngOnChanges() {
-    console.log('Called onChanges()');
     this.character = this.characterDetailComponent.character;
     this.characterDetailComponent.roll = '';
   }
 
   ngOnInit() {
-    console.log(this.character);
   }
 
-  makeSave(saveType: number): void {
-    console.log(this.character.savingThrows[saveType]);
-    let saveValAdd;
-    if (saveType === 0) {
-      saveValAdd = this.character.attributes[Attributes['Constitution']].modifier;
-    } else if ( saveType === 1) {
-      saveValAdd = this.character.attributes[Attributes['Dexterity']].modifier;
-    } else {
-      saveValAdd = this.character.attributes[Attributes['Wisdom']].modifier;
-    }
-    const saveRacAdd = this.character.savingThrows[saveType].racial;
-    console.log('Save Val', saveValAdd, '\nSave Rac', saveRacAdd);
+  makeSave(saveString: string): void {
+    const modifier = this.character.savingThrows[Saves[saveString]].modifier;
+    const saveValAdd = this.character.attributes[Attributes[modifier]].modifier;
+    const saveRacAdd = this.character.savingThrows[Saves[saveString]].racial;
     let roll = Math.round(Math.random() * 100) % 20 + 1;
     roll += saveValAdd + saveRacAdd;
+    roll = roll < 1 ? 1 : roll;
     this.characterDetailComponent.roll = roll.toString();
-    this.makeMessage(roll, saveType);
+    this.makeMessage(roll, saveString);
   }
 
-  makeMessage(roll: number, saveIndex: number): void {
-    const message = this.character.name + ' made a ' + this.character.savingThrows[saveIndex].name + ' save. VALUE: ' + roll + '.';
+  makeMessage(roll: number, saveString: string): void {
+    const message = this.character.name + ' made a ' + this.character.savingThrows[Saves[saveString]].name + ' save. VALUE: ' + roll + '.';
     this.message.add(message);
   }
 

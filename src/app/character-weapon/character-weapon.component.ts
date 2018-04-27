@@ -195,7 +195,7 @@ export class CharacterWeaponComponent implements OnInit {
 
   setCrit(): void {
     const range = this.weapon.critRange.toString().split(',');
-    const rangeArray = new Array();
+    const rangeArray = [];
     for (let i = 0; i < range.length; i++) {
       rangeArray.push(Number.parseInt(range[i]));
     }
