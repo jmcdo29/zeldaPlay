@@ -1,5 +1,5 @@
 export class Note {
-  time: String;
-  msg: String;
-  important: Boolean;
+  time: string;
+  msg: string;
+  important: boolean;
 }

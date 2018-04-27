@@ -29,7 +29,7 @@ const methods = {
       }
     }
   },
-  getDateString: function(): String {
+  getDateString: function(): string {
     const time = new Date(Date.now());
     const month = time.getMonth() + 1;
     const day = time.getDate();

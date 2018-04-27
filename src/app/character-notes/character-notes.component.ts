@@ -16,8 +16,8 @@ export class CharacterNotesComponent implements OnInit {
 
   note: Note;
   notes: Note[] = [];
-  newMsg: String;
-  important: Boolean;
+  newMsg: string;
+  important: boolean;
 
   showNotes = [true, true];
 
