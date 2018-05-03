@@ -2,6 +2,9 @@
   "name": "zelda-play",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "npm": "5.7.1"
+  },
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
