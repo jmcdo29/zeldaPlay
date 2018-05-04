@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 
@@ -8,6 +8,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { InMemoryDataService } from './in-memory-data.service';
 
 import { SharedModule } from './CustomPipes/customPipes';
+
+// attempting to add in chartist for Angular. Hopefully it goes well!
+import { ChartistModule } from 'ng-chartist';
 
 import { AppComponent } from './app.component';
 import { CharactersComponent } from './characters/characters.component';
@@ -24,6 +27,7 @@ import { MessageService } from './message.service';
 import { CharacterNotesComponent } from './character-notes/character-notes.component';
 import { CharacterInventoryComponent } from './character-inventory/character-inventory.component';
 import { CharacterSavesComponent } from './character-saves/character-saves.component';
+import { CharacterChartsComponent } from './character-charts/character-charts.component';
 
 @NgModule({
   declarations: [
@@ -39,11 +43,14 @@ import { CharacterSavesComponent } from './character-saves/character-saves.compo
     MessagesComponent,
     CharacterNotesComponent,
     CharacterInventoryComponent,
-    CharacterSavesComponent
+    CharacterSavesComponent,
+    CharacterChartsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    // import for chartist
+    ChartistModule,
     SharedModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
@@ -51,6 +58,7 @@ import { CharacterSavesComponent } from './character-saves/character-saves.compo
     )
   ],
   providers: [CharacterService, MessageService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

@@ -1,14 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
+import express, { static } from "express";
+import { json } from "body-parser";
+import path from "path";
 //const db = require('./db/index');
 
 const PORT = process.env.PORT || 4200;
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(express.static(__dirname+ "/dist/"));
+app.use(json());
+app.use(static(__dirname+ "/dist/"));
 
 
 

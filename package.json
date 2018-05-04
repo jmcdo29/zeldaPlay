@@ -2,6 +2,9 @@
   "name": "zelda-play",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "npm": "5.7.1"
+  },
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
@@ -25,8 +28,10 @@
     "angular-in-memory-web-api": "^0.5.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "chartist": "^0.11.0",
     "core-js": "^2.4.1",
     "express": "^4.16.2",
+    "ng-chartist": "^2.0.0-beta.1",
     "path": "^0.12.7",
     "pg": "^7.4.1",
     "rxjs": "^5.5.6",
@@ -37,6 +42,7 @@
     "@angular/cli": "^1.6.7",
     "@angular/compiler-cli": "^5.2.8",
     "@angular/language-service": "^5.2.0",
+    "@types/chartist": "^0.9.38",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
