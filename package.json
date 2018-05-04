@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "engines": {
+    "node": "10.0.0",
     "npm": "5.7.1"
   },
   "scripts": {
@@ -12,7 +13,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build"
+    "heroku-postbuild": "ng build"
   },
   "private": true,
   "dependencies": {
