@@ -1,7 +1,15 @@
 <button class="accordian" (click)="expandSkill()">
   <h2>{{ character.name | uppercase }} Skills</h2>
 </button>
+
 <div class="panel" [class.active]="showSkills">
+  <div class="skillCheck" *ngIf="skill && checkVal">
+    <h4>Skill Check</h4>
+    <span class="right" (click)="hideCheck()">&times;</span>
+    <div>
+      <span id="skill">{{ skill }}</span> : <span id="roll">{{ checkVal }}</span>
+    </div>
+  </div>
   <div class="table">
     <table>
       <thead>
@@ -22,15 +30,15 @@
           <td>
             <input type="checkbox" [checked]="skill.trained" disabled="true" />
           </td>
-          <td class="name">
-            <div *ngIf="skill.skillName==='Craft 1' || skill.skillName==='Craft 2' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
+          <td class="name" (click)="makeCheck(skill.skillName)">
+            <div *ngIf="skill.skillName==='CraftOne' || skill.skillName==='CraftTwo' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
 
             <ng-template #specialSkill>
-              <div *ngIf="skill.skillName==='Craft 1'">
-                {{ skill.skillName.substr(0, skill.skillName.length-2) + ' (' + (character.craftOne ? character.craftOne : 'Other') +')'}}
+              <div *ngIf="skill.skillName==='CraftOne'">
+                {{ skill.skillName.substr(0, skill.skillName.length-4) + ' (' + (character.craftOne ? character.craftOne : 'Other') +')'}}
               </div>
-              <div *ngIf="skill.skillName==='Craft 2'">
-                {{ skill.skillName.substr(0, skill.skillName.length-2) + ' (' + (character.craftTwo ? character.craftTwo : 'Other') +')'}}
+              <div *ngIf="skill.skillName==='CraftTwo'">
+                {{ skill.skillName.substr(0, skill.skillName.length-4) + ' (' + (character.craftTwo ? character.craftTwo : 'Other') +')'}}
               </div>
               <div *ngIf="skill.skillName==='Profession'">
                 {{ skill.skillName + ' (' + (character.profession ? character.profession : 'Other') +')'}}
@@ -51,65 +59,6 @@
           <td>{{ skill.item }}</td>
           <td>{{ skill.misc }}</td>
           <td class="total">{{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<!-- TODO: Move weapon table to weapon tab -->
-<button class="accordian" (click)="expandWeapon()">
-  <h2>{{ character.name | uppercase }} Weapon Skills</h2>
-</button>
-<div class="panel" [class.active]="showWeapon">
-  <div class="table">
-    <table>
-      <thead>
-        <tr>
-          <th>Trained</th>
-          <th>Weapon Type</th>
-          <th>Skill Ranks</th>
-          <th>Racial Bonus</th>
-          <th>Total
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let weapon of character.weaponSkills" class="weapon">
-          <td>
-            <input type="checkbox" [checked]="weapon.trained" disabled="true" />
-          </td>
-          <td class="name">{{ weapon.skillName }}</td>
-          <td>{{ weapon.ranks }}</td>
-          <td>{{ weapon.racial }}</td>
-          <td class="total">{{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<!-- TODO: Move magic table to magic tab-->
-<button class="accordian" (click)="expandMagic()">
-  <h2>{{ character.name | uppercase }} Magic Skills</h2>
-</button>
-<div class="panel" [class.active]="showMagic">
-  <div class="table">
-    <table>
-      <thead>
-        <tr>
-          <th>Magic Type</th>
-          <th>Modifier</th>
-          <th>Skill Ranks</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let magic of character.magicSkills" [class.din]="magic.modifier === 'Intelligence'" [class.farore]="magic.modifier === 'Charisma'"
-          [class.nayru]="magic.modifier === 'Wisdom'">
-          <td class="name">{{ magic.skillName }}</td>
-          <td class="mod">{{ magic.modifier.substr(0,3) | uppercase }}
-            <span class="info">{{ getMod(magic.modifier)}}</span>
-          </td>
-          <td>{{ magic.ranks }}</td>
-          <td class="total">{{ magic.ranks+getMod(magic.modifier) }}</td>
         </tr>
       </tbody>
     </table>

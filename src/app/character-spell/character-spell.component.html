@@ -64,6 +64,11 @@
 </div>
 <button (click)="addSpell()">New Spell</button>
 <div *ngIf="character.spells" class="table">
+  <div class="spellRoll">
+    <h4>{{ spellName }}</h4>
+    <span>Roll to hit:</span><span id="spellRoll">{{ spellRoll }}</span>
+    <span>Damage/Heal Roll:</span><span id="spellDmgRoll">{{ dmgRoll }}</span>
+  </div>
   <table>
     <thead>
       <tr>
@@ -84,5 +89,34 @@
       </tr>
     </tbody>
   </table>
-  <!-- TODO: Move magic table to here and implememt rolling logic-->
+</div>
+<div class="magicSkills">
+  <button class="accordian" (click)="expandMagic()">
+    <h2>{{ character.name | uppercase }} Magic Skills</h2>
+  </button>
+  <div class="panel" [class.active]="showMagic">
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>Magic Type</th>
+            <th>Modifier</th>
+            <th>Skill Ranks</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let magic of character.magicSkills" [class.din]="magic.modifier === 'Intelligence'" [class.farore]="magic.modifier === 'Charisma'"
+            [class.nayru]="magic.modifier === 'Wisdom'">
+            <td class="name">{{ magic.skillName }}</td>
+            <td class="mod">{{ magic.modifier.substr(0,3) | uppercase }}
+              <span class="info">{{ getMod(magic.modifier)}}</span>
+            </td>
+            <td>{{ magic.ranks }}</td>
+            <td class="total">{{ magic.ranks+getMod(magic.modifier) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

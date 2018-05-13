@@ -8,29 +8,28 @@ import { Attributes } from './Character/Enums/attributes.enum';
 import { Magics } from './Character/Enums/magic-skills.enum';
 import { Skills } from './Character/Enums/skills.enum';
 import { Weapons } from './Character/Enums/weapon-skills.enum';
+import { Spell } from './Character/spells';
 
 export class InMemoryDataService implements InMemoryDbService {
-
   createDb() {
-
-    const EXP = 25740;
+    const EXP = 35100;
 
     const Bryte = new Fairy('Nayru');
     Bryte.name = 'Bryte';
-    Bryte.ac = 17;
-    Bryte.flat_footed = 10;
-    Bryte.touch = 17;
+    Bryte.ac = 20;
+    Bryte.flat_footed = 17;
+    Bryte.touch = 20;
     Bryte.craftOne = 'Fairy Made Armor';
     Bryte.craftTwo = 'Magic Potions';
     Bryte.profession = 'Armor Smith';
-    Bryte.attributes[Attributes['Strength']].value = 10;
+    Bryte.attributes[Attributes['Strength']].value = 11;
     Bryte.attributes[Attributes['Dexterity']].value = 14;
     Bryte.attributes[Attributes['Constitution']].value = 12;
     Bryte.attributes[Attributes['Intelligence']].value = 14;
-    Bryte.attributes[Attributes['Wisdom']].value = 24;
-    Bryte.attributes[Attributes['Charisma']].value = 16;
-    Bryte.health = Bryte.maxHealth = 149;
-    Bryte.magic = Bryte.maxMagic = 67;
+    Bryte.attributes[Attributes['Wisdom']].value = 25;
+    Bryte.attributes[Attributes['Charisma']].value = 14;
+    Bryte.health = Bryte.maxHealth = 166;
+    Bryte.magic = Bryte.maxMagic = 77;
     Bryte.skills[Skills['CraftOne']].ranks = 3;
     Bryte.skills[Skills['CraftOne']].misc = 5;
     Bryte.skills[Skills['CraftTwo']].ranks = 2;
@@ -40,16 +39,25 @@ export class InMemoryDataService implements InMemoryDbService {
     Bryte.skills[Skills['Perform Music']].ranks = 2;
     Bryte.skills[Skills['Profession']].ranks = 2;
     Bryte.skills[Skills['Sense Motive']].ranks = 3;
-    Bryte.weaponSkills[Weapons['Fire Rod']].ranks = 3;
-    Bryte.weaponSkills[Weapons['Ice Rod']].ranks = 3;
-    Bryte.weaponSkills[Weapons['Lightning Rod']].ranks = 3;
+    Bryte.weaponSkills[Weapons['Fire Rod']].ranks = 6;
+    Bryte.weaponSkills[Weapons['Ice Rod']].ranks = 6;
+    Bryte.weaponSkills[Weapons['Lightning Rod']].ranks = 6;
     Bryte.weaponSkills[Weapons['Tornado Rod']].ranks = 9;
-    Bryte.weaponSkills[Weapons['Sand Rod']].ranks = 2;
+    Bryte.weaponSkills[Weapons['Sand Rod']].ranks = 6;
     Bryte.magicSkills[Magics['Din']].ranks = 2;
-    Bryte.magicSkills[Magics['Nayru']].ranks = 8;
+    Bryte.magicSkills[Magics['Nayru']].ranks = 13;
     Bryte.magicSkills[Magics['Farore']].ranks = 1;
     methods.calcMod(Bryte);
     methods.gainExp(Bryte, EXP);
+    const fairyCure = new Spell();
+    fairyCure.name = 'Fairy Cure';
+    fairyCure.effect = 'Heals target.';
+    fairyCure.mpUse = 5;
+    fairyCure.damage = 8;
+    fairyCure.multiplier = 2;
+    fairyCure.diety = 'Nayru';
+    fairyCure.modifier = 'Wisdom';
+    Bryte.spells = [fairyCure];
 
     const Rya = new Gerudo();
     Rya.name = 'Rya';
@@ -60,13 +68,15 @@ export class InMemoryDataService implements InMemoryDbService {
     Rya.magic = Rya.maxMagic = 27;
     Rya.attributes[Attributes['Strength']].value = 24;
     Rya.attributes[Attributes['Dexterity']].value = 24;
-    Rya.attributes[Attributes['Constitution']].value = 9;
+    Rya.attributes[Attributes['Constitution']].value = 10;
     Rya.attributes[Attributes['Intelligence']].value = 16;
     Rya.attributes[Attributes['Wisdom']].value = 10;
     Rya.attributes[Attributes['Charisma']].value = 8;
     Rya.skills[Skills['Acrobatics']].ranks = 2;
     Rya.skills[Skills['Perception']].ranks = 5;
-    Rya.weaponSkills[Weapons['Long Sword']].ranks = 4;
+    Rya.weaponSkills[Weapons['Short Sword']].ranks = 10;
+    Rya.weaponSkills[Weapons['Long Sword']].ranks = 10;
+    Rya.weaponSkills[Weapons['Dual Sword']].ranks = 13;
     Rya.weaponSkills[Weapons['Halberd']].ranks = 4;
     Rya.weaponSkills[Weapons['Sling']].ranks = 5;
     Rya.weaponSkills[Weapons['Unarmed']].ranks = 4;
@@ -128,6 +138,6 @@ export class InMemoryDataService implements InMemoryDbService {
     methods.gainExp(Golo, EXP);
 
     const characters: Character[] = [Bryte, Rya, Greyson, Golo];
-    return {characters};
+    return { characters };
   }
 }

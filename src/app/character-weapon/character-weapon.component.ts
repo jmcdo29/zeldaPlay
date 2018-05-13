@@ -23,6 +23,8 @@ export class CharacterWeaponComponent implements OnInit {
 
   newWeapon = false;
 
+  showWeapon = true;
+
   weapon: Weapon;
   weapons: Weapon[] = [];
 
@@ -211,5 +213,9 @@ export class CharacterWeaponComponent implements OnInit {
     const message = name + ' added a ' + weaponType + ' called ' + weaponName + '.';
 
     this.message.add(message);
+  }
+
+  expandWeapon(): void {
+    this.showWeapon = !this.showWeapon;
   }
 }
