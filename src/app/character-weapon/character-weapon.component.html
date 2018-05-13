@@ -143,3 +143,34 @@
     </tbody>
   </table>
 </div>
+<div class="weaponSkills">
+  <button class="accordian" (click)="expandWeapon()">
+    <h2>{{ character.name | uppercase }} Weapon Skills</h2>
+  </button>
+  <div class="panel" [class.active]="showWeapon">
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>Trained</th>
+            <th>Weapon Type</th>
+            <th>Skill Ranks</th>
+            <th>Racial Bonus</th>
+            <th>Total
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let weapon of character.weaponSkills" class="weapon">
+            <td>
+              <input type="checkbox" [checked]="weapon.trained" disabled="true" />
+            </td>
+            <td class="name">{{ weapon.skillName }}</td>
+            <td>{{ weapon.ranks }}</td>
+            <td>{{ weapon.racial }}</td>
+            <td class="total">{{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

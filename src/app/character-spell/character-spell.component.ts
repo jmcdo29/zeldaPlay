@@ -5,6 +5,7 @@ import { Spell } from '../Character/spells';
 import { Diety } from '../Character/Enums/dieties.enum';
 import { Attributes } from '../Character/Enums/attributes.enum';
 import { MessageService } from '../message.service';
+import { Magics } from '../Character/Enums/magic-skills.enum';
 
 @Component({
   selector: 'app-character-spell',
@@ -17,10 +18,16 @@ export class CharacterSpellComponent implements OnInit {
 
   newSpell = false;
 
+  showMagic = true;
+
   dieties = Diety;
   attributes = Attributes;
   spell: Spell;
   spellArray: Spell[] = [];
+
+  spellName: string;
+  spellRoll: number;
+  dmgRoll: number;
 
   constructor(public message: MessageService) { }
 
@@ -100,5 +107,61 @@ export class CharacterSpellComponent implements OnInit {
 
     const message = name + ' added a spell of ' + spellType + ' called ' + spellName + '.';
     this.message.add(message);
+  }
+
+  getMod(modName: string): number {
+    return this.character.attributes[Attributes[modName]].modifier;
+  }
+
+  expandMagic(): void {
+    this.showMagic = !this.showMagic;
+  }
+
+  castSpell(spellIndex: number): void {
+    let crit = false;
+    const character = this.character;
+    const spell = this.character.spells[spellIndex];
+    const magicType = this.character.magicSkills[Magics[spell.diety]];
+    const magicBonus = magicType.ranks + this.character.attributes[Attributes[magicType.modifier]].modifier;
+    let spellRoll = Math.round(Math.random() * 100) % 20 + 1 ;
+    this.setClasses(spellRoll);
+    spellRoll += magicBonus;
+    this.spellName = spell.name;
+    let dmgRoll = Math.round(Math.random() * 100) % spell.damage + 1;
+    if (dmgRoll === 20) {
+      crit = true;
+    }
+    this.dmgClasses(dmgRoll, spell.damage);
+    dmgRoll = dmgRoll * spell.multiplier * (crit ? 3 : 1);
+    this.character.magic -= spell.mpUse;
+    this.spellName = spell.name;
+    this.spellRoll = spellRoll;
+    this.dmgRoll = dmgRoll;
+  }
+
+  private setClasses(roll: number): void {
+    this.nullify('spellRoll', 'crit');
+    this.nullify('spellRoll', 'critMiss');
+    if (roll === 1) {
+      document.getElementById('spellRoll').classList.add('critMiss');
+    } else if (roll === 20) {
+      document.getElementById('spellRoll').classList.add('crit');
+    }
+  }
+
+  private dmgClasses(roll: number, sides: number): void {
+    this.nullify('spellDmgRoll', 'max');
+    this.nullify('spellDmgRoll', 'critMiss');
+    if (roll === 1 )  {
+      document.getElementById('spellDmgRoll').classList.add('critMiss');
+    } else if (roll === sides) {
+      document.getElementById('spellDmgRoll').classList.add('max');
+    }
+  }
+
+  private nullify(id: string, className: string): void {
+    if (document.getElementById(id).classList.contains(className)) {
+      document.getElementById(id).classList.remove(className);
+    }
   }
 }
