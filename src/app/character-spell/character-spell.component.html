@@ -62,6 +62,7 @@
     </div>
   </div>
 </div>
+<!-- TODO: Make a modal for casting too much magic. Or at least an erro message.-->
 <button (click)="addSpell()">New Spell</button>
 <div *ngIf="character.spells" class="table">
   <div class="spellRoll">
@@ -80,8 +81,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let spell of character.spells" [class.nayru]="spell.diety === 'Nayru'" [class.farore]="spell.diety === 'Farore'" [class.din]="spell.diety === 'Din'">
-        <td>{{ spell.name }}</td>
+      <tr *ngFor="let spell of character.spells index as i" [class.nayru]="spell.diety === 'Nayru'" [class.farore]="spell.diety === 'Farore'" [class.din]="spell.diety === 'Din'">
+        <td (click)="castSpell(i)">{{ spell.name }}</td>
         <td>{{ spell.effect }}</td>
         <td>{{ spell.multiplier }}D{{ spell.damage }}</td>
         <td>{{ spell.mpUse }}</td>

@@ -35,16 +35,16 @@
 
             <ng-template #specialSkill>
               <div *ngIf="skill.skillName==='CraftOne'">
-                {{ skill.skillName.substr(0, skill.skillName.length-4) + ' (' + (character.craftOne ? character.craftOne : 'Other') +')'}}
+                {{ skill.skillName.substr(0, skill.skillName.length-4) + ' ' + (character.craftOne ? character.craftOne : 'Other') +''}}
               </div>
               <div *ngIf="skill.skillName==='CraftTwo'">
-                {{ skill.skillName.substr(0, skill.skillName.length-4) + ' (' + (character.craftTwo ? character.craftTwo : 'Other') +')'}}
+                {{ skill.skillName.substr(0, skill.skillName.length-4) + ' ' + (character.craftTwo ? character.craftTwo : 'Other') +''}}
               </div>
               <div *ngIf="skill.skillName==='Profession'">
-                {{ skill.skillName + ' (' + (character.profession ? character.profession : 'Other') +')'}}
+                {{ skill.skillName + ' ' + (character.profession ? character.profession : 'Other') +''}}
               </div>
               <div *ngIf="skill.skillName==='Perform'">
-                {{ skill.skillName + ' (' + (character.performCust ? character.performCust : 'Other') +')'}}
+                {{ skill.skillName + ' ' + (character.performCust ? character.performCust : 'Other') +''}}
               </div>
             </ng-template>
             <ng-template #normalSkill>

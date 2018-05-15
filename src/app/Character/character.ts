@@ -102,13 +102,22 @@ export class Character {
         this.savingThrows.push(save);
       }
     }
+    /* A T T R I B U T E   A R R A Y S */
+    const strArray = [Skills['Climb'], Skills['Intimidate'], Skills['Swim']];
 
-    const strArray = [3, 11, 31];
-    const dexArray = [0, 7, 8, 26, 28, 29];
+    // tslint:disable-next-line:max-line-length
+    const dexArray = [Skills['Acrobatics'], Skills['Escape Artist'], Skills['Fly'], Skills['Ride'], Skills['Sleight of Hand'], Skills['Stealth']];
+
     const conArray = [];
-    const intArray = [1, 4, 5, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-    const wisArray = [10, 22, 25, 27, 30];
-    const chaArray = [2, 6, 9, 23, 24];
+
+    // tslint:disable-next-line:max-line-length
+    const intArray = [Skills['Appraise'], Skills['CraftOne'], Skills['CraftTwo'], Skills['Knowledge Geography'], Skills['Knowledge History'], Skills['Knowledge Language'], Skills['Knowledge Local'], Skills['Knowledge Magic'], Skills['Knowledge Monsters'], Skills['Knowledge Nature'], Skills['Knowledge Nobility'], Skills['Knowledge Plains'], Skills['Knowledge Religion']];
+
+    const wisArray = [Skills['Heal'], Skills['Perception'], Skills['Profession'], Skills['Sense Motive'], Skills['Survival']];
+
+    const chaArray = [Skills['Bluff'], Skills['Diplomacy'], Skills['Handle Animal'], Skills['Perform Music'], Skills['Perform Other']];
+    /*E N D   A T T R I B U T E   A R R A Y S */
+
     const attrArrays = [
       strArray,
       dexArray,
