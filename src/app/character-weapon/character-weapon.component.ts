@@ -34,6 +34,11 @@ export class CharacterWeaponComponent implements OnInit {
   elemental: Elemental;
   elements = Elements;
 
+  weaponName: string;
+  rollToHit: number;
+  dmgRoll: number;
+  elemRoll: number;
+
   rangeList = [
     'Spear',
     'Halberd',
@@ -217,5 +222,47 @@ export class CharacterWeaponComponent implements OnInit {
 
   expandWeapon(): void {
     this.showWeapon = !this.showWeapon;
+  }
+
+  attack(weaponIndex: number): void {
+    let elemDmg;
+    let crit = false;
+    // set up constants for the weapon attack.
+    const character = this.character;
+    const weapon = character.weapons[weaponIndex];
+    const weapSkill = character.weaponSkills[Weapons[weapon.type]];
+    const modifier = character.attributes[Attributes[weapon.modifier]];
+    // make the roll to hit and see if the roll was a crit.
+    const initialRoll = this.roll(20);
+    if (weapon.critRange.includes(initialRoll)) {
+      crit = true;
+    }
+    // the roll to hit adding the total wepon bonus and the weapon's modifier bonus.
+    const rollWithBonus = initialRoll + weapSkill.ranks + (weapSkill.trained ? 3 : 0) + modifier.modifier;
+    const dmgRoll = this.roll(weapon.attack) * weapon.numberOfAttacks  * (crit ? weapon.critDamage : 1) + modifier.modifier;
+    if (weapon.element && weapon.element != null) {
+      elemDmg = this.roll(weapon.element.attack) * weapon.element.numberOfAttacks;
+      this.elemRoll = elemDmg;
+    } else {
+      this.elemRoll = null;
+    }
+    this.attackMessage(character, weapon, rollWithBonus, dmgRoll, elemDmg, weapon.element);
+    this.weaponName = weapon.name;
+    this.rollToHit = rollWithBonus;
+    this.dmgRoll = dmgRoll;
+  }
+
+  attackMessage(character: Character, weapon: Weapon, hit: number, dmg: number, elemDam?: number, elem?: Elemental): void {
+    const name = character.name;
+    let rolled = ' rolled a ' + hit + ' to hit with ' + weapon.name + ' for ' + dmg + ' points of physical damage.';
+    if (elemDam && elem) {
+      rolled = rolled.replace('.', ' and ' + elemDam + ' points of ' + elem.type + ' damage.');
+    }
+    const message = name + rolled;
+    this.message.add(message);
+  }
+
+  roll(mod: number): number {
+    return Math.round(Math.random() * 100) % mod + 1;
   }
 }
