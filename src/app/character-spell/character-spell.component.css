@@ -31,6 +31,10 @@ input, textarea, select, button.save{
   color: #00aa00;
 }
 
+.spellName{
+  cursor: poitner;
+}
+
 @media(max-width: 900px){
   /* .table-data-for-mobile{
     float: left;
