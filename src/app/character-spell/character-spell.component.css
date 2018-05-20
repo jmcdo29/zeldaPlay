@@ -32,7 +32,7 @@ input, textarea, select, button.save{
 }
 
 .spellName{
-  cursor: poitner;
+  cursor: pointer;
 }
 
 @media(max-width: 900px){
