@@ -138,7 +138,7 @@
     <tbody>
       <tr *ngFor="let weapon of character.weapons index as i" [class.din]="weapon.modifier === 'Strength' || weapon.modifier === 'Intelligence'"
       [class.farore]="weapon.modifier === 'Dexterity' || weapon.modifier === 'Charisma'" [class.nayru]="weapon.modifier === 'Wisdom' || weapon.modifier === 'Constitution'">
-        <td (click)="attack(i)">{{ weapon.name }}</td>
+        <td class="weaponName" (click)="attack(i)">{{ weapon.name }}</td>
         <td>{{ weapon.type }}</td>
         <td>{{ weapon.numberOfAttacks }}D{{ weapon.attack }}</td>
         <td>{{ weapon.critRange }}</td>
