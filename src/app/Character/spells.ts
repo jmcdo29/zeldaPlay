@@ -6,4 +6,5 @@ export class Spell {
   multiplier: number;
   modifier?: string;
   diety: string;
+  useDiety = false;
 }

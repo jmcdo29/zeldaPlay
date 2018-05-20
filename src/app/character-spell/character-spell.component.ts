@@ -135,7 +135,7 @@ export class CharacterSpellComponent implements OnInit {
       if (ogDmgRoll === 20) {
         crit = true;
       }
-      const dmgRoll = ogDmgRoll * spell.multiplier * (crit ? 3 : 1);
+      const dmgRoll = ogDmgRoll * spell.multiplier * (crit ? 3 : 1) + this.getMagicBonus(spell, character);
       this.spellName = spell.name;
       this.spellRoll = spellRoll;
       this.dmgRoll = dmgRoll;
@@ -168,5 +168,17 @@ export class CharacterSpellComponent implements OnInit {
     if (document.getElementById(id) && document.getElementById(id).classList.contains(className)) {
       document.getElementById(id).classList.remove(className);
     }
+  }
+
+  private getMagicBonus(spell: Spell, character: Character): number {
+    let retVal = 0;
+    if (spell.useDiety) {
+      let spellBon = character.magicSkills[Magics[spell.diety]].ranks;
+      spellBon += character.attributes[Attributes[character.magicSkills[Magics[spell.diety]].modifier]].modifier;
+      retVal += spellBon;
+    } else if (spell.modifier) {
+      retVal += character.attributes[Attributes[spell.modifier]].modifier;
+    }
+    return retVal;
   }
 }
