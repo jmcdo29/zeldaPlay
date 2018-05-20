@@ -1,5 +1,6 @@
 input.dropdown::-webkit-inner-spin-button, input.dropdown::-webkit-outer-spin-button{
   -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 input, textarea, select, button.save{
@@ -19,6 +20,19 @@ input, textarea, select, button.save{
 }
 .bad-input{
   background-color: lightcoral;
+}
+.crit{
+  color: gold;
+}
+.critMiss{
+  color:red;
+}
+.max{
+  color: #00aa00;
+}
+
+.spellName{
+  cursor: poitner;
 }
 
 @media(max-width: 900px){

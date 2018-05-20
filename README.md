@@ -1,7 +1,6 @@
 # zeldaPlay
 
->A web application in progress for a home-brew D20 character tracker. Built in Java and Node.js and hosted on Heroku in separate instances
->The overall goal of this application is to strength my Java skills and to have a working application in the end. Maybe eventually take the Java application to an Android and iOS application that will be paired with the home-brew starter kit.
+>A web application in progress for a home-brew D20 character tracker. Built in Angular 2+ and Node.js and hosted on Heroku in separate instances
 >
 >In the end, this application will be able to help track your character, make basic dice rolls for you, and allow you to digitally save multiple characters for ease of access.
 
@@ -10,14 +9,17 @@
 ### General
 
 * Name
-
-* Description
 * Race
+* Subrace
+* AC
+* Flat-Footed AC
+* Touch AC
+* Size
+* Level
 
 ### Attribute
 
 * Strength
-
 * Dexterity
 * Constitution
 * Intelligence
@@ -25,6 +27,7 @@
 * Charisma
 * Health Points
 * Magic Points
+* Experience
 
 ### Adventure Related
 
@@ -32,10 +35,15 @@
 * Magic Skills
 * Skills
 * Weapon Skills
+* Spells
+* Weapons
+* Saving Throws
+* Custom Crafts and Professions
 
 ### To Be Added
 
 * Inventory
+* Armor
 
 ---
 

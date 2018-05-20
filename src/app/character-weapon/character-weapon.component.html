@@ -109,8 +109,17 @@
 </div>
 
 <button (click)="addWeapon()">New Weapon</button>
-
 <div *ngIf="character.weapons" class="table">
+    <div class="spellRoll">
+        <div *ngIf="weaponName">
+          <h4>{{ weaponName }}</h4>
+          <span>Roll to hit:</span><span id="rollToHit">{{ rollToHit }}</span><br/>
+          <span>Damage Roll:</span><span id="weaponDmg">{{ dmgRoll }}</span><br/>
+        </div>
+        <div *ngIf="elemRoll">
+          <span>Elemental Roll:</span><span id="elementalDmgRoll">{{ elemRoll }}</span>
+        </div>
+      </div>
   <table>
     <thead>
       <tr>
@@ -127,9 +136,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let weapon of character.weapons" [class.din]="weapon.modifier === 'Strength' || weapon.modifier === 'Intelligence'"
+      <tr *ngFor="let weapon of character.weapons index as i" [class.din]="weapon.modifier === 'Strength' || weapon.modifier === 'Intelligence'"
       [class.farore]="weapon.modifier === 'Dexterity' || weapon.modifier === 'Charisma'" [class.nayru]="weapon.modifier === 'Wisdom' || weapon.modifier === 'Constitution'">
-        <td>{{ weapon.name }}</td>
+        <td class="weaponName" (click)="attack(i)">{{ weapon.name }}</td>
         <td>{{ weapon.type }}</td>
         <td>{{ weapon.numberOfAttacks }}D{{ weapon.attack }}</td>
         <td>{{ weapon.critRange }}</td>

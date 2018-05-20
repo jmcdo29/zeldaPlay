@@ -62,11 +62,12 @@
     </div>
   </div>
 </div>
+<!-- TODO: Make a modal for casting too much magic. Or at least an erro message.-->
 <button (click)="addSpell()">New Spell</button>
 <div *ngIf="character.spells" class="table">
-  <div class="spellRoll">
+  <div *ngIf="spellName" class="spellRoll">
     <h4>{{ spellName }}</h4>
-    <span>Roll to hit:</span><span id="spellRoll">{{ spellRoll }}</span>
+    <span>Roll to hit:</span><span id="spellRoll">{{ spellRoll }}</span><br/>
     <span>Damage/Heal Roll:</span><span id="spellDmgRoll">{{ dmgRoll }}</span>
   </div>
   <table>
@@ -80,8 +81,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let spell of character.spells" [class.nayru]="spell.diety === 'Nayru'" [class.farore]="spell.diety === 'Farore'" [class.din]="spell.diety === 'Din'">
-        <td>{{ spell.name }}</td>
+      <tr *ngFor="let spell of character.spells index as i" [class.nayru]="spell.diety === 'Nayru'" [class.farore]="spell.diety === 'Farore'" [class.din]="spell.diety === 'Din'">
+        <td class="spellName" (click)="castSpell(i)">{{ spell.name }}</td>
         <td>{{ spell.effect }}</td>
         <td>{{ spell.multiplier }}D{{ spell.damage }}</td>
         <td>{{ spell.mpUse }}</td>
@@ -110,7 +111,7 @@
             [class.nayru]="magic.modifier === 'Wisdom'">
             <td class="name">{{ magic.skillName }}</td>
             <td class="mod">{{ magic.modifier.substr(0,3) | uppercase }}
-              <span class="info">{{ getMod(magic.modifier)}}</span>
+              <span class="info">{{ getMod(magic.modifier) }}</span>
             </td>
             <td>{{ magic.ranks }}</td>
             <td class="total">{{ magic.ranks+getMod(magic.modifier) }}</td>

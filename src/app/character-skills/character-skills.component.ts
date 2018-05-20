@@ -37,17 +37,16 @@ export class CharacterSkillsComponent implements OnInit {
   }
 
   makeCheck(skillName: string): void {
-    let roll = Math.round(Math.random() * 100) % 20 + 1;
-    this.skill = ' ';
-    this.checkVal = 0;
-    this.setClasses(roll);
+    const originalRoll =  Math.round(Math.random() * 100) % 20 + 1;
+    let roll = originalRoll;
     const skill = this.character.skills[Skills[skillName]];
     const skillMod = skill.modifier;
     const mod = this.character.attributes[Attributes[skillMod]].modifier;
     const trained = skill.trained ? 3 : 0;
-    roll += mod + skill.ranks + skill.misc + skill.item + skill.racial;
+    roll += mod + skill.ranks + skill.misc + skill.item + skill.racial + trained;
     this.checkVal = roll;
     this.skill = skillName;
+    this.setClasses(originalRoll);
     this.addMessage(skillName, roll);
   }
 
@@ -74,7 +73,7 @@ export class CharacterSkillsComponent implements OnInit {
 
   private nullify(id: string, className: string): void {
     console.log('document.getElementById(%s);', id);
-    if (document.getElementById(id).classList.contains(className)) {
+    if (document.getElementById(id) && document.getElementById(id).classList.contains(className)) {
       document.getElementById(id).classList.remove(className);
     }
   }

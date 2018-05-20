@@ -120,23 +120,28 @@ export class CharacterSpellComponent implements OnInit {
   castSpell(spellIndex: number): void {
     let crit = false;
     const character = this.character;
-    const spell = this.character.spells[spellIndex];
-    const magicType = this.character.magicSkills[Magics[spell.diety]];
-    const magicBonus = magicType.ranks + this.character.attributes[Attributes[magicType.modifier]].modifier;
-    let spellRoll = Math.round(Math.random() * 100) % 20 + 1 ;
-    this.setClasses(spellRoll);
-    spellRoll += magicBonus;
-    this.spellName = spell.name;
-    let dmgRoll = Math.round(Math.random() * 100) % spell.damage + 1;
-    if (dmgRoll === 20) {
-      crit = true;
-    }
-    this.dmgClasses(dmgRoll, spell.damage);
-    dmgRoll = dmgRoll * spell.multiplier * (crit ? 3 : 1);
+    const spell = character.spells[spellIndex];
     this.character.magic -= spell.mpUse;
-    this.spellName = spell.name;
-    this.spellRoll = spellRoll;
-    this.dmgRoll = dmgRoll;
+    if (this.character.magic < 0) {
+      this.character.magic += spell.mpUse;
+      // TODO: Make an error modal about using too much magic
+    } else {
+      const magicType = character.magicSkills[Magics[spell.diety]];
+      const magicBonus = magicType.ranks + character.attributes[Attributes[magicType.modifier]].modifier;
+      const ogSpellRoll = Math.round(Math.random() * 100) % 20 + 1 ;
+      const spellRoll = ogSpellRoll + magicBonus;
+      this.spellName = spell.name;
+      const ogDmgRoll = Math.round(Math.random() * 100) % spell.damage + 1;
+      if (ogDmgRoll === 20) {
+        crit = true;
+      }
+      const dmgRoll = ogDmgRoll * spell.multiplier * (crit ? 3 : 1);
+      this.spellName = spell.name;
+      this.spellRoll = spellRoll;
+      this.dmgRoll = dmgRoll;
+      this.setClasses(ogSpellRoll);
+      this.dmgClasses(ogDmgRoll, spell.damage);
+    }
   }
 
   private setClasses(roll: number): void {
@@ -160,7 +165,7 @@ export class CharacterSpellComponent implements OnInit {
   }
 
   private nullify(id: string, className: string): void {
-    if (document.getElementById(id).classList.contains(className)) {
+    if (document.getElementById(id) && document.getElementById(id).classList.contains(className)) {
       document.getElementById(id).classList.remove(className);
     }
   }

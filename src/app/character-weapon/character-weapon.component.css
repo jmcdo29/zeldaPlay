@@ -1,5 +1,6 @@
 input.dropdown::-webkit-inner-spin-button, input.dropdown::-webkit-outer-spin-button{
   -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 input, textarea, select, button.save{
@@ -30,6 +31,10 @@ input, textarea, select, button.save{
 
 .center{
   align-items: center;
+}
+
+.weaponName{
+  cursor: pointer;
 }
 
 @media(max-width: 900px){
