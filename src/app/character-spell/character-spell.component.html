@@ -82,7 +82,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let spell of character.spells index as i" [class.nayru]="spell.diety === 'Nayru'" [class.farore]="spell.diety === 'Farore'" [class.din]="spell.diety === 'Din'">
-        <td (click)="castSpell(i)">{{ spell.name }}</td>
+        <td class="spellName" (click)="castSpell(i)">{{ spell.name }}</td>
         <td>{{ spell.effect }}</td>
         <td>{{ spell.multiplier }}D{{ spell.damage }}</td>
         <td>{{ spell.mpUse }}</td>
