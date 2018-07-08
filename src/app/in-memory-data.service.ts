@@ -13,7 +13,7 @@ import { Weapon } from './Character/Weapons/weapon';
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    const EXP = 35100;
+    const EXP = 54150;
     const STR = 'Strength';
     const DEX = 'Dexterity';
     const CON = 'Constitution';

@@ -33,6 +33,8 @@
 npm-debug.log
 testem.log
 /typings
+*.yaml
+*.log
 
 # e2e
 /e2e/*.js
@@ -43,3 +45,5 @@ testem.log
 Thumbs.db
 
 mock-characters.ts
+  
+*.sql 

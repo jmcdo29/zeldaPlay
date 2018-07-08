@@ -1,0 +1,14 @@
+All IDs should be 12 characters long
+
+User Ids should start with 00U
+Character Ids should start with 00C
+Skill Ids should start with 00S
+Weapon Ids should start with 00W
+Weapon Element Ids should start with 0wE
+Spell Ids should start with 0Sp
+Save Ids should start with 0sT
+Note Ids should start with 00N
+Recovery Answers Ids should start with 00R
+Recovery Question Ids should start with 0rQ
+
+0xx (9 more random characters)
