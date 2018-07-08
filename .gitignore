@@ -47,3 +47,5 @@ Thumbs.db
 mock-characters.ts
   
 *.sql 
+.env
+!/refernce/makeId.sql
