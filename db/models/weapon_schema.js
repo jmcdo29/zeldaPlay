@@ -13,6 +13,21 @@ class Weapon extends Model{
     return 'public.weapon';
   }
 
+  static get relationMappings() {
+    const Element = require('./element_schema');
+
+    return {
+      element: {
+        relation: Model.HasOneRelation,
+        modelClass: Element,
+        join: {
+          from: `${this.tableName}.id`,
+          to: `${Weapon.tableName}.weapon_id`
+        }
+      }
+    }
+  }
+
   $beforeInsert() {
     this.id = '00W' + makeId(9);
   }

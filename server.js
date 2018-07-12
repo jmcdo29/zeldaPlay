@@ -1,6 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const bodyparser = require('body-parser');
+const User = require('./db/models/user_schema');
+
+console.log(User.relationMappings);
 
 const PORT = process.env.PORT;
 

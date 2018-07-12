@@ -13,6 +13,62 @@ class Character extends Model{
     return 'public.character';
   }
 
+  static get relationMappings() {
+    const CHARID = '.character_id';
+    const Weapon = require('./weapon_schema');
+    const Spell = require('./spell_schema');
+    const Skill = require('./skill_schema');
+    const Note = require('./note_schema');
+    const Save = require('./save_schema');
+
+    return {
+      weapons: {
+        relation: Model.HasManyRelation,
+        modelClass: Weapon,
+        join: {
+          from: `${this.tableName}.id`,
+          to: `${Weapon.tableName}.id`
+        }
+      },
+
+      spells: {
+        relation: Model.HasManyRelation,
+        modelClass: Spell,
+        join: {
+          from: `${this.tableName}.id`,
+          to: `${Spell.tableName + CHARID}`
+        }
+      },
+
+      skills: {
+        relation: Model.HasManyRelation,
+        modelClass: Skill,
+        join: {
+          from: `${this.tableName}.id`,
+          to: `${Skill.tableName + CHARID}`
+        }
+      },
+
+      saves: {
+        relation: Model.HasManyRelation,
+        modelClass: Save,
+        join: {
+          from: `${this.tableName}.id`,
+          to: `${Save.tableName + CHARID}`
+        }
+      },
+
+      notes: {
+        relation: Model.HasManyRelation,
+        modelClass: Note,
+        join: {
+          from: `${this.tableName}.id`,
+          to: `${Note.tableName + CHARID}`
+        }
+      }
+    }
+  }
+
   $beforeInsert() {
     this.id = '00C' + makeId(9);
   }
