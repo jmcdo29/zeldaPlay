@@ -48,4 +48,6 @@ mock-characters.ts
   
 *.sql 
 .env
-!/refernce/makeId.sql
+!/reference/makeId.sql
+/reference/*.js
+seeds

@@ -3,12 +3,14 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { MessageService } from './message.service';
 
-// tslint:disable-next-line:import-blacklist
 import { Observable, of } from 'rxjs';
 
 import { catchError, tap } from 'rxjs/operators';
 
 import { Character } from './Character/character';
+
+import * as FileSaver from 'file-saver';
+import { bloomFindPossibleInjector } from '../../node_modules/@angular/core/src/render3/di';
 
 @Injectable()
 export class CharacterService {
@@ -35,6 +37,13 @@ export class CharacterService {
       this.messageService.add(errMsg);
       return of(result as T);
     };
+  }
+
+  saveChar(character: Character) {
+    const blob = new Blob([JSON.stringify(character)], {
+      type: 'application/json'
+    });
+    FileSaver.saveAs(blob, character.name + '_zeldaplay.json');
   }
 }
 

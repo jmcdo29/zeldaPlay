@@ -41,4 +41,8 @@ export class CharactersComponent implements OnInit {
     this.getCharacters();
   }
 
+  save() {
+    this.characterService.saveChar(this.selectedCharacter);
+  }
+
 }

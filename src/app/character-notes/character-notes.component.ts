@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Character } from '../Character/character';
 import { Note } from '../Character/note';
 import { MessageService } from '../message.service';
-import { httpInMemBackendServiceFactory } from 'angular-in-memory-web-api';
 import { methods } from '../Character/character-methods';
 
 @Component({

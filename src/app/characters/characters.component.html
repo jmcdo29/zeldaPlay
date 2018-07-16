@@ -11,6 +11,8 @@
   
       <button *ngIf="selectedCharacter" (click)="hide()">Hide Character Sheet</button>
       <br/>
+      <button *ngIf="selectedCharacter" (click)="save()">Save Character Data</button>
+      <br/>
       <button (click)="newCharacter()">Create Character</button>
     </div>
     <div class="messages">

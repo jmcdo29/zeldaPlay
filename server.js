@@ -1,18 +1,32 @@
 require('dotenv').config();
 const express = require('express');
 const bodyparser = require('body-parser');
-const User = require('./db/models/user_schema');
-
-console.log(User.relationMappings);
+const helmet = require('helmet');
+const logger = require('morgan');
+const flash = require('express-flash');
 
 const PORT = process.env.PORT;
 
 const app = express();
 
+app.use(helmet());
+//app.use(logger('dev'));
 app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: false}));
+app.use(require('./utils/sessionConf'));
+app.use(flash());
+
 app.use(express.static(__dirname + "/dist/"));
 
-app.get("*", (req, res, next) => {
+app.use('/v1', require('./v1').v1);
+
+/* app.get(/^\W(?!(v1)\w*)\w*//*, (req, res, next) => {
+  res.sendFile('./index.html');
+}); */
+
+app.use('/api', require('./routes/api'));
+
+app.get('/', (req, res, next) => {
   res.sendFile('./index.html');
 });
 
