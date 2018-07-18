@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CharactersComponent } from '../characters/characters.component';
-import { Character } from '../Character/character';
-import { Attribute } from '../Character/attribute';
-import { Fairy, Gerudo, Goron, Hylian, Rito, Sheikah, Twili, Zora } from '../Races/Races';
-import { Attributes } from '../Character/Enums/attributes.enum';
-import { MessageService } from '../message.service';
+import { Character } from '../_models/character';
+import { Attribute } from '../_models/attribute';
+import { Fairy, Gerudo, Goron, Hylian, Rito, Sheikah, Twili, Zora } from '../_models/Races';
+import { Attributes } from '../_enums/attributes.enum';
+import { MessageService } from '../_services/message.service';
 
 @Component({
   selector: 'app-character-create',

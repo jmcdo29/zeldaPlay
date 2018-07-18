@@ -1,8 +1,8 @@
-import { Character } from '../Character/character';
-import { Skills } from '../Character/Enums/skills.enum';
-import { Magics } from '../Character/Enums/magic-skills.enum';
-import { Weapons } from '../Character/Enums/weapon-skills.enum';
-import { Attributes } from '../Character/Enums/attributes.enum';
+import { Character } from './character';
+import { Skills } from '../_enums/skills.enum';
+import { Magics } from '../_enums/magic-skills.enum';
+import { Weapons } from '../_enums/weapon-skills.enum';
+import { Attributes } from '../_enums/attributes.enum';
 
 export class Fairy extends Character {
 
@@ -133,10 +133,10 @@ export class Hylian extends Character {
         case 'Sheikah': {
           // Sheikah Hylian Skills
           this.attributes[Attributes['Dexterity']].value += 2;        // Dexterity Buff
-          this.skills[Skills['Acrobatics']].trained = true;           // Acronatics
+          this.skills[Skills['Acrobatics']].trained = true;           // Acrobatics
           this.skills[Skills['Appraise']].trained = true;             // Appraise
           this.skills[Skills['Bluff']].trained = true;                // Bluff
-          this.skills[Skills['Escape Artist']].trained = true;        // Escpe Artist
+          this.skills[Skills['Escape Artist']].trained = true;        // Escape Artist
           this.skills[Skills['Intimidate']].trained = true;           // Intimidate
           this.skills[Skills['Knowledge Language']].trained = true;   // Knowledge (Language)
           this.skills[Skills['Knowledge Nobility']].trained = true;   // Knowledge (Nobility)
@@ -147,13 +147,13 @@ export class Hylian extends Character {
         }
         case 'Guard': {
           // Guard Hylian Skills
-          this.attributes[Attributes['Constitution']].value += 2;     // Consitution Buff
+          this.attributes[Attributes['Constitution']].value += 2;     // Constitution Buff
           this.skills[Skills['Bluff']].trained = true;                // Bluff
           this.skills[Skills['Diplomacy']].trained = true;            // Diplomacy
           this.skills[Skills['Heal']].trained = true;                 // Heal
           this.skills[Skills['Intimidate']].trained = true;           // Intimidate
-          this.skills[Skills['Knowldege Nobility']].trained = true;   // Knowledge (Nobility)
-          this.skills[Skills['Knowldege Reiligion']].trained = true;  // Knowledge (Religion)
+          this.skills[Skills['Knowledge Nobility']].trained = true;   // Knowledge (Nobility)
+          this.skills[Skills['Knowledge Religion']].trained = true;  // Knowledge (Religion)
           this.skills[Skills['Profession']].trained = true;           // Profession
           this.skills[Skills['Ride']].trained = true;                 // Ride
           this.skills[Skills['Sense Motive']].trained = true;         // Sense Motive
@@ -266,7 +266,7 @@ export class Zora extends Character {
     this.skills[Attributes['Acrobatics']].trained = true;           // Acrobatics
     this.skills[Attributes['CraftOne']].trained = true;             // Craft 1
     this.skills[Attributes['CraftTwo']].trained = true;             // Craft 2
-    this.skills[Attributes['Perception']].trained = true;           // Percetption
+    this.skills[Attributes['Perception']].trained = true;           // Perception
     this.skills[Attributes['Swim']].trained = true;                 // Swim
 
     this.weaponSkills[Weapons['Spear']].trained = true;             // Spears

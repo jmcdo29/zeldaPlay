@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CharacterDetailComponent } from '../character-detail/character-detail.component';
-import { MessageService } from '../message.service';
-import { Attributes } from '../Character/Enums/attributes.enum';
+import { MessageService } from '../_services/message.service';
+import { Attributes } from '../_enums/attributes.enum';
 
 @Component({
   selector: 'app-die',
@@ -23,17 +23,17 @@ export class DieComponent implements OnInit {
     const NAME = this.character.character.name;
     const ROLLED = ' rolled a ';
     const MOD = ' with a ';
-    const MODNAME = modVal ? this.character.character.attributes[Attributes[this.mod]].name + ' modifier of ' : '';
-    const THEREISMOD = modVal ? MOD + MODNAME + modVal : '';
+    const MOD_NAME = modVal ? this.character.character.attributes[Attributes[this.mod]].name + ' modifier of ' : '';
+    const THERE_IS_MOD = modVal ? MOD + MOD_NAME + modVal : '';
     const TOTAL = 'TOTAL: ' + (roll + (modVal ? modVal : 0)) + '.';
-    const rollString = NAME + ROLLED + roll + MOD + 'D' + sides + THEREISMOD + '. ' + TOTAL;
+    const rollString = NAME + ROLLED + roll + MOD + 'D' + sides + THERE_IS_MOD + '. ' + TOTAL;
 
     this.messageService.add(rollString);
   }
 
   roll(sides: number): void {
     this.character.crit = false;
-    this.character.critmiss = false;
+    this.character.critMiss = false;
     this.character.maxDmg = false;
     const roll = Math.round(Math.random() * 100) % sides + 1;
     let modVal;
@@ -44,7 +44,7 @@ export class DieComponent implements OnInit {
       this.character.crit = true;
     }
     if (roll === 1 && sides === 20) {
-      this.character.critmiss = true;
+      this.character.critMiss = true;
     }
     if (
       roll === sides &&

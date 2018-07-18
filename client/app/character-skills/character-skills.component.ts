@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Character } from '../Character/character';
-import { Skills } from '../Character/Enums/skills.enum';
-import { Attributes } from '../Character/Enums/attributes.enum';
-import { MessageService } from '../message.service';
+import { Character } from '../_models/character';
+import { Skills } from '../_enums/skills.enum';
+import { Attributes } from '../_enums/attributes.enum';
+import { MessageService } from '../_services/message.service';
 
 @Component({
   selector: 'app-character-skills',
@@ -19,7 +19,7 @@ export class CharacterSkillsComponent implements OnInit {
   skill: string;
   checkVal: number;
 
-  constructor(public messeger: MessageService) { }
+  constructor(public messenger: MessageService) { }
 
   ngOnInit() {
   }
@@ -58,7 +58,7 @@ export class CharacterSkillsComponent implements OnInit {
   private addMessage(skillName: string, skillRoll: number) {
     const name = this.character.name;
     const message = name + ' rolled a ' + skillRoll + ' on a ' + skillName + ' check.';
-    this.messeger.add(message);
+    this.messenger.add(message);
   }
 
   private setClasses(roll: number): void {

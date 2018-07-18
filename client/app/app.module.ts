@@ -5,9 +5,9 @@ import { FormsModule } from '@angular/forms';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { HttpClientModule } from '@angular/common/http';
-import { InMemoryDataService } from './in-memory-data.service';
+import { InMemoryDataService } from './_services/in-memory-data.service';
 
-import { SharedModule } from './CustomPipes/customPipes';
+import { SharedModule } from './_helpers/customPipes';
 
 // attempting to add in chartist for Angular. Hopefully it goes well!
 import { ChartistModule } from 'ng-chartist';
@@ -18,12 +18,12 @@ import { CharacterDetailComponent } from './character-detail/character-detail.co
 import { DieComponent } from './die/die.component';
 import { CharacterCreateComponent } from './character-create/character-create.component';
 import { CharacterLevelUpComponent } from './character-level-up/character-level-up.component';
-import { CharacterService } from './character.service';
+import { CharacterService } from './_services/character.service';
 import { CharacterSkillsComponent } from './character-skills/character-skills.component';
 import { CharacterWeaponComponent } from './character-weapon/character-weapon.component';
 import { CharacterSpellComponent } from './character-spell/character-spell.component';
 import { MessagesComponent } from './messages/messages.component';
-import { MessageService } from './message.service';
+import { MessageService } from './_services/message.service';
 import { CharacterNotesComponent } from './character-notes/character-notes.component';
 import { CharacterInventoryComponent } from './character-inventory/character-inventory.component';
 import { CharacterSavesComponent } from './character-saves/character-saves.component';

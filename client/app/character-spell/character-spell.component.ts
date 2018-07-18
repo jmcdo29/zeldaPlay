@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Character } from '../Character/character';
-import { Spell } from '../Character/spells';
-import { Diety } from '../Character/Enums/dieties.enum';
-import { Attributes } from '../Character/Enums/attributes.enum';
-import { MessageService } from '../message.service';
-import { Magics } from '../Character/Enums/magic-skills.enum';
+import { Character } from '../_models/character';
+import { Spell } from '../_models/spells';
+import { Diety } from '../_enums/dieties.enum';
+import { Attributes } from '../_enums/attributes.enum';
+import { MessageService } from '../_services/message.service';
+import { Magics } from '../_enums/magic-skills.enum';
 
 @Component({
   selector: 'app-character-spell',

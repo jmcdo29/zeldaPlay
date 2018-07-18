@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
 
 import { ChartType, ChartEvent } from 'ng-chartist';
-import { Character } from '../Character/character';
+import { Character } from '../_models/character';
 
 export interface Chart {
   type: ChartType;

@@ -1,15 +1,15 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
-import { Character } from './Character/character';
-import { methods } from './Character/character-methods';
+import { Character } from '../_models/character';
+import { methods } from '../Character/character-methods';
 
-import { Fairy, Gerudo, Goron, Hylian, Rito } from './Races/Races';
-import { Attributes } from './Character/Enums/attributes.enum';
-import { Magics } from './Character/Enums/magic-skills.enum';
-import { Skills } from './Character/Enums/skills.enum';
-import { Weapons } from './Character/Enums/weapon-skills.enum';
-import { Spell } from './Character/spells';
-import { Weapon } from './Character/Weapons/weapon';
+import { Fairy, Gerudo, Goron, Hylian, Rito } from '../_models/Races';
+import { Attributes } from '../_enums/attributes.enum';
+import { Magics } from '../_enums/magic-skills.enum';
+import { Skills } from '../_enums/skills.enum';
+import { Weapons } from '../_enums/weapon-skills.enum';
+import { Spell } from '../_models/spells';
+import { Weapon } from '../_models/Weapons/weapon';
 
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
@@ -21,6 +21,7 @@ export class InMemoryDataService implements InMemoryDbService {
     const WIS = 'Wisdom';
     const CHA = 'Charisma';
 
+    // cspell:disable
     const Bryte = new Fairy('Nayru');
     Bryte.name = 'Bryte';
     Bryte.ac = 20;
@@ -288,6 +289,7 @@ export class InMemoryDataService implements InMemoryDbService {
     methods.gainExp(Golo, EXP);
 
     const characters: Character[] = [Bryte, Rya, Greyson, Golo];
+    // cspell:enable
     return { characters };
   }
 }

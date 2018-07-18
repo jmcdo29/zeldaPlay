@@ -24,7 +24,7 @@ class User extends Model{
     const Note = require('./note_schema');
 
     return {
-      charcaters: {
+      characters: {
         relation: Model.HasManyRelation,
         modelClass: Character,
         join: {

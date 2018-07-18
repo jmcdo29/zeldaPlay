@@ -2,16 +2,14 @@ import { Attribute } from './attribute';
 import { Skill } from './skill';
 import { Weapon } from './Weapons/weapon';
 import { Spell } from './spells';
-import { Attributes } from './Enums/attributes.enum';
-import { Weapons } from './Enums/weapon-skills.enum';
-import { Skills } from './Enums/skills.enum';
-import { Magics } from './Enums/magic-skills.enum';
-import { Saves } from './Enums/saves.enum';
+import { Attributes } from '../_enums/attributes.enum';
+import { Weapons } from '../_enums/weapon-skills.enum';
+import { Skills } from '../_enums/skills.enum';
+import { Magics } from '../_enums/magic-skills.enum';
+import { Saves } from '../_enums/saves.enum';
 import { Save } from './save';
-import { Item } from '../Item/item';
+import { Item } from './item';
 import { Note } from './note';
-import { Query } from '../../../node_modules/@angular/core';
-import { join } from 'path';
 
 const BASE = 8;
 

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { Character } from '../Character/character';
-import { Attributes } from '../Character/Enums/attributes.enum';
+import { Character } from '../_models/character';
+import { Attributes } from '../_enums/attributes.enum';
 import { CharacterDetailComponent } from '../character-detail/character-detail.component';
-import { MessageService } from '../message.service';
-import { Saves } from '../Character/Enums/saves.enum';
+import { MessageService } from '../_services/message.service';
+import { Saves } from '../_enums/saves.enum';
 
 @Component({
   selector: 'app-character-saves',

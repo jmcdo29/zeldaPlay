@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Character } from '../Character/character';
-import { Weapon } from '../Character/Weapons/weapon';
+import { Character } from '../_models/character';
+import { Weapon } from '../_models/Weapons/weapon';
 
-import { Weapons } from '../Character/Enums/weapon-skills.enum';
-import { Attributes } from '../Character/Enums/attributes.enum';
-import { Elements } from '../Character/Enums/elements.enum';
+import { Weapons } from '../_enums/weapon-skills.enum';
+import { Attributes } from '../_enums/attributes.enum';
+import { Elements } from '../_enums/elements.enum';
 
-import { Elemental } from '../Character/Weapons/elemental';
-import { MessageService } from '../message.service';
+import { Elemental } from '../_models/Weapons/elemental';
+import { MessageService } from '../_services/message.service';
 
 @Component({
   selector: 'app-character-weapon',
@@ -237,7 +237,7 @@ export class CharacterWeaponComponent implements OnInit {
     if (weapon.critRange.includes(initialRoll)) {
       crit = true;
     }
-    // the roll to hit adding the total wepon bonus and the weapon's modifier bonus.
+    // the roll to hit adding the total weapon bonus and the weapon's modifier bonus.
     const rollWithBonus = initialRoll + weapSkill.ranks + (weapSkill.trained ? 3 : 0) + modifier.modifier;
     const dmgRoll = this.roll(weapon.attack) * weapon.numberOfAttacks  * (crit ? weapon.critDamage : 1) + modifier.modifier;
     if (weapon.element && weapon.element != null) {

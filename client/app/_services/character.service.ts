@@ -7,11 +7,11 @@ import { Observable, of } from 'rxjs';
 
 import { catchError, tap } from 'rxjs/operators';
 
-import { Character } from './Character/character';
+import { Character } from '../_models/character';
 
 import * as FileSaver from 'file-saver';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class CharacterService {

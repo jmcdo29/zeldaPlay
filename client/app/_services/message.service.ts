@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { methods } from './Character/character-methods';
+import { methods } from '../Character/character-methods';
 
 @Injectable()
 export class MessageService {

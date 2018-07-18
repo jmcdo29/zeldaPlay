@@ -1,5 +1,5 @@
-import { Character } from './character';
-import { Level } from './Enums/levels.enum';
+import { Character } from '../_models/character';
+import { Level } from '../_enums/levels.enum';
 
 const methods = {
   levelUp: function(char: Character): void {

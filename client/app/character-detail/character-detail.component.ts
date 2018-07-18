@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Character } from '../Character/character';
-import { Attribute } from '../Character/attribute';
+import { Character } from '../_models/character';
+import { Attribute } from '../_models/attribute';
 import { CharacterLevelUpComponent } from '../character-level-up/character-level-up.component';
 import { methods } from '../Character/character-methods';
-import { MessageService } from '../message.service';
+import { MessageService } from '../_services/message.service';
 
 @Component({
   selector: 'app-character-detail',
@@ -20,7 +20,7 @@ export class CharacterDetailComponent implements OnInit {
   roll: string;
   editMode = false;
   crit = false;
-  critmiss = false;
+  critMiss = false;
   maxDmg = false;
 
   showDets = true;
