@@ -52,10 +52,10 @@ import { CharacterChartsComponent } from './character-charts/character-charts.co
     // import for chartist
     ChartistModule,
     SharedModule,
-    HttpClientModule,
+    HttpClientModule/* ,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, {passThruUnknownUrl: true, dataEncapsulation: false}
-    )
+    ) */
   ],
   providers: [CharacterService, MessageService],
   bootstrap: [AppComponent],

@@ -39,6 +39,9 @@ export class CharactersComponent implements OnInit {
 
   ngOnInit() {
     this.getCharacters();
+    if (this.characters.length === 0) {
+      this.characters = [];
+    }
   }
 
   save() {

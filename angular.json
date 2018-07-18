@@ -5,23 +5,23 @@
   "projects": {
     "angular-zeldaplay": {
       "root": "",
-      "sourceRoot": "src",
+      "sourceRoot": "client",
       "projectType": "application",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "tsConfig": "src/tsconfig.app.json",
-            "polyfills": "src/polyfills.ts",
+            "index": "client/index.html",
+            "main": "client/main.ts",
+            "tsConfig": "client/tsconfig.app.json",
+            "polyfills": "client/polyfills.ts",
             "assets": [
-              "src/assets",
-              "src/favicon.ico"
+              "client/assets",
+              "client/favicon.ico"
             ],
             "styles": [
-              "src/styles.css",
+              "client/styles.css",
               "node_modules/chartist/dist/chartist.css"
             ],
             "scripts": []
@@ -39,8 +39,8 @@
               "buildOptimizer": true,
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "client/environments/environment.ts",
+                  "with": "client/environments/environment.prod.ts"
                 }
               ]
             }
@@ -66,18 +66,18 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
+            "main": "client/test.ts",
             "karmaConfig": "./karma.conf.js",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
+            "polyfills": "client/polyfills.ts",
+            "tsConfig": "client/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "src/styles.css",
+              "client/styles.css",
               "node_modules/chartist/dist/chartist.css"
             ],
             "assets": [
-              "src/assets",
-              "src/favicon.ico"
+              "client/assets",
+              "client/favicon.ico"
             ]
           }
         },
@@ -85,8 +85,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "client/tsconfig.app.json",
+              "client/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

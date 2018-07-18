@@ -1,9 +1,14 @@
 const bcrypt = require('bcryptjs');
 
-function verifyPas (res, res, next) {
-  const pass = req.body.password;
-  const confPass = req.body.confPassword;
-  const errors = [];
+const middleware = {};
+
+middleware.verifyPass = verifyPas;
+
+module.exports = middleware;
+
+function verifyPas (password, confPass) {
+  return new Promise((resolve, reject) => {
+    const errors = [];
   if (password.length < 8) {
     errors.push('Your password must be at least eight (8) characters long.');
   }
@@ -23,8 +28,8 @@ function verifyPas (res, res, next) {
     errors.push('Your password must contain at least one special character.');
   }
   if (errors.length > 0) {
-    req.flash('errors', errors);
-    res.redirect('/signup');
+    reject(errors);
   }
-  next();
+  resolve();
+  });
 }

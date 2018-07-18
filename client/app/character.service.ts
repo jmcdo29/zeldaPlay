@@ -10,12 +10,13 @@ import { catchError, tap } from 'rxjs/operators';
 import { Character } from './Character/character';
 
 import * as FileSaver from 'file-saver';
-import { bloomFindPossibleInjector } from '../../node_modules/@angular/core/src/render3/di';
+
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class CharacterService {
 
-  private characterUrl = '/api/characters';
+  private characterUrl = environment.apiUrl + '/api/characters';
 
   constructor(private httpClient: HttpClient, private messageService: MessageService) { }
 
@@ -23,6 +24,7 @@ export class CharacterService {
     return this.httpClient.get<Character[]>(this.characterUrl)
     .pipe(
       tap(ch => {
+        console.log(ch);
         const outcome = ch ? 'Got characters' : 'Found a problem';
         this.messageService.add(outcome);
       }),
@@ -31,22 +33,20 @@ export class CharacterService {
   }
 
   private handleError<T> (operation: String, result?: T) {
-    return (error: CustErr): Observable<T> => {
+    return (error: any): Observable<T> => {
       console.log(error);
-      const errMsg = 'ERROR IN ' + operation.toUpperCase() + ': ' + error.body.error;
+      const errMsg = 'ERROR IN ' + operation.toUpperCase() + ': ' + error.message;
       this.messageService.add(errMsg);
       return of(result as T);
     };
   }
 
   saveChar(character: Character) {
-    const blob = new Blob([JSON.stringify(character)], {
+    const characterString = JSON.stringify(character);
+    const blob = new Blob([characterString], {
       type: 'application/json'
     });
     FileSaver.saveAs(blob, character.name + '_zeldaplay.json');
   }
 }
 
-interface CustErr {
-  body: {error: String};
-}
