@@ -1,0 +1,18 @@
+<button [routerLink]="['/']">Characters</button>
+<p>I hope you enjoy the use of this app. If you would like to use the services please register!</p>
+<p>If you already have an account please <a [routerLink]="['/login']">login here</a>.</p>
+<p>If you would like to see what this app is capable of, and/or use the old version, please click <a [routerLink]="['/v1']">here.</a></p>
+<div>
+  <span class="form">Email:</span>
+  <input class="user" type="text" [(ngModel)]="username">
+</div>
+<div>
+  <span class="form">Password:</span>
+  <input class="user" type="password" [(ngModel)]="password">
+</div>
+<div>
+  <span class="form">Confirm Password:</span>
+  <input class="user" type="password" [(ngModel)]="passwordConfirmation">
+</div>
+<button (click)="register()">Register</button>
+{{loading}}

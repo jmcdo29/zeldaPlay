@@ -1,4 +1,4 @@
-require('dotenv').config({path: '../.env'});
+require('dotenv').config({path: '../../.env'});
 const pg = require('pg');
 
 pg.defaults.ssl = true;

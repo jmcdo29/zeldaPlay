@@ -69,6 +69,11 @@ interface ICharacterQuery {
   subrace: string;
   touch: number;
   wisdom: number;
+  notes: any[];
+  saves: any[];
+  skills: any[];
+  spells: any[];
+  weapons: any[];
 }
 export class Character {
   id?: string;
@@ -234,9 +239,11 @@ export class Character {
       this.exp = 0;
     } else {
       if (qObj) {
+        console.log('in qObj route');
         this.name = qObj.name;
         this.ac = qObj.ac;
         this.id = qObj.id;
+        this.level = qObj.level;
         this.craftOne = qObj.craft_one;
         this.craftTwo = qObj.craft_two;
         this.profession = qObj.profession;
@@ -253,32 +260,109 @@ export class Character {
         this.touch = qObj.touch;
         this.attributes = [
           {
-            name: 'strength',
+            name: 'Strength',
             value: qObj.strength,
-            modifier: (qObj.strength - 10) / 2
+            modifier: getMod(qObj.strength)
           }, {
-            name: 'dexterity',
+            name: 'Dexterity',
             value: qObj.dexterity,
-            modifier: (qObj.dexterity - 10) / 2
+            modifier: getMod(qObj.dexterity)
           }, {
-            name: 'constitution',
+            name: 'Constitution',
             value: qObj.constitution,
-            modifier: (qObj.constitution - 10 ) / 2
+            modifier: getMod(qObj.constitution)
           }, {
-            name: 'intelligence',
+            name: 'Intelligence',
             value: qObj.intelligence,
-            modifier: (qObj.intelligence - 10 ) / 2
+            modifier: getMod(qObj.intelligence)
           }, {
-            name: 'wisdom',
+            name: 'Wisdom',
             value: qObj.wisdom,
-            modifier: (qObj.wisdom - 10 ) / 2
+            modifier: getMod(qObj.wisdom)
           }, {
-            name: 'charisma',
+            name: 'Charisma',
             value: qObj.charisma,
-            modifier: (qObj.charisma - 10 ) / 2
+            modifier: getMod(qObj.charisma)
           }
         ];
+        qObj.skills.forEach(skill => {
+          if (skill.skill_type === 'skill') {
+            const newSkill: Skill = {
+              skillName: skill.name,
+              ranks: skill.ranks,
+              racial: skill.racial_modifier,
+              item: skill.item_modifier,
+              misc: skill.misc_modifier,
+              trained: skill.trained,
+              modifier: skill.modifier
+            };
+            this.skills.push(newSkill);
+          } else if (skill.skill_type === 'weapon') {
+            const newWeapSkill: Skill = {
+              skillName: skill.name,
+              ranks: skill.ranks,
+              trained: skill.trained,
+              racial: skill.racial_modifier
+            };
+            this.weaponSkills.push(newWeapSkill);
+          } else if (skill.skill_type === 'magic') {
+            const newMagSkill: Skill = {
+              skillName: skill.name,
+              ranks: skill.ranks,
+              modifier: skill.modifier
+            };
+            this.magicSkills.push(newMagSkill);
+          }
+        });
+        qObj.notes.forEach(note => {
+          if (note.important) {
+            this.notes.push({
+              msg: note.message,
+              time: note.time,
+              important: note.important
+            });
+          } else {
+            this.notes.push({
+              msg: note.message,
+              time: note.time,
+              important: note.important
+            });
+          }
+        });
+        qObj.saves.forEach(save => {
+          this.savingThrows.push({
+            racial: save.racial_bonus,
+            name: save.name,
+            modifier: save.modifier
+          });
+        });
+        qObj.weapons.forEach(weapon => {
+          const newWep = new Weapon();
+          newWep.attack = weapon.damage;
+          newWep.ammo = weapon.ammo ? weapon.ammo : null;
+          newWep.name = weapon.name;
+          newWep.type = weapon.type;
+          newWep.numberOfAttacks = weapon.number_of_hits;
+          newWep.critDamage = weapon.crit_multiplier;
+          newWep.range = weapon.range ? weapon.range : null;
+          newWep.modifier = weapon.modifier;
+          newWep.critRange = parseRange(weapon.crit_range);
+          this.weapons.push(newWep);
+        });
+        qObj.spells.forEach(spell => {
+          this.spells.push({
+            name: spell.name,
+            effect: spell.effect,
+            mpUse: spell.mp_use,
+            damage: spell.damage,
+            multiplier: spell.number_of_hits,
+            modifier: spell.modifier ? spell.modifier : null,
+            diety: spell.diety,
+            useDiety: spell.use_diety
+          });
+        });
       } else if (jObj) {
+        console.log('in jObj route');
         this.attributes = jObj.attributes;
         this.ac = jObj.ac;
         this.craftOne = jObj.craftOne;
@@ -310,4 +394,23 @@ export class Character {
       }
     }
   }
+}
+
+function parseRange(range: string): number[] {
+  if (range.length === 2) {
+    return [Number.parseInt(range)];
+  } else {
+    const bottom: number = Number.parseInt(range.substring(0, 2));
+    const top: number = Number.parseInt(range.substring(range.length - 2));
+    const diff: number = top - bottom;
+    const retArray: number[] = [];
+    for (let i = 0; i <= diff; i++ ) {
+      retArray.push(bottom + i);
+    }
+    return retArray;
+  }
+}
+
+function getMod(value: number): number {
+  return (value % 2 === 0 ? value - 10 : value - 11) / 2;
 }

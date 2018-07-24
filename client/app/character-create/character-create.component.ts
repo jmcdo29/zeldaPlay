@@ -2,9 +2,21 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CharactersComponent } from '../characters/characters.component';
 import { Character } from '../_models/character';
 import { Attribute } from '../_models/attribute';
-import { Fairy, Gerudo, Goron, Hylian, Rito, Sheikah, Twili, Zora } from '../_models/Races';
+import {
+  Fairy,
+  Gerudo,
+  Goron,
+  Hylian,
+  Rito,
+  Sheikah,
+  Twili,
+  Zora
+} from '../_models/Races';
 import { Attributes } from '../_enums/attributes.enum';
 import { MessageService } from '../_services/message.service';
+import { Router } from '@angular/router';
+import { AlertService } from '../_services/alert.service';
+import { CharacterService } from '../_services/character.service';
 
 @Component({
   selector: 'app-character-create',
@@ -27,14 +39,14 @@ export class CharacterCreateComponent implements OnInit {
   showRaceModal = false;
 
   showRace: boolean[] = [
-    false,    // Hylian 0
-    false,    // Goron 1
-    false,    // Zora 2
-    false,    // Gerudo 3
-    false,    // Sheikah 4
-    false,    // Rito 5
-    false,    // Twili 6
-    false     // Fairy 7
+    false, // Hylian 0
+    false, // Goron 1
+    false, // Zora 2
+    false, // Gerudo 3
+    false, // Sheikah 4
+    false, // Rito 5
+    false, // Twili 6
+    false // Fairy 7
   ];
 
   skillsPrior: number[] = [];
@@ -45,10 +57,14 @@ export class CharacterCreateComponent implements OnInit {
 
   newCharacter: Character;
 
-  constructor(public message: MessageService) {}
+  constructor(
+    public message: MessageService,
+    private router: Router,
+    private alertService: AlertService,
+    private characterService: CharacterService
+  ) {}
 
   ngOnInit() {
-
     this.attrMins = [];
     this.attrPrior = [];
     this.skillsPrior = [];
@@ -56,7 +72,8 @@ export class CharacterCreateComponent implements OnInit {
     this.magicSkillsPrior = [];
 
     this.newCharacter = new Character();
-    this.originalPoints = this.skillPoints = (Math.round(Math.random() * 100) % 4 + 1) * 5;
+    this.originalPoints = this.skillPoints =
+      ((Math.round(Math.random() * 100) % 4) + 1) * 5;
     for (let i = 0; i < this.newCharacter.attributes.length; i++) {
       this.attrMins.push(this.newCharacter.attributes[i].value);
     }
@@ -74,16 +91,19 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   save(): void {
-    let nullSubRace;
-    console.log('Race:', this.newCharacter.race);
+    let nullSubRace = false;
     if (!this.nullSubRaceClasses.includes(this.newCharacter.race)) {
       nullSubRace = this.newCharacter.subRace ? false : true;
-    } else {
-      nullSubRace = false;
     }
-    if (this.newCharacter.name != null && (this.skillPoints === 0 && this.attPoints === 0) && !nullSubRace) {
-      this.newCharacter.maxHealth = this.newCharacter.health = 48 + this.newCharacter.attributes[2].modifier;
-      this.newCharacter.maxMagic = this.newCharacter.magic = 20 + this.newCharacter.attributes[4].modifier;
+    if (
+      this.newCharacter.name != null &&
+      (this.skillPoints === 0 && this.attPoints === 0) &&
+      !nullSubRace
+    ) {
+      this.newCharacter.maxHealth = this.newCharacter.health =
+        48 + this.newCharacter.attributes[2].modifier;
+      this.newCharacter.maxMagic = this.newCharacter.magic =
+        20 + this.newCharacter.attributes[4].modifier;
       this.CharacterParent.newChar = false;
       this.CharacterParent.characters.push(this.newCharacter);
       this.CharacterParent.selectedCharacter = this.newCharacter;
@@ -91,10 +111,12 @@ export class CharacterCreateComponent implements OnInit {
     } else {
       this.error = true;
     }
-    console.log('NullSubRace: ', nullSubRace);
-    console.log('Skill Points Remaining: ', this.skillPoints);
-    console.log('Attribute Points Left: ', this.attPoints);
-    console.log('Character Name:', this.newCharacter.name);
+    if (localStorage.getItem('currentUser') && !this.error) {
+      // save character to database
+      this.characterService.saveCharDb(this.newCharacter).subscribe();
+    } else if (!this.error) {
+      this.alertService.error('You must be logged in to save your character for re-use.');
+    }
   }
 
   cancel(): void {
@@ -106,15 +128,21 @@ export class CharacterCreateComponent implements OnInit {
     const raceTemp = this.newCharacter.race;
     switch (this.newCharacter.race) {
       case 'Hylian': {
-        this.newCharacter = new Hylian(this.newCharacter.subRace ? this.newCharacter.subRace : null);
+        this.newCharacter = new Hylian(
+          this.newCharacter.subRace ? this.newCharacter.subRace : null
+        );
         break;
       }
       case 'Goron': {
-        this.newCharacter = new Goron(this.newCharacter.subRace ? this.newCharacter.subRace : null);
+        this.newCharacter = new Goron(
+          this.newCharacter.subRace ? this.newCharacter.subRace : null
+        );
         break;
       }
       case 'Zora': {
-        this.newCharacter = new Zora(this.newCharacter.subRace ? this.newCharacter.subRace : null);
+        this.newCharacter = new Zora(
+          this.newCharacter.subRace ? this.newCharacter.subRace : null
+        );
         break;
       }
       case 'Gerudo': {
@@ -126,7 +154,9 @@ export class CharacterCreateComponent implements OnInit {
         break;
       }
       case 'Rito': {
-        this.newCharacter = new Rito(this.newCharacter.subRace ? this.newCharacter.subRace : null);
+        this.newCharacter = new Rito(
+          this.newCharacter.subRace ? this.newCharacter.subRace : null
+        );
         break;
       }
       case 'Twili': {
@@ -134,7 +164,9 @@ export class CharacterCreateComponent implements OnInit {
         break;
       }
       case 'Fairy': {
-        this.newCharacter = new Fairy(this.newCharacter.subRace ? this.newCharacter.subRace : null);
+        this.newCharacter = new Fairy(
+          this.newCharacter.subRace ? this.newCharacter.subRace : null
+        );
         break;
       }
     }
@@ -202,10 +234,16 @@ export class CharacterCreateComponent implements OnInit {
 
   validateAttr(attrIndex: number): void {
     const input = document.getElementById('attr' + attrIndex);
-    if ( this.newCharacter.attributes[attrIndex].value < this.attrMins[attrIndex]) {
+    if (
+      this.newCharacter.attributes[attrIndex].value < this.attrMins[attrIndex]
+    ) {
       input.classList.add('bad-input');
-      this.attPoints += (this.newCharacter.attributes[attrIndex].value - this.attrMins[attrIndex]);
-      this.attrPrior[attrIndex] = this.newCharacter.attributes[attrIndex].value = this.attrMins[attrIndex];
+      this.attPoints +=
+        this.newCharacter.attributes[attrIndex].value -
+        this.attrMins[attrIndex];
+      this.attrPrior[attrIndex] = this.newCharacter.attributes[
+        attrIndex
+      ].value = this.attrMins[attrIndex];
     } else if (this.attPoints < 0) {
       input.classList.add('bad-input');
       this.newCharacter.attributes[attrIndex].value += this.attPoints;
@@ -221,7 +259,7 @@ export class CharacterCreateComponent implements OnInit {
     const PRIOR = 'Prior';
     if (this.newCharacter[type][index].ranks < 0) {
       input.classList.add('bad-input');
-      this.skillPoints += (this.newCharacter[type][index].ranks);
+      this.skillPoints += this.newCharacter[type][index].ranks;
       this[type + PRIOR][index] = this.newCharacter[type][index].ranks = 0;
     } else if (this.skillPoints < 0) {
       input.classList.add('bad-input');
@@ -250,10 +288,11 @@ export class CharacterCreateComponent implements OnInit {
   createMessage(): void {
     const name = this.newCharacter.name;
     const race = this.newCharacter.race;
-    const subRace = this.newCharacter.subRace ? this.newCharacter.subRace + ' ' : '';
+    const subRace = this.newCharacter.subRace
+      ? this.newCharacter.subRace + ' '
+      : '';
     const message = name + ' the ' + subRace + race + ' was created.';
 
     this.message.add(message);
   }
-
 }

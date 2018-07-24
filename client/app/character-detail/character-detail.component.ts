@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Character } from '../_models/character';
 import { Attribute } from '../_models/attribute';
 import { CharacterLevelUpComponent } from '../character-level-up/character-level-up.component';
-import { methods } from '../Character/character-methods';
+import { methods } from '../_helpers/character-methods';
 import { MessageService } from '../_services/message.service';
 
 @Component({

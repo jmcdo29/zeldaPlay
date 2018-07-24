@@ -218,6 +218,12 @@ td.total{
 .active{
   display: block
 }
+.user{
+  width: 8em;
+}
+.form{
+  width: 40%;
+}
 
 /* Add Animation */
 @keyframes animatetop {

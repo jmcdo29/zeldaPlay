@@ -1,7 +1,7 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 import { Character } from '../_models/character';
-import { methods } from '../Character/character-methods';
+import { methods } from '../_helpers/character-methods';
 
 import { Fairy, Gerudo, Goron, Hylian, Rito } from '../_models/Races';
 import { Attributes } from '../_enums/attributes.enum';

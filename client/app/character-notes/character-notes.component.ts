@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Character } from '../_models/character';
 import { Note } from '../_models/note';
 import { MessageService } from '../_services/message.service';
-import { methods } from '../Character/character-methods';
+import { methods } from '../_helpers/character-methods';
 
 @Component({
   selector: 'app-character-notes',

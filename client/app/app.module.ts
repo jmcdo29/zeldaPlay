@@ -9,9 +9,6 @@ import { InMemoryDataService } from './_services/in-memory-data.service';
 
 import { SharedModule } from './_helpers/customPipes';
 
-// attempting to add in chartist for Angular. Hopefully it goes well!
-import { ChartistModule } from 'ng-chartist';
-
 import { AppComponent } from './app.component';
 import { CharactersComponent } from './characters/characters.component';
 import { CharacterDetailComponent } from './character-detail/character-detail.component';
@@ -27,7 +24,11 @@ import { MessageService } from './_services/message.service';
 import { CharacterNotesComponent } from './character-notes/character-notes.component';
 import { CharacterInventoryComponent } from './character-inventory/character-inventory.component';
 import { CharacterSavesComponent } from './character-saves/character-saves.component';
-import { CharacterChartsComponent } from './character-charts/character-charts.component';
+import { UserLoginComponent } from './user-login/user-login.component';
+import { UserRegisterComponent } from './user-register/user-register.component';
+import { routing } from './app.routing';
+import { AlertComponent } from './_directives/alert.component';
+import { AlertService } from './_services/alert.service';
 
 @NgModule({
   declarations: [
@@ -44,20 +45,21 @@ import { CharacterChartsComponent } from './character-charts/character-charts.co
     CharacterNotesComponent,
     CharacterInventoryComponent,
     CharacterSavesComponent,
-    CharacterChartsComponent
+    UserLoginComponent,
+    UserRegisterComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    // import for chartist
-    ChartistModule,
     SharedModule,
-    HttpClientModule/* ,
+    HttpClientModule, /* ,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, {passThruUnknownUrl: true, dataEncapsulation: false}
     ) */
+    routing
   ],
-  providers: [CharacterService, MessageService],
+  providers: [CharacterService, MessageService, AlertService],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

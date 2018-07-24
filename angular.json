@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-zeldaplay": {
+    "zeldaplay": {
       "root": "",
       "sourceRoot": "client",
       "projectType": "application",
@@ -21,8 +21,7 @@
               "client/favicon.ico"
             ],
             "styles": [
-              "client/styles.css",
-              "node_modules/chartist/dist/chartist.css"
+              "client/styles.css"
             ],
             "scripts": []
           },
@@ -49,18 +48,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-zeldaplay:build"
+            "browserTarget": "zeldaplay:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-zeldaplay:build:production"
+              "browserTarget": "zeldaplay:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-zeldaplay:build"
+            "browserTarget": "zeldaplay:build"
           }
         },
         "test": {
@@ -72,8 +71,7 @@
             "tsConfig": "client/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "client/styles.css",
-              "node_modules/chartist/dist/chartist.css"
+              "client/styles.css"
             ],
             "assets": [
               "client/assets",
@@ -96,15 +94,14 @@
       }
     },
     "angular-zeldaplay-e2e": {
-      "root": "",
-      "sourceRoot": "e2e",
+      "root": "e2e/",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "angular-zeldaplay:serve"
+            "devServerTarget": "zeldaplay:serve"
           }
         },
         "lint": {
@@ -121,7 +118,7 @@
       }
     }
   },
-  "defaultProject": "angular-zeldaplay",
+  "defaultProject": "zeldaplay",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

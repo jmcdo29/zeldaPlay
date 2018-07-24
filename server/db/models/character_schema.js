@@ -27,7 +27,7 @@ class Character extends Model{
         modelClass: Weapon,
         join: {
           from: `${this.tableName}.id`,
-          to: `${Weapon.tableName}.id`
+          to: `${Weapon.tableName + CHARID}`
         }
       },
 

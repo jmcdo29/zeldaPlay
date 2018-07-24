@@ -22,6 +22,7 @@ class User extends Model{
     const Save = require('./save_schema');
     const Element = require('./element_schema');
     const Note = require('./note_schema');
+    const Weapon = require('./weapon_schema');
 
     return {
       characters: {

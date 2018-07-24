@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { methods } from '../Character/character-methods';
+import { methods } from '../_helpers/character-methods';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MessageService {
 
   messages: string[] = [];

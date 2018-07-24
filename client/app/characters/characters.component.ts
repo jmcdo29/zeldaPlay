@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Character } from '../_models/character';
 import { CharacterService } from '../_services/character.service';
+import { Router } from '@angular/router';
+import { AlertService } from '../_services/alert.service';
 
 @Component({
   selector: 'app-characters',
@@ -9,13 +11,16 @@ import { CharacterService } from '../_services/character.service';
 })
 export class CharactersComponent implements OnInit {
 
-  characters: Character[];
+  characters: Character[] = [];
 
   selectedCharacter: Character;
   newChar: boolean;
 
   onSelect(character: Character): void {
-    this.selectedCharacter = character;
+    this.characterService.getCharacter(character.id).subscribe(data => {
+      console.log(data);
+      this.selectedCharacter = data;
+    });
     this.newChar = false;
   }
   hide(): void {
@@ -28,7 +33,7 @@ export class CharactersComponent implements OnInit {
     this.newChar = true;
   }
 
-  constructor(private characterService: CharacterService) {}
+  constructor(private router: Router, private characterService: CharacterService) {}
 
   getCharacters(): void {
     this.characterService.getCharacters()
@@ -45,7 +50,7 @@ export class CharactersComponent implements OnInit {
   }
 
   save() {
-    this.characterService.saveChar(this.selectedCharacter);
+    this.characterService.saveCharCopy(this.selectedCharacter);
   }
 
 }
