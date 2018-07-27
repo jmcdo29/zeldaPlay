@@ -10,10 +10,6 @@ body.dark{
 body.light{
   background-color: rgb(252, 252, 174);
 } 
-.foot{
-  float: left;
-  bottom: 1.5em;
-}
 h1, h2, h3, h4, h5, h6{
   font-family: HyliaSerif;
 }
