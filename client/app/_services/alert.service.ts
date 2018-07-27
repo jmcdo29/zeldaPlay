@@ -31,7 +31,6 @@ export class AlertService {
   }
 
   getMessage(): Observable<any> {
-    console.log('Getting the message');
     return this.subject.asObservable();
   }
 

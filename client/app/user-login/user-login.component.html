@@ -1,7 +1,16 @@
 <button [routerLink]="['/']">Characters</button>
-<p>I'll get a login page made soon.</p>
-<p>To register, please click <a [routerLink]="['/register']">here.</a></p>
-<p>If you would like to see what this app is capable of, and/or use the old version, please click <a href='/v1'>here.</a></p>
-Username: <input class="user" [(ngModel)]="username"><br/>
-Password: <input class="user" [(ngModel)]="password" type="password"><br>
-<button (click)="login()">Login</button>
+<div [class.loading]="loading">
+  <p>I'll get a login page made soon.</p>
+  <p>To register, please click
+    <a [routerLink]="['/register']">here.</a>
+  </p>
+  <p>If you would like to see what this app is capable of, and/or use the old version, please click
+    <a href='/v1'>here.</a>
+  </p>
+  Username:
+  <input class="user" [(ngModel)]="username">
+  <br/> Password:
+  <input class="user" [(ngModel)]="password" type="password">
+  <br>
+  <button (click)="login()">Login</button>
+</div>

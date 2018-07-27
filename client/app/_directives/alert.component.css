@@ -1,9 +1,14 @@
 .alert{
-  color: red;
+  background-color: rgba(200, 200, 200, 0.5);
+  text-align: center;
+  padding: 0.5em;
+  border-radius: 7px;
+  border: 0.5px solid black;
+  font-size: 125%;
 }
-.alert-message{
-  color: green;
+.alert-success{
+  color: rgba(8, 112, 8, 0.74);
 }
 .alert-danger{
-  color: red;
+  color:rgba(112, 8, 8, 0.74);
 }

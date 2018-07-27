@@ -47,8 +47,8 @@ export class CharacterService {
     );
   }
 
-  getUserCharacters(userId): Observable<Character> {
-    return this.httpClient.get<Character>(this.characterUrl + '/users/' + userId);
+  getUserCharacters(userId): Observable<Character[]> {
+    return this.httpClient.get<Character[]>(this.characterUrl + '/user/' + userId);
   }
 
   private handleError<T> (operation: String, result?: T) {
@@ -68,8 +68,9 @@ export class CharacterService {
     FileSaver.saveAs(blob, character.name + '_zeldaplay.json');
   }
 
-  saveCharDb(character: Character): Observable<Character> {
-    return this.httpClient.post<Character>(this.characterUrl, {character: character});
+  saveCharDb(character: Character): Observable<string> {
+    const userId = localStorage.getItem('currentUser');
+    return this.httpClient.post<string>(this.characterUrl + `/${userId}`, {character: character});
   }
 }
 

@@ -29,14 +29,11 @@ function login(username, password) {
 }
 
 function signUp(username, password, confPassword) {
-  return new Promise((resolve, reject) => {
-    resolve(verifyPassword(password, confPassword))
-  })
+  return verifyPassword(password, confPassword)
   .then(() => {
     return User.query().where({email: username});
   })
   .then(user => {
-    console.log(user);
     if(user.length !== 0) {
       throw new Error('Email already in use. Please log in or use a new email.');
     } else {
@@ -47,7 +44,7 @@ function signUp(username, password, confPassword) {
     }
   })
   .then(() => {
-    return User.query().select('id').where({email: username});
+    return User.query().select('id').where({email: username}).first();
   });
 }
 

@@ -225,6 +225,32 @@ td.total{
   width: 40%;
 }
 
+.loading::before{
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -30px 0 0 -30px;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  border: 5px dotted;
+  border-top-color: rgba(67.5, 67.5, 233, 1);
+  border-left-color: rgba(233, 67.5, 67.5, 1);
+  border-right-color: rgba(67.5, 233, 67.5, 1);
+  border-bottom-color: rgba(191.5, 67.5, 191.5, 1);
+  animation: spinner 0.7s linear infinite;
+  -moz-animation: spinner 0.7s liner infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+  }
+}
+
 /* Add Animation */
 @keyframes animatetop {
   from {

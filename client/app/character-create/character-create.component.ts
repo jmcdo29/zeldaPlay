@@ -113,7 +113,9 @@ export class CharacterCreateComponent implements OnInit {
     }
     if (localStorage.getItem('currentUser') && !this.error) {
       // save character to database
-      this.characterService.saveCharDb(this.newCharacter).subscribe();
+      this.characterService.saveCharDb(this.newCharacter).subscribe(response => {
+        this.CharacterParent.selectedCharacter.id = response;
+      });
     } else if (!this.error) {
       this.alertService.error('You must be logged in to save your character for re-use.');
     }

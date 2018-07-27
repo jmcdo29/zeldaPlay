@@ -25,13 +25,10 @@ export class UserRegisterComponent implements OnInit {
     this.userService.register(this.username, this.password, this.passwordConfirmation)
       .subscribe(
         next => {
-          console.log('next');
-          console.log(next);
+          localStorage.setItem('currentUser', next.toString());
           this.router.navigate(['/']);
         },
         error => {
-          console.error('error');
-          console.error(error);
           this.loading = false;
           this.alertService.error(error.error);
         }

@@ -25,16 +25,12 @@ export class UserLoginComponent implements OnInit {
     this.authServices.login(this.username, this.password)
       .subscribe(
         data => {
-          console.log('data');
-          console.log(data);
-          localStorage.setItem('currentUser', data.id);
+          localStorage.setItem('currentUser', data);
           this.router.navigate(['/']);
         },
         error => {
           this.loading = false;
-          console.log(error);
           this.alertService.error(error.error);
-          // TODO: display error
         }
       );
   }

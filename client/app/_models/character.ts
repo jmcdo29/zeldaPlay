@@ -398,10 +398,10 @@ export class Character {
 
 function parseRange(range: string): number[] {
   if (range.length === 2) {
-    return [Number.parseInt(range)];
+    return [Number.parseInt(range, 10)];
   } else {
-    const bottom: number = Number.parseInt(range.substring(0, 2));
-    const top: number = Number.parseInt(range.substring(range.length - 2));
+    const bottom: number = Number.parseInt(range.substring(0, 2), 10);
+    const top: number = Number.parseInt(range.substring(range.length - 2), 10);
     const diff: number = top - bottom;
     const retArray: number[] = [];
     for (let i = 0; i <= diff; i++ ) {

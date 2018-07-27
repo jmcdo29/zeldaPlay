@@ -1,6 +1,6 @@
 const Knex = require('knex');
 const connection = require('../knexfile');
-const { Model } = require('objection');
+const Model = require('./CustomModel');
 
 const makeId = require('../../utils/makeId').makeId;
 
@@ -9,6 +9,7 @@ const knexConnection = Knex(connection);
 Model.knex(knexConnection);
 
 class Weapon extends Model{
+
   static get tableName() {
     return 'public.weapon';
   }

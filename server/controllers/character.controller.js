@@ -4,8 +4,7 @@ const characterService = require('../services/character.service');
 router.get('/characters', allCharacters);
 router.get('/characters/:id', getCharacter);
 router.get('/characters/user/:userId', getUserCharacters);
-router.post('/characters/:id', upsertCharacter);
-router.post('/characters', newCharacter);
+router.post('/characters/:userId', upsertCharacter);
 
 module.exports = router;
 
@@ -36,7 +35,7 @@ function getCharacter(req, res) {
 }
 
 function upsertCharacter(req, res) {
-  characterService.updateOne(req.params.id, {})
+  characterService.updateOne(req.params.userId, req.body.character)
     .then(character => {
       console.log(character);
       res.status(200).json(character);
@@ -46,10 +45,13 @@ function upsertCharacter(req, res) {
     })
 }
 
-function newCharacter(req, res) {
-  console.log(req.body.character);
-}
-
 function getUserCharacters(req, res) {
-  console.log(req.params.userId);
+  characterService.getUserCharacters(req.params.userId)
+    .then(characters => {
+      res.status(200).json(characters);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(403).json(err.message);
+    })
 }
