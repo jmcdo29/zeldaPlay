@@ -35,4 +35,12 @@ export class AppComponent {
       this.showSkills = true;
     }
   }
+
+  toggleBackground() {
+    if (document.body.classList.contains('light')) {
+      document.body.classList.replace('light', 'dark');
+    } else {
+      document.body.classList.replace('dark', 'light');
+    }
+  }
 }

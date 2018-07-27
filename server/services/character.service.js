@@ -11,7 +11,7 @@ module.exports = characterServices;
 
 function getAll() {
   return new Promise((resolve, reject) => {
-    resolve(Character.query().select('id', 'name', 'race'));
+    resolve(Character.query().select('id', 'name', 'race').whereNull('user_id'));
   }).then(characters => {
     if (characters.length === 0) {
       throw new Error('No characters found!');

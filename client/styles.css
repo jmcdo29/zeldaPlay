@@ -4,6 +4,16 @@
   font-family: HyliaSerif;
   src: url("./assets/fonts/HyliaSerifBeta.otf");
 }
+body.dark{
+  background-color: rgb(238, 177, 253);
+}
+body.light{
+  background-color: rgb(252, 252, 174);
+} 
+.foot{
+  float: left;
+  bottom: 1.5em;
+}
 h1, h2, h3, h4, h5, h6{
   font-family: HyliaSerif;
 }

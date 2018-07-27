@@ -20,12 +20,9 @@ export class CharactersComponent implements OnInit {
   onSelect(character: Character): void {
     this.selectedCharacter = null;
     this.loading = true;
-    console.log('loading:', this.loading);
     this.characterService.getCharacter(character.id).subscribe(data => {
-      console.log(data);
       this.selectedCharacter = data;
       this.loading = false;
-      console.log('loading:', this.loading);
     });
     this.newChar = false;
   }
@@ -47,7 +44,6 @@ export class CharactersComponent implements OnInit {
 
   getCharacters(): void {
     this.loading = true;
-    console.log('loading:', this.loading);
     const currentUser = localStorage.getItem('currentUser');
     if (currentUser && currentUser !== 'undefined' ) {
       this.characterService
@@ -58,13 +54,11 @@ export class CharactersComponent implements OnInit {
           if (this.characters.length === 0) {
             this.alertService.success('You have no characters. Create one using the button below!');
           }
-          console.log('loading:', this.loading);
         });
     } else {
       this.characterService.getCharacters().subscribe(characters => {
         this.characters = characters;
         this.loading = false;
-        console.log('loading:', this.loading);
       });
     }
   }
