@@ -1,0 +1,66 @@
+<button class="accordian" (click)="expandSkill()">
+  <h2>{{ character.name | uppercase }} Skills</h2>
+</button>
+
+<div class="panel" [class.active]="showSkills">
+  <div class="skillCheck" *ngIf="skill && checkVal">
+    <h4>Skill Check</h4>
+    <span class="right" (click)="hideCheck()">&times;</span>
+    <div>
+      <span id="skill">{{ skill }}</span> : <span id="roll">{{ checkVal }}</span>
+    </div>
+  </div>
+  <div class="table">
+    <table>
+      <thead>
+        <tr>
+          <th>Trained</th>
+          <th>Skill Name</th>
+          <th>Skill Ranks</th>
+          <th>Racial Bonus</th>
+          <th>Modifier</th>
+          <th>Item Bonus</th>
+          <th>Misc. Ranks</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let skill of character.skills" [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'"
+          [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'" [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
+          <td>
+            <input type="checkbox" [checked]="skill.trained" disabled="true" />
+          </td>
+          <td class="name" (click)="makeCheck(skill.skillName)">
+            <div *ngIf="skill.skillName==='CraftOne' || skill.skillName==='CraftTwo' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
+
+            <ng-template #specialSkill>
+              <div *ngIf="skill.skillName==='CraftOne'">
+                {{ skill.skillName.substr(0, skill.skillName.length-3) + ' ' + (character.craftOne ? character.craftOne : 'Other') +''}}
+              </div>
+              <div *ngIf="skill.skillName==='CraftTwo'">
+                {{ skill.skillName.substr(0, skill.skillName.length-3) + ' ' + (character.craftTwo ? character.craftTwo : 'Other') +''}}
+              </div>
+              <div *ngIf="skill.skillName==='Profession'">
+                {{ skill.skillName + ' ' + (character.profession ? character.profession : 'Other') +''}}
+              </div>
+              <div *ngIf="skill.skillName==='Perform'">
+                {{ skill.skillName + ' ' + (character.performCust ? character.performCust : 'Other') +''}}
+              </div>
+            </ng-template>
+            <ng-template #normalSkill>
+              {{ skill.skillName }}
+            </ng-template>
+          </td>
+          <td>{{ skill.ranks }}</td>
+          <td>{{ skill.racial }}</td>
+          <td class="mod">{{ skill.modifier.substr(0,3) | uppercase }}
+            <span class="info">{{ getMod(skill.modifier) }}</span>
+          </td>
+          <td>{{ skill.item }}</td>
+          <td>{{ skill.misc }}</td>
+          <td class="total">{{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

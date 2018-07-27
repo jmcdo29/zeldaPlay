@@ -20,7 +20,6 @@
 
 # IDE - VSCode
 .vscode/*
-!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
@@ -33,6 +32,8 @@
 npm-debug.log
 testem.log
 /typings
+*.yaml
+*.log
 
 # e2e
 /e2e/*.js
@@ -43,3 +44,9 @@ testem.log
 Thumbs.db
 
 mock-characters.ts
+  
+*.sql 
+.env
+!/reference/makeId.sql
+/reference/*.js
+seeds

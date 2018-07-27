@@ -1,0 +1,33 @@
+<button [routerLink]="['/']">Characters</button>
+<div class="jumbo">
+  <div [class.loading]="loading">
+    <h2 class="no-padding">Welcome to ZeldaPlay!</h2>
+    <p>I hope you enjoy the use of this app. If you would like to use the services please register!</p>
+    <p>If you already have an account please
+      <a [routerLink]="['/login']">login here</a>.</p>
+    <p>If you would like to see what this app is capable of, and/or use the old version, please click
+      <a [routerLink]="['/v1']">here.</a>
+    </p>
+    <div class="custTable">
+      <div class="row">
+        <div class="cell label">Email:</div>
+        <div class="cell input">
+          <input class="user" type="email">
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell label">Password</div>
+        <div class="cell input">
+          <input class="user" type="password">
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell label">Confirm Password</div>
+        <div class="cell input">
+          <input class="user" type="password">
+        </div>
+      </div>
+    </div>
+    <button (click)="register()">Register</button>
+  </div>
+</div>
