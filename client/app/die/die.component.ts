@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CharacterDetailComponent } from '../character-detail/character-detail.component';
-import { MessageService } from '../_services/message.service';
-import { Attributes } from '../_enums/attributes.enum';
+import { CharacterDetailComponent } from '../character/character-detail/character-detail.component';
+import { MessageService } from '../messages/message.service';
+import { Attributes } from '../character/enums/attributes.enum';
 
 @Component({
   selector: 'app-die',
@@ -20,13 +20,13 @@ export class DieComponent implements OnInit {
 
   createMessage(roll: number, modVal: number, sides: number): void {
 
-    const NAME = this.character.character.name;
-    const ROLLED = ' rolled a ';
-    const MOD = ' with a ';
-    const MOD_NAME = modVal ? this.character.character.attributes[Attributes[this.mod]].name + ' modifier of ' : '';
-    const THERE_IS_MOD = modVal ? MOD + MOD_NAME + modVal : '';
-    const TOTAL = 'TOTAL: ' + (roll + (modVal ? modVal : 0)) + '.';
-    const rollString = NAME + ROLLED + roll + MOD + 'D' + sides + THERE_IS_MOD + '. ' + TOTAL;
+    const name = this.character.character.name;
+    const rolled = ' rolled a ';
+    const mod = ' with a ';
+    const mod_name = modVal ? this.character.character.attributes[Attributes[this.mod]].name + ' modifier of ' : '';
+    const there_is_mod = modVal ? mod + mod_name + modVal : '';
+    const total = 'TOTAL: ' + (roll + (modVal ? modVal : 0)) + '.';
+    const rollString = name + rolled + roll + mod + 'D' + sides + there_is_mod + '. ' + total;
 
     this.messageService.add(rollString);
   }
