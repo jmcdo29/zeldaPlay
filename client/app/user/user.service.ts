@@ -17,4 +17,12 @@ export class UserService {
   register(username: string, password: string, confPass: string) {
     return this.http.post<User>(environment.apiUrl + '/users/signup', {username: username, password: password, confPass: confPass});
   }
+
+  login (username: string, password: string) {
+    return this.http.post<any>(environment.apiUrl + '/users/login', {username: username, password: password});
+  }
+
+  logout () {
+    localStorage.removeItem('currentUser');
+  }
 }

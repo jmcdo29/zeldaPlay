@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Character } from '../character';
-import { Note } from '../note';
-import { MessageService } from '../../messages/message.service';
-import { methods } from '../character-methods';
+import { Character } from '../characterModels/character';
+import { Note } from '../characterModels/note';
+import { MessageService } from '../../shared/messages/message.service';
 
 @Component({
   selector: 'app-character-notes',
@@ -30,7 +29,7 @@ export class CharacterNotesComponent implements OnInit {
 
   addNote(): void {
     this.note = new Note();
-    this.note.time = methods.getDateString().split(' ')[0];
+    this.note.time = new Date(Date.now()).toLocaleString().split(' ')[1];
     this.note.msg = this.newMsg;
     this.note.important = this.important;
     if (this.important) {

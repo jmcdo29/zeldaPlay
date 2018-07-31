@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Character } from '../character';
+import { Character } from '../characterModels/character';
 
 @Component({
   selector: 'app-character-inventory',

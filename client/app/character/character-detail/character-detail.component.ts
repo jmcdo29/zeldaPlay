@@ -1,9 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Character } from '../character';
-import { Attribute } from '../attribute';
+import { Character } from '../characterModels/character';
 import { CharacterLevelUpComponent } from '../character-level-up/character-level-up.component';
-import { methods } from '../character-methods';
-import { MessageService } from '../../messages/message.service';
+import { MessageService } from '../../shared/messages/message.service';
 
 @Component({
   selector: 'app-character-detail',
@@ -94,7 +92,7 @@ export class CharacterDetailComponent implements OnInit {
   setEdit(): void {
     this.levelUp.ngOnInit();
     if (!this.editMode) {
-      methods.levelUp(this.character);
+      this.character.levelUp();
     }
     this.editMode = !this.editMode;
   }

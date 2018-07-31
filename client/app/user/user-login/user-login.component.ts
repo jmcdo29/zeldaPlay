@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticateService } from '../authenticate.service';
+import { UserService } from '../user.service';
 import { Router } from '@angular/router';
-import { AlertService } from '../../alert/alert.service';
+import { AlertService } from '../../shared/alert/alert.service';
 
 @Component({
   selector: 'app-user-login',
@@ -14,15 +14,15 @@ export class UserLoginComponent implements OnInit {
   password: string;
   loading = false;
 
-  constructor(private router: Router, private authServices: AuthenticateService, private alertService: AlertService) { }
+  constructor(private router: Router, private userService: UserService, private alertService: AlertService) { }
 
   ngOnInit() {
-    this.authServices.logout();
+    this.userService.logout();
   }
 
   login(): void {
     this.loading = true;
-    this.authServices.login(this.username, this.password)
+    this.userService.login(this.username, this.password)
       .subscribe(
         data => {
           localStorage.setItem('currentUser', data);

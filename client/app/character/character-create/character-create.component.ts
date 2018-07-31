@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CharactersComponent } from '../characters.component';
-import { Character } from '../character';
-import { Attribute } from '../attribute';
+import { Character } from '../characterModels/character';
+import { Attribute } from '../characterModels/attribute';
 import {
   Fairy,
   Gerudo,
@@ -11,11 +11,11 @@ import {
   Sheikah,
   Twili,
   Zora
-} from '../Races';
-import { Attributes } from '../enums/attributes.enum';
-import { MessageService } from '../../messages/message.service';
+} from '../characterModels/Races';
+import { Attributes } from '../characterModels/enums/attributes.enum';
+import { MessageService } from '../../shared/messages/message.service';
 import { Router } from '@angular/router';
-import { AlertService } from '../../alert/alert.service';
+import { AlertService } from '../../shared/alert/alert.service';
 import { CharacterService } from '../character.service';
 
 @Component({

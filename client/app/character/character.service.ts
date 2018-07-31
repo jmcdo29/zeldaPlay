@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { MessageService } from '../messages/message.service';
+import { MessageService } from '../shared/messages/message.service';
 
 import { Observable, of } from 'rxjs';
 
 import { catchError, tap, map } from 'rxjs/operators';
 
-import { Character } from './character';
+import { Character } from './characterModels/character';
 
 import * as FileSaver from 'file-saver';
 
