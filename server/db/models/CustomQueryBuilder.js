@@ -13,7 +13,7 @@ class MyQueryBuilder extends QueryBuilder {
       .catch(err => {
         return err;
       })
-    } else{
+    } else {
       return this.insert(model).returning('id');
     }
   }
