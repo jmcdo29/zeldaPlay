@@ -22,7 +22,6 @@ function getAll() {
 }
 
 function getOne(id) {
-  console.log('getting character');
   return new Promise((resolve, reject) => {
     Character.query().findById(id)
     .then(character => {
@@ -39,7 +38,6 @@ function getOne(id) {
       ]);
     })
     .then(character => {
-      console.log(character[0].spells);
       resolve(character[0]);
     });
   });
