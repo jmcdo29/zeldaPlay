@@ -11,7 +11,7 @@ import { CharacterSavesComponent } from './character-saves/character-saves.compo
 import { CharacterSkillsComponent } from './character-skills/character-skills.component';
 import { CharacterSpellComponent } from './character-spell/character-spell.component';
 import { CharacterWeaponComponent } from './character-weapon/character-weapon.component';
-import { DieComponent } from '../die/die.component';
+import { DieComponent } from './die/die.component';
 import { SharedModule } from '../shared/shared.module';
 
 const characterRoutes: Routes = [

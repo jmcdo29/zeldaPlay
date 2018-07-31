@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Character } from '../character';
-import { Skills } from '../enums/skills.enum';
-import { Attributes } from '../enums/attributes.enum';
-import { MessageService } from '../../messages/message.service';
+import { Character } from '../characterModels/character';
+import { Skills } from '../characterModels/enums/skills.enum';
+import { Attributes } from '../characterModels/enums/attributes.enum';
+import { MessageService } from '../../shared/messages/message.service';
 
 @Component({
   selector: 'app-character-skills',

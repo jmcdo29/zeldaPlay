@@ -7,6 +7,7 @@ import { Weapons } from './enums/weapon-skills.enum';
 import { Skills } from './enums/skills.enum';
 import { Magics } from './enums/magic-skills.enum';
 import { Saves } from './enums/saves.enum';
+import { Level } from './enums/levels.enum';
 import { Save } from './save';
 import { Item } from './item';
 import { Note } from './note';
@@ -262,23 +263,28 @@ export class Character {
             name: 'Strength',
             value: qObj.strength,
             modifier: getMod(qObj.strength)
-          }, {
+          },
+          {
             name: 'Dexterity',
             value: qObj.dexterity,
             modifier: getMod(qObj.dexterity)
-          }, {
+          },
+          {
             name: 'Constitution',
             value: qObj.constitution,
             modifier: getMod(qObj.constitution)
-          }, {
+          },
+          {
             name: 'Intelligence',
             value: qObj.intelligence,
             modifier: getMod(qObj.intelligence)
-          }, {
+          },
+          {
             name: 'Wisdom',
             value: qObj.wisdom,
             modifier: getMod(qObj.wisdom)
-          }, {
+          },
+          {
             name: 'Charisma',
             value: qObj.charisma,
             modifier: getMod(qObj.charisma)
@@ -400,6 +406,30 @@ export class Character {
       }
     }
   }
+
+  levelUp(): void {
+    this.health = this.maxHealth += 16 + this.attributes[2].modifier;
+    this.magic = this.maxMagic += 3 + this.attributes[4].modifier;
+    this.level++;
+  }
+
+  gainExp(expGain: number): void {
+    let counter = 0;
+    this.exp += expGain;
+    const lvl = 'level';
+    for (const key in Level) {
+      if (key.includes('level')) {
+        counter++;
+        if (
+          Level[lvl + counter] <= this.exp &&
+          this.exp <= Level[lvl + (counter + 1)]
+        ) {
+          this.level = counter;
+          break;
+        }
+      }
+    }
+  }
 }
 
 function parseRange(range: string): number[] {
@@ -410,7 +440,7 @@ function parseRange(range: string): number[] {
     const top: number = Number.parseInt(range.substring(range.length - 2), 10);
     const diff: number = top - bottom;
     const retArray: number[] = [];
-    for (let i = 0; i <= diff; i++ ) {
+    for (let i = 0; i <= diff; i++) {
       retArray.push(bottom + i);
     }
     return retArray;

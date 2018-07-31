@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const bodyparser = require('body-parser');
 const helmet = require('helmet');
 const logger = require('morgan');
 const flash = require('express-flash');
@@ -21,7 +20,6 @@ app.use(flash());
 
 app.use(express.static(path.join(__dirname , '../dist/')));
 
-app.use('/v1', require('./v1').v1);
 
 app.use('/api', require('./controllers/character.controller'));
 app.use('/users', require('./controllers/user.controller'))
