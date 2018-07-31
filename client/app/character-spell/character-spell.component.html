@@ -44,7 +44,8 @@
             </select>
           </div>
           <div class="improv-table">
-            <b class="head">MP Use</b><br/>
+            <b class="head">MP Use</b>
+            <br/>
             <input type="number" id="mpUse" [(ngModel)]="spell.mpUse" min="0" (blur)="validate('mpUse', 'mpUse')">
           </div>
           <div class="improv-table">
@@ -54,7 +55,8 @@
             </select>
           </div>
           <div class="improv-table">
-            <b class="head">Submit</b><br/>
+            <b class="head">Submit</b>
+            <br/>
             <button class="save" (click)="saveSpell()">Save</button>
           </div>
         </div>
@@ -67,8 +69,11 @@
 <div *ngIf="character.spells" class="table">
   <div *ngIf="spellName" class="spellRoll">
     <h4>{{ spellName }}</h4>
-    <span>Roll to hit:</span><span id="spellRoll">{{ spellRoll }}</span><br/>
-    <span>Damage/Heal Roll:</span><span id="spellDmgRoll">{{ dmgRoll }}</span>
+    <span>Roll to hit:</span>
+    <span id="spellRoll">{{ spellRoll }}</span>
+    <br/>
+    <span>Damage/Heal Roll:</span>
+    <span id="spellDmgRoll">{{ dmgRoll }}</span>
   </div>
   <table>
     <thead>
@@ -107,8 +112,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let magic of character.magicSkills" [class.din]="magic.modifier === 'Intelligence'" [class.farore]="magic.modifier === 'Charisma'"
-            [class.nayru]="magic.modifier === 'Wisdom'">
+          <tr *ngFor="let magic of character.magicSkills" [class.din]="magic.modifier === 'Intelligence'" [class.farore]="magic.modifier === 'Charisma'" [class.nayru]="magic.modifier === 'Wisdom'">
             <td class="name">{{ magic.skillName }}</td>
             <td class="mod">{{ magic.modifier.substr(0,3) | uppercase }}
               <span class="info">{{ getMod(magic.modifier) }}</span>

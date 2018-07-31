@@ -7,4 +7,5 @@ export class Spell {
   modifier?: string;
   diety: string;
   useDiety = false;
+  id?: string;
 }

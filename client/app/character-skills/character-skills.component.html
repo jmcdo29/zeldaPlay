@@ -7,7 +7,8 @@
     <h4>Skill Check</h4>
     <span class="right" (click)="hideCheck()">&times;</span>
     <div>
-      <span id="skill">{{ skill }}</span> : <span id="roll">{{ checkVal }}</span>
+      <span id="skill">{{ skill }}</span> :
+      <span id="roll">{{ checkVal }}</span>
     </div>
   </div>
   <div class="table">
@@ -25,8 +26,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let skill of character.skills" [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'"
-          [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'" [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
+        <tr *ngFor="let skill of character.skills" [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'" [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'" [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
           <td>
             <input type="checkbox" [checked]="skill.trained" disabled="true" />
           </td>

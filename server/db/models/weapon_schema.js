@@ -23,7 +23,7 @@ class Weapon extends Model{
         modelClass: Element,
         join: {
           from: `${this.tableName}.id`,
-          to: `${Weapon.tableName}.weapon_id`
+          to: `${Element.tableName}.weapon_id`
         }
       }
     }

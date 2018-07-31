@@ -239,7 +239,6 @@ export class Character {
       this.exp = 0;
     } else {
       if (qObj) {
-        console.log('in qObj route');
         this.name = qObj.name;
         this.ac = qObj.ac;
         this.id = qObj.id;
@@ -286,6 +285,7 @@ export class Character {
           }
         ];
         qObj.skills.forEach(skill => {
+          console.log(skill.id);
           if (skill.skill_type === 'skill') {
             const newSkill: Skill = {
               skillName: skill.name,
@@ -294,7 +294,8 @@ export class Character {
               item: skill.item_modifier,
               misc: skill.misc_modifier,
               trained: skill.trained,
-              modifier: skill.modifier
+              modifier: skill.modifier,
+              id: skill.id
             };
             this.skills.push(newSkill);
           } else if (skill.skill_type === 'weapon') {
@@ -302,14 +303,16 @@ export class Character {
               skillName: skill.name,
               ranks: skill.ranks,
               trained: skill.trained,
-              racial: skill.racial_modifier
+              racial: skill.racial_modifier,
+              id: skill.id
             };
             this.weaponSkills.push(newWeapSkill);
           } else if (skill.skill_type === 'magic') {
             const newMagSkill: Skill = {
               skillName: skill.name,
               ranks: skill.ranks,
-              modifier: skill.modifier
+              modifier: skill.modifier,
+              id: skill.id
             };
             this.magicSkills.push(newMagSkill);
           }
@@ -319,13 +322,15 @@ export class Character {
             this.notes.push({
               msg: note.message,
               time: note.time,
-              important: note.important
+              important: note.important,
+              id: note.id
             });
           } else {
             this.notes.push({
               msg: note.message,
               time: note.time,
-              important: note.important
+              important: note.important,
+              id: note.id
             });
           }
         });
@@ -333,7 +338,8 @@ export class Character {
           this.savingThrows.push({
             racial: save.racial_bonus,
             name: save.name,
-            modifier: save.modifier
+            modifier: save.modifier,
+            id: save.id
           });
         });
         qObj.weapons.forEach(weapon => {
@@ -347,6 +353,7 @@ export class Character {
           newWep.range = weapon.range ? weapon.range : null;
           newWep.modifier = weapon.modifier;
           newWep.critRange = parseRange(weapon.crit_range);
+          newWep.id = weapon.id;
           this.weapons.push(newWep);
         });
         qObj.spells.forEach(spell => {
@@ -355,14 +362,14 @@ export class Character {
             effect: spell.effect,
             mpUse: spell.mp_use,
             damage: spell.damage,
-            multiplier: spell.number_of_hits,
+            multiplier: spell.number_of_hit,
             modifier: spell.modifier ? spell.modifier : null,
             diety: spell.diety,
-            useDiety: spell.use_diety
+            useDiety: spell.use_diety,
+            id: spell.id
           });
         });
       } else if (jObj) {
-        console.log('in jObj route');
         this.attributes = jObj.attributes;
         this.ac = jObj.ac;
         this.craftOne = jObj.craftOne;

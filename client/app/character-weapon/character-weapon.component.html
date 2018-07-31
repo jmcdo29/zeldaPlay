@@ -68,10 +68,10 @@
             <input id="weaponAmmo" [(ngModel)]="weapon.ammo" step="5" (blur)="validate('weaponAmmo', 'ammo')">
           </div>
         </div>
-        <div class="improv-table" >
-            <b>Element</b>
-            <input type="checkbox" [(ngModel)]="isElemental" (click)="makeElement()">
-          </div>
+        <div class="improv-table">
+          <b>Element</b>
+          <input type="checkbox" [(ngModel)]="isElemental" (click)="makeElement()">
+        </div>
         <div *ngIf="isElemental">
           <div class="improv-table">
             <b>Element Type</b>
@@ -82,24 +82,24 @@
           <div class="improv-table">
             <b>Number of Elemental Dice</b>
             <select id="elementalMult" [(ngModel)]="elemental.numberOfAttacks" (blur)="validateElement('elementalMult', 'numberOfAttacks')">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-              </select>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
           </div>
           <div class="improv-table">
             <b>Elemental Dice Type</b>
             <select id="elementDam" [(ngModel)]="elemental.attack" (blur)="validateElement('elementDam','attack')">
-                <option value="4">D4</option>
-                <option value="6">D6</option>
-                <option value="8">D8</option>
-                <option value="10">D10</option>
-                <option value="12">D12</option>
-              </select>
+              <option value="4">D4</option>
+              <option value="6">D6</option>
+              <option value="8">D8</option>
+              <option value="10">D10</option>
+              <option value="12">D12</option>
+            </select>
           </div>
         </div>
-        
+
       </div>
       <div class="submit-button">
         <button class="center" (click)="saveWeapon()">Save Weapon</button>
@@ -110,16 +110,21 @@
 
 <button (click)="addWeapon()">New Weapon</button>
 <div *ngIf="character.weapons" class="table">
-    <div class="spellRoll">
-        <div *ngIf="weaponName">
-          <h4>{{ weaponName }}</h4>
-          <span>Roll to hit:</span><span id="rollToHit">{{ rollToHit }}</span><br/>
-          <span>Damage Roll:</span><span id="weaponDmg">{{ dmgRoll }}</span><br/>
-        </div>
-        <div *ngIf="elemRoll">
-          <span>Elemental Roll:</span><span id="elementalDmgRoll">{{ elemRoll }}</span>
-        </div>
-      </div>
+  <div class="spellRoll">
+    <div *ngIf="weaponName">
+      <h4>{{ weaponName }}</h4>
+      <span>Roll to hit:</span>
+      <span id="rollToHit">{{ rollToHit }}</span>
+      <br/>
+      <span>Damage Roll:</span>
+      <span id="weaponDmg">{{ dmgRoll }}</span>
+      <br/>
+    </div>
+    <div *ngIf="elemRoll">
+      <span>Elemental Roll:</span>
+      <span id="elementalDmgRoll">{{ elemRoll }}</span>
+    </div>
+  </div>
   <table>
     <thead>
       <tr>
@@ -136,8 +141,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let weapon of character.weapons index as i" [class.din]="weapon.modifier === 'Strength' || weapon.modifier === 'Intelligence'"
-      [class.farore]="weapon.modifier === 'Dexterity' || weapon.modifier === 'Charisma'" [class.nayru]="weapon.modifier === 'Wisdom' || weapon.modifier === 'Constitution'">
+      <tr *ngFor="let weapon of character.weapons index as i" [class.din]="weapon.modifier === 'Strength' || weapon.modifier === 'Intelligence'" [class.farore]="weapon.modifier === 'Dexterity' || weapon.modifier === 'Charisma'" [class.nayru]="weapon.modifier === 'Wisdom' || weapon.modifier === 'Constitution'">
         <td class="weaponName" (click)="attack(i)">{{ weapon.name }}</td>
         <td>{{ weapon.type }}</td>
         <td>{{ weapon.numberOfAttacks }}D{{ weapon.attack }}</td>

@@ -20,7 +20,6 @@ function allCharacters(req, res) {
 }
 
 function getCharacter(req, res) {
-  console.log(req.params.id);
   characterService.getOne(req.params.id)
     .then(character => {
       if(!character){
@@ -37,10 +36,10 @@ function getCharacter(req, res) {
 function upsertCharacter(req, res) {
   characterService.updateOne(req.params.userId, req.body.character)
     .then(character => {
-      console.log(character);
       res.status(200).json(character);
     })
     .catch(err => {
+      console.log(err);
       res.status(400).json(err.message);
     })
 }
