@@ -11,4 +11,5 @@ export class Weapon {
   range: number;
   element?: Elemental;
   ammo?: number;
+  id?: string;
 }

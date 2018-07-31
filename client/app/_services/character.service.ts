@@ -37,9 +37,6 @@ export class CharacterService {
   getCharacter(id): Observable<Character> {
     return this.httpClient.get<any>(this.characterUrl + '/' + id).pipe(
       map(response => {
-        console.log('RESPONSE');
-        console.log(response);
-        console.log(response instanceof Character);
         const character = new Character(null, response);
         return character;
       }),

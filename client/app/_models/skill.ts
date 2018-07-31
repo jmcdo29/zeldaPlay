@@ -6,4 +6,5 @@ export interface Skill {
   item?: number;
   racial?: number;
   misc?: number;
+  id?: string;
 }

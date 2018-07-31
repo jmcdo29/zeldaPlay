@@ -49,4 +49,5 @@ mock-characters.ts
 .env
 !/reference/makeId.sql
 /reference/*.js
+/reference/*.json
 seeds

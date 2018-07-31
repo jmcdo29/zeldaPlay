@@ -10,15 +10,15 @@
             <span class="text">{{ character.name }}</span>
           </li>
         </ul>
-    
-        <div *ngIf="selectedCharacter"> 
-          <button  (click)="hide()">Hide Character Sheet</button>
+
+        <div *ngIf="selectedCharacter">
+          <button (click)="hide()">Hide Character Sheet</button>
           <br/>
           <div *ngIf="loggedIn">
-            <button  (click)="save()">Save Character</button>
+            <button (click)="save()">Save Character</button>
             <br/>
           </div>
-          <button  (click)="download()">Download Character Data</button>
+          <button (click)="download()">Download Character Data</button>
           <br/>
         </div>
         <button (click)="newCharacter()">Create Character</button>
