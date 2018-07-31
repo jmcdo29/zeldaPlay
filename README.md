@@ -1,5 +1,11 @@
 # zeldaPlay
 
+---
+
+For current user test cases and future developments you can check out the [Trello Board here](https://trello.com/b/LDBn0ygB).
+
+---
+
 >A web application in progress for a home-brew D20 character tracker. Built in Angular 2+ and Node.js and hosted on Heroku in separate instances
 >
 >In the end, this application will be able to help track your character, make basic dice rolls for you, and allow you to digitally save multiple characters for ease of access.
