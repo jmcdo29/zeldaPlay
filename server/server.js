@@ -5,6 +5,7 @@ const logger = require('morgan');
 const flash = require('express-flash');
 const path = require('path');
 const cors = require('cors');
+const errorHandlers = require('./utils/errorHandlers');
 
 const PORT = process.env.PORT;
 
@@ -22,7 +23,12 @@ app.use(express.static(path.join(__dirname , '../dist/')));
 
 
 app.use('/api', require('./controllers/character.controller'));
-app.use('/users', require('./controllers/user.controller'))
+app.use('/users', require('./controllers/user.controller'));
+
+app.use(errorHandlers.logErrors);
+app.use(errorHandlers.badLogIn);
+app.use(errorHandlers.databaseProblem);
+app.use(errorHandlers.generalError);
 
 app.get('/', (req, res, next) => {
   res.sendFile('./index.html');

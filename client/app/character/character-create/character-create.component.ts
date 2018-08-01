@@ -15,7 +15,7 @@ import {
 import { Attributes } from '../characterModels/enums/attributes.enum';
 import { MessageService } from '../../shared/messages/message.service';
 import { Router } from '@angular/router';
-import { AlertService } from '../../shared/alert/alert.service';
+import { AlertService } from '../../alert/alert.service';
 import { CharacterService } from '../character.service';
 
 @Component({

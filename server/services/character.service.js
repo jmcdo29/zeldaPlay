@@ -1,4 +1,5 @@
 const Character = require('../db/models/character_schema');
+const DatabaseError = require('../utils/ErrorObjects').DatabaseError;
 
 const characterServices = {};
 
@@ -12,34 +13,55 @@ module.exports = characterServices;
 
 function getAll() {
   return new Promise((resolve, reject) => {
-    resolve(Character.query().select('id', 'name', 'race').whereNull('user_id'));
-  }).then(characters => {
-    if (characters.length === 0) {
-      throw new Error('No characters found!');
-    }
-    return characters;
-  });
+    resolve(
+      Character.query()
+        .select('id', 'name', 'race')
+        .whereNull('user_id')
+    );
+  })
+    .then((characters) => {
+      if (characters.length === 0) {
+        throw new DatabaseError('No characters found!', 'NO_CHAR');
+      }
+      return characters;
+    })
+    .catch((err) => {
+      if (!(err instanceof DatabaseError)) {
+        err = new DatabaseError(err.message, 'DB_ERROR');
+      }
+      throw err;
+    });
 }
 
 function getOne(id) {
   return new Promise((resolve, reject) => {
-    Character.query().findById(id)
-    .then(character => {
-      if (!character) {
-        reject(new Error('No character found'));
-      }
-      return Promise.all([
-        Promise.resolve(character),
-        character.$relatedQuery('skills').orderBy('name'),
-        character.$relatedQuery('weapons').eager('element').orderBy('name'),
-        character.$relatedQuery('spells').orderBy('diety'),
-        character.$relatedQuery('saves').orderBy('name'),
-        character.$relatedQuery('notes').orderBy('time')
-      ]);
-    })
-    .then(character => {
-      resolve(character[0]);
-    });
+    Character.query()
+      .findById(id)
+      .then((character) => {
+        if (!character) {
+          reject(new DatabaseError('No character found', 'NO_CHAR'));
+        }
+        return Promise.all([
+          Promise.resolve(character),
+          character.$relatedQuery('skills').orderBy('name'),
+          character
+            .$relatedQuery('weapons')
+            .eager('element')
+            .orderBy('name'),
+          character.$relatedQuery('spells').orderBy('diety'),
+          character.$relatedQuery('saves').orderBy('name'),
+          character.$relatedQuery('notes').orderBy('time')
+        ]);
+      })
+      .then((character) => {
+        resolve(character[0]);
+      })
+      .catch((err) => {
+        if (!(err instanceof DatabaseError)) {
+          err = new DatabaseError(err.message, 'DB_ERROR');
+        }
+        throw err;
+      });
   });
 }
 
@@ -75,125 +97,133 @@ function updateOne(id, body) {
     };
     resolve(Character.query().upsert(character));
   })
-  .then(charId => {
-    const chId = charId.id;
-    const skills = [];
-    const spells = [];
-    const weapons = [];
-    const notes = [];
-    const saves = [];
-    body.skills.forEach(skill => {
-      skills.push({
-        character_id: chId,
-        trained: skill.trained,
-        name: skill.skillName,
-        ranks: skill.ranks,
-        modifier: skill.modifier,
-        racial_modifier: skill.racial,
-        item_modifier: skill.item,
-        skill_type: 'skill',
-        misc_modifier: skill.misc,
-        last_modified_by: id,
-        id: checkNull(skill.id)
+    .then((charId) => {
+      const chId = charId.id;
+      const skills = [];
+      const spells = [];
+      const weapons = [];
+      const notes = [];
+      const saves = [];
+      body.skills.forEach((skill) => {
+        skills.push({
+          character_id: chId,
+          trained: skill.trained,
+          name: skill.skillName,
+          ranks: skill.ranks,
+          modifier: skill.modifier,
+          racial_modifier: skill.racial,
+          item_modifier: skill.item,
+          skill_type: 'skill',
+          misc_modifier: skill.misc,
+          last_modified_by: id,
+          id: checkNull(skill.id)
+        });
       });
-    });
-    body.weaponSkills.forEach(wSkill => {
-      skills.push({
-        character_id: chId,
-        last_modified_by: id,
-        skill_type: 'weapon',
-        name: wSkill.skillName,
-        trained: wSkill.trained,
-        ranks: wSkill.ranks,
-        racial_modifier: wSkill.racial,
-        id: checkNull(wSkill.id)
+      body.weaponSkills.forEach((wSkill) => {
+        skills.push({
+          character_id: chId,
+          last_modified_by: id,
+          skill_type: 'weapon',
+          name: wSkill.skillName,
+          trained: wSkill.trained,
+          ranks: wSkill.ranks,
+          racial_modifier: wSkill.racial,
+          id: checkNull(wSkill.id)
+        });
       });
-    });
-    body.magicSkills.forEach(mSkill => {
-      skills.push({
-        character_id: chId,
-        last_modified_by: id,
-        skill_type: 'magic',
-        modifier: mSkill.modifier,
-        name: mSkill.skillName,
-        ranks: mSkill.ranks,
-        id: checkNull(mSkill.id)
+      body.magicSkills.forEach((mSkill) => {
+        skills.push({
+          character_id: chId,
+          last_modified_by: id,
+          skill_type: 'magic',
+          modifier: mSkill.modifier,
+          name: mSkill.skillName,
+          ranks: mSkill.ranks,
+          id: checkNull(mSkill.id)
+        });
       });
-    });
-    body.weapons.forEach(weapon => {
-      weapons.push({
-        character_id: chId,
-        last_modified_by: id,
-        damage: weapon.attack,
-        number_of_hits: weapon.numberOfAttacks,
-        crit_range: parseArray(weapon.critRange),
-        crit_multiplier: weapon.critDamage,
-        type: weapon.type,
-        modifier: weapon.modifier,
-        range: checkNull(weapon.range),
-        ammo: checkNull(weapon.ammo),
-        element: checkNull(weapon.element),
-        id: checkNull(weapon.id)
+      body.weapons.forEach((weapon) => {
+        weapons.push({
+          character_id: chId,
+          last_modified_by: id,
+          damage: weapon.attack,
+          number_of_hits: weapon.numberOfAttacks,
+          crit_range: parseArray(weapon.critRange),
+          crit_multiplier: weapon.critDamage,
+          type: weapon.type,
+          modifier: weapon.modifier,
+          range: checkNull(weapon.range),
+          ammo: checkNull(weapon.ammo),
+          element: checkNull(weapon.element),
+          id: checkNull(weapon.id)
+        });
       });
-    });
-    body.spells.forEach(spell => {
-      spells.push({
-        character_id: chId,
-        last_modified_by: id,
-        name: spell.name,
-        effect: spell.effect,
-        mp_use: spell.mpUse,
-        damage: spell.damage,
-        number_of_hit: spell.multiplier,
-        modifier: checkNull(spell.modifier),
-        diety: spell.diety,
-        use_diety: spell.useDiety,
-        id: checkNull(spell.id)
+      body.spells.forEach((spell) => {
+        spells.push({
+          character_id: chId,
+          last_modified_by: id,
+          name: spell.name,
+          effect: spell.effect,
+          mp_use: spell.mpUse,
+          damage: spell.damage,
+          number_of_hit: spell.multiplier,
+          modifier: checkNull(spell.modifier),
+          diety: spell.diety,
+          use_diety: spell.useDiety,
+          id: checkNull(spell.id)
+        });
       });
-    });
-    body.notes.forEach(note => {
-      notes.push({
-        character_id: chId,
-        last_modified_by: id,
-        message: note.msg,
-        time: note.time,
-        important: note.important,
-        id: checkNull(note.id)
+      body.notes.forEach((note) => {
+        notes.push({
+          character_id: chId,
+          last_modified_by: id,
+          message: note.msg,
+          time: note.time,
+          important: note.important,
+          id: checkNull(note.id)
+        });
       });
-    });
-    body.savingThrows.forEach(save => {
-      saves.push({
-        character_id: chId,
-        last_modified_by: id,
-        racial_bonus: save.racial,
-        name: save.name,
-        modifier: save.modifier,
-        id: checkNull(save.id)
+      body.savingThrows.forEach((save) => {
+        saves.push({
+          character_id: chId,
+          last_modified_by: id,
+          racial_bonus: save.racial,
+          name: save.name,
+          modifier: save.modifier,
+          id: checkNull(save.id)
+        });
       });
+      const promises = [];
+      promises.push(Promise.resolve(chId));
+      promises.push(charId.$relatedQuery('skills').upsertMany(skills));
+      promises.push(charId.$relatedQuery('weapons').upsertMany(weapons));
+      promises.push(charId.$relatedQuery('saves').upsertMany(saves));
+      promises.push(charId.$relatedQuery('spells').upsertMany(spells));
+      promises.push(charId.$relatedQuery('notes').upsertMany(notes));
+      return Promise.all(promises);
+    })
+    .then((results) => {
+      return Promise.resolve(results[0]);
+    })
+    .catch((err) => {
+      if (!(err instanceof DatabaseError)) {
+        err = new DatabaseError(err.message, 'DB_ERROR');
+      }
+      throw err;
     });
-    const promises = [];
-    promises.push(Promise.resolve(chId));
-    promises.push(charId.$relatedQuery('skills').upsertMany(skills));
-    promises.push(charId.$relatedQuery('weapons').upsertMany(weapons));
-    promises.push(charId.$relatedQuery('saves').upsertMany(saves));
-    promises.push(charId.$relatedQuery('spells').upsertMany(spells));
-    promises.push(charId.$relatedQuery('notes').upsertMany(notes));
-    return Promise.all(promises);
-  })
-  .then(results => {
-    return Promise.resolve(results[0]);
-  })
-  .catch(err => {
-    throw err;
-  })
 }
 
 function getUserCharacters(userId) {
   return new Promise((resolve, reject) => {
     if (!userId.startsWith('00U') && userId.length !== 12) {
-      reject(new Error('Bad user id.'));
+      reject(new DatabaseError('Bad user id.', 'BAD_USER'));
     }
     resolve(Character.query().where({ user_id: userId }));
+  }).catch((err) => {
+    if (!(err instanceof DatabaseError)) {
+      err = new DatabaseError(err.message, 'DB_ERROR');
+    }
+    throw err;
   });
 }
 
