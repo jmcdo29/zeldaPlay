@@ -12,7 +12,7 @@ h2.no-padding{
 }
 
 .custTable {
-  width: 50%;
+  width: 75%;
 }
 
 .row {
@@ -44,4 +44,23 @@ h2.no-padding{
 
 .user {
   width: 100%;
+}
+
+@media (max-width: 900px){
+  .cell.input, .cell.label{
+    width: 100%;
+  }
+  .cell.label{
+    font-size: 150%;
+  }
+  .jumbo{
+    align-content: center;
+    width: 80%;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 2em;
+  }
+  .custTable{
+    width: 80%;
+  }
 }
