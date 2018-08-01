@@ -51,6 +51,9 @@ h4.menu{
   }
   .menuBar{
     line-height: 3;
+    width: 100%;
+    float: left;
+    margin-bottom: 0.125em;
   }
   .menu{
     padding-left: 1em;

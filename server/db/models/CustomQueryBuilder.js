@@ -3,7 +3,7 @@ const QueryBuilder = require('objection').QueryBuilder;
 class MyQueryBuilder extends QueryBuilder {
 
   upsert(model) {
-    if (model.id) {
+    if (model.id && model.id !== null) {
       return new Promise((resolve, reject) => {
         resolve(this.findById(model.id));
       })

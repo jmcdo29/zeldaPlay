@@ -98,6 +98,7 @@ function updateOne(id, body) {
     resolve(Character.query().upsert(character));
   })
     .then((charId) => {
+      console.log(charId.id);
       const chId = charId.id;
       const skills = [];
       const spells = [];
