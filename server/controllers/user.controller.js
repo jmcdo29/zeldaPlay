@@ -7,28 +7,18 @@ router.post('/signup', signup);
 
 module.exports = router;
 
-function login(req, res) {
-  console.log(req.body);
+function login(req, res, next) {
   userService.getUser(req.body.username, req.body.password)
     .then(user => {
       res.status(200).json(user);
     })
-    .catch(err => {
-      console.log(err.stack);
-      console.log(err.message);
-      res.status(403).json(err.message);
-    })
+    .catch(next)
 }
 
-function signup(req, res) {
-  console.log(req.body);
+function signup(req, res, next) {
   userService.createUser(req.body.username, req.body.password, req.body.confPass)
     .then(user => {
       res.status(200).json(user.id);
     })
-    .catch(err => {
-      console.log(err.stack);
-      console.log(err.message);
-      res.status(403).json(err.message);
-    })
+    .catch(next)
 }

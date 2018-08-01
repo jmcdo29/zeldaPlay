@@ -6,9 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { EnumModule } from './helpers/customPipes';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './messages/message.service';
-import { AlertComponent } from './alert/alert.component';
-import { AlertService } from './alert/alert.service';
-
 
 @NgModule({
   imports: [
@@ -17,8 +14,8 @@ import { AlertService } from './alert/alert.service';
     FormsModule,
     HttpClientModule
   ],
-  declarations: [MessagesComponent, AlertComponent],
-  exports: [MessagesComponent, CommonModule, EnumModule, FormsModule, AlertComponent],
-  providers: [MessageService, AlertService]
+  declarations: [MessagesComponent],
+  exports: [MessagesComponent, CommonModule, EnumModule, FormsModule],
+  providers: [MessageService]
 })
 export class SharedModule { }

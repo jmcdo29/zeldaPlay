@@ -6,7 +6,7 @@ import { Diety } from '../characterModels/enums/dieties.enum';
 import { Attributes } from '../characterModels/enums/attributes.enum';
 import { MessageService } from '../../shared/messages/message.service';
 import { Magics } from '../characterModels/enums/magic-skills.enum';
-import { AlertService } from '../../shared/alert/alert.service';
+import { AlertService } from '../../alert/alert.service';
 
 @Component({
   selector: 'app-character-spell',

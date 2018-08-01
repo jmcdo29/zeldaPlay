@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
-import { AlertService } from '../../shared/alert/alert.service';
+import { AlertService } from '../../alert/alert.service';
 
 @Component({
   selector: 'app-user-register',
@@ -30,7 +30,7 @@ export class UserRegisterComponent implements OnInit {
         },
         error => {
           this.loading = false;
-          this.alertService.error(error.error);
+          this.alertService.error(error.error.message);
         }
       );
   }

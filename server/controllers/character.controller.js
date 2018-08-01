@@ -8,49 +8,34 @@ router.post('/characters/:userId', upsertCharacter);
 
 module.exports = router;
 
-function allCharacters(req, res) {
+function allCharacters(req, res, next) {
   characterService.getAll()
     .then(characters => {
       res.json(characters);
     })
-    .catch(err => {
-      console.error(err);
-      res.json(err);
-    });
+    .catch(next);
 }
 
-function getCharacter(req, res) {
+function getCharacter(req, res, next) {
   characterService.getOne(req.params.id)
     .then(character => {
-      if(!character){
-        throw new Error('No character found!');
-      }
       res.status(200).json(character);
     })
-    .catch(err => {
-      console.error(err);
-      res.status(400).json(err.message);
-    })
+    .catch(next)
 }
 
-function upsertCharacter(req, res) {
+function upsertCharacter(req, res, next) {
   characterService.updateOne(req.params.userId, req.body.character)
     .then(character => {
       res.status(200).json(character);
     })
-    .catch(err => {
-      console.log(err);
-      res.status(400).json(err.message);
-    })
+    .catch(next)
 }
 
-function getUserCharacters(req, res) {
+function getUserCharacters(req, res, next) {
   characterService.getUserCharacters(req.params.userId)
     .then(characters => {
       res.status(200).json(characters);
     })
-    .catch(err => {
-      console.log(err);
-      res.status(403).json(err.message);
-    })
+    .catch(next)
 }

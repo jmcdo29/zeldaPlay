@@ -1,5 +1,6 @@
 const User = require('../db/models/user_schema');
 const bcrypt = require('bcryptjs');
+const LoginError = require('../utils/ErrorObjects').LoginError;
 
 const UserServices = {};
 
@@ -15,13 +16,13 @@ function login(username, password) {
   })
   .then(user => {
     if(!user) {
-      throw new Error('Username or password is incorrect');
+      throw new LoginError('Username or password is incorrect', 'NO_USER_FOUND');
     }
     return Promise.all([Promise.resolve(user), comparePassword(password, user.password)]);
   })
   .then(results => {
     if(!results[1]){
-      throw new Error('Username or password is incorrect.')
+      throw new LoginError('Username or password is incorrect.', 'INCORRECT_PASSWORD')
     } else {
       return results[0].id;
     }
@@ -35,7 +36,7 @@ function signUp(username, password, confPassword) {
   })
   .then(user => {
     if(user.length !== 0) {
-      throw new Error('Email already in use. Please log in or use a new email.');
+      throw new LoginError('Email already in use. Please log in or use a new email.', 'EMAIL_IN_USE');
     } else {
       return User.query().insert({
         email: username,
@@ -78,7 +79,7 @@ function verifyPassword(password, confPass) {
     errors.forEach(error => {
       errorMsg += error + ' ';
     })
-    reject(new Error(errorMsg));
+    reject(new LoginError(errorMsg, 'BAD_PASS'));
   }
   resolve();
   });
