@@ -99,6 +99,7 @@ function updateOne(id, body) {
     resolve(Character.query().upsert(character));
   })
     .then((charId) => {
+      console.log(charId);
       const chId = charId.id;
       const skills = [];
       const spells = [];
@@ -214,7 +215,7 @@ function updateOne(id, body) {
       return Promise.all(promises);
     })
     .then((results) => {
-      return results[0].id;
+      return results[0];
     })
     .catch((err) => {
       if (!(err instanceof DatabaseError)) {

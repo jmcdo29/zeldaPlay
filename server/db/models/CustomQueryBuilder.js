@@ -8,14 +8,16 @@ class MyQueryBuilder extends QueryBuilder {
         resolve(this.findById(model.id));
       })
       .then(modelInstance => {
-        return modelInstance.$query().update(model).returning('id');
+        if (!modelInstance) {
+          throw new Error('No model found for ' + model.id);
+        }
+        return modelInstance.$query().patchAndFetch(model);
       })
       .catch(err => {
         return err;
       })
-      //return this.update(model).where({id: model.id}).returning('id');
     } else {
-      return this.insert(model).returning('id');
+      return this.insert(model);
     }
   }
 }
