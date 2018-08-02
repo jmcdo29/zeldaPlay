@@ -190,7 +190,7 @@ export class Rito extends Character {
       case 'Sharp Tongue': {
         this.attributes[Attributes['Charisma']].value += 1;     // Charisma Buff
         this.skills[Skills['Bluff']].trained = true;            // Bluff
-        this.skills[Skills['bluff']].misc = 2;                  // Bluff Buff
+        this.skills[Skills['Bluff']].misc = 2;                  // Bluff Buff
         break;
       }
     }
@@ -263,11 +263,11 @@ export class Zora extends Character {
 
     this.attributes[Attributes['Dexterity']].value += 2;            // Dexterity
 
-    this.skills[Attributes['Acrobatics']].trained = true;           // Acrobatics
-    this.skills[Attributes['CraftOne']].trained = true;             // Craft 1
-    this.skills[Attributes['CraftTwo']].trained = true;             // Craft 2
-    this.skills[Attributes['Perception']].trained = true;           // Perception
-    this.skills[Attributes['Swim']].trained = true;                 // Swim
+    this.skills[Skills['Acrobatics']].trained = true;           // Acrobatics
+    this.skills[Skills['CraftOne']].trained = true;             // Craft 1
+    this.skills[Skills['CraftTwo']].trained = true;             // Craft 2
+    this.skills[Skills['Perception']].trained = true;           // Perception
+    this.skills[Skills['Swim']].trained = true;                 // Swim
 
     this.weaponSkills[Weapons['Spear']].trained = true;             // Spears
 

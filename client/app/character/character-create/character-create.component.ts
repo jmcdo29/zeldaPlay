@@ -17,6 +17,9 @@ import { MessageService } from '../../shared/messages/message.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../../alert/alert.service';
 import { CharacterService } from '../character.service';
+import { Skills } from '../characterModels/enums/skills.enum';
+import { Weapons } from '../characterModels/enums/weapon-skills.enum';
+import { Magics } from '../characterModels/enums/magic-skills.enum';
 
 @Component({
   selector: 'app-character-create',
@@ -113,11 +116,66 @@ export class CharacterCreateComponent implements OnInit {
     }
     if (localStorage.getItem('currentUser') && !this.error) {
       // save character to database
-      this.characterService.saveCharDb(this.newCharacter).subscribe(response => {
-        this.CharacterParent.selectedCharacter.id = response;
-      });
+      this.characterService
+        .saveCharDb(this.newCharacter)
+        .subscribe((characterRes) => {
+          const newChar = this.CharacterParent.selectedCharacter;
+          newChar.id = characterRes.id;
+          if (characterRes.skills) {
+            characterRes.skills.forEach((skill) => {
+              if (skill.skill_type === 'skill') {
+                newChar.skills[Skills[skill.name]].id = skill.id;
+              } else if (skill.skill_type === 'weapon') {
+                newChar.weaponSkills[Weapons[skill.name]].id = skill.id;
+              } else {
+                newChar.magicSkills[Magics[skill.name]].id = skill.id;
+              }
+            });
+          }
+          if (characterRes.weapons) {
+            characterRes.weapons.forEach((weapon) => {
+              newChar.weapons[
+                findObjectPartial(newChar.weapons, 'name', weapon.name)
+              ].id =
+                weapon.id;
+            });
+          }
+          if (characterRes.spells) {
+            characterRes.spells.forEach((spell) => {
+              newChar.spells[
+                findObjectPartial(newChar.spells, 'name', spell.name)
+              ].id =
+                spell.id;
+            });
+          }
+          if (characterRes.saves) {
+            characterRes.saves.forEach((save) => {
+              newChar.savingThrows[
+                findObjectPartial(newChar.savingThrows, 'name', save.name)
+              ].id =
+                save.id;
+            });
+          }
+          if (characterRes.notes) {
+            characterRes.notes.forEach((note) => {
+              if (note.important) {
+                newChar.importantNotes[
+                  findObjectPartial(newChar.importantNotes, 'msg', note.message)
+                ].id =
+                  note.id;
+              } else {
+                newChar.notes[
+                  findObjectPartial(newChar.notes, 'msg', note.message)
+                ].id =
+                  note.id;
+              }
+            });
+          }
+        });
     } else if (!this.error) {
-      this.alertService.error('You must be logged in to save your character for re-use.');
+      this.alertService.error(
+        'You must be logged in to save your character for re-use.'
+      );
     }
   }
 
@@ -297,4 +355,15 @@ export class CharacterCreateComponent implements OnInit {
 
     this.message.add(message);
   }
+}
+
+function findObjectPartial(array, key, value): number {
+  let index = -1;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i][key] === value) {
+      index = i;
+      break;
+    }
+  }
+  return index;
 }
