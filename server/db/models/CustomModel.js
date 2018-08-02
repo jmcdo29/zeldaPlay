@@ -13,7 +13,7 @@ class CustomModel extends Model {
 
   $beforeUpdate(opt, queryContext) {
     this.last_modified = new Date(Date.now()).toISOString();
-    if(opt.old.id !== this.id) {
+    if(opt.old && opt.old.id !== this.id) {
       this.id = opt.old.id;
     }
   }

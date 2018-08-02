@@ -74,6 +74,8 @@ export class CharactersComponent implements OnInit {
   }
 
   save() {
-    this.characterService.saveCharDb(this.selectedCharacter).subscribe();
+    this.characterService.saveCharDb(this.selectedCharacter).subscribe(characterRes => {
+      this.selectedCharacter.id = characterRes;
+    });
   }
 }

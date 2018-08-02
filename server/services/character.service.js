@@ -35,6 +35,7 @@ function getAll() {
 
 function getOne(id) {
   return new Promise((resolve, reject) => {
+    console.log(id);
     Character.query()
       .findById(id)
       .then((character) => {
@@ -98,7 +99,6 @@ function updateOne(id, body) {
     resolve(Character.query().upsert(character));
   })
     .then((charId) => {
-      console.log(charId.id);
       const chId = charId.id;
       const skills = [];
       const spells = [];
@@ -195,20 +195,32 @@ function updateOne(id, body) {
         });
       });
       const promises = [];
-      promises.push(Promise.resolve(chId));
-      promises.push(charId.$relatedQuery('skills').upsertMany(skills));
-      promises.push(charId.$relatedQuery('weapons').upsertMany(weapons));
-      promises.push(charId.$relatedQuery('saves').upsertMany(saves));
-      promises.push(charId.$relatedQuery('spells').upsertMany(spells));
-      promises.push(charId.$relatedQuery('notes').upsertMany(notes));
+      promises.push(Promise.resolve(charId));
+      skills.forEach(skill => {
+        promises.push(charId.$relatedQuery('skills').upsert(skill));
+      });
+      weapons.forEach(weapon => {
+        promises.push(charId.$relatedQuery('weapons').upsert(weapon));
+      });
+      saves.forEach(save => {
+        promises.push(charId.$relatedQuery('saves').upsert(save));
+      });
+      spells.forEach(spell => {
+        promises.push(charId.$relatedQuery('spells').upsert(spell));
+      });
+      notes.forEach(note => {
+        promises.push(charId.$relatedQuery('notes').upsert(note)); 
+      });
       return Promise.all(promises);
     })
     .then((results) => {
-      return Promise.resolve(results[0]);
+      return results[0].id;
     })
     .catch((err) => {
       if (!(err instanceof DatabaseError)) {
-        err = new DatabaseError(err.message, 'DB_ERROR');
+        newErr = new DatabaseError(err.message, 'DB_ERROR');
+        newErr.stack = err.stack;
+        err = newErr;
       }
       throw err;
     });

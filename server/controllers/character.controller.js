@@ -27,6 +27,8 @@ function getCharacter(req, res, next) {
 function upsertCharacter(req, res, next) {
   characterService.updateOne(req.params.userId, req.body.character)
     .then(character => {
+      console.log('response');
+      console.log(character);
       res.status(200).json(character);
     })
     .catch(next)
