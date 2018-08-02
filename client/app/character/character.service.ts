@@ -64,9 +64,9 @@ export class CharacterService {
     FileSaver.saveAs(blob, character.name + '_zeldaplay.json');
   }
 
-  saveCharDb(character: Character): Observable<string> {
+  saveCharDb(character: Character): Observable<any> {
     const userId = localStorage.getItem('currentUser');
-    return this.httpClient.post<string>(this.characterUrl + `/${userId}`, {character: character});
+    return this.httpClient.post<any>(this.characterUrl + `/${userId}`, {character: character});
   }
 }
 
