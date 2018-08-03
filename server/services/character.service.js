@@ -10,7 +10,11 @@ characterServices.getUserCharacters = getUserCharacters;
 characterServices.newWeapon = newWeapon;
 
 module.exports = characterServices;
-
+/**
+ * standard function to get all characters not belonging to a user
+ * @returns {Promise} Promise object that reolves to an array of character objects
+ * @throws {DatabaseError} - Throws a database error to indicate something was wrong with the query
+ */
 function getAll() {
   return new Promise((resolve, reject) => {
     resolve(
@@ -33,6 +37,12 @@ function getAll() {
     });
 }
 
+/**
+ * function to retrieve on character and all of that characters skills, weapons, spells, saving throws, and notes.
+ * @param {string} id  takes in the id of the character to retrieve
+ * @returns {Promise} returns a promise of the character object with all fields
+ * @throws {DatabaseError}
+ */
 function getOne(id) {
   return new Promise((resolve, reject) => {
     console.log(id);
