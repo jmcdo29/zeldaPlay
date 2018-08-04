@@ -1,3 +1,13 @@
+/**
+ * @typedef {Object} Character
+ * @prop {string} id
+ * @prop {string} name 
+ * @prop {string} race
+ * 
+ */
+
+
+
 const Character = require('../db/models/character_schema');
 const DatabaseError = require('../utils/ErrorObjects').DatabaseError;
 
@@ -12,8 +22,8 @@ characterServices.newWeapon = newWeapon;
 module.exports = characterServices;
 /**
  * standard function to get all characters not belonging to a user
- * @returns {Promise} Promise object that reolves to an array of character objects
- * @throws {DatabaseError} - Throws a database error to indicate something was wrong with the query
+ * @returns {Promise<Character>} Promise object that resolves to an array of Character objects with id, name, and race properties
+ * @throws {@link module:utils/ErrorObjects~DatabaseError} - Throws a database error to indicate something was wrong with the query
  */
 function getAll() {
   return new Promise((resolve, reject) => {

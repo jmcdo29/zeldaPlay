@@ -50,4 +50,5 @@ mock-characters.ts
 !/reference/makeId.sql
 /reference/*.js
 /reference/*.json
-seeds
+seeds 
+out 
