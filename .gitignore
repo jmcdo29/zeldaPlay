@@ -51,4 +51,4 @@ mock-characters.ts
 /reference/*.js
 /reference/*.json
 seeds 
-out 
+/out 
