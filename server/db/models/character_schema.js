@@ -1,3 +1,9 @@
+/**
+ * A module to hold the character schema and Objection model fo rquerying
+ * @module model/Character
+ * @export Character
+ */
+
 const Knex = require('knex');
 const connection = require('../knexfile');
 const Model = require('./CustomModel');
@@ -8,6 +14,13 @@ const knexConnection = Knex(connection);
 
 Model.knex(knexConnection);
 
+/**
+ * @typedef {Class} Character
+ * @prop {string} id
+ * @prop {string} name 
+ * @prop {string} race
+ * 
+ */
 class Character extends Model{
 
   static get tableName() {
