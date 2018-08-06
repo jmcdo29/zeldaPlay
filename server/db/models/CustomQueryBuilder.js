@@ -4,9 +4,7 @@ class MyQueryBuilder extends QueryBuilder {
 
   upsert(model) {
     if (model.id && model.id !== null) {
-      return new Promise((resolve, reject) => {
-        resolve(this.findById(model.id));
-      })
+      return this.findById(model.id)
       .then(modelInstance => {
         if (!modelInstance) {
           throw new Error('No model found for ' + model.id);
