@@ -16,13 +16,9 @@ module.exports = characterServices;
  * @throws DatabaseError - Throws a database error to indicate something was wrong with the query
  */
 function getAll() {
-  return new Promise((resolve, reject) => {
-    resolve(
-      Character.query()
-        .select('id', 'name', 'race')
-        .whereNull('user_id')
-    );
-  })
+  return Character.query()
+    .select('id', 'name', 'race')
+    .whereNull('user_id')
     .then((characters) => {
       if (characters.length === 0) {
         throw new DatabaseError('No characters found!', 'NO_CHAR');
@@ -44,70 +40,66 @@ function getAll() {
  * @throws DatabaseError
  */
 function getOne(id) {
-  return new Promise((resolve, reject) => {
-    console.log(id);
-    Character.query()
-      .findById(id)
-      .then((character) => {
-        if (!character) {
-          reject(new DatabaseError('No character found', 'NO_CHAR'));
-        }
-        return Promise.all([
-          Promise.resolve(character),
-          character.$relatedQuery('skills').orderBy('name'),
-          character
-            .$relatedQuery('weapons')
-            .eager('element')
-            .orderBy('name'),
-          character.$relatedQuery('spells').orderBy('diety'),
-          character.$relatedQuery('saves').orderBy('name'),
-          character.$relatedQuery('notes').orderBy('time')
-        ]);
-      })
-      .then((character) => {
-        resolve(character[0]);
-      })
-      .catch((err) => {
-        if (!(err instanceof DatabaseError)) {
-          err = new DatabaseError(err.message, 'DB_ERROR');
-        }
-        throw err;
-      });
-  });
+  return Character.query()
+    .findById(id)
+    .then((character) => {
+      if (!character) {
+        throw new DatabaseError('No character found', 'NO_CHAR');
+      }
+      return Promise.all([
+        Promise.resolve(character),
+        character.$relatedQuery('skills').orderBy('name'),
+        character
+          .$relatedQuery('weapons')
+          .eager('element')
+          .orderBy('name'),
+        character.$relatedQuery('spells').orderBy('diety'),
+        character.$relatedQuery('saves').orderBy('name'),
+        character.$relatedQuery('notes').orderBy('time')
+      ]);
+    })
+    .then((character) => {
+      return character[0];
+    })
+    .catch((err) => {
+      if (!(err instanceof DatabaseError)) {
+        err = new DatabaseError(err.message, 'DB_ERROR');
+      }
+      throw err;
+    });
 }
 
 function updateOne(id, body) {
-  return new Promise((resolve, reject) => {
-    const character = {
-      name: body.name,
-      strength: body.attributes[0].value,
-      dexterity: body.attributes[1].value,
-      constitution: body.attributes[2].value,
-      intelligence: body.attributes[3].value,
-      wisdom: body.attributes[4].value,
-      charisma: body.attributes[5].value,
-      max_health: body.maxHealth,
-      health: body.health,
-      max_magic: body.maxMagic,
-      magic: body.magic,
-      experience: body.exp,
-      race: body.race,
-      level: body.level,
-      subrace: checkNull(body.subrace),
-      ac: checkNull(body.ac),
-      flat_footed: checkNull(body.flat_footed),
-      touch: checkNull(body.touch),
-      size: checkNull(body.size),
-      craft_one: checkNull(body.craftOne),
-      craft_two: checkNull(body.craftTwo),
-      performance: checkNull(body.performCust),
-      profession: checkNull(body.profession),
-      last_modified_by: id,
-      user_id: id,
-      id: checkNull(body.id)
-    };
-    resolve(Character.query().upsert(character));
-  })
+  const character = {
+    name: body.name,
+    strength: body.attributes[0].value,
+    dexterity: body.attributes[1].value,
+    constitution: body.attributes[2].value,
+    intelligence: body.attributes[3].value,
+    wisdom: body.attributes[4].value,
+    charisma: body.attributes[5].value,
+    max_health: body.maxHealth,
+    health: body.health,
+    max_magic: body.maxMagic,
+    magic: body.magic,
+    experience: body.exp,
+    race: body.race,
+    level: body.level,
+    subrace: checkNull(body.subrace),
+    ac: checkNull(body.ac),
+    flat_footed: checkNull(body.flat_footed),
+    touch: checkNull(body.touch),
+    size: checkNull(body.size),
+    craft_one: checkNull(body.craftOne),
+    craft_two: checkNull(body.craftTwo),
+    performance: checkNull(body.performCust),
+    profession: checkNull(body.profession),
+    last_modified_by: id,
+    user_id: id,
+    id: checkNull(body.id)
+  };
+  return Character.query()
+    .upsert(character)
     .then((charId) => {
       console.log(charId);
       const chId = charId.id;
@@ -208,20 +200,20 @@ function updateOne(id, body) {
       });
       const promises = [];
       promises.push(Promise.resolve(charId));
-      skills.forEach(skill => {
+      skills.forEach((skill) => {
         promises.push(charId.$relatedQuery('skills').upsert(skill));
       });
-      weapons.forEach(weapon => {
+      weapons.forEach((weapon) => {
         promises.push(charId.$relatedQuery('weapons').upsert(weapon));
       });
-      saves.forEach(save => {
+      saves.forEach((save) => {
         promises.push(charId.$relatedQuery('saves').upsert(save));
       });
-      spells.forEach(spell => {
+      spells.forEach((spell) => {
         promises.push(charId.$relatedQuery('spells').upsert(spell));
       });
-      notes.forEach(note => {
-        promises.push(charId.$relatedQuery('notes').upsert(note)); 
+      notes.forEach((note) => {
+        promises.push(charId.$relatedQuery('notes').upsert(note));
       });
       return Promise.all(promises);
     })
@@ -239,17 +231,17 @@ function updateOne(id, body) {
 }
 
 function getUserCharacters(userId) {
-  return new Promise((resolve, reject) => {
-    if (!userId.startsWith('00U') && userId.length !== 12) {
-      reject(new DatabaseError('Bad user id.', 'BAD_USER'));
-    }
-    resolve(Character.query().where({ user_id: userId }));
-  }).catch((err) => {
-    if (!(err instanceof DatabaseError)) {
-      err = new DatabaseError(err.message, 'DB_ERROR');
-    }
-    throw err;
-  });
+  if (!userId.startsWith('00U') && userId.length !== 12) {
+    throw new DatabaseError('Bad user id.', 'BAD_USER');
+  }
+  return Character.query()
+    .where({ user_id: userId })
+    .catch((err) => {
+      if (!(err instanceof DatabaseError)) {
+        err = new DatabaseError(err.message, 'DB_ERROR');
+      }
+      throw err;
+    });
 }
 
 function newWeapon(charId, weapon) {}
