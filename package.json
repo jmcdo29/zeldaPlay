@@ -8,7 +8,7 @@
   "scripts": {
     "ng": "ng",
     "devStart": "tsc -p ./server && node server/out/server.js",
-    "start": "node server/server.js",
+    "start": "node server/out/server.js",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
