@@ -1,4 +1,3 @@
-// TODO: Add JSDoc documentation for file.
 import { Model, QueryBuilder } from 'objection';
 import { makeId, checkNull } from '../../utils/utils';
 import { SkillInterface } from '../../interfaces/skillInterface';

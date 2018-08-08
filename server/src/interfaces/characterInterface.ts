@@ -39,6 +39,12 @@ interface AttributesInterface {
  * @prop {string} last_modified - date string of the last modification
  * @prop {AttributesInterface[]} attributes - holds the strength, dexterity, constitution ...
  * @prop {WeaponInterface[]} [weapons] - the weapons the character has
+ * @prop {SkillInterface[]} [skills] - the skills of the character
+ * @prop {SkillInterface[]} [weaponSkills] - the weapon skills of the character
+ * @prop {SkillInterface[]} [magicSkills] - the magic skills of the character
+ * @prop {NoteInterface[]} [notes] - the notes the character has taken
+ * @prop {SpellInterface[]} [spells] - the spells the character knows
+ * @prop {SaveInterface[]} [savingThrows] - the saving throws of the character
  */
 
 export interface CharacterInterface {
