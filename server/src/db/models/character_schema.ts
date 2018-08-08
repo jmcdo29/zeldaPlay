@@ -14,10 +14,42 @@ import { Spell } from './spell_schema';
 import { Skill } from './skill_schema';
 import { Note } from './note_schema';
 import { Save } from './save_schema';
+import { CharacterInterface } from '../../interfaces/characterInterface';
 
+/**
+ * @extends {Model} extends the objection model to make querying easier
+ * @private {string} tableName - "character" The name of the table for quering
+ * @private {string} CHARID - internal variable to shorthand some code
+ * @prop {string} id - id
+ * @prop {string} name - name that the user has assigned
+ * @prop {string} race - race. Slightly affects gameplay
+ * @prop {string} [subrace] - subrace, if it exists
+ * @prop {number} strength - strength score
+ * @prop {number} dexterity - dexterity score
+ * @prop {number} constitution - constitution score
+ * @prop {number} intelligence - intelligence score
+ * @prop {number} charisma - charisma score
+ * @prop {number} [ac] - ac score, if saved
+ * @prop {number} [flat_footed] - flat_footed score, if saved
+ * @prop {number} [touch] - touch score, if saved
+ * @prop {number} health - current health
+ * @prop {number} max_health - max possibly health
+ * @prop {number} magic - curret mp
+ * @prop {number} max_magic - max possible mp
+ * @prop {number} experience - current experience
+ * @prop {string} [size] - tiny, small, medium, or large
+ * @prop {string} [craft_one] - first of two craft abilities that are customizable, not all have it though
+ * @prop {string} [craft_two] - like craft_one, but number two
+ * @prop {string} [profession] - the line of work the character was in before adventuring
+ * @prop {string} [performance] - what special performances the character can do
+ * @prop {string} last_modified_by - id of the last user to modify the character
+ * @prop {string} user_id - the id of the character owner
+ * @prop {number} level - the current level
+ * @prop {string} last_modified - date string of the last modification
+ */
 export class Character extends Model {
   static tableName = 'character';
-  static CHARID = '.character_id';
+  private static CHARID = '.character_id';
 
   static relationMappings: RelationMappings = {
     weapons: {
@@ -104,7 +136,7 @@ export class Character extends Model {
     }
   }
 
-  constructor(id?, values?) {
+  constructor(id?: string, values?: CharacterInterface) {
     super();
     if (id && values) {
       this.name = values.name;
