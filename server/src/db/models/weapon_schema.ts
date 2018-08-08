@@ -43,7 +43,7 @@ export class Weapon extends Model {
   constructor(id?, chId?, values?) {
     super();
     if (id && chId && values) {
-     this.id = <string>checkNull(values.id);
+      this.id = <string>checkNull(values.id);
       this.name = values.name;
       this.damage = values.attack;
       this.number_of_hits = values.numberOfAttacks;
