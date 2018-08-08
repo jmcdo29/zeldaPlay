@@ -9,7 +9,7 @@
     "ng": "ng",
     "devStart": "tsc -p ./server && node server/out/server.js",
     "start": "node server/out/server.js",
-    "build": "ng build --prod",
+    "build": "ng build --prod && tsc -p ./server",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
