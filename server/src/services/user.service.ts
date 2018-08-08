@@ -1,9 +1,10 @@
+// TODO: Add JSDoc documentation for file.
 import { User } from '../db/models/user_schema';
 import * as bcrypt from 'bcryptjs';
-import { LoginError } from '../utils/ErrorObjects';
+import { LoginError, DatabaseError } from '../utils/ErrorObjects';
 
 
-export function login(username, password) {
+export function login(username: string, password: string) {
   return User.query()
     .findOne({ email: username })
     .select('id', 'password')
@@ -28,10 +29,18 @@ export function login(username, password) {
       } else {
         return results[0].id;
       }
+    })
+    .catch((err: Error) => {
+      if (!(err instanceof LoginError)) {
+        const newErr = new DatabaseError(err.message, 'DB_ERROR');
+        newErr.stack = err.stack;
+        err = newErr;
+      }
+      throw err;
     });
 }
 
-export function signUp(username, password, confPassword) {
+export function signUp(username: string, password: string, confPassword: string) {
   return verifyPassword(password, confPassword)
     .then(() => {
       return User.query().where({ email: username });
@@ -54,14 +63,22 @@ export function signUp(username, password, confPassword) {
         .select('id')
         .where({ email: username })
         .first();
+    })
+    .catch((err: Error) => {
+      if (!(err instanceof LoginError)) {
+        const newErr = new DatabaseError(err.message, 'DB_ERROR');
+        newErr.stack = err.stack;
+        err = newErr;
+      }
+      throw err;
     });
 }
 
 export function update() {}
 
-function verifyPassword(password, confPass) {
+function verifyPassword(password: string, confPass: string) {
   return new Promise((resolve, reject) => {
-    const errors = [];
+    const errors: string[] = [];
     if (password.length < 8) {
       errors.push('Your password must be at least eight (8) characters long.');
     }

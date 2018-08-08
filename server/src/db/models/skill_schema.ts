@@ -1,3 +1,4 @@
+// TODO: Add JSDoc documentation for file.
 import { Model, QueryBuilder } from 'objection';
 import { makeId, checkNull } from '../../utils/utils';
 
@@ -29,17 +30,17 @@ export class Skill extends Model {
   constructor(id, chId, values, type) {
     super();
     if (id && chId && values && type) {
-      this.id = checkNull(values.id).toString();
+      this.id = <string>checkNull(values.id);
       this.character_id = chId;
       this.last_modified_by = id;
       this.ranks = values.ranks;
       this.skill_type = type;
-      this.racial_modifier = checkNull(values.racial).toString();
-      this.item_modifier = checkNull(values.item).toString();
-      this.misc_modifier = checkNull(values.misc).toString();
+      this.racial_modifier = <string>checkNull(values.racial);
+      this.item_modifier = <string>checkNull(values.item);
+      this.misc_modifier = <string>checkNull(values.misc);
       this.trained = values.trained;
       this.name = values.skillName;
-      this.modifier = checkNull(values.modifier).toString();
+      this.modifier = <string>checkNull(values.modifier);
     }
   }
 

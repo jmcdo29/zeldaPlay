@@ -69,7 +69,6 @@ export function updateOne(id, body) {
   const character = new Character(id, body);
   return Character.upsert(character)
     .then((charId) => {
-      console.log(charId);
       const chId = charId.id;
       const skills = [];
       const spells = [];
@@ -119,7 +118,7 @@ export function updateOne(id, body) {
     .then((results) => {
       return results[0];
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       if (!(err instanceof DatabaseError)) {
         const newErr = new DatabaseError(err.message, 'DB_ERROR');
         newErr.stack = err.stack;
@@ -135,9 +134,11 @@ export function getUserCharacters(userId) {
   }
   return Character.query()
     .where({ user_id: userId })
-    .catch((err) => {
+    .catch((err: Error) => {
       if (!(err instanceof DatabaseError)) {
-        err = new DatabaseError(err.message, 'DB_ERROR');
+        const newErr = new DatabaseError(err.message, 'DB_ERROR');
+        newErr.stack = err.stack;
+        err = newErr;
       }
       throw err;
     });

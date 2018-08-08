@@ -7,6 +7,5 @@ pg.defaults.ssl = true;
 
 export const connectionConfig = {
   client: 'pg',
-  connection: process.env.DATABASE_URL,
-  debug: true
+  connection: process.env.DATABASE_URL
 };

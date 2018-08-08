@@ -1,3 +1,4 @@
+// TODO: Add JSDoc documentation for file.
 import { Model, QueryBuilder } from 'objection';
 import { makeId, checkNull } from '../../utils/utils';
 
@@ -23,7 +24,7 @@ export class Save extends Model {
   constructor(id, chId, values) {
     super();
     if (id && chId && values) {
-      this.id = checkNull(values.id).toString();
+      this.id = <string>checkNull(values.id);
       this.character_id = chId;
       this.last_modified_by = id;
       this.name = values.name;

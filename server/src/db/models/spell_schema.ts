@@ -1,3 +1,4 @@
+// TODO: Add JSDoc documentation for file.
 import { Model, QueryBuilder } from 'objection';
 import { makeId, checkNull } from '../../utils/utils';
 
@@ -28,11 +29,11 @@ export class Spell extends Model {
   constructor(id?, chId?, values?) {
     super();
     if (id && chId && values) {
-      this.id = checkNull(values.id).toString();
+      this.id = <string>checkNull(values.id);
       this.name = values.name;
       this.effect = values.effect;
       this.mp_use = values.mpUse;
-      this.modifier = checkNull(values.modifier).toString();
+      this.modifier = <string>checkNull(values.modifier);
       this.diety = values.diety;
       this.use_diety = values.useDiety;
       this.damage = values.damage;

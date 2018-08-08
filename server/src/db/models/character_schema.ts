@@ -1,3 +1,4 @@
+// TODO: Add JSDoc documentation for file.
 /**
  * A module to hold the character schema and Objection model for querying
  * @module db/models/Character
@@ -75,9 +76,9 @@ export class Character extends Model {
   intelligence: number;
   wisdom: number;
   charisma: number;
-  ac?: number | string;
-  flat_footed?: number | string;
-  touch?: number | string;
+  ac?: number;
+  flat_footed?: number;
+  touch?: number;
   health: number;
   max_health: number;
   magic: number;
@@ -120,15 +121,15 @@ export class Character extends Model {
       this.experience = values.exp;
       this.race = values.race;
       this.level = values.level;
-      this.subrace = checkNull(values.subrace).toString();
-      this.ac = checkNull(values.ac);
-      this.flat_footed = checkNull(values.flat_footed);
-      this.touch = checkNull(values.touch);
-      this.size = checkNull(values.size).toString();
-      this.craft_one = checkNull(values.craftOne).toString();
-      this.craft_two = checkNull(values.craftTwo).toString();
-      this.performance = checkNull(values.performCust).toString();
-      this.profession = checkNull(values.profession).toString();
+      this.subrace = <string>checkNull(values.subrace);
+      this.ac = <number>checkNull(values.ac);
+      this.flat_footed = <number>checkNull(values.flat_footed);
+      this.touch = <number>checkNull(values.touch);
+      this.size = <string>checkNull(values.size);
+      this.craft_one = <string>checkNull(values.craftOne);
+      this.craft_two = <string>checkNull(values.craftTwo);
+      this.performance = <string>checkNull(values.performCust);
+      this.profession = <string>checkNull(values.profession);
       this.last_modified_by = id;
       this.user_id = id;
       this.id = checkNull(values.id).toString();

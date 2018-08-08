@@ -1,3 +1,4 @@
+// TODO: Add JSDoc documentation for file.
 import { Model, QueryBuilder, RelationMappings } from 'objection' ;
 import { makeId, checkNull } from '../../utils/utils';
 import { Element } from './element_schema';
@@ -27,8 +28,8 @@ export class Weapon extends Model {
   crit_multiplier: number;
   type: string;
   modifier: string;
-  range: number | string;
-  ammo: number | string;
+  range: number;
+  ammo: number;
   last_modified_by: string;
 
   static upsert(model: Weapon): QueryBuilder<Weapon, Weapon, Weapon> {
@@ -42,13 +43,13 @@ export class Weapon extends Model {
   constructor(id?, chId?, values?) {
     super();
     if (id && chId && values) {
-     this.id = checkNull(values.id).toString();
+     this.id = <string>checkNull(values.id);
       this.name = values.name;
       this.damage = values.attack;
       this.number_of_hits = values.numberOfAttacks;
       this.crit_range = parseArray(values.critRange);
-      this.ammo = checkNull(values.ammo);
-      this.range = checkNull(values.range);
+      this.ammo = <number>checkNull(values.ammo);
+      this.range = <number>checkNull(values.range);
       this.modifier = values.modifier;
       this.character_id = chId;
       this.last_modified_by = id;

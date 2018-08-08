@@ -1,4 +1,5 @@
-import { Router } from 'express';
+// TODO: Add JSDoc documentation for file.
+import { Request, Response, NextFunction, Router } from 'express';
 
 import { login as getUser, signUp as createUser} from '../services/user.service';
 
@@ -9,7 +10,7 @@ router.post('/signup', signup);
 
 export {router as UserRouter };
 
-function login(req, res, next) {
+function login(req: Request, res: Response, next: NextFunction) {
   getUser(req.body.username, req.body.password)
     .then(user => {
       res.status(200).json(user);
@@ -17,7 +18,7 @@ function login(req, res, next) {
     .catch(next);
 }
 
-function signup(req, res, next) {
+function signup(req: Request, res: Response, next: NextFunction) {
   createUser(req.body.username, req.body.password, req.body.confPass)
     .then(user => {
       res.status(200).json(user.id);

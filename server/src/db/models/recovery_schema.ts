@@ -1,3 +1,4 @@
+// TODO: Add JSDoc documentation for file.
 import { Model } from 'objection';
 import { makeId, checkNull } from '../../utils/utils';
 

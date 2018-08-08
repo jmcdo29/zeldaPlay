@@ -1,3 +1,4 @@
+// TODO: Add JSDoc documentation for file.
 import { Model, RelationMappings } from 'objection' ;
 import { makeId } from '../../utils/utils';
 
