@@ -1,7 +1,18 @@
-// TODO: Add JSDoc documentation for file.
 import { Model, QueryBuilder } from 'objection';
 import { makeId, checkNull } from '../../utils/utils';
+import { NoteInterface } from '../../interfaces/noteInterface';
 
+/**
+ * @extends {Model}
+ * @prop {string} tableName - note
+ * @prop {string} id
+ * @prop {string} last_modified - time string of last modification
+ * @prop {string} character_id - the id of the character the note belongs to
+ * @prop {string} message - the body of the note
+ * @prop {string} time - the time the note was taken (as a string)
+ * @prop {boolean} important - if the note is marked important or not. Defaults as false
+ * @prop {string} last_modified_by - the id of the user with the last modification
+ */
 export class Note extends Model {
   static tableName = 'note';
 
@@ -21,7 +32,7 @@ export class Note extends Model {
     }
   }
 
-  constructor(id, chId, values) {
+  constructor(id: string, chId: string, values: NoteInterface) {
     super();
     if (id && chId && values) {
       this.id = <string>checkNull(values.id);
