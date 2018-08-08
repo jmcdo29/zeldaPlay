@@ -1,7 +1,23 @@
 // TODO: Add JSDoc documentation for file.
 import { Model, QueryBuilder } from 'objection';
 import { makeId, checkNull } from '../../utils/utils';
+import { SkillInterface } from '../../interfaces/skillInterface';
 
+/**
+ * @extends {Model}
+ * @prop {string} tableName - skill
+ * @prop {string} last_modified - string of datetime of last modification
+ * @prop {boolean} trained - if character is trained in the skill
+ * @prop {string} name - skill name
+ * @prop {number} ranks - number of ranks put into skill
+ * @prop {string} modifier - modifier used when rolling skill check
+ * @prop {string} [racial_modifier] - racial modifier to add, if any
+ * @prop {string} [item_modifier] - item modifier to add, if any
+ * @prop {string} [misc_modifier] - misc modifier to add, if any
+ * @prop {string} skill_type - the type of skill. Either skill, weapon, or magic
+ * @prop {string} character_id - owning Character of the skill
+ * @prop {string} last_modified_by - user who last modified the skill
+ */
 export class Skill extends Model {
 
   static tableName = 'skill';
@@ -12,9 +28,9 @@ export class Skill extends Model {
   name: string;
   ranks: number;
   modifier: string;
-  racial_modifier: string;
-  item_modifier: string;
-  misc_modifier: string;
+  racial_modifier?: string;
+  item_modifier?: string;
+  misc_modifier?: string;
   skill_type: string;
   character_id: string;
   last_modified_by: string;
@@ -27,7 +43,7 @@ export class Skill extends Model {
     }
   }
 
-  constructor(id, chId, values, type) {
+  constructor(id: string, chId: string, values: SkillInterface, type: string) {
     super();
     if (id && chId && values && type) {
       this.id = <string>checkNull(values.id);
