@@ -75,10 +75,7 @@ export function getOne(id: string): Promise<Character> {
  * @returns {Promise<Character>}
  * @throws {DatabaseError}
  */
-export function updateOne(
-  id: string,
-  body: ICharacter
-): Promise<Character> {
+export function updateOne(id: string, body: ICharacter): Promise<Character> {
   const character = new Character(id, body);
   return Character.upsert(character)
     .then((charId) => {

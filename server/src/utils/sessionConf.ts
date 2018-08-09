@@ -1,4 +1,4 @@
-import * as  KnexSessionStore from 'connect-session-knex';
+import * as KnexSessionStore from 'connect-session-knex';
 import * as session from 'express-session';
 import * as Knex from 'knex';
 import { connectionConfig } from '../db/knexfile';

@@ -1,6 +1,6 @@
 import { Model, QueryBuilder } from 'objection';
 import { ISpell } from '../../interfaces/spellInterface';
-import { checkNull, makeId  } from '../../utils/utils';
+import { checkNull, makeId } from '../../utils/utils';
 
 /**
  * @extends Model

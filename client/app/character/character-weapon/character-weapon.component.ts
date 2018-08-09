@@ -8,7 +8,7 @@ import { Elements } from '../characterModels/enums/elements.enum';
 import { Weapons } from '../characterModels/enums/weapon-skills.enum';
 
 import { MessageService } from '../../shared/messages/message.service';
-import { Elemental } from '../characterModels/Weapons/elemental';
+import { IElemental } from '../characterModels/Weapons/elemental';
 
 @Component({
   selector: 'app-character-weapon',
@@ -32,7 +32,7 @@ export class CharacterWeaponComponent implements OnInit {
   isRangedWeapon = false;
   isElemental = false;
 
-  elemental: Elemental;
+  elemental: IElemental;
   elements = Elements;
 
   weaponName: string;
@@ -196,7 +196,7 @@ export class CharacterWeaponComponent implements OnInit {
   }
 
   checkForRanged(): void {
-      this.isRangedWeapon = this.rangeList.includes(this.weapon.type);
+    this.isRangedWeapon = this.rangeList.includes(this.weapon.type);
   }
 
   setCrit(): void {
@@ -277,7 +277,7 @@ export class CharacterWeaponComponent implements OnInit {
     hit: number,
     dmg: number,
     elemDam?: number,
-    elem?: Elemental
+    elem?: IElemental
   ): void {
     const name = character.name;
     let rolled =

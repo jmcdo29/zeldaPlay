@@ -278,7 +278,11 @@ export class CharacterCreateComponent implements OnInit {
     } else {
       this.attPoints = this.attPoints - (val - this.attrMins[attrIndex]);
     } */
-    this.attPoints -= (val - (this.attPoints[attrIndex] ?  this.attrPrior[attrIndex] : this.attrMins[attrIndex]));
+    this.attPoints -=
+      val -
+      (this.attPoints[attrIndex]
+        ? this.attrPrior[attrIndex]
+        : this.attrMins[attrIndex]);
     this.attrPrior[attrIndex] = val;
   }
 
@@ -290,7 +294,8 @@ export class CharacterCreateComponent implements OnInit {
     } else {
       this.skillPoints = this.skillPoints - val;
     } */
-    this.skillPoints -= val - this[type + PRIOR][index] ? this[type + PRIOR][index] : 0;
+    this.skillPoints -=
+      val - this[type + PRIOR][index] ? this[type + PRIOR][index] : 0;
     this[type + PRIOR][index] = val;
   }
 

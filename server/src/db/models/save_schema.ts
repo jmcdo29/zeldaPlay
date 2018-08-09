@@ -1,7 +1,7 @@
 // TODO: Add JSDoc documentation for file.
 import { Model, QueryBuilder } from 'objection';
 import { ISave } from '../../interfaces/saveInterface';
-import { checkNull, makeId  } from '../../utils/utils';
+import { checkNull, makeId } from '../../utils/utils';
 
 /**
  * @extends {Model}

@@ -101,7 +101,11 @@ export class CharacterLevelUpComponent implements OnInit {
     } else {
       this.attrPoints = this.attrPoints - (val - this.minimums[attrIndex]);
     } */
-    this.attrPoints -= (val - (this.attrPoints[attrIndex] ?  this.attrPrior[attrIndex] : this.minimums[attrIndex]));
+    this.attrPoints -=
+      val -
+      (this.attrPoints[attrIndex]
+        ? this.attrPrior[attrIndex]
+        : this.minimums[attrIndex]);
     this.attrPrior[attrIndex] = val;
   }
 
@@ -113,7 +117,8 @@ export class CharacterLevelUpComponent implements OnInit {
     } else {
       this.skillPoints = this.skillPoints - val;
     } */
-    this.skillPoints -= val - this[type + PRIOR][index] ? this[type + PRIOR][index] : 0;
+    this.skillPoints -=
+      val - this[type + PRIOR][index] ? this[type + PRIOR][index] : 0;
     this[type + PRIOR][index] = val;
   }
 

@@ -1,6 +1,6 @@
 import { Model, QueryBuilder } from 'objection';
 import { INote } from '../../interfaces/noteInterface';
-import { checkNull, makeId,  } from '../../utils/utils';
+import { checkNull, makeId } from '../../utils/utils';
 
 /**
  * @extends {Model}
