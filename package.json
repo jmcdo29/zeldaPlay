@@ -20,10 +20,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": ".\\node_modules\\.bin\\prettier --config .\\.prettierrc.json --write \"**/*.ts\"",
+    "prettier": "node_modules/.bin/prettier --config .prettierrc.json --write \"**/*.ts\"",
     "heroku-postbuild": "npm run build"
   },
-  "private": true,
   "dependencies": {
     "@abraham/reflection": "^0.4.2",
     "angular-in-memory-web-api": "^0.6.1",
