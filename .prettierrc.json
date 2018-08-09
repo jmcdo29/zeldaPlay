@@ -1,0 +1,9 @@
+{
+  "printWidth": 80,
+  "arrowParens": "always",
+  "parser": "typescript",
+  "singleQuote": true,
+  "no-semi": true,
+  "useTabs": true,
+  "tabWidth": 2
+}
