@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
-import * as  pg from 'pg';
+import * as pg from 'pg';
 
-dotenv.config({path: '../../.env'});
+dotenv.config({ path: '../../.env' });
 
 pg.defaults.ssl = true;
 

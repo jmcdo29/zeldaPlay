@@ -1,4 +1,4 @@
-export interface Elemental {
+export interface IElemental {
   type: string;
   attack: number;
   numberOfAttacks: number;

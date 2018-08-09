@@ -1,6 +1,6 @@
 import { Model, QueryBuilder } from 'objection';
-import { makeId, checkNull } from '../../utils/utils';
-import { SpellInterface } from '../../interfaces/spellInterface';
+import { ISpell } from '../../interfaces/spellInterface';
+import { checkNull, makeId } from '../../utils/utils';
 
 /**
  * @extends Model
@@ -34,6 +34,13 @@ export class Spell extends Model {
   last_modified_by: string;
   character_id: string;
 
+  /**
+   * Inserts or updates the Spell, depending on if an id exists or not
+   * @static
+   * @param {Spell} model
+   * @returns {QueryBuilder<Spell, Spell, Spell>} QueryBuilder to execute
+   * @memberof Spell
+   */
   static upsert(model: Spell): QueryBuilder<Spell, Spell, Spell> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
@@ -42,14 +49,21 @@ export class Spell extends Model {
     }
   }
 
-  constructor(id?: string, chId?: string, values?: SpellInterface) {
+  /**
+   * Creates an instance of Spell.
+   * @param {string} [id] - Id of the user who made or modified the spell
+   * @param {string} [chId] - Id of the character the spell belongs to
+   * @param {ISpell} [values] - The Spell's values from the client
+   * @memberof Spell
+   */
+  constructor(id?: string, chId?: string, values?: ISpell) {
     super();
     if (id && chId && values) {
-      this.id = <string>checkNull(values.id);
+      this.id = checkNull(values.id) as string;
       this.name = values.name;
       this.effect = values.effect;
       this.mp_use = values.mpUse;
-      this.modifier = <string>checkNull(values.modifier);
+      this.modifier = checkNull(values.modifier) as string;
       this.diety = values.diety;
       this.use_diety = values.useDiety;
       this.damage = values.damage;
@@ -59,11 +73,21 @@ export class Spell extends Model {
     }
   }
 
+  /**
+   * creates the spell id
+   * @memberof Spell
+   */
   $beforeInsert() {
     this.id = '0Sp' + makeId(9);
   }
 
-  $beforeUpdate(opt, queryContext) {
+  /**
+   * Checks the spell's old id against the new to ensure it is the same. Sets the lat modified by timestamp
+   * @param {*} opt
+   * @param {*} queryContext
+   * @memberof Spell
+   */
+  $beforeUpdate(opt: any, queryContext: any) {
     this.last_modified = new Date(Date.now()).toISOString();
     if (opt.old && opt.old.id !== this.id) {
       this.id = opt.old.id;

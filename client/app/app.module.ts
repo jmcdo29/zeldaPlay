@@ -1,19 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 
+import { AlertComponent } from './alert/alert.component';
+import { AlertService } from './alert/alert.service';
 import { AppComponent } from './app.component';
 import { CharacterModule } from './character/character.module';
 import { UserModule } from './user/user.module';
-import { AlertComponent } from './alert/alert.component';
-import { AlertService } from './alert/alert.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AlertComponent
-  ],
+  declarations: [AppComponent, AlertComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -24,4 +21,4 @@ import { AlertService } from './alert/alert.service';
   bootstrap: [AppComponent],
   providers: [AlertService]
 })
-export class AppModule { }
+export class AppModule {}

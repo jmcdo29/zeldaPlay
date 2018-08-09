@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Character } from '../characterModels/character';
 
 @Component({
@@ -7,12 +7,10 @@ import { Character } from '../characterModels/character';
   styleUrls: ['./character-inventory.component.css']
 })
 export class CharacterInventoryComponent implements OnInit {
+  @Input()
+  character: Character;
 
-  @Input() character: Character;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

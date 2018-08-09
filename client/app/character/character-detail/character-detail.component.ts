@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Character } from '../characterModels/character';
-import { CharacterLevelUpComponent } from '../character-level-up/character-level-up.component';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+
 import { MessageService } from '../../shared/messages/message.service';
+import { CharacterLevelUpComponent } from '../character-level-up/character-level-up.component';
+import { Character } from '../characterModels/character';
 
 @Component({
   selector: 'app-character-detail',
@@ -9,10 +10,11 @@ import { MessageService } from '../../shared/messages/message.service';
   styleUrls: ['./character-detail.component.css']
 })
 export class CharacterDetailComponent implements OnInit {
+  @ViewChild('levelUp')
+  private levelUp: CharacterLevelUpComponent;
 
-  @ViewChild('levelUp') private levelUp: CharacterLevelUpComponent;
-
-  @Input() character: Character;
+  @Input()
+  character: Character;
 
   rollMod = 'null';
   roll: string;
@@ -46,25 +48,37 @@ export class CharacterDetailComponent implements OnInit {
   finalizeHealthMod(): void {
     const maxHealth = this.character.maxHealth;
     const health = this.character.health;
-    health + this.hpDmg * this.type > maxHealth ? this.character.health = maxHealth : this.character.health += this.hpDmg * this.type;
-    this.character.health < -10 ? this.character.health = -10 : this.character.health = this.character. health;
+    health + this.hpDmg * this.type > maxHealth
+      ? (this.character.health = maxHealth)
+      : (this.character.health += this.hpDmg * this.type);
+    this.character.health < -10
+      ? (this.character.health = -10)
+      : (this.character.health = this.character.health);
     this.changeHP = false;
   }
 
   modTheHMod(addition: number): void {
-    this.hpDmg + addition > this.character.maxHealth + 10 ? this.hpDmg = this.character.maxHealth + 10 : this.hpDmg += addition;
+    this.hpDmg + addition > this.character.maxHealth + 10
+      ? (this.hpDmg = this.character.maxHealth + 10)
+      : (this.hpDmg += addition);
   }
 
   finalizeMagicMod(): void {
     const maxMagic = this.character.maxMagic;
     const magic = this.character.magic;
-    magic + this.mpDmg * this.type > maxMagic ? this.character.magic = maxMagic : this.character.magic += this.mpDmg * this.type;
-    this.character.magic < 0 ? this.character.magic = 0 : this.character.magic = this.character.magic;
+    magic + this.mpDmg * this.type > maxMagic
+      ? (this.character.magic = maxMagic)
+      : (this.character.magic += this.mpDmg * this.type);
+    this.character.magic < 0
+      ? (this.character.magic = 0)
+      : (this.character.magic = this.character.magic);
     this.changeMP = false;
   }
 
   modTheMMod(addition: number): void {
-    this.mpDmg + addition > this.character.maxMagic ? this.mpDmg = this.character.maxMagic : this.mpDmg += addition;
+    this.mpDmg + addition > this.character.maxMagic
+      ? (this.mpDmg = this.character.maxMagic)
+      : (this.mpDmg += addition);
   }
 
   modHealth(): void {
@@ -115,7 +129,6 @@ export class CharacterDetailComponent implements OnInit {
   }
 
   createMessage(value: number, type: string): void {
-
     const name = this.character.name;
     const obtained = ' obtained a ' + type + ' container ';
     const val = 'for ' + value + (type === 'heart' ? 'HP' : 'MP') + '.';

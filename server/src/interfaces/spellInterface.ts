@@ -9,7 +9,7 @@
  * @prop {number} damage - the kind of dice to roll for casting the spell
  * @prop {number} multiplier - how many dice the spell should roll
  */
-export interface SpellInterface {
+export interface ISpell {
   id?: string;
   name: string;
   effect: string;

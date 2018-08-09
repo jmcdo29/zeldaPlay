@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+
+import { MessageService } from '../../shared/messages/message.service';
+import { CharacterDetailComponent } from '../character-detail/character-detail.component';
 import { Character } from '../characterModels/character';
 import { Attributes } from '../characterModels/enums/attributes.enum';
-import { CharacterDetailComponent } from '../character-detail/character-detail.component';
-import { MessageService } from '../../shared/messages/message.service';
 import { Saves } from '../characterModels/enums/saves.enum';
 
 @Component({
@@ -11,29 +12,28 @@ import { Saves } from '../characterModels/enums/saves.enum';
   styleUrls: ['./character-saves.component.css']
 })
 export class CharacterSavesComponent implements OnInit, OnChanges {
+  @Input()
+  characterDetailComponent: CharacterDetailComponent;
 
-  @Input() characterDetailComponent: CharacterDetailComponent;
-
-  @Input() character: Character;
+  @Input()
+  character: Character;
 
   attributes = Attributes;
 
-  constructor(public message: MessageService) { }
-
+  constructor(public message: MessageService) {}
 
   ngOnChanges() {
     this.character = this.characterDetailComponent.character;
     this.characterDetailComponent.roll = '';
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   makeSave(saveString: string): void {
     const modifier = this.character.savingThrows[Saves[saveString]].modifier;
     const saveValAdd = this.character.attributes[Attributes[modifier]].modifier;
     const saveRacAdd = this.character.savingThrows[Saves[saveString]].racial;
-    let roll = Math.round(Math.random() * 100) % 20 + 1;
+    let roll = (Math.round(Math.random() * 100) % 20) + 1;
     roll += saveValAdd + saveRacAdd;
     roll = roll < 1 ? 1 : roll;
     this.characterDetailComponent.roll = roll.toString();
@@ -41,8 +41,13 @@ export class CharacterSavesComponent implements OnInit, OnChanges {
   }
 
   makeMessage(roll: number, saveString: string): void {
-    const message = this.character.name + ' made a ' + this.character.savingThrows[Saves[saveString]].name + ' save. VALUE: ' + roll + '.';
+    const message =
+      this.character.name +
+      ' made a ' +
+      this.character.savingThrows[Saves[saveString]].name +
+      ' save. VALUE: ' +
+      roll +
+      '.';
     this.message.add(message);
   }
-
 }

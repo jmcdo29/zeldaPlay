@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CharactersComponent } from './characters.component';
+import { SharedModule } from '../shared/shared.module';
 import { CharacterCreateComponent } from './character-create/character-create.component';
 import { CharacterDetailComponent } from './character-detail/character-detail.component';
 import { CharacterInventoryComponent } from './character-inventory/character-inventory.component';
@@ -11,18 +11,13 @@ import { CharacterSavesComponent } from './character-saves/character-saves.compo
 import { CharacterSkillsComponent } from './character-skills/character-skills.component';
 import { CharacterSpellComponent } from './character-spell/character-spell.component';
 import { CharacterWeaponComponent } from './character-weapon/character-weapon.component';
+import { CharactersComponent } from './characters.component';
 import { DieComponent } from './die/die.component';
-import { SharedModule } from '../shared/shared.module';
 
-const characterRoutes: Routes = [
-  { path: '', component: CharactersComponent}
-];
+const characterRoutes: Routes = [{ path: '', component: CharactersComponent }];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(characterRoutes),
-    SharedModule
-  ],
+  imports: [RouterModule.forRoot(characterRoutes), SharedModule],
   declarations: [
     CharactersComponent,
     CharacterCreateComponent,
@@ -36,8 +31,6 @@ const characterRoutes: Routes = [
     CharacterWeaponComponent,
     DieComponent
   ],
-  exports: [
-    RouterModule
-  ]
+  exports: [RouterModule]
 })
 export class CharacterModule {}

@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { CharacterDetailComponent } from '../character-detail/character-detail.component';
+import { Component, Input, OnInit } from '@angular/core';
 import { MessageService } from '../../shared/messages/message.service';
+import { CharacterDetailComponent } from '../character-detail/character-detail.component';
 import { Attributes } from '../characterModels/enums/attributes.enum';
 
 @Component({
@@ -9,9 +9,12 @@ import { Attributes } from '../characterModels/enums/attributes.enum';
   styleUrls: ['./die.component.css']
 })
 export class DieComponent implements OnInit {
-  @Input() character: CharacterDetailComponent;
-  @Input() sides: number;
-  @Input() mod: string;
+  @Input()
+  character: CharacterDetailComponent;
+  @Input()
+  sides: number;
+  @Input()
+  mod: string;
   crit = false;
 
   constructor(public messageService: MessageService) {}
@@ -19,14 +22,17 @@ export class DieComponent implements OnInit {
   ngOnInit() {}
 
   createMessage(roll: number, modVal: number, sides: number): void {
-
     const name = this.character.character.name;
     const rolled = ' rolled a ';
     const mod = ' with a ';
-    const mod_name = modVal ? this.character.character.attributes[Attributes[this.mod]].name + ' modifier of ' : '';
+    const mod_name = modVal
+      ? this.character.character.attributes[Attributes[this.mod]].name +
+        ' modifier of '
+      : '';
     const there_is_mod = modVal ? mod + mod_name + modVal : '';
     const total = 'TOTAL: ' + (roll + (modVal ? modVal : 0)) + '.';
-    const rollString = name + rolled + roll + mod + 'D' + sides + there_is_mod + '. ' + total;
+    const rollString =
+      name + rolled + roll + mod + 'D' + sides + there_is_mod + '. ' + total;
 
     this.messageService.add(rollString);
   }
@@ -35,7 +41,7 @@ export class DieComponent implements OnInit {
     this.character.crit = false;
     this.character.critMiss = false;
     this.character.maxDmg = false;
-    const roll = Math.round(Math.random() * 100) % sides + 1;
+    const roll = (Math.round(Math.random() * 100) % sides) + 1;
     let modVal;
 
     let rollVal: number;
@@ -53,7 +59,8 @@ export class DieComponent implements OnInit {
       this.character.maxDmg = true;
     }
     if (this.mod !== 'null' && this.mod) {
-      modVal = this.character.character.attributes[Attributes[this.mod]].modifier;
+      modVal = this.character.character.attributes[Attributes[this.mod]]
+        .modifier;
       rollVal = roll + modVal;
     } else {
       rollVal = roll;

@@ -1,6 +1,6 @@
 import { Model, QueryBuilder } from 'objection';
-import { makeId, checkNull } from '../../utils/utils';
-import { SkillInterface } from '../../interfaces/skillInterface';
+import { ISkill } from '../../interfaces/skillInterface';
+import { checkNull, makeId } from '../../utils/utils';
 
 /**
  * @extends {Model}
@@ -18,7 +18,6 @@ import { SkillInterface } from '../../interfaces/skillInterface';
  * @prop {string} last_modified_by - user who last modified the skill
  */
 export class Skill extends Model {
-
   static tableName = 'skill';
 
   id: string;
@@ -34,6 +33,13 @@ export class Skill extends Model {
   character_id: string;
   last_modified_by: string;
 
+  /**
+   * updates or inserts the Skill, depending on the id
+   * @static
+   * @param {Skill} model
+   * @returns {QueryBuilder<Skill, Skill, Skill>} QueryBuilder to execute
+   * @memberof Skill
+   */
   static upsert(model: Skill): QueryBuilder<Skill, Skill, Skill> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
@@ -42,27 +48,45 @@ export class Skill extends Model {
     }
   }
 
-  constructor(id: string, chId: string, values: SkillInterface, type: string) {
+  /**
+   * Creates an instance of Skill.
+   * @param {string} [id] - id of the user who created it
+   * @param {string} [chId] - id of the character the skill belongs to
+   * @param {ISkill} [values] - the values for the skill
+   * @param {string} [type] - the type of skill (Skill, Weapon, or Magic)
+   * @memberof Skill
+   */
+  constructor(id?: string, chId?: string, values?: ISkill, type?: string) {
     super();
     if (id && chId && values && type) {
-      this.id = <string>checkNull(values.id);
+      this.id = checkNull(values.id) as string;
       this.character_id = chId;
       this.last_modified_by = id;
       this.ranks = values.ranks;
       this.skill_type = type;
-      this.racial_modifier = <string>checkNull(values.racial);
-      this.item_modifier = <string>checkNull(values.item);
-      this.misc_modifier = <string>checkNull(values.misc);
+      this.racial_modifier = checkNull(values.racial) as string;
+      this.item_modifier = checkNull(values.item) as string;
+      this.misc_modifier = checkNull(values.misc) as string;
       this.trained = values.trained;
       this.name = values.skillName;
-      this.modifier = <string>checkNull(values.modifier);
+      this.modifier = checkNull(values.modifier) as string;
     }
   }
 
+  /**
+   * create the Skill's id
+   * @memberof Skill
+   */
   $beforeInsert() {
     this.id = '00S' + makeId(9);
   }
 
+  /**
+   * double checks the id has not been changed and sets the last modified timestamp
+   * @param {*} opt
+   * @param {*} queryContext
+   * @memberof Skill
+   */
   $beforeUpdate(opt, queryContext) {
     this.last_modified = new Date(Date.now()).toISOString();
     if (opt.old && opt.old.id !== this.id) {

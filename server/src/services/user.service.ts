@@ -1,10 +1,18 @@
 // TODO: Add JSDoc documentation for file.
-import { User } from '../db/models/user_schema';
 import * as bcrypt from 'bcryptjs';
-import { LoginError, DatabaseError } from '../utils/ErrorObjects';
+import { User } from '../db/models/user_schema';
+import { DatabaseError } from '../utils/errors/DatabaseError';
+import { LoginError } from '../utils/errors/LoginError';
 
-
-export function login(username: string, password: string) {
+/**
+ * function to attempt to log the user in
+ * @export
+ * @param {string} username user's email
+ * @param {string} password user's password, not hashed
+ * @returns {Promise<string>} user's id
+ * @throws {LoginError}
+ */
+export function login(username: string, password: string): Promise<string> {
   return User.query()
     .findOne({ email: username })
     .select('id', 'password')
@@ -36,11 +44,24 @@ export function login(username: string, password: string) {
         newErr.stack = err.stack;
         err = newErr;
       }
-      throw err;
+      throw err as LoginError;
     });
 }
 
-export function signUp(username: string, password: string, confPassword: string) {
+/**
+ * function to allow user to sign up for service
+ * @export
+ * @param {string} username user's email they want to use
+ * @param {string} password user's password
+ * @param {string} confPassword  user's password again to make sure it is typed correctly
+ * @returns {Promise<Partial<User>>} returns User object with the id attribute only
+ * @throws {LoginError}
+ */
+export function signUp(
+  username: string,
+  password: string,
+  confPassword: string
+): Promise<Partial<User>> {
   return verifyPassword(password, confPassword)
     .then(() => {
       return User.query().where({ email: username });
@@ -70,13 +91,19 @@ export function signUp(username: string, password: string, confPassword: string)
         newErr.stack = err.stack;
         err = newErr;
       }
-      throw err;
+      throw err as LoginError;
     });
 }
 
 export function update() {}
 
-function verifyPassword(password: string, confPass: string) {
+/**
+ * function to make sure password matches confirmation password and matches all criteria for the website
+ * @param {string} password
+ * @param {string} confPass
+ * @returns {Promise<{} | DatabaseError>
+ */
+function verifyPassword(password: string, confPass: string): Promise<any> {
   return new Promise((resolve, reject) => {
     const errors: string[] = [];
     if (password.length < 8) {

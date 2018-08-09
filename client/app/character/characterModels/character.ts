@@ -1,16 +1,16 @@
 import { Attribute } from './attribute';
-import { Skill } from './skill';
-import { Weapon } from './Weapons/weapon';
-import { Spell } from './spells';
 import { Attributes } from './enums/attributes.enum';
-import { Weapons } from './enums/weapon-skills.enum';
-import { Skills } from './enums/skills.enum';
+import { Level } from './enums/levels.enum';
 import { Magics } from './enums/magic-skills.enum';
 import { Saves } from './enums/saves.enum';
-import { Level } from './enums/levels.enum';
-import { Save } from './save';
+import { Skills } from './enums/skills.enum';
+import { Weapons } from './enums/weapon-skills.enum';
 import { Item } from './item';
 import { Note } from './note';
+import { ISave } from './save';
+import { ISkill } from './skill';
+import { Spell } from './spells';
+import { Weapon } from './Weapons/weapon';
 
 const BASE = 8;
 
@@ -34,15 +34,15 @@ interface ICharacterJSON {
   craftTwo?: string;
   performCust?: string;
   profession?: string;
-  skills: Skill[];
-  weaponSkills: Skill[];
-  magicSkills: Skill[];
+  skills: ISkill[];
+  weaponSkills: ISkill[];
+  magicSkills: ISkill[];
   weapons: Weapon[];
   spells: Spell[];
   notes: Note[];
   importantNotes: Note[];
   inventory: Item[];
-  savingThrows: Save[];
+  savingThrows: ISave[];
 }
 
 interface ICharacterQuery {
@@ -96,15 +96,15 @@ export class Character {
   craftTwo?: string;
   performCust?: string;
   profession?: string;
-  skills: Skill[] = [];
-  weaponSkills: Skill[] = [];
-  magicSkills: Skill[] = [];
+  skills: ISkill[] = [];
+  weaponSkills: ISkill[] = [];
+  magicSkills: ISkill[] = [];
   weapons: Weapon[] = [];
   spells: Spell[] = [];
   notes: Note[] = [];
   importantNotes: Note[] = [];
   inventory: Item[] = [];
-  savingThrows: Save[] = [];
+  savingThrows: ISave[] = [];
 
   constructor(jObj?: ICharacterJSON, qObj?: ICharacterQuery) {
     if (!jObj && !qObj) {
@@ -233,9 +233,12 @@ export class Character {
         chaArray
       ];
       for (let i = 0; i < attrArrays.length; i++) {
-        for (let j = 0; j < attrArrays[i].length; j++) {
-          this.skills[attrArrays[i][j]].modifier = Attributes[i];
+        for (const skill of attrArrays[i]) {
+          this.skills[skill].modifier = Attributes[i];
         }
+        /* for (let j = 0; j < attrArrays[i].length; j++) {
+          this.skills[attrArrays[i][j]].modifier = Attributes[i];
+        } */
       }
       this.exp = 0;
     } else {
@@ -290,9 +293,9 @@ export class Character {
             modifier: getMod(qObj.charisma)
           }
         ];
-        qObj.skills.forEach(skill => {
+        qObj.skills.forEach((skill) => {
           if (skill.skill_type === 'skill') {
-            const newSkill: Skill = {
+            const newSkill: ISkill = {
               skillName: skill.name,
               ranks: skill.ranks,
               racial: skill.racial_modifier,
@@ -304,7 +307,7 @@ export class Character {
             };
             this.skills.push(newSkill);
           } else if (skill.skill_type === 'weapon') {
-            const newWeapSkill: Skill = {
+            const newWeapSkill: ISkill = {
               skillName: skill.name,
               ranks: skill.ranks,
               trained: skill.trained,
@@ -313,7 +316,7 @@ export class Character {
             };
             this.weaponSkills.push(newWeapSkill);
           } else if (skill.skill_type === 'magic') {
-            const newMagSkill: Skill = {
+            const newMagSkill: ISkill = {
               skillName: skill.name,
               ranks: skill.ranks,
               modifier: skill.modifier,
@@ -322,7 +325,7 @@ export class Character {
             this.magicSkills.push(newMagSkill);
           }
         });
-        qObj.notes.forEach(note => {
+        qObj.notes.forEach((note) => {
           if (note.important) {
             this.notes.push({
               msg: note.message,
@@ -339,7 +342,7 @@ export class Character {
             });
           }
         });
-        qObj.saves.forEach(save => {
+        qObj.saves.forEach((save) => {
           this.savingThrows.push({
             racial: save.racial_bonus,
             name: save.name,
@@ -347,7 +350,7 @@ export class Character {
             id: save.id
           });
         });
-        qObj.weapons.forEach(weapon => {
+        qObj.weapons.forEach((weapon) => {
           const newWep = new Weapon();
           newWep.attack = weapon.damage;
           newWep.ammo = weapon.ammo ? weapon.ammo : null;
@@ -361,7 +364,7 @@ export class Character {
           newWep.id = weapon.id;
           this.weapons.push(newWep);
         });
-        qObj.spells.forEach(spell => {
+        qObj.spells.forEach((spell) => {
           this.spells.push({
             name: spell.name,
             effect: spell.effect,

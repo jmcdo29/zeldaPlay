@@ -1,11 +1,10 @@
-
-exports.up = function(knex, Promise) {
+exports.up = (knex, Promise) => {
   const LASTMOD = 'last_modified';
   const LMB = 'last_modified_by';
   const charID = 'character_id';
   const CREATED = 'created_date';
   return Promise.all([
-    knex.schema.createTable('user', user_table => {
+    knex.schema.createTable('user', (user_table) => {
       user_table.string('id').primary();
       user_table.string('email');
       user_table.string('password');
@@ -14,7 +13,7 @@ exports.up = function(knex, Promise) {
       user_table.timestamp(LASTMOD).defaultTo(knex.fn.now());
       user_table.unique(['id', 'email']);
     }),
-    knex.schema.createTable('character', character_table => {
+    knex.schema.createTable('character', (character_table) => {
       character_table.string('id').primary();
       character_table.string('user_id');
       character_table.foreign('user_id').references('user.id');
@@ -46,7 +45,7 @@ exports.up = function(knex, Promise) {
       character_table.foreign(LMB).references('user.id');
       character_table.unique('id');
     }),
-    knex.schema.createTable('skill', skill_table => {
+    knex.schema.createTable('skill', (skill_table) => {
       skill_table.string('id').primary();
       skill_table.string(charID);
       skill_table.foreign(charID).references('character.id');
@@ -64,7 +63,7 @@ exports.up = function(knex, Promise) {
       skill_table.foreign(LMB).references('user.id');
       skill_table.unique('id');
     }),
-    knex.schema.createTable('weapon', weapon_table => {
+    knex.schema.createTable('weapon', (weapon_table) => {
       weapon_table.string('id').primary();
       weapon_table.string('name');
       weapon_table.string(charID);
@@ -83,7 +82,7 @@ exports.up = function(knex, Promise) {
       weapon_table.foreign(LMB).references('user.id');
       weapon_table.unique('id');
     }),
-    knex.schema.createTable('spell', spell_table => {
+    knex.schema.createTable('spell', (spell_table) => {
       spell_table.string('id').primary();
       spell_table.string(charID);
       spell_table.foreign(charID).references('character.id');
@@ -101,7 +100,7 @@ exports.up = function(knex, Promise) {
       spell_table.foreign(LMB).references('user.id');
       spell_table.unique('id');
     }),
-    knex.schema.createTable('saving_throw', save_table => {
+    knex.schema.createTable('saving_throw', (save_table) => {
       save_table.string('id').primary();
       save_table.string(charID);
       save_table.foreign(charID).references('character.id');
@@ -114,7 +113,7 @@ exports.up = function(knex, Promise) {
       save_table.foreign(LMB).references('user.id');
       save_table.unique('id');
     }),
-    knex.schema.createTable('recovery_answer', recovery_table => {
+    knex.schema.createTable('recovery_answer', (recovery_table) => {
       recovery_table.string('id').primary();
       recovery_table.string('question');
       recovery_table.string('answer');
@@ -126,12 +125,12 @@ exports.up = function(knex, Promise) {
       recovery_table.foreign(LMB).references('user.id');
       recovery_table.unique('id');
     }),
-    knex.schema.createTable('recovery_question', question_table => {
+    knex.schema.createTable('recovery_question', (question_table) => {
       question_table.string('id').primary();
       question_table.string('question');
       question_table.unique('id');
     }),
-    knex.schema.createTable('weapon_element', element_table => {
+    knex.schema.createTable('weapon_element', (element_table) => {
       element_table.string('id').primary();
       element_table.string('weapon_id');
       element_table.foreign('weapon_id').references('weapon.id');
@@ -144,7 +143,7 @@ exports.up = function(knex, Promise) {
       element_table.foreign(LMB).references('user.id');
       element_table.unique('id');
     }),
-    knex.schema.createTable('note', note_table => {
+    knex.schema.createTable('note', (note_table) => {
       note_table.string('id').primary();
       note_table.string(charID);
       note_table.foreign(charID).references('character.id');
@@ -157,14 +156,10 @@ exports.up = function(knex, Promise) {
       note_table.foreign(LMB).references('user.id');
       note_table.unique('id');
     })
-  ]).then(() => {
-    console.log('Finished migrations.');
-  }).catch(err => {
-    console.error(err);
-  });
+  ]);
 };
 
-exports.down = function(knex, Promise) {
+exports.down = (knex, Promise) => {
   return Promise.all([
     knex.schema.dropTable('user'),
     knex.schema.dropTable('character'),

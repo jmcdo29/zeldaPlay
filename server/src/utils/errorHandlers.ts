@@ -1,14 +1,14 @@
-import { DatabaseError } from './ErrorObjects';
-import { LoginError } from './ErrorObjects';
+import { NextFunction, Request, Response } from 'express';
 import { DBError } from '../db/models/error_schema';
-import { Request, Response, NextFunction } from 'express';
+import { DatabaseError } from './errors/DatabaseError';
+import { LoginError } from './errors/LoginError';
 
 /**
  * @typedef {Error} MyError
  * @extends {Error} - extends Error type to have access to stack and message
  * @prop {string} [reasonCode] - The short code used internally. Using interface to give possibility to having field reasonCode on error
  */
-interface MyError extends Error {
+interface IMyError extends Error {
   reasonCode?: string;
 }
 
@@ -19,13 +19,21 @@ interface MyError extends Error {
  * @param res The Express response object
  * @param next Callback to the next function
  */
-export function logErrors (err: MyError, req: Request, res: Response , next: NextFunction) {
+export function logErrors(
+  err: IMyError,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  // tslint:disable-next-line:no-console
   console.error(err.stack);
-  DBError.query().insert({
-    message: err.message,
-    stack: err.stack.split('\n')[0],
-    code: err.reasonCode ? err.reasonCode : 'GENERAL'
-  }).then(() => next(err));
+  DBError.query()
+    .insert({
+      message: err.message,
+      stack: err.stack.split('\n')[0],
+      code: err.reasonCode ? err.reasonCode : 'GENERAL'
+    })
+    .then(() => next(err));
 }
 
 /**
@@ -36,10 +44,16 @@ export function logErrors (err: MyError, req: Request, res: Response , next: Nex
  * @param next Callback to the next function, if err is not of LoginError type
  * @returns {Express.Response} If type of LoginError send a 403 to the client to indicate a login error
  */
-export function badLogIn (err: MyError, req: Request, res: Response , next: NextFunction): Express.Response {
+export function badLogIn(
+  err: IMyError,
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Express.Response {
   if (err instanceof LoginError) {
+    // tslint:disable-next-line:no-console
     console.log(err.reasonCode);
-    return res.status(403).send({message: err.message});
+    return res.status(403).send({ message: err.message });
   } else {
     next(err);
   }
@@ -53,10 +67,16 @@ export function badLogIn (err: MyError, req: Request, res: Response , next: Next
  * @param next Callback to the next function, if err is not a DatabaseError
  * @returns {Express.Response} If type of DatabaseError send a 400 to the client to indicate database error
  */
-export function databaseProblem(err: MyError, req: Request, res: Response , next: NextFunction): Express.Response {
+export function databaseProblem(
+  err: IMyError,
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Express.Response {
   if (err instanceof DatabaseError) {
+    // tslint:disable-next-line:no-console
     console.log(err.reasonCode);
-    return res.status(400).send({message: err.message});
+    return res.status(400).send({ message: err.message });
   } else {
     next(err);
   }
@@ -69,6 +89,10 @@ export function databaseProblem(err: MyError, req: Request, res: Response , next
  * @param res the Express response object
  * @returns {Express.Response} Send the response to the client that there was a server error
  */
-export function generalError(err: MyError, req: Request, res: Response ): Express.Response {
-  return res.status(500).send({message: err.message});
+export function generalError(
+  err: IMyError,
+  req: Request,
+  res: Response
+): Express.Response {
+  return res.status(500).send({ message: err.message });
 }

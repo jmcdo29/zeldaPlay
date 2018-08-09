@@ -1,6 +1,6 @@
 import { Model, QueryBuilder } from 'objection';
-import { makeId, checkNull } from '../../utils/utils';
-import { NoteInterface } from '../../interfaces/noteInterface';
+import { INote } from '../../interfaces/noteInterface';
+import { checkNull, makeId } from '../../utils/utils';
 
 /**
  * @extends {Model}
@@ -24,6 +24,13 @@ export class Note extends Model {
   important: boolean;
   last_modified_by: string;
 
+  /**
+   * updates or inserts the model, depending on model.id
+   * @static
+   * @param {Note} model
+   * @returns {QueryBuilder<Note, Note, Note>} QueryBuilder to be executed on
+   * @memberof Note
+   */
   static upsert(model: Note): QueryBuilder<Note, Note, Note> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
@@ -32,10 +39,17 @@ export class Note extends Model {
     }
   }
 
-  constructor(id: string, chId: string, values: NoteInterface) {
+  /**
+   * Creates an instance of Note.
+   * @param {string} [id] - id of the user who made the note
+   * @param {string} [chId] - id of the character the note belongs to
+   * @param {INote} [values] - values from the client side
+   * @memberof Note
+   */
+  constructor(id?: string, chId?: string, values?: INote) {
     super();
     if (id && chId && values) {
-      this.id = <string>checkNull(values.id);
+      this.id = checkNull(values.id) as string;
       this.last_modified_by = id;
       this.character_id = chId;
       this.message = values.msg;
@@ -44,11 +58,21 @@ export class Note extends Model {
     }
   }
 
+  /**
+   * Creates the id of the note
+   * @memberof Note
+   */
   $beforeInsert() {
     this.id = '00N' + makeId(9);
   }
 
-  $beforeUpdate(opt, queryContext) {
+  /**
+   * sets the last modified time and makes sure the id hasn't changed
+   * @param {*} opt
+   * @param {*} queryContext
+   * @memberof Note
+   */
+  $beforeUpdate(opt: any, queryContext: any) {
     this.last_modified = new Date(Date.now()).toISOString();
     if (opt.old && opt.old.id !== this.id) {
       this.id = opt.old.id;

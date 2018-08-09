@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Character } from './characterModels/character';
-import { CharacterService } from './character.service';
 import { AlertService } from '../alert/alert.service';
+import { CharacterService } from './character.service';
+import { Character } from './characterModels/character';
+import { Magics } from './characterModels/enums/magic-skills.enum';
 import { Skills } from './characterModels/enums/skills.enum';
 import { Weapons } from './characterModels/enums/weapon-skills.enum';
-import { Magics } from './characterModels/enums/magic-skills.enum';
 
 @Component({
   selector: 'app-characters',
@@ -84,7 +84,6 @@ export class CharactersComponent implements OnInit {
     this.characterService
       .saveCharDb(this.selectedCharacter)
       .subscribe((characterRes) => {
-        console.log(characterRes);
         this.selectedCharacter.id = characterRes.id;
         if (characterRes.skills) {
           characterRes.skills.forEach((skill) => {
@@ -107,8 +106,7 @@ export class CharactersComponent implements OnInit {
                 'name',
                 weapon.name
               )
-            ].id =
-              weapon.id;
+            ].id = weapon.id;
           });
         }
         if (characterRes.spells) {
@@ -119,8 +117,7 @@ export class CharactersComponent implements OnInit {
                 'name',
                 spell.name
               )
-            ].id =
-              spell.id;
+            ].id = spell.id;
           });
         }
         if (characterRes.saves) {
@@ -131,8 +128,7 @@ export class CharactersComponent implements OnInit {
                 'name',
                 save.name
               )
-            ].id =
-              save.id;
+            ].id = save.id;
           });
         }
         if (characterRes.notes) {
@@ -144,8 +140,7 @@ export class CharactersComponent implements OnInit {
                   'msg',
                   note.message
                 )
-              ].id =
-                note.id;
+              ].id = note.id;
             } else {
               this.selectedCharacter.notes[
                 findObjectPartial(
@@ -153,8 +148,7 @@ export class CharactersComponent implements OnInit {
                   'msg',
                   note.message
                 )
-              ].id =
-                note.id;
+              ].id = note.id;
             }
           });
         }

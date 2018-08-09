@@ -1,18 +1,19 @@
-import * as  session from 'express-session';
+import * as session from 'express-session';
+// tslint:disable-next-line:no-var-requires
 const KnexSessionStore = require('connect-session-knex')(session);
-import {connectionConfig} from '../db/knexfile';
 import * as Knex from 'knex';
+import { connectionConfig } from '../db/knexfile';
 const knex = Knex(connectionConfig);
 
 const store = new KnexSessionStore({
-  knex: knex,
+  knex,
   tablename: 'sessions'
 });
 
 export const mySession = session({
   secret: process.env.SESSION_SECRET,
-  cookie: {maxAge: 60000},
-  store: store,
+  cookie: { maxAge: 60000 },
+  store,
   saveUninitialized: false,
   resave: true
 });

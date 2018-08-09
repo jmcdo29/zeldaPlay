@@ -5,14 +5,22 @@
   "engines": {
     "npm": "6.x"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint &&  npm run prettier && git add ."
+    }
+  },
   "scripts": {
     "ng": "ng",
-    "devStart": "tsc -p ./server && node server/out/server.js",
-    "start": "node server/out/server.js",
-    "build": "ng build --prod && tsc -p ./server",
+    "devStart": "npm run build-server && npm start",
+    "start": "node server/out/bin/www.js",
+    "build": "npm run build-client && npm run build-server",
+    "build-client": "ng build --prod",
+    "build-server": "npm run prettier && tsc -p ./server",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "prettier": ".\\node_modules\\.bin\\prettier --config .\\.prettierrc.json --write \"**/*.ts\"",
     "heroku-postbuild": "npm run build"
   },
   "private": true,
@@ -62,6 +70,7 @@
     "@types/morgan": "^1.7.35",
     "@types/node": "^10.5.7",
     "codelyzer": "^4.4.3",
+    "husky": "^1.0.0-rc.13",
     "jasmine-core": "^3.1.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^2.0.5",
@@ -69,9 +78,11 @@
     "karma-coverage-istanbul-reporter": "^2.0.1",
     "karma-jasmine": "^1.1.2",
     "karma-jasmine-html-reporter": "^1.2.0",
+    "prettier": "^1.14.2",
     "protractor": "^5.4.0",
     "ts-node": "^7.0.0",
     "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.14.0",
     "typescript": "^2.9.2"
   }
 }

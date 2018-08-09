@@ -4,7 +4,7 @@
  * @prop {number} [racial] - the racial bonus, if any
  * @prop {string} modifier - the modifier to be used for the save (Constitution, Wisdom, Dexterity)
  */
-export interface SaveInterface {
+export interface ISave {
   id?: string;
   name: string;
   racial?: number;

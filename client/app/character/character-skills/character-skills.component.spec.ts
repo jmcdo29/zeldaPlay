@@ -8,9 +8,8 @@ describe('CharacterSkillsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CharacterSkillsComponent ]
-    })
-    .compileComponents();
+      declarations: [CharacterSkillsComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

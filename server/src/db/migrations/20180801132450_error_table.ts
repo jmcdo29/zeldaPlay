@@ -1,7 +1,6 @@
-
-exports.up = function(knex, Promise) {
+exports.up = (knex, Promise) => {
   return Promise.all([
-    knex.schema.createTable('error', table => {
+    knex.schema.createTable('error', (table) => {
       table.string('message');
       table.string('id').primary();
       table.string('code');
@@ -10,8 +9,6 @@ exports.up = function(knex, Promise) {
   ]);
 };
 
-exports.down = function(knex, Promise) {
-  return Promise.all([
-    knex.schema.dropTable('error')
-  ]);
+exports.down = (knex, Promise) => {
+  return Promise.all([knex.schema.dropTable('error')]);
 };

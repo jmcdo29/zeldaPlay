@@ -1,21 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
-import { EnumModule } from './helpers/customPipes';
-import { MessagesComponent } from './messages/messages.component';
+import { EnumToArrayPipe } from './helpers/customPipes';
 import { MessageService } from './messages/message.service';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    EnumModule,
-    FormsModule,
-    HttpClientModule
-  ],
-  declarations: [MessagesComponent],
-  exports: [MessagesComponent, CommonModule, EnumModule, FormsModule],
+  imports: [CommonModule, FormsModule, HttpClientModule],
+  declarations: [MessagesComponent, EnumToArrayPipe],
+  exports: [MessagesComponent, CommonModule, EnumToArrayPipe, FormsModule],
   providers: [MessageService]
 })
-export class SharedModule { }
+export class SharedModule {}
