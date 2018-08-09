@@ -1,18 +1,19 @@
 import { Character } from '../db/models/character_schema';
-import { Skill } from '../db/models/skill_schema';
 import { Note } from '../db/models/note_schema';
 import { Save } from '../db/models/save_schema';
+import { Skill } from '../db/models/skill_schema';
 import { Spell } from '../db/models/spell_schema';
 import { Weapon } from '../db/models/weapon_schema';
-import { DatabaseError } from '../utils/ErrorObjects';
-import { CharacterInterface } from '../interfaces/characterInterface';
+import { ICharacter } from '../interfaces/characterInterface';
+import { DatabaseError } from '../utils/errors/DatabaseError';
 
 /**
  * standard function to get all characters not belonging to a user
- * @returns {Promise<Partial<Character>[]>} Promise object that resolves to an array of Character objects with id, name, and race properties
+ * @returns {Promise<Array<Partial<Character>>>} Promise object that resolves to an array of Character objects
+ *  with id, name, and race properties
  * @throws {DatabaseError} - Throws a database error to indicate something was wrong with the query
  */
-export function getAll(): Promise<Partial<Character>[]> {
+export function getAll(): Promise<Array<Partial<Character>>> {
   return Character.query()
     .select('id', 'name', 'race')
     .whereNull('user_id')
@@ -74,12 +75,15 @@ export function getOne(id: string): Promise<Character> {
  * @returns {Promise<Character>}
  * @throws {DatabaseError}
  */
-export function updateOne(id: string, body: CharacterInterface): Promise<Character> {
+export function updateOne(
+  id: string,
+  body: ICharacter
+): Promise<Character> {
   const character = new Character(id, body);
   return Character.upsert(character)
     .then((charId) => {
       const chId = charId.id;
-      const promises: Promise<any>[] = [];
+      const promises: Array<Promise<any>> = [];
       promises.push(Promise.resolve(charId));
       body.skills.forEach((skill) => {
         promises.push(Skill.upsert(new Skill(id, chId, skill, 'skill')));
@@ -120,10 +124,12 @@ export function updateOne(id: string, body: CharacterInterface): Promise<Charact
 /**
  * Function to get all the Character's names, ids, and races belonging to a single user.
  * @param {string} userId the user id necessary to know which characters to query for.
- * @returns {Promise<Partial<Character>[]>} returns a promise of an array of partial characters
+ * @returns {Promise<Array<Partial<Character>>>} returns a promise of an array of partial characters
  * @throws {DatabaseError}
  */
-export function getUserCharacters(userId: string): Promise<Partial<Character>[]> {
+export function getUserCharacters(
+  userId: string
+): Promise<Array<Partial<Character>>> {
   if (!userId.startsWith('00U') && userId.length !== 12) {
     throw new DatabaseError('Bad user id.', 'BAD_USER');
   }

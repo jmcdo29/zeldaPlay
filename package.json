@@ -7,7 +7,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "./node_modules/.bin/prettier --config ./.prettierrc.json --write \"**/*.ts\""
+      "pre-commit": "npm run lint && .\\node_modules\\.bin\\prettier --config .\\.prettierrc.json --write \"**/*.ts\""
     }
   },
   "scripts": {

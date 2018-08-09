@@ -8,7 +8,7 @@
  * @prop {string} skillName
  * @prop {string} modifier - the modifier to use when rolling skill checks
  */
- export interface SkillInterface {
+export interface ISkill {
   id?: string;
   ranks: number;
   racial?: string;
@@ -17,4 +17,4 @@
   trained: boolean;
   skillName: string;
   modifier?: string;
- }
+}

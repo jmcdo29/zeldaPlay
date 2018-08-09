@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../../alert/alert.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user-register',
@@ -9,26 +9,29 @@ import { AlertService } from '../../alert/alert.service';
   styleUrls: ['./user-register.component.css']
 })
 export class UserRegisterComponent implements OnInit {
-
   password: string;
   username: string;
   passwordConfirmation: string;
   loading = false;
 
-  constructor(private userService: UserService, private router: Router, private alertService: AlertService) { }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private alertService: AlertService
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   register() {
     this.loading = true;
-    this.userService.register(this.username, this.password, this.passwordConfirmation)
+    this.userService
+      .register(this.username, this.password, this.passwordConfirmation)
       .subscribe(
-        next => {
+        (next) => {
           localStorage.setItem('currentUser', next.toString());
           this.router.navigate(['/']);
         },
-        error => {
+        (error) => {
           this.loading = false;
           this.alertService.error(error.error.message);
         }

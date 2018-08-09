@@ -9,12 +9,11 @@ import { AlertService } from './alert.service';
   styleUrls: ['./alert.component.css']
 })
 export class AlertComponent implements OnDestroy {
-
   private subscription: Subscription;
   message: any;
 
   constructor(private alertService: AlertService) {
-    this.subscription = alertService.getMessage().subscribe( message => {
+    this.subscription = alertService.getMessage().subscribe((message) => {
       this.message = message;
     });
   }
@@ -26,5 +25,4 @@ export class AlertComponent implements OnDestroy {
   remove(): void {
     this.message = '';
   }
-
 }

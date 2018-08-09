@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { Character } from '../characterModels/character';
-import { Spell } from '../characterModels/spells';
-import { Diety } from '../characterModels/enums/dieties.enum';
-import { Attributes } from '../characterModels/enums/attributes.enum';
-import { MessageService } from '../../shared/messages/message.service';
-import { Magics } from '../characterModels/enums/magic-skills.enum';
 import { AlertService } from '../../alert/alert.service';
+import { MessageService } from '../../shared/messages/message.service';
+import { Character } from '../characterModels/character';
+import { Attributes } from '../characterModels/enums/attributes.enum';
+import { Diety } from '../characterModels/enums/dieties.enum';
+import { Magics } from '../characterModels/enums/magic-skills.enum';
+import { Spell } from '../characterModels/spells';
 
 @Component({
   selector: 'app-character-spell',
@@ -14,7 +14,8 @@ import { AlertService } from '../../alert/alert.service';
   styleUrls: ['./character-spell.component.css']
 })
 export class CharacterSpellComponent implements OnInit {
-  @Input() character: Character;
+  @Input()
+  character: Character;
 
   newSpell = false;
 
@@ -29,7 +30,10 @@ export class CharacterSpellComponent implements OnInit {
   spellRoll: number;
   dmgRoll: number;
 
-  constructor(public message: MessageService, private alertService: AlertService) {}
+  constructor(
+    public message: MessageService,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit() {
     if (this.character.spells) {
@@ -129,7 +133,9 @@ export class CharacterSpellComponent implements OnInit {
     this.character.magic -= spell.mpUse;
     if (this.character.magic < 0) {
       this.character.magic += spell.mpUse;
-      this.alertService.error('You cannot use more magic than you have available.');
+      this.alertService.error(
+        'You cannot use more magic than you have available.'
+      );
     } else {
       const magicType = character.magicSkills[Magics[spell.diety]];
       const magicBonus =

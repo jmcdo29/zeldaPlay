@@ -1,31 +1,28 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-import { MessageService } from '../shared/messages/message.service';
-
-import { Observable, of } from 'rxjs';
-
-import { catchError, tap, map } from 'rxjs/operators';
-
-import { Character } from './characterModels/character';
-
+import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
+import { MessageService } from '../shared/messages/message.service';
+
+import { Character } from './characterModels/character';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CharacterService {
-
   private characterUrl = environment.apiUrl + '/api/characters';
 
-  constructor(private httpClient: HttpClient, private messageService: MessageService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private messageService: MessageService
+  ) {}
 
   getCharacters(): Observable<Character[]> {
-    return this.httpClient.get<Character[]>(this.characterUrl)
-    .pipe(
-      tap(ch => {
+    return this.httpClient.get<Character[]>(this.characterUrl).pipe(
+      tap((ch) => {
         const outcome = ch ? 'Got characters' : 'Found a problem';
         this.messageService.add(outcome);
       }),
@@ -35,7 +32,7 @@ export class CharacterService {
 
   getCharacter(id): Observable<Character> {
     return this.httpClient.get<any>(this.characterUrl + '/' + id).pipe(
-      map(response => {
+      map((response) => {
         const character = new Character(null, response);
         return character;
       }),
@@ -44,13 +41,16 @@ export class CharacterService {
   }
 
   getUserCharacters(userId): Observable<Character[]> {
-    return this.httpClient.get<Character[]>(this.characterUrl + '/user/' + userId);
+    return this.httpClient.get<Character[]>(
+      this.characterUrl + '/user/' + userId
+    );
   }
 
-  private handleError<T> (operation: String, result?: T) {
+  private handleError<T>(operation: string, result?: T) {
     return (error: any): Observable<T> => {
-      console.log(error);
-      const errMsg = 'ERROR IN ' + operation.toUpperCase() + ': ' + error.message;
+      console.error(error);
+      const errMsg =
+        'ERROR IN ' + operation.toUpperCase() + ': ' + error.message;
       this.messageService.add(errMsg);
       return of(result as T);
     };
@@ -66,7 +66,8 @@ export class CharacterService {
 
   saveCharDb(character: Character): Observable<any> {
     const userId = localStorage.getItem('currentUser');
-    return this.httpClient.post<any>(this.characterUrl + `/${userId}`, {character: character});
+    return this.httpClient.post<any>(this.characterUrl + `/${userId}`, {
+      character
+    });
   }
 }
-

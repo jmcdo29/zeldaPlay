@@ -1,8 +1,8 @@
 // TODO: Add JSDoc documentation for file.
-import { User } from '../db/models/user_schema';
 import * as bcrypt from 'bcryptjs';
-import { LoginError, DatabaseError } from '../utils/ErrorObjects';
-
+import { User } from '../db/models/user_schema';
+import { DatabaseError } from '../utils/errors/DatabaseError';
+import { LoginError } from '../utils/errors/LoginError';
 
 export function login(username: string, password: string) {
   return User.query()
@@ -40,7 +40,11 @@ export function login(username: string, password: string) {
     });
 }
 
-export function signUp(username: string, password: string, confPassword: string) {
+export function signUp(
+  username: string,
+  password: string,
+  confPassword: string
+) {
   return verifyPassword(password, confPassword)
     .then(() => {
       return User.query().where({ email: username });

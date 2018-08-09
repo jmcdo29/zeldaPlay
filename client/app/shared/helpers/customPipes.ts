@@ -1,8 +1,8 @@
-import { Pipe, PipeTransform, NgModule } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({name: 'enumToArray'})
+@Pipe({ name: 'enumToArray' })
 export class EnumToArrayPipe implements PipeTransform {
-  transform(enumToTransform: Object): Array<any> {
+  transform(enumToTransform: object): any[] {
     const retArray = [];
     for (const key in enumToTransform) {
       if (!isNaN(Number(key))) {
@@ -12,9 +12,3 @@ export class EnumToArrayPipe implements PipeTransform {
     return retArray;
   }
 }
-
-@NgModule({
-  declarations: [EnumToArrayPipe],
-  exports: [EnumToArrayPipe]
-})
-export class EnumModule {}

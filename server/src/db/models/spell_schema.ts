@@ -1,6 +1,6 @@
 import { Model, QueryBuilder } from 'objection';
-import { makeId, checkNull } from '../../utils/utils';
-import { SpellInterface } from '../../interfaces/spellInterface';
+import { ISpell } from '../../interfaces/spellInterface';
+import { checkNull, makeId  } from '../../utils/utils';
 
 /**
  * @extends Model
@@ -42,14 +42,14 @@ export class Spell extends Model {
     }
   }
 
-  constructor(id?: string, chId?: string, values?: SpellInterface) {
+  constructor(id?: string, chId?: string, values?: ISpell) {
     super();
     if (id && chId && values) {
-      this.id = <string>checkNull(values.id);
+      this.id = checkNull(values.id) as string;
       this.name = values.name;
       this.effect = values.effect;
       this.mp_use = values.mpUse;
-      this.modifier = <string>checkNull(values.modifier);
+      this.modifier = checkNull(values.modifier) as string;
       this.diety = values.diety;
       this.use_diety = values.useDiety;
       this.damage = values.damage;

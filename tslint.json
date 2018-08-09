@@ -41,14 +41,14 @@
     ],
     "no-arg": true,
     "no-bitwise": true,
-    /* "no-console": [
-      true,
+     "no-console": [
+       true,
       "debug",
       "info",
       "time",
       "timeEnd",
       "trace"
-    ], */
+    ],
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-super": true,
@@ -133,7 +133,9 @@
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
-    "directive-class-suffix": true
+    "directive-class-suffix": true,
+    "no-implicit-dependencies": [true, "dev"],
+    "no-submodule-imports": [true, "rxjs", "@angular/common/http", "@angular/core/testing", "@angular/platform-browser-dynamic/testing", "zone.js/dist/zone-testing", "zone.js/dist/zone"]
   },
   "extends": [
     "tslint:latest",

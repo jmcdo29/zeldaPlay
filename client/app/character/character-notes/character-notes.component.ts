@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { MessageService } from '../../shared/messages/message.service';
 import { Character } from '../characterModels/character';
 import { Note } from '../characterModels/note';
-import { MessageService } from '../../shared/messages/message.service';
 
 @Component({
   selector: 'app-character-notes',
@@ -9,8 +10,8 @@ import { MessageService } from '../../shared/messages/message.service';
   styleUrls: ['./character-notes.component.css']
 })
 export class CharacterNotesComponent implements OnInit {
-
-  @Input() character: Character;
+  @Input()
+  character: Character;
 
   note: Note;
   notes: Note[] = [];
@@ -21,7 +22,7 @@ export class CharacterNotesComponent implements OnInit {
 
   newNote = false;
 
-  constructor(public message: MessageService) { }
+  constructor(public message: MessageService) {}
 
   ngOnInit() {
     this.notes = this.character.notes;
@@ -49,5 +50,4 @@ export class CharacterNotesComponent implements OnInit {
     this.showNotes[index] = !this.showNotes[index];
     console.log(index, this.showNotes[index]);
   }
-
 }

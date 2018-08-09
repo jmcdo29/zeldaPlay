@@ -5,16 +5,16 @@
  * @export db/models/Character.Character
  */
 
-import { QueryBuilder, Model, RelationMappings } from 'objection';
+import { Model, QueryBuilder, RelationMappings } from 'objection';
 
-import { makeId, checkNull } from '../../utils/utils';
+import { checkNull, makeId } from '../../utils/utils';
 
-import { Weapon } from './weapon_schema';
-import { Spell } from './spell_schema';
-import { Skill } from './skill_schema';
+import { ICharacter } from '../../interfaces/characterInterface';
 import { Note } from './note_schema';
 import { Save } from './save_schema';
-import { CharacterInterface } from '../../interfaces/characterInterface';
+import { Skill } from './skill_schema';
+import { Spell } from './spell_schema';
+import { Weapon } from './weapon_schema';
 
 /**
  * @extends {Model} extends the objection model to make querying easier
@@ -136,7 +136,7 @@ export class Character extends Model {
     }
   }
 
-  constructor(id?: string, values?: CharacterInterface) {
+  constructor(id?: string, values?: ICharacter) {
     super();
     if (id && values) {
       this.name = values.name;
@@ -153,15 +153,15 @@ export class Character extends Model {
       this.experience = values.exp;
       this.race = values.race;
       this.level = values.level;
-      this.subrace = <string>checkNull(values.subrace);
-      this.ac = <number>checkNull(values.ac);
-      this.flat_footed = <number>checkNull(values.flat_footed);
-      this.touch = <number>checkNull(values.touch);
-      this.size = <string>checkNull(values.size);
-      this.craft_one = <string>checkNull(values.craftOne);
-      this.craft_two = <string>checkNull(values.craftTwo);
-      this.performance = <string>checkNull(values.performCust);
-      this.profession = <string>checkNull(values.profession);
+      this.subrace = checkNull(values.subrace) as string;
+      this.ac = checkNull(values.ac) as number;
+      this.flat_footed = checkNull(values.flat_footed) as number;
+      this.touch = checkNull(values.touch) as number;
+      this.size = checkNull(values.size) as string;
+      this.craft_one = checkNull(values.craftOne) as string;
+      this.craft_two = checkNull(values.craftTwo) as string;
+      this.performance = checkNull(values.performCust) as string;
+      this.profession = checkNull(values.profession) as string;
       this.last_modified_by = id;
       this.user_id = id;
       this.id = checkNull(values.id).toString();

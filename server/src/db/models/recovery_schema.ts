@@ -1,6 +1,6 @@
 // TODO: Add JSDoc documentation for file.
 import { Model } from 'objection';
-import { makeId, checkNull } from '../../utils/utils';
+import { checkNull, makeId } from '../../utils/utils';
 
 export class Recovery extends Model {
   static tableName = 'recovery_answer';

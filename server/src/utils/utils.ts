@@ -21,7 +21,7 @@ export function makeId(length): string {
  * @returns {number | string} a blank string or the value null
  */
 export function checkNull(value: string | number): string | number {
-  if ( typeof value === 'string') {
+  if (typeof value === 'string') {
     return value ? value : '';
   } else if (typeof value === 'number') {
     return value ? value : null;

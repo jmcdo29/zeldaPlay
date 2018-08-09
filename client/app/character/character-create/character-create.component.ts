@@ -1,7 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CharactersComponent } from '../characters.component';
-import { Character } from '../characterModels/character';
+import { Router } from '@angular/router';
+
+import { AlertService } from '../../alert/alert.service';
+import { MessageService } from '../../shared/messages/message.service';
+import { CharacterService } from '../character.service';
 import { Attribute } from '../characterModels/attribute';
+import { Character } from '../characterModels/character';
+import { Attributes } from '../characterModels/enums/attributes.enum';
+import { Magics } from '../characterModels/enums/magic-skills.enum';
+import { Skills } from '../characterModels/enums/skills.enum';
+import { Weapons } from '../characterModels/enums/weapon-skills.enum';
 import {
   Fairy,
   Gerudo,
@@ -12,14 +20,7 @@ import {
   Twili,
   Zora
 } from '../characterModels/Races';
-import { Attributes } from '../characterModels/enums/attributes.enum';
-import { MessageService } from '../../shared/messages/message.service';
-import { Router } from '@angular/router';
-import { AlertService } from '../../alert/alert.service';
-import { CharacterService } from '../character.service';
-import { Skills } from '../characterModels/enums/skills.enum';
-import { Weapons } from '../characterModels/enums/weapon-skills.enum';
-import { Magics } from '../characterModels/enums/magic-skills.enum';
+import { CharactersComponent } from '../characters.component';
 
 @Component({
   selector: 'app-character-create',
@@ -27,7 +28,8 @@ import { Magics } from '../characterModels/enums/magic-skills.enum';
   styleUrls: ['./character-create.component.css']
 })
 export class CharacterCreateComponent implements OnInit {
-  @Input() CharacterParent: CharactersComponent;
+  @Input()
+  CharacterParent: CharactersComponent;
 
   skillPoints: number;
   originalPoints: number;
@@ -77,9 +79,12 @@ export class CharacterCreateComponent implements OnInit {
     this.newCharacter = new Character();
     this.originalPoints = this.skillPoints =
       ((Math.round(Math.random() * 100) % 4) + 1) * 5;
-    for (let i = 0; i < this.newCharacter.attributes.length; i++) {
-      this.attrMins.push(this.newCharacter.attributes[i].value);
+    for (const attr of this.newCharacter.attributes) {
+      this.attrMins.push(attr.value);
     }
+    /* for (let i = 0; i < this.newCharacter.attributes.length; i++) {
+      this.attrMins.push(this.newCharacter.attributes[i].value);
+    } */
   }
 
   aboutRace(): void {
@@ -136,24 +141,21 @@ export class CharacterCreateComponent implements OnInit {
             characterRes.weapons.forEach((weapon) => {
               newChar.weapons[
                 findObjectPartial(newChar.weapons, 'name', weapon.name)
-              ].id =
-                weapon.id;
+              ].id = weapon.id;
             });
           }
           if (characterRes.spells) {
             characterRes.spells.forEach((spell) => {
               newChar.spells[
                 findObjectPartial(newChar.spells, 'name', spell.name)
-              ].id =
-                spell.id;
+              ].id = spell.id;
             });
           }
           if (characterRes.saves) {
             characterRes.saves.forEach((save) => {
               newChar.savingThrows[
                 findObjectPartial(newChar.savingThrows, 'name', save.name)
-              ].id =
-                save.id;
+              ].id = save.id;
             });
           }
           if (characterRes.notes) {
@@ -161,13 +163,11 @@ export class CharacterCreateComponent implements OnInit {
               if (note.important) {
                 newChar.importantNotes[
                   findObjectPartial(newChar.importantNotes, 'msg', note.message)
-                ].id =
-                  note.id;
+                ].id = note.id;
               } else {
                 newChar.notes[
                   findObjectPartial(newChar.notes, 'msg', note.message)
-                ].id =
-                  note.id;
+                ].id = note.id;
               }
             });
           }
@@ -273,22 +273,24 @@ export class CharacterCreateComponent implements OnInit {
     const val = this.newCharacter.attributes[attrIndex].value;
     const modifier = val % 2 === 0 ? (val - 10) / 2 : (val - 11) / 2;
     this.newCharacter.attributes[attrIndex].modifier = modifier;
-    if (this.attrPrior[attrIndex]) {
+    /* if (this.attrPrior[attrIndex]) {
       this.attPoints = this.attPoints - (val - this.attrPrior[attrIndex]);
     } else {
       this.attPoints = this.attPoints - (val - this.attrMins[attrIndex]);
-    }
+    } */
+    this.attPoints -= (val - (this.attPoints[attrIndex] ?  this.attrPrior[attrIndex] : this.attrMins[attrIndex]));
     this.attrPrior[attrIndex] = val;
   }
 
   track(index: number, type: string): void {
     const val = this.newCharacter[type][index].ranks;
     const PRIOR = 'Prior';
-    if (this[type + PRIOR][index]) {
+    /* if (this[type + PRIOR][index]) {
       this.skillPoints = this.skillPoints - (val - this[type + PRIOR][index]);
     } else {
       this.skillPoints = this.skillPoints - val;
-    }
+    } */
+    this.skillPoints -= val - this[type + PRIOR][index] ? this[type + PRIOR][index] : 0;
     this[type + PRIOR][index] = val;
   }
 
@@ -332,15 +334,24 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   resetSkills(): void {
-    for (let i = 0; i < this.newCharacter.skills.length; i++) {
+    for (const skill of this.newCharacter.skills) {
+      skill.ranks = 0;
+    }
+    /* for (let i = 0; i < this.newCharacter.skills.length; i++) {
       this.newCharacter.skills[i].ranks = 0;
+    } */
+    for (const wep of this.newCharacter.weaponSkills) {
+      wep.ranks = 0;
     }
-    for (let i = 0; i < this.newCharacter.weaponSkills.length; i++) {
+    /* for (let i = 0; i < this.newCharacter.weaponSkills.length; i++) {
       this.newCharacter.weaponSkills[i].ranks = 0;
+    } */
+    for (const mag of this.newCharacter.magicSkills) {
+      mag.ranks = 0;
     }
-    for (let i = 0; i < this.newCharacter.magicSkills.length; i++) {
+    /* for (let i = 0; i < this.newCharacter.magicSkills.length; i++) {
       this.newCharacter.magicSkills[i].ranks = 0;
-    }
+    } */
     this.resetPriors();
     this.skillPoints = this.originalPoints;
   }

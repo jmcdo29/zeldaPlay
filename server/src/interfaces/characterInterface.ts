@@ -1,15 +1,15 @@
-import { WeaponInterface } from './weaponInterface';
-import { SkillInterface } from './skillInterface';
-import { SpellInterface } from './spellInterface';
-import { NoteInterface } from './noteInterface';
-import { SaveInterface } from './saveInterface';
+import { INote } from './noteInterface';
+import { ISave } from './saveInterface';
+import { ISkill } from './skillInterface';
+import { ISpell } from './spellInterface';
+import { IWeapon } from './weaponInterface';
 
 /**
  * @prop {number} value - the score the of the Attribute
  * @prop {number} modifier - the mod of the score
  * @prop {string} name - the name of the attribute. Used on client side
  */
-interface AttributesInterface {
+interface IAttribute {
   value: number;
   name: string;
   modifier: number;
@@ -37,17 +37,17 @@ interface AttributesInterface {
  * @prop {string} user_id - the id of the character owner
  * @prop {number} level - the current level
  * @prop {string} last_modified - date string of the last modification
- * @prop {AttributesInterface[]} attributes - holds the strength, dexterity, constitution ...
- * @prop {WeaponInterface[]} [weapons] - the weapons the character has
- * @prop {SkillInterface[]} [skills] - the skills of the character
- * @prop {SkillInterface[]} [weaponSkills] - the weapon skills of the character
- * @prop {SkillInterface[]} [magicSkills] - the magic skills of the character
- * @prop {NoteInterface[]} [notes] - the notes the character has taken
- * @prop {SpellInterface[]} [spells] - the spells the character knows
- * @prop {SaveInterface[]} [savingThrows] - the saving throws of the character
+ * @prop {IAttribute[]} attributes - holds the strength, dexterity, constitution ...
+ * @prop {IWeapon[]} [weapons] - the weapons the character has
+ * @prop {ISkill[]} [skills] - the skills of the character
+ * @prop {ISkill[]} [weaponSkills] - the weapon skills of the character
+ * @prop {ISkill[]} [magicSkills] - the magic skills of the character
+ * @prop {INote[]} [notes] - the notes the character has taken
+ * @prop {ISpell[]} [spells] - the spells the character knows
+ * @prop {ISave[]} [savingThrows] - the saving throws of the character
  */
 
-export interface CharacterInterface {
+export interface ICharacter {
   id: string;
   name: string;
   race: string;
@@ -69,12 +69,12 @@ export interface CharacterInterface {
   user_id: string;
   level: number;
   last_modified: string;
-  attributes: AttributesInterface[];
-  weapons: WeaponInterface[];
-  skills: SkillInterface[];
-  weaponSkills: SkillInterface[];
-  magicSkills: SkillInterface[];
-  spells: SpellInterface[];
-  notes: NoteInterface[];
-  savingThrows: SaveInterface[];
- }
+  attributes: IAttribute[];
+  weapons: IWeapon[];
+  skills: ISkill[];
+  weaponSkills: ISkill[];
+  magicSkills: ISkill[];
+  spells: ISpell[];
+  notes: INote[];
+  savingThrows: ISave[];
+}

@@ -8,9 +8,8 @@ describe('CharacterSpellComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CharacterSpellComponent ]
-    })
-    .compileComponents();
+      declarations: [CharacterSpellComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

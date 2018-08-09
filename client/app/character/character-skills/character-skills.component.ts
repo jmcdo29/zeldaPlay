@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { Character } from '../characterModels/character';
-import { Skills } from '../characterModels/enums/skills.enum';
-import { Attributes } from '../characterModels/enums/attributes.enum';
 import { MessageService } from '../../shared/messages/message.service';
+import { Character } from '../characterModels/character';
+import { Attributes } from '../characterModels/enums/attributes.enum';
+import { Skills } from '../characterModels/enums/skills.enum';
 
 @Component({
   selector: 'app-character-skills',
@@ -11,25 +11,29 @@ import { MessageService } from '../../shared/messages/message.service';
   styleUrls: ['./character-skills.component.css']
 })
 export class CharacterSkillsComponent implements OnInit {
-
-  @Input() character: Character;
+  @Input()
+  character: Character;
 
   showSkills = true;
 
   skill: string;
   checkVal: number;
 
-  constructor(public messenger: MessageService) { }
+  constructor(public messenger: MessageService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getMod(modName: string): number {
-    for (let i = 0; i < this.character.attributes.length; i++) {
+    for (const attribute of this.character.attributes) {
+      if (attribute.name === modName) {
+        return attribute.modifier;
+      }
+    }
+    /* for (let i = 0; i < this.character.attributes.length; i++) {
       if (this.character.attributes[i].name === modName) {
         return this.character.attributes[i].modifier;
       }
-    }
+    } */
   }
 
   expandSkill(): void {
@@ -37,13 +41,14 @@ export class CharacterSkillsComponent implements OnInit {
   }
 
   makeCheck(skillName: string): void {
-    const originalRoll =  Math.round(Math.random() * 100) % 20 + 1;
+    const originalRoll = (Math.round(Math.random() * 100) % 20) + 1;
     let roll = originalRoll;
     const skill = this.character.skills[Skills[skillName]];
     const skillMod = skill.modifier;
     const mod = this.character.attributes[Attributes[skillMod]].modifier;
     const trained = skill.trained ? 3 : 0;
-    roll += mod + skill.ranks + skill.misc + skill.item + skill.racial + trained;
+    roll +=
+      mod + skill.ranks + skill.misc + skill.item + skill.racial + trained;
     this.checkVal = roll;
     this.skill = skillName;
     this.setClasses(originalRoll);
@@ -57,7 +62,8 @@ export class CharacterSkillsComponent implements OnInit {
 
   private addMessage(skillName: string, skillRoll: number) {
     const name = this.character.name;
-    const message = name + ' rolled a ' + skillRoll + ' on a ' + skillName + ' check.';
+    const message =
+      name + ' rolled a ' + skillRoll + ' on a ' + skillName + ' check.';
     this.messenger.add(message);
   }
 
@@ -73,7 +79,10 @@ export class CharacterSkillsComponent implements OnInit {
 
   private nullify(id: string, className: string): void {
     console.log('document.getElementById(%s);', id);
-    if (document.getElementById(id) && document.getElementById(id).classList.contains(className)) {
+    if (
+      document.getElementById(id) &&
+      document.getElementById(id).classList.contains(className)
+    ) {
       document.getElementById(id).classList.remove(className);
     }
   }

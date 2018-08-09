@@ -10,7 +10,7 @@
  * @prop {number} critDamage - how much to multiply a critical roll by
  * @prop {number} numberOfAttacks - how many times to roll the attack die.
  */
-export interface WeaponInterface {
+export interface IWeapon {
   name: string;
   id: string;
   attack: number;

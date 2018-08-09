@@ -1,7 +1,7 @@
 // TODO: Add JSDoc documentation for file.
 import { Model, QueryBuilder } from 'objection';
-import { makeId, checkNull } from '../../utils/utils';
-import { SaveInterface } from '../../interfaces/saveInterface';
+import { ISave } from '../../interfaces/saveInterface';
+import { checkNull, makeId  } from '../../utils/utils';
 
 /**
  * @extends {Model}
@@ -32,10 +32,10 @@ export class Save extends Model {
     }
   }
 
-  constructor(id: string, chId: string, values: SaveInterface) {
+  constructor(id: string, chId: string, values: ISave) {
     super();
     if (id && chId && values) {
-      this.id = <string>checkNull(values.id);
+      this.id = checkNull(values.id) as string;
       this.character_id = chId;
       this.last_modified_by = id;
       this.name = values.name;

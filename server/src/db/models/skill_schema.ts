@@ -1,6 +1,6 @@
 import { Model, QueryBuilder } from 'objection';
-import { makeId, checkNull } from '../../utils/utils';
-import { SkillInterface } from '../../interfaces/skillInterface';
+import { ISkill } from '../../interfaces/skillInterface';
+import { checkNull, makeId,  } from '../../utils/utils';
 
 /**
  * @extends {Model}
@@ -18,7 +18,6 @@ import { SkillInterface } from '../../interfaces/skillInterface';
  * @prop {string} last_modified_by - user who last modified the skill
  */
 export class Skill extends Model {
-
   static tableName = 'skill';
 
   id: string;
@@ -42,20 +41,20 @@ export class Skill extends Model {
     }
   }
 
-  constructor(id: string, chId: string, values: SkillInterface, type: string) {
+  constructor(id: string, chId: string, values: ISkill, type: string) {
     super();
     if (id && chId && values && type) {
-      this.id = <string>checkNull(values.id);
+      this.id = checkNull(values.id) as string;
       this.character_id = chId;
       this.last_modified_by = id;
       this.ranks = values.ranks;
       this.skill_type = type;
-      this.racial_modifier = <string>checkNull(values.racial);
-      this.item_modifier = <string>checkNull(values.item);
-      this.misc_modifier = <string>checkNull(values.misc);
+      this.racial_modifier = checkNull(values.racial) as string;
+      this.item_modifier = checkNull(values.item) as string;
+      this.misc_modifier = checkNull(values.misc) as string;
       this.trained = values.trained;
       this.name = values.skillName;
-      this.modifier = <string>checkNull(values.modifier);
+      this.modifier = checkNull(values.modifier) as string;
     }
   }
 

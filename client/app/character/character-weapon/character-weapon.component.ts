@@ -1,14 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Character } from '../characterModels/character';
 import { Weapon } from '../characterModels/Weapons/weapon';
 
-import { Weapons } from '../characterModels/enums/weapon-skills.enum';
 import { Attributes } from '../characterModels/enums/attributes.enum';
 import { Elements } from '../characterModels/enums/elements.enum';
+import { Weapons } from '../characterModels/enums/weapon-skills.enum';
 
-import { Elemental } from '../characterModels/Weapons/elemental';
 import { MessageService } from '../../shared/messages/message.service';
+import { Elemental } from '../characterModels/Weapons/elemental';
 
 @Component({
   selector: 'app-character-weapon',
@@ -16,7 +16,8 @@ import { MessageService } from '../../shared/messages/message.service';
   styleUrls: ['./character-weapon.component.css']
 })
 export class CharacterWeaponComponent implements OnInit {
-  @Input() character: Character;
+  @Input()
+  character: Character;
 
   allWeapons = Weapons;
   attributes = Attributes;
@@ -73,59 +74,59 @@ export class CharacterWeaponComponent implements OnInit {
     if (this.elemental) {
       this.weapon.element = this.elemental;
     }
-    if (! this.weapon.name) {
+    if (!this.weapon.name) {
       error = true;
       document.getElementById('weaponName').classList.add('bad-input');
     }
-    if (! this.weapon.type) {
+    if (!this.weapon.type) {
       error = true;
       document.getElementById('weaponType').classList.add('bad-input');
     }
-    if (! this.weapon.numberOfAttacks) {
+    if (!this.weapon.numberOfAttacks) {
       error = true;
       document.getElementById('weaponMult').classList.add('bad-input');
     }
-    if (! this.weapon.attack) {
+    if (!this.weapon.attack) {
       error = true;
       document.getElementById('weaponDam').classList.add('bad-input');
     }
-    if (! this.weapon.critRange) {
+    if (!this.weapon.critRange) {
       error = true;
       document.getElementById('critRange').classList.add('bad-input');
     }
-    if (! this.weapon.critDamage) {
+    if (!this.weapon.critDamage) {
       error = true;
       document.getElementById('weaponCrit').classList.add('bad-input');
     }
-    if (! this.weapon.modifier) {
+    if (!this.weapon.modifier) {
       error = true;
       document.getElementById('weaponMod').classList.add('bad-input');
     }
     if (this.isRangedWeapon) {
-      if (! this.weapon.range) {
+      if (!this.weapon.range) {
         error = true;
         document.getElementById('weaponRange').classList.add('bad-input');
       }
-      if (! this.weapon.ammo) {
+      if (!this.weapon.ammo) {
         error = true;
         document.getElementById('weaponAmmo').classList.add('bad-input');
       }
     }
     if (this.isElemental) {
-      if (! this.weapon.element.type) {
+      if (!this.weapon.element.type) {
         error = true;
         document.getElementById('eType').classList.add('bad-input');
       }
-      if (! this.weapon.element.numberOfAttacks) {
+      if (!this.weapon.element.numberOfAttacks) {
         error = true;
         document.getElementById('elementalMult').classList.add('bad-input');
       }
-      if (! this.weapon.element.attack) {
+      if (!this.weapon.element.attack) {
         error = true;
         document.getElementById('elementDam').classList.add('bad-input');
       }
     }
-    if (! error) {
+    if (!error) {
       this.weapons.push(this.weapon);
       this.character.weapons = this.weapons;
       this.addWeapon();
@@ -184,7 +185,9 @@ export class CharacterWeaponComponent implements OnInit {
     console.log(this.isElemental);
     if (!this.isElemental) {
       this.elemental = {
-        'type': '', 'attack': null, 'numberOfAttacks': null
+        type: '',
+        attack: null,
+        numberOfAttacks: null
       };
     } else {
       this.elemental = null;
@@ -193,19 +196,18 @@ export class CharacterWeaponComponent implements OnInit {
   }
 
   checkForRanged(): void {
-    if (this.rangeList.includes(this.weapon.type)) {
-      this.isRangedWeapon = true;
-    } else {
-      this.isRangedWeapon = false;
-    }
+      this.isRangedWeapon = this.rangeList.includes(this.weapon.type);
   }
 
   setCrit(): void {
     const range = this.weapon.critRange.toString().split(',');
     const rangeArray = [];
-    for (let i = 0; i < range.length; i++) {
-      rangeArray.push(Number.parseInt(range[i], 10));
+    for (const int of range) {
+      rangeArray.push(Number.parseInt(int, 10));
     }
+    /* for (let i = 0; i < range.length; i++) {
+      rangeArray.push(Number.parseInt(range[i], 10));
+    } */
     this.weapon.critRange = rangeArray;
   }
 
@@ -215,7 +217,8 @@ export class CharacterWeaponComponent implements OnInit {
     const weaponName = weapon.name;
     const weaponType = weapon.type;
 
-    const message = name + ' added a ' + weaponType + ' called ' + weaponName + '.';
+    const message =
+      name + ' added a ' + weaponType + ' called ' + weaponName + '.';
 
     this.message.add(message);
   }
@@ -238,31 +241,64 @@ export class CharacterWeaponComponent implements OnInit {
       crit = true;
     }
     // the roll to hit adding the total weapon bonus and the weapon's modifier bonus.
-    const rollWithBonus = initialRoll + weapSkill.ranks + (weapSkill.trained ? 3 : 0) + modifier.modifier;
-    const dmgRoll = this.roll(weapon.attack) * weapon.numberOfAttacks  * (crit ? weapon.critDamage : 1) + modifier.modifier;
+    const rollWithBonus =
+      initialRoll +
+      weapSkill.ranks +
+      (weapSkill.trained ? 3 : 0) +
+      modifier.modifier;
+    const dmgRoll =
+      this.roll(weapon.attack) *
+        weapon.numberOfAttacks *
+        (crit ? weapon.critDamage : 1) +
+      modifier.modifier;
     if (weapon.element && weapon.element != null) {
-      elemDmg = this.roll(weapon.element.attack) * weapon.element.numberOfAttacks;
+      elemDmg =
+        this.roll(weapon.element.attack) * weapon.element.numberOfAttacks;
       this.elemRoll = elemDmg;
     } else {
       this.elemRoll = null;
     }
-    this.attackMessage(character, weapon, rollWithBonus, dmgRoll, elemDmg, weapon.element);
+    this.attackMessage(
+      character,
+      weapon,
+      rollWithBonus,
+      dmgRoll,
+      elemDmg,
+      weapon.element
+    );
     this.weaponName = weapon.name;
     this.rollToHit = rollWithBonus;
     this.dmgRoll = dmgRoll;
   }
 
-  attackMessage(character: Character, weapon: Weapon, hit: number, dmg: number, elemDam?: number, elem?: Elemental): void {
+  attackMessage(
+    character: Character,
+    weapon: Weapon,
+    hit: number,
+    dmg: number,
+    elemDam?: number,
+    elem?: Elemental
+  ): void {
     const name = character.name;
-    let rolled = ' rolled a ' + hit + ' to hit with ' + weapon.name + ' for ' + dmg + ' points of physical damage.';
+    let rolled =
+      ' rolled a ' +
+      hit +
+      ' to hit with ' +
+      weapon.name +
+      ' for ' +
+      dmg +
+      ' points of physical damage.';
     if (elemDam && elem) {
-      rolled = rolled.replace('.', ' and ' + elemDam + ' points of ' + elem.type + ' damage.');
+      rolled = rolled.replace(
+        '.',
+        ' and ' + elemDam + ' points of ' + elem.type + ' damage.'
+      );
     }
     const message = name + rolled;
     this.message.add(message);
   }
 
   roll(mod: number): number {
-    return Math.round(Math.random() * 100) % mod + 1;
+    return (Math.round(Math.random() * 100) % mod) + 1;
   }
 }

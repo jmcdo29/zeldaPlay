@@ -8,9 +8,8 @@ describe('CharacterLevelUpComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CharacterLevelUpComponent ]
-    })
-    .compileComponents();
+      declarations: [CharacterLevelUpComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

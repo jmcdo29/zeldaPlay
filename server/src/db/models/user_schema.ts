@@ -1,24 +1,22 @@
 // TODO: Add JSDoc documentation for file.
-import { Model, RelationMappings } from 'objection' ;
+import { Model, RelationMappings } from 'objection';
 import { makeId } from '../../utils/utils';
 
-
 import { Character } from './character_schema';
-import { Recovery as Answer } from './recovery_schema';
-import { Spell } from './spell_schema';
-import { Skill } from './skill_schema';
-import { Save } from './save_schema';
 import { Element } from './element_schema';
 import { Note } from './note_schema';
+import { Recovery as Answer } from './recovery_schema';
+import { Save } from './save_schema';
+import { Skill } from './skill_schema';
+import { Spell } from './spell_schema';
 import { Weapon } from './weapon_schema';
 
 const LMB = '.last_modified_by';
 
 export class User extends Model {
-
   static tableName = 'public.user';
 
-  static relationMappings: RelationMappings =  {
+  static relationMappings: RelationMappings = {
     characters: {
       relation: Model.HasManyRelation,
       modelClass: Character,
@@ -126,5 +124,4 @@ export class User extends Model {
       this.id = opt.old.id;
     }
   }
-
 }

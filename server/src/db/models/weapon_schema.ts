@@ -1,10 +1,9 @@
-// TODO: Add JSDoc documentation for file.
-import { Model, QueryBuilder, RelationMappings } from 'objection' ;
-import { makeId, checkNull } from '../../utils/utils';
+import { Model, QueryBuilder, RelationMappings } from 'objection';
+import { IWeapon } from '../../interfaces/weaponInterface';
+import { checkNull, makeId } from '../../utils/utils';
 import { Element } from './element_schema';
 
 export class Weapon extends Model {
-
   static tableName = 'weapon';
 
   static relationMappings: RelationMappings = {
@@ -40,16 +39,16 @@ export class Weapon extends Model {
     }
   }
 
-  constructor(id?, chId?, values?) {
+  constructor(id?, chId?, values?: IWeapon) {
     super();
     if (id && chId && values) {
-      this.id = <string>checkNull(values.id);
+      this.id = checkNull(values.id) as string;
       this.name = values.name;
       this.damage = values.attack;
       this.number_of_hits = values.numberOfAttacks;
       this.crit_range = parseArray(values.critRange);
-      this.ammo = <number>checkNull(values.ammo);
-      this.range = <number>checkNull(values.range);
+      this.ammo = checkNull(values.ammo) as number;
+      this.range = checkNull(values.range) as number;
       this.modifier = values.modifier;
       this.character_id = chId;
       this.last_modified_by = id;

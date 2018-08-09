@@ -1,6 +1,6 @@
 import { Model, QueryBuilder } from 'objection';
-import { makeId, checkNull } from '../../utils/utils';
-import { NoteInterface } from '../../interfaces/noteInterface';
+import { INote } from '../../interfaces/noteInterface';
+import { checkNull, makeId,  } from '../../utils/utils';
 
 /**
  * @extends {Model}
@@ -32,10 +32,10 @@ export class Note extends Model {
     }
   }
 
-  constructor(id: string, chId: string, values: NoteInterface) {
+  constructor(id: string, chId: string, values: INote) {
     super();
     if (id && chId && values) {
-      this.id = <string>checkNull(values.id);
+      this.id = checkNull(values.id) as string;
       this.last_modified_by = id;
       this.character_id = chId;
       this.message = values.msg;
