@@ -7,17 +7,20 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && .\\node_modules\\.bin\\prettier --config .\\.prettierrc.json --write \"**/*.ts\" && git add ."
+      "pre-commit": "npm run lint &&  npm run prettier && git add ."
     }
   },
   "scripts": {
     "ng": "ng",
-    "devStart": "tsc -p ./server && npm start",
+    "devStart": "npm run build-server && npm start",
     "start": "node server/out/bin/www.js",
-    "build": "ng build --prod && tsc -p ./server",
+    "build": "npm run build-client && npm run build-server",
+    "build-client": "ng build --prod",
+    "build-server": "npm run prettier && tsc -p ./server",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "prettier": ".\\node_modules\\.bin\\prettier --config .\\.prettierrc.json --write \"**/*.ts\"",
     "heroku-postbuild": "npm run build"
   },
   "private": true,
