@@ -1,4 +1,3 @@
-// TODO: Add JSDoc documentation for file.
 /**
  * A module to hold the character schema and Objection model for querying
  * @module db/models/Character
@@ -126,6 +125,13 @@ export class Character extends Model {
   level: number;
   last_modified: string;
 
+  /**
+   * Either updates or insert a model, depending on if the id already exists
+   * @static
+   * @param {Character} model
+   * @returns {QueryBuilder<Character, Character, Character>} A QueryBuilder ready to be executed
+   * @memberof Character
+   */
   static upsert(
     model: Character
   ): QueryBuilder<Character, Character, Character> {
@@ -136,6 +142,12 @@ export class Character extends Model {
     }
   }
 
+  /**
+   * Creates an instance of Character.
+   * @param {string} [id] - the id of the user who made the character
+   * @param {ICharacter} [values] - the values of the character, passed from the client side
+   * @memberof Character
+   */
   constructor(id?: string, values?: ICharacter) {
     super();
     if (id && values) {
@@ -168,18 +180,34 @@ export class Character extends Model {
     }
   }
 
+  /**
+   * Create the Id before insert
+   * @memberof Character
+   */
   $beforeInsert() {
     this.id = '00C' + makeId(9);
   }
 
-  $beforeUpdate(opt, queryContext) {
+  /**
+   * Check that the ide has not been changed and set the time of the latest update
+   *
+   * @param {*} opt
+   * @param {*} queryContext
+   * @memberof Character
+   */
+  $beforeUpdate(opt: any, queryContext: any) {
     this.last_modified = new Date(Date.now()).toISOString();
     if (opt.old && opt.old.id !== this.id) {
       this.id = opt.old.id;
     }
   }
 
-  tableName() {
+  /**
+   * Gets the SQL tablename
+   * @returns {string} character
+   * @memberof Character
+   */
+  tableName(): string {
     return 'character';
   }
 }

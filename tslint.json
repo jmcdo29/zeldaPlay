@@ -2,6 +2,10 @@
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
+  "extends": [
+    "tslint:latest",
+    "tslint-config-prettier"
+  ],
   "rules": {
     "arrow-return-shorthand": true,
     "callable-types": true,
@@ -136,9 +140,5 @@
     "directive-class-suffix": true,
     "no-implicit-dependencies": [true, "dev"],
     "no-submodule-imports": [true, "rxjs", "@angular/common/http", "@angular/core/testing", "@angular/platform-browser-dynamic/testing", "zone.js/dist/zone-testing", "zone.js/dist/zone"]
-  },
-  "extends": [
-    "tslint:latest",
-    "tslint-config-prettier"
-  ]
+  }
 }

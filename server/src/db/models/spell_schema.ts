@@ -34,6 +34,13 @@ export class Spell extends Model {
   last_modified_by: string;
   character_id: string;
 
+  /**
+   * Inserts or updates the Spell, depending on if an id exists or not
+   * @static
+   * @param {Spell} model
+   * @returns {QueryBuilder<Spell, Spell, Spell>} QueryBuilder to execute
+   * @memberof Spell
+   */
   static upsert(model: Spell): QueryBuilder<Spell, Spell, Spell> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
@@ -42,6 +49,13 @@ export class Spell extends Model {
     }
   }
 
+  /**
+   * Creates an instance of Spell.
+   * @param {string} [id] - Id of the user who made or modified the spell
+   * @param {string} [chId] - Id of the character the spell belongs to
+   * @param {ISpell} [values] - The Spell's values from the client
+   * @memberof Spell
+   */
   constructor(id?: string, chId?: string, values?: ISpell) {
     super();
     if (id && chId && values) {
@@ -59,11 +73,21 @@ export class Spell extends Model {
     }
   }
 
+  /**
+   * creates the spell id
+   * @memberof Spell
+   */
   $beforeInsert() {
     this.id = '0Sp' + makeId(9);
   }
 
-  $beforeUpdate(opt, queryContext) {
+  /**
+   * Checks the spell's old id against the new to ensure it is the same. Sets the lat modified by timestamp
+   * @param {*} opt
+   * @param {*} queryContext
+   * @memberof Spell
+   */
+  $beforeUpdate(opt: any, queryContext: any) {
     this.last_modified = new Date(Date.now()).toISOString();
     if (opt.old && opt.old.id !== this.id) {
       this.id = opt.old.id;

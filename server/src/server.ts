@@ -22,7 +22,6 @@ import { mySession } from './utils/sessionConf';
 const knexConnection = Knex(connectionConfig);
 
 Model.knex(knexConnection);
-const PORT = process.env.PORT;
 
 const app = express();
 
@@ -48,7 +47,4 @@ app.get('/', (req, res, next) => {
   res.sendFile('./index.html');
 });
 
-app.listen(PORT, () => {
-  // tslint:disable-next-line:no-console
-  console.log('Server started on port', PORT);
-});
+export { app };

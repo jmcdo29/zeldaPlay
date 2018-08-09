@@ -1,4 +1,3 @@
-// TODO: Add JSDoc documentation for file.
 import { Model, QueryBuilder } from 'objection';
 import { ISave } from '../../interfaces/saveInterface';
 import { checkNull, makeId } from '../../utils/utils';
@@ -24,6 +23,13 @@ export class Save extends Model {
   modifier: string;
   last_modified_by: string;
 
+  /**
+   * updates or inserts the Save, depending on the id
+   * @static
+   * @param {Save} model
+   * @returns {QueryBuilder<Save, Save, Save>} QueryBuilder to execute
+   * @memberof Save
+   */
   static upsert(model: Save): QueryBuilder<Save, Save, Save> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
@@ -32,7 +38,14 @@ export class Save extends Model {
     }
   }
 
-  constructor(id: string, chId: string, values: ISave) {
+  /**
+   * Creates an instance of Save.
+   * @param {string} [id] - User who created save
+   * @param {string} [chId] - character the save belongs to
+   * @param {ISave} [values] - Values of the save from the client
+   * @memberof Save
+   */
+  constructor(id?: string, chId?: string, values?: ISave) {
     super();
     if (id && chId && values) {
       this.id = checkNull(values.id) as string;
@@ -44,11 +57,21 @@ export class Save extends Model {
     }
   }
 
+  /**
+   * Creates the save id
+   * @memberof Save
+   */
   $beforeInsert() {
     this.id = '0St' + makeId(9);
   }
 
-  $beforeUpdate(opt, queryContext) {
+  /**
+   * Ensures save id hasn't been changed ad sets last_modified time
+   * @param {*} opt
+   * @param {*} queryContext
+   * @memberof Save
+   */
+  $beforeUpdate(opt: any, queryContext: any) {
     this.last_modified = new Date(Date.now()).toISOString();
     if (opt.old && opt.old.id !== this.id) {
       this.id = opt.old.id;

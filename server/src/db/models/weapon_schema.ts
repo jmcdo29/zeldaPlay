@@ -3,6 +3,24 @@ import { IWeapon } from '../../interfaces/weaponInterface';
 import { checkNull, makeId } from '../../utils/utils';
 import { Element } from './element_schema';
 
+/**
+ * @extends {Model}
+ * @prop {string} tableName weapon
+ * @prop {RelationMappings} relationMappings
+ * @prop {string} id
+ * @prop {string} last_modified - timestamp of last modification
+ * @prop {string} name - weapon's name
+ * @prop {string} character_id - id of the character owning the weapon
+ * @prop {number} damage - the dX to roll
+ * @prop {number} number_of_hits - how many times to roll that dice
+ * @prop {string} crit_range - range for critical hit
+ * @prop {number} crit_multiplier - multiplication of critical damage
+ * @prop {string} type - weapon's type (short sword, bow, boomerang, etc.)
+ * @prop {string} modifier - the modifier to use with the weapon (Strength, Dexterity, Wisdom)
+ * @prop {number} range - how far a ranged weapon can fire
+ * @prop {number} ammo - how much ammo a ranged weapon has
+ * @prop {string} last_modified_by - the id of the last user to modify the weapon
+ */
 export class Weapon extends Model {
   static tableName = 'weapon';
 
@@ -31,6 +49,13 @@ export class Weapon extends Model {
   ammo: number;
   last_modified_by: string;
 
+  /**
+   * method to update or insert weapon depending on id
+   * @static
+   * @param {Weapon} model
+   * @returns {QueryBuilder<Weapon, Weapon, Weapon>} QueryBuilder to execute on
+   * @memberof Weapon
+   */
   static upsert(model: Weapon): QueryBuilder<Weapon, Weapon, Weapon> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
@@ -39,7 +64,14 @@ export class Weapon extends Model {
     }
   }
 
-  constructor(id?, chId?, values?: IWeapon) {
+  /**
+   * Creates an instance of Weapon.
+   * @param {string} [id] - user who created/updated the weapon
+   * @param {string} [chId] - id of the character the weapon belongs to
+   * @param {IWeapon} [values] - weapon's values
+   * @memberof Weapon
+   */
+  constructor(id?: string, chId?: string, values?: IWeapon) {
     super();
     if (id && chId && values) {
       this.id = checkNull(values.id) as string;
@@ -58,10 +90,20 @@ export class Weapon extends Model {
     }
   }
 
+  /**
+   * creates weapon id
+   * @memberof Weapon
+   */
   $beforeInsert() {
     this.id = '00W' + makeId(9);
   }
 
+  /**
+   * checks that the id has not changed and sets modification timestamp
+   * @param {*} opt
+   * @param {*} queryContext
+   * @memberof Weapon
+   */
   $beforeUpdate(opt, queryContext) {
     this.last_modified = new Date(Date.now()).toISOString();
     if (opt.old && opt.old.id !== this.id) {
@@ -70,6 +112,11 @@ export class Weapon extends Model {
   }
 }
 
+/**
+ * function to take an array of strings (as numbers) and return a single string for the range (['18','19','20'] => '18 - 20')
+ * @param {string[]} array - string array to parse through
+ * @returns {string} - string built as a range (i.e. 18 - 20)
+ */
 function parseArray(array: string[]): string {
   if (array.length === 1) {
     return array[0];

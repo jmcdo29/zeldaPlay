@@ -12,8 +12,8 @@
   },
   "scripts": {
     "ng": "ng",
-    "devStart": "tsc -p ./server && node server/out/server.js",
-    "start": "node server/out/server.js",
+    "devStart": "tsc -p ./server && npm start",
+    "start": "node server/out/bin/www.js",
     "build": "ng build --prod && tsc -p ./server",
     "test": "ng test",
     "lint": "ng lint",
