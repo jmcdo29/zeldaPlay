@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@abraham/reflection": "^0.4.2",
+    "@types/winston": "^2.3.9",
     "angular-in-memory-web-api": "^0.6.1",
     "bcryptjs": "^2.4.3",
     "connect-session-knex": "^1.4.0",
@@ -40,6 +41,7 @@
     "objection": "^1.2.2",
     "pg": "^7.4.3",
     "rxjs": "^6.2.2",
+    "winston": "^3.0.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
