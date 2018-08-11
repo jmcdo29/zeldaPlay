@@ -11,6 +11,7 @@ import * as path from 'path';
 import { CharacterRouter } from './controllers/character.controller';
 import { UserRouter } from './controllers/user.controller';
 import { connectionConfig } from './db/knexfile';
+import { catchAll } from './utils/catchErrors';
 import {
   badLogIn,
   databaseProblem,
@@ -18,6 +19,7 @@ import {
   logErrors
 } from './utils/errorHandlers';
 import { logger } from './utils/logger';
+import { sendApp } from './utils/sendApp';
 import { mySession } from './utils/sessionConf';
 
 class MyStream {
@@ -40,6 +42,7 @@ const app = express();
 
 app.use(helmet());
 app.use(cors());
+// winston logger set up to log non errors with field level 'info'
 app.use(
   morgan(morganFormat, {
     skip: (req: express.Request, res: express.Response) => {
@@ -52,6 +55,7 @@ app.use(
     }
   })
 );
+// winston logger set up to log errors with field level 'error'
 app.use(
   morgan(morganFormat, {
     skip: (req: express.Request, res: express.Response) => {
@@ -79,8 +83,8 @@ app.use(badLogIn);
 app.use(databaseProblem);
 app.use(generalError);
 
-app.get('/', (req, res, next) => {
-  res.sendFile('./index.html');
-});
+app.get('/', sendApp);
+
+app.get('*', catchAll);
 
 export { app };

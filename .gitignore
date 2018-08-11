@@ -53,3 +53,4 @@ mock-characters.ts
 seeds 
 /out 
 /server/out
+*/coverage
