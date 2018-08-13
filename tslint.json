@@ -139,6 +139,6 @@
     "component-class-suffix": true,
     "directive-class-suffix": true,
     "no-implicit-dependencies": [true, "dev"],
-    "no-submodule-imports": [true, "rxjs", "@angular/common/http", "@angular/core/testing", "@angular/platform-browser-dynamic/testing", "zone.js/dist/zone-testing", "zone.js/dist/zone"]
+    "no-submodule-imports": [true, "rxjs", "@angular/common/http", "@angular/core/testing", "@angular/platform-browser-dynamic/testing", "@angular/router/testing", "zone.js/dist/zone-testing", "zone.js/dist/zone"]
   }
 }

@@ -7,7 +7,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint &&  npm run prettier && git add ."
+      "pre-add": "npm run prettier",
+      "pre-commit": "npm run lint"
     }
   },
   "scripts": {
@@ -78,6 +79,7 @@
     "husky": "^1.0.0-rc.13",
     "jest": "^23.5.0",
     "jest-preset-angular": "^6.0.0",
+    "jest-zone-patch": "0.0.8",
     "prettier": "^1.14.2",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
