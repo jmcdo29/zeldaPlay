@@ -26,7 +26,6 @@ export function logErrors(
   res: Response,
   next: NextFunction
 ) {
-  logger.debug('in logErrors()');
   logger.error(err.stack);
   DBError.query()
     .insert({
@@ -51,9 +50,7 @@ export function badLogIn(
   res: Response,
   next: NextFunction
 ): Express.Response {
-  logger.debug('in badLogIn()');
   if (err instanceof LoginError) {
-    // tslint:disable-next-line:no-logger
     logger.info(err.reasonCode);
     return res.status(403).send({ message: err.message });
   } else {
@@ -75,9 +72,7 @@ export function databaseProblem(
   res: Response,
   next: NextFunction
 ): Express.Response {
-  logger.debug('in databaseProblem()');
   if (err instanceof DatabaseError) {
-    // tslint:disable-next-line:no-logger
     logger.info(err.reasonCode);
     return res.status(400).send({ message: err.message });
   } else {
@@ -97,6 +92,5 @@ export function generalError(
   req: Request,
   res: Response
 ): Express.Response {
-  logger.debug('in generalError()');
   return res.status(500).send({ message: err.message });
 }

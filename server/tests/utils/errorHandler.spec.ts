@@ -1,60 +1,118 @@
+import { Request, Response } from 'express';
+import * as rp from 'request-promise';
 import * as supertest from 'supertest';
 import { app } from '../../src/server';
+import {
+  badLogIn,
+  databaseProblem,
+  generalError,
+  logErrors
+} from '../../src/utils/errorHandlers';
 import { DatabaseError } from '../../src/utils/errors/DatabaseError';
 import { LoginError } from '../../src/utils/errors/LoginError';
 
-test('log errors should log the error and head to the next function', () => {
-  return supertest
-    .agent(app)
-    .get('/badUrl')
-    .expect(500);
-});
+describe('middleware error handlers', () => {
+  let req: any;
+  let res: any;
 
-/* test('bad log in should be a loginError and should return a 403', () => {
-  const logInErrorTestStatus = jest.fn();
-  const logInErrorTestNext = jest.fn();
-  const sendTest = jest.fn();
-  const err = new LoginError('this is a general error', 'NO_USER');
-  const res = {
-    status: logInErrorTestStatus,
-    send: sendTest
-  };
-  const next = {
-    next: logInErrorTestNext
-  };
-  // badLogIn(err, {} as any, res as any, next as any);
-  /* expect(logInErrorTestStatus.mock.calls).toBe(403);
-  expect(logInErrorTestNext.mock.calls).toHaveLength(0);
-  expect(sendTest.mock.calls).toBeTruthy();
-});
+  const next = jest.fn();
 
-test('databaseProblem should be a query error and return a 400', () => {
-  const databaseProblemTestNext = jest.fn();
-  const databaseProblemTestStatus = jest.fn();
-  const sendTest = jest.fn();
-  const err = new DatabaseError('this is a general error', 'DB_PROB');
-  const res = {
-    status: databaseProblemTestStatus,
-    send: sendTest
-  };
-  const next = {
-    next: databaseProblemTestNext
-  };
-  // databaseProblem(err, {} as any, res as any, next as any);
-  expect(databaseProblemTestNext.mock.calls).toHaveLength(0);
-  expect(databaseProblemTestStatus.mock.calls).toBe(400);
-  expect(sendTest.mock.calls).toBeTruthy();
-});
+  beforeEach(() => {
+    req = {
+      param: '',
+      body: ''
+    };
+    res = {
+      data: null,
+      code: null,
+      status(status) {
+        this.code = status;
+        return this;
+      },
+      send(payload) {
+        this.data = payload;
+      }
+    };
 
-test('generalError should catch all others and return a 500', () => {
-  const generalErrorTest = jest.fn();
-  const sendTest = jest.fn();
-  const err = new Error('this is a general error');
-  const res = {
-    status: generalErrorTest,
-    send: sendTest
-  };
-  // generalError(err, {} as any, res as any);
-  expect(generalErrorTest.mock.calls).toBe(500);
-  expect(sendTest.mock.calls).toBeTruthy(); */
-/* }); */
+    next.mockClear();
+  });
+
+  test('should log error', () => {
+    logErrors(
+      new Error('this is an error'),
+      req as Request,
+      res as Response,
+      next
+    );
+
+    expect(res.code).toBeDefined();
+    expect(res.code).toBe(null);
+  });
+
+  test('should log a full error that has a reasonCode', () => {
+    logErrors(
+      new LoginError('this is an error', 'NO_USER'),
+      req as Request,
+      res as Response,
+      next
+    );
+
+    expect(res.code).toBeDefined();
+    expect(res.code).toBe(null);
+  });
+
+  test('should be a logInError', () => {
+    badLogIn(
+      new LoginError('User not found', 'NO_USER'),
+      req as Request,
+      res as Response,
+      next
+    );
+
+    expect(res.code).toBeDefined();
+    expect(res.code).toBe(403);
+  });
+
+  test("should't be a logInError", () => {
+    badLogIn(
+      new DatabaseError('QueryProblem', 'DB_ERROR'),
+      req as Request,
+      res as Response,
+      next
+    );
+
+    expect(res.code).toBeDefined();
+    expect(next.mock.calls[0][0]).toBeTruthy();
+  });
+
+  test('should be a databaseError', () => {
+    databaseProblem(
+      new DatabaseError('Query Probem', 'DB_ERROR'),
+      req as Request,
+      res as Response,
+      next
+    );
+
+    expect(res.code).toBeDefined();
+    expect(res.code).toBe(400);
+  });
+
+  test("shouldn't be a databaseError", () => {
+    databaseProblem(
+      new LoginError('User not found', 'NO_USER'),
+      req as Request,
+      res as Response,
+      next
+    );
+
+    expect(res.code).toBeDefined();
+    expect(next.mock.calls[0][0]).toBeTruthy();
+  });
+
+  test('should be a general Error', () => {
+    generalError(new Error('Normal error'), req as Request, res as Response);
+
+    expect(res.code).toBeDefined();
+    expect(res.code).toBe(500);
+  });
+});
