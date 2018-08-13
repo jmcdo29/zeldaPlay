@@ -48,7 +48,7 @@ test('should check for a null value and pass back number', () => {
   expect(retNum).toBe(15);
 });
 
-test("should return '' for something that is not a number or string", () => {
+test('should return "" for something that is not a number or string', () => {
   const testObj = {
     value: null
   };
@@ -56,7 +56,7 @@ test("should return '' for something that is not a number or string", () => {
   expect(retVal).toBe('');
 });
 
-test("should check for an undefined value and pass back ''", () => {
+test('should check for an undefined value and pass back ""', () => {
   const objectWithBlank = {
     name: ''
   };

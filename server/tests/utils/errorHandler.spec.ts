@@ -73,7 +73,7 @@ describe('middleware error handlers', () => {
     expect(res.code).toBe(403);
   });
 
-  test("should't be a logInError", () => {
+  test('should not be a logInError', () => {
     badLogIn(
       new DatabaseError('QueryProblem', 'DB_ERROR'),
       req as Request,
@@ -97,7 +97,7 @@ describe('middleware error handlers', () => {
     expect(res.code).toBe(400);
   });
 
-  test("shouldn't be a databaseError", () => {
+  test('should not be a databaseError', () => {
     databaseProblem(
       new LoginError('User not found', 'NO_USER'),
       req as Request,
