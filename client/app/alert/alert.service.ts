@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AlertService {
   private subject = new Subject<any>();
   private keepAfterNavigationChange = false;

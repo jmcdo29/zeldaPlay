@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
+import { SharedModule } from '../../shared/shared.module';
 import { CharacterWeaponComponent } from './character-weapon.component';
 
 describe('CharacterWeaponComponent', () => {
@@ -8,6 +10,7 @@ describe('CharacterWeaponComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [FormsModule, SharedModule],
       declarations: [CharacterWeaponComponent]
     }).compileComponents();
   }));

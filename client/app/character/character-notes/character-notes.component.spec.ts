@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { CharacterNotesComponent } from './character-notes.component';
 
@@ -8,6 +9,7 @@ describe('CharacterNotesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [FormsModule],
       declarations: [CharacterNotesComponent]
     }).compileComponents();
   }));

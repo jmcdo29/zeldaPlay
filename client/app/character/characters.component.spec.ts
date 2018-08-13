@@ -1,5 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
+import { MessagesComponent } from '../shared/messages/messages.component';
+import { CharacterCreateComponent } from './character-create/character-create.component';
+import { CharacterDetailComponent } from './character-detail/character-detail.component';
 import { CharactersComponent } from './characters.component';
 
 describe('CharactersComponent', () => {
@@ -8,7 +13,8 @@ describe('CharactersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CharactersComponent]
+      imports: [RouterTestingModule, FormsModule],
+      declarations: [CharactersComponent, MessagesComponent, CharacterDetailComponent, CharacterCreateComponent]
     }).compileComponents();
   }));
 
