@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from 'express';
 import { DBError } from '../db/models/error_schema';
 import { DatabaseError } from './errors/DatabaseError';
 import { LoginError } from './errors/LoginError';
-import { logger } from './logger';
 
 /**
  * @typedef {Error} MyError
@@ -26,7 +25,7 @@ export function logErrors(
   res: Response,
   next: NextFunction
 ) {
-  logger.error(err.stack);
+  console.error(err.stack);
   DBError.query()
     .insert({
       message: err.message,
@@ -51,7 +50,7 @@ export function badLogIn(
   next: NextFunction
 ): Express.Response {
   if (err instanceof LoginError) {
-    logger.info(err.reasonCode);
+    console.log(err.reasonCode);
     return res.status(403).send({ message: err.message });
   } else {
     next(err);
@@ -73,7 +72,7 @@ export function databaseProblem(
   next: NextFunction
 ): Express.Response {
   if (err instanceof DatabaseError) {
-    logger.info(err.reasonCode);
+    console.log(err.reasonCode);
     return res.status(400).send({ message: err.message });
   } else {
     next(err);

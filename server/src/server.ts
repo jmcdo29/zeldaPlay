@@ -18,7 +18,6 @@ import {
   generalError,
   logErrors
 } from './utils/errorHandlers';
-import { logger } from './utils/logger';
 import { sendApp } from './utils/sendApp';
 import { mySession } from './utils/sessionConf';
 
@@ -40,7 +39,7 @@ app.use(
     },
     stream: {
       write: (meta: any) => {
-        logger.info(meta);
+        console.log(meta);
       }
     }
   })
@@ -53,7 +52,7 @@ app.use(
     },
     stream: {
       write: (meta: any) => {
-        logger.error(meta);
+        console.error(meta);
       }
     }
   })
