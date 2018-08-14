@@ -90,7 +90,6 @@ export function updateOne(id: string, body: ICharacter): Promise<Character> {
         promises.push(new Skill(id, chId, wSkill, 'weapon').upsert());
       });
       body.magicSkills.forEach((mSkill) => {
-
         promises.push(new Skill(id, chId, mSkill, 'magic').upsert());
       });
       body.weapons.forEach((weapon) => {

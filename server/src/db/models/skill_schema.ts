@@ -1,4 +1,4 @@
-import {  CustomModel} from './customModel';
+import { CustomModel } from './customModel';
 
 import { ISkill } from '../../interfaces/skillInterface';
 import { checkNull, makeId } from '../../utils/utils';
