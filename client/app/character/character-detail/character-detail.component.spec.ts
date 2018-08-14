@@ -5,38 +5,38 @@ import { FormsModule } from '@angular/forms';
 import { Character } from '../characterModels/character';
 import { CharacterDetailComponent } from './character-detail.component';
 
-@Component({selector: 'app-character-skills', template: ''})
+@Component({ selector: 'app-character-skills', template: '' })
 class CharacterSkillsStubComponent {
   @Input()
   character;
 }
 
 // tslint:disable:max-classes-per-file
-@Component({selector: 'app-character-weapon', template: ''})
+@Component({ selector: 'app-character-weapon', template: '' })
 class CharacterWeaponsStubComponent {
   @Input()
   character;
 }
 
-@Component({selector: 'app-character-spell', template: ''})
+@Component({ selector: 'app-character-spell', template: '' })
 class CharacterSpellsStubComponent {
   @Input()
   character;
 }
 
-@Component({selector: 'app-character-inventory', template: ''})
+@Component({ selector: 'app-character-inventory', template: '' })
 class CharacterInventoryStubComponent {
   @Input()
   character;
 }
 
-@Component({selector: 'app-character-notes', template: ''})
+@Component({ selector: 'app-character-notes', template: '' })
 class CharacterNotesStubComponent {
   @Input()
   character;
 }
 
-@Component({selector: 'app-character-saves', template: ''})
+@Component({ selector: 'app-character-saves', template: '' })
 class CharacterSavesStubComponent {
   @Input()
   character;
@@ -44,7 +44,7 @@ class CharacterSavesStubComponent {
   characterDetailComponent;
 }
 
-@Component({selector: 'app-die', template: ''})
+@Component({ selector: 'app-die', template: '' })
 class DieStubComponent {
   @Input()
   sides;
@@ -54,7 +54,7 @@ class DieStubComponent {
   mod;
 }
 
-@Component({selector: 'app-character-level-up', template: ''})
+@Component({ selector: 'app-character-level-up', template: '' })
 class CharacterLevelUpStubComponent {
   @Input()
   currChar;

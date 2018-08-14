@@ -5,7 +5,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CharacterService } from './character.service';
 
 describe('CharacterService', () => {
-
   let characterService: CharacterService;
 
   beforeEach(() => {
