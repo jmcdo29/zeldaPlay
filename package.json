@@ -7,8 +7,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-add": "npm run prettier",
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run lint && npm run prettier && git add"
     }
   },
   "scripts": {
