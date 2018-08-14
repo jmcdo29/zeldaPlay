@@ -1,5 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { inject, TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { CharacterService } from './character.service';
 
@@ -9,7 +10,7 @@ describe('CharacterService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterModule],
+      imports: [RouterTestingModule, HttpClientModule],
       providers: [CharacterService]
     });
     characterService = TestBed.get(CharacterService);

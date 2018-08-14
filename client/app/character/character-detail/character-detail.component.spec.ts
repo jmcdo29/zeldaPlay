@@ -1,14 +1,64 @@
+import { Component, Input } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { CharacterInventoryComponent } from '../character-inventory/character-inventory.component';
-import { CharacterNotesComponent } from '../character-notes/character-notes.component';
-import { CharacterSavesComponent } from '../character-saves/character-saves.component';
-import { CharacterSkillsComponent } from '../character-skills/character-skills.component';
-import { CharacterSpellComponent } from '../character-spell/character-spell.component';
-import { CharacterWeaponComponent } from '../character-weapon/character-weapon.component';
-import { DieComponent } from '../die/die.component';
+import { Character } from '../characterModels/character';
 import { CharacterDetailComponent } from './character-detail.component';
+
+@Component({selector: 'app-character-skills', template: ''})
+class CharacterSkillsStubComponent {
+  @Input()
+  character;
+}
+
+// tslint:disable:max-classes-per-file
+@Component({selector: 'app-character-weapon', template: ''})
+class CharacterWeaponsStubComponent {
+  @Input()
+  character;
+}
+
+@Component({selector: 'app-character-spell', template: ''})
+class CharacterSpellsStubComponent {
+  @Input()
+  character;
+}
+
+@Component({selector: 'app-character-inventory', template: ''})
+class CharacterInventoryStubComponent {
+  @Input()
+  character;
+}
+
+@Component({selector: 'app-character-notes', template: ''})
+class CharacterNotesStubComponent {
+  @Input()
+  character;
+}
+
+@Component({selector: 'app-character-saves', template: ''})
+class CharacterSavesStubComponent {
+  @Input()
+  character;
+  @Input()
+  characterDetailComponent;
+}
+
+@Component({selector: 'app-die', template: ''})
+class DieStubComponent {
+  @Input()
+  sides;
+  @Input()
+  character;
+  @Input()
+  mod;
+}
+
+@Component({selector: 'app-character-level-up', template: ''})
+class CharacterLevelUpStubComponent {
+  @Input()
+  currChar;
+}
 
 describe('CharacterDetailComponent', () => {
   let component: CharacterDetailComponent;
@@ -19,13 +69,14 @@ describe('CharacterDetailComponent', () => {
       imports: [FormsModule],
       declarations: [
         CharacterDetailComponent,
-        DieComponent,
-        CharacterNotesComponent,
-        CharacterSavesComponent,
-        CharacterSkillsComponent,
-        CharacterSpellComponent,
-        CharacterWeaponComponent,
-        CharacterInventoryComponent
+        CharacterInventoryStubComponent,
+        CharacterNotesStubComponent,
+        CharacterSkillsStubComponent,
+        CharacterSpellsStubComponent,
+        CharacterWeaponsStubComponent,
+        DieStubComponent,
+        CharacterSavesStubComponent,
+        CharacterLevelUpStubComponent
       ]
     }).compileComponents();
   }));
@@ -33,6 +84,7 @@ describe('CharacterDetailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CharacterDetailComponent);
     component = fixture.componentInstance;
+    component.character = new Character();
     fixture.detectChanges();
   });
 

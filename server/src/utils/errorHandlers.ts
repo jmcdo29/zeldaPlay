@@ -45,7 +45,7 @@ export function logErrors(
  * @returns {Express.Response} If type of LoginError send a 403 to the client to indicate a login error
  */
 export function badLogIn(
-  err: IMyError,
+  err: any,
   req: Request,
   res: Response,
   next: NextFunction

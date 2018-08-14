@@ -1,10 +1,12 @@
 module.exports = {
-  rootDir: '..',
-  roots: ['<rootDir>/client'],
+  roots: [
+    '<rootDir>/client',
+    '<rootDir>/server'  
+  ],
   preset: 'jest-preset-angular',
   globals: {
     "ts-jest": {
-      "tsConfigFile": "<rootDir>/client/tsconfig.spec.json"
+      "tsConfigFile": "tsconfig.json"
     },
     "__TRANSFORM_HTML__": true
   },
@@ -24,7 +26,8 @@ module.exports = {
     "^client/(.*)": "<rootDir>/client/$1",
     "^app/(.*)": "<rootDir>/client/app/$1",
     "^assets/(.*)": "<rootDir>/client/assets/$1",
-    "^environments/(.*)": "<rootDir>/client/environments/$1"
+    "^environments/(.*)": "<rootDir>/client/environments/$1",
+    "^server/(.*)": "<rootDir>/server/$1"
   },
   transformIgnorePatterns: [
     "node_modules/(?!@ngrx)"
@@ -34,5 +37,6 @@ module.exports = {
     "<rootDir>/node_modules/jest-preset-angular/HTMLCommentSerializer.js"
   ],
   setupTestFrameworkScriptFile: './client/setupJest.ts',
-  collectCoverage: true
+  collectCoverage: true,
+  coverageReporters: ['json', 'lcov', 'text', 'clover']
 };

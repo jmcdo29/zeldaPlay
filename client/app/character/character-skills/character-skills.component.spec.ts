@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from '../../shared/shared.module';
+import { Character } from '../characterModels/character';
 import { CharacterSkillsComponent } from './character-skills.component';
 
 describe('CharacterSkillsComponent', () => {
@@ -18,6 +19,7 @@ describe('CharacterSkillsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CharacterSkillsComponent);
     component = fixture.componentInstance;
+    component.character = new Character();
     fixture.detectChanges();
   });
 
