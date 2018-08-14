@@ -25,10 +25,11 @@ export function logErrors(
   res: Response,
   next: NextFunction
 ) {
+  console.log(err.message);
   console.error(err.stack);
   DBError.query()
     .insert({
-      message: err.message,
+      message: err.message.substring(0, err.message.length < 255 ? err.message.length : 255),
       stack: err.stack.split('\n')[0],
       code: err.reasonCode ? err.reasonCode : 'GENERAL'
     })

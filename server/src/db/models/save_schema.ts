@@ -1,9 +1,10 @@
-import { Model, QueryBuilder } from 'objection';
+import { CustomModel } from './customModel';
+
 import { ISave } from '../../interfaces/saveInterface';
 import { checkNull, makeId } from '../../utils/utils';
 
 /**
- * @extends {Model}
+ * @extends {CustomModel}
  * @prop {string} id
  * @prop {string} last_modified - string containing the last modified datetime
  * @prop {string} character_id - the character id of the character the save belongs to
@@ -12,7 +13,7 @@ import { checkNull, makeId } from '../../utils/utils';
  * @prop {string} modifier - the name of the modifier to use - will be Dexterity, Constitution, or Wisdom
  * @prop {string} last_modified_by - the id of the user who last modified the Save
  */
-export class Save extends Model {
+export class Save extends CustomModel {
   static tableName = 'saving_throw';
 
   id: string;
@@ -24,21 +25,6 @@ export class Save extends Model {
   last_modified_by: string;
 
   /**
-   * updates or inserts the Save, depending on the id
-   * @static
-   * @param {Save} model
-   * @returns {QueryBuilder<Save, Save, Save>} QueryBuilder to execute
-   * @memberof Save
-   */
-  static upsert(model: Save): QueryBuilder<Save, Save, Save> {
-    if (model.id && model.id !== null) {
-      return model.$query().patchAndFetch(model);
-    } else {
-      return model.$query().insert(model);
-    }
-  }
-
-  /**
    * Creates an instance of Save.
    * @param {string} [id] - User who created save
    * @param {string} [chId] - character the save belongs to
@@ -48,7 +34,7 @@ export class Save extends Model {
   constructor(id?: string, chId?: string, values?: ISave) {
     super();
     if (id && chId && values) {
-      this.id = checkNull(values.id) as string;
+      this.id = checkNull(values.id, 'string') as string;
       this.character_id = chId;
       this.last_modified_by = id;
       this.name = values.name;

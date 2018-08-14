@@ -1,9 +1,10 @@
-import { Model, QueryBuilder } from 'objection';
+import { CustomModel } from './customModel';
+
 import { ISpell } from '../../interfaces/spellInterface';
 import { checkNull, makeId } from '../../utils/utils';
 
 /**
- * @extends Model
+ * @extends CustomModel
  * @prop {string} tableName - spell
  * @prop {string} id
  * @prop {string} last_modified - time string of the last modification
@@ -18,7 +19,7 @@ import { checkNull, makeId } from '../../utils/utils';
  * @prop {string} last_modified_by - the id of the user who last modified the spell
  * @prop {string} character_id - id of the character the spell belongs to
  */
-export class Spell extends Model {
+export class Spell extends CustomModel {
   static tableName = 'spell';
 
   id: string;
@@ -41,13 +42,13 @@ export class Spell extends Model {
    * @returns {QueryBuilder<Spell, Spell, Spell>} QueryBuilder to execute
    * @memberof Spell
    */
-  static upsert(model: Spell): QueryBuilder<Spell, Spell, Spell> {
+  /* static upsert(model: Spell): QueryBuilder<Spell, Spell, Spell> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
     } else {
       return model.$query().insert(model);
     }
-  }
+  } */
 
   /**
    * Creates an instance of Spell.
@@ -59,11 +60,11 @@ export class Spell extends Model {
   constructor(id?: string, chId?: string, values?: ISpell) {
     super();
     if (id && chId && values) {
-      this.id = checkNull(values.id) as string;
+      this.id = checkNull(values.id, 'string') as string;
       this.name = values.name;
       this.effect = values.effect;
       this.mp_use = values.mpUse;
-      this.modifier = checkNull(values.modifier) as string;
+      this.modifier = checkNull(values.modifier, 'string') as string;
       this.diety = values.diety;
       this.use_diety = values.useDiety;
       this.damage = values.damage;

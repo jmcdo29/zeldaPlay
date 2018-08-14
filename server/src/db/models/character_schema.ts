@@ -4,7 +4,9 @@
  * @export db/models/Character.Character
  */
 
-import { Model, QueryBuilder, RelationMappings } from 'objection';
+import { Model, RelationMappings } from 'objection';
+
+import { CustomModel } from './customModel';
 
 import { checkNull, makeId } from '../../utils/utils';
 
@@ -46,7 +48,7 @@ import { Weapon } from './weapon_schema';
  * @prop {number} level - the current level
  * @prop {string} last_modified - date string of the last modification
  */
-export class Character extends Model {
+export class Character extends CustomModel {
   static tableName = 'character';
   private static CHARID = '.character_id';
 
@@ -124,23 +126,11 @@ export class Character extends Model {
   user_id: string;
   level: number;
   last_modified: string;
-
-  /**
-   * Either updates or insert a model, depending on if the id already exists
-   * @static
-   * @param {Character} model
-   * @returns {QueryBuilder<Character, Character, Character>} A QueryBuilder ready to be executed
-   * @memberof Character
-   */
-  static upsert(
-    model: Character
-  ): QueryBuilder<Character, Character, Character> {
-    if (model.id && model.id !== null) {
-      return model.$query().patchAndFetch(model);
-    } else {
-      return model.$query().insert(model);
-    }
-  }
+  skills?: Skill[];
+  weapons?: Weapon[];
+  spells?: Spell[];
+  saves?: Save[];
+  notes?: Note[];
 
   /**
    * Creates an instance of Character.
@@ -165,18 +155,18 @@ export class Character extends Model {
       this.experience = values.exp;
       this.race = values.race;
       this.level = values.level;
-      this.subrace = checkNull(values.subrace) as string;
-      this.ac = checkNull(values.ac) as number;
-      this.flat_footed = checkNull(values.flat_footed) as number;
-      this.touch = checkNull(values.touch) as number;
-      this.size = checkNull(values.size) as string;
-      this.craft_one = checkNull(values.craftOne) as string;
-      this.craft_two = checkNull(values.craftTwo) as string;
-      this.performance = checkNull(values.performCust) as string;
-      this.profession = checkNull(values.profession) as string;
+      this.subrace = checkNull(values.subrace, 'string') as string;
+      this.ac = checkNull(values.ac, 'number') as number;
+      this.flat_footed = checkNull(values.flat_footed, 'number') as number;
+      this.touch = checkNull(values.touch, 'number') as number;
+      this.size = checkNull(values.size, 'string') as string;
+      this.craft_one = checkNull(values.craftOne, 'string') as string;
+      this.craft_two = checkNull(values.craftTwo, 'string') as string;
+      this.performance = checkNull(values.performCust, 'string') as string;
+      this.profession = checkNull(values.profession, 'string') as string;
       this.last_modified_by = id;
       this.user_id = id;
-      this.id = checkNull(values.id).toString();
+      this.id = checkNull(values.id, 'string').toString();
     }
   }
 

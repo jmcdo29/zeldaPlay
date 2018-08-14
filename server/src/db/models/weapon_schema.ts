@@ -1,10 +1,11 @@
-import { Model, QueryBuilder, RelationMappings } from 'objection';
+import { Model, RelationMappings } from 'objection';
 import { IWeapon } from '../../interfaces/weaponInterface';
 import { checkNull, makeId } from '../../utils/utils';
+import { CustomModel } from './customModel';
 import { Element } from './element_schema';
 
 /**
- * @extends {Model}
+ * @extends {CustomModel}
  * @prop {string} tableName weapon
  * @prop {RelationMappings} relationMappings
  * @prop {string} id
@@ -21,7 +22,7 @@ import { Element } from './element_schema';
  * @prop {number} ammo - how much ammo a ranged weapon has
  * @prop {string} last_modified_by - the id of the last user to modify the weapon
  */
-export class Weapon extends Model {
+export class Weapon extends CustomModel {
   static tableName = 'weapon';
 
   static relationMappings: RelationMappings = {
@@ -50,21 +51,6 @@ export class Weapon extends Model {
   last_modified_by: string;
 
   /**
-   * method to update or insert weapon depending on id
-   * @static
-   * @param {Weapon} model
-   * @returns {QueryBuilder<Weapon, Weapon, Weapon>} QueryBuilder to execute on
-   * @memberof Weapon
-   */
-  static upsert(model: Weapon): QueryBuilder<Weapon, Weapon, Weapon> {
-    if (model.id && model.id !== null) {
-      return model.$query().patchAndFetch(model);
-    } else {
-      return model.$query().insert(model);
-    }
-  }
-
-  /**
    * Creates an instance of Weapon.
    * @param {string} [id] - user who created/updated the weapon
    * @param {string} [chId] - id of the character the weapon belongs to
@@ -74,13 +60,13 @@ export class Weapon extends Model {
   constructor(id?: string, chId?: string, values?: IWeapon) {
     super();
     if (id && chId && values) {
-      this.id = checkNull(values.id) as string;
+      this.id = checkNull(values.id, 'string') as string;
       this.name = values.name;
       this.damage = values.attack;
       this.number_of_hits = values.numberOfAttacks;
       this.crit_range = parseArray(values.critRange);
-      this.ammo = checkNull(values.ammo) as number;
-      this.range = checkNull(values.range) as number;
+      this.ammo = checkNull(values.ammo, 'number') as number;
+      this.range = checkNull(values.range, 'number') as number;
       this.modifier = values.modifier;
       this.character_id = chId;
       this.last_modified_by = id;

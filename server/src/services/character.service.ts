@@ -77,31 +77,33 @@ export function getOne(id: string): Promise<Character> {
  */
 export function updateOne(id: string, body: ICharacter): Promise<Character> {
   const character = new Character(id, body);
-  return Character.upsert(character)
+  return character
+    .upsert()
     .then((charId) => {
       const chId = charId.id;
       const promises: Array<Promise<any>> = [];
       promises.push(Promise.resolve(charId));
       body.skills.forEach((skill) => {
-        promises.push(Skill.upsert(new Skill(id, chId, skill, 'skill')));
+        promises.push(new Skill(id, chId, skill, 'skill').upsert());
       });
       body.weaponSkills.forEach((wSkill) => {
-        promises.push(Skill.upsert(new Skill(id, chId, wSkill, 'weapon')));
+        promises.push(new Skill(id, chId, wSkill, 'weapon').upsert());
       });
       body.magicSkills.forEach((mSkill) => {
-        promises.push(Skill.upsert(new Skill(id, chId, mSkill, 'magic')));
+
+        promises.push(new Skill(id, chId, mSkill, 'magic').upsert());
       });
       body.weapons.forEach((weapon) => {
-        promises.push(Weapon.upsert(new Weapon(id, chId, weapon)));
+        promises.push(new Weapon(id, chId, weapon).upsert());
       });
       body.spells.forEach((spell) => {
-        promises.push(Spell.upsert(new Spell(id, chId, spell)));
+        promises.push(new Spell(id, chId, spell).upsert());
       });
       body.notes.forEach((note) => {
-        promises.push(Note.upsert(new Note(id, chId, note)));
+        promises.push(new Note(id, chId, note).upsert());
       });
       body.savingThrows.forEach((save) => {
-        promises.push(Save.upsert(new Save(id, chId, save)));
+        promises.push(new Save(id, chId, save).upsert());
       });
       return Promise.all(promises);
     })

@@ -1,4 +1,4 @@
-import { Model } from 'objection';
+import { CustomModel } from './customModel';
 
 import { makeId } from '../../utils/utils';
 
@@ -12,7 +12,7 @@ import { makeId } from '../../utils/utils';
  * @prop {number} damage - the type of dice to roll
  * @prop {number} number_of_hits - how many times to roll that dice
  */
-export class Element extends Model {
+export class Element extends CustomModel {
   static tableName = 'weapon_element';
 
   id: string;

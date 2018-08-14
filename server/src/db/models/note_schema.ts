@@ -1,4 +1,5 @@
-import { Model, QueryBuilder } from 'objection';
+import { CustomModel } from './customModel';
+
 import { INote } from '../../interfaces/noteInterface';
 import { checkNull, makeId } from '../../utils/utils';
 
@@ -13,7 +14,7 @@ import { checkNull, makeId } from '../../utils/utils';
  * @prop {boolean} important - if the note is marked important or not. Defaults as false
  * @prop {string} last_modified_by - the id of the user with the last modification
  */
-export class Note extends Model {
+export class Note extends CustomModel {
   static tableName = 'note';
 
   id: string;
@@ -25,21 +26,6 @@ export class Note extends Model {
   last_modified_by: string;
 
   /**
-   * updates or inserts the model, depending on model.id
-   * @static
-   * @param {Note} model
-   * @returns {QueryBuilder<Note, Note, Note>} QueryBuilder to be executed on
-   * @memberof Note
-   */
-  static upsert(model: Note): QueryBuilder<Note, Note, Note> {
-    if (model.id && model.id !== null) {
-      return model.$query().patchAndFetch(model);
-    } else {
-      return model.$query().insert(model);
-    }
-  }
-
-  /**
    * Creates an instance of Note.
    * @param {string} [id] - id of the user who made the note
    * @param {string} [chId] - id of the character the note belongs to
@@ -49,7 +35,7 @@ export class Note extends Model {
   constructor(id?: string, chId?: string, values?: INote) {
     super();
     if (id && chId && values) {
-      this.id = checkNull(values.id) as string;
+      this.id = checkNull(values.id, 'string') as string;
       this.last_modified_by = id;
       this.character_id = chId;
       this.message = values.msg;
