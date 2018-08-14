@@ -20,9 +20,9 @@ describe('CharacterCreateComponent', () => {
       imports: [FormsModule, RouterTestingModule, HttpClientModule],
       declarations: [CharacterCreateComponent],
       providers: [
-        {provide: AlertService, useValue: alertServiceStub},
-        {provide: MessageService, useValue: messageServiceStub}
-    ]
+        { provide: AlertService, useValue: alertServiceStub },
+        { provide: MessageService, useValue: messageServiceStub }
+      ]
     }).compileComponents();
   }));
 

@@ -18,7 +18,7 @@ describe('CharacterWeaponComponent', () => {
     TestBed.configureTestingModule({
       imports: [FormsModule, SharedModule],
       declarations: [CharacterWeaponComponent],
-      providers: [{provide: MessageService, useValue: messageServiceStub}]
+      providers: [{ provide: MessageService, useValue: messageServiceStub }]
     }).compileComponents();
   }));
 

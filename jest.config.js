@@ -38,5 +38,5 @@ module.exports = {
   ],
   setupTestFrameworkScriptFile: './client/setupJest.ts',
   collectCoverage: true,
-  coverageReporters: ['json', 'lcov', 'text', 'clover']
+  coverageReporters: ['lcov', 'text', 'json-summary']
 };

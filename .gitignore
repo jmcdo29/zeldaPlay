@@ -27,7 +27,7 @@
 # misc
 /.sass-cache
 /connect.lock
-/coverage
+/coverage/*
 /libpeerconnection.log
 npm-debug.log
 testem.log
@@ -47,10 +47,7 @@ mock-characters.ts
   
 *.sql 
 .env
-!/reference/makeId.sql
 /reference/*.js
 /reference/*.json
 seeds 
-/out 
-/server/out
-*/coverage
+!/coverage/badge*.svg

@@ -1,12 +1,18 @@
-import { HttpClientModule, HttpErrorResponse, HttpRequest } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientModule,
+  HttpErrorResponse,
+  HttpRequest
+} from '@angular/common/http';
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 import { inject, TestBed } from '@angular/core/testing';
 
 import { environment } from '../../environments/environment';
 import { UserService } from './user.service';
 
 describe('#UserService', () => {
-
   let backend: HttpTestingController;
   let service: UserService;
 
@@ -28,7 +34,7 @@ describe('#UserService', () => {
   it('should allow a user to log in', () => {
     const expectedReturn = '00Uuejo58sG2';
     let actualReturn: string;
-    service.login('test', 'testing').subscribe(id => {
+    service.login('test', 'testing').subscribe((id) => {
       localStorage.setItem('currentUser', id);
       actualReturn = id;
     });
@@ -44,12 +50,14 @@ describe('#UserService', () => {
   it('should allow a user to register', () => {
     const expectedReturn = '00Uuejo58sG2';
     let actualReturn: string;
-    service.register('test', 'testing', 'testing').subscribe(id => {
+    service.register('test', 'testing', 'testing').subscribe((id) => {
       localStorage.setItem('currentUser', id);
       actualReturn = id;
     });
 
-    const getUserLogin = backend.expectOne(`${environment.apiUrl}/users/signup`);
+    const getUserLogin = backend.expectOne(
+      `${environment.apiUrl}/users/signup`
+    );
     expect(getUserLogin.request.url).toBe(`${environment.apiUrl}/users/signup`);
     getUserLogin.flush('00Uuejo58sG2');
     expect(actualReturn).toBe(expectedReturn);
@@ -62,7 +70,10 @@ describe('#UserService', () => {
     expect(localStorage.getItem('currentUser')).toBeFalsy();
   });
 
-  afterEach(inject([HttpTestingController], (_httpClient: HttpTestingController) => {
-    _httpClient.verify();
-  }));
+  afterEach(inject(
+    [HttpTestingController],
+    (_httpClient: HttpTestingController) => {
+      _httpClient.verify();
+    }
+  ));
 });

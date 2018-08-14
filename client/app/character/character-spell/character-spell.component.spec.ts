@@ -11,7 +11,6 @@ import { CharacterSpellComponent } from './character-spell.component';
 const alertServiceStub: Partial<AlertService> = {};
 const messageServiceStub: Partial<MessageService> = {};
 
-
 describe('CharacterSpellComponent', () => {
   let component: CharacterSpellComponent;
   let fixture: ComponentFixture<CharacterSpellComponent>;
@@ -21,8 +20,8 @@ describe('CharacterSpellComponent', () => {
       imports: [FormsModule, SharedModule, HttpClientModule],
       declarations: [CharacterSpellComponent],
       providers: [
-        {provide: AlertService, useValue: alertServiceStub},
-        {provide: MessageService, useValue: messageServiceStub}
+        { provide: AlertService, useValue: alertServiceStub },
+        { provide: MessageService, useValue: messageServiceStub }
       ]
     }).compileComponents();
   }));

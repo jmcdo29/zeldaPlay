@@ -7,21 +7,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AlertService } from '../alert/alert.service';
 import { CharactersComponent } from './characters.component';
 
-@Component({selector: 'app-character-detail', template: ''})
+@Component({ selector: 'app-character-detail', template: '' })
 class CharacterDetailStubComponent {
   @Input()
   character;
 }
 
 // tslint:disable-next-line:max-classes-per-file
-@Component({selector: 'app-character-create', template: ''})
+@Component({ selector: 'app-character-create', template: '' })
 class CharacterCreateStubComponent {
   @Input()
   CharacterParent;
 }
 
 // tslint:disable-next-line:max-classes-per-file
-@Component({selector: 'app-messages', template: ''})
+@Component({ selector: 'app-messages', template: '' })
 class MessageStubComponent {}
 
 let alertServiceStub: Partial<AlertService>;
@@ -43,7 +43,7 @@ describe('CharactersComponent', () => {
         CharacterDetailStubComponent,
         MessageStubComponent
       ],
-      providers: [{provide: AlertService, useValue: alertServiceStub}]
+      providers: [{ provide: AlertService, useValue: alertServiceStub }]
     }).compileComponents();
   }));
 
