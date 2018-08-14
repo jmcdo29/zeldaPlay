@@ -27,16 +27,4 @@ export class DBError extends Model {
   $beforeInsert() {
     this.id = '00E' + makeId(9);
   }
-
-  /**
-   * checks that the id has not changed
-   * @param {*} opt
-   * @param {*} queryContext
-   * @memberof DBError
-   */
-  $beforeUpdate(opt: any, queryContext: any) {
-    if (opt.old.id !== this.id) {
-      this.id = opt.old.id;
-    }
-  }
 }

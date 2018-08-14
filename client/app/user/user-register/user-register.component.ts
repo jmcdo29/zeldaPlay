@@ -27,8 +27,8 @@ export class UserRegisterComponent implements OnInit {
     this.userService
       .register(this.username, this.password, this.passwordConfirmation)
       .subscribe(
-        (next) => {
-          localStorage.setItem('currentUser', next.toString());
+        (data) => {
+          localStorage.setItem('currentUser', data);
           this.router.navigate(['/']);
         },
         (error) => {

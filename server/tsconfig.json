@@ -5,6 +5,7 @@
     "baseUrl": "./",
     "module": "commonjs",
     "types": [],
+    "target": "es6",
     "paths": {
       "*": [
         "node_modules/*",
