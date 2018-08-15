@@ -45,6 +45,11 @@ import { Weapon } from './weapon_schema';
  * @prop {string} user_id - the id of the character owner
  * @prop {number} level - the current level
  * @prop {string} last_modified - date string of the last modification
+ * @prop {Skill[]} skills - a character's skills
+ * @prop {Weapon[]} weapons - the weapons a character has
+ * @prop {Spell[]} spells - what spells a character can cast
+ * @prop {Save[]} saves - reflex, will, and fortitude saves
+ * @prop {Note[]} notes - a character's notes about the adventure
  */
 export class Character extends Model {
   static tableName = 'character';
@@ -124,6 +129,11 @@ export class Character extends Model {
   user_id: string;
   level: number;
   last_modified: string;
+  skills?: Skill[];
+  weapons?: Weapon[];
+  spells?: Spell[];
+  notes?: Note[];
+  saves?: Save[];
 
   /**
    * Either updates or insert a model, depending on if the id already exists

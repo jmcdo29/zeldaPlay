@@ -28,4 +28,36 @@ describe('#CharacterServerService', () => {
         console.error(err);
       });
   });
+
+  test('getOne should return a single user', () => {
+    expect.assertions(8);
+    return getAll()
+      .then((characters) => {
+        return getOne(characters[0].id);
+      })
+      .then((character) => {
+        expect(character).toBeTruthy();
+        expect(character.skills).toBeDefined();
+        expect(character.spells).toBeDefined();
+        expect(character.strength).toBeTruthy();
+        expect(character.strength).not.toBeNaN();
+        expect(character.weapons).toBeDefined();
+        expect(character.notes).toBeDefined();
+        expect(character.saves).toBeDefined();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+
+  test('getOne should fail with badId', () => {
+    expect.assertions(1);
+    return getOne('00Cpq34lksdjf')
+      .then((character) => {
+        console.log('somehow got a character');
+      })
+      .catch((err) => {
+        expect(err).toBeTruthy();
+      });
+  });
 });
