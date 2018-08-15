@@ -79,8 +79,7 @@ export function getOne(id: string): Promise<Character> {
  */
 export function updateOne(id: string, body: ICharacter): Promise<Character> {
   const character = new Character(id, body);
-  return Character
-    .upsert(character)
+  return Character.upsert(character)
     .then((charId) => {
       const chId = charId.id;
       const promises: Array<Promise<any>> = [];
@@ -106,7 +105,7 @@ export function updateOne(id: string, body: ICharacter): Promise<Character> {
       body.savingThrows.forEach((save) => {
         promises.push(Save.upsert(new Save(id, chId, save)));
       });
-return Promise.all(promises);
+      return Promise.all(promises);
     })
     .then((results) => {
       return results[0];
