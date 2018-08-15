@@ -3,3 +3,6 @@ node_js:
   - "node"
 deploy:
   skip_cleanup: true
+cache:
+  directories:
+    - $HOME/.npm

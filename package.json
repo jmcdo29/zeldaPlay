@@ -1,13 +1,13 @@
 {
   "name": "zelda-play",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "engines": {
-    "npm": "6.x"
+    "npm": ">=6.x"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run prettier && node gitAddMod"
+      "pre-commit": "jest-coverage-badges && npm run lint && npm run prettier && node gitAddMod"
     }
   },
   "scripts": {
