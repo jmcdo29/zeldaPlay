@@ -25,7 +25,7 @@ export function logErrors(
   res: Response,
   next: NextFunction
 ) {
-  console.log(err.message);
+  console.error(err.message);
   console.error(err.stack);
   DBError.query()
     .insert({

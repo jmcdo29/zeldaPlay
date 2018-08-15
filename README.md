@@ -7,14 +7,11 @@
 
 ## Code Coverage
 
-[![Functions](coverage/badge-functions.svg)]
-[![Lines](coverage/badge-lines.svg)]
-[![Statements](coverage/badge-statements.svg)]
-[![Branches](coverage/badge-branches.svg)]
+![Statements](coverage/badge-statements.svg)
 
 ***
 
-For current user test cases and future developments you can check out the [Trello Board here](https://trello.com/b/LDBn0ygB).
+For current QA test cases and future developments you can check out the [Trello Board here](https://trello.com/b/LDBn0ygB).
 
 ***
 

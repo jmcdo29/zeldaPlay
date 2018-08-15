@@ -24,9 +24,6 @@ module.exports = {
   ],
   moduleNameMapper: {
     "^client/(.*)": "<rootDir>/client/$1",
-    "^app/(.*)": "<rootDir>/client/app/$1",
-    "^assets/(.*)": "<rootDir>/client/assets/$1",
-    "^environments/(.*)": "<rootDir>/client/environments/$1",
     "^server/(.*)": "<rootDir>/server/$1"
   },
   transformIgnorePatterns: [
@@ -38,5 +35,15 @@ module.exports = {
   ],
   setupTestFrameworkScriptFile: './client/setupJest.ts',
   collectCoverage: true,
+  collectCoverageFrom: [
+    "**/*.{js,ts}",
+    "!**/*.d.ts",
+    "!**/*.config.js",
+    "!**/node_modules/**",
+    "!**/coverage/**",
+    "!**/reference/**",
+    "!**/migrations/**",
+    "!**/seeds/**"
+  ],
   coverageReporters: ['lcov', 'text', 'json-summary']
 };
