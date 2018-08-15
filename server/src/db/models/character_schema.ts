@@ -4,9 +4,7 @@
  * @export db/models/Character.Character
  */
 
-import { Model, RelationMappings } from 'objection';
-
-import { CustomModel } from './customModel';
+import { Model, QueryBuilder, RelationMappings } from 'objection';
 
 import { checkNull, makeId } from '../../utils/utils';
 
@@ -48,7 +46,7 @@ import { Weapon } from './weapon_schema';
  * @prop {number} level - the current level
  * @prop {string} last_modified - date string of the last modification
  */
-export class Character extends CustomModel {
+export class Character extends Model {
   static tableName = 'character';
   private static CHARID = '.character_id';
 
@@ -126,11 +124,23 @@ export class Character extends CustomModel {
   user_id: string;
   level: number;
   last_modified: string;
-  skills?: Skill[];
-  weapons?: Weapon[];
-  spells?: Spell[];
-  saves?: Save[];
-  notes?: Note[];
+
+  /**
+   * Either updates or insert a model, depending on if the id already exists
+   * @static
+   * @param {Character} model
+   * @returns {QueryBuilder<Character, Character, Character>} A QueryBuilder ready to be executed
+   * @memberof Character
+   */
+  static upsert(
+    model: Character
+  ): QueryBuilder<Character, Character, Character> {
+    if (model.id && model.id !== null) {
+      return model.$query().patchAndFetch(model);
+    } else {
+      return model.$query().insert(model);
+    }
+  }
 
   /**
    * Creates an instance of Character.

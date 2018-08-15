@@ -1,11 +1,10 @@
-import { Model, RelationMappings } from 'objection';
+import { Model, QueryBuilder, RelationMappings } from 'objection';
 import { IWeapon } from '../../interfaces/weaponInterface';
 import { checkNull, makeId } from '../../utils/utils';
-import { CustomModel } from './customModel';
 import { Element } from './element_schema';
 
 /**
- * @extends {CustomModel}
+ * @extends {Model}
  * @prop {string} tableName weapon
  * @prop {RelationMappings} relationMappings
  * @prop {string} id
@@ -22,7 +21,7 @@ import { Element } from './element_schema';
  * @prop {number} ammo - how much ammo a ranged weapon has
  * @prop {string} last_modified_by - the id of the last user to modify the weapon
  */
-export class Weapon extends CustomModel {
+export class Weapon extends Model {
   static tableName = 'weapon';
 
   static relationMappings: RelationMappings = {
@@ -49,6 +48,21 @@ export class Weapon extends CustomModel {
   range: number;
   ammo: number;
   last_modified_by: string;
+
+  /**
+   * method to update or insert weapon depending on id
+   * @static
+   * @param {Weapon} model
+   * @returns {QueryBuilder<Weapon, Weapon, Weapon>} QueryBuilder to execute on
+   * @memberof Weapon
+   */
+  static upsert(model: Weapon): QueryBuilder<Weapon, Weapon, Weapon> {
+    if (model.id && model.id !== null) {
+      return model.$query().patchAndFetch(model);
+    } else {
+      return model.$query().insert(model);
+    }
+  }
 
   /**
    * Creates an instance of Weapon.

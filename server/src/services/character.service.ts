@@ -23,9 +23,11 @@ export function getAll(): Promise<Array<Partial<Character>>> {
       }
       return characters;
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       if (!(err instanceof DatabaseError)) {
-        err = new DatabaseError(err.message, 'DB_ERROR');
+        const tempErr = new DatabaseError(err.message, 'DB_ERROR');
+        tempErr.stack = err.stack;
+        err = tempErr;
       }
       throw err;
     });
@@ -77,34 +79,34 @@ export function getOne(id: string): Promise<Character> {
  */
 export function updateOne(id: string, body: ICharacter): Promise<Character> {
   const character = new Character(id, body);
-  return character
-    .upsert()
+  return Character
+    .upsert(character)
     .then((charId) => {
       const chId = charId.id;
       const promises: Array<Promise<any>> = [];
       promises.push(Promise.resolve(charId));
       body.skills.forEach((skill) => {
-        promises.push(new Skill(id, chId, skill, 'skill').upsert());
+        promises.push(Skill.upsert(new Skill(id, chId, skill, 'skill')));
       });
       body.weaponSkills.forEach((wSkill) => {
-        promises.push(new Skill(id, chId, wSkill, 'weapon').upsert());
+        promises.push(Skill.upsert(new Skill(id, chId, wSkill, 'weapon')));
       });
       body.magicSkills.forEach((mSkill) => {
-        promises.push(new Skill(id, chId, mSkill, 'magic').upsert());
+        promises.push(Skill.upsert(new Skill(id, chId, mSkill, 'magic')));
       });
       body.weapons.forEach((weapon) => {
-        promises.push(new Weapon(id, chId, weapon).upsert());
+        promises.push(Weapon.upsert(new Weapon(id, chId, weapon)));
       });
       body.spells.forEach((spell) => {
-        promises.push(new Spell(id, chId, spell).upsert());
+        promises.push(Spell.upsert(new Spell(id, chId, spell)));
       });
       body.notes.forEach((note) => {
-        promises.push(new Note(id, chId, note).upsert());
+        promises.push(Note.upsert(new Note(id, chId, note)));
       });
       body.savingThrows.forEach((save) => {
-        promises.push(new Save(id, chId, save).upsert());
+        promises.push(Save.upsert(new Save(id, chId, save)));
       });
-      return Promise.all(promises);
+return Promise.all(promises);
     })
     .then((results) => {
       return results[0];

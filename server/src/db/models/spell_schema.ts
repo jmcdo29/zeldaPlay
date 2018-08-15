@@ -1,10 +1,9 @@
-import { CustomModel } from './customModel';
-
+import { Model, QueryBuilder } from 'objection';
 import { ISpell } from '../../interfaces/spellInterface';
 import { checkNull, makeId } from '../../utils/utils';
 
 /**
- * @extends CustomModel
+ * @extends Model
  * @prop {string} tableName - spell
  * @prop {string} id
  * @prop {string} last_modified - time string of the last modification
@@ -19,7 +18,7 @@ import { checkNull, makeId } from '../../utils/utils';
  * @prop {string} last_modified_by - the id of the user who last modified the spell
  * @prop {string} character_id - id of the character the spell belongs to
  */
-export class Spell extends CustomModel {
+export class Spell extends Model {
   static tableName = 'spell';
 
   id: string;
@@ -42,13 +41,13 @@ export class Spell extends CustomModel {
    * @returns {QueryBuilder<Spell, Spell, Spell>} QueryBuilder to execute
    * @memberof Spell
    */
-  /* static upsert(model: Spell): QueryBuilder<Spell, Spell, Spell> {
+  static upsert(model: Spell): QueryBuilder<Spell, Spell, Spell> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
     } else {
       return model.$query().insert(model);
     }
-  } */
+  }
 
   /**
    * Creates an instance of Spell.

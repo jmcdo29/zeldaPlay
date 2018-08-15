@@ -6,7 +6,7 @@ module.exports = {
   preset: 'jest-preset-angular',
   globals: {
     "ts-jest": {
-      "tsConfigFile": "tsconfig.json"
+      "tsConfigFile": "./tsconfig.json"
     },
     "__TRANSFORM_HTML__": true
   },

@@ -18,7 +18,7 @@ export abstract class CustomModel extends Model {
    * @returns QueryBuilder<this, this, this>
    * @memberof CustomModel
    */
-  upsert<T>(): QueryBuilder<this, this, this> {
+  upsert(): QueryBuilder<this, this, this> {
     if (this.id && this.id !== null) {
       return this.$query().patchAndFetch(this);
     } else {

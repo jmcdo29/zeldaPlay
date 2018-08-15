@@ -1,5 +1,4 @@
-import { CustomModel } from './customModel';
-
+import { Model, QueryBuilder } from 'objection';
 import { ISkill } from '../../interfaces/skillInterface';
 import { checkNull, makeId } from '../../utils/utils';
 
@@ -18,7 +17,7 @@ import { checkNull, makeId } from '../../utils/utils';
  * @prop {string} character_id - owning Character of the skill
  * @prop {string} last_modified_by - user who last modified the skill
  */
-export class Skill extends CustomModel {
+export class Skill extends Model {
   static tableName = 'skill';
 
   id: string;
@@ -33,6 +32,21 @@ export class Skill extends CustomModel {
   skill_type: string;
   character_id: string;
   last_modified_by: string;
+
+  /**
+   * updates or inserts the Skill, depending on the id
+   * @static
+   * @param {Skill} model
+   * @returns {QueryBuilder<Skill, Skill, Skill>} QueryBuilder to execute
+   * @memberof Skill
+   */
+  static upsert(model: Skill): QueryBuilder<Skill, Skill, Skill> {
+    if (model.id && model.id !== null) {
+      return model.$query().patchAndFetch(model);
+    } else {
+      return model.$query().insert(model);
+    }
+  }
 
   /**
    * Creates an instance of Skill.

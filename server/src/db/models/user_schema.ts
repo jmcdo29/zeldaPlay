@@ -3,7 +3,6 @@ import { Model, RelationMappings } from 'objection';
 import { makeId } from '../../utils/utils';
 
 import { Character } from './character_schema';
-import { CustomModel } from './customModel';
 import { Element } from './element_schema';
 import { Note } from './note_schema';
 import { Recovery as Answer } from './recovery_schema';
@@ -14,7 +13,7 @@ import { Weapon } from './weapon_schema';
 
 const LMB = '.last_modified_by';
 
-export class User extends CustomModel {
+export class User extends Model {
   static tableName = 'public.user';
 
   static relationMappings: RelationMappings = {
