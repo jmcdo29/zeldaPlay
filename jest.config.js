@@ -43,7 +43,9 @@ module.exports = {
     "!**/coverage/**",
     "!**/reference/**",
     "!**/migrations/**",
-    "!**/seeds/**"
+    "!**/seeds/**",
+    "!**/mocks/**",
+    "!**/*.json"
   ],
   coverageReporters: ['lcov', 'text', 'json-summary']
 };

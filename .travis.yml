@@ -6,3 +6,7 @@ deploy:
 cache:
   directories:
     - $HOME/.npm
+before_install:
+  - pip install --user codecov
+after_success:
+  - codecov --file coverage/lcov.info --disable search

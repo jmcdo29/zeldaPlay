@@ -5,12 +5,6 @@
 
 ***
 
-## Code Coverage
-
-![Statements](coverage/badge-statements.svg)
-
-***
-
 For current QA test cases and future developments you can check out the [Trello Board here](https://trello.com/b/LDBn0ygB).
 
 ***
