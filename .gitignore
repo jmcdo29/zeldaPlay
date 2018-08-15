@@ -49,5 +49,4 @@ mock-characters.ts
 .env
 /reference/*.js
 /reference/*.json
-seeds 
-!/coverage/badge*.svg
+seeds

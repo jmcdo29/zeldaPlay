@@ -7,7 +7,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "jest-coverage-badges && npm run lint && npm run prettier && node gitAddMod"
+      "pre-commit": "npm run lint && npm run prettier && node gitAddMod"
     }
   },
   "scripts": {
@@ -18,7 +18,7 @@
     "build-client": "ng build --prod",
     "build-server": "tsc -p ./server",
     "test": "jest",
-    "posttest": "jest-coverage-badges",
+    "coverage": "jest-coverage-badges",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prettier": "node_modules/.bin/prettier --config .prettierrc.json --write \"**/*.ts\"",
