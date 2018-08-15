@@ -4,7 +4,10 @@ import { Model } from 'objection';
 import * as pg from 'pg';
 import { Character } from '../../src/db/models/character_schema';
 import {
-  getAll, getOne, getUserCharacters, updateOne
+  getAll,
+  getOne,
+  getUserCharacters,
+  updateOne
 } from '../../src/services/character.service';
 
 describe('#CharacterServerService', () => {

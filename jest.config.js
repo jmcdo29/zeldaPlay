@@ -32,7 +32,7 @@ module.exports = {
   transformIgnorePatterns: [
     "node_modules/(?!@ngrx)"
   ],
-  "snapshotSerializers": [
+  snapshotSerializers: [
     "<rootDir>/node_modules/jest-preset-angular/AngularSnapshotSerializer.js",
     "<rootDir>/node_modules/jest-preset-angular/HTMLCommentSerializer.js"
   ],

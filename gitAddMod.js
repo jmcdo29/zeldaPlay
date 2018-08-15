@@ -4,23 +4,21 @@ exec('git status --porcelain', (error, stdout, stderr) => {
     console.error(`exec error: ${error}`);
     return;
   }
-  //console.log(`stdout: ${stdout}`);
   const files = stdout.split('\n');
-  console.log(files);
   const filesToUpdate = [];
   files.forEach(file => {
     if (file.trim().startsWith('M') || file.trim().startsWith('A')) {
-      filesToUpdate.push(file.trim().substring(2));
+      filesToUpdate.push(file.trim().split(' ')[1]);
     }
   });
-  console.log(filesToUpdate);
   let updateString = '';
   filesToUpdate.forEach(file => {
-    updateString += file + ' ';
+    updateString += file.trim() + ' ';
   });
-  console.log(updateString);
-
-  exec(`echo git add ${updateString}`, (error, stdout, stderr) => {
+  exec(`git add ${updateString}`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error ${error}.`);
+    }
     console.log(stdout);
   });
 });
