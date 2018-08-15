@@ -23,9 +23,11 @@ export function getAll(): Promise<Array<Partial<Character>>> {
       }
       return characters;
     })
-    .catch((err) => {
+    .catch((err: Error) => {
       if (!(err instanceof DatabaseError)) {
-        err = new DatabaseError(err.message, 'DB_ERROR');
+        const tempErr = new DatabaseError(err.message, 'DB_ERROR');
+        tempErr.stack = err.stack;
+        err = tempErr;
       }
       throw err;
     });
@@ -76,8 +78,13 @@ export function getOne(id: string): Promise<Character> {
  * @throws {DatabaseError}
  */
 export function updateOne(id: string, body: ICharacter): Promise<Character> {
-  const character = new Character(id, body);
-  return Character.upsert(character)
+  return new Promise((resolve, reject) => {
+    const character = new Character(id, body);
+    resolve(character);
+  })
+    .then((character: Character) => {
+      return Character.upsert(character);
+    })
     .then((charId) => {
       const chId = charId.id;
       const promises: Array<Promise<any>> = [];
@@ -98,6 +105,9 @@ export function updateOne(id: string, body: ICharacter): Promise<Character> {
         promises.push(Spell.upsert(new Spell(id, chId, spell)));
       });
       body.notes.forEach((note) => {
+        promises.push(Note.upsert(new Note(id, chId, note)));
+      });
+      body.importantNotes.forEach((note) => {
         promises.push(Note.upsert(new Note(id, chId, note)));
       });
       body.savingThrows.forEach((save) => {
@@ -127,20 +137,24 @@ export function updateOne(id: string, body: ICharacter): Promise<Character> {
 export function getUserCharacters(
   userId: string
 ): Promise<Array<Partial<Character>>> {
-  if (!userId.startsWith('00U') && userId.length !== 12) {
-    throw new DatabaseError('Bad user id.', 'BAD_USER');
-  }
-  return Character.query()
-    .select('id', 'race', 'name')
-    .where({ user_id: userId })
-    .catch((err: Error) => {
-      if (!(err instanceof DatabaseError)) {
-        const newErr = new DatabaseError(err.message, 'DB_ERROR');
-        newErr.stack = err.stack;
-        err = newErr;
-      }
-      throw err;
-    });
+  return new Promise((resolve, reject) => {
+    if (!userId.startsWith('00U') || userId.length !== 12) {
+      reject(new DatabaseError('Bad user id.', 'BAD_USER'));
+    }
+    resolve();
+  }).then(() => {
+    return Character.query()
+      .select('id', 'race', 'name')
+      .where({ user_id: userId })
+      .catch((err: Error) => {
+        if (!(err instanceof DatabaseError)) {
+          const newErr = new DatabaseError(err.message, 'DB_ERROR');
+          newErr.stack = err.stack;
+          err = newErr;
+        }
+        throw err;
+      });
+  });
 }
 
 export function newWeapon(charId, weapon) {}

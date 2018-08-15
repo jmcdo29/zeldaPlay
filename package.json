@@ -1,14 +1,13 @@
 {
   "name": "zelda-play",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "engines": {
-    "npm": "6.x"
+    "npm": ">=6.x"
   },
   "husky": {
     "hooks": {
-      "pre-add": "npm run prettier",
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run lint && npm run prettier && node gitAddMod"
     }
   },
   "scripts": {
@@ -19,7 +18,7 @@
     "build-client": "ng build --prod",
     "build-server": "tsc -p ./server",
     "test": "jest",
-    "posttest": "jest-coverage-badges",
+    "coverage": "jest-coverage-badges",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prettier": "node_modules/.bin/prettier --config .prettierrc.json --write \"**/*.ts\"",

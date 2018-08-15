@@ -30,7 +30,7 @@ export class Recovery extends Model {
   constructor(id?: string, answer?: IAnswer) {
     super();
     if (id && answer) {
-      this.id = checkNull(answer.id) as string;
+      this.id = checkNull(answer.id, 'string') as string;
       this.question = answer.question;
       this.answer = answer.answer;
       this.user_id = id;

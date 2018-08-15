@@ -74,13 +74,13 @@ export class Weapon extends Model {
   constructor(id?: string, chId?: string, values?: IWeapon) {
     super();
     if (id && chId && values) {
-      this.id = checkNull(values.id) as string;
+      this.id = checkNull(values.id, 'string') as string;
       this.name = values.name;
       this.damage = values.attack;
       this.number_of_hits = values.numberOfAttacks;
       this.crit_range = parseArray(values.critRange);
-      this.ammo = checkNull(values.ammo) as number;
-      this.range = checkNull(values.range) as number;
+      this.ammo = checkNull(values.ammo, 'number') as number;
+      this.range = checkNull(values.range, 'number') as number;
       this.modifier = values.modifier;
       this.character_id = chId;
       this.last_modified_by = id;

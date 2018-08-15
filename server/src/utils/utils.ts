@@ -20,10 +20,13 @@ export function makeId(length): string {
  * @param {string | number }value the value that needs to be checked if null or undefined
  * @returns {number | string} a blank string or the value null
  */
-export function checkNull(value: string | number): string | number {
-  if (typeof value === 'string') {
+export function checkNull(
+  value: string | number,
+  type: string
+): string | number {
+  if (type === 'string') {
     return value ? value : '';
-  } else if (typeof value === 'number') {
+  } else if (type === 'number') {
     return value ? value : null;
   } else {
     return '';

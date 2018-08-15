@@ -59,11 +59,11 @@ export class Spell extends Model {
   constructor(id?: string, chId?: string, values?: ISpell) {
     super();
     if (id && chId && values) {
-      this.id = checkNull(values.id) as string;
+      this.id = checkNull(values.id, 'string') as string;
       this.name = values.name;
       this.effect = values.effect;
       this.mp_use = values.mpUse;
-      this.modifier = checkNull(values.modifier) as string;
+      this.modifier = checkNull(values.modifier, 'string') as string;
       this.diety = values.diety;
       this.use_diety = values.useDiety;
       this.damage = values.damage;

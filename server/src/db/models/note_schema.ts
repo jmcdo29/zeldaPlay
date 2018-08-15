@@ -49,7 +49,7 @@ export class Note extends Model {
   constructor(id?: string, chId?: string, values?: INote) {
     super();
     if (id && chId && values) {
-      this.id = checkNull(values.id) as string;
+      this.id = checkNull(values.id, 'string') as string;
       this.last_modified_by = id;
       this.character_id = chId;
       this.message = values.msg;

@@ -43,6 +43,7 @@ interface IAttribute {
  * @prop {ISkill[]} [weaponSkills] - the weapon skills of the character
  * @prop {ISkill[]} [magicSkills] - the magic skills of the character
  * @prop {INote[]} [notes] - the notes the character has taken
+ * @prop {INote[]} [importantNotes] - notes the character has deemed important
  * @prop {ISpell[]} [spells] - the spells the character knows
  * @prop {ISave[]} [savingThrows] - the saving throws of the character
  */
@@ -76,5 +77,6 @@ export interface ICharacter {
   magicSkills: ISkill[];
   spells: ISpell[];
   notes: INote[];
+  importantNotes: INote[];
   savingThrows: ISave[];
 }

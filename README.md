@@ -2,16 +2,11 @@
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 [![Build Status](https://travis-ci.org/jmcdo29/zeldaPlay.svg?branch=master)](https://travis-ci.org/jmcdo29/zeldaPlay)
+[![codecov](https://codecov.io/gh/jmcdo29/zeldaPlay/branch/master/graph/badge.svg)](https://codecov.io/gh/jmcdo29/zeldaPlay)
 
 ***
 
-## Code Coverage
-
-![Statements](coverage/badge-statements.svg)
-
-***
-
-For current user test cases and future developments you can check out the [Trello Board here](https://trello.com/b/LDBn0ygB).
+For current QA test cases and future developments you can check out the [Trello Board here](https://trello.com/b/LDBn0ygB).
 
 ***
 

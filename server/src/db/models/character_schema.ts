@@ -45,6 +45,11 @@ import { Weapon } from './weapon_schema';
  * @prop {string} user_id - the id of the character owner
  * @prop {number} level - the current level
  * @prop {string} last_modified - date string of the last modification
+ * @prop {Skill[]} skills - a character's skills
+ * @prop {Weapon[]} weapons - the weapons a character has
+ * @prop {Spell[]} spells - what spells a character can cast
+ * @prop {Save[]} saves - reflex, will, and fortitude saves
+ * @prop {Note[]} notes - a character's notes about the adventure
  */
 export class Character extends Model {
   static tableName = 'character';
@@ -124,6 +129,11 @@ export class Character extends Model {
   user_id: string;
   level: number;
   last_modified: string;
+  skills?: Skill[];
+  weapons?: Weapon[];
+  spells?: Spell[];
+  notes?: Note[];
+  saves?: Save[];
 
   /**
    * Either updates or insert a model, depending on if the id already exists
@@ -165,18 +175,18 @@ export class Character extends Model {
       this.experience = values.exp;
       this.race = values.race;
       this.level = values.level;
-      this.subrace = checkNull(values.subrace) as string;
-      this.ac = checkNull(values.ac) as number;
-      this.flat_footed = checkNull(values.flat_footed) as number;
-      this.touch = checkNull(values.touch) as number;
-      this.size = checkNull(values.size) as string;
-      this.craft_one = checkNull(values.craftOne) as string;
-      this.craft_two = checkNull(values.craftTwo) as string;
-      this.performance = checkNull(values.performCust) as string;
-      this.profession = checkNull(values.profession) as string;
+      this.subrace = checkNull(values.subrace, 'string') as string;
+      this.ac = checkNull(values.ac, 'number') as number;
+      this.flat_footed = checkNull(values.flat_footed, 'number') as number;
+      this.touch = checkNull(values.touch, 'number') as number;
+      this.size = checkNull(values.size, 'string') as string;
+      this.craft_one = checkNull(values.craftOne, 'string') as string;
+      this.craft_two = checkNull(values.craftTwo, 'string') as string;
+      this.performance = checkNull(values.performCust, 'string') as string;
+      this.profession = checkNull(values.profession, 'string') as string;
       this.last_modified_by = id;
       this.user_id = id;
-      this.id = checkNull(values.id).toString();
+      this.id = checkNull(values.id, 'string').toString();
     }
   }
 

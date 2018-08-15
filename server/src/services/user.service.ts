@@ -1,4 +1,3 @@
-// TODO: Add JSDoc documentation for file.
 import * as bcrypt from 'bcryptjs';
 import { User } from '../db/models/user_schema';
 import { DatabaseError } from '../utils/errors/DatabaseError';

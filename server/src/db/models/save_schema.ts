@@ -48,7 +48,7 @@ export class Save extends Model {
   constructor(id?: string, chId?: string, values?: ISave) {
     super();
     if (id && chId && values) {
-      this.id = checkNull(values.id) as string;
+      this.id = checkNull(values.id, 'string') as string;
       this.character_id = chId;
       this.last_modified_by = id;
       this.name = values.name;

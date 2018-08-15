@@ -6,7 +6,7 @@ module.exports = {
   preset: 'jest-preset-angular',
   globals: {
     "ts-jest": {
-      "tsConfigFile": "tsconfig.json"
+      "tsConfigFile": "./tsconfig.json"
     },
     "__TRANSFORM_HTML__": true
   },
@@ -24,19 +24,28 @@ module.exports = {
   ],
   moduleNameMapper: {
     "^client/(.*)": "<rootDir>/client/$1",
-    "^app/(.*)": "<rootDir>/client/app/$1",
-    "^assets/(.*)": "<rootDir>/client/assets/$1",
-    "^environments/(.*)": "<rootDir>/client/environments/$1",
     "^server/(.*)": "<rootDir>/server/$1"
   },
   transformIgnorePatterns: [
     "node_modules/(?!@ngrx)"
   ],
-  "snapshotSerializers": [
+  snapshotSerializers: [
     "<rootDir>/node_modules/jest-preset-angular/AngularSnapshotSerializer.js",
     "<rootDir>/node_modules/jest-preset-angular/HTMLCommentSerializer.js"
   ],
   setupTestFrameworkScriptFile: './client/setupJest.ts',
   collectCoverage: true,
+  collectCoverageFrom: [
+    "**/*.{js,ts}",
+    "!**/*.d.ts",
+    "!**/*.config.js",
+    "!**/node_modules/**",
+    "!**/coverage/**",
+    "!**/reference/**",
+    "!**/migrations/**",
+    "!**/seeds/**",
+    "!**/mocks/**",
+    "!**/*.json"
+  ],
   coverageReporters: ['lcov', 'text', 'json-summary']
 };
