@@ -20,7 +20,7 @@ import { mySession } from './utils/sessionConf';
 
 import * as Knex from 'knex';
 import { Model } from 'objection';
-import { connectionConfig } from './db/knexfile';
+import * as connectionConfig from './db/knexfile';
 
 Model.knex(Knex(connectionConfig));
 
