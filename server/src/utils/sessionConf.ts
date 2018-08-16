@@ -1,8 +1,8 @@
 import * as session from 'express-session';
+import * as Knex from 'knex';
 // tslint:disable-next-line:no-var-requires
 const KnexSessionStore = require('connect-session-knex')(session);
-import * as Knex from 'knex';
-import { connectionConfig } from '../db/knexfile';
+import * as connectionConfig from '../db/knexfile';
 const knex = Knex(connectionConfig);
 
 const store = new KnexSessionStore({

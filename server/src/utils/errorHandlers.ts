@@ -93,7 +93,8 @@ export function databaseProblem(
 export function generalError(
   err: IMyError,
   req: Request,
-  res: Response
+  res: Response,
+  next: any
 ): Express.Response {
   return res.status(500).send({ message: err.message });
 }

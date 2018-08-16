@@ -1,5 +1,5 @@
 const { exec } = require('child_process');
-exec('git status --porcelain', (error, stdout, stderr) => {
+exec('git diff --cached --name-only', (error, stdout, stderr) => {
   if (error) {
     console.error(`exec error: ${error}`);
     return;
@@ -7,9 +7,7 @@ exec('git status --porcelain', (error, stdout, stderr) => {
   const files = stdout.split('\n');
   const filesToUpdate = [];
   files.forEach(file => {
-    if (file.trim().startsWith('M') || file.trim().startsWith('A')) {
-      filesToUpdate.push(file.trim().split(' ')[1]);
-    }
+    filesToUpdate.push(file.trim());
   });
   let updateString = '';
   filesToUpdate.forEach(file => {
