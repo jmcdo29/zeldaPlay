@@ -4,6 +4,11 @@ import * as Knex from 'knex';
 import { Model } from 'objection';
 import * as pg from 'pg';
 import { Character } from '../../src/db/models/character_schema';
+import { Note } from '../../src/db/models/note_schema';
+import { Save } from '../../src/db/models/save_schema';
+import { Skill } from '../../src/db/models/skill_schema';
+import { Spell } from '../../src/db/models/spell_schema';
+import { Weapon } from '../../src/db/models/weapon_schema';
 import {
   getAll,
   getOne,
@@ -106,10 +111,41 @@ describe('#CharacterServerService', () => {
   describe('#FullASynDatabaseStuff', () => {
     afterAll(() => {
       return Character.query()
-        .delete()
+        .select('id')
         .where('name', 'MockChar')
+        .orWhere('name', null)
+        .first()
+        .then((character) => {
+          return Promise.all([
+            Skill.query()
+              .delete()
+              .where('character_id', character.id),
+            Save.query()
+              .delete()
+              .where('character_id', character.id),
+            Weapon.query()
+              .delete()
+              .where('character_id', character.id),
+            Spell.query()
+              .delete()
+              .where('character_id', character.id),
+            Note.query()
+              .delete()
+              .where('character_id', character.id),
+            Promise.resolve(character.id)
+          ]);
+        })
+        .then((results) => {
+          return Character.query()
+            .delete()
+            .where('id', results[results.length - 1]);
+        })
         .then(() => {
-          console.log('all done with cleanup');
+          console.log('Finished deleting mock character!');
+        })
+        .catch((err) => {
+          console.error('error deleting mockCharacter');
+          console.error(err);
         });
     });
 
@@ -120,9 +156,8 @@ describe('#CharacterServerService', () => {
         const mockChar = JSON.parse(
           readFileSync('server/tests/mocks/mockCharacter.json').toString()
         );
-        return updateOne('', mockChar)
+        return updateOne('00U4732mM0N2', mockChar)
           .then((character) => {
-            console.log(character);
             expect(character).toBeTruthy();
           })
           .catch((err) => {
