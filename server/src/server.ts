@@ -19,10 +19,10 @@ import { sendApp } from './utils/sendApp';
 import { mySession } from './utils/sessionConf';
 
 import * as Knex from 'knex';
+import { Model } from 'objection';
 import { connectionConfig } from './db/knexfile';
-import { CustomModel } from './db/models/customModel';
 
-CustomModel.knex(Knex(connectionConfig));
+Model.knex(Knex(connectionConfig));
 
 const morganFormat = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 

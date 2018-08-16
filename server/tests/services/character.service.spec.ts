@@ -12,10 +12,18 @@ import {
 } from '../../src/services/character.service';
 
 describe('#CharacterServerService', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     config();
     pg.defaults.ssl = true;
     Model.knex(Knex({ client: 'pg', connection: process.env.DATABASE_URL }));
+  });
+
+  afterAll(() => {
+    return Model.knex()
+      .destroy()
+      .then(() => {
+        console.log('finished destroying connection.');
+      });
   });
 
   test('getAll will getAll without user_id', () => {
