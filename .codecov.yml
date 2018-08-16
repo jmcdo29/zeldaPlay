@@ -34,3 +34,5 @@ ignore:
   - "**/seeds/**"
   - "**/mocks/**"
   - "**/*.json"
+  - "**/knexfile.ts"
+  - "**/sessionConf.ts"

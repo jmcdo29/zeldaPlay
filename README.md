@@ -1,6 +1,6 @@
 # zeldaPlay
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-purple.svg?style=flat)](https://github.com/prettier/prettier)
 [![Build Status](https://travis-ci.org/jmcdo29/zeldaPlay.svg?branch=master)](https://travis-ci.org/jmcdo29/zeldaPlay)
 [![codecov](https://codecov.io/gh/jmcdo29/zeldaPlay/branch/master/graph/badge.svg)](https://codecov.io/gh/jmcdo29/zeldaPlay)
 
@@ -10,7 +10,7 @@ For current QA test cases and future developments you can check out the [Trello 
 
 ***
 
-A web application in progress for a home*brew D20 character tracker. Built in Angular 2+ and Node.js and hosted on Heroku in separate instances
+A web application in progress for a home brew D20 character tracker. Built in Angular 2+ and Node.js and hosted on Heroku in separate instances
 
 In the end, this application will be able to help track your character, make basic dice rolls for you, and allow you to digitally save multiple characters for ease of access.
 

@@ -45,7 +45,9 @@ module.exports = {
     "!**/migrations/**",
     "!**/seeds/**",
     "!**/mocks/**",
-    "!**/*.json"
+    "!**/*.json",
+    "!**/knexfile.ts",
+    "!**/sessionConf.ts"
   ],
   coverageReporters: ['lcov', 'text', 'json-summary']
 };
