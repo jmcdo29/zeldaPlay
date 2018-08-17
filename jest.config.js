@@ -52,7 +52,8 @@ module.exports = {
     "!**/polyfills.ts",
     "!**/setupJest.ts",
     "!**/test.ts",
-    "!**/server.ts"
+    "!**/server.ts",
+    "!**jestGlobalMocks.ts"
   ],
   coverageReporters: ['lcov', 'text', 'json-summary']
 };

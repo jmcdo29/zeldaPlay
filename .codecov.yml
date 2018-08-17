@@ -41,3 +41,4 @@ ignore:
   - "**/setupJest.ts"
   - "**/test.ts"
   - "**/server.ts"
+  - "**/jestGlobalMocks.ts"
