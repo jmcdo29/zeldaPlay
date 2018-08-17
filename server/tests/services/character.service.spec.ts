@@ -43,7 +43,7 @@ describe('#CharacterServerService', () => {
       });
   });
 
-  test('getOne should return a single user', () => {
+  test('getOne should return a single character', () => {
     expect.assertions(8);
     return getAll()
       .then((characters) => {

@@ -1,6 +1,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "types": [
+      "node",
+      "jest"
+    ],
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,

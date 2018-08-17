@@ -45,7 +45,15 @@ module.exports = {
     "!**/migrations/**",
     "!**/seeds/**",
     "!**/mocks/**",
-    "!**/*.json"
+    "!**/*.json",
+    "!**/knexfile.ts",
+    "!**/sessionConf.ts",
+    "!**/main.ts",
+    "!**/polyfills.ts",
+    "!**/setupJest.ts",
+    "!**/test.ts",
+    "!**/server.ts",
+    "!**jestGlobalMocks.ts"
   ],
   coverageReporters: ['lcov', 'text', 'json-summary']
 };
