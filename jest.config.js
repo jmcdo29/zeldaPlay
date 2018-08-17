@@ -47,7 +47,12 @@ module.exports = {
     "!**/mocks/**",
     "!**/*.json",
     "!**/knexfile.ts",
-    "!**/sessionConf.ts"
+    "!**/sessionConf.ts",
+    "!**/main.ts",
+    "!**/polyfills.ts",
+    "!**/setupJest.ts",
+    "!**/test.ts",
+    "!**/server.ts"
   ],
   coverageReporters: ['lcov', 'text', 'json-summary']
 };

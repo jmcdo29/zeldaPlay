@@ -36,3 +36,8 @@ ignore:
   - "**/*.json"
   - "**/knexfile.ts"
   - "**/sessionConf.ts"
+  - "**/main.ts"
+  - "**/polyfills.ts"
+  - "**/setupJest.ts"
+  - "**/test.ts"
+  - "**/server.ts"
