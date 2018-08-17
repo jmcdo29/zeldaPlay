@@ -33,8 +33,7 @@ describe('#Utilities testing', () => {
     interface IobjWithNull {
       value: number;
     }
-    // tslint:disable-next-line:prefer-const
-    let objectWithNull: IobjWithNull = {
+    const objectWithNull: IobjWithNull = {
       value: NaN
     };
     const retNull = checkNull(objectWithNull.value, 'number');

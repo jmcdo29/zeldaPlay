@@ -4,7 +4,10 @@ node_js:
 cache:
   directories:
     - $HOME/.npm
+    - "node_modules"
 before_install:
   - pip install --user codecov
 after_success:
   - codecov --file coverage/lcov.info --disable search
+script: 
+  - npm run test:ci

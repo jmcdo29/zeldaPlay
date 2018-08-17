@@ -47,6 +47,7 @@ describe('#errorHandlers', () => {
 
     expect(res.code).toBeDefined();
     expect(res.code).toBe(null);
+    expect(next.mock.calls).toBeTruthy();
   });
 
   test('should log a full error that has a reasonCode', () => {
@@ -110,7 +111,12 @@ describe('#errorHandlers', () => {
   });
 
   test('should be a general Error', () => {
-    generalError(new Error('Normal error'), req as Request, res as Response);
+    generalError(
+      new Error('Normal error'),
+      req as Request,
+      res as Response,
+      next
+    );
 
     expect(res.code).toBeDefined();
     expect(res.code).toBe(500);
