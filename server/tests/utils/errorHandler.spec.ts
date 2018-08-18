@@ -37,12 +37,11 @@ describe('#errorHandlers', () => {
         this.data = payload;
       }
     };
-
-    afterAll(() => {
-      Model.knex().destroy();
-    });
-
     next.mockClear();
+  });
+
+  afterAll(() => {
+    Model.knex().destroy();
   });
 
   test('should log error', () => {
