@@ -18,7 +18,14 @@ describe('MessagesComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  test('should toggle the show variable', () => {
+    component.showMessages();
+    expect(component.show);
+    component.showMessages();
+    expect(!component.show);
   });
 });
