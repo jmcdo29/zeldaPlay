@@ -1,8 +1,6 @@
-import { config } from 'dotenv';
 import { readFileSync } from 'fs';
 import * as Knex from 'knex';
 import { Model } from 'objection';
-import * as pg from 'pg';
 import { Character } from '../../src/db/models/character_schema';
 import { Note } from '../../src/db/models/note_schema';
 import { Save } from '../../src/db/models/save_schema';
@@ -15,20 +13,15 @@ import {
   getUserCharacters,
   updateOne
 } from '../../src/services/character.service';
+import { conn } from '../dbConnection';
 
 describe('#CharacterServerService', () => {
   beforeAll(() => {
-    config();
-    pg.defaults.ssl = true;
-    Model.knex(Knex({ client: 'pg', connection: process.env.DATABASE_URL }));
+    Model.knex(Knex(conn));
   });
 
   afterAll(() => {
-    return Model.knex()
-      .destroy()
-      .then(() => {
-        console.log('finished destroying connection.');
-      });
+    Model.knex().destroy();
   });
 
   test('getAll will getAll without user_id', () => {
@@ -67,7 +60,7 @@ describe('#CharacterServerService', () => {
   test('getOne should fail with badId', () => {
     expect.assertions(1);
     return getOne('00Cpq34lksdjf')
-      .then((character) => {
+      .then(() => {
         console.log('somehow got a character');
       })
       .catch((err) => {
@@ -141,7 +134,7 @@ describe('#CharacterServerService', () => {
             .where('id', results[results.length - 1]);
         })
         .then(() => {
-          console.log('Finished deleting mock character!');
+          return;
         })
         .catch((err) => {
           console.error('error deleting mockCharacter');
