@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import * as rp from 'request-promise';
-import * as supertest from 'supertest';
-import { app } from '../../src/server';
+import * as Knex from 'knex';
+import { Model } from 'objection';
 import {
   badLogIn,
   databaseProblem,
@@ -10,12 +9,17 @@ import {
 } from '../../src/utils/errorHandlers';
 import { DatabaseError } from '../../src/utils/errors/DatabaseError';
 import { LoginError } from '../../src/utils/errors/LoginError';
+import { conn } from '../dbConnection';
 
 describe('#errorHandlers', () => {
   let req: any;
   let res: any;
 
   const next = jest.fn();
+
+  beforeAll(() => {
+    Model.knex(Knex(conn));
+  });
 
   beforeEach(() => {
     req = {
@@ -33,6 +37,10 @@ describe('#errorHandlers', () => {
         this.data = payload;
       }
     };
+
+    afterAll(() => {
+      Model.knex().destroy();
+    });
 
     next.mockClear();
   });
