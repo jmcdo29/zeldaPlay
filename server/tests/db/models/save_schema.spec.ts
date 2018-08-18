@@ -12,13 +12,19 @@ describe('#SaveSchema', () => {
   });
 
   test('should be able to insert a Save', () => {
-    return Save.query()
-      .insert({})
+    return Save.upsert(new Save())
+      .then((save) => {
+        save.name = 'some name';
+        return Save.upsert(save);
+      })
+      .then((save) => {
+        return save.$query().patchAndFetch({ id: '123456789abc' });
+      })
       .then((save) => {
         return save.$query().delete();
       })
       .then(() => {
-        return;
+        console.log('done');
       })
       .catch((err) => console.error(err));
   });

@@ -12,13 +12,19 @@ describe('#WeaponSchema', () => {
   });
 
   test('should be able to insert a Weapon', () => {
-    return Weapon.query()
-      .insert({})
+    return Weapon.upsert(new Weapon())
+      .then((weapon) => {
+        weapon.name = 'weapon name';
+        return Weapon.upsert(weapon);
+      })
+      .then((weapon) => {
+        return weapon.$query().patchAndFetch({ id: '123456789abc' });
+      })
       .then((weapon) => {
         return weapon.$query().delete();
       })
       .then(() => {
-        return;
+        console.log('done');
       })
       .catch((err) => console.error(err));
   });

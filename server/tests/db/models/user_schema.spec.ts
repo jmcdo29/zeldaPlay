@@ -15,10 +15,13 @@ describe('#UserSchema', () => {
     return User.query()
       .insert({})
       .then((user) => {
+        return user.$query().patchAndFetch({ id: '123456789abc' });
+      })
+      .then((user) => {
         return user.$query().delete();
       })
       .then(() => {
-        return;
+        console.log('done');
       })
       .catch((err) => console.error(err));
   });

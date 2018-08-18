@@ -12,13 +12,19 @@ describe('#NoteSchema', () => {
   });
 
   test('should be able to insert a Note', () => {
-    return Note.query()
-      .insert({})
+    return Note.upsert(new Note())
+      .then((note) => {
+        note.message = 'some message';
+        return Note.upsert(note);
+      })
+      .then((note) => {
+        return note.$query().patchAndFetch({ id: '123456789abc' });
+      })
       .then((note) => {
         return note.$query().delete();
       })
       .then(() => {
-        return;
+        console.log('done');
       })
       .catch((err) => console.error(err));
   });

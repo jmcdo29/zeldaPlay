@@ -112,6 +112,7 @@ describe('#UserServerService', () => {
       return signUp(email, 'It$allg00d', 'It$allg00d')
         .then((user) => {
           const tempUser = user;
+          console.log(user);
           return Promise.all([
             User.query()
               .delete()
@@ -122,11 +123,13 @@ describe('#UserServerService', () => {
           ]);
         })
         .then((results) => {
+          console.log(`Deleted ${results[0]} users`);
           const testUser = results[1];
           expect(testUser).toBeTruthy();
         })
         .catch((err) => {
           console.log('Should not be here.');
+          console.error(err.message);
         });
     });
   });
@@ -146,11 +149,11 @@ describe('#UserServerService', () => {
     });
     // delete test user
     afterAll(() => {
-      User.query()
+      return User.query()
         .delete()
-        .where('email', email)
+        .where({ email })
         .then(() => {
-          return;
+          console.log(`All users with ${email} deleted`);
         });
     });
     test('should not log in due to wrong password', () => {
