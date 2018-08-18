@@ -5,6 +5,7 @@ import { MessageService } from '../../shared/messages/message.service';
 import { SharedModule } from '../../shared/shared.module';
 import { Character } from '../characterModels/character';
 import { Weapons } from '../characterModels/enums/weapon-skills.enum';
+import { IElemental } from '../characterModels/Weapons/elemental';
 import { Weapon } from '../characterModels/Weapons/weapon';
 import { CharacterWeaponComponent } from './character-weapon.component';
 
@@ -123,36 +124,113 @@ describe('CharacterWeaponComponent', () => {
     expect(roll).toBeGreaterThanOrEqual(1);
     expect(roll).toBeLessThanOrEqual(6);
   });
-  test('test making an attack roll', () => {
-    const myWep = {
-      name: 'weapon',
-      attack: 8,
-      numberOfAttacks: 1,
-      modifier: 'Strength',
-      type: 'Short Sword',
-      critDamage: 3,
-      critRange: [18, 19, 20],
-      range: null,
-      ammo: null
-    };
-    component.character.weapons = [myWep];
-    component.character.weaponSkills[Weapons['Short Sword']] = {
-      skillName: 'Short Sword',
-      ranks: 0,
-      modifier: 'Strength',
-      trained: true
-    };
-    component.character.attributes[0] = {
-      name: 'Strength',
-      value: 10,
-      modifier: 0
-    };
-    component.attack(0);
-    expect(component.weaponName).toBe(myWep.name);
-    expect(component.rollToHit).toBeTruthy();
-    expect(component.dmgRoll).toBeTruthy();
-    for (let i = 0; i < 50; i++) {
+  describe('Attack Rolls', () => {
+    beforeEach(() => {
+      const myWep = {
+        name: 'weapon',
+        attack: 8,
+        numberOfAttacks: 1,
+        modifier: 'Strength',
+        type: 'Short Sword',
+        critDamage: 3,
+        critRange: [18, 19, 20],
+        range: null,
+        ammo: null
+      };
+      component.character.weapons = [myWep];
+      component.character.weaponSkills[Weapons['Short Sword']] = {
+        skillName: 'Short Sword',
+        ranks: 0,
+        modifier: 'Strength',
+        trained: true
+      };
+      component.character.attributes[0] = {
+        name: 'Strength',
+        value: 10,
+        modifier: 0
+      };
+    });
+    afterEach(() => {
+      component.character.weapons = [];
+    });
+    test('test making an attack roll', () => {
       component.attack(0);
-    }
+      expect(component.weaponName).toBe('weapon');
+      expect(component.rollToHit).toBeTruthy();
+      expect(component.dmgRoll).toBeTruthy();
+      for (let i = 0; i < 25; i++) {
+        component.attack(0);
+      }
+    });
+    test('make attack rlls with element', () => {
+      const myElem: IElemental = {
+        type: 'fire',
+        attack: 8,
+        numberOfAttacks: 1
+      };
+      component.character.weapons[0].element = myElem;
+      component.character.weaponSkills[Weapons['Short Sword']].trained = false;
+      for (let i = 0; i < 25; i++) {
+        component.attack(0);
+      }
+    });
+  });
+
+  describe('validation function tests', () => {
+    beforeEach(() => {
+      component.weapon = new Weapon();
+    });
+    afterEach(() => {
+      component.weapon = null;
+    });
+    test('test weapon key string validate', () => {
+      component.validate('weaponName', 'name');
+      expect(document.getElementById('weaponName').classList).toContain(
+        'bad-input'
+      );
+      component.weapon.name = 'b4d weapon name';
+      component.validate('weaponName', 'name');
+      expect(document.getElementById('weaponName').classList).toContain(
+        'bad-input'
+      );
+      component.weapon.name = 'weapon name';
+      component.validate('weaponName', 'name');
+      expect(document.getElementById('weaponName').classList).not.toContain(
+        'bad-input'
+      );
+    });
+    test('test weapon key number validate', () => {
+      component.validate('weaponDam', 'attack');
+      expect(document.getElementById('weaponDam').classList).toContain(
+        'bad-input'
+      );
+      component.weapon.attack = 8;
+      component.validate('weaponDam', 'attack');
+      expect(document.getElementById('weaponDam').classList).not.toContain(
+        'bad-input'
+      );
+    });
+    describe('elemental validations', () => {
+      beforeEach(() => {
+        component.isElemental = false;
+        component.makeElement();
+        component.isElemental = true;
+        fixture.detectChanges();
+      });
+      afterEach(() => {
+        component.makeElement();
+      });
+      test('test element key string validate', () => {
+        component.validateElement('eType', 'type');
+        expect(document.getElementById('eType').classList).toContain(
+          'bad-input'
+        );
+        component.elemental.type = 'fire';
+        component.validateElement('eType', 'type');
+        expect(document.getElementById('eType').classList).not.toContain(
+          'bad-input'
+        );
+      });
+    });
   });
 });
