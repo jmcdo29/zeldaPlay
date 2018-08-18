@@ -22,7 +22,12 @@ describe('UserLoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
+  });
+  test('login function', () => {
+    component.username = 'user';
+    component.password = 'pass';
+    component.login();
   });
 });

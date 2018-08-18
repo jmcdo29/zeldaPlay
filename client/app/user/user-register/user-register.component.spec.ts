@@ -22,7 +22,14 @@ describe('UserRegisterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  test('registration function', () => {
+    component.username = 'userName';
+    component.password = 'password';
+    component.passwordConfirmation = 'password';
+    component.register();
   });
 });
