@@ -1,16 +1,14 @@
-import { config } from 'dotenv';
-config();
 import * as Knex from 'knex';
-import * as connection from '../../../src/db/knexfile';
+import { Model } from 'objection';
 import { Character } from '../../../src/db/models/character_schema';
+import { conn } from '../../dbConnection';
 
 describe('#CharacterSchema', () => {
   beforeAll(() => {
-    Character.knex(Knex(connection));
+    Model.knex(Knex(conn));
   });
-
   afterAll(() => {
-    Character.knex().destroy();
+    Model.knex().destroy();
   });
 
   test('should be able to insert a Character', () => {
@@ -20,7 +18,7 @@ describe('#CharacterSchema', () => {
         return character.$query().delete();
       })
       .then(() => {
-        console.log('finished character.');
+        return;
       })
       .catch((err) => console.error(err));
   });

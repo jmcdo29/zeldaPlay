@@ -1,16 +1,14 @@
-import { config } from 'dotenv';
-config();
 import * as Knex from 'knex';
-import * as connection from '../../../src/db/knexfile';
+import { Model } from 'objection';
 import { Weapon } from '../../../src/db/models/weapon_schema';
+import { conn } from '../../dbConnection';
 
 describe('#WeaponSchema', () => {
   beforeAll(() => {
-    Weapon.knex(Knex(connection));
+    Model.knex(Knex(conn));
   });
-
   afterAll(() => {
-    Weapon.knex().destroy();
+    Model.knex().destroy();
   });
 
   test('should be able to insert a Weapon', () => {
@@ -20,7 +18,7 @@ describe('#WeaponSchema', () => {
         return weapon.$query().delete();
       })
       .then(() => {
-        console.log('finished weapon.');
+        return;
       })
       .catch((err) => console.error(err));
   });

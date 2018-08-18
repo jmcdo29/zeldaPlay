@@ -1,16 +1,14 @@
-import { config } from 'dotenv';
-config();
 import * as Knex from 'knex';
-import * as connection from '../../../src/db/knexfile';
+import { Model } from 'objection';
 import { Save } from '../../../src/db/models/save_schema';
+import { conn } from '../../dbConnection';
 
 describe('#SaveSchema', () => {
   beforeAll(() => {
-    Save.knex(Knex(connection));
+    Model.knex(Knex(conn));
   });
-
   afterAll(() => {
-    Save.knex().destroy();
+    Model.knex().destroy();
   });
 
   test('should be able to insert a Save', () => {
@@ -20,7 +18,7 @@ describe('#SaveSchema', () => {
         return save.$query().delete();
       })
       .then(() => {
-        console.log('finished save.');
+        return;
       })
       .catch((err) => console.error(err));
   });

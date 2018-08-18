@@ -1,16 +1,14 @@
-import { config } from 'dotenv';
-config();
 import * as Knex from 'knex';
-import * as connection from '../../../src/db/knexfile';
+import { Model } from 'objection';
 import { DBError } from '../../../src/db/models/error_schema';
+import { conn } from '../../dbConnection';
 
 describe('#ErrorSchema', () => {
   beforeAll(() => {
-    DBError.knex(Knex(connection));
+    Model.knex(Knex(conn));
   });
-
   afterAll(() => {
-    DBError.knex().destroy();
+    Model.knex().destroy();
   });
 
   test('should be able to insert a DBError', () => {
@@ -20,7 +18,7 @@ describe('#ErrorSchema', () => {
         return dbError.$query().delete();
       })
       .then(() => {
-        console.log('finished dbError.');
+        return;
       })
       .catch((err) => console.error(err));
   });

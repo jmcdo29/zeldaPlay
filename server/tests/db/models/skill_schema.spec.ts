@@ -1,16 +1,14 @@
-import { config } from 'dotenv';
-config();
 import * as Knex from 'knex';
-import * as connection from '../../../src/db/knexfile';
+import { Model } from 'objection';
 import { Skill } from '../../../src/db/models/skill_schema';
+import { conn } from '../../dbConnection';
 
 describe('#SkillSchema', () => {
   beforeAll(() => {
-    Skill.knex(Knex(connection));
+    Model.knex(Knex(conn));
   });
-
   afterAll(() => {
-    Skill.knex().destroy();
+    Model.knex().destroy();
   });
 
   test('should be able to insert a Skill', () => {
@@ -20,7 +18,7 @@ describe('#SkillSchema', () => {
         return skill.$query().delete();
       })
       .then(() => {
-        console.log('finished skill.');
+        return;
       })
       .catch((err) => console.error(err));
   });
