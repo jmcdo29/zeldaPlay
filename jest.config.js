@@ -53,7 +53,8 @@ module.exports = {
     "!**/setupJest.ts",
     "!**/test.ts",
     "!**/server.ts",
-    "!**jestGlobalMocks.ts"
+    "!**/jestGlobalMocks.ts",
+    "!**/dbConnection.ts"
   ],
   coverageReporters: ['lcov', 'text', 'json-summary']
 };
