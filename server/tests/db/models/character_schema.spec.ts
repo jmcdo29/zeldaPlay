@@ -26,9 +26,7 @@ describe('#CharacterSchema', () => {
           .where('name', 'like', '%Test%')
           .orWhere('name', 'like', '%test%');
       })
-      .then(() => {
-        console.log('done');
-      })
+      .then(() => {})
       .catch((err) => {
         console.error(err);
         return Character.query()

@@ -23,9 +23,7 @@ describe('#WeaponSchema', () => {
       .then((weapon) => {
         return weapon.$query().delete();
       })
-      .then(() => {
-        console.log('done');
-      })
+      .then(() => {})
       .catch((err) => console.error(err));
   });
 });

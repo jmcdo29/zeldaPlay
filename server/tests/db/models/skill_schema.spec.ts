@@ -23,9 +23,7 @@ describe('#SkillSchema', () => {
       .then((skill) => {
         return skill.$query().delete();
       })
-      .then(() => {
-        console.log('done');
-      })
+      .then(() => {})
       .catch((err) => console.error(err));
   });
 });

@@ -17,9 +17,7 @@ describe('#ErrorSchema', () => {
       .then((dbError) => {
         return dbError.$query().delete();
       })
-      .then(() => {
-        return;
-      })
+      .then(() => {})
       .catch((err) => console.error(err));
   });
 });

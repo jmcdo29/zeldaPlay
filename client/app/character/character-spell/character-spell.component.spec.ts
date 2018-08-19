@@ -61,6 +61,7 @@ describe('CharacterSpellComponent', () => {
       component.addSpell();
       expect(newSpell).toBe(component.newSpell);
     });
+    // tslint:disable-next-line:quotemark
     test("getMod should get a character's attributes modifier", () => {
       component.character.attributes[4].modifier = 5;
       expect(component.getMod('Wisdom')).toBe(5);
