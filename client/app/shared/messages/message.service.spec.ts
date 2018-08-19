@@ -9,10 +9,18 @@ describe('MessageService', () => {
     });
   });
 
-  it('should be created', inject(
+  test('should be created', inject(
     [MessageService],
     (service: MessageService) => {
       expect(service).toBeTruthy();
+    }
+  ));
+
+  test('should be able to add messages', inject(
+    [MessageService],
+    (service: MessageService) => {
+      service.add('This is a new message');
+      expect(service.messages).toHaveLength(1);
     }
   ));
 });

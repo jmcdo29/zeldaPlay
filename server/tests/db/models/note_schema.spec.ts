@@ -1,27 +1,29 @@
-import { config } from 'dotenv';
-config();
 import * as Knex from 'knex';
-import * as connection from '../../../src/db/knexfile';
+import { Model } from 'objection';
 import { Note } from '../../../src/db/models/note_schema';
+import { conn } from '../../dbConnection';
 
 describe('#NoteSchema', () => {
   beforeAll(() => {
-    Note.knex(Knex(connection));
+    Model.knex(Knex(conn));
   });
-
   afterAll(() => {
-    Note.knex().destroy();
+    Model.knex().destroy();
   });
 
   test('should be able to insert a Note', () => {
-    return Note.query()
-      .insert({})
+    return Note.upsert(new Note())
+      .then((note) => {
+        note.message = 'some message';
+        return Note.upsert(note);
+      })
+      .then((note) => {
+        return note.$query().patchAndFetch({ id: '123456789abc' });
+      })
       .then((note) => {
         return note.$query().delete();
       })
-      .then(() => {
-        console.log('finished note.');
-      })
+      .then(() => {})
       .catch((err) => console.error(err));
   });
 });

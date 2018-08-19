@@ -29,11 +29,6 @@ export class CharacterSkillsComponent implements OnInit {
         return attribute.modifier;
       }
     }
-    /* for (let i = 0; i < this.character.attributes.length; i++) {
-      if (this.character.attributes[i].name === modName) {
-        return this.character.attributes[i].modifier;
-      }
-    } */
   }
 
   expandSkill(): void {
@@ -73,12 +68,13 @@ export class CharacterSkillsComponent implements OnInit {
     if (roll === 1) {
       document.getElementById('roll').classList.add('critMiss');
     } else if (roll === 20) {
+      console.log('made crit roll');
+      console.log(document.getElementById('roll'));
       document.getElementById('roll').classList.add('crit');
     }
   }
 
   private nullify(id: string, className: string): void {
-    console.log('document.getElementById(%s);', id);
     if (
       document.getElementById(id) &&
       document.getElementById(id).classList.contains(className)

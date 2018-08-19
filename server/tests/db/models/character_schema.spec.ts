@@ -1,27 +1,41 @@
-import { config } from 'dotenv';
-config();
 import * as Knex from 'knex';
-import * as connection from '../../../src/db/knexfile';
+import { Model } from 'objection';
 import { Character } from '../../../src/db/models/character_schema';
+import { conn } from '../../dbConnection';
 
 describe('#CharacterSchema', () => {
   beforeAll(() => {
-    Character.knex(Knex(connection));
+    Model.knex(Knex(conn));
   });
-
   afterAll(() => {
-    Character.knex().destroy();
+    Model.knex().destroy();
   });
 
   test('should be able to insert a Character', () => {
-    return Character.query()
-      .insert({})
+    return Character.upsert(new Character())
       .then((character) => {
-        return character.$query().delete();
+        character.name = 'Test';
+        return Character.upsert(character);
       })
-      .then(() => {
-        console.log('finished character.');
+      .then((character) => {
+        return character.$query().patchAndFetch({ id: '123456789abc' });
       })
-      .catch((err) => console.error(err));
+      .then((result) => {
+        return Character.query()
+          .delete()
+          .where('name', 'like', '%Test%')
+          .orWhere('name', 'like', '%test%');
+      })
+      .then(() => {})
+      .catch((err) => {
+        console.error(err);
+        return Character.query()
+          .delete()
+          .where('name', 'like', '%Test%')
+          .orWhere('name', 'like', '%test%');
+      });
+  });
+  test('should get the tableNmae "character"', () => {
+    expect(new Character().tableName()).toBe('character');
   });
 });

@@ -148,13 +148,8 @@ export class CharacterWeaponComponent implements OnInit {
       } else if (document.getElementById(id).classList.contains('bad-input')) {
         document.getElementById(id).classList.remove('bad-input');
       }
-    } else {
-      if (this.weapon[key] === '') {
-        document.getElementById(id).classList.add('bad-input');
-        this.weapon[key] = '';
-      } else if (document.getElementById(id).classList.contains('bad-input')) {
-        document.getElementById(id).classList.remove('bad-input');
-      }
+    } else if (document.getElementById(id).classList.contains('bad-input')) {
+      document.getElementById(id).classList.remove('bad-input');
     }
   }
 
@@ -162,27 +157,12 @@ export class CharacterWeaponComponent implements OnInit {
     if (!this.elemental[key]) {
       document.getElementById(id).classList.add('bad-input');
       this.elemental[key] = '';
-    } else if (typeof this.elemental[key] === 'string') {
-      if (
-        this.elemental[key].trim() === '' ||
-        (key === 'name' && !/^[a-zA-Z\s]+$/i.test(this.elemental[key]))
-      ) {
-        document.getElementById(id).classList.add('bad-input');
-      } else if (document.getElementById(id).classList.contains('bad-input')) {
-        document.getElementById(id).classList.remove('bad-input');
-      }
-    } else {
-      if (this.elemental[key] === '') {
-        document.getElementById(id).classList.add('bad-input');
-        this.elemental[key] = '';
-      } else if (document.getElementById(id).classList.contains('bad-input')) {
-        document.getElementById(id).classList.remove('bad-input');
-      }
+    } else if (document.getElementById(id).classList.contains('bad-input')) {
+      document.getElementById(id).classList.remove('bad-input');
     }
   }
 
   makeElement(): void {
-    console.log(this.isElemental);
     if (!this.isElemental) {
       this.elemental = {
         type: '',
@@ -192,7 +172,6 @@ export class CharacterWeaponComponent implements OnInit {
     } else {
       this.elemental = null;
     }
-    console.log(this.elemental);
   }
 
   checkForRanged(): void {

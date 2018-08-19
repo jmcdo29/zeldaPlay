@@ -18,7 +18,7 @@ export function login(username: string, password: string): Promise<string> {
     .then((user) => {
       if (!user) {
         throw new LoginError(
-          'Username or password is incorrect',
+          'Username or password is incorrect.',
           'NO_USER_FOUND'
         );
       }
@@ -126,6 +126,9 @@ function verifyPassword(password: string, confPass: string): Promise<any> {
     }
     if (!/[!@#$%^&*]/.test(password)) {
       errors.push('Your password must contain at least one special character.');
+    }
+    if (/\s/.test(password)) {
+      errors.push('Your password should not contain any spaces.');
     }
     if (errors.length > 0) {
       let errorMsg = '';
