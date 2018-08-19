@@ -97,13 +97,8 @@ export class CharacterSpellComponent implements OnInit {
       } else if (document.getElementById(id).classList.contains('bad-input')) {
         document.getElementById(id).classList.remove('bad-input');
       }
-    } else {
-      if (this.spell[key] === '') {
-        document.getElementById(id).classList.add('bad-input');
-        this.spell[key] = '';
-      } else if (document.getElementById(id).classList.contains('bad-input')) {
-        document.getElementById(id).classList.remove('bad-input');
-      }
+    } else if (document.getElementById(id).classList.contains('bad-input')) {
+      document.getElementById(id).classList.remove('bad-input');
     }
   }
 
@@ -145,7 +140,7 @@ export class CharacterSpellComponent implements OnInit {
       const spellRoll = ogSpellRoll + magicBonus;
       this.spellName = spell.name;
       const ogDmgRoll = (Math.round(Math.random() * 100) % spell.damage) + 1;
-      if (ogDmgRoll === 20) {
+      if (ogSpellRoll === 20) {
         crit = true;
       }
       const dmgRoll =
