@@ -33,7 +33,7 @@ module.exports = {
     "<rootDir>/node_modules/jest-preset-angular/AngularSnapshotSerializer.js",
     "<rootDir>/node_modules/jest-preset-angular/HTMLCommentSerializer.js"
   ],
-  setupTestFrameworkScriptFile: './client/setupJest.ts',
+  setupTestFrameworkScriptFile: '<rootDir>/client/setupJest.ts',
   collectCoverage: true,
   collectCoverageFrom: [
     "**/*.{js,ts}",
@@ -56,5 +56,5 @@ module.exports = {
     "!**/jestGlobalMocks.ts",
     "!**/dbConnection.ts"
   ],
-  coverageReporters: ['lcov', 'text', 'json-summary']
+  coverageReporters: ['lcov', 'text']
 };
