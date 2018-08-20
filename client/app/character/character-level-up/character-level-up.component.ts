@@ -38,9 +38,9 @@ export class CharacterLevelUpComponent implements OnInit {
     const minimums = [];
     for (const attr of this.currChar.attributes) {
       minimums.push(attr.value);
+      this.attrPrior.push(attr.value);
     }
     this.minimums = minimums;
-    this.attrPrior = this.minimums;
 
     const skillStarts = [];
     for (const skill of this.currChar.skills) {
@@ -84,20 +84,8 @@ export class CharacterLevelUpComponent implements OnInit {
     const val = this.currChar.attributes[attrIndex].value;
     const modifier = val % 2 === 0 ? (val - 10) / 2 : (val - 11) / 2;
     this.currChar.attributes[attrIndex].modifier = modifier;
-    this.attrPoints -=
-      val -
-      (this.attrPoints[attrIndex]
-        ? this.attrPrior[attrIndex]
-        : this.minimums[attrIndex]);
+    this.attrPoints -= val - this.attrPrior[attrIndex];
     this.attrPrior[attrIndex] = val;
-  }
-
-  track(index: number, type: string): void {
-    const val = this.currChar[type][index].ranks;
-    const PRIOR = 'Prior';
-    this.skillPoints -=
-      val - this[type + PRIOR][index] ? this[type + PRIOR][index] : 0;
-    this[type + PRIOR][index] = val;
   }
 
   validateAttr(attrIndex: number): void {
@@ -117,6 +105,13 @@ export class CharacterLevelUpComponent implements OnInit {
     } else if (input.classList.contains('bad-input')) {
       input.classList.remove('bad-input');
     }
+  }
+
+  track(index: number, type: string): void {
+    const val = this.currChar[type][index].ranks;
+    const PRIOR = 'Prior';
+    this.skillPoints -= val - this[type + PRIOR][index];
+    this[type + PRIOR][index] = val;
   }
 
   validate(index: number, type: string): void {
