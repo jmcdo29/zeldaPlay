@@ -39,9 +39,6 @@ export class CharacterLevelUpComponent implements OnInit {
     for (const attr of this.currChar.attributes) {
       minimums.push(attr.value);
     }
-    /* for (let i = 0; i < this.currChar.attributes.length; i++) {
-      minimums.push(this.currChar.attributes[i].value);
-    } */
     this.minimums = minimums;
     this.attrPrior = this.minimums;
 
@@ -49,9 +46,6 @@ export class CharacterLevelUpComponent implements OnInit {
     for (const skill of this.currChar.skills) {
       skillStarts.push(skill.ranks);
     }
-    /* for (let j = 0; j < this.currChar.skills.length; j++) {
-      skillStarts.push(this.currChar.skills[j].ranks);
-    } */
     this.skillStarts = skillStarts;
     this.skillsPrior = this.skillStarts;
 
@@ -59,9 +53,6 @@ export class CharacterLevelUpComponent implements OnInit {
     for (const wep of this.currChar.weaponSkills) {
       weaponStarts.push(wep.ranks);
     }
-    /* for (let k = 0; k < this.currChar.weaponSkills.length; k++) {
-      weaponStarts.push(this.currChar.weaponSkills[k].ranks);
-    } */
     this.weaponStarts = weaponStarts;
     this.weaponSkillsPrior = this.weaponStarts;
 
@@ -69,9 +60,6 @@ export class CharacterLevelUpComponent implements OnInit {
     for (const mag of this.currChar.magicSkills) {
       magicStarts.push(mag.ranks);
     }
-    /* for (let m = 0; m < this.currChar.magicSkills.length; m++) {
-      magicStarts.push(this.currChar.magicSkills[m].ranks);
-    } */
     this.magicStarts = magicStarts;
     this.magicSkillsPrior = this.magicStarts;
   }
@@ -96,11 +84,6 @@ export class CharacterLevelUpComponent implements OnInit {
     const val = this.currChar.attributes[attrIndex].value;
     const modifier = val % 2 === 0 ? (val - 10) / 2 : (val - 11) / 2;
     this.currChar.attributes[attrIndex].modifier = modifier;
-    /* if (this.attrPrior[attrIndex]) {
-      this.attrPoints = this.attrPoints - (val - this.attrPrior[attrIndex]);
-    } else {
-      this.attrPoints = this.attrPoints - (val - this.minimums[attrIndex]);
-    } */
     this.attrPoints -=
       val -
       (this.attrPoints[attrIndex]
@@ -112,11 +95,6 @@ export class CharacterLevelUpComponent implements OnInit {
   track(index: number, type: string): void {
     const val = this.currChar[type][index].ranks;
     const PRIOR = 'Prior';
-    /* if (this[type + PRIOR][index]) {
-      this.skillPoints = this.skillPoints - (val - this[type + PRIOR][index]);
-    } else {
-      this.skillPoints = this.skillPoints - val;
-    } */
     this.skillPoints -=
       val - this[type + PRIOR][index] ? this[type + PRIOR][index] : 0;
     this[type + PRIOR][index] = val;
