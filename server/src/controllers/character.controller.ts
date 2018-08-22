@@ -6,6 +6,7 @@ import {
   newWeapon,
   updateOne
 } from '../services/character.service';
+import { DatabaseError } from '../utils/errors/DatabaseError';
 
 const router = Router();
 
@@ -27,7 +28,14 @@ function allCharacters(req: Request, res: Response, next: NextFunction) {
     .then((characters) => {
       res.json(characters);
     })
-    .catch(next);
+    .catch((err: Error) => {
+      if (!(err instanceof DatabaseError)) {
+        const tempErr = new DatabaseError(err.message, 'DB_ERROR');
+        tempErr.stack = err.stack;
+        err = tempErr;
+      }
+      next(err);
+    });
 }
 
 /**
@@ -41,7 +49,12 @@ function getCharacter(req: Request, res: Response, next: NextFunction) {
     .then((character) => {
       res.status(200).json(character);
     })
-    .catch(next);
+    .catch((err) => {
+      if (!(err instanceof DatabaseError)) {
+        err = new DatabaseError(err.message, 'DB_ERROR');
+      }
+      next(err);
+    });
 }
 
 /**
@@ -55,7 +68,14 @@ function upsertCharacter(req: Request, res: Response, next: NextFunction) {
     .then((character) => {
       res.status(200).json(character);
     })
-    .catch(next);
+    .catch((err: Error) => {
+      if (!(err instanceof DatabaseError)) {
+        const newErr = new DatabaseError(err.message, 'DB_ERROR');
+        newErr.stack = err.stack;
+        err = newErr;
+      }
+      next(err);
+    });
 }
 
 /**
@@ -69,5 +89,12 @@ function getUserCharacters(req: Request, res: Response, next: NextFunction) {
     .then((characters) => {
       res.status(200).json(characters);
     })
-    .catch(next);
+    .catch((err: Error) => {
+      if (!(err instanceof DatabaseError)) {
+        const newErr = new DatabaseError(err.message, 'DB_ERROR');
+        newErr.stack = err.stack;
+        err = newErr;
+      }
+      next(err);
+    });
 }

@@ -36,14 +36,6 @@ export function login(username: string, password: string): Promise<string> {
       } else {
         return results[0].id;
       }
-    })
-    .catch((err: Error) => {
-      if (!(err instanceof LoginError)) {
-        const newErr = new DatabaseError(err.message, 'DB_ERROR');
-        newErr.stack = err.stack;
-        err = newErr;
-      }
-      throw err as LoginError;
     });
 }
 
@@ -83,14 +75,6 @@ export function signUp(
         .select('id')
         .where({ email: username })
         .first();
-    })
-    .catch((err: Error) => {
-      if (!(err instanceof LoginError)) {
-        const newErr = new DatabaseError(err.message, 'DB_ERROR');
-        newErr.stack = err.stack;
-        err = newErr;
-      }
-      throw err as LoginError;
     });
 }
 

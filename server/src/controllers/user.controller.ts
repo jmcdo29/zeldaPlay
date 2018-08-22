@@ -4,6 +4,8 @@ import {
   login as getUser,
   signUp as createUser
 } from '../services/user.service';
+import { DatabaseError } from '../utils/errors/DatabaseError';
+import { LoginError } from '../utils/errors/LoginError';
 
 const router = Router();
 
@@ -23,7 +25,14 @@ function login(req: Request, res: Response, next: NextFunction) {
     .then((user) => {
       res.status(200).json(user);
     })
-    .catch(next);
+    .catch((err: Error) => {
+      if (!(err instanceof LoginError)) {
+        const newErr = new DatabaseError(err.message, 'DB_ERROR');
+        newErr.stack = err.stack;
+        err = newErr;
+      }
+      next(err);
+    });
 }
 
 /**
@@ -37,5 +46,12 @@ function signup(req: Request, res: Response, next: NextFunction) {
     .then((user) => {
       res.status(200).json(user.id);
     })
-    .catch(next);
+    .catch((err: Error) => {
+      if (!(err instanceof LoginError)) {
+        const newErr = new DatabaseError(err.message, 'DB_ERROR');
+        newErr.stack = err.stack;
+        err = newErr;
+      }
+      next(err);
+    });
 }

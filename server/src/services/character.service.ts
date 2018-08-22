@@ -22,14 +22,6 @@ export function getAll(): Promise<Array<Partial<Character>>> {
         throw new DatabaseError('No characters found!', 'NO_CHAR');
       }
       return characters;
-    })
-    .catch((err: Error) => {
-      if (!(err instanceof DatabaseError)) {
-        const tempErr = new DatabaseError(err.message, 'DB_ERROR');
-        tempErr.stack = err.stack;
-        err = tempErr;
-      }
-      throw err;
     });
 }
 
@@ -60,12 +52,6 @@ export function getOne(id: string): Promise<Character> {
     })
     .then((character) => {
       return character[0];
-    })
-    .catch((err) => {
-      if (!(err instanceof DatabaseError)) {
-        err = new DatabaseError(err.message, 'DB_ERROR');
-      }
-      throw err;
     });
 }
 
@@ -117,14 +103,6 @@ export function updateOne(id: string, body: ICharacter): Promise<Character> {
     })
     .then((results) => {
       return results[0];
-    })
-    .catch((err: Error) => {
-      if (!(err instanceof DatabaseError)) {
-        const newErr = new DatabaseError(err.message, 'DB_ERROR');
-        newErr.stack = err.stack;
-        err = newErr;
-      }
-      throw err;
     });
 }
 
@@ -145,15 +123,7 @@ export function getUserCharacters(
   }).then(() => {
     return Character.query()
       .select('id', 'race', 'name')
-      .where({ user_id: userId })
-      .catch((err: Error) => {
-        if (!(err instanceof DatabaseError)) {
-          const newErr = new DatabaseError(err.message, 'DB_ERROR');
-          newErr.stack = err.stack;
-          err = newErr;
-        }
-        throw err;
-      });
+      .where({ user_id: userId });
   });
 }
 
