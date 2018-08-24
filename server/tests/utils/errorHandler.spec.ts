@@ -57,6 +57,18 @@ describe('#errorHandlers', () => {
     expect(next.mock.calls).toBeTruthy();
   });
 
+  test('should log error', () => {
+    let msg = '';
+    for (let i = 0; i < 30; i++) {
+      msg += 'aaaaaaaaaa';
+    }
+    logErrors(new Error(msg), req as Request, res as Response, next);
+
+    expect(res.code).toBeDefined();
+    expect(res.code).toBe(null);
+    expect(next.mock.calls).toBeTruthy();
+  });
+
   test('should log a full error that has a reasonCode', () => {
     logErrors(
       new LoginError('this is an error', 'NO_USER'),

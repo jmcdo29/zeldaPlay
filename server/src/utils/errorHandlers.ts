@@ -26,7 +26,7 @@ export async function logErrors(
   next: NextFunction
 ) {
   console.error(err.message);
-  console.error(err.stack);
+  console.error(err.stack.split('\n')[0]);
   await DBError.query().insert({
     message: err.message.substring(
       0,
