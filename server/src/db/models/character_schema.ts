@@ -148,7 +148,7 @@ export class Character extends Model {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
     } else {
-      return model.$query().insert(model);
+      return model.$query().insertAndFetch(model);
     }
   }
 
@@ -210,6 +210,26 @@ export class Character extends Model {
     if (opt.old && opt.old.id !== this.id) {
       this.id = opt.old.id;
     }
+  }
+
+  async $beforeDelete(context: any) {
+    console.log('calling before delete');
+    console.log(this);
+    await Spell.query()
+      .delete()
+      .where({ character_id: this.id });
+    await Skill.query()
+      .delete()
+      .where({ character_id: this.id });
+    await Save.query()
+      .delete()
+      .where({ character_id: this.id });
+    await Note.query()
+      .delete()
+      .where({ character_id: this.id });
+    await Weapon.query()
+      .delete()
+      .where({ character_id: this.id });
   }
 
   /**

@@ -1,6 +1,5 @@
 import * as bcrypt from 'bcryptjs';
 import { User } from '../db/models/user_schema';
-import { DatabaseError } from '../utils/errors/DatabaseError';
 import { LoginError } from '../utils/errors/LoginError';
 
 /**
@@ -11,32 +10,25 @@ import { LoginError } from '../utils/errors/LoginError';
  * @returns {Promise<string>} user's id
  * @throws {LoginError}
  */
-export function login(username: string, password: string): Promise<string> {
-  return User.query()
+export async function login(
+  username: string,
+  password: string
+): Promise<string> {
+  const user = await User.query()
     .findOne({ email: username })
-    .select('id', 'password')
-    .then((user) => {
-      if (!user) {
-        throw new LoginError(
-          'Username or password is incorrect.',
-          'NO_USER_FOUND'
-        );
-      }
-      return Promise.all([
-        Promise.resolve(user),
-        bcrypt.compare(password, user.password)
-      ]);
-    })
-    .then((results) => {
-      if (!results[1]) {
-        throw new LoginError(
-          'Username or password is incorrect.',
-          'INCORRECT_PASSWORD'
-        );
-      } else {
-        return results[0].id;
-      }
-    });
+    .select('id', 'password');
+  if (!user) {
+    throw new LoginError('Username or password is incorrect.', 'NO_USER_FOUND');
+  }
+  const compare = await bcrypt.compare(password, user.password);
+  if (!compare) {
+    throw new LoginError(
+      'Username or password is incorrect.',
+      'INCORRECT_PASSWORD'
+    );
+  } else {
+    return user.id;
+  }
 }
 
 /**
@@ -48,79 +40,67 @@ export function login(username: string, password: string): Promise<string> {
  * @returns {Promise<Partial<User>>} returns User object with the id attribute only
  * @throws {LoginError}
  */
-export function signUp(
+export async function signUp(
   username: string,
   password: string,
   confPassword: string
 ): Promise<Partial<User>> {
-  return verifyPassword(password, confPassword)
-    .then(() => {
-      return User.query().where({ email: username });
-    })
-    .then((user) => {
-      if (user.length !== 0) {
-        throw new LoginError(
-          'Email already in use. Please log in or use a new email.',
-          'EMAIL_IN_USE'
-        );
-      } else {
-        return User.query().insert({
-          email: username,
-          password: bcrypt.hashSync(password, 12)
-        });
-      }
-    })
-    .then(() => {
-      return User.query()
-        .select('id')
-        .where({ email: username })
-        .first();
+  verifyPassword(password, confPassword);
+  const user = await User.query().where({ email: username });
+  if (user.length !== 0) {
+    throw new LoginError(
+      'Email already in use. Please log in or use a new email.',
+      'EMAIL_IN_USE'
+    );
+  } else {
+    await User.query().insertAndFetch({
+      email: username,
+      password: bcrypt.hashSync(password, 12)
     });
+  }
+  return User.query()
+    .select('id')
+    .where({ email: username })
+    .first();
 }
 
-export function update() {}
+export async function update() {}
 
 /**
  * function to make sure password matches confirmation password and matches all criteria for the website
  * @param {string} password
  * @param {string} confPass
- * @returns {Promise<{} | DatabaseError>
+ * @returns void
  */
-function verifyPassword(password: string, confPass: string): Promise<any> {
-  return new Promise((resolve, reject) => {
-    const errors: string[] = [];
-    if (password.length < 8) {
-      errors.push('Your password must be at least eight (8) characters long.');
-    }
-    if (password !== confPass) {
-      errors.push('Confirmation password does not match.');
-    }
-    if (!/[A-Z]+/.test(password)) {
-      errors.push(
-        'Your password must contain at least one uppercase character.'
-      );
-    }
-    if (!/[a-z]+/.test(password)) {
-      errors.push(
-        'Your password must contain at least one lowercase character.'
-      );
-    }
-    if (!/\d/.test(password)) {
-      errors.push('Your password must contain at least one number.');
-    }
-    if (!/[!@#$%^&*]/.test(password)) {
-      errors.push('Your password must contain at least one special character.');
-    }
-    if (/\s/.test(password)) {
-      errors.push('Your password should not contain any spaces.');
-    }
-    if (errors.length > 0) {
-      let errorMsg = '';
-      errors.forEach((error) => {
-        errorMsg += error + ' ';
-      });
-      reject(new LoginError(errorMsg, 'BAD_PASS'));
-    }
-    resolve();
-  });
+function verifyPassword(password: string, confPass: string): void {
+  const errors: string[] = [];
+  if (password.length < 8) {
+    errors.push('Your password must be at least eight (8) characters long.');
+  }
+  if (password !== confPass) {
+    errors.push('Confirmation password does not match.');
+  }
+  if (!/[A-Z]+/.test(password)) {
+    errors.push('Your password must contain at least one uppercase character.');
+  }
+  if (!/[a-z]+/.test(password)) {
+    errors.push('Your password must contain at least one lowercase character.');
+  }
+  if (!/\d/.test(password)) {
+    errors.push('Your password must contain at least one number.');
+  }
+  if (!/[!@#$%^&*]/.test(password)) {
+    errors.push('Your password must contain at least one special character.');
+  }
+  if (/\s/.test(password)) {
+    errors.push('Your password should not contain any spaces.');
+  }
+  if (errors.length > 0) {
+    let errorMsg = '';
+    errors.forEach((error) => {
+      errorMsg += error + ' ';
+    });
+    throw new LoginError(errorMsg, 'BAD_PASS');
+  }
+  return;
 }

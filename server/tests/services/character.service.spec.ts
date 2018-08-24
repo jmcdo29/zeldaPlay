@@ -103,12 +103,13 @@ describe('#CharacterServerService', () => {
 
   describe('#FullASynDatabaseStuff', () => {
     afterAll(() => {
-      return Character.query()
-        .select('id')
-        .where('name', 'MockChar')
-        .orWhere('name', null)
-        .first()
-        .then((character) => {
+      return (
+        Character.query()
+          .select('id')
+          .where('name', 'MockChar')
+          .orWhere('name', null)
+          .first()
+          /* .then((character) => {
           return Promise.all([
             Skill.query()
               .delete()
@@ -127,19 +128,18 @@ describe('#CharacterServerService', () => {
               .where('character_id', character.id),
             Promise.resolve(character.id)
           ]);
-        })
-        .then((results) => {
-          return Character.query()
-            .delete()
-            .where('id', results[results.length - 1]);
-        })
-        .then(() => {
-          return;
-        })
-        .catch((err) => {
-          console.error('error deleting mockCharacter');
-          console.error(err);
-        });
+        }) */
+          .then((character) => {
+            return character.$query().delete();
+          })
+          .then(() => {
+            return;
+          })
+          .catch((err) => {
+            console.error('error deleting mockCharacter');
+            console.error(err);
+          })
+      );
     });
 
     test(

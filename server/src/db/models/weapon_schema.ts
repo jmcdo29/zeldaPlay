@@ -60,7 +60,7 @@ export class Weapon extends Model {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
     } else {
-      return model.$query().insert(model);
+      return model.$query().insertAndFetch(model);
     }
   }
 
@@ -109,6 +109,12 @@ export class Weapon extends Model {
     if (opt.old && opt.old.id !== this.id) {
       this.id = opt.old.id;
     }
+  }
+
+  async $beforeDelete(context: any) {
+    await Element.query()
+      .delete()
+      .where({ weapon_id: this.id });
   }
 }
 

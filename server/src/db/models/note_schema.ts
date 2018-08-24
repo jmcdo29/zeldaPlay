@@ -35,7 +35,7 @@ export class Note extends Model {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
     } else {
-      return model.$query().insert(model);
+      return model.$query().insertAndFetch(model);
     }
   }
 
