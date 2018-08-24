@@ -4,6 +4,7 @@ exec('git diff --cached --name-only', (error, stdout, stderr) => {
     console.error(`exec error: ${error}`);
     return;
   }
+  // console.log(stdout);
   const files = stdout.split('\n');
   const filesToUpdate = [];
   files.forEach(file => {
@@ -13,6 +14,7 @@ exec('git diff --cached --name-only', (error, stdout, stderr) => {
   filesToUpdate.forEach(file => {
     updateString += file.trim() + ' ';
   });
+  console.log(updateString);
   exec(`git add ${updateString}`, (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error ${error}.`);
