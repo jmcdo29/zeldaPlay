@@ -54,7 +54,8 @@ module.exports = {
     "!**/test.ts",
     "!**/server.ts",
     "!**/jestGlobalMocks.ts",
-    "!**/dbConnection.ts"
+    "!**/dbConnection.ts",
+    "!**/www.ts"
   ],
   coverageReporters: ['lcov', 'text']
 };
