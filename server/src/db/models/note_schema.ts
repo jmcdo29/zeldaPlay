@@ -31,13 +31,13 @@ export class Note extends Model {
    * @returns {QueryBuilder<Note, Note, Note>} QueryBuilder to be executed on
    * @memberof Note
    */
-  static upsert(model: Note): QueryBuilder<Note, Note, Note> {
+  /* static upsert(model: Note): QueryBuilder<Note, Note, Note> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
     } else {
       return model.$query().insertAndFetch(model);
     }
-  }
+  } */
 
   /**
    * Creates an instance of Note.

@@ -11,13 +11,12 @@ describe('#ErrorSchema', () => {
     Model.knex().destroy();
   });
 
-  test('should be able to insert a DBError', () => {
-    return DBError.query()
-      .insert({})
-      .then((dbError) => {
-        return dbError.$query().delete();
-      })
-      .then(() => {})
-      .catch((err) => console.error(err));
+  test('should be able to insert a DBError', async () => {
+    try {
+      const dbError = await DBError.query().insert({});
+      await dbError.$query().delete();
+    } catch (err) {
+      console.error(err);
+    }
   });
 });

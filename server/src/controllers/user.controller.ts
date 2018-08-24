@@ -20,19 +20,18 @@ export { router as UserRouter };
  * @param {Response} res Express response object
  * @param {NextFunction} next Next function for handling errors
  */
-function login(req: Request, res: Response, next: NextFunction) {
-  getUser(req.body.username, req.body.password)
-    .then((user) => {
-      res.status(200).json(user);
-    })
-    .catch((err: Error) => {
-      if (!(err instanceof LoginError)) {
-        const newErr = new DatabaseError(err.message, 'DB_ERROR');
-        newErr.stack = err.stack;
-        err = newErr;
-      }
-      next(err);
-    });
+async function login(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await getUser(req.body.username, req.body.password);
+    res.status(200).json(user);
+  } catch (err) {
+    if (!(err instanceof LoginError)) {
+      const newErr = new DatabaseError(err.message, 'DB_ERROR');
+      newErr.stack = err.stack;
+      err = newErr;
+    }
+    next(err);
+  }
 }
 
 /**
@@ -41,17 +40,20 @@ function login(req: Request, res: Response, next: NextFunction) {
  * @param {Response} res Express response object
  * @param {NextFunction} next Next function for handling errors
  */
-function signup(req: Request, res: Response, next: NextFunction) {
-  createUser(req.body.username, req.body.password, req.body.confPass)
-    .then((user) => {
-      res.status(200).json(user.id);
-    })
-    .catch((err: Error) => {
-      if (!(err instanceof LoginError)) {
-        const newErr = new DatabaseError(err.message, 'DB_ERROR');
-        newErr.stack = err.stack;
-        err = newErr;
-      }
-      next(err);
-    });
+async function signup(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await createUser(
+      req.body.username,
+      req.body.password,
+      req.body.confPass
+    );
+    res.status(200).json(user.id);
+  } catch (err) {
+    if (!(err instanceof LoginError)) {
+      const newErr = new DatabaseError(err.message, 'DB_ERROR');
+      newErr.stack = err.stack;
+      err = newErr;
+    }
+    next(err);
+  }
 }

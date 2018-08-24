@@ -40,13 +40,13 @@ export class Skill extends Model {
    * @returns {QueryBuilder<Skill, Skill, Skill>} QueryBuilder to execute
    * @memberof Skill
    */
-  static upsert(model: Skill): QueryBuilder<Skill, Skill, Skill> {
+  /* static upsert(model: Skill): QueryBuilder<Skill, Skill, Skill> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
     } else {
       return model.$query().insertAndFetch(model);
     }
-  }
+  } */
 
   /**
    * Creates an instance of Skill.

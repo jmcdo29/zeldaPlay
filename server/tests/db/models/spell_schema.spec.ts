@@ -11,19 +11,15 @@ describe('#SpellSchema', () => {
     Model.knex().destroy();
   });
 
-  test('should be able to insert a Spell', () => {
-    return Spell.upsert(new Spell())
-      .then((spell) => {
-        spell.name = 'spell name';
-        return Spell.upsert(spell);
-      })
-      .then((spell) => {
-        return spell.$query().patchAndFetch({ id: '123456789abc' });
-      })
-      .then((spell) => {
-        return spell.$query().delete();
-      })
-      .then(() => {})
-      .catch((err) => console.error(err));
+  test('should be able to insert a Spell', async () => {
+    try {
+      const spell = await Spell.query().upsertGraphAndFetch(new Spell());
+      spell.name = 'spell name';
+      await Spell.query().upsertGraphAndFetch(spell);
+      await spell.$query().patchAndFetch({ id: '123456789abc' });
+      await spell.$query().delete();
+    } catch (err) {
+      console.error(err);
+    }
   });
 });

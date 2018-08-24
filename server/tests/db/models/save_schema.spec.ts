@@ -11,19 +11,15 @@ describe('#SaveSchema', () => {
     Model.knex().destroy();
   });
 
-  test('should be able to insert a Save', () => {
-    return Save.upsert(new Save())
-      .then((save) => {
-        save.name = 'some name';
-        return Save.upsert(save);
-      })
-      .then((save) => {
-        return save.$query().patchAndFetch({ id: '123456789abc' });
-      })
-      .then((save) => {
-        return save.$query().delete();
-      })
-      .then(() => {})
-      .catch((err) => console.error(err));
+  test('should be able to insert a Save', async () => {
+    try {
+      const save = await Save.query().upsertGraphAndFetch(new Save());
+      save.name = 'some name';
+      await Save.query().upsertGraphAndFetch(save);
+      await save.$query().patchAndFetch({ id: '123456789abc' });
+      await save.$query().delete();
+    } catch (err) {
+      console.error(err);
+    }
   });
 });

@@ -11,19 +11,14 @@ describe('#WeaponSchema', () => {
     Model.knex().destroy();
   });
 
-  test('should be able to insert a Weapon', () => {
-    return Weapon.upsert(new Weapon())
-      .then((weapon) => {
-        weapon.name = 'weapon name';
-        return Weapon.upsert(weapon);
-      })
-      .then((weapon) => {
-        return weapon.$query().patchAndFetch({ id: '123456789abc' });
-      })
-      .then((weapon) => {
-        return weapon.$query().delete();
-      })
-      .then(() => {})
-      .catch((err) => console.error(err));
+  test('should be able to insert a Weapon', async () => {
+    try {
+      const weapon = await Weapon.query().upsertGraphAndFetch(new Weapon());
+      await Weapon.query().upsertGraphAndFetch(weapon);
+      await weapon.$query().patchAndFetch({ id: '123456789abc' });
+      await weapon.$query().delete();
+    } catch (err) {
+      console.error(err);
+    }
   });
 });

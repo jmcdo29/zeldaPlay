@@ -42,7 +42,6 @@ export async function getOne(id: string): Promise<Character> {
   character.spells = await character.$relatedQuery('spells').orderBy('diety');
   character.saves = await character.$relatedQuery('saves').orderBy('name');
   character.notes = await character.$relatedQuery('notes').orderBy('time');
-  console.log(character);
   return character;
 }
 

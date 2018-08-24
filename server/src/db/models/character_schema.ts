@@ -213,8 +213,6 @@ export class Character extends Model {
   }
 
   async $beforeDelete(context: any) {
-    console.log('calling before delete');
-    console.log(this);
     await Spell.query()
       .delete()
       .where({ character_id: this.id });

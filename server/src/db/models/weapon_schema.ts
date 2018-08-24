@@ -56,13 +56,13 @@ export class Weapon extends Model {
    * @returns {QueryBuilder<Weapon, Weapon, Weapon>} QueryBuilder to execute on
    * @memberof Weapon
    */
-  static upsert(model: Weapon): QueryBuilder<Weapon, Weapon, Weapon> {
+  /* static upsert(model: Weapon): QueryBuilder<Weapon, Weapon, Weapon> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
     } else {
       return model.$query().insertAndFetch(model);
     }
-  }
+  } */
 
   /**
    * Creates an instance of Weapon.
