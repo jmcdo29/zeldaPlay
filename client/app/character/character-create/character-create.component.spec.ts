@@ -324,4 +324,170 @@ describe('CharacterCreateComponent', () => {
       expect(component.weaponSkillsPrior[0]).toBeNull();
     });
   });
+
+  describe('track and validate commands', () => {
+    describe('attribute specific', () => {
+      test('track attr', () => {
+        const startPoints = component.attPoints;
+        component.newCharacter.attributes[2].value += 2;
+        component.trackAtt(2);
+        expect((component.attPoints = startPoints - 2));
+        const prior = component.attrPrior[2];
+        component.newCharacter.attributes[2].value += 1;
+        component.trackAtt(2);
+        expect((component.attPoints = prior - 1));
+      });
+      describe('validate attr', () => {
+        test('regression value', () => {
+          const startPoints = component.attPoints;
+          const startAttr = component.newCharacter.attributes[0].value;
+          component.newCharacter.attributes[0].value--;
+          component.trackAtt(0);
+          expect(component.attPoints).toBe(startPoints + 1);
+          component.validateAttr(0);
+          expect(document.getElementById('attr0').classList).toContain(
+            'bad-input'
+          );
+          expect(component.attPoints).toBe(startPoints);
+          expect(component.newCharacter.attributes[0].value).toBe(startAttr);
+        });
+        test('overused points', () => {
+          const startPoints = component.attPoints;
+          const startAttr = component.newCharacter.attributes[0].value;
+          for (let i = 0; i <= startPoints; i++) {
+            component.newCharacter.attributes[0].value++;
+            component.trackAtt(0);
+          }
+          component.validateAttr(0);
+          expect(document.getElementById('attr0').classList).toContain(
+            'bad-input'
+          );
+          expect(component.newCharacter.attributes[0].value).toBe(
+            startAttr + startPoints
+          );
+          expect(component.attrPrior[0]).toBe(startAttr + startPoints);
+          expect(component.attPoints).toBe(0);
+        });
+        test('overused points and re-adjust', () => {
+          const startPoints = component.attPoints;
+          const startAttr = component.newCharacter.attributes[0].value;
+          for (let i = 0; i <= startPoints; i++) {
+            component.newCharacter.attributes[0].value++;
+            component.trackAtt(0);
+          }
+          component.validateAttr(0);
+          expect(document.getElementById('attr0').classList).toContain(
+            'bad-input'
+          );
+          expect(component.newCharacter.attributes[0].value).toBe(
+            startAttr + startPoints
+          );
+          expect(component.attrPrior[0]).toBe(startAttr + startPoints);
+          expect(component.attPoints).toBe(0);
+          component.trackAtt(0);
+          component.validateAttr(0);
+          expect(document.getElementById('attr0').classList).not.toContain(
+            'bad-input'
+          );
+          expect(component.newCharacter.attributes[0].value).toBe(
+            startAttr + startPoints
+          );
+          expect(component.attrPrior[0]).toBe(startAttr + startPoints);
+          expect(component.attPoints).toBe(0);
+        });
+        test('good input', () => {
+          const startPoints = component.attPoints;
+          const startAttr = component.newCharacter.attributes[2].value;
+          for (let i = 0; i < startPoints; i++) {
+            component.newCharacter.attributes[2].value++;
+            component.trackAtt(2);
+          }
+          component.validateAttr(2);
+          expect(document.getElementById('attr0').classList).not.toContain(
+            'bad-input'
+          );
+          expect(component.newCharacter.attributes[2].value).toBe(
+            startAttr + startPoints
+          );
+          expect(component.attrPrior[2]).toBe(startAttr + startPoints);
+          expect(component.attPoints).toBe(0);
+        });
+      });
+    });
+    describe('skill specific', () => {
+      test('track skill', () => {
+        const skillPointStart = component.skillPoints;
+        component.newCharacter.skills[0].ranks += 10;
+        component.track(0, 'skills');
+        expect(component.skillPoints).toBe(skillPointStart - 10);
+        component.newCharacter.skills[0].ranks += 5;
+        component.track(0, 'skills');
+        expect(component.skillPoints).toBe(skillPointStart - 15);
+      });
+      describe('validate skill', () => {
+        test('regression value', () => {
+          const skillPointsStart = component.skillPoints;
+          component.newCharacter.weaponSkills[0].ranks -= 10;
+          component.validate(0, 'weaponSkills');
+          expect(document.getElementById('weaponSkills0').classList).toContain(
+            'bad-input'
+          );
+          expect(component.weaponSkillsPrior[0]).toBe(0);
+          expect(component.skillPoints).toBe(skillPointsStart - 10);
+        });
+        test('overused points', () => {
+          const skillStart = component.newCharacter.weaponSkills[0].ranks;
+          const skillPointsStart = component.skillPoints;
+          component.newCharacter.weaponSkills[0].ranks += skillPointsStart + 5;
+          component.track(0, 'weaponSkills');
+          component.validate(0, 'weaponSkills');
+          expect(document.getElementById('weaponSkills0').classList).toContain(
+            'bad-input'
+          );
+          expect(component.newCharacter.weaponSkills[0].ranks).toBe(
+            skillStart + skillPointsStart
+          );
+          expect(component.weaponSkillsPrior[0]).toBe(skillPointsStart);
+          expect(component.skillPoints).toBe(0);
+        });
+        test('overused points and re-adjust', () => {
+          const skillStart = component.newCharacter.weaponSkills[0].ranks;
+          const skillPointsStart = component.skillPoints;
+          component.newCharacter.weaponSkills[0].ranks += skillPointsStart + 5;
+          component.track(0, 'weaponSkills');
+          component.validate(0, 'weaponSkills');
+          expect(document.getElementById('weaponSkills0').classList).toContain(
+            'bad-input'
+          );
+          expect(component.newCharacter.weaponSkills[0].ranks).toBe(
+            skillStart + skillPointsStart
+          );
+          expect(component.weaponSkillsPrior[0]).toBe(skillPointsStart);
+          expect(component.skillPoints).toBe(0);
+          component.track(0, 'weaponSkills');
+          component.validate(0, 'weaponSkills');
+          expect(
+            document.getElementById('weaponSkills0').classList
+          ).not.toContain('bad-input');
+          expect(component.newCharacter.weaponSkills[0].ranks).toBe(
+            skillStart + skillPointsStart
+          );
+          expect(component.weaponSkillsPrior[0]).toBe(skillPointsStart);
+          expect(component.skillPoints).toBe(0);
+        });
+        test('good input', () => {
+          const skillPointsStart = component.skillPoints;
+          for (let i = 0; i < skillPointsStart; i++) {
+            component.newCharacter.magicSkills[0].ranks++;
+          }
+          component.track(0, 'magicSkills');
+          component.validate(0, 'magicSkills');
+          expect(component.newCharacter.magicSkills[0].ranks).toBe(
+            skillPointsStart
+          );
+          expect(component.skillPoints).toBe(0);
+        });
+      });
+    });
+  });
 });

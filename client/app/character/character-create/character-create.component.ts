@@ -125,7 +125,7 @@ export class CharacterCreateComponent implements OnInit {
           const newChar = this.CharacterParent.selectedCharacter;
           newChar.id = characterRes.id;
           if (characterRes.skills) {
-            characterRes.skills.forEach((skill) => {
+            for (const skill of characterRes.skills) {
               if (skill.skill_type === 'skill') {
                 newChar.skills[Skills[skill.name]].id = skill.id;
               } else if (skill.skill_type === 'weapon') {
@@ -133,31 +133,31 @@ export class CharacterCreateComponent implements OnInit {
               } else {
                 newChar.magicSkills[Magics[skill.name]].id = skill.id;
               }
-            });
+            }
           }
           if (characterRes.weapons) {
-            characterRes.weapons.forEach((weapon) => {
+            for (const weapon of characterRes.weapon) {
               newChar.weapons[
                 findObjectPartial(newChar.weapons, 'name', weapon.name)
               ].id = weapon.id;
-            });
+            }
           }
           if (characterRes.spells) {
-            characterRes.spells.forEach((spell) => {
+            for (const spell of characterRes.spells) {
               newChar.spells[
                 findObjectPartial(newChar.spells, 'name', spell.name)
               ].id = spell.id;
-            });
+            }
           }
           if (characterRes.saves) {
-            characterRes.saves.forEach((save) => {
+            for (const save of characterRes.saves) {
               newChar.savingThrows[
                 findObjectPartial(newChar.savingThrows, 'name', save.name)
               ].id = save.id;
-            });
+            }
           }
           if (characterRes.notes) {
-            characterRes.notes.forEach((note) => {
+            for (const note of characterRes.notes) {
               if (note.important) {
                 newChar.importantNotes[
                   findObjectPartial(newChar.importantNotes, 'msg', note.message)
@@ -167,7 +167,7 @@ export class CharacterCreateComponent implements OnInit {
                   findObjectPartial(newChar.notes, 'msg', note.message)
                 ].id = note.id;
               }
-            });
+            }
           }
         });
     } else if (!this.error) {
@@ -278,7 +278,7 @@ export class CharacterCreateComponent implements OnInit {
     } */
     this.attPoints -=
       val -
-      (this.attPoints[attrIndex]
+      (this.attrPrior[attrIndex]
         ? this.attrPrior[attrIndex]
         : this.attrMins[attrIndex]);
     this.attrPrior[attrIndex] = val;
@@ -293,7 +293,7 @@ export class CharacterCreateComponent implements OnInit {
       this.skillPoints = this.skillPoints - val;
     } */
     this.skillPoints -=
-      val - this[type + PRIOR][index] ? this[type + PRIOR][index] : 0;
+      val - (this[type + PRIOR][index] ? this[type + PRIOR][index] : 0);
     this[type + PRIOR][index] = val;
   }
 
