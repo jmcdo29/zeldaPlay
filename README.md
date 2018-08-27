@@ -22,7 +22,7 @@ In the end, this application will be able to help track your character, make bas
 * Race
 * Subrace
 * AC
-* Flat*Footed AC
+* Flat-Footed AC
 * Touch AC
 * Size
 * Level

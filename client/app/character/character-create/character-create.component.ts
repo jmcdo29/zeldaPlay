@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { AlertService } from '../../alert/alert.service';
 import { MessageService } from '../../shared/messages/message.service';
@@ -64,7 +63,6 @@ export class CharacterCreateComponent implements OnInit {
 
   constructor(
     public message: MessageService,
-    private router: Router,
     private alertService: AlertService,
     private characterService: CharacterService
   ) {}
