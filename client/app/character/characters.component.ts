@@ -85,73 +85,59 @@ export class CharactersComponent implements OnInit {
       .saveCharDb(this.selectedCharacter)
       .subscribe((characterRes) => {
         this.selectedCharacter.id = characterRes.id;
-        if (characterRes.skills) {
-          characterRes.skills.forEach((skill) => {
-            if (skill.skill_type === 'skill') {
-              this.selectedCharacter.skills[Skills[skill.name]].id = skill.id;
-            } else if (skill.skill_type === 'weapon') {
-              this.selectedCharacter.weaponSkills[Weapons[skill.name]].id =
-                skill.id;
-            } else {
-              this.selectedCharacter.magicSkills[Magics[skill.name]].id =
-                skill.id;
-            }
-          });
-        }
-        if (characterRes.weapons) {
-          characterRes.weapons.forEach((weapon) => {
-            this.selectedCharacter.weapons[
+        characterRes.skills.forEach((skill) => {
+          if (skill.skill_type === 'skill') {
+            this.selectedCharacter.skills[Skills[skill.name]].id = skill.id;
+          } else if (skill.skill_type === 'weapon') {
+            this.selectedCharacter.weaponSkills[Weapons[skill.name]].id =
+              skill.id;
+          } else {
+            this.selectedCharacter.magicSkills[Magics[skill.name]].id =
+              skill.id;
+          }
+        });
+        characterRes.weapons.forEach((weapon) => {
+          this.selectedCharacter.weapons[
+            findObjectPartial(
+              this.selectedCharacter.weapons,
+              'name',
+              weapon.name
+            )
+          ].id = weapon.id;
+        });
+        characterRes.spells.forEach((spell) => {
+          this.selectedCharacter.spells[
+            findObjectPartial(this.selectedCharacter.spells, 'name', spell.name)
+          ].id = spell.id;
+        });
+        characterRes.saves.forEach((save) => {
+          this.selectedCharacter.savingThrows[
+            findObjectPartial(
+              this.selectedCharacter.savingThrows,
+              'name',
+              save.name
+            )
+          ].id = save.id;
+        });
+        characterRes.notes.forEach((note) => {
+          if (note.important) {
+            this.selectedCharacter.importantNotes[
               findObjectPartial(
-                this.selectedCharacter.weapons,
-                'name',
-                weapon.name
+                this.selectedCharacter.importantNotes,
+                'msg',
+                note.message
               )
-            ].id = weapon.id;
-          });
-        }
-        if (characterRes.spells) {
-          characterRes.spells.forEach((spell) => {
-            this.selectedCharacter.spells[
+            ].id = note.id;
+          } else {
+            this.selectedCharacter.notes[
               findObjectPartial(
-                this.selectedCharacter.spells,
-                'name',
-                spell.name
+                this.selectedCharacter.notes,
+                'msg',
+                note.message
               )
-            ].id = spell.id;
-          });
-        }
-        if (characterRes.saves) {
-          characterRes.saves.forEach((save) => {
-            this.selectedCharacter.savingThrows[
-              findObjectPartial(
-                this.selectedCharacter.savingThrows,
-                'name',
-                save.name
-              )
-            ].id = save.id;
-          });
-        }
-        if (characterRes.notes) {
-          characterRes.notes.forEach((note) => {
-            if (note.important) {
-              this.selectedCharacter.importantNotes[
-                findObjectPartial(
-                  this.selectedCharacter.importantNotes,
-                  'msg',
-                  note.message
-                )
-              ].id = note.id;
-            } else {
-              this.selectedCharacter.notes[
-                findObjectPartial(
-                  this.selectedCharacter.notes,
-                  'msg',
-                  note.message
-                )
-              ].id = note.id;
-            }
-          });
-        }
+            ].id = note.id;
+          }
+        });
       });
   }
 }

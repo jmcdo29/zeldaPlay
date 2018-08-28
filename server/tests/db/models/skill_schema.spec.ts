@@ -3,8 +3,11 @@ import { Model } from 'objection';
 import { Skill } from '../../../src/db/models/skill_schema';
 import { conn } from '../../dbConnection';
 
+jest.retryTimes(3);
+
 describe('#SkillSchema', () => {
   beforeAll(() => {
+    jest.setTimeout(10000);
     Model.knex(Knex(conn));
   });
   afterAll(() => {

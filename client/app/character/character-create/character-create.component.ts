@@ -117,14 +117,14 @@ export class CharacterCreateComponent implements OnInit {
     } else {
       this.error = true;
     }
-    if (localStorage.getItem('currentUser') && !this.error) {
-      // save character to database
-      this.characterService
-        .saveCharDb(this.newCharacter)
-        .subscribe((characterRes) => {
-          const newChar = this.CharacterParent.selectedCharacter;
-          newChar.id = characterRes.id;
-          if (characterRes.skills) {
+    if (!this.error) {
+      if (localStorage.getItem('currentUser')) {
+        // save character to database
+        this.characterService
+          .saveCharDb(this.newCharacter)
+          .subscribe((characterRes) => {
+            const newChar = this.CharacterParent.selectedCharacter;
+            newChar.id = characterRes.id;
             for (const skill of characterRes.skills) {
               if (skill.skill_type === 'skill') {
                 newChar.skills[Skills[skill.name]].id = skill.id;
@@ -134,29 +134,21 @@ export class CharacterCreateComponent implements OnInit {
                 newChar.magicSkills[Magics[skill.name]].id = skill.id;
               }
             }
-          }
-          if (characterRes.weapons) {
-            for (const weapon of characterRes.weapon) {
+            for (const weapon of characterRes.weapons) {
               newChar.weapons[
                 findObjectPartial(newChar.weapons, 'name', weapon.name)
               ].id = weapon.id;
             }
-          }
-          if (characterRes.spells) {
             for (const spell of characterRes.spells) {
               newChar.spells[
                 findObjectPartial(newChar.spells, 'name', spell.name)
               ].id = spell.id;
             }
-          }
-          if (characterRes.saves) {
             for (const save of characterRes.saves) {
               newChar.savingThrows[
                 findObjectPartial(newChar.savingThrows, 'name', save.name)
               ].id = save.id;
             }
-          }
-          if (characterRes.notes) {
             for (const note of characterRes.notes) {
               if (note.important) {
                 newChar.importantNotes[
@@ -168,12 +160,14 @@ export class CharacterCreateComponent implements OnInit {
                 ].id = note.id;
               }
             }
-          }
-        });
-    } else if (!this.error) {
-      this.alertService.error(
-        'You must be logged in to save your character for re-use.'
-      );
+          });
+      } else {
+        this.alertService.error(
+          'You must be logged in to save your character for re-use.'
+        );
+      }
+    } else {
+      this.alertService.error('There was a problem with saving the character.');
     }
   }
 

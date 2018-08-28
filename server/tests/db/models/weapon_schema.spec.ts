@@ -3,8 +3,11 @@ import { Model } from 'objection';
 import { Weapon } from '../../../src/db/models/weapon_schema';
 import { conn } from '../../dbConnection';
 
+jest.retryTimes(3);
+
 describe('#WeaponSchema', () => {
   beforeAll(() => {
+    jest.setTimeout(10000);
     Model.knex(Knex(conn));
   });
   afterAll(() => {

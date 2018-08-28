@@ -3,8 +3,11 @@ import { Model } from 'objection';
 import { DBError } from '../../../src/db/models/error_schema';
 import { conn } from '../../dbConnection';
 
+jest.retryTimes(3);
+
 describe('#ErrorSchema', () => {
   beforeAll(() => {
+    jest.setTimeout(10000);
     Model.knex(Knex(conn));
   });
   afterAll(() => {

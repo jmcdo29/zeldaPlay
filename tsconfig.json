@@ -6,7 +6,6 @@
       "jest"
     ],
     "outDir": "./dist/out-tsc",
-    "sourceMap": true,
     "inlineSourceMap": true,
     "declaration": false,
     "moduleResolution": "node",

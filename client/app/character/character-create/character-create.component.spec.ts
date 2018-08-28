@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Observable, of } from 'rxjs';
 
 import { AlertService } from '../../alert/alert.service';
 import { MessageService } from '../../shared/messages/message.service';
@@ -18,11 +19,25 @@ import {
   Zora
 } from '../characterModels/Races';
 import { CharactersComponent } from '../characters.component';
+import { myChar } from '../mocks/character.mock';
+import { characterReturn } from '../mocks/characterRes.mock';
 import { CharacterCreateComponent } from './character-create.component';
 
-const alertServiceStub: Partial<AlertService> = {};
-const messageServiceStub: Partial<MessageService> = {};
-const characterServiceStub: Partial<CharacterService> = {};
+const alertServiceStub: Partial<AlertService> = {
+  error(message) {
+    return message;
+  }
+};
+const messageServiceStub: Partial<MessageService> = {
+  add(message) {
+    return message;
+  }
+};
+const characterServiceStub: Partial<CharacterService> = {
+  saveCharDb(sampleChar: Character): Observable<any> {
+    return of(characterReturn);
+  }
+};
 
 describe('CharacterCreateComponent', () => {
   let component: CharacterCreateComponent;
@@ -34,7 +49,8 @@ describe('CharacterCreateComponent', () => {
       declarations: [CharacterCreateComponent],
       providers: [
         { provide: AlertService, useValue: alertServiceStub },
-        { provide: MessageService, useValue: messageServiceStub }
+        { provide: MessageService, useValue: messageServiceStub },
+        { provide: CharacterService, useValue: characterServiceStub }
       ]
     }).compileComponents();
   }));
@@ -488,6 +504,87 @@ describe('CharacterCreateComponent', () => {
           expect(component.skillPoints).toBe(0);
         });
       });
+    });
+  });
+
+  describe('saving the character', () => {
+    describe('saving while logged in', () => {
+      test('it should fully save the character and set all ids', () => {
+        component.newCharacter = myChar;
+        localStorage.setItem('currentUser', '00UjYh3bYs92');
+        component.CharacterParent = new CharactersComponent(
+          characterServiceStub as CharacterService,
+          alertServiceStub as AlertService
+        );
+        component.attPoints = component.skillPoints = 0;
+        component.save();
+        expect(component.CharacterParent.characters.length).toBe(1);
+        expect(component.error).toBe(false);
+        expect(component.CharacterParent).toBeTruthy();
+      });
+    });
+    describe('saving failures', () => {
+      test('should not save if not logged in', () => {
+        component.newCharacter = new Gerudo();
+        component.newCharacter.name = 'Test Gerudo';
+        component.skillPoints = 0;
+        component.attPoints = 0;
+        component.CharacterParent = new CharactersComponent(
+          characterServiceStub as CharacterService,
+          alertServiceStub as AlertService
+        );
+        localStorage.removeItem('currentUser');
+        component.save();
+        expect(component.CharacterParent.characters.length).toBe(1);
+        expect(component.error).toBe(false);
+        expect(component.CharacterParent.newChar).toBe(false);
+        expect(component.CharacterParent.selectedCharacter).toEqual(
+          component.newCharacter
+        );
+      });
+      test('should not save without Hylian Subrace', () => {
+        component.newCharacter = new Hylian();
+        component.skillPoints = component.attPoints = 0;
+        component.newCharacter.name = 'Test Hylian';
+        component.save();
+        expect(component.error).toBe(true);
+      });
+      test('should not save without spending all attr points', () => {
+        component.newCharacter = new Sheikah();
+        component.skillPoints = 0;
+        component.attPoints = 5;
+        component.newCharacter.name = 'Test Sheikah';
+        component.save();
+        expect(component.error).toBe(true);
+      });
+      test('should not save without spending all skill points', () => {
+        component.newCharacter = new Twili();
+        component.skillPoints = 5;
+        component.attPoints = 0;
+        component.newCharacter.name = 'Test Twili';
+        component.save();
+        expect(component.error).toBe(true);
+      });
+      test('should not save without a character name', () => {
+        component.newCharacter = new Hylian();
+        component.newCharacter.subRace = 'Farmer';
+        component.skillPoints = component.attPoints = 0;
+        component.save();
+        expect(component.error).toBe(true);
+      });
+    });
+  });
+  describe('create message', () => {
+    test('create message for character with subrace', () => {
+      component.newCharacter = new Hylian();
+      component.newCharacter.subRace = 'Guard';
+      component.newCharacter.name = 'Test Guard';
+      component.createMessage();
+    });
+    test('create message for character without sub race', () => {
+      component.newCharacter = new Twili();
+      component.newCharacter.name = 'Test Twili';
+      component.createMessage();
     });
   });
 });

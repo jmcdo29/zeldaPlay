@@ -1,8 +1,9 @@
 module.exports = {
   roots: [
     '<rootDir>/client',
-    '<rootDir>/server'  
+    '<rootDir>/server'
   ],
+  testRunner: 'jest-circus/runner',
   preset: 'jest-preset-angular',
   globals: {
     "ts-jest": {
