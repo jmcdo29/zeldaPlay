@@ -13,24 +13,14 @@ import { DatabaseError } from '../utils/errors/DatabaseError';
  *  with id, name, and race properties
  * @throws {DatabaseError} - Throws a database error to indicate something was wrong with the query
  */
-export function getAll(): Promise<Array<Partial<Character>>> {
-  return Character.query()
+export async function getAll(): Promise<Array<Partial<Character>>> {
+  const characters = await Character.query()
     .select('id', 'name', 'race')
-    .whereNull('user_id')
-    .then((characters) => {
-      if (characters.length === 0) {
-        throw new DatabaseError('No characters found!', 'NO_CHAR');
-      }
-      return characters;
-    })
-    .catch((err: Error) => {
-      if (!(err instanceof DatabaseError)) {
-        const tempErr = new DatabaseError(err.message, 'DB_ERROR');
-        tempErr.stack = err.stack;
-        err = tempErr;
-      }
-      throw err;
-    });
+    .whereNull('user_id');
+  if (characters.length === 0) {
+    throw new DatabaseError('No characters found!', 'NO_CHAR');
+  }
+  return characters;
 }
 
 /**
@@ -39,34 +29,20 @@ export function getAll(): Promise<Array<Partial<Character>>> {
  * @returns {Promise<Character>} returns a promise of the character object with all fields
  * @throws {DatabaseError}
  */
-export function getOne(id: string): Promise<Character> {
-  return Character.query()
-    .findById(id)
-    .then((character) => {
-      if (!character) {
-        throw new DatabaseError('No character found', 'NO_CHAR');
-      }
-      return Promise.all([
-        Promise.resolve(character),
-        character.$relatedQuery('skills').orderBy('name'),
-        character
-          .$relatedQuery('weapons')
-          .eager('element')
-          .orderBy('name'),
-        character.$relatedQuery('spells').orderBy('diety'),
-        character.$relatedQuery('saves').orderBy('name'),
-        character.$relatedQuery('notes').orderBy('time')
-      ]);
-    })
-    .then((character) => {
-      return character[0];
-    })
-    .catch((err) => {
-      if (!(err instanceof DatabaseError)) {
-        err = new DatabaseError(err.message, 'DB_ERROR');
-      }
-      throw err;
-    });
+export async function getOne(id: string): Promise<Character> {
+  const character = await Character.query().findById(id);
+  if (!character) {
+    throw new DatabaseError('No character found', 'NO_CHAR');
+  }
+  character.skills = await character.$relatedQuery('skills').orderBy('name');
+  character.weapons = await character
+    .$relatedQuery('weapons')
+    .eager('element')
+    .orderBy('name');
+  character.spells = await character.$relatedQuery('spells').orderBy('diety');
+  character.saves = await character.$relatedQuery('saves').orderBy('name');
+  character.notes = await character.$relatedQuery('notes').orderBy('time');
+  return character;
 }
 
 /**
@@ -77,55 +53,59 @@ export function getOne(id: string): Promise<Character> {
  * @returns {Promise<Character>}
  * @throws {DatabaseError}
  */
-export function updateOne(id: string, body: ICharacter): Promise<Character> {
-  return new Promise((resolve, reject) => {
-    const character = new Character(id, body);
-    resolve(character);
-  })
-    .then((character: Character) => {
-      return Character.upsert(character);
-    })
-    .then((charId) => {
-      const chId = charId.id;
-      const promises: Array<Promise<any>> = [];
-      promises.push(Promise.resolve(charId));
-      body.skills.forEach((skill) => {
-        promises.push(Skill.upsert(new Skill(id, chId, skill, 'skill')));
-      });
-      body.weaponSkills.forEach((wSkill) => {
-        promises.push(Skill.upsert(new Skill(id, chId, wSkill, 'weapon')));
-      });
-      body.magicSkills.forEach((mSkill) => {
-        promises.push(Skill.upsert(new Skill(id, chId, mSkill, 'magic')));
-      });
-      body.weapons.forEach((weapon) => {
-        promises.push(Weapon.upsert(new Weapon(id, chId, weapon)));
-      });
-      body.spells.forEach((spell) => {
-        promises.push(Spell.upsert(new Spell(id, chId, spell)));
-      });
-      body.notes.forEach((note) => {
-        promises.push(Note.upsert(new Note(id, chId, note)));
-      });
-      body.importantNotes.forEach((note) => {
-        promises.push(Note.upsert(new Note(id, chId, note)));
-      });
-      body.savingThrows.forEach((save) => {
-        promises.push(Save.upsert(new Save(id, chId, save)));
-      });
-      return Promise.all(promises);
-    })
-    .then((results) => {
-      return results[0];
-    })
-    .catch((err: Error) => {
-      if (!(err instanceof DatabaseError)) {
-        const newErr = new DatabaseError(err.message, 'DB_ERROR');
-        newErr.stack = err.stack;
-        err = newErr;
-      }
-      throw err;
-    });
+export async function updateOne(
+  id: string,
+  body: ICharacter
+): Promise<Character> {
+  const character = new Character(id, body);
+  const charId = await Character.upsert(character);
+  const chId = charId.id;
+  const skills: Skill[] = [];
+  const weapons: Weapon[] = [];
+  const notes: Note[] = [];
+  const spells: Spell[] = [];
+  const saves: Save[] = [];
+  // Skill.query().upsertGraph(body.skills);
+  for (const skill of body.skills) {
+    skills.push(new Skill(id, chId, skill, 'skill'));
+  }
+  for (const wSkill of body.weaponSkills) {
+    skills.push(new Skill(id, chId, wSkill, 'weapon'));
+  }
+  for (const mSkill of body.magicSkills) {
+    skills.push(new Skill(id, chId, mSkill, 'magic'));
+  }
+  for (const weapon of body.weapons) {
+    weapons.push(new Weapon(id, chId, weapon));
+  }
+  for (const spell of body.spells) {
+    spells.push(new Spell(id, chId, spell));
+  }
+  for (const note of body.notes) {
+    notes.push(new Note(id, chId, note));
+  }
+  for (const note of body.importantNotes) {
+    notes.push(new Note(id, chId, note));
+  }
+  for (const save of body.savingThrows) {
+    saves.push(new Save(id, chId, save));
+  }
+  charId.skills = await Skill.query().upsertGraphAndFetch(skills, {
+    insertMissing: true
+  });
+  charId.weapons = await Weapon.query().upsertGraphAndFetch(weapons, {
+    insertMissing: true
+  });
+  charId.spells = await Spell.query().upsertGraphAndFetch(spells, {
+    insertMissing: true
+  });
+  charId.saves = await Save.query().upsertGraphAndFetch(saves, {
+    insertMissing: true
+  });
+  charId.notes = await Note.query().upsertGraphAndFetch(notes, {
+    insertMissing: true
+  });
+  return charId;
 }
 
 /**
@@ -134,27 +114,15 @@ export function updateOne(id: string, body: ICharacter): Promise<Character> {
  * @returns {Promise<Array<Partial<Character>>>} returns a promise of an array of partial characters
  * @throws {DatabaseError}
  */
-export function getUserCharacters(
+export async function getUserCharacters(
   userId: string
 ): Promise<Array<Partial<Character>>> {
-  return new Promise((resolve, reject) => {
-    if (!userId.startsWith('00U') || userId.length !== 12) {
-      reject(new DatabaseError('Bad user id.', 'BAD_USER'));
-    }
-    resolve();
-  }).then(() => {
-    return Character.query()
-      .select('id', 'race', 'name')
-      .where({ user_id: userId })
-      .catch((err: Error) => {
-        if (!(err instanceof DatabaseError)) {
-          const newErr = new DatabaseError(err.message, 'DB_ERROR');
-          newErr.stack = err.stack;
-          err = newErr;
-        }
-        throw err;
-      });
-  });
+  if (!userId.startsWith('00U') || userId.length !== 12) {
+    throw new DatabaseError('Bad user id.', 'BAD_USER');
+  }
+  return Character.query()
+    .select('id', 'race', 'name')
+    .where({ user_id: userId });
 }
 
 export function newWeapon(charId, weapon) {}

@@ -50,3 +50,4 @@ mock-characters.ts
 /reference/*.js
 /reference/*.json
 seeds
+testDelete.js

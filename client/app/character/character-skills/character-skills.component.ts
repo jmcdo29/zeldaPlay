@@ -37,14 +37,26 @@ export class CharacterSkillsComponent implements OnInit {
 
   makeCheck(skillName: string): void {
     const originalRoll = (Math.round(Math.random() * 100) % 20) + 1;
-    let roll = originalRoll;
     const skill = this.character.skills[Skills[skillName]];
     const skillMod = skill.modifier;
     const mod = this.character.attributes[Attributes[skillMod]].modifier;
     const trained = skill.trained ? 3 : 0;
-    roll +=
-      mod + skill.ranks + skill.misc + skill.item + skill.racial + trained;
-    this.checkVal = roll;
+    const roll =
+      originalRoll +
+      mod +
+      skill.ranks +
+      skill.misc +
+      skill.item +
+      skill.racial +
+      trained;
+    this.checkVal =
+      originalRoll +
+      mod +
+      skill.ranks +
+      skill.misc +
+      skill.item +
+      skill.racial +
+      trained;
     this.skill = skillName;
     this.setClasses(originalRoll);
     this.addMessage(skillName, roll);
@@ -68,8 +80,6 @@ export class CharacterSkillsComponent implements OnInit {
     if (roll === 1) {
       document.getElementById('roll').classList.add('critMiss');
     } else if (roll === 20) {
-      console.log('made crit roll');
-      console.log(document.getElementById('roll'));
       document.getElementById('roll').classList.add('crit');
     }
   }

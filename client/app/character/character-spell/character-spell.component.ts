@@ -31,7 +31,7 @@ export class CharacterSpellComponent implements OnInit {
   dmgRoll: number;
 
   constructor(
-    public message: MessageService,
+    private message: MessageService,
     private alertService: AlertService
   ) {}
 

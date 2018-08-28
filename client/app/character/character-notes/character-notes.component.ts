@@ -48,6 +48,5 @@ export class CharacterNotesComponent implements OnInit {
 
   expandNotes(index: number): void {
     this.showNotes[index] = !this.showNotes[index];
-    console.log(index, this.showNotes[index]);
   }
 }

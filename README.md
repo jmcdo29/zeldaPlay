@@ -3,6 +3,7 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-purple.svg?style=flat)](https://github.com/prettier/prettier)
 [![Build Status](https://travis-ci.org/jmcdo29/zeldaPlay.svg?branch=master)](https://travis-ci.org/jmcdo29/zeldaPlay)
 [![codecov](https://codecov.io/gh/jmcdo29/zeldaPlay/branch/master/graph/badge.svg)](https://codecov.io/gh/jmcdo29/zeldaPlay)
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
 ***
 
@@ -22,7 +23,7 @@ In the end, this application will be able to help track your character, make bas
 * Race
 * Subrace
 * AC
-* Flat*Footed AC
+* Flat-Footed AC
 * Touch AC
 * Size
 * Level

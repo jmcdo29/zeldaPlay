@@ -56,13 +56,13 @@ export class Weapon extends Model {
    * @returns {QueryBuilder<Weapon, Weapon, Weapon>} QueryBuilder to execute on
    * @memberof Weapon
    */
-  static upsert(model: Weapon): QueryBuilder<Weapon, Weapon, Weapon> {
+  /* static upsert(model: Weapon): QueryBuilder<Weapon, Weapon, Weapon> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
     } else {
-      return model.$query().insert(model);
+      return model.$query().insertAndFetch(model);
     }
-  }
+  } */
 
   /**
    * Creates an instance of Weapon.
@@ -109,6 +109,12 @@ export class Weapon extends Model {
     if (opt.old && opt.old.id !== this.id) {
       this.id = opt.old.id;
     }
+  }
+
+  async $beforeDelete(context: any) {
+    await Element.query()
+      .delete()
+      .where({ weapon_id: this.id });
   }
 }
 

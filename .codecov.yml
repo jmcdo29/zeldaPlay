@@ -43,3 +43,4 @@ ignore:
   - "**/server.ts"
   - "**/jestGlobalMocks.ts"
   - "**/dbConnection.ts"
+  - "**/www.ts"

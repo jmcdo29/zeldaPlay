@@ -19,24 +19,23 @@ interface IMyError extends Error {
  * @param res The Express response object
  * @param next Callback to the next function
  */
-export function logErrors(
+export async function logErrors(
   err: IMyError,
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   console.error(err.message);
-  console.error(err.stack);
-  DBError.query()
-    .insert({
-      message: err.message.substring(
-        0,
-        err.message.length < 255 ? err.message.length : 255
-      ),
-      stack: err.stack.split('\n')[0],
-      code: err.reasonCode ? err.reasonCode : 'GENERAL'
-    })
-    .then(() => next(err));
+  console.error(err.stack.split('\n')[0]);
+  await DBError.query().insert({
+    message: err.message.substring(
+      0,
+      err.message.length < 255 ? err.message.length : 255
+    ),
+    stack: err.stack.split('\n')[0],
+    code: err.reasonCode ? err.reasonCode : 'GENERAL'
+  });
+  next(err);
 }
 
 /**

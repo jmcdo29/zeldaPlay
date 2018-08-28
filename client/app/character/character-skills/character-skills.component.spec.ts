@@ -54,7 +54,7 @@ describe('CharacterSkillsComponent', () => {
   describe('making checks', () => {
     beforeEach(() => {
       component.skill = 'Acrobatics';
-      component.checkVal = 0;
+      component.checkVal = 1;
       component.showSkills = true;
       fixture.detectChanges();
     });
@@ -74,10 +74,17 @@ describe('CharacterSkillsComponent', () => {
         value: 10,
         modifier: 0
       };
-      for (let i = 0; i < 25; i++) {
-        fixture.detectChanges();
+      let critHit = false;
+      let critMiss = false;
+      do {
         component.makeCheck('Acrobatics');
-      }
+        if (document.getElementById('roll').classList.contains('crit')) {
+          critHit = true;
+        }
+        if (document.getElementById('roll').classList.contains('critMiss')) {
+          critMiss = true;
+        }
+      } while (!(critHit && critMiss));
     });
     test('should make a check for untrained Acrobatics', () => {
       const mySkill: ISkill = {
@@ -97,10 +104,8 @@ describe('CharacterSkillsComponent', () => {
       };
       component.skill = 'Acrobatics';
       component.checkVal = 0;
-      for (let i = 0; i < 25; i++) {
-        fixture.detectChanges();
-        component.makeCheck('Acrobatics');
-      }
+      fixture.detectChanges();
+      component.makeCheck('Acrobatics');
     });
   });
 });

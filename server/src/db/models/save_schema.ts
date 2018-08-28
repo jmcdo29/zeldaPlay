@@ -30,13 +30,13 @@ export class Save extends Model {
    * @returns {QueryBuilder<Save, Save, Save>} QueryBuilder to execute
    * @memberof Save
    */
-  static upsert(model: Save): QueryBuilder<Save, Save, Save> {
+  /* static upsert(model: Save): QueryBuilder<Save, Save, Save> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
     } else {
-      return model.$query().insert(model);
+      return model.$query().insertAndFetch(model);
     }
-  }
+  } */
 
   /**
    * Creates an instance of Save.

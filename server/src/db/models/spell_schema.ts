@@ -41,13 +41,13 @@ export class Spell extends Model {
    * @returns {QueryBuilder<Spell, Spell, Spell>} QueryBuilder to execute
    * @memberof Spell
    */
-  static upsert(model: Spell): QueryBuilder<Spell, Spell, Spell> {
+  /* static upsert(model: Spell): QueryBuilder<Spell, Spell, Spell> {
     if (model.id && model.id !== null) {
       return model.$query().patchAndFetch(model);
     } else {
-      return model.$query().insert(model);
+      return model.$query().insertAndFetch(model);
     }
-  }
+  } */
 
   /**
    * Creates an instance of Spell.

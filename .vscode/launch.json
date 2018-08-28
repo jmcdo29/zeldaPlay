@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Jest All",
       "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": ["--runInBand"],
+      "args": ["app/character/character-level-up", "--runInBand", "-t", "track and validate skill"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "windows": {

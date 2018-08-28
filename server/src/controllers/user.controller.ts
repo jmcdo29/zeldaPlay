@@ -4,6 +4,8 @@ import {
   login as getUser,
   signUp as createUser
 } from '../services/user.service';
+import { DatabaseError } from '../utils/errors/DatabaseError';
+import { LoginError } from '../utils/errors/LoginError';
 
 const router = Router();
 
@@ -18,12 +20,18 @@ export { router as UserRouter };
  * @param {Response} res Express response object
  * @param {NextFunction} next Next function for handling errors
  */
-function login(req: Request, res: Response, next: NextFunction) {
-  getUser(req.body.username, req.body.password)
-    .then((user) => {
-      res.status(200).json(user);
-    })
-    .catch(next);
+async function login(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await getUser(req.body.username, req.body.password);
+    res.status(200).json(user);
+  } catch (err) {
+    if (!(err instanceof LoginError)) {
+      const newErr = new DatabaseError(err.message, 'DB_ERROR');
+      newErr.stack = err.stack;
+      err = newErr;
+    }
+    next(err);
+  }
 }
 
 /**
@@ -32,10 +40,20 @@ function login(req: Request, res: Response, next: NextFunction) {
  * @param {Response} res Express response object
  * @param {NextFunction} next Next function for handling errors
  */
-function signup(req: Request, res: Response, next: NextFunction) {
-  createUser(req.body.username, req.body.password, req.body.confPass)
-    .then((user) => {
-      res.status(200).json(user.id);
-    })
-    .catch(next);
+async function signup(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await createUser(
+      req.body.username,
+      req.body.password,
+      req.body.confPass
+    );
+    res.status(200).json(user.id);
+  } catch (err) {
+    if (!(err instanceof LoginError)) {
+      const newErr = new DatabaseError(err.message, 'DB_ERROR');
+      newErr.stack = err.stack;
+      err = newErr;
+    }
+    next(err);
+  }
 }

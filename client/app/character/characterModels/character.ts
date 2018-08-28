@@ -315,7 +315,7 @@ export class Character {
               id: skill.id
             };
             this.weaponSkills.push(newWeapSkill);
-          } else if (skill.skill_type === 'magic') {
+          } else {
             const newMagSkill: ISkill = {
               skillName: skill.name,
               ranks: skill.ranks,
@@ -377,7 +377,7 @@ export class Character {
             id: spell.id
           });
         });
-      } else if (jObj) {
+      } else {
         this.attributes = jObj.attributes;
         this.ac = jObj.ac;
         this.craftOne = jObj.craftOne;

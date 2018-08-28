@@ -513,6 +513,6 @@ POST http://localhost:4000/users/login
 Content-Type: application/json
 
 {
-  "username": "jmcdo29@gmail.com",
-  "password": "K!ngdomHearts1"
+  "username": "testUser.test@test.com",
+  "password": "aV3ry$tr0ngP@$$word!"
 }

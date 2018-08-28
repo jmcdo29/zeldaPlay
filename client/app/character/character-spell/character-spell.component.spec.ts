@@ -14,6 +14,7 @@ const alertServiceStub: Partial<AlertService> = {
     return { message, type: 'error' };
   }
 };
+
 const messageServiceStub: Partial<MessageService> = {
   add(message) {
     return message;
@@ -93,10 +94,8 @@ describe('CharacterSpellComponent', () => {
       component.character.attributes[4].modifier = 0;
       component.spellName = 'test spell';
       fixture.detectChanges();
-      for (let i = 0; i < 25; i++) {
-        component.character.magic = 15;
-        component.castSpell(0);
-      }
+      component.character.magic = 15;
+      component.castSpell(0);
       expect(component.dmgRoll).toBeTruthy();
     });
     test('should succeed in casting diety spell', () => {
@@ -106,10 +105,37 @@ describe('CharacterSpellComponent', () => {
       component.character.attributes[4].modifier = 0;
       component.spellName = 'test spell';
       fixture.detectChanges();
-      for (let i = 0; i < 25; i++) {
+      let critMissRoll = false;
+      let critMissDmg = false;
+      let critHit = false;
+      let maxDmg = false;
+      do {
         component.character.magic = 15;
         component.castSpell(0);
-      }
+        if (
+          document.getElementById('spellRoll').classList.contains('critMiss')
+        ) {
+          critMissRoll = true;
+        }
+        if (
+          document.getElementById('spellDmgRoll').classList.contains('critMiss')
+        ) {
+          critMissDmg = true;
+        }
+        if (document.getElementById('spellRoll').classList.contains('crit')) {
+          critHit = true;
+        }
+        if (document.getElementById('spellDmgRoll').classList.contains('max')) {
+          maxDmg = true;
+        }
+      } while (!(critMissRoll && critMissDmg && critHit && maxDmg));
+      expect(component.dmgRoll).toBeTruthy();
+    });
+    test('cast spell with no useDiety and no modifier', () => {
+      component.character.spells[0].modifier = '';
+      component.spellName = 'test spell';
+      fixture.detectChanges();
+      component.castSpell(0);
       expect(component.dmgRoll).toBeTruthy();
     });
   });
@@ -174,6 +200,7 @@ describe('CharacterSpellComponent', () => {
     test('should not validate spell (Number)', () => {
       component.validate('spellDam', 'damage');
       component.spell.damage = 5;
+      component.validate('spellDam', 'damage');
       component.validate('spellDam', 'damage');
     });
     test('should not validate spell (String)', () => {
