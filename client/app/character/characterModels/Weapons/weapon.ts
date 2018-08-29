@@ -1,4 +1,4 @@
-import { IElemental } from './elemental';
+import { Elemental } from './elemental';
 
 export class Weapon {
   name: string;
@@ -9,7 +9,7 @@ export class Weapon {
   type: string;
   modifier: string;
   range: number;
-  element?: IElemental;
+  element?: Elemental;
   ammo?: number;
   id?: string;
 }

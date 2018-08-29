@@ -6,7 +6,7 @@
       "jest"
     ],
     "outDir": "./dist/out-tsc",
-    "inlineSourceMap": true,
+    "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,

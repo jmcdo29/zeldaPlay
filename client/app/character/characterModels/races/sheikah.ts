@@ -7,6 +7,7 @@ export class Sheikah extends Character {
   constructor() {
     super();
 
+    this.race = 'Sheikah';
     this.attributes[Attributes['Dexterity']].value += 2; // Dex Buff
     this.attributes[Attributes['Constitution']].value += 2; // Con Buff
     this.attributes[Attributes['Charisma']].value -= 2; // Cha Neg

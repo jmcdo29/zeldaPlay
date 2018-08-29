@@ -1,4 +1,4 @@
-export interface ISave {
+export class Save {
   racial: number;
   name: string;
   modifier: string;

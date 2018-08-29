@@ -1,4 +1,4 @@
-export interface ISkill {
+export class Skill {
   trained?: boolean;
   skillName: string;
   ranks: number;

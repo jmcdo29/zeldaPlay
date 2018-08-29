@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MessageService } from '../../shared/messages/message.service';
 import { SharedModule } from '../../shared/shared.module';
 import { Character } from '../characterModels/character';
-import { ISkill } from '../characterModels/skill';
+import { Skill } from '../characterModels/skill';
 import { CharacterSkillsComponent } from './character-skills.component';
 
 const messageServiceStub: Partial<MessageService> = {
@@ -59,15 +59,14 @@ describe('CharacterSkillsComponent', () => {
       fixture.detectChanges();
     });
     test('should make a check for trained Acrobatics', () => {
-      const mySkill: ISkill = {
-        skillName: 'Acrobatics',
-        ranks: 0,
-        trained: true,
-        misc: 0,
-        item: 0,
-        racial: 0,
-        modifier: 'Dexterity'
-      };
+      const mySkill = new Skill();
+      mySkill.skillName = 'Acrobatics';
+      mySkill.ranks = 0;
+      mySkill.trained = true;
+      mySkill.misc = 0;
+      mySkill.item = 0;
+      mySkill.racial = 0;
+      mySkill.modifier = 'Dexterity';
       component.character.skills[0] = mySkill;
       component.character.attributes[1] = {
         name: 'Dexterity',
@@ -87,15 +86,14 @@ describe('CharacterSkillsComponent', () => {
       } while (!(critHit && critMiss));
     });
     test('should make a check for untrained Acrobatics', () => {
-      const mySkill: ISkill = {
-        skillName: 'Acrobatics',
-        ranks: 0,
-        trained: false,
-        misc: 0,
-        item: 0,
-        racial: 0,
-        modifier: 'Dexterity'
-      };
+      const mySkill = new Skill();
+      mySkill.skillName = 'Acrobatics';
+      mySkill.ranks = 0;
+      mySkill.trained = false;
+      mySkill.misc = 0;
+      mySkill.item = 0;
+      mySkill.racial = 0;
+      mySkill.modifier = 'Dexterity';
       component.character.skills[0] = mySkill;
       component.character.attributes[1] = {
         name: 'Dexterity',

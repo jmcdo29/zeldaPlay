@@ -7,10 +7,10 @@ import { Skills } from './enums/skills.enum';
 import { Weapons } from './enums/weapon-skills.enum';
 import { Item } from './item';
 import { Note } from './note';
-import { ISave } from './save';
-import { ISkill } from './skill';
+import { Save } from './save';
+import { Skill } from './skill';
 import { Spell } from './spells';
-import { Weapon } from './Weapons/weapon';
+import { Weapon } from './weapons/weapon';
 
 const BASE = 8;
 
@@ -34,15 +34,15 @@ interface ICharacterJSON {
   craftTwo?: string;
   performCust?: string;
   profession?: string;
-  skills: ISkill[];
-  weaponSkills: ISkill[];
-  magicSkills: ISkill[];
+  skills: Skill[];
+  weaponSkills: Skill[];
+  magicSkills: Skill[];
   weapons: Weapon[];
   spells: Spell[];
   notes: Note[];
   importantNotes: Note[];
   inventory: Item[];
-  savingThrows: ISave[];
+  savingThrows: Save[];
 }
 
 interface ICharacterQuery {
@@ -96,15 +96,15 @@ export class Character {
   craftTwo?: string;
   performCust?: string;
   profession?: string;
-  skills: ISkill[] = [];
-  weaponSkills: ISkill[] = [];
-  magicSkills: ISkill[] = [];
+  skills: Skill[] = [];
+  weaponSkills: Skill[] = [];
+  magicSkills: Skill[] = [];
   weapons: Weapon[] = [];
   spells: Spell[] = [];
   notes: Note[] = [];
   importantNotes: Note[] = [];
   inventory: Item[] = [];
-  savingThrows: ISave[] = [];
+  savingThrows: Save[] = [];
 
   constructor(jObj?: ICharacterJSON, qObj?: ICharacterQuery) {
     if (!jObj && !qObj) {
@@ -295,7 +295,7 @@ export class Character {
         ];
         qObj.skills.forEach((skill) => {
           if (skill.skill_type === 'skill') {
-            const newSkill: ISkill = {
+            const newSkill: Skill = {
               skillName: skill.name,
               ranks: skill.ranks,
               racial: skill.racial_modifier,
@@ -307,7 +307,7 @@ export class Character {
             };
             this.skills.push(newSkill);
           } else if (skill.skill_type === 'weapon') {
-            const newWeapSkill: ISkill = {
+            const newWeapSkill: Skill = {
               skillName: skill.name,
               ranks: skill.ranks,
               trained: skill.trained,
@@ -316,7 +316,7 @@ export class Character {
             };
             this.weaponSkills.push(newWeapSkill);
           } else {
-            const newMagSkill: ISkill = {
+            const newMagSkill: Skill = {
               skillName: skill.name,
               ranks: skill.ranks,
               modifier: skill.modifier,
