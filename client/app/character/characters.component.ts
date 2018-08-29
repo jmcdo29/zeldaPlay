@@ -85,7 +85,7 @@ export class CharactersComponent implements OnInit {
       .saveCharDb(this.selectedCharacter)
       .subscribe((characterRes) => {
         this.selectedCharacter.id = characterRes.id;
-        characterRes.skills.forEach((skill) => {
+        for (const skill of characterRes.skills) {
           if (skill.skill_type === 'skill') {
             this.selectedCharacter.skills[Skills[skill.name]].id = skill.id;
           } else if (skill.skill_type === 'weapon') {
@@ -95,8 +95,8 @@ export class CharactersComponent implements OnInit {
             this.selectedCharacter.magicSkills[Magics[skill.name]].id =
               skill.id;
           }
-        });
-        characterRes.weapons.forEach((weapon) => {
+        }
+        for (const weapon of characterRes.weapons) {
           this.selectedCharacter.weapons[
             findObjectPartial(
               this.selectedCharacter.weapons,
@@ -104,13 +104,13 @@ export class CharactersComponent implements OnInit {
               weapon.name
             )
           ].id = weapon.id;
-        });
-        characterRes.spells.forEach((spell) => {
+        }
+        for (const spell of characterRes.spells) {
           this.selectedCharacter.spells[
             findObjectPartial(this.selectedCharacter.spells, 'name', spell.name)
           ].id = spell.id;
-        });
-        characterRes.saves.forEach((save) => {
+        }
+        for (const save of characterRes.saves) {
           this.selectedCharacter.savingThrows[
             findObjectPartial(
               this.selectedCharacter.savingThrows,
@@ -118,8 +118,8 @@ export class CharactersComponent implements OnInit {
               save.name
             )
           ].id = save.id;
-        });
-        characterRes.notes.forEach((note) => {
+        }
+        for (const note of characterRes.notes) {
           if (note.important) {
             this.selectedCharacter.importantNotes[
               findObjectPartial(
@@ -137,12 +137,12 @@ export class CharactersComponent implements OnInit {
               )
             ].id = note.id;
           }
-        });
+        }
       });
   }
 }
 
-function findObjectPartial(array, key, value): number {
+function findObjectPartial(array: any[], key: string, value: string): number {
   let index = -1;
   for (let i = 0; i < array.length; i++) {
     if (array[i][key] === value) {

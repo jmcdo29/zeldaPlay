@@ -3,7 +3,7 @@ module.exports = {
     '<rootDir>/client',
     '<rootDir>/server'
   ],
-  cacheDirectory: 'C:/Users/jay.mcdoniel/AppData/Local/Temp/jest',
+  cacheDirectory: '<rootDir>/tmp/',
   preset: 'jest-preset-angular',
   globals: {
     "ts-jest": {
