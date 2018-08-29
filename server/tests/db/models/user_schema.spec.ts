@@ -3,8 +3,6 @@ import { Model } from 'objection';
 import { User } from '../../../src/db/models/user_schema';
 import { conn } from '../../dbConnection';
 
-jest.retryTimes(3);
-
 describe('#UserSchema', () => {
   beforeAll(() => {
     jest.setTimeout(10000);

@@ -295,33 +295,30 @@ export class Character {
         ];
         qObj.skills.forEach((skill) => {
           if (skill.skill_type === 'skill') {
-            const newSkill: Skill = {
-              skillName: skill.name,
-              ranks: skill.ranks,
-              racial: skill.racial_modifier,
-              item: skill.item_modifier,
-              misc: skill.misc_modifier,
-              trained: skill.trained,
-              modifier: skill.modifier,
-              id: skill.id
-            };
+            const newSkill = new Skill();
+            newSkill.skillName = skill.name;
+            newSkill.ranks = skill.ranks;
+            newSkill.racial = skill.racial_modifier;
+            newSkill.item = skill.item_modifier;
+            newSkill.misc = skill.misc_modifier;
+            newSkill.trained = skill.trained;
+            newSkill.modifier = skill.modifier;
+            newSkill.id = skill.id;
             this.skills.push(newSkill);
           } else if (skill.skill_type === 'weapon') {
-            const newWeapSkill: Skill = {
-              skillName: skill.name,
-              ranks: skill.ranks,
-              trained: skill.trained,
-              racial: skill.racial_modifier,
-              id: skill.id
-            };
+            const newWeapSkill = new Skill();
+            newWeapSkill.skillName = skill.name;
+            newWeapSkill.ranks = skill.ranks;
+            newWeapSkill.trained = skill.trained;
+            newWeapSkill.racial = skill.racial_modifier;
+            newWeapSkill.id = skill.id;
             this.weaponSkills.push(newWeapSkill);
           } else {
-            const newMagSkill: Skill = {
-              skillName: skill.name,
-              ranks: skill.ranks,
-              modifier: skill.modifier,
-              id: skill.id
-            };
+            const newMagSkill = new Skill();
+            newMagSkill.skillName = skill.name;
+            newMagSkill.ranks = skill.ranks;
+            newMagSkill.modifier = skill.modifier;
+            newMagSkill.id = skill.id;
             this.magicSkills.push(newMagSkill);
           }
         });
