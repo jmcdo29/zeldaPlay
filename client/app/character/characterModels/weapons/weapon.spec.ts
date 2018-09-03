@@ -20,7 +20,7 @@ test('should make a weapon', () => {
   expect(myWep.getRange()).toBe(0);
   expect(myWep.getType()).toBe('Short Sword');
   expect(myWep.getCritDamage()).toBe(2);
-  expect(myWep.getCritRange()).toBe([18, 19, 20]);
+  expect(myWep.getCritRange()).toEqual([18, 19, 20]);
   expect(myWep.getId()).toBe('weaponId');
   expect(myWep).toBeTruthy();
 
@@ -34,9 +34,9 @@ test('should make a weapon', () => {
   myWep.setAmmo(30);
   expect(myWep.getAmmo()).toBe(30);
   myWep.setCritDamage(4);
-  expect(myWep.getCritDamage).toBe(4);
+  expect(myWep.getCritDamage()).toBe(4);
   myWep.setCritRange([19, 20]);
-  expect(myWep.getCritRange()).toBe([19, 20]);
+  expect(myWep.getCritRange()).toEqual([19, 20]);
   myWep.setElement(new Elemental('elemId', 'Fire', 4, 4));
   expect(myWep.getElement()).toBeTruthy();
   myWep.setModifier('Dexterity');

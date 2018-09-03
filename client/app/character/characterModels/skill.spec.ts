@@ -26,7 +26,7 @@ test('should make a regular skill', () => {
   mySkill.setModifier('Dexterity');
   expect(mySkill.getModifier()).toBe('Dexterity');
   mySkill.setRacial(1);
-  expect(mySkill.getRacial).toBe(1);
+  expect(mySkill.getRacial()).toBe(1);
   mySkill.setRanks(1);
   expect(mySkill.getRanks()).toBe(1);
   mySkill.setSkillName('test skill');

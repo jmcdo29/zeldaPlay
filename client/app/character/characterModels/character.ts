@@ -236,18 +236,6 @@ export class Character {
     this.size = size;
   }
 
-  getAttributes(): Attribute[] {
-    return this.attributes;
-  }
-
-  setAttributes(attributes: Attribute[]): void {
-    this.attributes = attributes;
-  }
-
-  addAttribute(attribute: Attribute): void {
-    this.attributes.push(attribute);
-  }
-
   getHealth(): number {
     return this.health;
   }
@@ -324,9 +312,22 @@ export class Character {
     return this.skills;
   }
 
+  getAttributes(): Attribute[] {
+    return this.attributes;
+  }
+  /*
+  setAttributes(attributes: Attribute[]): void {
+    this.attributes = attributes;
+  } */
+
+  addAttribute(attribute: Attribute): void {
+    this.attributes.push(attribute);
+  }
+
+  /*
   setSkills(skills: Skill[]): void {
     this.skills = skills;
-  }
+  } */
 
   addSkill(skill: Skill): void {
     this.skills.push(skill);
@@ -335,10 +336,10 @@ export class Character {
   getWeaponSkills(): Skill[] {
     return this.weaponSkills;
   }
-
+  /*
   setWeaponSkills(weaponSkills: Skill[]): void {
     this.weaponSkills = weaponSkills;
-  }
+  } */
 
   addWeaponSkill(weaponSkill: Skill): void {
     this.weaponSkills.push(weaponSkill);
@@ -347,10 +348,10 @@ export class Character {
   getMagicSkills(): Skill[] {
     return this.magicSkills;
   }
-
+  /*
   setMagicSkills(magicSkills: Skill[]): void {
     this.magicSkills = magicSkills;
-  }
+  } */
 
   addMagicSkill(magicSkill: Skill): void {
     this.magicSkills.push(magicSkill);
@@ -359,10 +360,10 @@ export class Character {
   getWeapons(): Weapon[] {
     return this.weapons;
   }
-
+  /*
   setWeapons(weapons: Weapon[]): void {
     this.weapons = weapons;
-  }
+  } */
 
   addWeapon(weapon: Weapon): void {
     this.weapons.push(weapon);
@@ -371,10 +372,10 @@ export class Character {
   getSpells(): Spell[] {
     return this.spells;
   }
-
+  /*
   setSpells(spells: Spell[]): void {
     this.spells = spells;
-  }
+  } */
 
   addSpell(spell: Spell): void {
     this.spells.push(spell);
@@ -383,10 +384,10 @@ export class Character {
   getNotes(): Note[] {
     return this.notes;
   }
-
+  /*
   setNotes(notes: Note[]): void {
     this.notes = notes;
-  }
+  } */
 
   addNote(note: Note): void {
     this.notes.push(note);
@@ -395,10 +396,10 @@ export class Character {
   getImportantNotes(): Note[] {
     return this.importantNotes;
   }
-
+  /*
   setImportantNotes(importantNotes: Note[]): void {
     this.importantNotes = importantNotes;
-  }
+  } */
 
   addImportantNote(importantNote: Note): void {
     this.importantNotes.push(importantNote);
@@ -407,10 +408,10 @@ export class Character {
   getInventory(): Item[] {
     return this.inventory;
   }
-
+  /*
   setInventory(inventory: Item[]): void {
     this.inventory = inventory;
-  }
+  } */
 
   addToInventory(item: Item): void {
     this.inventory.push(item);
@@ -419,10 +420,10 @@ export class Character {
   getSavingThrows(): Save[] {
     return this.savingThrows;
   }
-
+  /*
   setSavingThrows(savingThrows: Save[]): void {
     this.savingThrows = savingThrows;
-  }
+  } */
 
   addSavingThrow(savingThrow: Save): void {
     this.savingThrows.push(savingThrow);
@@ -631,8 +632,8 @@ export class Character {
               weapon.name,
               weapon.attack,
               weapon.number_of_hits,
-              parseRange(weapon.critRange),
-              weapon.critDamage,
+              parseRange(weapon.crit_range),
+              weapon.crit_multiplier,
               weapon.type,
               weapon.modifier,
               weapon.range,
@@ -784,7 +785,9 @@ export class Character {
       this.getMaxHealth() + 16 + this.getAttributes()[2].getModifier()
     );
     this.setHealth(this.getMaxHealth());
-    this.setMaxMagic(this.getMaxMagic() + 3 + this.getAttributes[4].modifier);
+    this.setMaxMagic(
+      this.getMaxMagic() + 3 + this.getAttributes()[4].getModifier()
+    );
     this.setMagic(this.getMaxMagic());
     this.setLevel(this.getLevel() + 1);
   }
