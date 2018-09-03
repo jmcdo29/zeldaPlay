@@ -10,7 +10,7 @@ export class Sheikah extends Character {
     this.setRace('Sheikah');
     this.getAttributes()[Attributes['Dexterity']].changeValue(2); // Dex Buff
     this.getAttributes()[Attributes['Constitution']].changeValue(2); // Con Buff
-    this.getAttributes()[Attributes['Charisma']].changeValue(2); // Cha Neg
+    this.getAttributes()[Attributes['Charisma']].changeValue(-2); // Cha Neg
 
     this.getSkills()[Skills['Stealth']].setRacial(4); // Stealth buff
 
