@@ -20,13 +20,15 @@ export class CharactersComponent implements OnInit {
   loading = false;
 
   onSelect(character: Character): void {
-    if (character.id) {
+    if (character.getId()) {
       this.selectedCharacter = null;
       this.loading = true;
-      this.characterService.getCharacter(character.id).subscribe((data) => {
-        this.selectedCharacter = data;
-        this.loading = false;
-      });
+      this.characterService
+        .getCharacter(character.getId())
+        .subscribe((data) => {
+          this.selectedCharacter = data;
+          this.loading = false;
+        });
       this.newChar = false;
     }
   }
@@ -84,36 +86,44 @@ export class CharactersComponent implements OnInit {
     this.characterService
       .saveCharDb(this.selectedCharacter)
       .subscribe((characterRes) => {
-        this.selectedCharacter.id = characterRes.id;
+        this.selectedCharacter.setId(characterRes.id);
         for (const skill of characterRes.skills) {
           if (skill.skill_type === 'skill') {
-            this.selectedCharacter.skills[Skills[skill.name]].id = skill.id;
+            this.selectedCharacter
+              .getSkills()
+              [Skills[skill.name]].setId(skill.id);
           } else if (skill.skill_type === 'weapon') {
-            this.selectedCharacter.weaponSkills[Weapons[skill.name]].id =
-              skill.id;
+            this.selectedCharacter
+              .getWeaponSkills()
+              [Weapons[skill.name]].setId(skill.id);
           } else {
-            this.selectedCharacter.magicSkills[Magics[skill.name]].id =
-              skill.id;
+            this.selectedCharacter
+              .getMagicSkills()
+              [Magics[skill.name]].setId(skill.id);
           }
         }
         for (const weapon of characterRes.weapons) {
-          this.selectedCharacter.weapons[
+          this.selectedCharacter.getWeapons()[
             findObjectPartial(
-              this.selectedCharacter.weapons,
+              this.selectedCharacter.getWeapons(),
               'name',
               weapon.name
             )
           ].id = weapon.id;
         }
         for (const spell of characterRes.spells) {
-          this.selectedCharacter.spells[
-            findObjectPartial(this.selectedCharacter.spells, 'name', spell.name)
+          this.selectedCharacter.getSpells()[
+            findObjectPartial(
+              this.selectedCharacter.getSpells(),
+              'name',
+              spell.name
+            )
           ].id = spell.id;
         }
         for (const save of characterRes.saves) {
-          this.selectedCharacter.savingThrows[
+          this.selectedCharacter.getSavingThrows()[
             findObjectPartial(
-              this.selectedCharacter.savingThrows,
+              this.selectedCharacter.getSavingThrows(),
               'name',
               save.name
             )
@@ -121,21 +131,25 @@ export class CharactersComponent implements OnInit {
         }
         for (const note of characterRes.notes) {
           if (note.important) {
-            this.selectedCharacter.importantNotes[
-              findObjectPartial(
-                this.selectedCharacter.importantNotes,
-                'msg',
-                note.message
-              )
-            ].id = note.id;
+            this.selectedCharacter
+              .getImportantNotes()
+              [
+                findObjectPartial(
+                  this.selectedCharacter.getImportantNotes(),
+                  'msg',
+                  note.message
+                )
+              ].setId(note.id);
           } else {
-            this.selectedCharacter.notes[
-              findObjectPartial(
-                this.selectedCharacter.notes,
-                'msg',
-                note.message
-              )
-            ].id = note.id;
+            this.selectedCharacter
+              .getNotes()
+              [
+                findObjectPartial(
+                  this.selectedCharacter.getNotes(),
+                  'msg',
+                  note.message
+                )
+              ].setId(note.id);
           }
         }
       });

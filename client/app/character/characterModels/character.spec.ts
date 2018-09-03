@@ -12,11 +12,11 @@ test('new character', () => {
 test('new character from db', () => {
   const newChar = new Character(null, characterDB);
   expect(newChar).toBeTruthy();
-  expect(newChar.name).toBe('Bryte');
+  expect(newChar.getName()).toBe('Bryte');
 });
 
 test('new character from db', () => {
   const newChar = new Character(characterJSON);
   expect(newChar).toBeTruthy();
-  expect(newChar.name).toBe('Bryte');
+  expect(newChar.getName()).toBe('Bryte');
 });

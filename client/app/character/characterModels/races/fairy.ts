@@ -7,34 +7,34 @@ export class Fairy extends Character {
   constructor(subRace?: string) {
     super();
 
-    this.race = 'Fairy';
-    this.subRace = subRace;
+    this.setRace('Fairy');
+    this.setSubRace(subRace);
 
-    this.attributes[Attributes['Strength']].value -= 2;
-    this.attributes[Attributes['Intelligence']].value += 2;
-    this.attributes[Attributes['Wisdom']].value += 2;
+    this.getAttributes()[Attributes['Strength']].changeValue(-2);
+    this.getAttributes()[Attributes['Intelligence']].changeValue(2);
+    this.getAttributes()[Attributes['Wisdom']].changeValue(2);
 
-    this.skills[Skills['CraftOne']].trained = true; // Craft 1
-    this.skills[Skills['CraftTwo']].trained = true; // Craft 2
-    this.skills[Skills['Fly']].trained = true; // Fly
-    this.skills[Skills['Heal']].trained = true; // Heal
-    this.skills[Skills['Knowledge Geography']].trained = true; // Knowledge (Geography)
-    this.skills[Skills['Knowledge History']].trained = true; // Knowledge (History)
-    this.skills[Skills['Knowledge Language']].trained = true; // Knowledge (Language)
-    this.skills[Skills['Knowledge Local']].trained = true; // Knowledge (Local)
-    this.skills[Skills['Knowledge Magic']].trained = true; // Knowledge (Magic)
-    this.skills[Skills['Knowledge Monsters']].trained = true; // Knowledge (Monster)
-    this.skills[Skills['Knowledge Nature']].trained = true; // Knowledge (Nature)
-    this.skills[Skills['Knowledge Nobility']].trained = true; // Knowledge (Nobility)
-    this.skills[Skills['Knowledge Plains']].trained = true;
-    this.skills[Skills['Knowledge Religion']].trained = true; // Knowledge (Religion)
-    this.skills[Skills['Perception']].trained = true; // Perception
+    this.getSkills()[Skills['CraftOne']].setTrained(true); // Craft 1
+    this.getSkills()[Skills['CraftTwo']].setTrained(true); // Craft 2
+    this.getSkills()[Skills['Fly']].setTrained(true); // Fly
+    this.getSkills()[Skills['Heal']].setTrained(true); // Heal
+    this.getSkills()[Skills['Knowledge Geography']].setTrained(true); // Knowledge (Geography)
+    this.getSkills()[Skills['Knowledge History']].setTrained(true); // Knowledge (History)
+    this.getSkills()[Skills['Knowledge Language']].setTrained(true); // Knowledge (Language)
+    this.getSkills()[Skills['Knowledge Local']].setTrained(true); // Knowledge (Local)
+    this.getSkills()[Skills['Knowledge Magic']].setTrained(true); // Knowledge (Magic)
+    this.getSkills()[Skills['Knowledge Monsters']].setTrained(true); // Knowledge (Monster)
+    this.getSkills()[Skills['Knowledge Nature']].setTrained(true); // Knowledge (Nature)
+    this.getSkills()[Skills['Knowledge Nobility']].setTrained(true); // Knowledge (Nobility)
+    this.getSkills()[Skills['Knowledge Plains']].setTrained(true);
+    this.getSkills()[Skills['Knowledge Religion']].setTrained(true); // Knowledge (Religion)
+    this.getSkills()[Skills['Perception']].setTrained(true); // Perception
 
-    this.weaponSkills[Weapons['Fire Rod']].trained = true; // Fire Rods
-    this.weaponSkills[Weapons['Ice Rod']].trained = true; // Ice Rods
-    this.weaponSkills[Weapons['Lightning Rod']].trained = true; // Lightning Rods
-    this.weaponSkills[Weapons['Tornado Rod']].trained = true; // Tornado Rods
-    this.weaponSkills[Weapons['Sand Rod']].trained = true; // Sand Rods
+    this.getWeaponSkills()[Weapons['Fire Rod']].setTrained(true); // Fire Rods
+    this.getWeaponSkills()[Weapons['Ice Rod']].setTrained(true); // Ice Rods
+    this.getWeaponSkills()[Weapons['Lightning Rod']].setTrained(true); // Lightning Rods
+    this.getWeaponSkills()[Weapons['Tornado Rod']].setTrained(true); // Tornado Rods
+    this.getWeaponSkills()[Weapons['Sand Rod']].setTrained(true); // Sand Rods
 
     switch (subRace) {
       case 'Din': {

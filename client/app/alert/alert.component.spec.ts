@@ -1,7 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Observable, of } from 'rxjs';
 
 import { AlertComponent } from './alert.component';
+import { AlertService } from './alert.service';
+
+const alertServiceStub: Partial<AlertService> = {
+  getMessage(): Observable<any> {
+    return of('string');
+  }
+};
 
 describe('AlertComponent', () => {
   let component: AlertComponent;
@@ -10,7 +18,8 @@ describe('AlertComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [AlertComponent]
+      declarations: [AlertComponent],
+      providers: [{ provide: AlertService, useValue: alertServiceStub }]
     }).compileComponents();
   }));
 
@@ -20,7 +29,16 @@ describe('AlertComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  test('remove any message', () => {
+    component.message = ';lajsdfljas;lkdf';
+    component.remove();
+    expect(component.message).toBe('');
+  });
+  test('testDestroy', () => {
+    component.ngOnDestroy();
   });
 });
