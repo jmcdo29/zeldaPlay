@@ -3,8 +3,8 @@ import { Sheikah } from './sheikah';
 test('should create a sheikah', () => {
   const mySheikah = new Sheikah();
   expect(mySheikah).toBeTruthy();
-  expect(mySheikah.race).toBe('Sheikah');
-  expect(mySheikah.attributes[1].value).toBe(10);
-  expect(mySheikah.attributes[2].value).toBe(10);
-  expect(mySheikah.attributes[5].value).toBe(6);
+  expect(mySheikah.getRace()).toBe('Sheikah');
+  expect(mySheikah.getAttributes()[1].getValue()).toBe(10);
+  expect(mySheikah.getAttributes()[2].getValue()).toBe(10);
+  expect(mySheikah.getAttributes()[5].getValue()).toBe(6);
 });

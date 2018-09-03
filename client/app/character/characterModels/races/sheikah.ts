@@ -7,28 +7,28 @@ export class Sheikah extends Character {
   constructor() {
     super();
 
-    this.race = 'Sheikah';
-    this.attributes[Attributes['Dexterity']].value += 2; // Dex Buff
-    this.attributes[Attributes['Constitution']].value += 2; // Con Buff
-    this.attributes[Attributes['Charisma']].value -= 2; // Cha Neg
+    this.setRace('Sheikah');
+    this.getAttributes()[Attributes['Dexterity']].changeValue(2); // Dex Buff
+    this.getAttributes()[Attributes['Constitution']].changeValue(2); // Con Buff
+    this.getAttributes()[Attributes['Charisma']].changeValue(2); // Cha Neg
 
-    this.skills[Skills['Stealth']].racial = 4; // Stealth buff
+    this.getSkills()[Skills['Stealth']].setRacial(4); // Stealth buff
 
-    this.weaponSkills[Weapons['Naginata']].trained = true; // Naginatas
+    this.getWeaponSkills()[Weapons['Naginata']].setTrained(true); // Naginatas
 
-    this.skills[Skills['Acrobatics']].trained = true; // Acrobatics
-    this.skills[Skills['CraftOne']].trained = true; // Craft 1
-    this.skills[Skills['CraftTwo']].trained = true; // Craft 2
-    this.skills[Skills['Escape Artist']].trained = true; // Escape Artist
-    this.skills[Skills['Knowledge History']].trained = true; // Knowledge (History)
-    this.skills[Skills['Knowledge Language']].trained = true; // Knowledge (Language)
-    this.skills[Skills['Knowledge Local']].trained = true; // Knowledge (Local)
-    this.skills[Skills['Knowledge Nobility']].trained = true; // Knowledge (Nobility)
-    this.skills[Skills['Knowledge Plains']].trained = true;
-    this.skills[Skills['Knowledge Religion']].trained = true; // Knowledge (Religion)
-    this.skills[Skills['Perception']].trained = true; // Perception
-    this.skills[Skills['Sense Motive']].trained = true; // Sense Motive
-    this.skills[Skills['Sleight of Hand']].trained = true; // Sleight of Hand
-    this.skills[Skills['Stealth']].trained = true; // Stealth
+    this.getSkills()[Skills['Acrobatics']].setTrained(true); // Acrobatics
+    this.getSkills()[Skills['CraftOne']].setTrained(true); // Craft 1
+    this.getSkills()[Skills['CraftTwo']].setTrained(true); // Craft 2
+    this.getSkills()[Skills['Escape Artist']].setTrained(true); // Escape Artist
+    this.getSkills()[Skills['Knowledge History']].setTrained(true); // Knowledge (History)
+    this.getSkills()[Skills['Knowledge Language']].setTrained(true); // Knowledge (Language)
+    this.getSkills()[Skills['Knowledge Local']].setTrained(true); // Knowledge (Local)
+    this.getSkills()[Skills['Knowledge Nobility']].setTrained(true); // Knowledge (Nobility)
+    this.getSkills()[Skills['Knowledge Plains']].setTrained(true);
+    this.getSkills()[Skills['Knowledge Religion']].setTrained(true); // Knowledge (Religion)
+    this.getSkills()[Skills['Perception']].setTrained(true); // Perception
+    this.getSkills()[Skills['Sense Motive']].setTrained(true); // Sense Motive
+    this.getSkills()[Skills['Sleight of Hand']].setTrained(true); // Sleight of Hand
+    this.getSkills()[Skills['Stealth']].setTrained(true); // Stealth
   }
 }
