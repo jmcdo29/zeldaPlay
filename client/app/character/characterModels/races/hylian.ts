@@ -7,62 +7,62 @@ export class Hylian extends Character {
   constructor(subRace?: string) {
     super();
     // All Hylian Skills
-    this.skills[Skills['Diplomacy']].racial = 4;
-    this.skills[Skills['CraftOne']].trained = true; // Craft 1
-    this.skills[Skills['Climb']].trained = true; // Climb
-    this.skills[Skills['Knowledge History']].trained = true; // Knowledge (History)
-    this.skills[Skills['Knowledge Local']].trained = true; // Knowledge (Local)
-    this.skills[Skills['Perception']].trained = true; // Perception
+    this.getSkills()[Skills['Diplomacy']].setRacial(4);
+    this.getSkills()[Skills['CraftOne']].setTrained(true); // Craft 1
+    this.getSkills()[Skills['Climb']].setTrained(true); // Climb
+    this.getSkills()[Skills['Knowledge History']].setTrained(true); // Knowledge (History)
+    this.getSkills()[Skills['Knowledge Local']].setTrained(true); // Knowledge (Local)
+    this.getSkills()[Skills['Perception']].setTrained(true); // Perception
 
-    this.weaponSkills[Weapons['Short Sword']].trained = true; // Short Sword
-    this.weaponSkills[Weapons['Long Sword']].trained = true; // Long Sword
-    this.weaponSkills[Weapons['Light Shield']].trained = true; // Light Shield
-    this.weaponSkills[Weapons['Heavy Shield']].trained = true; // Heavy Shield
+    this.getWeaponSkills()[Weapons['Short Sword']].setTrained(true); // Short Sword
+    this.getWeaponSkills()[Weapons['Long Sword']].setTrained(true); // Long Sword
+    this.getWeaponSkills()[Weapons['Light Shield']].setTrained(true); // Light Shield
+    this.getWeaponSkills()[Weapons['Heavy Shield']].setTrained(true); // Heavy Shield
 
-    this.race = 'Hylian';
-    this.subRace = subRace;
+    this.setRace('Hylian');
+    this.setSubRace(subRace);
 
     if (subRace) {
       switch (subRace) {
         case 'Farmer': {
           // Farmhand Hylian Skills
-          this.attributes[Attributes['Strength']].value += 2; // Strength Buff
-          this.skills[Skills['Acrobatics']].trained = true; // Acrobatics
-          this.skills[Skills['Handle Animal']].trained = true; // Handle Animal
-          this.skills[Skills['Knowledge Geography']].trained = true; // Knowledge (Geography)
-          this.skills[Skills['Knowledge Nature']].trained = true; // Knowledge (Nature)
-          this.skills[Skills['Ride']].trained = true; // Ride
-          this.skills[Skills['Survival']].trained = true; // Survival
-          this.skills[Skills['Swim']].trained = true; // Swim
+          this.getAttributes()[Attributes['Strength']].changeValue(2); // Strength Buff
+          this.getSkills()[Skills['Acrobatics']].setTrained(true); // Acrobatics
+          this.getSkills()[Skills['Handle Animal']].setTrained(true); // Handle Animal
+          this.getSkills()[Skills['Knowledge Geography']].setTrained(true); // Knowledge (Geography)
+          this.getSkills()[Skills['Knowledge Nature']].setTrained(true); // Knowledge (Nature)
+          this.getSkills()[Skills['Ride']].setTrained(true); // Ride
+          this.getSkills()[Skills['Survival']].setTrained(true); // Survival
+          this.getSkills()[Skills['Swim']].setTrained(true); // Swim
           break;
         }
         case 'Sheikah': {
           // Sheikah Hylian Skills
-          this.attributes[Attributes['Dexterity']].value += 2; // Dexterity Buff
-          this.skills[Skills['Acrobatics']].trained = true; // Acrobatics
-          this.skills[Skills['Appraise']].trained = true; // Appraise
-          this.skills[Skills['Bluff']].trained = true; // Bluff
-          this.skills[Skills['Escape Artist']].trained = true; // Escape Artist
-          this.skills[Skills['Intimidate']].trained = true; // Intimidate
-          this.skills[Skills['Knowledge Language']].trained = true; // Knowledge (Language)
-          this.skills[Skills['Knowledge Nobility']].trained = true; // Knowledge (Nobility)
-          this.skills[Skills['Knowledge Religion']].trained = true; // Knowledge (Religion)
-          this.skills[Skills['Sense Motive']].trained = true; // Sense Motive
-          this.skills[Skills['Stealth']].trained = true; // Stealth
+          this.getAttributes()[Attributes['Dexterity']].changeValue(2); // Dexterity Buff
+          this.getSkills()[Skills['Acrobatics']].setTrained(true); // Acrobatics
+          this.getSkills()[Skills['Appraise']].setTrained(true); // Appraise
+          this.getSkills()[Skills['Bluff']].setTrained(true); // Bluff
+          this.getSkills()[Skills['Escape Artist']].setTrained(true); // Escape Artist
+          this.getSkills()[Skills['Intimidate']].setTrained(true); // Intimidate
+          this.getSkills()[Skills['Knowledge Language']].setTrained(true); // Knowledge (Language)
+          this.getSkills()[Skills['Knowledge Nobility']].setTrained(true); // Knowledge (Nobility)
+          this.getSkills()[Skills['Knowledge Religion']].setTrained(true); // Knowledge (Religion)
+          this.getSkills()[Skills['Sense Motive']].setTrained(true); // Sense Motive
+          this.getSkills()[Skills['Stealth']].setTrained(true); // Stealth
           break;
         }
         case 'Guard': {
           // Guard Hylian Skills
-          this.attributes[Attributes['Constitution']].value += 2; // Constitution Buff
-          this.skills[Skills['Bluff']].trained = true; // Bluff
-          this.skills[Skills['Diplomacy']].trained = true; // Diplomacy
-          this.skills[Skills['Heal']].trained = true; // Heal
-          this.skills[Skills['Intimidate']].trained = true; // Intimidate
-          this.skills[Skills['Knowledge Nobility']].trained = true; // Knowledge (Nobility)
-          this.skills[Skills['Knowledge Religion']].trained = true; // Knowledge (Religion)
-          this.skills[Skills['Profession']].trained = true; // Profession
-          this.skills[Skills['Ride']].trained = true; // Ride
-          this.skills[Skills['Sense Motive']].trained = true; // Sense Motive
+          this.getAttributes()[Attributes['Constitution']].changeValue(2); // Constitution Buff
+          this.getSkills()[Skills['Bluff']].setTrained(true); // Bluff
+          this.getSkills()[Skills['Diplomacy']].setTrained(true); // Diplomacy
+          this.getSkills()[Skills['Heal']].setTrained(true); // Heal
+          this.getSkills()[Skills['Intimidate']].setTrained(true); // Intimidate
+          this.getSkills()[Skills['Knowledge Nobility']].setTrained(true); // Knowledge (Nobility)
+          this.getSkills()[Skills['Knowledge Religion']].setTrained(true); // Knowledge (Religion)
+          this.getSkills()[Skills['Profession']].setTrained(true); // Profession
+          this.getSkills()[Skills['Ride']].setTrained(true); // Ride
+          this.getSkills()[Skills['Sense Motive']].setTrained(true); // Sense Motive
           break;
         }
       }
