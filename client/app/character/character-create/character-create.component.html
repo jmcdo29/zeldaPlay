@@ -385,13 +385,13 @@
     <div class="modal-body">
       <p>When creating your character, please make sure not to allocate too many or too few skill points or attribute points. Failure to recognize the limits of your character will result in an infinite loop of not being able to save. Thank you.
       </p>
-      <div *ngIf="!newCharacter.name">
+      <div *ngIf="!newCharacter.getName()">
         <p>Please make sure to give your character a name. You don't want to be the nameless adventurer for this epic quest, do you?</p>
       </div>
-      <div *ngIf="!newCharacter.race">
+      <div *ngIf="!newCharacter.getRace()">
         <p>Make sure to include a race for your character. Otherwise we shall call you a blob!</p>
       </div>
-      <div *ngIf="newCharacter.race && !newCharacter.subRace">
+      <div *ngIf="newCharacter.getRace() && !newCharacter.getSubRace()">
         <p>If you are playing a race that has a subrace, make sure to choose one. Subraces give awesome bonuses to your character!
           <br>If you are a Gerudo, Twili, or Sheikah disregard this message. You are already awesome.</p>
       </div>
@@ -400,13 +400,13 @@
 </div>
 <div class="column-holder">
   <div class="details">
-    <h2>{{ newCharacter.name }} Details</h2>
+    <h2>{{ newCharacter.getName() }} Details</h2>
 
     <button (click)="save()">Save Character</button>
     <button (click)="cancel()">Cancel New Character</button>
     <h3> Choose your race.</h3>
     <div class="race-input">
-      <select [(ngModel)]="newCharacter.race" (change)="raceChange()">
+      <select [ngModel]="newCharacter.getRace()" (ngModel)="newCharacter.setRace($event)" (change)="raceChange()">
         <option value="Hylian">Hylian</option>
         <option value="Goron">Goron</option>
         <option value="Zora">Zora</option>
@@ -417,38 +417,38 @@
         <option value="Fairy">Fairy</option>
       </select>
       <button (click)="aboutRace()">About Races</button>
-      <div *ngIf="newCharacter.race && !(newCharacter.race ==='Gerudo' || newCharacter.race === 'Twili' || newCharacter.race === 'Sheikah')">
+      <div *ngIf="newCharacter.getRace() && !(newCharacter.getRace() ==='Gerudo' || newCharacter.getRace() === 'Twili' || newCharacter.getRace() === 'Sheikah')">
         <h3>Choose your sub-race.</h3>
 
-        <div *ngIf="newCharacter.race==='Hylian'">
-          <select [(ngModel)]="newCharacter.subRace" (change)="raceChange()">
+        <div *ngIf="newCharacter.getRace()==='Hylian'">
+          <select [ngModel]="newCharacter.getSubRace()" (ngModel)="newCharacter.setSubRace($event)" (change)="raceChange()">
             <option value="Farmer">Farmer</option>
             <option value="Sheikah">Sheikah</option>
             <option value="Guard">Guard</option>
           </select>
         </div>
-        <div *ngIf="newCharacter.race==='Goron'">
-          <select [(ngModel)]="newCharacter.subRace" (change)="raceChange()">
+        <div *ngIf="newCharacter.getRace()==='Goron'">
+          <select [ngModel]="newCharacter.getSubRace()" (ngModel)="newCharacter.setSubRace($event)" (change)="raceChange()">
             <option value="Rock Spine">Rock Spine</option>
             <option value="Soft Belly">Soft Belly</option>
           </select>
         </div>
-        <div *ngIf="newCharacter.race==='Zora'">
-          <select [(ngModel)]="newCharacter.subRace" (change)="raceChange()">
+        <div *ngIf="newCharacter.getRace()==='Zora'">
+          <select [ngModel]="newCharacter.getSubRace()" (ngModel)="newCharacter.setSubRace($event)" (change)="raceChange()">
             <option value="River">River</option>
             <option value="Ocean">Ocean</option>
             <option value="Swamp">Swamp</option>
           </select>
         </div>
-        <div *ngIf="newCharacter.race==='Fairy'">
-          <select [(ngModel)]="newCharacter.subRace" (change)="raceChange()">
+        <div *ngIf="newCharacter.getRace()==='Fairy'">
+          <select [ngModel]="newCharacter.getSubRace()" (ngModel)="newCharacter.setSubRace($event)" (change)="raceChange()">
             <option value="Din">Din</option>
             <option value="Farore">Farore</option>
             <option value="Nayru">Nayru</option>
           </select>
         </div>
-        <div *ngIf="newCharacter.race==='Rito'" (change)="raceChange()">
-          <select [(ngModel)]="newCharacter.subRace">
+        <div *ngIf="newCharacter.getRace()==='Rito'" (change)="raceChange()">
+          <select [ngModel]="newCharacter.getSubRace()" (ngModel)="newCharacter.setSubRace($event)">
             <option value="Sharp Eye">Sharp Eye</option>
             <option value="Sharp Tongue">Sharp Tongue</option>
           </select>
@@ -472,19 +472,19 @@
             <tr>
               <td class="name">Name</td>
               <td>
-                <input class="skill" type="text" [(ngModel)]="newCharacter.name" placeholder="Name" maxlength="10">
+                <input class="skill" type="text" [ngModel]="newCharacter.getName()" placeholder="Name" maxlength="10">
               </td>
             </tr>
 
             <br/>
 
-            <tr *ngFor="let attr of newCharacter.attributes; index as i" [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'" [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'" [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
-              <td class="name">{{ attr.name }}</td>
+            <tr *ngFor="let attr of newCharacter.getAttributes(); index as i" [class.din]="attr.getName() === 'Strength' || attr.getName() === 'Intelligence'" [class.farore]="attr.getName() === 'Dexterity' || attr.getName() === 'Charisma'" [class.nayru]="attr.getName() === 'Wisdom' || attr.getName() === 'Constitution'">
+              <td class="name">{{ attr.getName() }}</td>
               <td>
-                <input id="{{ 'attr'+i }}" type="number" [(ngModel)]="attr.value" max="{{ 24 < attr.value + attPoints ? 24 : attr.value + attPoints }}" min="{{ attrMins[i] }}" (change)="trackAtt(i)" (blur)="validateAttr(i)">
+                <input id="{{ 'attr'+i }}" type="number" [ngModel]="attr.getValue()" (ngModel)="attr.setValue($event)" max="{{ 24 < attr.getValue() + attPoints ? 24 : attr.getValue() + attPoints }}" min="{{ attrMins[i] }}" (change)="trackAtt(i)" (blur)="validateAttr(i)">
               </td>
               <td>
-                {{ calcMod(attr) }} {{ attr.modifier }}
+                {{ attr.getModifier() }}
               </td>
             </tr>
 
@@ -493,13 +493,13 @@
             <tr class="din">
               <td class="name">Health</td>
               <td>
-                {{ 48+newCharacter.attributes[2].modifier }}
+                {{ 48+newCharacter.getAttributes()[2].modifier }}
               </td>
             </tr>
             <tr class="nayru">
               <td class="name">Magic</td>
               <td>
-                {{ 20+newCharacter.attributes[4].modifier }}
+                {{ 20+newCharacter.getAttributes()[4].modifier }}
               </td>
             </tr>
           </tbody>
@@ -508,7 +508,7 @@
     </div>
   </div>
   <div class="skills scrollable">
-    <h2>{{ newCharacter.name }} Skills</h2>
+    <h2>{{ newCharacter.getName() }} Skills</h2>
     <div class="abv-table">
       <h3 [class.error]="0 > skillPoints">Skill Points: {{ skillPoints }}</h3>
       <button (click)="resetSkills()">Reset Skills</button>
@@ -528,60 +528,60 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let skill of newCharacter.skills; index as j" [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'" [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'" [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
+          <tr *ngFor="let skill of newCharacter.getSkills(); index as j" [class.din]="skill.getModifier() === 'Strength' || skill.getModifier() === 'Intelligence'" [class.farore]="skill.getModifier() === 'Dexterity' || skill.getModifier() === 'Charisma'" [class.nayru]="skill.getModifier() === 'Wisdom' || skill.getModifier() === 'Constitution'">
             <td>
-              <input class="skill-input" disabled type="checkbox" [(ngModel)]="skill.trained">
+              <input class="skill-input" disabled type="checkbox" [ngModel]="skill.getTrained()">
             </td>
             <td class="name">
-              <div *ngIf="skill.skillName==='CraftOne' || skill.skillName==='CraftTwo' || skill.skillName==='Profession' || skill.skillName==='Perform Other'; then specialSkill; else normalSkill"></div>
+              <div *ngIf="skill.getSkillName()==='CraftOne' || skill.getSkillName()==='CraftTwo' || skill.getSkillName()==='Profession' || skill.getSkillName()==='Perform Other'; then specialSkill; else normalSkill"></div>
 
               <ng-template #specialSkill>
-                <div *ngIf="skill.skillName==='CraftOne'">
-                  {{ skill.skillName.substr(0, skill.skillName.length-1)}}
-                  <input class="skill" type="text" [(ngModel)]="newCharacter.craftOne" placeholder="Craft One">
+                <div *ngIf="skill.getSkillName()==='CraftOne'">
+                  {{ skill.getSkillName().substr(0, skill.getSkillName().length-1)}}
+                  <input class="skill" type="text" [ngModel]="newCharacter.getCraftOne()" (ngModel)="newCharacter.setCraftOne($event)" placeholder="Craft One">
                 </div>
-                <div *ngIf="skill.skillName==='CraftTwo'">
-                  {{ skill.skillName.substr(0, skill.skillName.length-1)}}
-                  <input class="skill" type="text" [(ngModel)]="newCharacter.craftTwo" placeholder="Craft Two">
+                <div *ngIf="skill.getSkillName()==='CraftTwo'">
+                  {{ skill.getSkillName().substr(0, skill.getSkillName().length-1)}}
+                  <input class="skill" type="text" [ngModel]="newCharacter.getCraftTwo()" (ngModel)="newCharacter.setCraftTwo($event)" placeholder="Craft Two">
                 </div>
-                <div *ngIf="skill.skillName==='Profession'">
-                  {{ skill.skillName }}
-                  <input class="skill" type="text" [(ngModel)]="newCharacter.profession" placeholder="Profession">
+                <div *ngIf="skill.getSkillName()==='Profession'">
+                  {{ skill.getSkillName() }}
+                  <input class="skill" type="text" [ngModel]="newCharacter.getProfession()" (ngModel)="newCharacter.setProfession($event)" placeholder="Profession">
                 </div>
-                <div *ngIf="skill.skillName==='Perform Other'">
-                  {{ skill.skillName }}
-                  <input class="skill" type="text" [(ngModel)]="newCharacter.performCust" placeholder="(Other)">
+                <div *ngIf="skill.getSkillName()==='Perform Other'">
+                  {{ skill.getSkillName() }}
+                  <input class="skill" type="text" [ngModel]="newCharacter.getPerformCust()" (ngModel)="newCharacter.setPerformCust($event)" placeholder="(Other)">
                 </div>
               </ng-template>
               <ng-template #normalSkill>
-                {{ skill.skillName }}
+                {{ skill.getSkillName() }}
               </ng-template>
             </td>
             <td>
-              <input id="{{ 'skills'+j }}" class="skill-input" type="number" [(ngModel)]="skill.ranks" min="0" max="{{ skill.ranks + skillPoints > 0 ? skill.ranks + skillPoints: 0 }}" (change)="track(j, 'skills')" (blur)="validate(j, 'skills')" [class.non-zero]="skill.ranks > 0">
+              <input id="{{ 'skills'+j }}" class="skill-input" type="number" [ngModel]="skill.getRanks()" (ngModel)="skill.setRanks($event)" min="0" max="{{ skill.getRanks() + skillPoints > 0 ? skill.getRanks() + skillPoints: 0 }}" (change)="track(j, 'skills')" (blur)="validate(j, 'skills')" [class.non-zero]="skill.getRanks() > 0">
             </td>
             <td>
-              {{ skill.racial }}
+              {{ skill.getRacial() }}
             </td>
             <td class="mod">
-              {{ skill.modifier.substr(0,3) | uppercase }}
-              <span class="info">{{ getMod(skill.modifier) }}</span>
+              {{ skill.getModifier().substr(0,3) | uppercase }}
+              <span class="info">{{ getMod(skill.getModifier()) }}</span>
             </td>
             <td>
-              <input class="skill-input" type="number" [(ngModel)]="skill.item">
+              <input class="skill-input" type="number" [ngModel]="skill.getItem()" (ngModel)="skill.setItem($event)">
             </td>
             <td>
-              <input class="skill-input" type="number" [(ngModel)]="skill.misc">
+              <input class="skill-input" type="number" [ngModel]="skill.getMisc()" (ngModel)="skill.setMisc($event)">
             </td>
             <td class="total">
-              {{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}
+              {{ (skill.getTrained() ? 3 : 0) + skill.getRanks() + getMod(skill.getModifier()) + skill.getItem() + skill.getMisc() + skill.getRacial()}}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <h2>{{ newCharacter.name }} Weapon Skills</h2>
+    <h2>{{ newCharacter.getName() }} Weapon Skills</h2>
     <div class="table">
       <table>
         <thead>
@@ -594,26 +594,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let weapon of newCharacter.weaponSkills; index as k" class="weapon">
+          <tr *ngFor="let weapon of newCharacter.getWeaponSkills(); index as k" class="weapon">
             <td>
-              <input type="checkbox" disabled [(ngModel)]="weapon.trained">
+              <input type="checkbox" disabled [ngModel]="weapon.getTrained()">
             </td>
-            <td class="name">{{ weapon.skillName }}</td>
+            <td class="name">{{ weapon.getSkillName() }}</td>
             <td>
-              <input id="{{ 'weaponSkills'+k }}" class="skill-input" type="number" [(ngModel)]="weapon.ranks" min="0" max="{{ weapon.ranks + skillPoints > 0 ? weapon.ranks + skillPoints : 0 }}" (change)="track(k, 'weaponSkills')" (blur)="validate(k, 'weaponSkills')" [class.non-zero]="weapon.ranks > 0">
+              <input id="{{ 'weaponSkills'+k }}" class="skill-input" type="number" [ngModel]="weapon.getRanks()" (ngModel)="weapon.setRanks($event)" min="0" max="{{ weapon.getRanks() + skillPoints > 0 ? weapon.getRanks() + skillPoints : 0 }}" (change)="track(k, 'weaponSkills')" (blur)="validate(k, 'weaponSkills')" [class.non-zero]="weapon.getRanks() > 0">
             </td>
             <td>
-              {{ weapon.racial }}
+              {{ weapon.getRacial() }}
             </td>
             <td class="total">
-              {{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}
+              {{ (weapon.getTrained() ? 3 : 0) + weapon.getRanks() + weapon.getRacial() }}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <h2>{{ newCharacter.name }} Magic Skills</h2>
+    <h2>{{ newCharacter.getName() }} Magic Skills</h2>
     <div class="table">
       <table>
         <thead>
@@ -625,17 +625,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let magic of newCharacter.magicSkills; index as m" [class.din]="magic.modifier === 'Intelligence'" [class.farore]="magic.modifier === 'Charisma'" [class.nayru]="magic.modifier === 'Wisdom'">
-            <td class="name">{{ magic.skillName }}</td>
+          <tr *ngFor="let magic of newCharacter.getMagicSkills(); index as m" [class.din]="magic.getModifier() === 'Intelligence'" [class.farore]="magic.getModifier() === 'Charisma'" [class.nayru]="magic.getModifier() === 'Wisdom'">
+            <td class="name">{{ magic.getSkillName() }}</td>
             <td class="mod">
-              {{ magic.modifier.substr(0,3) | uppercase }}
-              <span class="info">{{ getMod(magic.modifier) }}</span>
+              {{ magic.getModifier().substr(0,3) | uppercase }}
+              <span class="info">{{ getMod(magic.getModifier()) }}</span>
             </td>
             <td>
-              <input id="{{ 'magicSkills'+m }}" class="skill-input" type="number" [(ngModel)]="magic.ranks" min="0" max="{{ magic.ranks + skillPoints > 0 ? magic.ranks + skillPoints : 0 }}" (change)="track(m, 'magicSkills')" (blur)="validate(m, 'magicSkills')" [class.non-zero]="magic.ranks > 0">
+              <input id="{{ 'magicSkills'+m }}" class="skill-input" type="number" [ngModel]="magic.getRanks()" (ngModel)="magic.setRanks($event)" min="0" max="{{ magic.getRanks() + skillPoints > 0 ? magic.getRanks() + skillPoints : 0 }}" (change)="track(m, 'magicSkills')" (blur)="validate(m, 'magicSkills')" [class.non-zero]="magic.getRanks() > 0">
             </td>
             <td class="total">
-              {{ magic.ranks + getMod(magic.modifier) }}
+              {{ magic.getRanks() + getMod(magic.getModifier()) }}
             </td>
           </tr>
         </tbody>
