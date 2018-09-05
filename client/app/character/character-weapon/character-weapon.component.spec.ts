@@ -5,8 +5,8 @@ import { MessageService } from '../../shared/messages/message.service';
 import { SharedModule } from '../../shared/shared.module';
 import { Character } from '../characterModels/character';
 import { Weapons } from '../characterModels/enums/weapon-skills.enum';
-import { Elemental } from '../characterModels/Weapons/elemental';
-import { Weapon } from '../characterModels/Weapons/weapon';
+import { Elemental } from '../characterModels/weapons/elemental';
+import { Weapon } from '../characterModels/weapons/weapon';
 import { CharacterWeaponComponent } from './character-weapon.component';
 
 let messageServiceStub: Partial<MessageService>;

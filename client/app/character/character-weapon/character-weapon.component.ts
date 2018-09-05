@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Character } from '../characterModels/character';
-import { Weapon } from '../characterModels/Weapons/weapon';
 
 import { Attributes } from '../characterModels/enums/attributes.enum';
 import { Elements } from '../characterModels/enums/elements.enum';
 import { Weapons } from '../characterModels/enums/weapon-skills.enum';
 
 import { MessageService } from '../../shared/messages/message.service';
-import { Elemental } from '../characterModels/Weapons/elemental';
+import { Elemental } from '../characterModels/weapons/elemental';
+import { Weapon } from '../characterModels/weapons/weapon';
 
 @Component({
   selector: 'app-character-weapon',
