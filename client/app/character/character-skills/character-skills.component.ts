@@ -39,7 +39,9 @@ export class CharacterSkillsComponent implements OnInit {
     const originalRoll = (Math.round(Math.random() * 100) % 20) + 1;
     const skill = this.character.getSkills()[Skills[skillName]];
     const skillMod = skill.getModifier();
-    const mod = this.character.getAttributes()[Attributes[skillMod]].getModifier();
+    const mod = this.character
+      .getAttributes()
+      [Attributes[skillMod]].getModifier();
     const trained = skill.getTrained() ? 3 : 0;
     const roll =
       originalRoll +

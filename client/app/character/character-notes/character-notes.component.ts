@@ -29,7 +29,15 @@ export class CharacterNotesComponent implements OnInit {
   }
 
   addNote(): void {
-    this.note = new Note(undefined, this.newMsg, new Date(Date.now()).toLocaleString().split(' ')[1].toString(), this.important);
+    this.note = new Note(
+      undefined,
+      this.newMsg,
+      new Date(Date.now())
+        .toLocaleString()
+        .split(' ')[1]
+        .toString(),
+      this.important
+    );
     if (this.important) {
       this.character.getImportantNotes().unshift(this.note);
     } else {

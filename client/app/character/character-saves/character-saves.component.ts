@@ -30,9 +30,15 @@ export class CharacterSavesComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   makeSave(saveString: string): void {
-    const modifier = this.character.getSavingThrows()[Saves[saveString]].getModifier();
-    const saveValAdd = this.character.getAttributes()[Attributes[modifier]].getModifier();
-    const saveRacAdd = this.character.getSavingThrows()[Saves[saveString]].getRacial();
+    const modifier = this.character
+      .getSavingThrows()
+      [Saves[saveString]].getModifier();
+    const saveValAdd = this.character
+      .getAttributes()
+      [Attributes[modifier]].getModifier();
+    const saveRacAdd = this.character
+      .getSavingThrows()
+      [Saves[saveString]].getRacial();
     let roll = (Math.round(Math.random() * 100) % 20) + 1;
     roll += saveValAdd + saveRacAdd;
     roll = roll < 1 ? 1 : roll;

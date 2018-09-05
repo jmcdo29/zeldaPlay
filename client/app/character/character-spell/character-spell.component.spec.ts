@@ -70,7 +70,17 @@ describe('CharacterSpellComponent', () => {
   });
   describe('cast spell tests', () => {
     beforeEach(() => {
-      const mySpell = new Spell(undefined, 'test spell', 'this is the spell effect', 4, 3, 10, 'Nayru', false, 'Wisdom');
+      const mySpell = new Spell(
+        undefined,
+        'test spell',
+        'this is the spell effect',
+        4,
+        3,
+        10,
+        'Nayru',
+        false,
+        'Wisdom'
+      );
       component.character.addSpell(mySpell);
     });
     afterEach(() => {
@@ -130,7 +140,17 @@ describe('CharacterSpellComponent', () => {
   describe('save spell', () => {
     test('should not save spell', () => {
       component.newSpell = true;
-      const mySpell = new Spell(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+      const mySpell = new Spell(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      );
       component.spell = mySpell;
       fixture.detectChanges();
       component.saveSpell();
@@ -138,7 +158,17 @@ describe('CharacterSpellComponent', () => {
     });
     test('should save spell', () => {
       component.newSpell = true;
-      const mySpell = new Spell(undefined, 'my Spell', 'some effect', 8, 2, 5, 'Nayru', false, 'Wisdom');
+      const mySpell = new Spell(
+        undefined,
+        'my Spell',
+        'some effect',
+        8,
+        2,
+        5,
+        'Nayru',
+        false,
+        'Wisdom'
+      );
       component.spell = mySpell;
       fixture.detectChanges();
       component.saveSpell();
@@ -148,7 +178,17 @@ describe('CharacterSpellComponent', () => {
   });
   describe('validate spell', () => {
     beforeEach(() => {
-      const mySpell = new Spell(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+      const mySpell = new Spell(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      );
       component.spell = mySpell;
       component.newSpell = true;
       fixture.detectChanges();

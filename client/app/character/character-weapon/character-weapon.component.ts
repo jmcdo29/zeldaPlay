@@ -59,7 +59,17 @@ export class CharacterWeaponComponent implements OnInit {
   constructor(public message: MessageService) {}
 
   ngOnInit() {
-    this.weapon = new Weapon(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+    this.weapon = new Weapon(
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    );
     if (this.character.getWeapons()) {
       this.weapons = this.character.getWeapons();
     }
@@ -130,7 +140,17 @@ export class CharacterWeaponComponent implements OnInit {
       this.character.addWeapon(this.weapon);
       this.addWeapon();
       this.createMessage();
-      this.weapon =  new Weapon(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+      this.weapon = new Weapon(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      );
     }
   }
 
@@ -162,7 +182,9 @@ export class CharacterWeaponComponent implements OnInit {
   }
 
   makeElement(): void {
-    this.elemental = !this.isElemental ? new Elemental(undefined, undefined, undefined, undefined) : null;
+    this.elemental = !this.isElemental
+      ? new Elemental(undefined, undefined, undefined, undefined)
+      : null;
   }
 
   checkForRanged(): void {
@@ -170,7 +192,10 @@ export class CharacterWeaponComponent implements OnInit {
   }
 
   setCrit(): void {
-    const range = this.weapon.getCritRange().toString().split(',');
+    const range = this.weapon
+      .getCritRange()
+      .toString()
+      .split(',');
     const rangeArray = [];
     for (const int of range) {
       rangeArray.push(Number.parseInt(int, 10));
@@ -183,7 +208,9 @@ export class CharacterWeaponComponent implements OnInit {
 
   createMessage(): void {
     const name = this.character.getName();
-    const weapon = this.character.getWeapons()[this.character.getWeapons().length - 1];
+    const weapon = this.character.getWeapons()[
+      this.character.getWeapons().length - 1
+    ];
     const weaponName = weapon.getName();
     const weaponType = weapon.getType();
 
@@ -204,7 +231,9 @@ export class CharacterWeaponComponent implements OnInit {
     const character = this.character;
     const weapon = character.getWeapons()[weaponIndex];
     const weapSkill = character.getWeaponSkills()[Weapons[weapon.getType()]];
-    const modifier = character.getAttributes()[Attributes[weapon.getModifier()]];
+    const modifier = character.getAttributes()[
+      Attributes[weapon.getModifier()]
+    ];
     // make the roll to hit and see if the roll was a crit.
     const initialRoll = this.roll(20);
     if (weapon.getCritRange().includes(initialRoll)) {
@@ -223,7 +252,8 @@ export class CharacterWeaponComponent implements OnInit {
       modifier.getModifier();
     if (weapon.getElement() && weapon.getElement() != null) {
       elemDmg =
-        this.roll(weapon.getElement().getAttack()) * weapon.getElement().getNOfA();
+        this.roll(weapon.getElement().getAttack()) *
+        weapon.getElement().getNOfA();
       this.elemRoll = elemDmg;
     } else {
       this.elemRoll = null;

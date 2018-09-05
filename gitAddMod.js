@@ -5,7 +5,7 @@ exec('git diff --cached --name-status', (error, stdout, stderr) => {
     console.error(`exec error: ${error}`);
     return;
   }
-  // console.log(stdout);
+  console.log(stdout);
   const files = stdout.split('\n');
   const filesToUpdate = [];
   files.forEach((file) => {

@@ -57,7 +57,17 @@ describe('CharacterWeaponComponent', () => {
   });
   describe('save weapon functionality', () => {
     beforeEach(() => {
-      component.weapon = new Weapon(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+      component.weapon = new Weapon(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      );
     });
     afterAll(() => {
       component.character.getWeapons().pop();
@@ -80,7 +90,12 @@ describe('CharacterWeaponComponent', () => {
     describe('elemental weapon specifics', () => {
       test('should show all elemental errors', () => {
         component.isElemental = true;
-        component.elemental = new Elemental(undefined, undefined, undefined, undefined);
+        component.elemental = new Elemental(
+          undefined,
+          undefined,
+          undefined,
+          undefined
+        );
         fixture.detectChanges();
         component.saveWeapon();
         expect(component.character.getWeapons()).toHaveLength(0);
@@ -88,7 +103,17 @@ describe('CharacterWeaponComponent', () => {
       });
     });
     test('should save weapon if there are no errors', () => {
-      component.weapon = new Weapon(undefined, 'weapon', 8, 1, [18, 19, 20], 3, 'Short Sword', 'Strength', 0);
+      component.weapon = new Weapon(
+        undefined,
+        'weapon',
+        8,
+        1,
+        [18, 19, 20],
+        3,
+        'Short Sword',
+        'Strength',
+        0
+      );
       component.saveWeapon();
       expect(component.character.getWeapons()).toHaveLength(1);
     });
@@ -112,9 +137,21 @@ describe('CharacterWeaponComponent', () => {
   });
   describe('Attack Rolls', () => {
     beforeEach(() => {
-      const myWep = new Weapon(undefined, 'weapon', 8, 1, [18, 19, 20], 3, 'Short Sword', 'Strength', 0);
+      const myWep = new Weapon(
+        undefined,
+        'weapon',
+        8,
+        1,
+        [18, 19, 20],
+        3,
+        'Short Sword',
+        'Strength',
+        0
+      );
       component.character.addWeapon(myWep);
-      component.character.getWeaponSkills()[Weapons['Short Sword']].setTrained(true);
+      component.character
+        .getWeaponSkills()
+        [Weapons['Short Sword']].setTrained(true);
       component.character.getAttributes()[0].setValue(10);
     });
     afterEach(() => {
@@ -132,7 +169,9 @@ describe('CharacterWeaponComponent', () => {
     test('make attack rlls with element', () => {
       const myElem: Elemental = new Elemental(undefined, 'Fire', 8, 1);
       component.character.getWeapons()[0].setElement(myElem);
-      component.character.getWeaponSkills()[Weapons['Short Sword']].setTrained(false);
+      component.character
+        .getWeaponSkills()
+        [Weapons['Short Sword']].setTrained(false);
       for (let i = 0; i < 25; i++) {
         component.attack(0);
       }
@@ -141,7 +180,17 @@ describe('CharacterWeaponComponent', () => {
 
   describe('validation function tests', () => {
     beforeEach(() => {
-      component.weapon = new Weapon(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+      component.weapon = new Weapon(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      );
     });
     afterEach(() => {
       component.weapon = null;

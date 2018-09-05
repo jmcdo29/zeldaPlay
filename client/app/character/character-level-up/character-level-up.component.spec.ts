@@ -109,7 +109,9 @@ describe('CharacterLevelUpComponent', () => {
     test('increase skill', () => {
       const start = component.currChar.getSkills()[0].getRanks();
       component.skillPoints = 10;
-      component.currChar.getSkills()[0].setRanks(component.currChar.getWeaponSkills()[0].getRanks() + 5);
+      component.currChar
+        .getSkills()[0]
+        .setRanks(component.currChar.getWeaponSkills()[0].getRanks() + 5);
       component.track(0, 'skills');
       expect(component.currChar.getSkills()[0].getRanks()).toBe(start + 5);
     });
@@ -118,7 +120,9 @@ describe('CharacterLevelUpComponent', () => {
       component.showSkillTab(1);
       const start = component.currChar.getWeaponSkills()[0].getRanks();
       component.skillPoints = 10;
-      component.currChar.getWeaponSkills()[0].setRanks(component.currChar.getWeaponSkills()[0].getRanks() + 8);
+      component.currChar
+        .getWeaponSkills()[0]
+        .setRanks(component.currChar.getWeaponSkills()[0].getRanks() + 8);
       fixture.detectChanges();
       component.track(0, 'weaponSkills');
       component.validate(0, 'weaponSkills');
@@ -131,7 +135,9 @@ describe('CharacterLevelUpComponent', () => {
       component.showSkillTab(1);
       const start = (component.skillPoints = 5);
       component.skillPoints = 5;
-      component.currChar.getWeaponSkills()[0].setRanks(component.currChar.getWeaponSkills()[0].getRanks() + 8);
+      component.currChar
+        .getWeaponSkills()[0]
+        .setRanks(component.currChar.getWeaponSkills()[0].getRanks() + 8);
       fixture.detectChanges();
       component.track(0, 'weaponSkills');
       component.validate(0, 'weaponSkills');
@@ -139,20 +145,26 @@ describe('CharacterLevelUpComponent', () => {
         'bad-input'
       );
       expect(component.currChar.getWeaponSkills()[0].getRanks()).toBe(start);
-      component.currChar.getWeaponSkills()[0].setRanks(component.currChar.getWeaponSkills()[0].getRanks());
+      component.currChar
+        .getWeaponSkills()[0]
+        .setRanks(component.currChar.getWeaponSkills()[0].getRanks());
       component.track(0, 'weaponSkills');
       component.validate(0, 'weaponSkills');
       expect(document.getElementById('weaponSkills0').classList).not.toContain(
         'bad-input'
       );
-      expect(component.currChar.getWeaponSkills()[0].getRanks()).toBe(start + 0);
+      expect(component.currChar.getWeaponSkills()[0].getRanks()).toBe(
+        start + 0
+      );
     });
     test('validate skill increase (INVALID REVERTED VALUE) and again (VALID)', () => {
       component.showTab(1);
       component.showSkillTab(2);
       const start = component.currChar.getMagicSkills()[0].getRanks();
       component.skillPoints = 5;
-      component.currChar.getMagicSkills()[0].setRanks(component.currChar.getMagicSkills()[0].getRanks() - 8);
+      component.currChar
+        .getMagicSkills()[0]
+        .setRanks(component.currChar.getMagicSkills()[0].getRanks() - 8);
       fixture.detectChanges();
       component.track(0, 'magicSkills');
       component.validate(0, 'magicSkills');
@@ -160,7 +172,9 @@ describe('CharacterLevelUpComponent', () => {
         'bad-input'
       );
       expect(component.currChar.getMagicSkills()[0].getRanks()).toBe(start);
-      component.currChar.getMagicSkills()[0].setRanks(component.currChar.getMagicSkills()[0].getRanks() + 3);
+      component.currChar
+        .getMagicSkills()[0]
+        .setRanks(component.currChar.getMagicSkills()[0].getRanks() + 3);
       component.track(0, 'magicSkills');
       component.validate(0, 'magicSkills');
       expect(document.getElementById('magicSkills0').classList).not.toContain(

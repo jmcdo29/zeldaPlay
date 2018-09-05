@@ -43,7 +43,17 @@ export class CharacterSpellComponent implements OnInit {
 
   addSpell(): void {
     if (!this.newSpell) {
-      this.spell = new Spell(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+      this.spell = new Spell(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      );
     }
     this.newSpell = !this.newSpell;
   }
@@ -77,7 +87,17 @@ export class CharacterSpellComponent implements OnInit {
     if (!error) {
       this.character.addSpell(this.spell);
       this.createMessage();
-      this.spell = new Spell(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+      this.spell = new Spell(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      );
       this.newSpell = false;
     }
   }
@@ -103,7 +123,9 @@ export class CharacterSpellComponent implements OnInit {
 
   createMessage(): void {
     const name = this.character.getName();
-    const spell = this.character.getSpells()[this.character.getSpells().length - 1];
+    const spell = this.character.getSpells()[
+      this.character.getSpells().length - 1
+    ];
     const spellName = spell.getName();
     const spellType = spell.getDiety();
 
@@ -134,11 +156,14 @@ export class CharacterSpellComponent implements OnInit {
       const magicType = character.getMagicSkills()[Magics[spell.getDiety()]];
       const magicBonus =
         magicType.getRanks() +
-        character.getAttributes()[Attributes[magicType.getModifier()]].getModifier();
+        character
+          .getAttributes()
+          [Attributes[magicType.getModifier()]].getModifier();
       const ogSpellRoll = (Math.round(Math.random() * 100) % 20) + 1;
       const spellRoll = ogSpellRoll + magicBonus;
       this.spellName = spell.getName();
-      const ogDmgRoll = (Math.round(Math.random() * 100) % spell.getDamage()) + 1;
+      const ogDmgRoll =
+        (Math.round(Math.random() * 100) % spell.getDamage()) + 1;
       if (ogSpellRoll === 20) {
         crit = true;
       }
@@ -185,14 +210,21 @@ export class CharacterSpellComponent implements OnInit {
   private getMagicBonus(spell: Spell, character: Character): number {
     let retVal = 0;
     if (spell.getUseDiety()) {
-      let spellBon = character.getMagicSkills()[Magics[spell.getDiety()]].getRanks();
-      spellBon +=
-        character.getAttributes()[
-          Attributes[character.getMagicSkills()[Magics[spell.getDiety()]].getModifier()]
+      let spellBon = character
+        .getMagicSkills()
+        [Magics[spell.getDiety()]].getRanks();
+      spellBon += character
+        .getAttributes()
+        [
+          Attributes[
+            character.getMagicSkills()[Magics[spell.getDiety()]].getModifier()
+          ]
         ].getModifier();
       retVal += spellBon;
     } else if (spell.getModifier()) {
-      retVal += character.getAttributes()[Attributes[spell.getModifier()]].getModifier();
+      retVal += character
+        .getAttributes()
+        [Attributes[spell.getModifier()]].getModifier();
     }
     return retVal;
   }
