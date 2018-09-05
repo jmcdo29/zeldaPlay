@@ -42,7 +42,7 @@ const characterServiceStub: Partial<CharacterService> = {
   },
   getUserCharacters(userId: string): Observable<Character[]> {
     const char = new Character();
-    char.id = 'the id';
+    char.setId('the id');
     return of([char]);
   },
   getCharacter(id: string): Observable<any> {
@@ -114,7 +114,7 @@ describe('CharactersComponent', () => {
     });
     test('onSelect with id', () => {
       const myNewChar = new Character();
-      myNewChar.id = 'asdjf';
+      myNewChar.setId('asdjf');
       component.onSelect(myNewChar);
     });
     test('save', () => {

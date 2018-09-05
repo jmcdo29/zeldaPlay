@@ -28,7 +28,7 @@ test('should make a spell', () => {
   mySpell.setMpUse(100);
   expect(mySpell.getMpUse()).toBe(100);
   mySpell.setMultiplier(3);
-  expect(mySpell.getMultilier()).toBe(3);
+  expect(mySpell.getMultiplier()).toBe(3);
   mySpell.setName('test spell 3');
   expect(mySpell.getName()).toBe('test spell 3');
   mySpell.setUseDiety(false);

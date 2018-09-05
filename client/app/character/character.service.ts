@@ -61,7 +61,7 @@ export class CharacterService {
     const blob = new Blob([characterString], {
       type: 'application/json'
     });
-    FileSaver.saveAs(blob, character.name + '_zeldaplay.json');
+    FileSaver.saveAs(blob, character.getName() + '_zeldaplay.json');
   }
 
   saveCharDb(character: Character): Observable<any> {

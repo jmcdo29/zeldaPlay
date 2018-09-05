@@ -103,31 +103,37 @@ export class CharactersComponent implements OnInit {
           }
         }
         for (const weapon of characterRes.weapons) {
-          this.selectedCharacter.getWeapons()[
-            findObjectPartial(
-              this.selectedCharacter.getWeapons(),
-              'name',
-              weapon.name
-            )
-          ].id = weapon.id;
+          this.selectedCharacter
+            .getWeapons()
+            [
+              findObjectPartial(
+                this.selectedCharacter.getWeapons(),
+                'name',
+                weapon.name
+              )
+            ].setId(weapon.id);
         }
         for (const spell of characterRes.spells) {
-          this.selectedCharacter.getSpells()[
-            findObjectPartial(
-              this.selectedCharacter.getSpells(),
-              'name',
-              spell.name
-            )
-          ].id = spell.id;
+          this.selectedCharacter
+            .getSpells()
+            [
+              findObjectPartial(
+                this.selectedCharacter.getSpells(),
+                'name',
+                spell.name
+              )
+            ].setId(spell.id);
         }
         for (const save of characterRes.saves) {
-          this.selectedCharacter.getSavingThrows()[
-            findObjectPartial(
-              this.selectedCharacter.getSavingThrows(),
-              'name',
-              save.name
-            )
-          ].id = save.id;
+          this.selectedCharacter
+            .getSavingThrows()
+            [
+              findObjectPartial(
+                this.selectedCharacter.getSavingThrows(),
+                'name',
+                save.name
+              )
+            ].setId(save.id);
         }
         for (const note of characterRes.notes) {
           if (note.important) {

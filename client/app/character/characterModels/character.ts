@@ -825,7 +825,3 @@ function parseRange(range: string): number[] {
     return retArray;
   }
 }
-
-function getMod(value: number): number {
-  return (value % 2 === 0 ? value - 10 : value - 11) / 2;
-}
