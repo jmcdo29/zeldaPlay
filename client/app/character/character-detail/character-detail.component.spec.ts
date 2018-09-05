@@ -144,7 +144,8 @@ describe('CharacterDetailComponent', () => {
   });
   describe('magic modal', () => {
     beforeEach(() => {
-      component.character.maxMagic = component.character.magic = 25;
+      component.character.setMaxMagic(25);
+      component.character.setMagic(component.character.getMaxMagic());
       component.type = -1;
       component.modMagic();
     });
@@ -205,7 +206,7 @@ describe('CharacterDetailComponent', () => {
       expect(component.character.getMaxHealth()).toBe(startMaxHealth + 16);
     });
     test('magicContainer', () => {
-      const startMaxMagic = component.character.maxMagic;
+      const startMaxMagic = component.character.getMaxMagic();
       component.gotMagicContainer();
       expect(component.character.getMagic()).toBe(startMaxMagic + 6);
       expect(component.character.getMaxMagic()).toBe(startMaxMagic + 6);
