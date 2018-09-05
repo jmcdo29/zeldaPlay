@@ -24,9 +24,9 @@ export class CharacterSkillsComponent implements OnInit {
   ngOnInit() {}
 
   getMod(modName: string): number {
-    for (const attribute of this.character.attributes) {
-      if (attribute.name === modName) {
-        return attribute.modifier;
+    for (const attribute of this.character.getAttributes()) {
+      if (attribute.getName() === modName) {
+        return attribute.getModifier();
       }
     }
   }
@@ -37,25 +37,25 @@ export class CharacterSkillsComponent implements OnInit {
 
   makeCheck(skillName: string): void {
     const originalRoll = (Math.round(Math.random() * 100) % 20) + 1;
-    const skill = this.character.skills[Skills[skillName]];
-    const skillMod = skill.modifier;
-    const mod = this.character.attributes[Attributes[skillMod]].modifier;
-    const trained = skill.trained ? 3 : 0;
+    const skill = this.character.getSkills()[Skills[skillName]];
+    const skillMod = skill.getModifier();
+    const mod = this.character.getAttributes()[Attributes[skillMod]].getModifier();
+    const trained = skill.getTrained() ? 3 : 0;
     const roll =
       originalRoll +
       mod +
-      skill.ranks +
-      skill.misc +
-      skill.item +
-      skill.racial +
+      skill.getRanks() +
+      skill.getMisc() +
+      skill.getItem() +
+      skill.getRacial() +
       trained;
     this.checkVal =
       originalRoll +
       mod +
-      skill.ranks +
-      skill.misc +
-      skill.item +
-      skill.racial +
+      skill.getRanks() +
+      skill.getMisc() +
+      skill.getItem() +
+      skill.getRacial() +
       trained;
     this.skill = skillName;
     this.setClasses(originalRoll);
@@ -68,7 +68,7 @@ export class CharacterSkillsComponent implements OnInit {
   }
 
   private addMessage(skillName: string, skillRoll: number) {
-    const name = this.character.name;
+    const name = this.character.getName();
     const message =
       name + ' rolled a ' + skillRoll + ' on a ' + skillName + ' check.';
     this.messenger.add(message);

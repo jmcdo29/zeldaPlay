@@ -59,20 +59,8 @@ describe('CharacterSkillsComponent', () => {
       fixture.detectChanges();
     });
     test('should make a check for trained Acrobatics', () => {
-      const mySkill = new Skill();
-      mySkill.skillName = 'Acrobatics';
-      mySkill.ranks = 0;
-      mySkill.trained = true;
-      mySkill.misc = 0;
-      mySkill.item = 0;
-      mySkill.racial = 0;
-      mySkill.modifier = 'Dexterity';
-      component.character.skills[0] = mySkill;
-      component.character.attributes[1] = {
-        name: 'Dexterity',
-        value: 10,
-        modifier: 0
-      };
+      component.character.getSkills()[0].setTrained(true);
+      component.character.getAttributes()[1].setValue(10);
       let critHit = false;
       let critMiss = false;
       do {
@@ -86,20 +74,8 @@ describe('CharacterSkillsComponent', () => {
       } while (!(critHit && critMiss));
     });
     test('should make a check for untrained Acrobatics', () => {
-      const mySkill = new Skill();
-      mySkill.skillName = 'Acrobatics';
-      mySkill.ranks = 0;
-      mySkill.trained = false;
-      mySkill.misc = 0;
-      mySkill.item = 0;
-      mySkill.racial = 0;
-      mySkill.modifier = 'Dexterity';
-      component.character.skills[0] = mySkill;
-      component.character.attributes[1] = {
-        name: 'Dexterity',
-        value: 10,
-        modifier: 0
-      };
+      component.character.getSkills()[0].setTrained(false);
+      component.character.getAttributes()[1].setValue(10);
       component.skill = 'Acrobatics';
       component.checkVal = 0;
       fixture.detectChanges();
