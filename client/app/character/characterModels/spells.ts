@@ -63,7 +63,7 @@ export class Spell {
     this.damage = damage;
   }
 
-  getMultilier(): number {
+  getMultiplier(): number {
     return this.multiplier;
   }
 
