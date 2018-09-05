@@ -51,7 +51,7 @@ export class CharacterDetailComponent implements OnInit {
     health + this.hpDmg * this.type > maxHealth
       ? this.character.setHealth(maxHealth)
       : this.character.setHealth(health + this.hpDmg * this.type);
-    this.character.health < -10
+    this.character.getHealth() < -10
       ? this.character.setHealth(-10)
       : this.character.setHealth(this.character.getHealth());
     this.changeHP = false;
@@ -69,7 +69,7 @@ export class CharacterDetailComponent implements OnInit {
     magic + this.mpDmg * this.type > maxMagic
       ? this.character.setMagic(maxMagic)
       : this.character.setMagic(magic + this.mpDmg * this.type);
-    this.character.magic < 0
+    this.character.getMagic() < 0
       ? this.character.setMagic(0)
       : this.character.setMagic(this.character.getMagic());
     this.changeMP = false;

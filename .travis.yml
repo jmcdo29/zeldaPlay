@@ -10,4 +10,4 @@ before_install:
 after_success:
   - codecov --file coverage/lcov.info --disable search
 script:
-  - yarn run test:ci
+  - npm run test:ci

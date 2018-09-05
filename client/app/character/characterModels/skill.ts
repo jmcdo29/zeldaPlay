@@ -20,11 +20,11 @@ export class Skill {
   ) {
     this.skillName = skillName;
     this.ranks = ranks;
-    this.trained = trained ? trained : undefined;
+    this.trained = trained ? trained : false;
     this.modifier = modifier ? modifier : undefined;
-    this.item = item ? item : undefined;
-    this.racial = racial ? racial : undefined;
-    this.misc = misc ? misc : undefined;
+    this.item = item ? item : 0;
+    this.racial = racial ? racial : 0;
+    this.misc = misc ? misc : 0;
     this.id = id;
   }
 

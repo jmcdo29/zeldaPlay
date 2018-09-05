@@ -447,8 +447,8 @@
             <option value="Nayru">Nayru</option>
           </select>
         </div>
-        <div *ngIf="newCharacter.getRace()==='Rito'" (change)="raceChange()">
-          <select [ngModel]="newCharacter.getSubRace()" (ngModelChange)="newCharacter.setSubRace($event)">
+        <div *ngIf="newCharacter.getRace()==='Rito'" >
+          <select [ngModel]="newCharacter.getSubRace()" (ngModelChange)="newCharacter.setSubRace($event)" (change)="raceChange()">
             <option value="Sharp Eye">Sharp Eye</option>
             <option value="Sharp Tongue">Sharp Tongue</option>
           </select>
@@ -472,7 +472,7 @@
             <tr>
               <td class="name">Name</td>
               <td>
-                <input class="skill" type="text" [ngModel]="newCharacter.getName()" placeholder="Name" maxlength="10">
+                <input class="skill" type="text" [ngModel]="newCharacter.getName()" (ngModelChange)="newCharacter.setName($event)" placeholder="Name" maxlength="10">
               </td>
             </tr>
 
@@ -493,13 +493,13 @@
             <tr class="din">
               <td class="name">Health</td>
               <td>
-                {{ 48+newCharacter.getAttributes()[2].modifier }}
+                {{ 48+newCharacter.getAttributes()[2].getModifier() }}
               </td>
             </tr>
             <tr class="nayru">
               <td class="name">Magic</td>
               <td>
-                {{ 20+newCharacter.getAttributes()[4].modifier }}
+                {{ 20+newCharacter.getAttributes()[4].getModifier() }}
               </td>
             </tr>
           </tbody>

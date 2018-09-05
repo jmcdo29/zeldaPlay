@@ -1,4 +1,3 @@
-// TODO: fix tracking and validation methods. These methods need to reflect the temp arrays made for data input!
 import { Component, Input, OnInit } from '@angular/core';
 
 import { AlertService } from '../../alert/alert.service';
