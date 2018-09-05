@@ -1,8 +1,8 @@
 export class Save {
-  racial: number;
-  name: string;
-  modifier: string;
-  id?: string;
+  private racial: number;
+  private name: string;
+  private modifier: string;
+  private id?: string;
 
   constructor(id: string, name: string, modifier: string, racial: number) {
     this.id = id;
