@@ -41,43 +41,43 @@ export class CharacterDetailComponent implements OnInit {
 
   expMod: number;
 
-  constructor(public message: MessageService) {}
+  constructor(private message: MessageService) {}
 
   ngOnInit() {}
 
   finalizeHealthMod(): void {
-    const maxHealth = this.character.maxHealth;
-    const health = this.character.health;
+    const maxHealth = this.character.getMaxHealth();
+    const health = this.character.getHealth();
     health + this.hpDmg * this.type > maxHealth
-      ? (this.character.health = maxHealth)
-      : (this.character.health += this.hpDmg * this.type);
+      ? this.character.setHealth(maxHealth)
+      : this.character.setHealth(health + this.hpDmg * this.type);
     this.character.health < -10
-      ? (this.character.health = -10)
-      : (this.character.health = this.character.health);
+      ? this.character.setHealth(-10)
+      : this.character.setHealth(this.character.getHealth());
     this.changeHP = false;
   }
 
   modTheHMod(addition: number): void {
-    this.hpDmg + addition > this.character.maxHealth + 10
-      ? (this.hpDmg = this.character.maxHealth + 10)
+    this.hpDmg + addition > this.character.getMaxHealth() + 10
+      ? (this.hpDmg = this.character.getMaxHealth() + 10)
       : (this.hpDmg += addition);
   }
 
   finalizeMagicMod(): void {
-    const maxMagic = this.character.maxMagic;
-    const magic = this.character.magic;
+    const maxMagic = this.character.getMaxMagic();
+    const magic = this.character.getMagic();
     magic + this.mpDmg * this.type > maxMagic
-      ? (this.character.magic = maxMagic)
-      : (this.character.magic += this.mpDmg * this.type);
+      ? this.character.setMagic(maxMagic)
+      : this.character.setMagic(magic + this.mpDmg * this.type);
     this.character.magic < 0
-      ? (this.character.magic = 0)
-      : (this.character.magic = this.character.magic);
+      ? this.character.setMagic(0)
+      : this.character.setMagic(this.character.getMagic());
     this.changeMP = false;
   }
 
   modTheMMod(addition: number): void {
-    this.mpDmg + addition > this.character.maxMagic
-      ? (this.mpDmg = this.character.maxMagic)
+    this.mpDmg + addition > this.character.getMaxMagic()
+      ? (this.mpDmg = this.character.getMaxMagic())
       : (this.mpDmg += addition);
   }
 
@@ -119,17 +119,19 @@ export class CharacterDetailComponent implements OnInit {
   }
 
   gotHeartContainer(): void {
-    this.character.health = this.character.maxHealth += 16;
+    this.character.setMaxHealth(this.character.getMaxHealth() + 16);
+    this.character.setHealth(this.character.getMaxHealth());
     this.createMessage(16, 'heart');
   }
 
   gotMagicContainer(): void {
-    this.character.magic = this.character.maxMagic += 6;
+    this.character.setMaxMagic(this.character.getMaxMagic() + 6);
+    this.character.setMagic(this.character.getMaxMagic());
     this.createMessage(6, 'magic');
   }
 
   createMessage(value: number, type: string): void {
-    const name = this.character.name;
+    const name = this.character.getName();
     const obtained = ' obtained a ' + type + ' container ';
     const val = 'for ' + value + (type === 'heart' ? 'HP' : 'MP') + '.';
 

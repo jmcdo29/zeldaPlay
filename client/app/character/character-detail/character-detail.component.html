@@ -10,13 +10,13 @@
       <div class="modal-body">
         <div class="body-head">
           Current HP:
-          <span style="float:right; padding-right:5em; ">{{ character.health }}</span>
+          <span style="float:right; padding-right:5em; ">{{ character.getHealth() }}</span>
         </div>
         <select [(ngModel)]="type">
           <option value="-1">Take Damage</option>
           <option value="1">Regain Health</option>
         </select>
-        <input type="number" [(ngModel)]="hpDmg" placeholder="{{ hpDmg }}" min="0" max="{{ character.maxHealth + 10 }}">
+        <input type="number" [(ngModel)]="hpDmg" placeholder="{{ hpDmg }}" min="0" max="{{ character.getMaxHealth() + 10 }}">
         <button class="square" (click)="modTheHMod(1)">+1</button>
         <button class="square" (click)="modTheHMod(5)">+5</button>
         <button class="square" (click)="modTheHMod(10)">+10</button>
@@ -36,13 +36,13 @@
       <div class="modal-body">
         <div class="body-head">
           Current MP:
-          <span style="float:right; padding-right:5em; ">{{ character.magic }}</span>
+          <span style="float:right; padding-right:5em; ">{{ character.getMagic() }}</span>
         </div>
         <select [(ngModel)]="type">
           <option value="1">Restore Magic</option>
           <option value="-1">Cast Magic</option>
         </select>
-        <input type="number" min="0" [(ngModel)]="mpDmg" placeholder="{{ mpDmg }}" max="{{ character.maxMagic }}">
+        <input type="number" min="0" [(ngModel)]="mpDmg" placeholder="{{ mpDmg }}" max="{{ character.getMaxMagic() }}">
         <button class="square" (click)="modTheMMod(1)">+1</button>
         <button class="square" (click)="modTheMMod(5)">+5</button>
         <button class="square" (click)="modTheMMod(10)">+10</button>
@@ -80,7 +80,7 @@
       </div> -->
 
       <button class="accordian" (click)="expandDets()">
-        <h2>{{ character.name | uppercase }} Details</h2>
+        <h2>{{ character.getName() | uppercase }} Details</h2>
       </button>
       <div class="panel" [class.active]="showDets">
         <div class="attributes">
@@ -97,45 +97,45 @@
               <tbody>
                 <tr>
                   <td class="name">Name</td>
-                  <td>{{ character.name }}</td>
+                  <td>{{ character.getName() }}</td>
                 </tr>
                 <tr>
                   <td class="name">Race</td>
-                  <td>{{ character.race }}</td>
+                  <td>{{ character.getRace() }}</td>
                 </tr>
                 <tr [hidden]="!character.subRace">
                   <td class="name">Sub Race</td>
-                  <td>{{ character.subRace }}</td>
+                  <td>{{ character.getSubRace() }}</td>
                 </tr>
                 <tr>
                   <td class="name">Level</td>
                   <td>{{ character.level }}</td>
                 </tr>
                 <br/>
-                <tr *ngFor="let attr of character.attributes" [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'" [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'" [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
-                  <td class="name">{{ attr.name }}</td>
-                  <td>{{ attr.value }}</td>
-                  <td>{{ attr.modifier }}</td>
+                <tr *ngFor="let attr of character.attributes" [class.din]="attr.getName() === 'Strength' || attr.getName() === 'Intelligence'" [class.farore]="attr.getName() === 'Dexterity' || attr.getName() === 'Charisma'" [class.nayru]="attr.getName() === 'Wisdom' || attr.getName() === 'Constitution'">
+                  <td class="name">{{ attr.getName() }}</td>
+                  <td>{{ attr.getValue() }}</td>
+                  <td>{{ attr.getModifier() }}</td>
                 </tr>
                 <br/>
                 <tr></tr>
                 <tr class="din">
                   <td class="name">Health</td>
-                  <td>{{ character.health }} / {{ character.maxHealth }}</td>
+                  <td>{{ character.getHealth() }} / {{ character.getMaxHealth() }}</td>
                   <td>
                     <button (click)="modHealth()">Modify HP</button>
                   </td>
                 </tr>
                 <tr class="nayru">
                   <td class="name">Magic</td>
-                  <td>{{ character.magic }} / {{ character.maxMagic }}</td>
+                  <td>{{ character.getMagic() }} / {{ character.getMaxMagic() }}</td>
                   <td>
                     <button (click)="modMagic()">Modify MP</button>
                   </td>
                 </tr>
                 <tr class="farore">
                   <td class="name">Experience</td>
-                  <td>{{ character.exp }}</td>
+                  <td>{{ character.getExp() }}</td>
                   <td></td>
                 </tr>
               </tbody>
@@ -164,7 +164,7 @@
       <h4> Add a modifier to your roll.</h4>
       <select [(ngModel)]="rollMod">
         <option value="null" selected="selected">None</option>
-        <option *ngFor="let attr of character.attributes" [value]="attr.name">{{ attr.name }}</option>
+        <option *ngFor="let attr of character.attributes" [value]="attr.getName()">{{ attr.getName() }}</option>
       </select>
       <br>
       <br>
@@ -180,23 +180,23 @@
     <!--The table to show the character's skills (weapon, magic and normal)-->
     <div class="skills scrollable">
       <div class="menuBar" [class.active]="showSet[0]" (click)="changeSection(0)">
-        <h4 class="menu">{{ character.name }}
+        <h4 class="menu">{{ character.getName() }}
           <br/>Skills</h4>
       </div>
       <div class="menuBar" [class.active]="showSet[1]" (click)="changeSection(1)">
-        <h4 class="menu">{{ character.name }}
+        <h4 class="menu">{{ character.getName() }}
           <br/>Weapons</h4>
       </div>
       <div class="menuBar" [class.active]="showSet[2]" (click)="changeSection(2)">
-        <h4 class="menu">{{ character.name }}
+        <h4 class="menu">{{ character.getName() }}
           <br/>Spells</h4>
       </div>
       <div class="menuBar" [class.active]="showSet[3]" (click)="changeSection(3)">
-        <h4 class="menu">{{ character.name }}
+        <h4 class="menu">{{ character.getName() }}
           <br/>Inventory</h4>
       </div>
       <div class="menuBar" [class.active]="showSet[4]" (click)="changeSection(4)">
-        <h4 class="menu">{{ character.name }}
+        <h4 class="menu">{{ character.getName() }}
           <br/>Notes</h4>
       </div>
       <div *ngIf="showSet[0]">

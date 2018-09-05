@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
+import { MessageService } from '../../shared/messages/message.service';
 import { Character } from '../characterModels/character';
 import { CharacterDetailComponent } from './character-detail.component';
 
@@ -63,6 +64,12 @@ class CharacterLevelUpStubComponent implements OnInit {
   }
 }
 
+const messageServiceStub: Partial<MessageService> = {
+  add(message) {
+    return message;
+  }
+};
+
 describe('CharacterDetailComponent', () => {
   let component: CharacterDetailComponent;
   let fixture: ComponentFixture<CharacterDetailComponent>;
@@ -80,7 +87,8 @@ describe('CharacterDetailComponent', () => {
         DieStubComponent,
         CharacterSavesStubComponent,
         CharacterLevelUpStubComponent
-      ]
+      ],
+      providers: [{ provide: MessageService, useValue: messageServiceStub }]
     }).compileComponents();
   }));
 
@@ -96,39 +104,42 @@ describe('CharacterDetailComponent', () => {
   });
   describe('health modal', () => {
     beforeEach(() => {
-      component.character.maxHealth = component.character.health = 25;
+      component.character.setMaxHealth(25);
+      component.character.setHealth(component.character.getMaxHealth());
       component.type = -1;
       component.modHealth();
     });
     test('finalize good', () => {
       component.hpDmg = 15;
       component.finalizeHealthMod();
-      expect(component.character.health).toBe(10);
+      expect(component.character.getHealth()).toBe(10);
     });
     test('resote', () => {
       component.type = 1;
-      component.character.health = 10;
+      component.character.setHealth(10);
       component.hpDmg = 14;
       component.finalizeHealthMod();
-      expect(component.character.health).toBe(24);
+      expect(component.character.getHealth()).toBe(24);
       component.hpDmg = 100;
       component.finalizeHealthMod();
-      expect(component.character.health).toBe(component.character.maxHealth);
+      expect(component.character.getHealth()).toBe(
+        component.character.getMaxHealth()
+      );
     });
     test('finalize dying', () => {
       component.hpDmg = 15;
       component.finalizeHealthMod();
-      expect(component.character.health).toBe(10);
+      expect(component.character.getHealth()).toBe(10);
       component.hpDmg = 50;
       component.finalizeHealthMod();
-      expect(component.character.health).toBe(-10);
+      expect(component.character.getHealth()).toBe(-10);
     });
     test('modTheHMod', () => {
       component.hpDmg = 5;
       component.modTheHMod(5);
       expect(component.hpDmg).toBe(10);
       component.modTheHMod(35);
-      expect(component.hpDmg).toBe(component.character.maxHealth + 10);
+      expect(component.hpDmg).toBe(component.character.getMaxHealth() + 10);
     });
   });
   describe('magic modal', () => {
@@ -140,32 +151,34 @@ describe('CharacterDetailComponent', () => {
     test('finalize good', () => {
       component.mpDmg = 15;
       component.finalizeMagicMod();
-      expect(component.character.magic).toBe(10);
+      expect(component.character.getMagic()).toBe(10);
     });
     test('resote', () => {
       component.type = 1;
-      component.character.magic = 10;
+      component.character.setMagic(10);
       component.mpDmg = 14;
       component.finalizeMagicMod();
-      expect(component.character.magic).toBe(24);
+      expect(component.character.getMagic()).toBe(24);
       component.mpDmg = 100;
       component.finalizeMagicMod();
-      expect(component.character.magic).toBe(component.character.maxMagic);
+      expect(component.character.getMagic()).toBe(
+        component.character.getMaxMagic()
+      );
     });
     test('finalize bad', () => {
       component.mpDmg = 15;
       component.finalizeMagicMod();
-      expect(component.character.magic).toBe(10);
+      expect(component.character.getMagic()).toBe(10);
       component.mpDmg = 15;
       component.finalizeMagicMod();
-      expect(component.character.magic).toBe(0);
+      expect(component.character.getMagic()).toBe(0);
     });
     test('modTheMMod', () => {
       component.mpDmg = 5;
       component.modTheMMod(5);
       expect(component.mpDmg).toBe(10);
       component.modTheMMod(25);
-      expect(component.mpDmg).toBe(component.character.maxMagic);
+      expect(component.mpDmg).toBe(component.character.getMaxMagic());
     });
   });
   describe('exapnd functions', () => {
@@ -186,16 +199,16 @@ describe('CharacterDetailComponent', () => {
   });
   describe('get objects', () => {
     test('heartContainer', () => {
-      const startMaxHealth = component.character.maxHealth;
+      const startMaxHealth = component.character.getMaxHealth();
       component.gotHeartContainer();
-      expect(component.character.health).toBe(startMaxHealth + 16);
-      expect(component.character.maxHealth).toBe(startMaxHealth + 16);
+      expect(component.character.getHealth()).toBe(startMaxHealth + 16);
+      expect(component.character.getMaxHealth()).toBe(startMaxHealth + 16);
     });
     test('magicContainer', () => {
       const startMaxMagic = component.character.maxMagic;
       component.gotMagicContainer();
-      expect(component.character.magic).toBe(startMaxMagic + 6);
-      expect(component.character.maxMagic).toBe(startMaxMagic + 6);
+      expect(component.character.getMagic()).toBe(startMaxMagic + 6);
+      expect(component.character.getMaxMagic()).toBe(startMaxMagic + 6);
     });
   });
   test('changeSection', () => {
