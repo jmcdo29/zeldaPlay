@@ -21,10 +21,21 @@ export class CharacterService {
   ) {}
 
   getCharacters(): Observable<Character[]> {
-    return this.httpClient.get<Character[]>(this.characterUrl).pipe(
-      tap((ch) => {
+    return this.httpClient.get<any[]>(this.characterUrl).pipe(
+      map((ch) => {
+        const characters = [];
+        for (const response of ch) {
+          console.log(response);
+          response.skills = [];
+          response.weapons = [];
+          response.spells = [];
+          response.notes = [];
+          response.saves = [];
+          characters.push(new Character(null, response as any));
+        }
         const outcome = ch ? 'Got characters' : 'Found a problem';
         this.messageService.add(outcome);
+        return characters;
       }),
       catchError(this.handleError('get characters', []))
     );
@@ -41,9 +52,26 @@ export class CharacterService {
   }
 
   getUserCharacters(userId): Observable<Character[]> {
-    return this.httpClient.get<Character[]>(
-      this.characterUrl + '/user/' + userId
-    );
+    return this.httpClient
+      .get<any[]>(this.characterUrl + '/user/' + userId)
+      .pipe(
+        map((ch) => {
+          const characters = [];
+          for (const response of ch) {
+            console.log(response);
+            response.skills = [];
+            response.weapons = [];
+            response.spells = [];
+            response.notes = [];
+            response.saves = [];
+            characters.push(new Character(null, response as any));
+          }
+          const outcome = ch ? 'Got characters' : 'Found a problem';
+          this.messageService.add(outcome);
+          return characters;
+        }),
+        catchError(this.handleError('get characters', []))
+      );
   }
 
   private handleError<T>(operation: string, result?: T) {
