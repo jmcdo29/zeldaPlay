@@ -7,16 +7,16 @@ export class Gerudo extends Character {
   constructor() {
     super();
 
-    this.race = 'Gerudo';
-    this.attributes[Attributes['Strength']].value += 2; // Strength Buff
-    this.attributes[Attributes['Constitution']].value += 1; // Constitution Buff
-    this.skills[Skills['Intimidate']].trained = true; // Intimidate
-    this.skills[Skills['Knowledge Geography']].trained = true;
-    this.skills[Skills['Knowledge Nature']].trained = true;
-    this.skills[Skills['Profession']].trained = true;
-    this.skills[Skills['Ride']].trained = true;
-    this.skills[Skills['Survival']].trained = true;
-    this.weaponSkills[Weapons['Long Sword']].trained = true;
-    this.weaponSkills[Weapons['Halberd']].trained = true;
+    this.setRace('Gerudo');
+    this.getAttributes()[Attributes['Strength']].changeValue(2); // Strength Buff
+    this.getAttributes()[Attributes['Constitution']].changeValue(1); // Constitution Buff
+    this.getSkills()[Skills['Intimidate']].setTrained(true); // Intimidate
+    this.getSkills()[Skills['Knowledge Geography']].setTrained(true);
+    this.getSkills()[Skills['Knowledge Nature']].setTrained(true);
+    this.getSkills()[Skills['Profession']].setTrained(true);
+    this.getSkills()[Skills['Ride']].setTrained(true);
+    this.getSkills()[Skills['Survival']].setTrained(true);
+    this.getWeaponSkills()[Weapons['Long Sword']].setTrained(true);
+    this.getWeaponSkills()[Weapons['Halberd']].setTrained(true);
   }
 }

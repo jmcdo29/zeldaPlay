@@ -10,7 +10,7 @@ export class AlertService {
   private keepAfterNavigationChange = false;
 
   constructor(private router: Router) {
-    router.events.subscribe((event) => {
+    /* router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (this.keepAfterNavigationChange) {
           this.keepAfterNavigationChange = false;
@@ -18,7 +18,7 @@ export class AlertService {
           this.subject.next();
         }
       }
-    });
+    }); */
   }
 
   success(message: string, keepAfterNavigationChange = false) {

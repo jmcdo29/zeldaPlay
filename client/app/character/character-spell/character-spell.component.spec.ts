@@ -64,45 +64,43 @@ describe('CharacterSpellComponent', () => {
     });
     // tslint:disable-next-line:quotemark
     test("getMod should get a character's attributes modifier", () => {
-      component.character.attributes[4].modifier = 5;
+      component.character.getAttributes()[4].setValue(20);
       expect(component.getMod('Wisdom')).toBe(5);
     });
   });
   describe('cast spell tests', () => {
     beforeEach(() => {
-      const mySpell = new Spell();
-      mySpell.diety = 'Nayru';
-      mySpell.damage = 4;
-      mySpell.mpUse = 10;
-      mySpell.multiplier = 3;
-      mySpell.name = 'test spell';
-      mySpell.useDiety = false;
-      mySpell.effect = 'this is the spells effect';
-      mySpell.modifier = 'Wisdom';
-      component.character.spells.push(mySpell);
+      const mySpell = new Spell(
+        undefined,
+        'test spell',
+        'this is the spell effect',
+        4,
+        3,
+        10,
+        'Nayru',
+        false,
+        'Wisdom'
+      );
+      component.character.addSpell(mySpell);
     });
     afterEach(() => {
-      component.character.spells.pop();
+      component.character.getSpells().pop();
     });
     test('should fail with not enough magic', () => {
-      component.character.magic = 9;
+      component.character.setMagic(9);
       component.castSpell(0);
     });
     test('should succeed in casting spell', () => {
-      component.character.magicSkills[2].ranks = 0;
-      component.character.magicSkills[2].modifier = 'Wisdom';
-      component.character.attributes[4].modifier = 0;
+      component.character.getAttributes()[4].setValue(10);
       component.spellName = 'test spell';
       fixture.detectChanges();
-      component.character.magic = 15;
+      component.character.setMagic(15);
       component.castSpell(0);
       expect(component.dmgRoll).toBeTruthy();
     });
     test('should succeed in casting diety spell', () => {
-      component.character.spells[0].useDiety = true;
-      component.character.magicSkills[2].ranks = 0;
-      component.character.magicSkills[2].modifier = 'Wisdom';
-      component.character.attributes[4].modifier = 0;
+      component.character.getSpells()[0].setUseDiety(true);
+      component.character.getAttributes()[4].setValue(10);
       component.spellName = 'test spell';
       fixture.detectChanges();
       let critMissRoll = false;
@@ -110,7 +108,7 @@ describe('CharacterSpellComponent', () => {
       let critHit = false;
       let maxDmg = false;
       do {
-        component.character.magic = 15;
+        component.character.setMagic(15);
         component.castSpell(0);
         if (
           document.getElementById('spellRoll').classList.contains('critMiss')
@@ -132,7 +130,7 @@ describe('CharacterSpellComponent', () => {
       expect(component.dmgRoll).toBeTruthy();
     });
     test('cast spell with no useDiety and no modifier', () => {
-      component.character.spells[0].modifier = '';
+      component.character.getSpells()[0].setModifier('');
       component.spellName = 'test spell';
       fixture.detectChanges();
       component.castSpell(0);
@@ -142,15 +140,17 @@ describe('CharacterSpellComponent', () => {
   describe('save spell', () => {
     test('should not save spell', () => {
       component.newSpell = true;
-      const mySpell = new Spell();
-      mySpell.name = '';
-      mySpell.effect = '';
-      mySpell.diety = '';
-      mySpell.damage = null;
-      mySpell.modifier = '';
-      mySpell.multiplier = null;
-      mySpell.useDiety = false;
-      mySpell.mpUse = null;
+      const mySpell = new Spell(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      );
       component.spell = mySpell;
       fixture.detectChanges();
       component.saveSpell();
@@ -158,15 +158,17 @@ describe('CharacterSpellComponent', () => {
     });
     test('should save spell', () => {
       component.newSpell = true;
-      const mySpell = new Spell();
-      mySpell.name = 'my Spell';
-      mySpell.effect = 'some effect';
-      mySpell.diety = 'Nayru';
-      mySpell.damage = 8;
-      mySpell.modifier = 'Wisdom';
-      mySpell.multiplier = 2;
-      mySpell.useDiety = false;
-      mySpell.mpUse = 5;
+      const mySpell = new Spell(
+        undefined,
+        'my Spell',
+        'some effect',
+        8,
+        2,
+        5,
+        'Nayru',
+        false,
+        'Wisdom'
+      );
       component.spell = mySpell;
       fixture.detectChanges();
       component.saveSpell();
@@ -176,47 +178,49 @@ describe('CharacterSpellComponent', () => {
   });
   describe('validate spell', () => {
     beforeEach(() => {
-      const mySpell = new Spell();
-      mySpell.name = '';
-      mySpell.effect = '';
-      mySpell.diety = '';
-      mySpell.damage = null;
-      mySpell.modifier = '';
-      mySpell.multiplier = null;
-      mySpell.useDiety = false;
-      mySpell.mpUse = null;
+      const mySpell = new Spell(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      );
       component.spell = mySpell;
       component.newSpell = true;
       fixture.detectChanges();
     });
     test('should not validate spell (Bad Effect)', () => {
-      component.spell.effect = 'Th!s is bad.';
+      component.spell.setEffect('Th!s is bad.');
       component.validate('spellEffect', 'effect');
     });
     test('should not validate spell (Bad Name)', () => {
-      component.spell.name = 'B4d';
+      component.spell.setName('B4d');
       component.validate('spellName', 'name');
     });
     test('should not validate spell (Number)', () => {
       component.validate('spellDam', 'damage');
-      component.spell.damage = 5;
+      component.spell.setDamage(5);
       component.validate('spellDam', 'damage');
       component.validate('spellDam', 'damage');
     });
     test('should not validate spell (String)', () => {
       component.validate('spellMod', 'modifier');
-      component.spell.modifier = 'Wisdom';
+      component.spell.setModifier('Wisdom');
       component.validate('spellMod', 'modifier');
     });
     test('should validate the spell', () => {
-      component.spell.name = 'my Spell';
-      component.spell.effect = 'some effect';
-      component.spell.diety = 'Nayru';
-      component.spell.damage = 8;
-      component.spell.modifier = 'Wisdom';
-      component.spell.multiplier = 2;
-      component.spell.useDiety = false;
-      component.spell.mpUse = 5;
+      component.spell.setName('my Spell');
+      component.spell.setEffect('some effect');
+      component.spell.setDiety('Nayru');
+      component.spell.setDamage(8);
+      component.spell.setModifier('Wisdom');
+      component.spell.setMultiplier(2);
+      component.spell.setUseDiety(false);
+      component.spell.setMpUse(5);
       component.validate('spellName', 'name');
     });
   });

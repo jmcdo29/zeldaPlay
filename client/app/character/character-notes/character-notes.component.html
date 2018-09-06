@@ -11,8 +11,8 @@
   </button>
   <div class="panel" [class.active]="showNotes[0]">
     <ul>
-      <li *ngFor="let note of character.importantNotes">{{ note.time }}
-        <span class="message">{{ note.msg }}</span>
+      <li *ngFor="let note of character.getImportantNotes()">{{ note.getTime() }}
+        <span class="message">{{ note.getMsg() }}</span>
       </li>
     </ul>
   </div>
@@ -23,8 +23,8 @@
 
   <div class="panel" [class.active]="showNotes[1]">
     <ul>
-      <li *ngFor="let note of character.notes">{{ note.time }}
-        <span class="message">{{ note.msg }}</span>
+      <li *ngFor="let note of character.getNotes()">{{ note.getTime() }}
+        <span class="message">{{ note.getMsg() }}</span>
       </li>
     </ul>
   </div>

@@ -3,8 +3,6 @@ import { Model } from 'objection';
 import { Spell } from '../../../src/db/models/spell_schema';
 import { conn } from '../../dbConnection';
 
-jest.retryTimes(3);
-
 describe('#SpellSchema', () => {
   beforeAll(() => {
     jest.setTimeout(10000);

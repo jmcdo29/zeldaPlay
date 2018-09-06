@@ -60,13 +60,13 @@ describe('CharacterNotesComponent', () => {
       component.important = false;
       component.addNote();
       expect(component.notes).toHaveLength(1);
-      component.character.notes.pop();
+      component.character.getNotes().pop();
     });
     test('make new important note', () => {
       component.newMsg = 'my important message';
       component.important = true;
       component.addNote();
-      expect(component.character.importantNotes).toHaveLength(1);
+      expect(component.character.getImportantNotes()).toHaveLength(1);
       component.notes.pop();
     });
   });

@@ -25,18 +25,23 @@ export class CharacterNotesComponent implements OnInit {
   constructor(public message: MessageService) {}
 
   ngOnInit() {
-    this.notes = this.character.notes;
+    this.notes = this.character.getNotes();
   }
 
   addNote(): void {
-    this.note = new Note();
-    this.note.time = new Date(Date.now()).toLocaleString().split(' ')[1];
-    this.note.msg = this.newMsg;
-    this.note.important = this.important;
+    this.note = new Note(
+      undefined,
+      this.newMsg,
+      new Date(Date.now())
+        .toLocaleString()
+        .split(' ')[1]
+        .toString(),
+      this.important
+    );
     if (this.important) {
-      this.character.importantNotes.unshift(this.note);
+      this.character.getImportantNotes().unshift(this.note);
     } else {
-      this.character.notes.unshift(this.note);
+      this.character.getNotes().unshift(this.note);
     }
     this.newMsg = '';
     this.important = false;

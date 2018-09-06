@@ -3,8 +3,6 @@ import { Model } from 'objection';
 import { Character } from '../../../src/db/models/character_schema';
 import { conn } from '../../dbConnection';
 
-jest.retryTimes(3);
-
 describe('#CharacterSchema', () => {
   beforeAll(() => {
     jest.setTimeout(10000);

@@ -20,13 +20,15 @@ export class CharactersComponent implements OnInit {
   loading = false;
 
   onSelect(character: Character): void {
-    if (character.id) {
+    if (character.getId()) {
       this.selectedCharacter = null;
       this.loading = true;
-      this.characterService.getCharacter(character.id).subscribe((data) => {
-        this.selectedCharacter = data;
-        this.loading = false;
-      });
+      this.characterService
+        .getCharacter(character.getId())
+        .subscribe((data) => {
+          this.selectedCharacter = data;
+          this.loading = false;
+        });
       this.newChar = false;
     }
   }
@@ -84,65 +86,83 @@ export class CharactersComponent implements OnInit {
     this.characterService
       .saveCharDb(this.selectedCharacter)
       .subscribe((characterRes) => {
-        this.selectedCharacter.id = characterRes.id;
-        characterRes.skills.forEach((skill) => {
+        this.selectedCharacter.setId(characterRes.id);
+        for (const skill of characterRes.skills) {
           if (skill.skill_type === 'skill') {
-            this.selectedCharacter.skills[Skills[skill.name]].id = skill.id;
+            this.selectedCharacter
+              .getSkills()
+              [Skills[skill.name]].setId(skill.id);
           } else if (skill.skill_type === 'weapon') {
-            this.selectedCharacter.weaponSkills[Weapons[skill.name]].id =
-              skill.id;
+            this.selectedCharacter
+              .getWeaponSkills()
+              [Weapons[skill.name]].setId(skill.id);
           } else {
-            this.selectedCharacter.magicSkills[Magics[skill.name]].id =
-              skill.id;
+            this.selectedCharacter
+              .getMagicSkills()
+              [Magics[skill.name]].setId(skill.id);
           }
-        });
-        characterRes.weapons.forEach((weapon) => {
-          this.selectedCharacter.weapons[
-            findObjectPartial(
-              this.selectedCharacter.weapons,
-              'name',
-              weapon.name
-            )
-          ].id = weapon.id;
-        });
-        characterRes.spells.forEach((spell) => {
-          this.selectedCharacter.spells[
-            findObjectPartial(this.selectedCharacter.spells, 'name', spell.name)
-          ].id = spell.id;
-        });
-        characterRes.saves.forEach((save) => {
-          this.selectedCharacter.savingThrows[
-            findObjectPartial(
-              this.selectedCharacter.savingThrows,
-              'name',
-              save.name
-            )
-          ].id = save.id;
-        });
-        characterRes.notes.forEach((note) => {
+        }
+        for (const weapon of characterRes.weapons) {
+          this.selectedCharacter
+            .getWeapons()
+            [
+              findObjectPartial(
+                this.selectedCharacter.getWeapons(),
+                'name',
+                weapon.name
+              )
+            ].setId(weapon.id);
+        }
+        for (const spell of characterRes.spells) {
+          this.selectedCharacter
+            .getSpells()
+            [
+              findObjectPartial(
+                this.selectedCharacter.getSpells(),
+                'name',
+                spell.name
+              )
+            ].setId(spell.id);
+        }
+        for (const save of characterRes.saves) {
+          this.selectedCharacter
+            .getSavingThrows()
+            [
+              findObjectPartial(
+                this.selectedCharacter.getSavingThrows(),
+                'name',
+                save.name
+              )
+            ].setId(save.id);
+        }
+        for (const note of characterRes.notes) {
           if (note.important) {
-            this.selectedCharacter.importantNotes[
-              findObjectPartial(
-                this.selectedCharacter.importantNotes,
-                'msg',
-                note.message
-              )
-            ].id = note.id;
+            this.selectedCharacter
+              .getImportantNotes()
+              [
+                findObjectPartial(
+                  this.selectedCharacter.getImportantNotes(),
+                  'msg',
+                  note.message
+                )
+              ].setId(note.id);
           } else {
-            this.selectedCharacter.notes[
-              findObjectPartial(
-                this.selectedCharacter.notes,
-                'msg',
-                note.message
-              )
-            ].id = note.id;
+            this.selectedCharacter
+              .getNotes()
+              [
+                findObjectPartial(
+                  this.selectedCharacter.getNotes(),
+                  'msg',
+                  note.message
+                )
+              ].setId(note.id);
           }
-        });
+        }
       });
   }
 }
 
-function findObjectPartial(array, key, value): number {
+function findObjectPartial(array: any[], key: string, value: string): number {
   let index = -1;
   for (let i = 0; i < array.length; i++) {
     if (array[i][key] === value) {

@@ -7,14 +7,15 @@ import { Skills } from './enums/skills.enum';
 import { Weapons } from './enums/weapon-skills.enum';
 import { Item } from './item';
 import { Note } from './note';
-import { ISave } from './save';
-import { ISkill } from './skill';
+import { Save } from './save';
+import { Skill } from './skill';
 import { Spell } from './spells';
-import { Weapon } from './Weapons/weapon';
+import { Elemental } from './weapons/elemental';
+import { Weapon } from './weapons/weapon';
 
 const BASE = 8;
 
-interface ICharacterJSON {
+export interface ICharacterJSON {
   id?: string;
   level: number;
   name: string;
@@ -24,7 +25,7 @@ interface ICharacterJSON {
   flat_footed: number;
   touch: number;
   size: string;
-  attributes: Attribute[];
+  attributes: Array<{ name: string; value: number }>;
   health: number;
   maxHealth: number;
   magic: number;
@@ -34,18 +35,75 @@ interface ICharacterJSON {
   craftTwo?: string;
   performCust?: string;
   profession?: string;
-  skills: ISkill[];
-  weaponSkills: ISkill[];
-  magicSkills: ISkill[];
-  weapons: Weapon[];
-  spells: Spell[];
-  notes: Note[];
-  importantNotes: Note[];
-  inventory: Item[];
-  savingThrows: ISave[];
+  skills: Array<{
+    skillName: string;
+    ranks: number;
+    trained: boolean;
+    modifier?: string;
+    item?: number;
+    racial?: number;
+    misc?: number;
+    id?: string;
+  }>;
+  weaponSkills: Array<{
+    skillName: string;
+    ranks: number;
+    trained: boolean;
+    racial?: number;
+    id?: string;
+  }>;
+  magicSkills: Array<{
+    skillName: string;
+    ranks: number;
+    modifier?: string;
+    id?: string;
+  }>;
+  weapons: Array<{
+    id?: string;
+    name: string;
+    attack: number;
+    numberOfAttacks: number;
+    range: number;
+    modifier: string;
+    type: string;
+    ammo?: number;
+    element?: {
+      type: string;
+      attack: number;
+      numberOfAttacks: number;
+      id?: string;
+    };
+    critRange: number[];
+    critDamage: number;
+  }>;
+  spells: Array<{
+    id?: string;
+    name: string;
+    effect: string;
+    damage: number;
+    multiplier: number;
+    mpUse: number;
+    diety: string;
+    useDiety: boolean;
+    modifier?: string;
+  }>;
+  notes: Array<{ msg: string; time: string; important: boolean; id?: string }>;
+  importantNotes: Array<{
+    msg: string;
+    time: string;
+    important: boolean;
+    id?: string;
+  }>;
+  inventory: Array<{ name: string; description: string; id?: string }>;
+  savingThrows: Array<{
+    id?: string;
+    name: string;
+    modifier: string;
+    racial: number;
+  }>;
 }
 
-interface ICharacterQuery {
+export interface ICharacterQuery {
   ac: number;
   charisma: number;
   constitution: number;
@@ -77,104 +135,343 @@ interface ICharacterQuery {
   weapons: any[];
 }
 export class Character {
-  id?: string;
-  level: number;
-  name: string;
-  race: string;
-  subRace?: string;
-  ac: number;
-  flat_footed: number;
-  touch: number;
-  size: string;
-  attributes: Attribute[] = [];
-  health: number;
-  maxHealth: number;
-  magic: number;
-  maxMagic: number;
-  exp: number;
-  craftOne?: string;
-  craftTwo?: string;
-  performCust?: string;
-  profession?: string;
-  skills: ISkill[] = [];
-  weaponSkills: ISkill[] = [];
-  magicSkills: ISkill[] = [];
-  weapons: Weapon[] = [];
-  spells: Spell[] = [];
-  notes: Note[] = [];
-  importantNotes: Note[] = [];
-  inventory: Item[] = [];
-  savingThrows: ISave[] = [];
+  private id?: string;
+  private level: number;
+  private name: string;
+  private race: string;
+  private subRace?: string;
+  private ac: number;
+  private flat_footed: number;
+  private touch: number;
+  private size: string;
+  private attributes: Attribute[] = [];
+  private health: number;
+  private maxHealth: number;
+  private magic: number;
+  private maxMagic: number;
+  private exp: number;
+  private craftOne?: string;
+  private craftTwo?: string;
+  private performCust?: string;
+  private profession?: string;
+  private skills: Skill[] = [];
+  private weaponSkills: Skill[] = [];
+  private magicSkills: Skill[] = [];
+  private weapons: Weapon[] = [];
+  private spells: Spell[] = [];
+  private notes: Note[] = [];
+  private importantNotes: Note[] = [];
+  private inventory: Item[] = [];
+  private savingThrows: Save[] = [];
+
+  getId(): string {
+    return this.id;
+  }
+
+  setId(id: string): void {
+    this.id = id;
+  }
+
+  getLevel(): number {
+    return this.level;
+  }
+
+  setLevel(level: number): void {
+    this.level = level;
+  }
+
+  getName(): string {
+    return this.name;
+  }
+
+  setName(name: string): void {
+    this.name = name;
+  }
+
+  getRace(): string {
+    return this.race;
+  }
+
+  setRace(race: string): void {
+    this.race = race;
+  }
+
+  getSubRace(): string {
+    return this.subRace;
+  }
+
+  setSubRace(subRace: string): void {
+    this.subRace = subRace;
+  }
+
+  getAC(): number {
+    return this.ac;
+  }
+
+  setAC(ac: number): void {
+    this.ac = ac;
+  }
+
+  getFlatFooted(): number {
+    return this.flat_footed;
+  }
+
+  setFlatFooted(flatFooted: number): void {
+    this.flat_footed = flatFooted;
+  }
+
+  getTouch(): number {
+    return this.touch;
+  }
+
+  setTouch(touch: number): void {
+    this.touch = touch;
+  }
+
+  getSize(): string {
+    return this.size;
+  }
+
+  setSize(size: string): void {
+    this.size = size;
+  }
+
+  getHealth(): number {
+    return this.health;
+  }
+
+  setHealth(health: number): void {
+    this.health = health;
+  }
+
+  getMaxHealth(): number {
+    return this.maxHealth;
+  }
+
+  setMaxHealth(maxHealth: number): void {
+    this.maxHealth = maxHealth;
+  }
+
+  getMagic(): number {
+    return this.magic;
+  }
+
+  setMagic(magic: number): void {
+    this.magic = magic;
+  }
+
+  getMaxMagic(): number {
+    return this.maxMagic;
+  }
+
+  setMaxMagic(maxMagic: number): void {
+    this.maxMagic = maxMagic;
+  }
+
+  getExp(): number {
+    return this.exp;
+  }
+
+  setExp(exp: number): void {
+    this.exp = exp;
+  }
+
+  getCraftOne(): string {
+    return this.craftOne;
+  }
+
+  setCraftOne(craftOne: string): void {
+    this.craftOne = craftOne;
+  }
+
+  getCraftTwo(): string {
+    return this.craftTwo;
+  }
+
+  setCraftTwo(craftTwo: string): void {
+    this.craftTwo = craftTwo;
+  }
+
+  getPerformCust(): string {
+    return this.performCust;
+  }
+
+  setPerformCust(performCust: string): void {
+    this.performCust = performCust;
+  }
+
+  getProfession(): string {
+    return this.profession;
+  }
+
+  setProfession(profession: string): void {
+    this.profession = profession;
+  }
+
+  getSkills(): Skill[] {
+    return this.skills;
+  }
+
+  getAttributes(): Attribute[] {
+    return this.attributes;
+  }
+  /*
+  setAttributes(attributes: Attribute[]): void {
+    this.attributes = attributes;
+  } */
+
+  addAttribute(attribute: Attribute): void {
+    this.attributes.push(attribute);
+  }
+
+  /*
+  setSkills(skills: Skill[]): void {
+    this.skills = skills;
+  } */
+
+  addSkill(skill: Skill): void {
+    this.skills.push(skill);
+  }
+
+  getWeaponSkills(): Skill[] {
+    return this.weaponSkills;
+  }
+  /*
+  setWeaponSkills(weaponSkills: Skill[]): void {
+    this.weaponSkills = weaponSkills;
+  } */
+
+  addWeaponSkill(weaponSkill: Skill): void {
+    this.weaponSkills.push(weaponSkill);
+  }
+
+  getMagicSkills(): Skill[] {
+    return this.magicSkills;
+  }
+  /*
+  setMagicSkills(magicSkills: Skill[]): void {
+    this.magicSkills = magicSkills;
+  } */
+
+  addMagicSkill(magicSkill: Skill): void {
+    this.magicSkills.push(magicSkill);
+  }
+
+  getWeapons(): Weapon[] {
+    return this.weapons;
+  }
+  /*
+  setWeapons(weapons: Weapon[]): void {
+    this.weapons = weapons;
+  } */
+
+  addWeapon(weapon: Weapon): void {
+    this.weapons.push(weapon);
+  }
+
+  getSpells(): Spell[] {
+    return this.spells;
+  }
+  /*
+  setSpells(spells: Spell[]): void {
+    this.spells = spells;
+  } */
+
+  addSpell(spell: Spell): void {
+    this.spells.push(spell);
+  }
+
+  getNotes(): Note[] {
+    return this.notes;
+  }
+  /*
+  setNotes(notes: Note[]): void {
+    this.notes = notes;
+  } */
+
+  addNote(note: Note): void {
+    this.notes.push(note);
+  }
+
+  getImportantNotes(): Note[] {
+    return this.importantNotes;
+  }
+  /*
+  setImportantNotes(importantNotes: Note[]): void {
+    this.importantNotes = importantNotes;
+  } */
+
+  addImportantNote(importantNote: Note): void {
+    this.importantNotes.push(importantNote);
+  }
+
+  getInventory(): Item[] {
+    return this.inventory;
+  }
+  /*
+  setInventory(inventory: Item[]): void {
+    this.inventory = inventory;
+  } */
+
+  addToInventory(item: Item): void {
+    this.inventory.push(item);
+  }
+
+  getSavingThrows(): Save[] {
+    return this.savingThrows;
+  }
+  /*
+  setSavingThrows(savingThrows: Save[]): void {
+    this.savingThrows = savingThrows;
+  } */
+
+  addSavingThrow(savingThrow: Save): void {
+    this.savingThrows.push(savingThrow);
+  }
 
   constructor(jObj?: ICharacterJSON, qObj?: ICharacterQuery) {
     if (!jObj && !qObj) {
       for (const key in Attributes) {
         if (isNaN(Number(key))) {
-          const attr = {
-            name: key,
-            value: BASE,
-            modifier: (BASE - 10) / 2
-          };
-          this.attributes.push(attr);
+          this.attributes.push(new Attribute(key, BASE));
         }
       }
 
       for (const key in Skills) {
         if (isNaN(Number(key))) {
-          const skill = {
-            skillName: key,
-            ranks: 0,
-            racial: 0,
-            trained: false,
-            item: 0,
-            misc: 0,
-            modifier: ''
-          };
-          this.skills.push(skill);
+          this.skills.push(new Skill(undefined, key, 0, false, '', 0, 0, 0));
         }
       }
 
       for (const key in Weapons) {
         if (isNaN(Number(key))) {
-          const weapon = {
-            skillName: key,
-            trained: false,
-            ranks: 0,
-            racial: 0
-          };
-          this.weaponSkills.push(weapon);
+          this.weaponSkills.push(
+            new Skill(undefined, key, 0, false, undefined, undefined, 0)
+          );
         }
       }
 
       for (const key in Magics) {
         if (isNaN(Number(key))) {
-          const magic = {
-            skillName: key,
-            ranks: 0,
-            modifier:
-              key === 'Din'
-                ? 'Intelligence'
-                : key === 'Nayru'
-                  ? 'Wisdom'
-                  : 'Charisma'
-          };
-          this.magicSkills.push(magic);
+          const mod =
+            key === 'Din'
+              ? 'Intelligence'
+              : key === 'Nayru'
+                ? 'Wisdom'
+                : 'Charisma';
+          this.magicSkills.push(new Skill(undefined, key, 0, undefined, mod));
         }
       }
 
       for (const key in Saves) {
         if (isNaN(Number(key))) {
-          const save = {
-            name: key,
-            modifier:
-              key === 'Fortitude'
-                ? 'Constitution'
-                : key === 'Reflex'
-                  ? 'Dexterity'
-                  : 'Wisdom',
-            racial: 0
-          };
-          this.savingThrows.push(save);
+          const modifier =
+            key === 'Fortitude'
+              ? 'Constitution'
+              : key === 'Reflex'
+                ? 'Dexterity'
+                : 'Wisdom';
+          this.addSavingThrow(new Save(undefined, key, modifier, 0));
         }
       }
       /* A T T R I B U T E   A R R A Y S */
@@ -234,7 +531,7 @@ export class Character {
       ];
       for (let i = 0; i < attrArrays.length; i++) {
         for (const skill of attrArrays[i]) {
-          this.skills[skill].modifier = Attributes[i];
+          this.skills[skill].setModifier(Attributes[i]);
         }
         /* for (let j = 0; j < attrArrays[i].length; j++) {
           this.skills[attrArrays[i][j]].modifier = Attributes[i];
@@ -261,124 +558,206 @@ export class Character {
         this.size = qObj.size;
         this.flat_footed = qObj.flat_footed;
         this.touch = qObj.touch;
+
         this.attributes = [
-          {
-            name: 'Strength',
-            value: qObj.strength,
-            modifier: getMod(qObj.strength)
-          },
-          {
-            name: 'Dexterity',
-            value: qObj.dexterity,
-            modifier: getMod(qObj.dexterity)
-          },
-          {
-            name: 'Constitution',
-            value: qObj.constitution,
-            modifier: getMod(qObj.constitution)
-          },
-          {
-            name: 'Intelligence',
-            value: qObj.intelligence,
-            modifier: getMod(qObj.intelligence)
-          },
-          {
-            name: 'Wisdom',
-            value: qObj.wisdom,
-            modifier: getMod(qObj.wisdom)
-          },
-          {
-            name: 'Charisma',
-            value: qObj.charisma,
-            modifier: getMod(qObj.charisma)
-          }
+          new Attribute('Strength', qObj.strength),
+          new Attribute('Dexterity', qObj.dexterity),
+          new Attribute('Constitution', qObj.constitution),
+          new Attribute('Intelligence', qObj.intelligence),
+          new Attribute('Wisdom', qObj.wisdom),
+          new Attribute('Charisma', qObj.charisma)
         ];
-        qObj.skills.forEach((skill) => {
+        for (const skill of qObj.skills) {
           if (skill.skill_type === 'skill') {
-            const newSkill: ISkill = {
-              skillName: skill.name,
-              ranks: skill.ranks,
-              racial: skill.racial_modifier,
-              item: skill.item_modifier,
-              misc: skill.misc_modifier,
-              trained: skill.trained,
-              modifier: skill.modifier,
-              id: skill.id
-            };
-            this.skills.push(newSkill);
+            this.addSkill(
+              new Skill(
+                skill.id,
+                skill.name,
+                skill.ranks,
+                skill.trained,
+                skill.modifier,
+                skill.item_modifier,
+                skill.racial_modifier,
+                skill.misc_modifier
+              )
+            );
           } else if (skill.skill_type === 'weapon') {
-            const newWeapSkill: ISkill = {
-              skillName: skill.name,
-              ranks: skill.ranks,
-              trained: skill.trained,
-              racial: skill.racial_modifier,
-              id: skill.id
-            };
-            this.weaponSkills.push(newWeapSkill);
+            this.addWeaponSkill(
+              new Skill(
+                skill.id,
+                skill.name,
+                skill.ranks,
+                skill.trained,
+                undefined,
+                undefined,
+                skill.racial_modifier,
+                undefined
+              )
+            );
           } else {
-            const newMagSkill: ISkill = {
-              skillName: skill.name,
-              ranks: skill.ranks,
-              modifier: skill.modifier,
-              id: skill.id
-            };
-            this.magicSkills.push(newMagSkill);
+            this.addMagicSkill(
+              new Skill(
+                skill.id,
+                skill.name,
+                skill.ranks,
+                undefined,
+                skill.modifier,
+                undefined,
+                undefined,
+                undefined
+              )
+            );
           }
-        });
-        qObj.notes.forEach((note) => {
+        }
+        for (const note of qObj.notes) {
           if (note.important) {
-            this.notes.push({
-              msg: note.message,
-              time: note.time,
-              important: note.important,
-              id: note.id
-            });
+            this.addNote(
+              new Note(note.id, note.message, note.time, note.important)
+            );
           } else {
-            this.notes.push({
-              msg: note.message,
-              time: note.time,
-              important: note.important,
-              id: note.id
-            });
+            this.addImportantNote(
+              new Note(note.id, note.message, note.time, note.important)
+            );
           }
-        });
-        qObj.saves.forEach((save) => {
-          this.savingThrows.push({
-            racial: save.racial_bonus,
-            name: save.name,
-            modifier: save.modifier,
-            id: save.id
-          });
-        });
-        qObj.weapons.forEach((weapon) => {
-          const newWep = new Weapon();
-          newWep.attack = weapon.damage;
-          newWep.ammo = weapon.ammo ? weapon.ammo : null;
-          newWep.name = weapon.name;
-          newWep.type = weapon.type;
-          newWep.numberOfAttacks = weapon.number_of_hits;
-          newWep.critDamage = weapon.crit_multiplier;
-          newWep.range = weapon.range ? weapon.range : null;
-          newWep.modifier = weapon.modifier;
-          newWep.critRange = parseRange(weapon.crit_range);
-          newWep.id = weapon.id;
-          this.weapons.push(newWep);
-        });
-        qObj.spells.forEach((spell) => {
-          this.spells.push({
-            name: spell.name,
-            effect: spell.effect,
-            mpUse: spell.mp_use,
-            damage: spell.damage,
-            multiplier: spell.number_of_hit,
-            modifier: spell.modifier ? spell.modifier : null,
-            diety: spell.diety,
-            useDiety: spell.use_diety,
-            id: spell.id
-          });
-        });
+        }
+        for (const save of qObj.saves) {
+          this.addSavingThrow(
+            new Save(save.id, save.name, save.modifier, save.racial_bonus)
+          );
+        }
+        for (const weapon of qObj.weapons) {
+          this.weapons.push(
+            new Weapon(
+              weapon.id,
+              weapon.name,
+              weapon.attack,
+              weapon.number_of_hits,
+              parseRange(weapon.crit_range),
+              weapon.crit_multiplier,
+              weapon.type,
+              weapon.modifier,
+              weapon.range,
+              weapon.ammo,
+              undefined
+            )
+          );
+        }
+        for (const spell of qObj.spells) {
+          this.addSpell(
+            new Spell(
+              spell.id,
+              spell.name,
+              spell.effect,
+              spell.damage,
+              spell.multiplier,
+              spell.mpUse,
+              spell.diety,
+              spell.useDiety,
+              spell.modifier
+            )
+          );
+        }
       } else {
-        this.attributes = jObj.attributes;
+        for (const attr of jObj.attributes) {
+          this.addAttribute(new Attribute(attr.name, attr.value));
+        }
+        for (const item of jObj.inventory) {
+          this.addToInventory(new Item(item.id, item.name, item.description));
+        }
+        for (const skill of jObj.skills) {
+          this.addSkill(
+            new Skill(
+              skill.id,
+              skill.skillName,
+              skill.ranks,
+              skill.trained,
+              skill.modifier,
+              skill.item,
+              skill.racial,
+              skill.misc
+            )
+          );
+        }
+        for (const skill of jObj.weaponSkills) {
+          this.addWeaponSkill(
+            new Skill(
+              skill.id,
+              skill.skillName,
+              skill.ranks,
+              skill.trained,
+              undefined,
+              undefined,
+              skill.racial,
+              undefined
+            )
+          );
+        }
+        for (const skill of jObj.magicSkills) {
+          this.addMagicSkill(
+            new Skill(
+              skill.id,
+              skill.skillName,
+              skill.ranks,
+              undefined,
+              skill.modifier,
+              undefined,
+              undefined,
+              undefined
+            )
+          );
+        }
+        for (const note of jObj.notes) {
+          this.addNote(new Note(note.id, note.msg, note.time, note.important));
+        }
+        for (const note of jObj.importantNotes) {
+          this.addImportantNote(
+            new Note(note.id, note.msg, note.time, note.important)
+          );
+        }
+        for (const spell of jObj.spells) {
+          this.addSpell(
+            new Spell(
+              spell.id,
+              spell.name,
+              spell.effect,
+              spell.damage,
+              spell.multiplier,
+              spell.mpUse,
+              spell.diety,
+              spell.useDiety,
+              spell.modifier
+            )
+          );
+        }
+        for (const save of jObj.savingThrows) {
+          this.addSavingThrow(
+            new Save(save.id, save.name, save.modifier, save.racial)
+          );
+        }
+        for (const weapon of jObj.weapons) {
+          this.weapons.push(
+            new Weapon(
+              weapon.id,
+              weapon.name,
+              weapon.attack,
+              weapon.numberOfAttacks,
+              weapon.critRange,
+              weapon.critDamage,
+              weapon.type,
+              weapon.modifier,
+              weapon.range,
+              weapon.ammo,
+              weapon.element
+                ? new Elemental(
+                    weapon.element.id,
+                    weapon.element.type,
+                    weapon.element.attack,
+                    weapon.element.numberOfAttacks
+                  )
+                : undefined
+            )
+          );
+        }
         this.ac = jObj.ac;
         this.craftOne = jObj.craftOne;
         this.craftOne = jObj.craftTwo;
@@ -386,48 +765,45 @@ export class Character {
         this.flat_footed = jObj.flat_footed;
         this.health = jObj.health;
         this.id = jObj.id;
-        this.importantNotes = jObj.importantNotes;
-        this.inventory = jObj.inventory;
         this.level = jObj.level;
         this.magic = jObj.magic;
-        this.magicSkills = jObj.magicSkills;
         this.maxHealth = jObj.maxHealth;
         this.maxMagic = jObj.maxMagic;
         this.name = jObj.name;
-        this.notes = jObj.notes;
         this.performCust = jObj.performCust;
         this.profession = jObj.profession;
         this.race = jObj.race;
-        this.savingThrows = jObj.savingThrows;
         this.size = jObj.size;
-        this.skills = jObj.skills;
-        this.spells = jObj.spells;
         this.subRace = jObj.subRace;
         this.touch = jObj.touch;
-        this.weapons = jObj.weapons;
-        this.weaponSkills = jObj.weaponSkills;
       }
     }
   }
 
   levelUp(): void {
-    this.health = this.maxHealth += 16 + this.attributes[2].modifier;
-    this.magic = this.maxMagic += 3 + this.attributes[4].modifier;
-    this.level++;
+    this.setMaxHealth(
+      this.getMaxHealth() + 16 + this.getAttributes()[2].getModifier()
+    );
+    this.setHealth(this.getMaxHealth());
+    this.setMaxMagic(
+      this.getMaxMagic() + 3 + this.getAttributes()[4].getModifier()
+    );
+    this.setMagic(this.getMaxMagic());
+    this.setLevel(this.getLevel() + 1);
   }
 
   gainExp(expGain: number): void {
     let counter = 0;
-    this.exp += expGain;
+    this.setExp(this.getExp() + expGain);
     const lvl = 'level';
     for (const key in Level) {
       if (key.includes('level')) {
         counter++;
         if (
-          Level[lvl + counter] <= this.exp &&
-          this.exp <= Level[lvl + (counter + 1)]
+          Level[lvl + counter] <= this.getExp() &&
+          this.getExp() <= Level[lvl + (counter + 1)]
         ) {
-          this.level = counter;
+          this.setLevel(counter);
           break;
         }
       }
@@ -448,8 +824,4 @@ function parseRange(range: string): number[] {
     }
     return retArray;
   }
-}
-
-function getMod(value: number): number {
-  return (value % 2 === 0 ? value - 10 : value - 11) / 2;
 }

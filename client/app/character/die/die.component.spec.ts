@@ -20,7 +20,7 @@ describe('DieComponent', () => {
     component = fixture.componentInstance;
     component.character = new CharacterDetailComponent(new MessageService());
     component.character.character = new Character();
-    component.character.character.attributes[0].modifier = -1;
+    component.character.character.getAttributes()[0].setValue(8);
     component.mod = 'Strength';
     fixture.detectChanges();
   });

@@ -39,32 +39,15 @@ describe('CharacterSavesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  test('make Will save with positive value', () => {
-    component.character.savingThrows[2] = {
-      name: 'Will',
-      modifier: 'Wisdom',
-      racial: 0
-    };
-    component.character.attributes[4] = {
-      name: 'Wisdom',
-      value: 10,
-      modifier: 0
-    };
-    component.makeSave('Will');
+  test('make Fortitude save with positive value', () => {
+    component.character.getAttributes()[2].setValue(12);
+    component.makeSave('Fortitude');
     expect(component.characterDetailComponent.roll).toBeTruthy();
   });
-  test('make Will save with negative value', () => {
-    component.character.savingThrows[2] = {
-      name: 'Will',
-      modifier: 'Wisdom',
-      racial: -11
-    };
-    component.character.attributes[4] = {
-      name: 'Wisdom',
-      value: 10,
-      modifier: -11
-    };
-    component.makeSave('Will');
+  test('make Fortitude save with negative value', () => {
+    component.character.getSavingThrows()[0].setRacial(-30);
+    component.character.getAttributes()[2].setValue(10);
+    component.makeSave('Fortitude');
     expect(component.characterDetailComponent.roll).toBe('1');
   });
   test('change character', () => {

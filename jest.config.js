@@ -3,7 +3,7 @@ module.exports = {
     '<rootDir>/client',
     '<rootDir>/server'
   ],
-  testRunner: 'jest-circus/runner',
+  cacheDirectory: '<rootDir>/tmp/',
   preset: 'jest-preset-angular',
   globals: {
     "ts-jest": {
