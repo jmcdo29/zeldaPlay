@@ -21,7 +21,7 @@ exec('git diff --cached --name-status', (error, stdout, stderr) => {
       updateString += file.split('\t')[1].trim() + ' ';
     }
   }
-  notifier.notify({message: 'git add' + updateString, title: 'Adding From Script'});
+  notifier.notify({message: 'git add ' + updateString, title: 'Adding From Script', icon: './reference/notifIcon.png'});
   exec(`git add ${updateString}`, (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error ${error}.`);
