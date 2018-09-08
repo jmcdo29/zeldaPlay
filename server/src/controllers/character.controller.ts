@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { Express, NextFunction, Request, Response, Router } from 'express';
 import {
   getAll,
   getOne,
@@ -15,7 +15,9 @@ router.get('/characters/:id', getCharacter);
 router.get('/characters/user/:userId', getUserCharacters);
 router.post('/characters/:userId', upsertCharacter);
 
-export { router as CharacterRouter };
+export function CharacterRouter(app: Express, path: string) {
+  app.use(path, router);
+}
 
 /**
  * Function for retrieving all character. Called when viewing homepage, but not logged in
