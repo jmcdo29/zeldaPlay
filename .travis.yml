@@ -7,16 +7,14 @@ cache:
   - node_modules
 before_install:
 - pip install --user codecov
+- '[[ $(node -v) =~ ^v9.*$ ]] || npm install -g npm@latest' # skipped when using node 9
+- npm install -g greenkeeper-lockfile
+install: npm install
 after_success:
 - codecov --file coverage/lcov.info --disable search
-script:
-- before_install:
-# package-lock.json was introduced in npm@5
-  - '[[ $(node -v) =~ ^v9.*$ ]] || npm install -g npm@latest' # skipped when using node 9
-  - npm install -g greenkeeper-lockfile
-- install: npm install
-- before_script: greenkeeper-lockfile-update
-- after_script: greenkeeper-lockfile-upload
+before_script: greenkeeper-lockfile-update
+script: npm run test:ci
+after_script: greenkeeper-lockfile-upload
 env:
   global:
   - secure: qYIyHsDrgZEycjlm6JMetbKlTrM2QBuZnUraMAQuZdIaBYx1UlNOb4FAx6kYKZ7uu9NuWUqCOrCRhmW8XfbLvhHso5dEYBkwMWqhhe5Deaw+ldklxeI16cBtEAAnaSLirG6QuSVL4l3UVbQpdYQ82qolrE98F5W31YlaRBaggqQvjHLfyuG/ayyIxJFygD4M9KZ1f3Z702PpgJxTsGViKfIrO7BP+fq8BntuZjALXl4ObUonI5g+nur0z5GVezWSdwhlq0MsoCgjWdaP+TnjaLGgod6zuM4DBDKgyK1nIrm7FxTVN5cSBoj29oslqdUjVftArM+bqFU3UdQzj20nVXpE+XUkmqB41TwybHtKNFwr975EkKmbOWRjlG/Mf6A/bb6nKfcn7pQ7uuWAWGYCCqdMxTaOjSWBk08yGz5zEKE6sgVk94GvHv6LnDVCts8qPr742RyhUrDgWSXXLxXWkwCNsAGvVC3jHQNmL2kP7yFumur/EyxFqfQySdjpO9NlwBcDYG8kpzJ77DZ/cViFxDusV3CWW/UH/X52rxNH+ejpvarxwXYsNWwaOuBGOGZa7RKPHecsW5RANVrgKD6t7WaKFQjIIHglXdfLueqGwepuBpRQqbMgAtG2pkk+IIL6a2gSyce9SXoyAyWcGqsnfGMIRp6V4w3my2Pjpi+llGQ=
