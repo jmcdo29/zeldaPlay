@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { Express, NextFunction, Request, Response, Router } from 'express';
 
 import {
   login as getUser,
@@ -12,7 +12,9 @@ const router = Router();
 router.post('/login', login);
 router.post('/signup', signup);
 
-export { router as UserRouter };
+export function UserRouter(app: Express, path: string) {
+  app.use(path, router);
+}
 
 /**
  * Route for processing login requests
@@ -23,7 +25,7 @@ export { router as UserRouter };
 async function login(req: Request, res: Response, next: NextFunction) {
   try {
     const user = await getUser(req.body.username, req.body.password);
-    res.status(200).json(user);
+    res.status(200).send({ id: user });
   } catch (err) {
     if (!(err instanceof LoginError)) {
       const newErr = new DatabaseError(err.message, 'DB_ERROR');
@@ -47,7 +49,7 @@ async function signup(req: Request, res: Response, next: NextFunction) {
       req.body.password,
       req.body.confPass
     );
-    res.status(200).json(user.id);
+    res.status(200).send({ id: user.id });
   } catch (err) {
     if (!(err instanceof LoginError)) {
       const newErr = new DatabaseError(err.message, 'DB_ERROR');
