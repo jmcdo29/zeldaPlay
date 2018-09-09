@@ -128,11 +128,53 @@ export interface ICharacterQuery {
   subrace: string;
   touch: number;
   wisdom: number;
-  notes: any[];
-  saves: any[];
-  skills: any[];
-  spells: any[];
-  weapons: any[];
+  notes: Array<{
+    message: string;
+    time: string;
+    important: boolean;
+    id?: string;
+  }>;
+  saves: Array<{
+    id?: string;
+    name: string;
+    modifier: string;
+    racial_bonus: number;
+  }>;
+  skills: Array<{
+    name: string;
+    ranks: number;
+    trained: boolean;
+    modifier?: string;
+    item_modifier?: number;
+    racial_modifier?: number;
+    misc_modifier?: number;
+    id?: string;
+    skill_type: string;
+  }>;
+  spells: Array<{
+    id?: string;
+    name: string;
+    effect: string;
+    damage: number;
+    number_of_hits: number;
+    mp_use: number;
+    diety: string;
+    use_diety: boolean;
+    modifier?: string;
+  }>;
+  weapons: Array<{
+    id?: string;
+    name: string;
+    damage: number;
+    number_of_hits: number;
+    crit_range: string;
+    crit_multiplier: number;
+    range: number;
+    ammo?: number;
+    type: string;
+    modifier: string;
+    element?: any;
+  }>;
 }
 export class Character {
   private id?: string;
@@ -630,7 +672,7 @@ export class Character {
             new Weapon(
               weapon.id,
               weapon.name,
-              weapon.attack,
+              weapon.damage,
               weapon.number_of_hits,
               parseRange(weapon.crit_range),
               weapon.crit_multiplier,
@@ -649,10 +691,10 @@ export class Character {
               spell.name,
               spell.effect,
               spell.damage,
-              spell.multiplier,
-              spell.mpUse,
+              spell.number_of_hits,
+              spell.mp_use,
               spell.diety,
-              spell.useDiety,
+              spell.use_diety,
               spell.modifier
             )
           );

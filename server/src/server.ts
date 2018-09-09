@@ -63,8 +63,8 @@ app.use(flash());
 
 app.use(express.static(path.join(__dirname, '../client/')));
 
-app.use('/api', CharacterRouter);
-app.use('/users', UserRouter);
+CharacterRouter(app, '/api');
+UserRouter(app, '/users');
 
 app.use(logErrors);
 app.use(badLogIn);

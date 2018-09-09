@@ -47,6 +47,7 @@ test('new character', () => {
   myChar.setTouch(5);
   expect(myChar.getTouch()).toBe(5);
 });
+// TODO: do better tests here!
 test('new character from db', () => {
   const newChar = new Character(null, characterDB);
   expect(newChar).toBeTruthy();
