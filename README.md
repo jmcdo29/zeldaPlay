@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/jmcdo29/zeldaPlay.svg?branch=master)](https://travis-ci.org/jmcdo29/zeldaPlay)
 [![codecov](https://codecov.io/gh/jmcdo29/zeldaPlay/branch/master/graph/badge.svg)](https://codecov.io/gh/jmcdo29/zeldaPlay)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
-[![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json)
+[![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json) [![Greenkeeper badge](https://badges.greenkeeper.io/jmcdo29/zeldaPlay.svg)](https://greenkeeper.io/)
 
 ***
 
