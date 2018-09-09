@@ -10,6 +10,11 @@
       "pre-commit": "npm run lint && npm run prettier && node gitAddMod"
     }
   },
+  "greenkeeper": {
+    "ignore": [
+      "typescript"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/jmcdo29/zeldaplay"
@@ -21,11 +26,11 @@
     "build": "npm run prettier && npm run build-client && npm run build-server",
     "build-client": "ng build --prod",
     "build-server": "tsc -p ./server",
-    "test": "snyk test && jest --notify",
+    "test": "jest --notify",
     "test:ci": "snyk test && jest --runInBand",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": "node_modules/.bin/prettier --config .prettierrc.json --write \"**/*.ts\"",
+    "prettier": "npx prettier --config .prettierrc.json --write \"**/*.ts\"",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
@@ -42,25 +47,26 @@
     "helmet": "^3.13.0",
     "knex": "^0.15.2",
     "morgan": "^1.9.0",
+    "node-notifier": "^5.2.1",
     "objection": "^1.2.6",
     "pg": "^7.4.3",
     "rxjs": "^6.3.1",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.8.1",
-    "@angular/animations": "^6.1.6",
-    "@angular/cli": "^6.1.5",
-    "@angular/common": "^6.1.6",
-    "@angular/compiler": "^6.1.6",
-    "@angular/compiler-cli": "^6.1.6",
-    "@angular/core": "^6.1.6",
-    "@angular/forms": "^6.1.6",
-    "@angular/http": "^6.1.6",
-    "@angular/language-service": "^6.1.6",
-    "@angular/platform-browser": "^6.1.6",
-    "@angular/platform-browser-dynamic": "^6.1.6",
-    "@angular/router": "^6.1.6",
+    "@angular-devkit/build-angular": "^0.8.0",
+    "@angular/animations": "^6.1.7",
+    "@angular/cli": "^6.2.0",
+    "@angular/common": "^6.1.7",
+    "@angular/compiler": "^6.1.7",
+    "@angular/compiler-cli": "^6.1.7",
+    "@angular/core": "^6.1.7",
+    "@angular/forms": "^6.1.7",
+    "@angular/http": "^6.1.7",
+    "@angular/language-service": "^6.1.7",
+    "@angular/platform-browser": "^6.1.7",
+    "@angular/platform-browser-dynamic": "^6.1.7",
+    "@angular/router": "^6.1.7",
     "@types/bcryptjs": "^2.4.1",
     "@types/cors": "^2.8.4",
     "@types/dotenv": "^4.0.3",
@@ -72,6 +78,7 @@
     "@types/knex": "^0.14.23",
     "@types/morgan": "^1.7.35",
     "@types/node": "^10.9.4",
+    "@types/proxyquire": "^1.3.28",
     "@types/supertest": "^2.0.5",
     "codelyzer": "^4.4.4",
     "husky": "^1.0.0-rc.13",
@@ -80,12 +87,13 @@
     "jest-preset-angular": "^6.0.0",
     "jest-zone-patch": "0.0.8",
     "prettier": "^1.14.2",
+    "proxyquire": "^2.1.0",
     "snyk": "^1.94.0",
-    "supertest": "^3.1.0",
+    "supertest": "^3.3.0",
     "ts-jest": "^23.1.4",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
-    "typescript": "^3.0.3"
+    "typescript": "^2.7.2"
   }
 }
