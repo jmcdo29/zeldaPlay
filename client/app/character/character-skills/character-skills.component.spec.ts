@@ -63,6 +63,7 @@ describe('CharacterSkillsComponent', () => {
       component.character.getAttributes()[1].setValue(10);
       let critHit = false;
       let critMiss = false;
+      fixture.detectChanges();
       do {
         component.makeCheck('Acrobatics');
         if (document.getElementById('roll').classList.contains('crit')) {
