@@ -156,7 +156,7 @@ export interface ICharacterQuery {
     name: string;
     effect: string;
     damage: number;
-    number_of_hits: number;
+    number_of_hit: number;
     mp_use: number;
     diety: string;
     use_diety: boolean;
@@ -691,7 +691,7 @@ export class Character {
               spell.name,
               spell.effect,
               spell.damage,
-              spell.number_of_hits,
+              spell.number_of_hit,
               spell.mp_use,
               spell.diety,
               spell.use_diety,
