@@ -86,6 +86,15 @@ describe('CharacterWeaponComponent', () => {
         expect(component.character.getWeapons()).toHaveLength(0);
         component.isRangedWeapon = false;
       });
+      test('should not show all ranged errors', () => {
+        component.isRangedWeapon = true;
+        component.weapon.setRange(30);
+        component.weapon.setAmmo(10);
+        fixture.detectChanges();
+        component.saveWeapon();
+        expect(component.character.getWeapons()).toHaveLength(0);
+        component.isRangedWeapon = false;
+      });
     });
     describe('elemental weapon specifics', () => {
       test('should show all elemental errors', () => {
@@ -96,6 +105,14 @@ describe('CharacterWeaponComponent', () => {
           undefined,
           undefined
         );
+        fixture.detectChanges();
+        component.saveWeapon();
+        expect(component.character.getWeapons()).toHaveLength(0);
+        component.isElemental = false;
+      });
+      test('should not show all elemental errors', () => {
+        component.isElemental = true;
+        component.elemental = new Elemental(undefined, 'lightning', 3, 2);
         fixture.detectChanges();
         component.saveWeapon();
         expect(component.character.getWeapons()).toHaveLength(0);

@@ -46,14 +46,7 @@ export class CharacterDetailComponent implements OnInit {
   ngOnInit() {}
 
   finalizeHealthMod(): void {
-    const maxHealth = this.character.getMaxHealth();
-    const health = this.character.getHealth();
-    health + this.hpDmg * this.type > maxHealth
-      ? this.character.setHealth(maxHealth)
-      : this.character.setHealth(health + this.hpDmg * this.type);
-    this.character.getHealth() < -10
-      ? this.character.setHealth(-10)
-      : this.character.setHealth(this.character.getHealth());
+    this.character.changeHealth(this.hpDmg * this.type);
     this.changeHP = false;
   }
 
@@ -64,14 +57,7 @@ export class CharacterDetailComponent implements OnInit {
   }
 
   finalizeMagicMod(): void {
-    const maxMagic = this.character.getMaxMagic();
-    const magic = this.character.getMagic();
-    magic + this.mpDmg * this.type > maxMagic
-      ? this.character.setMagic(maxMagic)
-      : this.character.setMagic(magic + this.mpDmg * this.type);
-    this.character.getMagic() < 0
-      ? this.character.setMagic(0)
-      : this.character.setMagic(this.character.getMagic());
+    this.character.changeMagic(this.mpDmg * this.type);
     this.changeMP = false;
   }
 

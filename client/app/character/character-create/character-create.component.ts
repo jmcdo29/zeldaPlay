@@ -102,7 +102,7 @@ export class CharacterCreateComponent implements OnInit {
       nullSubRace = this.newCharacter.getSubRace() ? false : true;
     }
     if (
-      this.newCharacter.getName() != null &&
+      this.newCharacter.getName() &&
       (this.skillPoints === 0 && this.attPoints === 0) &&
       !nullSubRace
     ) {
@@ -202,21 +202,15 @@ export class CharacterCreateComponent implements OnInit {
     const raceTemp = this.newCharacter.getRace();
     switch (this.newCharacter.getRace()) {
       case 'Hylian': {
-        this.newCharacter = new Hylian(
-          this.newCharacter.getSubRace() ? this.newCharacter.getSubRace() : null
-        );
+        this.newCharacter = new Hylian(this.newCharacter.getSubRace());
         break;
       }
       case 'Goron': {
-        this.newCharacter = new Goron(
-          this.newCharacter.getSubRace() ? this.newCharacter.getSubRace() : null
-        );
+        this.newCharacter = new Goron(this.newCharacter.getSubRace());
         break;
       }
       case 'Zora': {
-        this.newCharacter = new Zora(
-          this.newCharacter.getSubRace() ? this.newCharacter.getSubRace() : null
-        );
+        this.newCharacter = new Zora(this.newCharacter.getSubRace());
         break;
       }
       case 'Gerudo': {
@@ -228,9 +222,7 @@ export class CharacterCreateComponent implements OnInit {
         break;
       }
       case 'Rito': {
-        this.newCharacter = new Rito(
-          this.newCharacter.getSubRace() ? this.newCharacter.getSubRace() : null
-        );
+        this.newCharacter = new Rito(this.newCharacter.getSubRace());
         break;
       }
       case 'Twili': {
@@ -238,9 +230,7 @@ export class CharacterCreateComponent implements OnInit {
         break;
       }
       case 'Fairy': {
-        this.newCharacter = new Fairy(
-          this.newCharacter.getSubRace() ? this.newCharacter.getSubRace() : null
-        );
+        this.newCharacter = new Fairy(this.newCharacter.getSubRace());
         break;
       }
     }

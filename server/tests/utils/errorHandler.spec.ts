@@ -44,17 +44,16 @@ describe('#errorHandlers', () => {
     Model.knex().destroy();
   });
 
-  test('should log error', () => {
-    logErrors(
-      new Error('this is an error'),
-      req as Request,
-      res as Response,
-      next
+  test('should log error', async () => {
+    const error = new Error('this is an error');
+    next.mockImplementationOnce((err) =>
+      console.log('next function with: \t' + err)
     );
+    await logErrors(error, req as Request, res as Response, next);
 
     expect(res.code).toBeDefined();
     expect(res.code).toBe(null);
-    expect(next.mock.calls).toBeTruthy();
+    expect(next).toBeCalledWith(error);
   });
 
   test('should log error', () => {

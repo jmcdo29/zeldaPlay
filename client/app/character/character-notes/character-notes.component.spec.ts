@@ -59,7 +59,7 @@ describe('CharacterNotesComponent', () => {
       component.newMsg = 'my message';
       component.important = false;
       component.addNote();
-      expect(component.notes).toHaveLength(1);
+      expect(component.character.getNotes()).toHaveLength(1);
       component.character.getNotes().pop();
     });
     test('make new important note', () => {

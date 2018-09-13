@@ -30,7 +30,7 @@
     "test:ci": "snyk test && jest --runInBand",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": "npx prettier --config .prettierrc.json --write \"**/*.ts\"",
+    "prettier": "prettier --config .prettierrc.json --write \"**/*.ts\"",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {

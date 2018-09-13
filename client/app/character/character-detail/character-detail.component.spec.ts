@@ -114,7 +114,7 @@ describe('CharacterDetailComponent', () => {
       component.finalizeHealthMod();
       expect(component.character.getHealth()).toBe(10);
     });
-    test('resote', () => {
+    test('restore', () => {
       component.type = 1;
       component.character.setHealth(10);
       component.hpDmg = 14;
@@ -154,7 +154,7 @@ describe('CharacterDetailComponent', () => {
       component.finalizeMagicMod();
       expect(component.character.getMagic()).toBe(10);
     });
-    test('resote', () => {
+    test('restore', () => {
       component.type = 1;
       component.character.setMagic(10);
       component.mpDmg = 14;
@@ -182,7 +182,7 @@ describe('CharacterDetailComponent', () => {
       expect(component.mpDmg).toBe(component.character.getMaxMagic());
     });
   });
-  describe('exapnd functions', () => {
+  describe('expand functions', () => {
     test('expandDets', () => {
       const start = component.showDets;
       component.expandDets();

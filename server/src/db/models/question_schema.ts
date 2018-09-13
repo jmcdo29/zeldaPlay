@@ -5,14 +5,12 @@ import { makeId } from '../../utils/utils';
 /**
  * @extends {Model}
  * @prop {string} id
- * @prop {string} last_modified - time of last modification
  * @prop {string} question - the recovery question
  */
 export class Question extends Model {
   static tableName = 'recovery_question';
 
   id: string;
-  last_modified: string;
   question: string;
 
   /**
@@ -30,7 +28,6 @@ export class Question extends Model {
    * @memberof Question
    */
   $beforeUpdate(opt: any, queryContext: any) {
-    this.last_modified = new Date(Date.now()).toISOString();
     if (opt.old && opt.old.id !== this.id) {
       this.id = opt.old.id;
     }
