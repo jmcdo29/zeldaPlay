@@ -1,4 +1,5 @@
 import { Express, NextFunction, Request, Response, Router } from 'express';
+import { signToken } from '../utils/jwt';
 
 import {
   login as getUser,
@@ -25,7 +26,11 @@ export function UserRouter(app: Express, path: string) {
 async function login(req: Request, res: Response, next: NextFunction) {
   try {
     const user = await getUser(req.body.username, req.body.password);
-    res.status(200).send({ id: user });
+    const jwt = signToken({
+      id: user,
+      url: req.hostname
+    });
+    res.status(200).send({ token: jwt, id: user });
   } catch (err) {
     if (!(err instanceof LoginError)) {
       const newErr = new DatabaseError(err.message, 'DB_ERROR');
@@ -49,7 +54,11 @@ async function signup(req: Request, res: Response, next: NextFunction) {
       req.body.password,
       req.body.confPass
     );
-    res.status(200).send({ id: user.id });
+    const jwt = signToken({
+      id: user.id,
+      url: req.baseUrl
+    });
+    res.status(200).send({ token: jwt, id: user.id });
   } catch (err) {
     if (!(err instanceof LoginError)) {
       const newErr = new DatabaseError(err.message, 'DB_ERROR');

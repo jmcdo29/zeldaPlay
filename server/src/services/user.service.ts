@@ -53,15 +53,14 @@ export async function signUp(
       'EMAIL_IN_USE'
     );
   } else {
-    await User.query().insertAndFetch({
-      email: username,
-      password: bcrypt.hashSync(password, 12)
-    });
+    const newUser = await User.query()
+      .insert({
+        email: username,
+        password: bcrypt.hashSync(password, 12)
+      })
+      .returning('*');
+    return newUser;
   }
-  return User.query()
-    .select('id')
-    .where({ email: username })
-    .first();
 }
 
 export async function update() {}

@@ -118,15 +118,16 @@ describe('#UserServerService', () => {
     });
     test('should allow user to register', async () => {
       try {
-        expect.assertions(1);
+        expect.assertions(2);
         const user = await signUp(email, 'It$allg00d', 'It$allg00d');
         const tempUser = user;
-        const result = await User.query()
+        await User.query()
           .delete()
           .where({
             id: user.id
           });
         expect(tempUser).toBeTruthy();
+        expect(user.id).toBeTruthy();
       } catch (err) {
         console.log('Should not be here.');
         console.error(err.message);
