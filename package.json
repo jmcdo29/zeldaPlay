@@ -88,7 +88,7 @@
     "jest-zone-patch": "0.0.8",
     "prettier": "^1.14.3",
     "proxyquire": "^2.1.0",
-    "snyk": "^1.94.0",
+    "snyk": "^1.96.0",
     "supertest": "^3.3.0",
     "ts-jest": "^23.1.4",
     "ts-node": "^7.0.1",
