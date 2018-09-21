@@ -1,5 +1,6 @@
 import * as Knex from 'knex';
 import { Model } from 'objection';
+
 import { Recovery } from '../../../src/db/models/recovery_schema';
 import { conn } from '../../dbConnection';
 

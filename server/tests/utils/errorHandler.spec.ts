@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import * as Knex from 'knex';
+import { consoleLogger as scribe } from 'mc-scribe';
 import { Model } from 'objection';
+
 import {
   badLogIn,
   databaseProblem,
@@ -18,6 +20,7 @@ describe('#errorHandlers', () => {
   const next = jest.fn();
 
   beforeAll(() => {
+    process.env.LOG_LEVEL = 'OFF';
     Model.knex(Knex(conn));
   });
 
@@ -42,12 +45,13 @@ describe('#errorHandlers', () => {
 
   afterAll(() => {
     Model.knex().destroy();
+    process.env.LOG_LEVEL = 'INFO';
   });
 
   test('should log error', async () => {
     const error = new Error('this is an error');
     next.mockImplementationOnce((err) =>
-      console.log('next function with: \t' + err)
+      scribe('INFO', 'next function with: \t' + err)
     );
     await logErrors(error, req as Request, res as Response, next);
 

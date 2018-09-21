@@ -1,4 +1,5 @@
-import { Model, QueryBuilder, RelationMappings } from 'objection';
+import { Model, RelationMappings } from 'objection';
+
 import { IWeapon } from '../../interfaces/weaponInterface';
 import { checkNull, makeId } from '../../utils/utils';
 import { Element } from './element_schema';

@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcryptjs';
+
 import { User } from '../db/models/user_schema';
 import { LoginError } from '../utils/errors/LoginError';
 

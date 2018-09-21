@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+
 import { IAnswer } from '../../interfaces/answerInterface';
 import { checkNull, makeId } from '../../utils/utils';
 

@@ -1,4 +1,5 @@
-import { Model, QueryBuilder } from 'objection';
+import { Model } from 'objection';
+
 import { ISave } from '../../interfaces/saveInterface';
 import { checkNull, makeId } from '../../utils/utils';
 

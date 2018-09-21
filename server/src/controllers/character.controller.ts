@@ -1,4 +1,5 @@
 import { Express, NextFunction, Request, Response, Router } from 'express';
+
 import { verifyMiddleware } from '../services/auth.service';
 import {
   getAll,
@@ -8,7 +9,6 @@ import {
   updateOne
 } from '../services/character.service';
 import { DatabaseError } from '../utils/errors/DatabaseError';
-import { verifyToken } from '../utils/jwt';
 
 const router = Router();
 

@@ -1,4 +1,4 @@
-import { decode, sign, verify } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
 const issuer =
   process.env.NODE_ENV === 'production'

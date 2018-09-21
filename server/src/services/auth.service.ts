@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+
 import { verifyToken } from '../utils/jwt';
 
 export function verifyMiddleware(

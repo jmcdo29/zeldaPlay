@@ -1,5 +1,6 @@
 import * as Knex from 'knex';
 import { Model } from 'objection';
+
 import { Spell } from '../../../src/db/models/spell_schema';
 import { conn } from '../../dbConnection';
 

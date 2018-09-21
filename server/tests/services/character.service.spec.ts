@@ -1,6 +1,8 @@
 import { readFileSync } from 'fs';
 import * as Knex from 'knex';
+import { consoleLogger as scribe } from 'mc-scribe';
 import { Model } from 'objection';
+
 import { Character } from '../../src/db/models/character_schema';
 import {
   getAll,
@@ -26,7 +28,8 @@ describe('#CharacterServerService', () => {
       expect(characters).toBeTruthy();
       expect(characters[0]).toBeTruthy();
     } catch (err) {
-      console.error(err);
+      scribe('ERROR', err.message);
+      scribe('FINE', err.stack);
     }
   });
 
@@ -44,7 +47,8 @@ describe('#CharacterServerService', () => {
       expect(character.notes).toBeDefined();
       expect(character.saves).toBeDefined();
     } catch (err) {
-      console.error(err);
+      scribe('ERROR', err.message);
+      scribe('FINE', err.stack);
     }
   });
 
@@ -52,7 +56,7 @@ describe('#CharacterServerService', () => {
     try {
       expect.assertions(1);
       await getOne('00Cpq34lksdjf');
-      console.log('somehow got a character');
+      scribe('INFO', 'somehow got a character');
     } catch (err) {
       expect(err).toBeTruthy();
     }
@@ -83,7 +87,8 @@ describe('#CharacterServerService', () => {
       expect(characters).toBeDefined();
       expect(characters.length === 0);
     } catch (err) {
-      console.error(err);
+      scribe('ERROR', err.message);
+      scribe('FINE', err.stack);
     }
   });
 
@@ -106,8 +111,9 @@ describe('#CharacterServerService', () => {
           .first();
         await character.$query().delete();
       } catch (err) {
-        console.error('error deleting mockCharacter');
-        console.error(err);
+        scribe('INFO', 'Error deleting mock character');
+        scribe('ERROR', err.message);
+        scribe('FINE', err.stack);
       }
     });
 
@@ -122,7 +128,8 @@ describe('#CharacterServerService', () => {
           const character = await updateOne('00U4732mM0N2', mockChar);
           expect(character).toBeTruthy();
         } catch (err) {
-          console.error(err);
+          scribe('ERROR', err.message);
+          scribe('FINE', err.stack);
         }
       },
       10000
