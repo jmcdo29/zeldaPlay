@@ -4,8 +4,7 @@ import * as cors from 'cors';
 import * as express from 'express';
 import * as flash from 'express-flash';
 import * as helmet from 'helmet';
-import * as mcScribe from 'mc-scribe';
-// import * as morgan from 'morgan';
+import * as morgan from 'morgan';
 import * as path from 'path';
 
 import { CharacterRouter } from './controllers/character.controller';
@@ -26,13 +25,13 @@ import * as connectionConfig from './db/knexfile';
 
 Model.knex(Knex(connectionConfig));
 
-// const morganFormat = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
+const morganFormat = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 
 const app = express();
 
 app.use(helmet());
 app.use(cors());
-app.use(mcScribe.logStart());
+app.use(morgan(morganFormat));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(mySession);
@@ -51,7 +50,5 @@ app.use(logErrors);
 app.use(badLogIn);
 app.use(databaseProblem);
 app.use(generalError);
-
-app.use(mcScribe.requestLogger);
 
 export { app };

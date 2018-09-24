@@ -12,7 +12,8 @@
   },
   "greenkeeper": {
     "ignore": [
-      "typescript"
+      "typescript",
+      "ts-jest"
     ]
   },
   "repository": {
@@ -81,18 +82,17 @@
     "@types/jsonwebtoken": "^7.2.8",
     "@types/knex": "^0.14.24",
     "@types/morgan": "^1.7.35",
-    "@types/node": "^10.10.1",
+    "@types/node": "^10.10.3",
     "@types/supertest": "^2.0.5",
     "codelyzer": "^4.4.4",
-    "husky": "^1.0.0-rc.13",
+    "husky": "^1.0.0-rc.15",
     "jest": "^23.6.0",
     "jest-preset-angular": "^6.0.1",
     "jest-zone-patch": "0.0.8",
     "prettier": "^1.14.3",
-    "proxyquire": "^2.1.0",
-    "snyk": "^1.96.0",
+    "snyk": "^1.97.1",
     "supertest": "^3.3.0",
-    "ts-jest": "^23.10.0",
+    "ts-jest": "^23.1.4",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",

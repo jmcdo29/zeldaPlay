@@ -5,11 +5,18 @@ import { UserRouter } from '../../src/controllers/user.controller';
 import { User } from '../../src/db/models/user_schema';
 import { login, signUp } from '../../src/services/user.service';
 import { LoginError } from '../../src/utils/errors/LoginError';
+import { signToken } from '../../src/utils/jwt';
 
 jest.mock('../../src/services/user.service.ts', () => {
   return {
     login: jest.fn(),
     signUp: jest.fn()
+  };
+});
+
+jest.mock('../../src/utils/jwt.ts', () => {
+  return {
+    signToken: jest.fn().mockReturnValue('a really.long string.is the token')
   };
 });
 
@@ -25,13 +32,16 @@ describe('User routes', () => {
 
   describe('/login route', () => {
     test('200 should return user', async () => {
-      (login as jest.Mock).mockResolvedValueOnce('user id');
+      (login as jest.Mock).mockResolvedValueOnce({ id: 'user id' });
       const response = await request
         .post('/login')
         .send({ username: 'user', password: 'pass' });
       expect(login).toHaveBeenCalledTimes(1);
       expect(login).toBeCalledWith('user', 'pass');
-      expect(response.body).toEqual({ id: 'user id' });
+      expect(response.body).toEqual({
+        token: 'a really.long string.is the token',
+        id: 'user id'
+      });
     });
 
     test('403 should return LoginError', async () => {
@@ -69,7 +79,10 @@ describe('User routes', () => {
         .send({ username: 'user', password: 'pass', confPass: 'pass' });
       expect(signUp).toHaveBeenCalledTimes(1);
       expect(signUp).toBeCalledWith('user', 'pass', 'pass');
-      expect(response.body).toEqual({ id: 'user id' });
+      expect(response.body).toEqual({
+        token: 'a really.long string.is the token',
+        id: 'user id'
+      });
     });
 
     test('403 should return LoginError', async () => {

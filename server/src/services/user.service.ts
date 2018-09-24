@@ -14,7 +14,7 @@ import { LoginError } from '../utils/errors/LoginError';
 export async function login(
   username: string,
   password: string
-): Promise<string> {
+): Promise<Partial<User>> {
   const user = await User.query()
     .findOne({ email: username })
     .select('id', 'password');
@@ -28,7 +28,7 @@ export async function login(
       'INCORRECT_PASSWORD'
     );
   } else {
-    return user.id;
+    return user;
   }
 }
 
