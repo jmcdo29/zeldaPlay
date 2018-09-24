@@ -25,7 +25,7 @@ describe('UserLoginComponent', () => {
       declarations: [UserLoginComponent],
       providers: [
         UserService,
-        {provide: AlertService, useValue: alertServiceStub}
+        { provide: AlertService, useValue: alertServiceStub }
       ]
     }).compileComponents();
   }));
@@ -42,10 +42,12 @@ describe('UserLoginComponent', () => {
   });
   describe('login function', () => {
     test('successful function', () => {
-      spyOn(userService, 'login').and.returnValue(of({
-        token: 'a really long token',
-        id: 'the userId'
-      }));
+      spyOn(userService, 'login').and.returnValue(
+        of({
+          token: 'a really long token',
+          id: 'the userId'
+        })
+      );
       component.username = 'user';
       component.password = 'pass';
       component.login();

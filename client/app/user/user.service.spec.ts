@@ -1,8 +1,4 @@
-import {
-  HttpClientModule,
-  HttpErrorResponse,
-  HttpRequest
-} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -27,11 +23,11 @@ describe('#UserService', () => {
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });
 
-  it('should create the user service', () => {
+  test('should create the user service', () => {
     expect(service).toBeDefined();
   });
 
-  it('should allow a user to log in', () => {
+  test('should allow a user to log in', () => {
     const expectedReturn = '00Uuejo58sG2';
     let actualReturn: string;
     service.login('test', 'testing').subscribe((id) => {
@@ -47,7 +43,7 @@ describe('#UserService', () => {
     expect(localStorage.getItem('currentUser')).toBe(expectedReturn);
   });
 
-  it('should allow a user to register', () => {
+  test('should allow a user to register', () => {
     const expectedReturn = '00Uuejo58sG2';
     let actualReturn: string;
     service.register('test', 'testing', 'testing').subscribe((id) => {
@@ -65,7 +61,7 @@ describe('#UserService', () => {
     expect(localStorage.getItem('currentUser')).toBe(expectedReturn);
   });
 
-  it('should remove a user from localStorage', () => {
+  test('should remove a user from localStorage', () => {
     service.logout();
     expect(localStorage.getItem('currentUser')).toBeFalsy();
   });

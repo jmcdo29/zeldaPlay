@@ -25,7 +25,7 @@ describe('UserLoginComponent', () => {
       declarations: [UserRegisterComponent],
       providers: [
         UserService,
-        {provide: AlertService, useValue: alertServiceStub}
+        { provide: AlertService, useValue: alertServiceStub }
       ]
     }).compileComponents();
   }));
@@ -43,7 +43,9 @@ describe('UserLoginComponent', () => {
 
   describe('registration function', () => {
     test('successful registration', () => {
-      spyOn(userService, 'register').and.returnValue(of({token: 'a long token', id: 'the userId'}));
+      spyOn(userService, 'register').and.returnValue(
+        of({ token: 'a long token', id: 'the userId' })
+      );
       component.username = 'userName';
       component.password = 'password';
       component.passwordConfirmation = 'password';
