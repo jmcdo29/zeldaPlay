@@ -1,6 +1,8 @@
 import { hashSync } from 'bcryptjs';
 import * as Knex from 'knex';
+import { consoleLogger as scribe } from 'mc-scribe';
 import { Model } from 'objection';
+
 import { User } from '../../src/db/models/user_schema';
 import { login, signUp } from '../../src/services/user.service';
 import { conn } from '../dbConnection';
@@ -118,18 +120,20 @@ describe('#UserServerService', () => {
     });
     test('should allow user to register', async () => {
       try {
-        expect.assertions(1);
+        expect.assertions(2);
         const user = await signUp(email, 'It$allg00d', 'It$allg00d');
         const tempUser = user;
-        const result = await User.query()
+        await User.query()
           .delete()
           .where({
             id: user.id
           });
         expect(tempUser).toBeTruthy();
+        expect(user.id).toBeTruthy();
       } catch (err) {
-        console.log('Should not be here.');
-        console.error(err.message);
+        scribe('INFO', 'Should not be here.');
+        scribe('ERROR', err.message);
+        scribe('FINE', err.stack);
       }
     });
   });

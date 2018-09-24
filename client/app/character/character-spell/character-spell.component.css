@@ -4,14 +4,16 @@ input.dropdown::-webkit-inner-spin-button, input.dropdown::-webkit-outer-spin-bu
   margin: 0;
 }
 input, textarea, select, button.save{
-  width: 90%; 
+  width: 90%;
 }
 
 .improv-table{
-  float: left; 
-  width: calc(98% / 8); 
-  /* max-width: calc(100% / 8); */
+  float: left;
+  width: 48%;
   padding: 5px 1px;
+}
+.table-holder{
+  padding: 0.5% 5%;
 }
 .table-holder::after{
   content: "";
@@ -48,5 +50,5 @@ input, textarea, select, button.save{
     width: 80%;
     margin: 10% 10%;
   }
-  
+
 }

@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcryptjs';
+
 import { User } from '../db/models/user_schema';
 import { LoginError } from '../utils/errors/LoginError';
 
@@ -13,7 +14,7 @@ import { LoginError } from '../utils/errors/LoginError';
 export async function login(
   username: string,
   password: string
-): Promise<string> {
+): Promise<Partial<User>> {
   const user = await User.query()
     .findOne({ email: username })
     .select('id', 'password');
@@ -27,7 +28,7 @@ export async function login(
       'INCORRECT_PASSWORD'
     );
   } else {
-    return user.id;
+    return user;
   }
 }
 
@@ -53,15 +54,14 @@ export async function signUp(
       'EMAIL_IN_USE'
     );
   } else {
-    await User.query().insertAndFetch({
-      email: username,
-      password: bcrypt.hashSync(password, 12)
-    });
+    const newUser = await User.query()
+      .insert({
+        email: username,
+        password: bcrypt.hashSync(password, 12)
+      })
+      .returning('*');
+    return newUser;
   }
-  return User.query()
-    .select('id')
-    .where({ email: username })
-    .first();
 }
 
 export async function update() {}

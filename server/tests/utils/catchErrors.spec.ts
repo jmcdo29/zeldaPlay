@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import { catchAll } from '../../src/utils/catchErrors';
 
 test('should make and throw an error', () => {

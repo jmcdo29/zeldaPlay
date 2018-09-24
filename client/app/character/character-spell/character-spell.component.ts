@@ -145,10 +145,10 @@ export class CharacterSpellComponent implements OnInit {
   castSpell(spellIndex: number): void {
     let crit = false;
     const character = this.character;
+    const magicStart = character.getMagic();
     const spell = character.getSpells()[spellIndex];
-    this.character.setMagic(this.character.getMagic() - spell.getMpUse());
-    if (this.character.getMagic() < 0) {
-      this.character.setMagic(this.character.getMagic() + spell.getMpUse());
+    this.character.changeMagic(-1 * spell.getMpUse());
+    if (magicStart - spell.getMpUse() < 0) {
       this.alertService.error(
         'You cannot use more magic than you have available.'
       );

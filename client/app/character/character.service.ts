@@ -25,7 +25,6 @@ export class CharacterService {
       map((ch) => {
         const characters = [];
         for (const response of ch) {
-          console.log(response);
           response.skills = [];
           response.weapons = [];
           response.spells = [];
@@ -33,7 +32,7 @@ export class CharacterService {
           response.saves = [];
           characters.push(new Character(null, response as any));
         }
-        const outcome = ch ? 'Got characters' : 'Found a problem';
+        const outcome = `Got ${ch.length} character.`;
         this.messageService.add(outcome);
         return characters;
       }),
@@ -58,7 +57,6 @@ export class CharacterService {
         map((ch) => {
           const characters = [];
           for (const response of ch) {
-            console.log(response);
             response.skills = [];
             response.weapons = [];
             response.spells = [];
@@ -66,7 +64,7 @@ export class CharacterService {
             response.saves = [];
             characters.push(new Character(null, response as any));
           }
-          const outcome = ch ? 'Got characters' : 'Found a problem';
+          const outcome = `Got ${ch.length} character.`;
           this.messageService.add(outcome);
           return characters;
         }),
@@ -76,7 +74,7 @@ export class CharacterService {
 
   private handleError<T>(operation: string, result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
+      console.error(error.message);
       const errMsg =
         'ERROR IN ' + operation.toUpperCase() + ': ' + error.message;
       this.messageService.add(errMsg);

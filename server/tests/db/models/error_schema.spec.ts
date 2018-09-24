@@ -1,5 +1,6 @@
 import * as Knex from 'knex';
 import { Model } from 'objection';
+
 import { DBError } from '../../../src/db/models/error_schema';
 import { conn } from '../../dbConnection';
 

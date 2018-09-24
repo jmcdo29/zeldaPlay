@@ -27,7 +27,7 @@ export class UserLoginComponent implements OnInit {
     this.loading = true;
     this.userService.login(this.username, this.password).subscribe(
       (data) => {
-        localStorage.setItem('currentUser', data);
+        localStorage.setItem('currentUser', data.id);
         this.router.navigate(['/']);
       },
       (error) => {

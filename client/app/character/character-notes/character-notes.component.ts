@@ -39,9 +39,9 @@ export class CharacterNotesComponent implements OnInit {
       this.important
     );
     if (this.important) {
-      this.character.getImportantNotes().unshift(this.note);
+      this.character.addImportantNote(this.note);
     } else {
-      this.character.getNotes().unshift(this.note);
+      this.character.addNote(this.note);
     }
     this.newMsg = '';
     this.important = false;

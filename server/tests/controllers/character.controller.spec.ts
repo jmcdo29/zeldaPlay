@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as supertest from 'supertest';
 
 import { CharacterRouter } from '../../src/controllers/character.controller';
+import { verifyMiddleware } from '../../src/services/auth.service';
 import {
   getAll,
   getOne,
@@ -17,6 +18,14 @@ jest.mock('../../src/services/character.service.ts', () => ({
   updateOne: jest.fn()
 }));
 
+jest.mock('../../src/services/auth.service.ts', () => {
+  return {
+    verifyMiddleware: jest.fn().mockImplementation((req, res, next) => {
+      next();
+    })
+  };
+});
+
 describe('character routes', () => {
   const app = express();
   app.use(express.json());
@@ -25,6 +34,9 @@ describe('character routes', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    (verifyMiddleware as jest.Mock).mockImplementation((req, res, next) => {
+      next();
+    });
   });
 
   describe('the /characters route', () => {

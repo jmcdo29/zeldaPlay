@@ -1,4 +1,6 @@
 import { Express, NextFunction, Request, Response, Router } from 'express';
+
+import { verifyMiddleware } from '../services/auth.service';
 import {
   getAll,
   getOne,
@@ -12,8 +14,8 @@ const router = Router();
 
 router.get('/characters', allCharacters);
 router.get('/characters/:id', getCharacter);
-router.get('/characters/user/:userId', getUserCharacters);
-router.post('/characters/:userId', upsertCharacter);
+router.get('/characters/user/:userId', verifyMiddleware, getUserCharacters);
+router.post('/characters/:userId', verifyMiddleware, upsertCharacter);
 
 export function CharacterRouter(app: Express, path: string) {
   app.use(path, router);

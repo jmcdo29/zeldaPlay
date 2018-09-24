@@ -1,4 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
+import { consoleLogger as scribe } from 'mc-scribe';
+
 import { DBError } from '../db/models/error_schema';
 import { DatabaseError } from './errors/DatabaseError';
 import { LoginError } from './errors/LoginError';
@@ -25,8 +27,8 @@ export async function logErrors(
   res: Response,
   next: NextFunction
 ) {
-  console.error(err.message);
-  console.error(err.stack.split('\n')[0]);
+  scribe('ERROR', err.message);
+  scribe('FINE', err.stack.split('\n')[0]);
   await DBError.query().insert({
     message: err.message.substring(
       0,
@@ -53,7 +55,7 @@ export function badLogIn(
   next: NextFunction
 ): Express.Response {
   if (err instanceof LoginError) {
-    console.log(err.reasonCode);
+    scribe('DEBUG', err.reasonCode);
     return res.status(403).send({ message: err.message });
   } else {
     next(err);
@@ -75,7 +77,7 @@ export function databaseProblem(
   next: NextFunction
 ): Express.Response {
   if (err instanceof DatabaseError) {
-    console.log(err.reasonCode);
+    scribe('DEBUG', err.reasonCode);
     return res.status(400).send({ message: err.message });
   } else {
     next(err);
@@ -94,6 +96,7 @@ export function generalError(
   req: Request,
   res: Response,
   next: any
-): Express.Response {
-  return res.status(500).send({ message: err.message });
+): void {
+  res.status(500).send({ message: err.message });
+  next();
 }

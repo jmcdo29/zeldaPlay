@@ -1,4 +1,5 @@
-import { Model, QueryBuilder } from 'objection';
+import { Model } from 'objection';
+
 import { ISkill } from '../../interfaces/skillInterface';
 import { checkNull, makeId } from '../../utils/utils';
 

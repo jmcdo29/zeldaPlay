@@ -1,5 +1,6 @@
 import * as Knex from 'knex';
 import { Model } from 'objection';
+
 import { Skill } from '../../../src/db/models/skill_schema';
 import { conn } from '../../dbConnection';
 

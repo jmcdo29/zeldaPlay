@@ -207,7 +207,7 @@ export class Character {
   private savingThrows: Save[] = [];
 
   getId(): string {
-    return this.id;
+    return this.id ? this.id : '';
   }
 
   setId(id: string): void {
@@ -215,7 +215,7 @@ export class Character {
   }
 
   getLevel(): number {
-    return this.level;
+    return this.level ? this.level : 1;
   }
 
   setLevel(level: number): void {
@@ -223,7 +223,7 @@ export class Character {
   }
 
   getName(): string {
-    return this.name;
+    return this.name ? this.name : '';
   }
 
   setName(name: string): void {
@@ -231,7 +231,7 @@ export class Character {
   }
 
   getRace(): string {
-    return this.race;
+    return this.race ? this.race : '';
   }
 
   setRace(race: string): void {
@@ -239,7 +239,7 @@ export class Character {
   }
 
   getSubRace(): string {
-    return this.subRace;
+    return this.subRace ? this.subRace : '';
   }
 
   setSubRace(subRace: string): void {
@@ -247,7 +247,7 @@ export class Character {
   }
 
   getAC(): number {
-    return this.ac;
+    return this.ac || this.ac === 0 ? this.ac : null;
   }
 
   setAC(ac: number): void {
@@ -255,7 +255,7 @@ export class Character {
   }
 
   getFlatFooted(): number {
-    return this.flat_footed;
+    return this.flat_footed || this.flat_footed === 0 ? this.flat_footed : null;
   }
 
   setFlatFooted(flatFooted: number): void {
@@ -263,7 +263,7 @@ export class Character {
   }
 
   getTouch(): number {
-    return this.touch;
+    return this.touch || this.touch === 0 ? this.touch : null;
   }
 
   setTouch(touch: number): void {
@@ -271,7 +271,7 @@ export class Character {
   }
 
   getSize(): string {
-    return this.size;
+    return this.size ? this.size : 'M';
   }
 
   setSize(size: string): void {
@@ -279,15 +279,25 @@ export class Character {
   }
 
   getHealth(): number {
-    return this.health;
+    return this.health || this.health === 0 ? this.health : null;
   }
 
   setHealth(health: number): void {
     this.health = health;
   }
 
+  changeHealth(healthVal: number): void {
+    this.health = this.health + healthVal;
+    this.health =
+      this.health > this.maxHealth
+        ? this.maxHealth
+        : this.health < -10
+          ? -10
+          : this.health;
+  }
+
   getMaxHealth(): number {
-    return this.maxHealth;
+    return this.maxHealth || this.maxHealth === 0 ? this.maxHealth : null;
   }
 
   setMaxHealth(maxHealth: number): void {
@@ -295,15 +305,25 @@ export class Character {
   }
 
   getMagic(): number {
-    return this.magic;
+    return this.magic || this.magic === 0 ? this.magic : null;
   }
 
   setMagic(magic: number): void {
     this.magic = magic;
   }
 
+  changeMagic(magicVal: number): void {
+    this.magic = this.magic + magicVal;
+    this.magic =
+      this.magic > this.maxMagic
+        ? this.maxMagic
+        : this.magic < 0
+          ? 0
+          : this.magic;
+  }
+
   getMaxMagic(): number {
-    return this.maxMagic;
+    return this.maxMagic || this.maxMagic === 0 ? this.maxMagic : null;
   }
 
   setMaxMagic(maxMagic: number): void {
@@ -311,7 +331,7 @@ export class Character {
   }
 
   getExp(): number {
-    return this.exp;
+    return this.exp ? this.exp : 0;
   }
 
   setExp(exp: number): void {
@@ -319,7 +339,7 @@ export class Character {
   }
 
   getCraftOne(): string {
-    return this.craftOne;
+    return this.craftOne ? this.craftOne : '';
   }
 
   setCraftOne(craftOne: string): void {
@@ -327,7 +347,7 @@ export class Character {
   }
 
   getCraftTwo(): string {
-    return this.craftTwo;
+    return this.craftTwo ? this.craftTwo : '';
   }
 
   setCraftTwo(craftTwo: string): void {
@@ -335,7 +355,7 @@ export class Character {
   }
 
   getPerformCust(): string {
-    return this.performCust;
+    return this.performCust ? this.performCust : '';
   }
 
   setPerformCust(performCust: string): void {
@@ -343,7 +363,7 @@ export class Character {
   }
 
   getProfession(): string {
-    return this.profession;
+    return this.profession ? this.profession : '';
   }
 
   setProfession(profession: string): void {
@@ -351,11 +371,15 @@ export class Character {
   }
 
   getSkills(): Skill[] {
-    return this.skills;
+    return this.skills.length > 0 ? this.skills : [];
+  }
+
+  addSkill(skill: Skill): void {
+    this.skills.push(skill);
   }
 
   getAttributes(): Attribute[] {
-    return this.attributes;
+    return this.attributes.length > 0 ? this.attributes : [];
   }
   /*
   setAttributes(attributes: Attribute[]): void {
@@ -371,12 +395,8 @@ export class Character {
     this.skills = skills;
   } */
 
-  addSkill(skill: Skill): void {
-    this.skills.push(skill);
-  }
-
   getWeaponSkills(): Skill[] {
-    return this.weaponSkills;
+    return this.weaponSkills.length > 0 ? this.weaponSkills : [];
   }
   /*
   setWeaponSkills(weaponSkills: Skill[]): void {
@@ -388,7 +408,7 @@ export class Character {
   }
 
   getMagicSkills(): Skill[] {
-    return this.magicSkills;
+    return this.magicSkills.length > 0 ? this.magicSkills : [];
   }
   /*
   setMagicSkills(magicSkills: Skill[]): void {
@@ -400,7 +420,7 @@ export class Character {
   }
 
   getWeapons(): Weapon[] {
-    return this.weapons;
+    return this.weapons.length > 0 ? this.weapons : [];
   }
   /*
   setWeapons(weapons: Weapon[]): void {
@@ -412,7 +432,7 @@ export class Character {
   }
 
   getSpells(): Spell[] {
-    return this.spells;
+    return this.spells.length > 0 ? this.spells : [];
   }
   /*
   setSpells(spells: Spell[]): void {
@@ -424,7 +444,7 @@ export class Character {
   }
 
   getNotes(): Note[] {
-    return this.notes;
+    return this.notes.length > 0 ? this.notes : [];
   }
   /*
   setNotes(notes: Note[]): void {
@@ -436,7 +456,7 @@ export class Character {
   }
 
   getImportantNotes(): Note[] {
-    return this.importantNotes;
+    return this.importantNotes.length > 0 ? this.importantNotes : [];
   }
   /*
   setImportantNotes(importantNotes: Note[]): void {
@@ -448,7 +468,7 @@ export class Character {
   }
 
   getInventory(): Item[] {
-    return this.inventory;
+    return this.inventory.length > 0 ? this.inventory : [];
   }
   /*
   setInventory(inventory: Item[]): void {
@@ -460,7 +480,7 @@ export class Character {
   }
 
   getSavingThrows(): Save[] {
-    return this.savingThrows;
+    return this.savingThrows.length > 0 ? this.savingThrows : [];
   }
   /*
   setSavingThrows(savingThrows: Save[]): void {

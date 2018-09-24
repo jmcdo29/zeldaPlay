@@ -131,6 +131,7 @@ describe('CharacterSpellComponent', () => {
     });
     test('cast spell with no useDiety and no modifier', () => {
       component.character.getSpells()[0].setModifier('');
+      component.character.setMagic(15);
       component.spellName = 'test spell';
       fixture.detectChanges();
       component.castSpell(0);
@@ -172,8 +173,8 @@ describe('CharacterSpellComponent', () => {
       component.spell = mySpell;
       fixture.detectChanges();
       component.saveSpell();
-      expect(component.spellArray).toHaveLength(1);
-      component.spellArray.pop();
+      expect(component.character.getSpells()).toHaveLength(1);
+      component.character.getSpells().pop();
     });
   });
   describe('validate spell', () => {

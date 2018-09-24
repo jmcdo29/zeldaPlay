@@ -82,8 +82,6 @@ export class CharacterLevelUpComponent implements OnInit {
 
   trackAtt(attrIndex: number): void {
     const val = this.currChar.getAttributes()[attrIndex].getValue();
-    /* const modifier = val % 2 === 0 ? (val - 10) / 2 : (val - 11) / 2;
-    this.currChar.getAttributes()[attrIndex].modifier = modifier; */
     this.attrPoints -= val - this.attrPrior[attrIndex];
     this.attrPrior[attrIndex] = val;
   }

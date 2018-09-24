@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+
 import { IAnswer } from '../../interfaces/answerInterface';
 import { checkNull, makeId } from '../../utils/utils';
 
@@ -19,7 +20,6 @@ export class Recovery extends Model {
   question: string;
   answer: string;
   user_id: string;
-  last_modified_by: string;
 
   /**
    * Creates an instance of Recovery.
@@ -34,7 +34,6 @@ export class Recovery extends Model {
       this.question = answer.question;
       this.answer = answer.answer;
       this.user_id = id;
-      this.last_modified_by = id;
     }
   }
 

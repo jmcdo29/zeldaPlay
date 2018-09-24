@@ -1,19 +1,12 @@
+import * as RedisStore from 'connect-redis';
 import * as session from 'express-session';
-import * as Knex from 'knex';
-// tslint:disable-next-line:no-var-requires
-const KnexSessionStore = require('connect-session-knex')(session);
-import * as connectionConfig from '../db/knexfile';
-const knex = Knex(connectionConfig);
 
-const store = new KnexSessionStore({
-  knex,
-  tablename: 'sessions'
-});
+const store = RedisStore(session);
 
 export const mySession = session({
   secret: process.env.SESSION_SECRET,
   cookie: { maxAge: 60000 },
-  store,
-  saveUninitialized: false,
-  resave: true
+  store: new store({ url: process.env.REDIS_URL }),
+  saveUninitialized: true,
+  resave: false
 });

@@ -1,4 +1,5 @@
-import { Model, QueryBuilder } from 'objection';
+import { Model } from 'objection';
+
 import { INote } from '../../interfaces/noteInterface';
 import { checkNull, makeId } from '../../utils/utils';
 

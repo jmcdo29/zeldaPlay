@@ -6,6 +6,7 @@ import * as flash from 'express-flash';
 import * as helmet from 'helmet';
 import * as morgan from 'morgan';
 import * as path from 'path';
+
 import { CharacterRouter } from './controllers/character.controller';
 import { UserRouter } from './controllers/user.controller';
 import { catchAll } from './utils/catchErrors';
@@ -30,32 +31,7 @@ const app = express();
 
 app.use(helmet());
 app.use(cors());
-// winston logger set up to log non errors with field level 'info'
-app.use(
-  morgan(morganFormat, {
-    skip: (req: express.Request, res: express.Response) => {
-      return res.statusCode >= 400;
-    },
-    stream: {
-      write: (meta: any) => {
-        console.log(meta);
-      }
-    }
-  })
-);
-// winston logger set up to log errors with field level 'error'
-app.use(
-  morgan(morganFormat, {
-    skip: (req: express.Request, res: express.Response) => {
-      return res.statusCode < 400;
-    },
-    stream: {
-      write: (meta: any) => {
-        console.error(meta);
-      }
-    }
-  })
-);
+app.use(morgan(morganFormat));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(mySession);
@@ -66,13 +42,13 @@ app.use(express.static(path.join(__dirname, '../client/')));
 CharacterRouter(app, '/api');
 UserRouter(app, '/users');
 
+app.get('/', sendApp);
+
+app.get('*', catchAll);
+
 app.use(logErrors);
 app.use(badLogIn);
 app.use(databaseProblem);
 app.use(generalError);
-
-app.get('/', sendApp);
-
-app.get('*', catchAll);
 
 export { app };

@@ -200,9 +200,6 @@ export class CharacterWeaponComponent implements OnInit {
     for (const int of range) {
       rangeArray.push(Number.parseInt(int, 10));
     }
-    /* for (let i = 0; i < range.length; i++) {
-      rangeArray.push(Number.parseInt(range[i], 10));
-    } */
     this.weapon.setCritRange(rangeArray);
   }
 
