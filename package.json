@@ -47,7 +47,7 @@
     "helmet": "^3.13.0",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
-    "mc-scribe": "^1.1.3",
+    "mc-scribe": "^1.2.1",
     "morgan": "^1.9.1",
     "node-notifier": "^5.2.1",
     "objection": "^1.3.0",

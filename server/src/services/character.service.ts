@@ -1,3 +1,5 @@
+import { consoleLogger as scribe } from 'mc-scribe';
+
 import { Character } from '../db/models/character_schema';
 import { Note } from '../db/models/note_schema';
 import { Save } from '../db/models/save_schema';
@@ -14,12 +16,14 @@ import { DatabaseError } from '../utils/errors/DatabaseError';
  * @throws {DatabaseError} - Throws a database error to indicate something was wrong with the query
  */
 export async function getAll(): Promise<Array<Partial<Character>>> {
+  scribe('INFO', 'Getting all unassigned characters.');
   const characters = await Character.query()
     .select('id', 'name', 'race')
     .whereNull('user_id');
   if (characters.length === 0) {
     throw new DatabaseError('No characters found!', 'NO_CHAR');
   }
+  scribe('INFO', 'Returning unassigned characters.');
   return characters;
 }
 
@@ -30,18 +34,25 @@ export async function getAll(): Promise<Array<Partial<Character>>> {
  * @throws {DatabaseError}
  */
 export async function getOne(id: string): Promise<Character> {
+  scribe('INFO', 'Getting single character.');
   const character = await Character.query().findById(id);
   if (!character) {
     throw new DatabaseError('No character found', 'NO_CHAR');
   }
+  scribe('DEBUG', "Getting the character's skills.");
   character.skills = await character.$relatedQuery('skills').orderBy('name');
+  scribe('DEBUG', "Getting the character's weapons.");
   character.weapons = await character
     .$relatedQuery('weapons')
     .eager('element')
     .orderBy('name');
+  scribe('DEBUG', "Getting the character's spells.");
   character.spells = await character.$relatedQuery('spells').orderBy('diety');
+  scribe('DEBUG', "Getting the character's saves.");
   character.saves = await character.$relatedQuery('saves').orderBy('name');
+  scribe('DEBUG', "Getting the character's notes.");
   character.notes = await character.$relatedQuery('notes').orderBy('time');
+  scribe('INFO', 'Returning single character.');
   return character;
 }
 
@@ -57,6 +68,7 @@ export async function updateOne(
   id: string,
   body: ICharacter
 ): Promise<Character> {
+  scribe('INFO', 'Updating single character.');
   const character = new Character(id, body);
   const charId = await Character.upsert(character);
   const chId = charId.id;
@@ -90,18 +102,23 @@ export async function updateOne(
   for (const save of body.savingThrows) {
     saves.push(new Save(id, chId, save));
   }
+  scribe('DEBUG', 'Upserrting the skills.');
   charId.skills = await Skill.query().upsertGraphAndFetch(skills, {
     insertMissing: true
   });
+  scribe('DEBUG', 'Upserrting the weapons.');
   charId.weapons = await Weapon.query().upsertGraphAndFetch(weapons, {
     insertMissing: true
   });
+  scribe('DEBUG', 'Upserrting the spells.');
   charId.spells = await Spell.query().upsertGraphAndFetch(spells, {
     insertMissing: true
   });
+  scribe('DEBUG', 'Upserrting the saves.');
   charId.saves = await Save.query().upsertGraphAndFetch(saves, {
     insertMissing: true
   });
+  scribe('DEBUG', 'Upserrting the notes.');
   charId.notes = await Note.query().upsertGraphAndFetch(notes, {
     insertMissing: true
   });
@@ -117,9 +134,11 @@ export async function updateOne(
 export async function getUserCharacters(
   userId: string
 ): Promise<Array<Partial<Character>>> {
+  scribe("Getting user's characters.");
   if (!userId.startsWith('00U') || userId.length !== 12) {
     throw new DatabaseError('Bad user id.', 'BAD_USER');
   }
+  scribe("Returning the user's characters.");
   return Character.query()
     .select('id', 'race', 'name')
     .where({ user_id: userId });
