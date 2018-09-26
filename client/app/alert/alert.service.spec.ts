@@ -35,4 +35,14 @@ describe('AlertService', () => {
       });
     }
   ));
+  test('should run the clear method', inject(
+    [AlertService],
+    (service: AlertService) => {
+      service.error('error');
+      service.clear();
+      service.getMessage().subscribe((message) => {
+        expect(message).toBeFalsy();
+      });
+    }
+  ));
 });
