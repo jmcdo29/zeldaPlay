@@ -25,6 +25,6 @@ export class UserService {
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
+    sessionStorage.removeItem('currentUser');
   }
 }

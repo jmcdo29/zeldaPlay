@@ -48,8 +48,9 @@ export class CharactersComponent implements OnInit {
   ) {}
 
   getCharacters(): void {
+    console.log(this.loggedIn);
     this.loading = true;
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = sessionStorage.getItem('currentUser');
     if (currentUser && currentUser !== 'undefined') {
       this.characterService
         .getUserCharacters(currentUser)
@@ -71,7 +72,7 @@ export class CharactersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loggedIn = localStorage.getItem('currentUser') ? true : false;
+    this.loggedIn = sessionStorage.getItem('currentUser') ? true : false;
     this.getCharacters();
     if (this.characters.length === 0) {
       this.characters = [];
@@ -159,6 +160,7 @@ export class CharactersComponent implements OnInit {
           }
         }
       });
+    this.alertService.clear();
   }
 }
 

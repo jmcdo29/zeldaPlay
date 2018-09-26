@@ -39,20 +39,22 @@ export async function getOne(id: string): Promise<Character> {
   if (!character) {
     throw new DatabaseError('No character found', 'NO_CHAR');
   }
-  scribe('DEBUG', "Getting the character's skills.");
+  scribe('DEBUG', character.id);
+  scribe('DEBUG', 'Getting the character  skills.');
   character.skills = await character.$relatedQuery('skills').orderBy('name');
-  scribe('DEBUG', "Getting the character's weapons.");
+  scribe('DEBUG', 'Getting the character weapons.');
   character.weapons = await character
     .$relatedQuery('weapons')
     .eager('element')
     .orderBy('name');
-  scribe('DEBUG', "Getting the character's spells.");
+  scribe('DEBUG', 'Getting the character spells.');
   character.spells = await character.$relatedQuery('spells').orderBy('diety');
-  scribe('DEBUG', "Getting the character's saves.");
+  scribe('DEBUG', 'Getting the character saves.');
   character.saves = await character.$relatedQuery('saves').orderBy('name');
-  scribe('DEBUG', "Getting the character's notes.");
+  scribe('DEBUG', 'Getting the character notes.');
   character.notes = await character.$relatedQuery('notes').orderBy('time');
   scribe('INFO', 'Returning single character.');
+  scribe('DEBUG', character);
   return character;
 }
 
@@ -134,11 +136,11 @@ export async function updateOne(
 export async function getUserCharacters(
   userId: string
 ): Promise<Array<Partial<Character>>> {
-  scribe("Getting user's characters.");
+  scribe('Getting user characters.');
   if (!userId.startsWith('00U') || userId.length !== 12) {
     throw new DatabaseError('Bad user id.', 'BAD_USER');
   }
-  scribe("Returning the user's characters.");
+  scribe('Returning the user characters.');
   return Character.query()
     .select('id', 'race', 'name')
     .where({ user_id: userId });

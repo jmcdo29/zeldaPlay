@@ -26,6 +26,9 @@ import { CharacterCreateComponent } from './character-create.component';
 const alertServiceStub: Partial<AlertService> = {
   error(message) {
     return message;
+  },
+  clear(): void {
+    return;
   }
 };
 const messageServiceStub: Partial<MessageService> = {
@@ -549,7 +552,7 @@ describe('CharacterCreateComponent', () => {
     describe('saving while logged in', () => {
       test('it should fully save the character and set all ids', () => {
         component.newCharacter = myChar;
-        localStorage.setItem('currentUser', '00UjYh3bYs92');
+        sessionStorage.setItem('currentUser', '00UjYh3bYs92');
         component.CharacterParent = new CharactersComponent(
           characterServiceStub as CharacterService,
           alertServiceStub as AlertService
@@ -571,7 +574,7 @@ describe('CharacterCreateComponent', () => {
           characterServiceStub as CharacterService,
           alertServiceStub as AlertService
         );
-        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('currentUser');
         component.save();
         expect(component.CharacterParent.characters.length).toBe(1);
         expect(component.error).toBe(false);

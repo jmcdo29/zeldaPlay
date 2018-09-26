@@ -268,7 +268,7 @@ describe('CharacterService', () => {
     test('success', () => {
       const myChar = new Character();
       const userId = '00U82jsyMncI';
-      localStorage.setItem('currentUser', userId);
+      sessionStorage.setItem('currentUser', userId);
       characterService.saveCharDb(myChar).subscribe();
 
       const saveCharacter = backend.expectOne(

@@ -33,6 +33,9 @@ const alertServiceStub: Partial<AlertService> = {
   getMessage(): any {},
   success(message: string): void {
     return;
+  },
+  clear(): void {
+    return;
   }
 };
 
@@ -109,7 +112,7 @@ describe('CharactersComponent', () => {
     });
     describe('ops with user logged in', () => {
       beforeEach(() => {
-        localStorage.setItem('currentUser', ';ajsdf');
+        sessionStorage.setItem('currentUser', ';ajsdf');
         component.selectedCharacter = myChar;
       });
       test('getCharacter', () => {
@@ -126,12 +129,12 @@ describe('CharactersComponent', () => {
         spyOn(characterService, 'getCharacters').and.returnValues(
           of([characterReturn])
         );
-        localStorage.setItem('currentUser', 'undefined');
+        sessionStorage.setItem('currentUser', 'undefined');
         component.getCharacters();
       });
       test('getCharacters undefined user 0 return', () => {
         spyOn(characterService, 'getCharacters').and.returnValues(of([]));
-        localStorage.setItem('currentUser', 'undefined');
+        sessionStorage.setItem('currentUser', 'undefined');
         component.getCharacters();
       });
       test('return an empty array', () => {});

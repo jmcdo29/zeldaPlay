@@ -10,7 +10,8 @@ export function verifyMiddleware(
 ) {
   try {
     scribe('INFO', 'Verifying the token.');
-    verifyToken(req.headers.authorization, {
+    scribe('DEBUG', req.headers.authorization);
+    verifyToken(req.headers.authorization.split(' ')[1], {
       id: req.params.userId,
       url: req.hostname
     });

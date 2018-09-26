@@ -31,7 +31,7 @@ describe('#UserService', () => {
     const expectedReturn = '00Uuejo58sG2';
     let actualReturn: string;
     service.login('test', 'testing').subscribe((id) => {
-      localStorage.setItem('currentUser', id);
+      sessionStorage.setItem('currentUser', id);
       actualReturn = id;
     });
 
@@ -39,15 +39,15 @@ describe('#UserService', () => {
     expect(getUserLogin.request.url).toBe(`${environment.apiUrl}/users/login`);
     getUserLogin.flush('00Uuejo58sG2');
     expect(actualReturn).toBe(expectedReturn);
-    expect(localStorage.getItem('currentUser')).toBeTruthy();
-    expect(localStorage.getItem('currentUser')).toBe(expectedReturn);
+    expect(sessionStorage.getItem('currentUser')).toBeTruthy();
+    expect(sessionStorage.getItem('currentUser')).toBe(expectedReturn);
   });
 
   test('should allow a user to register', () => {
     const expectedReturn = '00Uuejo58sG2';
     let actualReturn: string;
     service.register('test', 'testing', 'testing').subscribe((id) => {
-      localStorage.setItem('currentUser', id);
+      sessionStorage.setItem('currentUser', id);
       actualReturn = id;
     });
 
@@ -57,13 +57,13 @@ describe('#UserService', () => {
     expect(getUserLogin.request.url).toBe(`${environment.apiUrl}/users/signup`);
     getUserLogin.flush('00Uuejo58sG2');
     expect(actualReturn).toBe(expectedReturn);
-    expect(localStorage.getItem('currentUser')).toBeTruthy();
-    expect(localStorage.getItem('currentUser')).toBe(expectedReturn);
+    expect(sessionStorage.getItem('currentUser')).toBeTruthy();
+    expect(sessionStorage.getItem('currentUser')).toBe(expectedReturn);
   });
 
-  test('should remove a user from localStorage', () => {
+  test('should remove a user from sessionStorage', () => {
     service.logout();
-    expect(localStorage.getItem('currentUser')).toBeFalsy();
+    expect(sessionStorage.getItem('currentUser')).toBeFalsy();
   });
 
   afterEach(inject(
