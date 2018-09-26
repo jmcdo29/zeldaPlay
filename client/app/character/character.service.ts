@@ -52,7 +52,11 @@ export class CharacterService {
 
   getUserCharacters(userId): Observable<Character[]> {
     return this.httpClient
-      .get<any[]>(this.characterUrl + '/user/' + userId)
+      .get<any[]>(this.characterUrl + '/user/' + userId, {
+        headers: {
+          authorization: 'Bearer ' + sessionStorage.getItem('userToken')
+        }
+      })
       .pipe(
         map((ch) => {
           const characters = [];
@@ -91,9 +95,17 @@ export class CharacterService {
   }
 
   saveCharDb(character: Character): Observable<any> {
-    const userId = localStorage.getItem('currentUser');
-    return this.httpClient.post<any>(this.characterUrl + `/${userId}`, {
-      character
-    });
+    const userId = sessionStorage.getItem('currentUser');
+    return this.httpClient.post<any>(
+      this.characterUrl + `/${userId}`,
+      {
+        character
+      },
+      {
+        headers: {
+          authorization: 'Bearer ' + sessionStorage.getItem('userToken')
+        }
+      }
+    );
   }
 }

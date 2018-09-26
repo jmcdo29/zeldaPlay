@@ -3,7 +3,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AlertService } from '../../alert/alert.service';
 import { MessageService } from '../../shared/messages/message.service';
 import { CharacterService } from '../character.service';
-import { Attribute } from '../characterModels/attribute';
 import { Character } from '../characterModels/character';
 import { Attributes } from '../characterModels/enums/attributes.enum';
 import { Magics } from '../characterModels/enums/magic-skills.enum';
@@ -122,7 +121,7 @@ export class CharacterCreateComponent implements OnInit {
       this.error = true;
     }
     if (!this.error) {
-      if (localStorage.getItem('currentUser')) {
+      if (sessionStorage.getItem('currentUser')) {
         // save character to database
         this.characterService
           .saveCharDb(this.newCharacter)
@@ -183,6 +182,7 @@ export class CharacterCreateComponent implements OnInit {
               }
             }
           });
+        this.alertService.clear();
       } else {
         this.alertService.error(
           'You must be logged in to save your character for re-use.'

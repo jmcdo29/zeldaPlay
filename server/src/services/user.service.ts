@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcryptjs';
+import { consoleLogger as scribe } from 'mc-scribe';
 
 import { User } from '../db/models/user_schema';
 import { LoginError } from '../utils/errors/LoginError';
@@ -15,6 +16,7 @@ export async function login(
   username: string,
   password: string
 ): Promise<Partial<User>> {
+  scribe('INFO', 'Logging the user in.');
   const user = await User.query()
     .findOne({ email: username })
     .select('id', 'password');
@@ -28,6 +30,7 @@ export async function login(
       'INCORRECT_PASSWORD'
     );
   } else {
+    scribe('User is logged in.');
     return user;
   }
 }
@@ -46,6 +49,7 @@ export async function signUp(
   password: string,
   confPassword: string
 ): Promise<Partial<User>> {
+  scribe('INFO', 'Registering a new user.');
   verifyPassword(password, confPassword);
   const user = await User.query().where({ email: username });
   if (user.length !== 0) {
@@ -60,6 +64,7 @@ export async function signUp(
         password: bcrypt.hashSync(password, 12)
       })
       .returning('*');
+    scribe('INFO', 'New user registered.');
     return newUser;
   }
 }

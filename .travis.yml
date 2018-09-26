@@ -6,7 +6,7 @@ cache:
   - "$HOME/.npm"
   - node_modules
 before_install:
-- pip install --user codecov
+- npm install codecov -g
 - '[[ $(node -v) =~ ^v9.*$ ]] || npm install -g npm@latest' # skipped when using node 9
 - npm install -g greenkeeper-lockfile
 install: npm install

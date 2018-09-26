@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AlertService } from '../alert/alert.service';
 import { CharacterService } from './character.service';
@@ -33,25 +33,8 @@ const alertServiceStub: Partial<AlertService> = {
   getMessage(): any {},
   success(message: string): void {
     return;
-  }
-};
-
-const characterServiceStub: Partial<CharacterService> = {
-  saveCharDb(sampleChar: Character): Observable<any> {
-    return of(characterReturn);
   },
-  getUserCharacters(userId: string): Observable<Character[]> {
-    const char = new Character();
-    char.setId('the id');
-    return of([char]);
-  },
-  getCharacter(id: string): Observable<any> {
-    return of(characterReturn);
-  },
-  getCharacters(): Observable<Character[]> {
-    return of([new Character(), new Character(), new Character()]);
-  },
-  saveCharCopy(selected: Character): void {
+  clear(): void {
     return;
   }
 };
@@ -59,6 +42,7 @@ const characterServiceStub: Partial<CharacterService> = {
 describe('CharactersComponent', () => {
   let component: CharactersComponent;
   let fixture: ComponentFixture<CharactersComponent>;
+  let characterService: CharacterService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -71,7 +55,7 @@ describe('CharactersComponent', () => {
       ],
       providers: [
         { provide: AlertService, useValue: alertServiceStub },
-        { provide: CharacterService, useValue: characterServiceStub }
+        CharacterService
       ]
     }).compileComponents();
   }));
@@ -79,6 +63,7 @@ describe('CharactersComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CharactersComponent);
     component = fixture.componentInstance;
+    characterService = TestBed.get(CharacterService);
     fixture.detectChanges();
   });
 
@@ -102,10 +87,10 @@ describe('CharactersComponent', () => {
     });
   });
   describe('async ops', () => {
-    beforeEach(() => {
-      jest.setTimeout(10000);
-    });
     test('download', () => {
+      spyOn(characterService, 'saveCharCopy').and.callFake(() =>
+        console.log('Calling fake!')
+      );
       component.selectedCharacter = new Character();
       component.download();
     });
@@ -115,25 +100,50 @@ describe('CharactersComponent', () => {
     test('onSelect with id', () => {
       const myNewChar = new Character();
       myNewChar.setId('asdjf');
+      spyOn(characterService, 'getCharacter').and.returnValue(of(myNewChar));
       component.onSelect(myNewChar);
     });
     test('save', () => {
       component.selectedCharacter = myChar;
+      spyOn(characterService, 'saveCharDb').and.returnValue(
+        of(characterReturn)
+      );
       component.save();
     });
     describe('ops with user logged in', () => {
       beforeEach(() => {
-        localStorage.setItem('currentUser', ';ajsdf');
+        sessionStorage.setItem('currentUser', ';ajsdf');
         component.selectedCharacter = myChar;
       });
       test('getCharacter', () => {
+        spyOn(characterService, 'getUserCharacters').and.returnValues(
+          of([characterReturn])
+        );
+        component.getCharacters();
+      });
+      test('getCharacters with 0 return', () => {
+        spyOn(characterService, 'getUserCharacters').and.returnValues(of([]));
         component.getCharacters();
       });
       test('getCharacters undefined user', () => {
-        localStorage.setItem('currentUser', 'undefined');
+        spyOn(characterService, 'getCharacters').and.returnValues(
+          of([characterReturn])
+        );
+        sessionStorage.setItem('currentUser', 'undefined');
+        component.getCharacters();
+      });
+      test('getCharacters undefined user 0 return', () => {
+        spyOn(characterService, 'getCharacters').and.returnValues(of([]));
+        sessionStorage.setItem('currentUser', 'undefined');
         component.getCharacters();
       });
       test('return an empty array', () => {});
     });
+  });
+
+  test('init with chars', () => {
+    component.characters = [myChar];
+    fixture.detectChanges();
+    component.ngOnInit();
   });
 });
