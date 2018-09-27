@@ -458,16 +458,20 @@
       "useDiety": false
     }
   ],
-  "notes": [{
-    "important": false,
-    "msg": "This is a note",
-    "time": "2018-08-15T19:56:49Z"
-  }],
-  "importantNotes": [{
-    "important": true,
-    "msg": "This is a note",
-    "time": "2018-08-15T19:56:49Z"
-  }],
+  "notes": [
+    {
+      "important": false,
+      "msg": "This is a note",
+      "time": "2018-08-15T19:56:49Z"
+    }
+  ],
+  "importantNotes": [
+    {
+      "important": true,
+      "msg": "This is a note",
+      "time": "2018-08-15T19:56:49Z"
+    }
+  ],
   "inventory": [],
   "savingThrows": [
     { "racial": 0, "name": "Fortitude", "modifier": "Constitution" },

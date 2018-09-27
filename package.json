@@ -30,12 +30,10 @@
     "test:ci": "snyk test && jest --runInBand",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": "prettier --config .prettierrc.json --write \"**/*.ts\"",
+    "prettier": "prettier --config .prettierrc.json --write \"**/*.{ts,css,scss}\"",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
-    "@abraham/reflection": "^0.4.2",
-    "angular-in-memory-web-api": "^0.6.1",
     "bcryptjs": "^2.4.3",
     "connect-redis": "^3.3.3",
     "cors": "^2.8.4",
@@ -56,6 +54,7 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
+    "@abraham/reflection": "^0.4.2",
     "@angular-devkit/build-angular": "^0.8.3",
     "@angular/animations": "^6.1.8",
     "@angular/cli": "^6.2.3",
