@@ -8,7 +8,7 @@ import { Skills } from '../characterModels/enums/skills.enum';
 @Component({
   selector: 'app-character-skills',
   templateUrl: './character-skills.component.html',
-  styleUrls: ['./character-skills.component.css']
+  styleUrls: ['./character-skills.component.scss']
 })
 export class CharacterSkillsComponent implements OnInit {
   @Input()

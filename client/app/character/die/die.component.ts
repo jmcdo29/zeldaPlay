@@ -6,7 +6,7 @@ import { Attributes } from '../characterModels/enums/attributes.enum';
 @Component({
   selector: 'app-die',
   templateUrl: './die.component.html',
-  styleUrls: ['./die.component.css']
+  styleUrls: ['./die.component.scss']
 })
 export class DieComponent implements OnInit {
   @Input()

@@ -9,7 +9,7 @@ import { Saves } from '../characterModels/enums/saves.enum';
 @Component({
   selector: 'app-character-saves',
   templateUrl: './character-saves.component.html',
-  styleUrls: ['./character-saves.component.css']
+  styleUrls: ['./character-saves.component.scss']
 })
 export class CharacterSavesComponent implements OnInit, OnChanges {
   @Input()

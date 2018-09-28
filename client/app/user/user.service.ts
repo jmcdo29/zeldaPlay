@@ -26,5 +26,6 @@ export class UserService {
 
   logout() {
     sessionStorage.removeItem('currentUser');
+    sessionStorage.removeItem('userToken');
   }
 }

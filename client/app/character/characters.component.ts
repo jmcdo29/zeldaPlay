@@ -9,7 +9,7 @@ import { Weapons } from './characterModels/enums/weapon-skills.enum';
 @Component({
   selector: 'app-characters',
   templateUrl: './characters.component.html',
-  styleUrls: ['./characters.component.css']
+  styleUrls: ['./characters.component.scss']
 })
 export class CharactersComponent implements OnInit {
   characters: Character[] = [];

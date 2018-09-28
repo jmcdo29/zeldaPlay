@@ -7,7 +7,7 @@ import { Note } from '../characterModels/note';
 @Component({
   selector: 'app-character-notes',
   templateUrl: './character-notes.component.html',
-  styleUrls: ['./character-notes.component.css']
+  styleUrls: ['./character-notes.component.scss']
 })
 export class CharacterNotesComponent implements OnInit {
   @Input()

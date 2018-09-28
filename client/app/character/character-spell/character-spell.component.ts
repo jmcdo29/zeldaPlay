@@ -11,7 +11,7 @@ import { Spell } from '../characterModels/spells';
 @Component({
   selector: 'app-character-spell',
   templateUrl: './character-spell.component.html',
-  styleUrls: ['./character-spell.component.css']
+  styleUrls: ['./character-spell.component.scss']
 })
 export class CharacterSpellComponent implements OnInit {
   @Input()
