@@ -3,6 +3,26 @@ import { consoleLogger as scribe } from 'mc-scribe';
 
 import { verifyToken } from '../utils/jwt';
 
+export function verifyUserLoggedIn(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  scribe(
+    'INFO',
+    'Session',
+    req.session,
+    'Session.user',
+    req.session.user,
+    'Session[user]',
+    req.session['user']
+  );
+  if (req.session['user']) {
+    next();
+  }
+  next(new Error('User not logged in.'));
+}
+
 export function verifyMiddleware(
   req: Request,
   res: Response,

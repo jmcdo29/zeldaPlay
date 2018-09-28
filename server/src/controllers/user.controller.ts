@@ -1,5 +1,7 @@
 import { Express, NextFunction, Request, Response, Router } from 'express';
+import { consoleLogger as scribe } from 'mc-scribe';
 
+import { User } from '../db/models/user_schema';
 import {
   login as getUser,
   signUp as createUser
@@ -30,6 +32,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
       id: user.id,
       url: req.hostname
     });
+    serializeUser(req, user);
     res.status(200).send({ token: jwt, id: user.id });
   } catch (err) {
     if (!(err instanceof LoginError)) {
@@ -58,6 +61,7 @@ async function signup(req: Request, res: Response, next: NextFunction) {
       id: user.id,
       url: req.hostname
     });
+    serializeUser(req, user);
     res.status(200).send({ token: jwt, id: user.id });
   } catch (err) {
     if (!(err instanceof LoginError)) {
@@ -67,4 +71,11 @@ async function signup(req: Request, res: Response, next: NextFunction) {
     }
     next(err);
   }
+}
+
+function serializeUser(req: Request, user: Partial<User>): void {
+  scribe('INFO', 'adding user to req.session');
+  req.session['user'] = user.id;
+  scribe('INFO', 'Session', req.session, 'Session[user]', req.session['user']);
+  return;
 }

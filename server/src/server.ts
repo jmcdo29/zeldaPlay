@@ -4,6 +4,7 @@ import * as cors from 'cors';
 import * as express from 'express';
 import * as flash from 'express-flash';
 import * as helmet from 'helmet';
+import { consoleLogger as scribe } from 'mc-scribe';
 import * as morgan from 'morgan';
 import * as path from 'path';
 
@@ -36,6 +37,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(mySession);
 app.use(flash());
+
+app.all('*', (req, res, next) => {
+  scribe('INFO', req.session);
+  scribe('INFO', req.sessionID);
+  next(); // pass control to the next handler
+});
 
 app.use(express.static(path.join(__dirname, '../client/')));
 

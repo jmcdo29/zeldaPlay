@@ -16,8 +16,13 @@
             "main": "client/main.ts",
             "tsConfig": "client/tsconfig.app.json",
             "polyfills": "client/polyfills.ts",
-            "assets": ["client/assets", "client/favicon.ico"],
-            "styles": ["client/styles.css"],
+            "assets": [
+              "client/assets",
+              "client/favicon.ico"
+            ],
+            "styles": [
+              "client/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -65,7 +70,9 @@
               "client/tsconfig.spec.json",
               "server/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -75,7 +82,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "styleext": "css"
+      "styleext": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "app"

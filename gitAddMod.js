@@ -16,7 +16,7 @@ exec('git diff --cached --name-status', (error, stdout, stderr) => {
   for (const file of filesToUpdate) {
     if (
       file &&
-      (!file.split('\t')[0].includes('D') && !file.split('\t')[0].includes('U'))
+      (!file.split('\t')[0].includes('D') && !file.split('\t')[0].includes('U') && !file.split('\t')[0].includes('R'))
     ) {
       updateString += file.split('\t')[1].trim() + ' ';
     }

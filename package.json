@@ -21,7 +21,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "devStart": "npm run prettier && npm run build-server && npm run start",
+    "devStart": "npm run build-server && npm run start",
     "start": "node dist/server/bin/www.js",
     "build": "npm run prettier && npm run build-client && npm run build-server",
     "build-client": "ng build --prod",
