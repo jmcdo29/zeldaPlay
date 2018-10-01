@@ -30,19 +30,21 @@ const morganFormat = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 
 const app = express();
 
+const corsOptions: cors.CorsOptions = {
+  origin: [
+    'http://localhost:4200',
+    'http://localhost:4000',
+    'https://zeldaplay/herokuapp.com'
+  ]
+};
+
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan(morganFormat));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(mySession);
 app.use(flash());
-
-app.all('*', (req, res, next) => {
-  scribe('INFO', req.session);
-  scribe('INFO', req.sessionID);
-  next(); // pass control to the next handler
-});
 
 app.use(express.static(path.join(__dirname, '../client/')));
 

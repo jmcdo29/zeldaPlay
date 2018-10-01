@@ -1,0 +1,9 @@
+{
+  "watch": "server/",
+  "ignore": ["*.spec.ts", ".git", "node_modules/**"],
+  "execMap": {
+    "ts": "tsc -p ./server && node dist/server/bin/www.js"
+  },
+  "exec": "tsc -p ./server && node dist/server/bin/www.js",
+  "ext": "ts"
+}
