@@ -1,4 +1,4 @@
-.jumbo{
+.jumbo {
   align-content: center;
   width: 60%;
   margin-right: 20%;
@@ -6,7 +6,7 @@
   margin-top: 2em;
 }
 
-h2.no-padding{
+h2.no-padding {
   margin: 0;
   padding: 0;
 }
@@ -37,7 +37,7 @@ h2.no-padding{
   float: left;
 }
 
-.cell.input .user{
+.cell.input .user {
   border-radius: 1em;
   padding: 0.5em 1em;
 }
@@ -46,21 +46,22 @@ h2.no-padding{
   width: 100%;
 }
 
-@media (max-width: 900px){
-  .cell.input, .cell.label{
+@media (max-width: 900px) {
+  .cell.input,
+  .cell.label {
     width: 100%;
   }
-  .cell.label{
+  .cell.label {
     font-size: 150%;
   }
-  .jumbo{
+  .jumbo {
     align-content: center;
     width: 80%;
     margin-right: 10%;
     margin-left: 10%;
     margin-top: 2em;
   }
-  .custTable{
+  .custTable {
     width: 80%;
   }
 }

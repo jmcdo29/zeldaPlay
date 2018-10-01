@@ -1,30 +1,29 @@
-
-input.skill{
+input.skill {
   width: 8em;
 }
 
-.crit{
+.crit {
   color: gold;
 }
-.critmiss{
-  color:red;
+.critmiss {
+  color: red;
 }
-.maxDmg{
+.maxDmg {
   color: #00aa00;
 }
-button.square{
+button.square {
   height: 3em;
   width: 3em;
 }
-.right{
+.right {
   margin-left: 83%;
-  margin-bottom: .5em;
-  margin-top: .5em;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
 }
-.body-head{
-  margin: 1em .2em;
+.body-head {
+  margin: 1em 0.2em;
 }
-.menuBar{
+.menuBar {
   color: black;
   float: left;
   width: calc(100% / 5);
@@ -35,27 +34,27 @@ button.square{
   margin-bottom: 1em;
   /* height: 3.5em; */
 }
-h4.menu{
+h4.menu {
   padding: 0.5em 1em;
   margin: 0;
 }
-.menuBar:hover{
+.menuBar:hover {
   background-color: #229e22;
 }
-.menuBar.active{
+.menuBar.active {
   background-color: #229e22;
 }
-@media(max-width: 900px){
-  .right{
+@media (max-width: 900px) {
+  .right {
     margin-left: 50%;
   }
-  .menuBar{
+  .menuBar {
     line-height: 3;
     width: 100%;
     float: left;
     margin-bottom: 0.125em;
   }
-  .menu{
+  .menu {
     padding-left: 1em;
     padding-right: 1em;
     text-align: center;

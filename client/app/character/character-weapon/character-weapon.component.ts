@@ -13,7 +13,7 @@ import { Weapon } from '../characterModels/weapons/weapon';
 @Component({
   selector: 'app-character-weapon',
   templateUrl: './character-weapon.component.html',
-  styleUrls: ['./character-weapon.component.css']
+  styleUrls: ['./character-weapon.component.scss']
 })
 export class CharacterWeaponComponent implements OnInit {
   @Input()

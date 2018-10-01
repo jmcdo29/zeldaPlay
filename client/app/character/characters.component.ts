@@ -9,7 +9,7 @@ import { Weapons } from './characterModels/enums/weapon-skills.enum';
 @Component({
   selector: 'app-characters',
   templateUrl: './characters.component.html',
-  styleUrls: ['./characters.component.css']
+  styleUrls: ['./characters.component.scss']
 })
 export class CharactersComponent implements OnInit {
   characters: Character[] = [];
@@ -57,7 +57,7 @@ export class CharactersComponent implements OnInit {
         .subscribe((characters) => {
           this.characters = characters;
           this.loading = false;
-          if (this.characters.length === 0) {
+          if (characters.length === 0) {
             this.alertService.success(
               'You have no characters. Create one using the button below!'
             );

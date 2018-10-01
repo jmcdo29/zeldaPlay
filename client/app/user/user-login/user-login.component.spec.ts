@@ -11,6 +11,9 @@ import { UserLoginComponent } from './user-login.component';
 const alertServiceStub: Partial<AlertService> = {
   error(message) {
     return message;
+  },
+  clear() {
+    return;
   }
 };
 

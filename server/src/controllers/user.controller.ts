@@ -1,5 +1,7 @@
 import { Express, NextFunction, Request, Response, Router } from 'express';
+import { consoleLogger as scribe } from 'mc-scribe';
 
+import { User } from '../db/models/user_schema';
 import {
   login as getUser,
   signUp as createUser
@@ -12,6 +14,7 @@ const router = Router();
 
 router.post('/login', login);
 router.post('/signup', signup);
+router.post('/logout', logout);
 
 export function UserRouter(app: Express, path: string) {
   app.use(path, router);
@@ -30,6 +33,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
       id: user.id,
       url: req.hostname
     });
+    serializeUser(req, user);
     res.status(200).send({ token: jwt, id: user.id });
   } catch (err) {
     if (!(err instanceof LoginError)) {
@@ -58,6 +62,7 @@ async function signup(req: Request, res: Response, next: NextFunction) {
       id: user.id,
       url: req.hostname
     });
+    serializeUser(req, user);
     res.status(200).send({ token: jwt, id: user.id });
   } catch (err) {
     if (!(err instanceof LoginError)) {
@@ -67,4 +72,32 @@ async function signup(req: Request, res: Response, next: NextFunction) {
     }
     next(err);
   }
+}
+
+async function logout(req: Request, res: Response, next: NextFunction) {
+  scribe('DEBUG', 'logging out');
+  scribe(
+    'DEBUG',
+    'headers[cookie]',
+    req.headers['cookie'],
+    'session',
+    req.session
+  );
+  req.session.destroy(() => {});
+  scribe('DEBUG', 'logged out');
+  scribe(
+    'DEBUG',
+    'headers[cookie]',
+    req.headers['cookie'],
+    'session',
+    req.session
+  );
+  res.status(200);
+  next();
+}
+
+function serializeUser(req: Request, user: Partial<User>): void {
+  req.session['user'] = user.id;
+  scribe('DEBUG', 'session', req.session);
+  scribe('DEBUG', 'sessionID', req.session.id);
 }

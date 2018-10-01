@@ -1,6 +1,6 @@
 /* charactersComponent's private CSS styles */
 .selected {
-  background-color: #CFD8DC !important;
+  background-color: #cfd8dc !important;
   color: darkslategray;
 }
 .characters {
@@ -14,20 +14,20 @@
   position: relative;
   left: 0;
   width: 60%;
-  background-color: #EEE;
-  margin: .5em;
-  padding: .3em 0;
+  background-color: #eee;
+  margin: 0.5em;
+  padding: 0.3em 0;
   height: 1.6em;
   border-radius: 4px;
 }
 .characters li.selected:hover {
-  background-color: #BBD8DC !important;
+  background-color: #bbd8dc !important;
   color: darkslategray;
 }
 .characters li:hover {
-  color: #607D8B;
-  background-color: #DDD;
-  left: .1em;
+  color: #607d8b;
+  background-color: #ddd;
+  left: 0.1em;
 }
 .characters .text {
   display: inline-block;
@@ -40,25 +40,25 @@
   font-size: small;
   color: white;
   padding: 0.8em 0.7em 0 0.7em;
-  background-color: #607D8B;
+  background-color: #607d8b;
   line-height: 1em;
   position: relative;
   left: -1px;
   top: -4px;
   height: 1.8em;
-  margin-right: .8em;
+  margin-right: 0.8em;
   border-radius: 4px 0 0 4px;
 }
-.character-column{
+.character-column {
   width: 25%;
   float: left;
 }
-.details-column{
+.details-column {
   width: 75%;
   float: left;
 }
-.accordian{
-  background: #EEE;
+.accordian {
+  background: #eee;
   color: #444444;
   cursor: pointer;
   width: 100%;
@@ -67,32 +67,30 @@
   outline: none;
   transition: 0.4s;
 }
-.characters{
+.characters {
   height: 50%;
   width: 100%;
 }
-.messages{
+.messages {
   height: 50%;
   width: 100%;
   margin-bottom: 1em;
 }
 
-
-
-@media (max-width: 900px){
-  .character-column{
-    width:50%;
+@media (max-width: 900px) {
+  .character-column {
+    width: 50%;
   }
-  .details-column{
+  .details-column {
     width: 50%;
   }
 }
 
-@media (max-width: 600px){
-  .character-column{
+@media (max-width: 600px) {
+  .character-column {
     width: 100%;
   }
-  .details-column{
+  .details-column {
     width: 100%;
   }
 }

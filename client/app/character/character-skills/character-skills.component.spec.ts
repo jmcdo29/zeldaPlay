@@ -77,9 +77,6 @@ describe('CharacterSkillsComponent', () => {
     test('should make a check for untrained Acrobatics', () => {
       component.character.getSkills()[0].setTrained(false);
       component.character.getAttributes()[1].setValue(10);
-      component.skill = 'Acrobatics';
-      component.checkVal = 0;
-      fixture.detectChanges();
       component.makeCheck('Acrobatics');
     });
   });

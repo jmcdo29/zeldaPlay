@@ -4,13 +4,13 @@
 [![Build Status](https://travis-ci.org/jmcdo29/zeldaPlay.svg?branch=master)](https://travis-ci.org/jmcdo29/zeldaPlay)
 [![codecov](https://codecov.io/gh/jmcdo29/zeldaPlay/branch/master/graph/badge.svg)](https://codecov.io/gh/jmcdo29/zeldaPlay)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
-[![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json) [![Greenkeeper badge](https://badges.greenkeeper.io/jmcdo29/zeldaPlay.svg)](https://greenkeeper.io/)
+[![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json)
 
-***
+---
 
 For current QA test cases and future developments you can check out the [Trello Board here](https://trello.com/b/LDBn0ygB).
 
-***
+---
 
 A web application in progress for a home brew D20 character tracker. Built in Angular 2+ and Node.js and hosted on Heroku in separate instances
 
@@ -20,44 +20,44 @@ In the end, this application will be able to help track your character, make bas
 
 ### General
 
-* Name
-* Race
-* Subrace
-* Size
-* Level
+- Name
+- Race
+- Subrace
+- Size
+- Level
 
 ### Attribute
 
-* Strength
-* Dexterity
-* Constitution
-* Intelligence
-* Wisdom
-* Charisma
-* Health Points
-* Magic Points
-* Experience
+- Strength
+- Dexterity
+- Constitution
+- Intelligence
+- Wisdom
+- Charisma
+- Health Points
+- Magic Points
+- Experience
 
 ### Adventure Related
 
-* Notes
-* Magic Skills
-* Skills
-* Weapon Skills
-* Spells
-* Weapons
-* Saving Throws
-* Custom Crafts and Professions
+- Notes
+- Magic Skills
+- Skills
+- Weapon Skills
+- Spells
+- Weapons
+- Saving Throws
+- Custom Crafts and Professions
 
 ### To Be Added
 
-* Inventory
-* Armor
-* AC
-* Flat-Footed AC
-* Touch AC
+- Inventory
+- Armor
+- AC
+- Flat-Footed AC
+- Touch AC
 
-***
+---
 
 ## Race Guide
 
@@ -89,7 +89,7 @@ The scaled swimmers of Hyrule. The aquatic humanoids are the most graceful of al
 
 Rogue/Assassin
 
-They are spoken of only in legends about the Royal Family. No one really knows when the Sheikah came into existence, only that they have been the guardians of the Royal Family, and it is thought that they had been given instruction from the Goddess Hylia herself. Naturally, the Sheikah are never seen, and when one makes an appearance it is a rather great deal. Being masters in all arts of stealth and stealth combat, the Sheikah are one of the deadliest races, and if an enemy is to see a Sheikah, they know their life is about to end. Rumors have it that all Sheikah are known to have white hair, red eyes, and tattoos of their clan's symbol around one of their eyes. In combat, it is said that the Sheikah are deadly quick, throwing daggers within seconds with pin*point accuracy, or spearing their enemies with a naginata without a second thought. They are cold blooded killers of very few words, but when they speak, it would be wise to listen to what they have to say.
+They are spoken of only in legends about the Royal Family. No one really knows when the Sheikah came into existence, only that they have been the guardians of the Royal Family, and it is thought that they had been given instruction from the Goddess Hylia herself. Naturally, the Sheikah are never seen, and when one makes an appearance it is a rather great deal. Being masters in all arts of stealth and stealth combat, the Sheikah are one of the deadliest races, and if an enemy is to see a Sheikah, they know their life is about to end. Rumors have it that all Sheikah are known to have white hair, red eyes, and tattoos of their clan's symbol around one of their eyes. In combat, it is said that the Sheikah are deadly quick, throwing daggers within seconds with pin\*point accuracy, or spearing their enemies with a naginata without a second thought. They are cold blooded killers of very few words, but when they speak, it would be wise to listen to what they have to say.
 
 ### Rito
 
@@ -107,7 +107,7 @@ The all female race of Hyrule. The cut throat, don't get in my way, headstrong w
 
 Ranger (Dual Wielder)
 
-The unknown race of Hyrule. These shadow dwellers live in a realm dimension than every other race of Hyrule. The Twili are beings of old who longed for a cursed power, and in obtaining that power, cursed their entire race to an existence on the brink, neither in light nor darkness. What is known of the Twili is that only the very powerful are able to create a connection to the natural realm of Hyrule by using the Mirror of Twilight. In doing so, they are able to traverse between the two realms and make contact with Hylians and other races. The few Twili that have been seen have pale blue*grey skin, sunset colored hair, and red, orange, or yellow eyes. Twili are also known to have shadowy black covering that somewhat resemble Hylian clothes. In battle the Twili have been noted to dual wield swords, or to summon other creatures of twilight to assist them in battle.
+The unknown race of Hyrule. These shadow dwellers live in a realm dimension than every other race of Hyrule. The Twili are beings of old who longed for a cursed power, and in obtaining that power, cursed their entire race to an existence on the brink, neither in light nor darkness. What is known of the Twili is that only the very powerful are able to create a connection to the natural realm of Hyrule by using the Mirror of Twilight. In doing so, they are able to traverse between the two realms and make contact with Hylians and other races. The few Twili that have been seen have pale blue\*grey skin, sunset colored hair, and red, orange, or yellow eyes. Twili are also known to have shadowy black covering that somewhat resemble Hylian clothes. In battle the Twili have been noted to dual wield swords, or to summon other creatures of twilight to assist them in battle.
 
 ### Fairy
 
@@ -115,7 +115,7 @@ Mage (Wizard/Battle Mage, Healer/Cleric, Synergist/Saboteur depending on choice)
 
 The smallest and second largest creatures of Hyrule. Fairies are known to be found all across Hyrule; however, most of the fairies found are of the common variety, small glowing orbs of light with wings. Humanoid fairies, however, are small chunks of a Great Fairy's power that has split off from the Great Fairy herself. These fairies are Great Fairies in training, working on growing their powers to one day become a Great Fairy themselves. It's hard to say what motivates a fairy, as it ranges from a thirst for power to defend itself and the ones it loves to wanting to do good for the world. The one thing that is for sure is that an adventurer can get a general idea of a fairy's motives based on its color, as the fairy's aura will likely align with the Great Fairy it spawned from. Those resonating a red hue will likely be following the path of Din, the Goddess of Power. The fairies that glow a vibrant green or gold tend to align to the path of Farore, the Goddess of Courage, giving adventurers the strength to move forward when times look bleak. Finally, the faries that pulse a shade of blue or purple believe in the path of Nayru, the Goddess of Love and Wisdom. These fairies are likely to be the healers in a group, but that doesn't mean that is all they are limited to.
 
-***
+---
 
 ## ERROR CODE TYPES
 
@@ -123,38 +123,38 @@ Error codes to be used internally for determining what happened when the error w
 
 ### LOGIN
 
-* NO_USER_FOUND
-  * Used for when an email is provided on log in but no user is found with that email
-* INCORRECT_PASSWORD
-  * Used when a user tries to log in, but provides the wrong password. Will not tell user they used the wrong password, just a bad username/password combination
-* EMAIL_IN_USE
-  * Used when a user tries to register to use the website, but the email they registered with is already in use.
-* BAD_PASS
-  * Used when a user tries to register to use the website, but give a bad password (i.e. missing a capital, special character, number, or lowercase character)
+- NO_USER_FOUND
+  - Used for when an email is provided on log in but no user is found with that email
+- INCORRECT_PASSWORD
+  - Used when a user tries to log in, but provides the wrong password. Will not tell user they used the wrong password, just a bad username/password combination
+- EMAIL_IN_USE
+  - Used when a user tries to register to use the website, but the email they registered with is already in use.
+- BAD_PASS
+  - Used when a user tries to register to use the website, but give a bad password (i.e. missing a capital, special character, number, or lowercase character)
 
-***
+---
 
 ### DATABASE
 
-* DB_ERROR
-  * Used for general database errors thrown by Objection or Knex
-* BAD_USER
-  * Used when a user id is passed to save the character, but the id is not in the right format (`00Uxxxxxxxxx`)
-* NO_CHAR
-  * Used when a user logs in and does not have any characters to retrieve. Should only be thrown once for the most part.
+- DB_ERROR
+  - Used for general database errors thrown by Objection or Knex
+- BAD_USER
+  - Used when a user id is passed to save the character, but the id is not in the right format (`00Uxxxxxxxxx`)
+- NO_CHAR
+  - Used when a user logs in and does not have any characters to retrieve. Should only be thrown once for the most part.
 
 ### GENERAL
 
-* GENERAL
-  * General error code for when there is no reason code to match above.
+- GENERAL
+  - General error code for when there is no reason code to match above.
 
-***
+---
 
 ## Angular 6+
 
 This is an Angular 6+ SPA. Hosted on [Heroku.com](https://zeldaplay.herokuapp.com/)
 
-***
+---
 
 [License](./LICENSE)
 

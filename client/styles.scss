@@ -1,16 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
-@font-face{
+@font-face {
   font-family: HyliaSerif;
-  src: url("./assets/fonts/HyliaSerifBeta.otf");
+  src: url('./assets/fonts/HyliaSerifBeta.otf');
 }
-body.dark{
+body.dark {
   background-color: rgb(238, 177, 253);
 }
-body.light{
+body.light {
   background-color: rgb(252, 252, 174);
-} 
-h1, h2, h3, h4, h5, h6{
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: HyliaSerif;
 }
 h1 {
@@ -18,81 +23,83 @@ h1 {
   font-size: 175%;
   text-align: center;
 }
-h2, h3 {
+h2,
+h3 {
   color: #444;
   font-weight: lighter;
   padding-top: 2px;
   padding-bottom: 2px;
   margin-top: 2px;
   margin-bottom: 2px;
-
 }
 body {
   margin: 2em;
 }
-body, input[text], button {
+body,
+input[text],
+button {
   color: #888;
   font-family: Cambria, Georgia;
 }
-.details{
+.details {
   width: 33%;
   float: left;
 }
-.skills{
+.skills {
   width: 67%;
   float: left;
 }
 
-.table{
+.table {
   overflow-x: auto;
   width: 100%;
 }
 
-.info{
+.info {
   color: rgba(0, 0, 0, 0.666);
   float: right;
 }
-table{
+table {
   width: 100%;
   background-color: inherit;
 }
-tr.weapon:nth-child(3n+1){
+tr.weapon:nth-child(3n + 1) {
   background-color: rgba(233, 150, 150, 0.74);
   color: black;
-} 
-tr.weapon:nth-child(3n+2){
+}
+tr.weapon:nth-child(3n + 2) {
   background-color: rgba(150, 233, 150, 0.74);
   color: black;
 }
-tr.weapon:nth-child(3n){
+tr.weapon:nth-child(3n) {
   background-color: rgba(150, 150, 233, 0.74);
   color: black;
 }
-td{
+td {
   margin: 5px;
   padding: 5px;
   text-align: center;
   word-wrap: break-word;
 }
-td.name{
+td.name {
   text-align: left;
 }
-td.mod{
-  text-align:left;
+td.mod {
+  text-align: left;
 }
-th{
+th {
   margin: 5px;
   width: 3.5em;
 }
-.column-holder::after{
-  content: "";
+.column-holder::after {
+  content: '';
   display: table;
   clear: both;
 }
-input{
+input {
   width: 50px;
 }
-td.total{
+td.total {
   font-weight: bold;
 }
 .modal {
@@ -108,7 +115,7 @@ td.total{
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-.showModal{
+.showModal {
   display: block;
 }
 
@@ -138,20 +145,20 @@ td.total{
   animation-duration: 0.4s;
 }
 
-.small{
+.small {
   width: 25%;
-  margin-left: calc(75% /2 );
-  margin-right: calc(75% /2 );
+  margin-left: calc(75% / 2);
+  margin-right: calc(75% / 2);
 }
 
-.body-header{
+.body-header {
   align-content: stretch;
   margin-right: 0%;
   margin-left: 0%;
   padding-right: 0%;
   padding-left: 0%;
 }
-.tab{
+.tab {
   color: #444;
   border: none;
   background-color: #5cb85c;
@@ -159,13 +166,13 @@ td.total{
   margin-left: 0em;
   cursor: pointer;
   width: calc(100% / 8);
-  padding: .25em 0em;
+  padding: 0.25em 0em;
   border-width: 0em;
   float: left;
   text-align: center;
   transition: 0.6s;
 }
-.tab:hover{
+.tab:hover {
   background-color: #229e22;
 }
 
@@ -184,20 +191,20 @@ td.total{
   cursor: pointer;
 }
 
-.din{
+.din {
   background-color: rgba(233, 150, 150, 0.74);
   color: black;
 }
-.farore{
+.farore {
   background-color: rgba(150, 233, 150, 0.74);
   color: black;
 }
-.nayru{
+.nayru {
   background-color: rgba(150, 150, 233, 0.74);
   color: black;
 }
-.accordian{
-  background: #EEE;
+.accordian {
+  background: #eee;
   color: #444444;
   cursor: pointer;
   width: 100%;
@@ -207,28 +214,27 @@ td.total{
   transition: 0.4s;
   padding-top: 2px;
   padding-bottom: 2px;
-
 }
-.accordian:hover{
+.accordian:hover {
   background-color: #ccc;
 }
-.panel{
+.panel {
   padding: 5px 0px;
   background-color: inherit;
   display: none;
 }
-.active{
-  display: block
+.active {
+  display: block;
 }
-.user{
+.user {
   width: 8em;
 }
-.form{
+.form {
   width: 40%;
 }
 
-.loading::before{
-  content: "";
+.loading::before {
+  content: '';
   box-sizing: border-box;
   position: absolute;
   top: 50%;
@@ -263,29 +269,28 @@ td.total{
   }
 }
 
-
-@media (max-width: 900px){
-  .character-column{
+@media (max-width: 900px) {
+  .character-column {
     width: 100%;
   }
-  .details-column{
+  .details-column {
     width: 100%;
   }
-  .skills{
+  .skills {
     width: 100%;
   }
-  .details{
-    width: 100%
+  .details {
+    width: 100%;
   }
-  .small{
+  .small {
     width: 50%;
     margin-left: 25%;
     margin-right: 25%;
   }
-  .tab{
+  .tab {
     width: calc(200% / 8);
   }
-  .modal-content{
+  .modal-content {
     margin-top: 25%;
     margin-bottom: 25%;
   }

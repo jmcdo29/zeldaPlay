@@ -63,6 +63,8 @@ describe('#UserService', () => {
 
   test('should remove a user from sessionStorage', () => {
     service.logout();
+    const userLogout = backend.expectOne(`${environment.apiUrl}/users/logout`);
+    userLogout.flush({});
     expect(sessionStorage.getItem('currentUser')).toBeFalsy();
   });
 

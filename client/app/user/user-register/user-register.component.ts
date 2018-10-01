@@ -6,7 +6,7 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-user-register',
   templateUrl: './user-register.component.html',
-  styleUrls: ['./user-register.component.css']
+  styleUrls: ['./user-register.component.scss']
 })
 export class UserRegisterComponent implements OnInit {
   password: string;
@@ -23,6 +23,7 @@ export class UserRegisterComponent implements OnInit {
   ngOnInit() {}
 
   register() {
+    this.alertService.clear();
     this.loading = true;
     this.userService
       .register(this.username, this.password, this.passwordConfirmation)

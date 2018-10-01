@@ -4,6 +4,7 @@ import * as cors from 'cors';
 import * as express from 'express';
 import * as flash from 'express-flash';
 import * as helmet from 'helmet';
+import { consoleLogger as scribe } from 'mc-scribe';
 import * as morgan from 'morgan';
 import * as path from 'path';
 
@@ -29,8 +30,17 @@ const morganFormat = process.env.NODE_ENV === 'production' ? 'combined' : 'dev';
 
 const app = express();
 
+const corsOptions: cors.CorsOptions = {
+  origin: [
+    'http://localhost:4200',
+    'http://localhost:4000',
+    'https://zeldaplay/herokuapp.com'
+  ],
+  credentials: true
+};
+
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan(morganFormat));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

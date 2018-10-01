@@ -1,38 +1,39 @@
-.race-input{
+.race-input {
   width: 100%;
 }
-.radio{
+.radio {
   width: 100%;
   float: left;
   position: relative;
 }
-.button{
+.button {
   width: 40%;
   float: left;
 }
 
-input.skill{
+input.skill {
   width: 5em;
 }
-.skill-input{
+.skill-input {
   width: 3em;
 }
-h4{
+h4 {
   color: #444;
 }
-.error{
+.error {
   color: purple;
 }
-.title{
+.title {
   display: inline;
   font-weight: bold;
 }
-.description{
+.description {
   position: relative;
 }
-input.non-zero:in-range{
+input.non-zero:in-range {
   background-color: lightskyblue;
 }
-.bad-input, input:out-of-range{
+.bad-input,
+input:out-of-range {
   background-color: lightcoral;
-}  
+}

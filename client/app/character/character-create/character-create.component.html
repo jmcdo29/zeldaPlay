@@ -447,7 +447,7 @@
             <option value="Nayru">Nayru</option>
           </select>
         </div>
-        <div *ngIf="newCharacter.getRace()==='Rito'" >
+        <div *ngIf="newCharacter.getRace()==='Rito'">
           <select [ngModel]="newCharacter.getSubRace()" (ngModelChange)="newCharacter.setSubRace($event)" (change)="raceChange()">
             <option value="Sharp Eye">Sharp Eye</option>
             <option value="Sharp Tongue">Sharp Tongue</option>
@@ -476,7 +476,7 @@
               </td>
             </tr>
 
-            <br/>
+            <br />
 
             <tr *ngFor="let attr of newCharacter.getAttributes(); index as i" [class.din]="attr.getName() === 'Strength' || attr.getName() === 'Intelligence'" [class.farore]="attr.getName() === 'Dexterity' || attr.getName() === 'Charisma'" [class.nayru]="attr.getName() === 'Wisdom' || attr.getName() === 'Constitution'">
               <td class="name">{{ attr.getName() }}</td>
@@ -488,7 +488,7 @@
               </td>
             </tr>
 
-            <br/>
+            <br />
 
             <tr class="din">
               <td class="name">Health</td>

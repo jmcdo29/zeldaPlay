@@ -11,6 +11,9 @@ import { UserRegisterComponent } from './user-register.component';
 const alertServiceStub: Partial<AlertService> = {
   error(message) {
     return message;
+  },
+  clear() {
+    return;
   }
 };
 

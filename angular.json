@@ -21,7 +21,7 @@
               "client/favicon.ico"
             ],
             "styles": [
-              "client/styles.css"
+              "client/styles.scss"
             ],
             "scripts": []
           },
@@ -82,7 +82,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "styleext": "css"
+      "styleext": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "app"

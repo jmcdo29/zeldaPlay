@@ -6,7 +6,7 @@ import { Attributes } from '../characterModels/enums/attributes.enum';
 @Component({
   selector: 'app-character-level-up',
   templateUrl: './character-level-up.component.html',
-  styleUrls: ['./character-level-up.component.css']
+  styleUrls: ['./character-level-up.component.scss']
 })
 export class CharacterLevelUpComponent implements OnInit {
   attributeTab = true;

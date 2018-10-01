@@ -6,7 +6,7 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.css']
+  styleUrls: ['./user-login.component.scss']
 })
 export class UserLoginComponent implements OnInit {
   username: string;
@@ -24,6 +24,7 @@ export class UserLoginComponent implements OnInit {
   }
 
   login(): void {
+    this.alertService.clear();
     this.loading = true;
     this.userService.login(this.username, this.password).subscribe(
       (data) => {
