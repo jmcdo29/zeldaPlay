@@ -57,7 +57,7 @@ export class CharactersComponent implements OnInit {
         .subscribe((characters) => {
           this.characters = characters;
           this.loading = false;
-          if (this.characters.length === 0) {
+          if (characters.length === 0) {
             this.alertService.success(
               'You have no characters. Create one using the button below!'
             );

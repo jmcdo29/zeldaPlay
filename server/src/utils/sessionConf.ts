@@ -5,7 +5,7 @@ const store = RedisStore(session);
 
 export const mySession = session({
   secret: process.env.SESSION_SECRET,
-  cookie: { maxAge: 3600000, httpOnly: true },
+  cookie: { maxAge: 3600000, httpOnly: false },
   store: new store({ url: process.env.REDIS_URL }),
   saveUninitialized: false,
   name: 'zelda',

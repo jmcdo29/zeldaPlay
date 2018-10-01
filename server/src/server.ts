@@ -35,7 +35,8 @@ const corsOptions: cors.CorsOptions = {
     'http://localhost:4200',
     'http://localhost:4000',
     'https://zeldaplay/herokuapp.com'
-  ]
+  ],
+  credentials: true
 };
 
 app.use(helmet());

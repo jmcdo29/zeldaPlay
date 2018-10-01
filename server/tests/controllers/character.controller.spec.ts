@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as supertest from 'supertest';
 
 import { CharacterRouter } from '../../src/controllers/character.controller';
-import { verifyMiddleware } from '../../src/services/auth.service';
+import { isLoggedIn, verifyMiddleware } from '../../src/services/auth.service';
 import {
   getAll,
   getOne,
@@ -22,6 +22,9 @@ jest.mock('../../src/services/auth.service.ts', () => {
   return {
     verifyMiddleware: jest.fn().mockImplementation((req, res, next) => {
       next();
+    }),
+    isLoggedIn: jest.fn().mockImplementation((req, res, next) => {
+      next();
     })
   };
 });
@@ -35,6 +38,9 @@ describe('character routes', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (verifyMiddleware as jest.Mock).mockImplementation((req, res, next) => {
+      next();
+    });
+    (isLoggedIn as jest.Mock).mockImplementation((req, res, next) => {
       next();
     });
   });

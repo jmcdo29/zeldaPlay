@@ -1,11 +1,11 @@
 import * as express from 'express';
+import * as session from 'express-session';
 import * as supertest from 'supertest';
 
 import { UserRouter } from '../../src/controllers/user.controller';
 import { User } from '../../src/db/models/user_schema';
 import { login, signUp } from '../../src/services/user.service';
 import { LoginError } from '../../src/utils/errors/LoginError';
-import { signToken } from '../../src/utils/jwt';
 
 jest.mock('../../src/services/user.service.ts', () => {
   return {
@@ -23,6 +23,12 @@ jest.mock('../../src/utils/jwt.ts', () => {
 describe('User routes', () => {
   const app = express();
   app.use(express.json());
+  app.use(
+    session({
+      secret: 'shhh its a secret!',
+      store: new session.MemoryStore()
+    })
+  );
   UserRouter(app, '/');
   const request = supertest.agent(app);
 
@@ -107,6 +113,13 @@ describe('User routes', () => {
       expect(signUp).toHaveBeenCalledTimes(1);
       expect(signUp).toBeCalledWith('user', 'pass', 'pass');
       expect(response.error).toBeTruthy();
+    });
+  });
+
+  describe('/logout route', () => {
+    test('200 response', async () => {
+      const response = await request.post('/logout').send({});
+      expect(response).toBeTruthy();
     });
   });
 });

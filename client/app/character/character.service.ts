@@ -55,7 +55,8 @@ export class CharacterService {
       .get<any[]>(this.characterUrl + '/user/' + userId, {
         headers: {
           authorization: 'Bearer ' + sessionStorage.getItem('userToken')
-        }
+        },
+        withCredentials: true
       })
       .pipe(
         map((ch) => {

@@ -24,6 +24,7 @@ export class UserLoginComponent implements OnInit {
   }
 
   login(): void {
+    this.alertService.clear();
     this.loading = true;
     this.userService.login(this.username, this.password).subscribe(
       (data) => {

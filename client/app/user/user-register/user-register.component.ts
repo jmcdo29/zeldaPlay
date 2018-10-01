@@ -23,6 +23,7 @@ export class UserRegisterComponent implements OnInit {
   ngOnInit() {}
 
   register() {
+    this.alertService.clear();
     this.loading = true;
     this.userService
       .register(this.username, this.password, this.passwordConfirmation)

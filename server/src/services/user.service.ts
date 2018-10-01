@@ -70,7 +70,6 @@ export async function signUp(
 }
 
 export async function update() {}
-
 /**
  * function to make sure password matches confirmation password and matches all criteria for the website
  * @param {string} password

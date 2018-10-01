@@ -1,4 +1,4 @@
-import { verifyMiddleware } from '../../src/services/auth.service';
+import { isLoggedIn, verifyMiddleware } from '../../src/services/auth.service';
 import { verifyToken } from '../../src/utils/jwt';
 
 jest.mock('../../src/utils/jwt.ts', () => {
@@ -37,5 +37,34 @@ describe('verifyMiddleware', () => {
       next as any
     );
     expect(next).toHaveBeenCalledWith(err);
+  });
+});
+
+describe('isLoggedIn', () => {
+  test('logged in', () => {
+    const next = jest.fn();
+    isLoggedIn(
+      {
+        headers: {
+          cookie: 'cookie exists'
+        }
+      } as any,
+      {} as any,
+      next
+    );
+    expect(next).toHaveBeenCalled();
+    expect(next).toHaveBeenCalledWith();
+  });
+  test('not logged in', () => {
+    const next = jest.fn();
+    isLoggedIn(
+      {
+        headers: {}
+      } as any,
+      {} as any,
+      next
+    );
+    expect(next).toHaveBeenCalled();
+    expect(next).toHaveBeenCalledWith(new Error('Not logged in.'));
   });
 });

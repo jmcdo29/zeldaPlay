@@ -25,6 +25,15 @@ export class UserService {
   }
 
   logout() {
+    this.http
+      .post<any>(
+        environment.apiUrl + '/users/logout',
+        {},
+        {
+          withCredentials: true
+        }
+      )
+      .subscribe();
     sessionStorage.removeItem('currentUser');
     sessionStorage.removeItem('userToken');
   }
