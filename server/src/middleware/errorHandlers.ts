@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import { consoleLogger as scribe } from 'mc-scribe';
 
 import { DBError } from '../db/models/error_schema';
-import { DatabaseError } from './errors/DatabaseError';
-import { LoginError } from './errors/LoginError';
+import { DatabaseError } from '../utils/errors/DatabaseError';
+import { LoginError } from '../utils/errors/LoginError';
 
 /**
  * @typedef {Error} MyError

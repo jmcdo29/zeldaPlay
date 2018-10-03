@@ -16,13 +16,8 @@
             "main": "client/main.ts",
             "tsConfig": "client/tsconfig.app.json",
             "polyfills": "client/polyfills.ts",
-            "assets": [
-              "client/assets",
-              "client/favicon.ico"
-            ],
-            "styles": [
-              "client/styles.scss"
-            ],
+            "assets": ["client/assets", "client/favicon.ico"],
+            "styles": ["client/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -70,9 +65,7 @@
               "client/tsconfig.spec.json",
               "server/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

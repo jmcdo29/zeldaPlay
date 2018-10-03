@@ -30,7 +30,7 @@
     "test:ci": "snyk test && jest --runInBand",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": "prettier --config .prettierrc.json --write \"**/*.{ts,css,scss}\"",
+    "prettier": "prettier --config .prettierrc.json --write \"**/*.{ts,css,scss,yml,yaml,json,js}\"",
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
@@ -39,7 +39,6 @@
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
-    "express-flash": "0.0.2",
     "express-session": "^1.15.6",
     "file-saver": "^1.3.8",
     "helmet": "^3.13.0",

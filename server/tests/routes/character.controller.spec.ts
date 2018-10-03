@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as supertest from 'supertest';
 
-import { CharacterRouter } from '../../src/controllers/character.controller';
+import { CharacterRouter } from '../../src/routes/character.controller';
 import { isLoggedIn, verifyMiddleware } from '../../src/services/auth.service';
 import {
   getAll,

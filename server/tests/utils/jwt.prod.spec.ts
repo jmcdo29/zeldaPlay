@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'production';
 import { signToken, verifyToken } from '../../src/utils/jwt';
 
 jest.mock('jsonwebtoken', () => {
@@ -13,7 +14,6 @@ test('sign token', () => {
 });
 
 test('verify token', () => {
-  process.env.NODE_ENV = 'production';
   const verified = verifyToken('lkajsdfljasd;lkfja;lksdjf', {
     id: 'the id',
     url: 'some url'

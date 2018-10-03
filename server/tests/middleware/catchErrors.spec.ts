@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { catchAll } from '../../src/utils/catchErrors';
+import { catchAll } from '../../src/middleware/catchErrors';
 
 test('should make and throw an error', () => {
   let req: any;
