@@ -52,6 +52,28 @@
       </div>
     </div>
   </div>
+  <!--Modify Exp Model-->
+  <div class="modal" [class.showModal]="changeExp">
+    <div class="modal-content small">
+      <div class="modal-header">
+        <span class="close" (click)="modExp()">&times;</span>
+        <h2>Gain Exp</h2>
+      </div>
+      <div class="modal-body">
+        <div class="body-head">
+          Current Exp:
+          <span style="float:right; padding-right:5em; ">{{ character.getExp() }}</span>
+        </div>
+        <div *ngIf="negExp">
+          <strong class="critmiss">You cannot gain negative experience.</strong>
+        </div>
+        <input type="number" min="0" [(ngModel)]="expMod" placeholder="{{ expMod }}" min=0>
+        <div class="right">
+          <button (click)="finalizeExpMod()">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--Level Up Modal-->
   <div class="modal" [class.showModal]="editMode">
     <div class="modal-content">
@@ -109,10 +131,10 @@
                 </tr>
                 <tr>
                   <td class="name">Level</td>
-                  <td>{{ character.level }}</td>
+                  <td>{{ character.getLevel() }}</td>
                 </tr>
                 <br/>
-                <tr *ngFor="let attr of character.attributes" [class.din]="attr.getName() === 'Strength' || attr.getName() === 'Intelligence'" [class.farore]="attr.getName() === 'Dexterity' || attr.getName() === 'Charisma'" [class.nayru]="attr.getName() === 'Wisdom' || attr.getName() === 'Constitution'">
+                <tr *ngFor="let attr of character.getAttributes()" [class.din]="attr.getName() === 'Strength' || attr.getName() === 'Intelligence'" [class.farore]="attr.getName() === 'Dexterity' || attr.getName() === 'Charisma'" [class.nayru]="attr.getName() === 'Wisdom' || attr.getName() === 'Constitution'">
                   <td class="name">{{ attr.getName() }}</td>
                   <td>{{ attr.getValue() }}</td>
                   <td>{{ attr.getModifier() }}</td>
@@ -136,7 +158,9 @@
                 <tr class="farore">
                   <td class="name">Experience</td>
                   <td>{{ character.getExp() }}</td>
-                  <td></td>
+                  <td>
+                    <button (click)="modExp()">Gain Exp</button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -164,7 +188,7 @@
       <h4> Add a modifier to your roll.</h4>
       <select [(ngModel)]="rollMod">
         <option value="null" selected="selected">None</option>
-        <option *ngFor="let attr of character.attributes" [value]="attr.getName()">{{ attr.getName() }}</option>
+        <option *ngFor="let attr of character.getAttributes()" [value]="attr.getName()">{{ attr.getName() }}</option>
       </select>
       <br>
       <br>

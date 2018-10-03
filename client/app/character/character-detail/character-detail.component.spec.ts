@@ -182,6 +182,24 @@ describe('CharacterDetailComponent', () => {
       expect(component.mpDmg).toBe(component.character.getMaxMagic());
     });
   });
+  describe('experience modal', () => {
+    beforeEach(() => {
+      component.character.setExp(100);
+      component.modExp();
+    });
+    test('add experience', () => {
+      component.expMod = 1000;
+      component.finalizeExpMod();
+      expect(component.character.getExp()).toBe(100 + 1000);
+    });
+    test('add negative experience', () => {
+      const startExp = component.character.getExp();
+      component.expMod = -1000;
+      component.finalizeExpMod();
+      expect(component.character.getExp() - startExp).toBe(0);
+      expect(component.negExp).toBe(true);
+    });
+  });
   describe('expand functions', () => {
     test('expandDets', () => {
       const start = component.showDets;
