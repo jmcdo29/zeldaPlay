@@ -24,7 +24,7 @@ exec('git diff --cached --name-status', (error, stdout, stderr) => {
     }
   }
   notifier.notify({
-    message: 'git add ' + updateString,
+    message: 'Finished adding files!',
     title: 'Adding From Script',
     icon: './reference/notifIcon.png'
   });
