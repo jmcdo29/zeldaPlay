@@ -26,6 +26,7 @@ export class CharacterDetailComponent implements OnInit {
   showDets = true;
   showSaves = true;
 
+  changeExp = false;
   changeHP = false;
   changeMP = false;
 
@@ -40,10 +41,23 @@ export class CharacterDetailComponent implements OnInit {
   type = 1;
 
   expMod: number;
+  negExp = false;
 
   constructor(private message: MessageService) {}
 
   ngOnInit() {}
+
+  finalizeExpMod(): void {
+    if (this.expMod <= 0) {
+      this.expMod *= -1;
+      this.negExp = true;
+      return;
+    } else {
+      this.negExp = false;
+    }
+    this.character.gainExp(this.expMod);
+    this.changeExp = false;
+  }
 
   finalizeHealthMod(): void {
     this.character.changeHealth(this.hpDmg * this.type);
@@ -75,6 +89,12 @@ export class CharacterDetailComponent implements OnInit {
   modMagic(): void {
     this.mpDmg = 0;
     this.changeMP = !this.changeMP;
+  }
+
+  modExp(): void {
+    this.expMod = 0;
+    this.changeExp = !this.changeExp;
+    this.negExp = false;
   }
 
   expandDets(): void {

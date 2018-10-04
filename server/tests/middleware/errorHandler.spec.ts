@@ -8,7 +8,7 @@ import {
   databaseProblem,
   generalError,
   logErrors
-} from '../../src/utils/errorHandlers';
+} from '../../src/middleware/errorHandlers';
 import { DatabaseError } from '../../src/utils/errors/DatabaseError';
 import { LoginError } from '../../src/utils/errors/LoginError';
 import { conn } from '../dbConnection';
