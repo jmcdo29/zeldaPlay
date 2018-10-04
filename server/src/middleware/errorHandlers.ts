@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { consoleLogger as scribe } from 'mc-scribe';
+import { getRepository } from 'typeorm';
 
-import { DBError } from '../db/models/error_schema';
+import { DBError } from '../db/entities/error_schema';
 import { DatabaseError } from '../utils/errors/DatabaseError';
 import { LoginError } from '../utils/errors/LoginError';
 
@@ -29,14 +30,15 @@ export async function logErrors(
 ) {
   scribe('ERROR', err.message);
   scribe('FINE', err.stack.split('\n')[0]);
-  await DBError.query().insert({
-    message: err.message.substring(
-      0,
-      err.message.length < 255 ? err.message.length : 255
-    ),
-    stack: err.stack.split('\n')[0],
-    code: err.reasonCode ? err.reasonCode : 'GENERAL'
-  });
+  const dbErr = new DBError();
+  dbErr.code = err.reasonCode;
+  dbErr.stack = err.stack;
+  dbErr.message = err.message.substring(
+    0,
+    err.message.length < 255 ? err.message.length : 255
+  );
+  const errRepo = await getRepository(DBError);
+  errRepo.save(dbErr);
   next(err);
 }
 

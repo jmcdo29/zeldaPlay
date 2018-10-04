@@ -3,7 +3,7 @@ import * as Knex from 'knex';
 import { consoleLogger as scribe } from 'mc-scribe';
 import { Model } from 'objection';
 
-import { User } from '../../src/db/models/user_schema';
+import { User } from '../../src/db/entities/user_schema';
 import { login, signUp } from '../../src/services/user.service';
 import { conn } from '../dbConnection';
 const email = 'someemail@asdf.com';

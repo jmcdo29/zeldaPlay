@@ -1,11 +1,12 @@
 import { consoleLogger as scribe } from 'mc-scribe';
+import { getRepository } from 'typeorm';
 
-import { Character } from '../db/models/character_schema';
-import { Note } from '../db/models/note_schema';
-import { Save } from '../db/models/save_schema';
-import { Skill } from '../db/models/skill_schema';
-import { Spell } from '../db/models/spell_schema';
-import { Weapon } from '../db/models/weapon_schema';
+import { Character } from '../db/entities/character_schema';
+import { Note } from '../db/entities/note_schema';
+import { Save } from '../db/entities/save_schema';
+import { Skill } from '../db/entities/skill_schema';
+import { Spell } from '../db/entities/spell_schema';
+import { Weapon } from '../db/entities/weapon_schema';
 import { ICharacter } from '../interfaces/characterInterface';
 import { DatabaseError } from '../utils/errors/DatabaseError';
 
@@ -17,9 +18,11 @@ import { DatabaseError } from '../utils/errors/DatabaseError';
  */
 export async function getAll(): Promise<Array<Partial<Character>>> {
   scribe('INFO', 'Getting all unassigned characters.');
-  const characters = await Character.query()
-    .select('id', 'name', 'race')
-    .whereNull('user_id');
+  const characters = await getRepository(Character)
+    .createQueryBuilder()
+    .select(['id', 'race', 'name'])
+    .where({ user: 'dummyUser' })
+    .getMany();
   if (characters.length === 0) {
     throw new DatabaseError('No characters found!', 'NO_CHAR');
   }
@@ -35,13 +38,14 @@ export async function getAll(): Promise<Array<Partial<Character>>> {
  */
 export async function getOne(id: string): Promise<Character> {
   scribe('INFO', 'Getting single character.');
-  const character = await Character.query().findById(id);
+  const character = await await getRepository(Character).findOne(id);
   if (!character) {
     throw new DatabaseError('No character found', 'NO_CHAR');
   }
   scribe('DEBUG', character.id);
   scribe('DEBUG', 'Getting the character  skills.');
-  character.skills = await character.$relatedQuery('skills').orderBy('name');
+  scribe('INFO', character);
+  /* character.skills = await character.$relatedQuery('skills').orderBy('name');
   scribe('DEBUG', 'Getting the character weapons.');
   character.weapons = await character
     .$relatedQuery('weapons')
@@ -54,7 +58,7 @@ export async function getOne(id: string): Promise<Character> {
   scribe('DEBUG', 'Getting the character notes.');
   character.notes = await character.$relatedQuery('notes').orderBy('time');
   scribe('INFO', 'Returning single character.');
-  scribe('DEBUG', character);
+  scribe('DEBUG', character); */
   return character;
 }
 
@@ -66,12 +70,9 @@ export async function getOne(id: string): Promise<Character> {
  * @returns {Promise<Character>}
  * @throws {DatabaseError}
  */
-export async function updateOne(
-  id: string,
-  body: ICharacter
-): Promise<Character> {
+export async function updateOne(id: string, body: ICharacter): Promise<any> {
   scribe('INFO', 'Updating single character.');
-  const character = new Character(id, body);
+  /* const character = new Character(id, body);
   const charId = await Character.upsert(character);
   const chId = charId.id;
   const skills: Skill[] = [];
@@ -123,8 +124,8 @@ export async function updateOne(
   scribe('DEBUG', 'Upserrting the notes.');
   charId.notes = await Note.query().upsertGraphAndFetch(notes, {
     insertMissing: true
-  });
-  return charId;
+  }); */
+  return id;
 }
 
 /**
@@ -141,9 +142,11 @@ export async function getUserCharacters(
     throw new DatabaseError('Bad user id.', 'BAD_USER');
   }
   scribe('Returning the user characters.');
-  return Character.query()
-    .select('id', 'race', 'name')
-    .where({ user_id: userId });
+  return getRepository(Character)
+    .createQueryBuilder()
+    .select(['id', 'race', 'name'])
+    .where({ user_id: userId })
+    .getMany();
 }
 
 export function newWeapon(charId, weapon) {}

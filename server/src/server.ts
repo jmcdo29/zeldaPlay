@@ -1,15 +1,18 @@
+import 'reflect-metadata';
+
 import { config } from 'dotenv';
 config();
+
 import * as express from 'express';
 
+import { connection } from './db/database';
 import { useErrorHandlers, useMiddleware } from './middleware';
 import { useRoutes } from './routes/index';
 
-import * as Knex from 'knex';
-import { Model } from 'objection';
-import * as connectionConfig from './db/knexfile';
-
-Model.knex(Knex(connectionConfig));
+connection.then(() => console.log('table synced')).catch((err) => {
+  console.error(err.message);
+  process.exit(1);
+});
 
 const app = express();
 

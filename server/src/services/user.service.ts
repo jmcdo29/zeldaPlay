@@ -1,7 +1,8 @@
 import * as bcrypt from 'bcryptjs';
 import { consoleLogger as scribe } from 'mc-scribe';
+import { getRepository } from 'typeorm';
 
-import { User } from '../db/models/user_schema';
+import { User } from '../db/entities/user_schema';
 import { LoginError } from '../utils/errors/LoginError';
 
 /**
@@ -17,9 +18,11 @@ export async function login(
   password: string
 ): Promise<Partial<User>> {
   scribe('INFO', 'Logging the user in.');
-  const user = await User.query()
-    .findOne({ email: username })
-    .select('id', 'password');
+  const user = await getRepository(User)
+    .createQueryBuilder()
+    .select(['id', 'password'])
+    .where({ email: username })
+    .getOne();
   if (!user) {
     throw new LoginError('Username or password is incorrect.', 'NO_USER_FOUND');
   }
@@ -51,19 +54,22 @@ export async function signUp(
 ): Promise<Partial<User>> {
   scribe('INFO', 'Registering a new user.');
   verifyPassword(password, confPassword);
-  const user = await User.query().where({ email: username });
+  const user = await getRepository(User).find({ email: username });
   if (user.length !== 0) {
     throw new LoginError(
       'Email already in use. Please log in or use a new email.',
       'EMAIL_IN_USE'
     );
   } else {
-    const newUser = await User.query()
-      .insert({
+    const newUser = (await getRepository(User)
+      .createQueryBuilder()
+      .insert()
+      .values({
         email: username,
         password: bcrypt.hashSync(password, 12)
       })
-      .returning('*');
+      .returning('*')
+      .execute()) as Partial<User>;
     scribe('INFO', 'New user registered.');
     return newUser;
   }

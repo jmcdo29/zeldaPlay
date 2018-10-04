@@ -1,7 +1,7 @@
 import { Express, NextFunction, Request, Response, Router } from 'express';
 import { consoleLogger as scribe } from 'mc-scribe';
 
-import { User } from '../db/models/user_schema';
+import { User } from '../db/entities/user_schema';
 import {
   login as getUser,
   signUp as createUser

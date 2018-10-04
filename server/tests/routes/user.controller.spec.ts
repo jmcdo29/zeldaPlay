@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as session from 'express-session';
 import * as supertest from 'supertest';
 
-import { User } from '../../src/db/models/user_schema';
+import { User } from '../../src/db/entities/user_schema';
 import { UserRouter } from '../../src/routes/user.controller';
 import { login, signUp } from '../../src/services/user.service';
 import { LoginError } from '../../src/utils/errors/LoginError';

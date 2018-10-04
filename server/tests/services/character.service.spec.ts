@@ -3,7 +3,7 @@ import * as Knex from 'knex';
 import { consoleLogger as scribe } from 'mc-scribe';
 import { Model } from 'objection';
 
-import { Character } from '../../src/db/models/character_schema';
+import { Character } from '../../src/db/entities/character_schema';
 import {
   getAll,
   getOne,
