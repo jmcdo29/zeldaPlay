@@ -20,10 +20,10 @@ export class Spell extends BaseCharacterObject {
   @Column('int')
   damage: number;
 
-  @Column('int')
+  @Column({ type: 'int', nullable: true })
   number_of_hit: number;
 
-  @Column()
+  @Column({ nullable: true })
   modifier?: string;
 
   @Column()

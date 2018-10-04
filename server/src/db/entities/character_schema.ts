@@ -18,7 +18,7 @@ export class Character extends Base {
   @Column()
   race: string;
 
-  @Column()
+  @Column({ nullable: true })
   subrace?: string;
 
   @Column('int')
@@ -39,13 +39,13 @@ export class Character extends Base {
   @Column('int')
   charisma: number;
 
-  @Column('int')
+  @Column({ type: 'int', nullable: true })
   ac?: number;
 
-  @Column('int')
+  @Column({ type: 'int', nullable: true })
   flat_footed?: number;
 
-  @Column('int')
+  @Column({ type: 'int', nullable: true })
   touch?: number;
 
   @Column('int')
@@ -63,19 +63,19 @@ export class Character extends Base {
   @Column('int')
   experience: number;
 
-  @Column()
+  @Column({ nullable: true })
   size?: string;
 
-  @Column()
+  @Column({ nullable: true })
   craft_one?: string;
 
-  @Column()
+  @Column({ nullable: true })
   craft_two?: string;
 
-  @Column()
+  @Column({ nullable: true })
   profession?: string;
 
-  @Column()
+  @Column({ nullable: true })
   performance?: string;
 
   @ManyToOne((type) => User)

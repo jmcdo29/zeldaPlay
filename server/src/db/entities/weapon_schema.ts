@@ -12,7 +12,7 @@ export class Weapon extends BaseCharacterObject {
   @Column('int')
   damage: number;
 
-  @Column('int')
+  @Column({ type: 'int', nullable: true })
   number_of_hits: number;
 
   @Column()
@@ -27,22 +27,9 @@ export class Weapon extends BaseCharacterObject {
   @Column()
   modifier: string;
 
-  @Column('int')
+  @Column({ type: 'int', nullable: true })
   range: number;
 
-  @Column('int')
+  @Column({ type: 'int', nullable: true })
   ammo: number;
-}
-
-/**
- * function to take an array of strings (as numbers) and return a single string for the range (['18','19','20'] => '18 - 20')
- * @param {string[]} array - string array to parse through
- * @returns {string} - string built as a range (i.e. 18 - 20)
- */
-function parseArray(array: string[]): string {
-  if (array.length === 1) {
-    return array[0];
-  } else {
-    return array[0] + ' - ' + array[array.length - 1];
-  }
 }

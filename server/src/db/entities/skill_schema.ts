@@ -7,7 +7,7 @@ export class Skill extends BaseCharacterObject {
   idStart = '00S';
 
   @Column('bool')
-  trained: boolean;
+  trained = false;
 
   @Column()
   name: string;
@@ -15,16 +15,16 @@ export class Skill extends BaseCharacterObject {
   @Column('int')
   ranks: number;
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   modifier: string;
 
-  @Column('int')
+  @Column({ type: 'int', nullable: true })
   racial_modifier?: number;
 
-  @Column('int')
+  @Column({ type: 'int', nullable: true })
   item_modifier?: number;
 
-  @Column('int')
+  @Column({ type: 'int', nullable: true })
   misc_modifier?: number;
 
   @Column()

@@ -6,16 +6,11 @@ import { Note } from '../db/entities/note_schema';
 import { Save } from '../db/entities/save_schema';
 import { Skill } from '../db/entities/skill_schema';
 import { Spell } from '../db/entities/spell_schema';
+import { User } from '../db/entities/user_schema';
 import { Weapon } from '../db/entities/weapon_schema';
 import { ICharacter } from '../interfaces/characterInterface';
 import { DatabaseError } from '../utils/errors/DatabaseError';
 
-/**
- * standard function to get all characters not belonging to a user
- * @returns {Promise<Array<Partial<Character>>>} Promise object that resolves to an array of Character objects
- *  with id, name, and race properties
- * @throws {DatabaseError} - Throws a database error to indicate something was wrong with the query
- */
 export async function getAll(): Promise<Array<Partial<Character>>> {
   scribe('INFO', 'Getting all unassigned characters.');
   const characters = await getRepository(Character)
@@ -30,110 +25,156 @@ export async function getAll(): Promise<Array<Partial<Character>>> {
   return characters;
 }
 
-/**
- * function to retrieve on character and all of that characters skills, weapons, spells, saving throws, and notes.
- * @param {string} id  takes in the id of the character to retrieve
- * @returns {Promise<Character>} returns a promise of the character object with all fields
- * @throws {DatabaseError}
- */
 export async function getOne(id: string): Promise<Character> {
-  scribe('INFO', 'Getting single character.');
-  const character = await await getRepository(Character).findOne(id);
+  scribe('INFO', 'Getting single character.', 'Id:', id);
+  const charRepo = await getRepository(Character);
+  const character = await charRepo
+    .createQueryBuilder('character')
+    .select()
+    .leftJoinAndSelect('character.skills', 'skill')
+    .leftJoinAndSelect('character.spells', 'spell')
+    .leftJoinAndSelect('character.weapons', 'weapon')
+    .leftJoinAndSelect('character.saves', 'save')
+    .leftJoinAndSelect('character.notes', 'note')
+    .where('character.id = :id', { id })
+    .printSql()
+    .getOne();
+  scribe('INFO', character);
   if (!character) {
     throw new DatabaseError('No character found', 'NO_CHAR');
   }
   scribe('DEBUG', character.id);
   scribe('DEBUG', 'Getting the character  skills.');
-  scribe('INFO', character);
-  /* character.skills = await character.$relatedQuery('skills').orderBy('name');
-  scribe('DEBUG', 'Getting the character weapons.');
-  character.weapons = await character
-    .$relatedQuery('weapons')
-    .eager('element')
-    .orderBy('name');
-  scribe('DEBUG', 'Getting the character spells.');
-  character.spells = await character.$relatedQuery('spells').orderBy('diety');
-  scribe('DEBUG', 'Getting the character saves.');
-  character.saves = await character.$relatedQuery('saves').orderBy('name');
-  scribe('DEBUG', 'Getting the character notes.');
-  character.notes = await character.$relatedQuery('notes').orderBy('time');
-  scribe('INFO', 'Returning single character.');
-  scribe('DEBUG', character); */
+  scribe('DEBUG', character);
   return character;
 }
 
-/**
- * Function to either insert or update (upsert) a character from the client.
- * Function does about 70 or 80 queries when skills are present, more when there are weapons and spells in the character body
- * @param id {string} the id of the current user. NOT the character id.
- * @param body The json of the character to be updated
- * @returns {Promise<Character>}
- * @throws {DatabaseError}
- */
 export async function updateOne(id: string, body: ICharacter): Promise<any> {
   scribe('INFO', 'Updating single character.');
-  /* const character = new Character(id, body);
-  const charId = await Character.upsert(character);
-  const chId = charId.id;
-  const skills: Skill[] = [];
-  const weapons: Weapon[] = [];
-  const notes: Note[] = [];
-  const spells: Spell[] = [];
-  const saves: Save[] = [];
-  // Skill.query().upsertGraph(body.skills);
-  for (const skill of body.skills) {
-    skills.push(new Skill(id, chId, skill, 'skill'));
-  }
-  for (const wSkill of body.weaponSkills) {
-    skills.push(new Skill(id, chId, wSkill, 'weapon'));
-  }
-  for (const mSkill of body.magicSkills) {
-    skills.push(new Skill(id, chId, mSkill, 'magic'));
-  }
-  for (const weapon of body.weapons) {
-    weapons.push(new Weapon(id, chId, weapon));
-  }
-  for (const spell of body.spells) {
-    spells.push(new Spell(id, chId, spell));
-  }
-  for (const note of body.notes) {
-    notes.push(new Note(id, chId, note));
-  }
-  for (const note of body.importantNotes) {
-    notes.push(new Note(id, chId, note));
-  }
-  for (const save of body.savingThrows) {
-    saves.push(new Save(id, chId, save));
-  }
-  scribe('DEBUG', 'Upserrting the skills.');
-  charId.skills = await Skill.query().upsertGraphAndFetch(skills, {
-    insertMissing: true
+  const charRepo = await getRepository(Character);
+  let newChar = new Character();
+  newChar.notes = [];
+  newChar.saves = [];
+  newChar.skills = [];
+  newChar.spells = [];
+  newChar.weapons = [];
+  newChar.ac = body.ac;
+  newChar.charisma = body.attributes[5].value;
+  newChar.constitution = body.attributes[2].value;
+  newChar.craft_one = body.craftOne;
+  newChar.craft_two = body.craftTwo;
+  newChar.dexterity = body.attributes[1].value;
+  newChar.experience = body.exp;
+  newChar.flat_footed = body.flat_footed;
+  newChar.health = body.health;
+  newChar.id = body.id;
+  newChar.intelligence = body.attributes[3].value;
+  newChar.level = body.level;
+  newChar.magic = body.magic;
+  newChar.max_health = body.maxHealth;
+  newChar.max_magic = body.maxMagic;
+  newChar.name = body.name;
+  body.notes.forEach((note) => {
+    const myNote = new Note();
+    myNote.id = note.id;
+    myNote.important = false;
+    myNote.message = note.msg;
+    myNote.time = note.time;
+    newChar.notes.push(myNote);
   });
-  scribe('DEBUG', 'Upserrting the weapons.');
-  charId.weapons = await Weapon.query().upsertGraphAndFetch(weapons, {
-    insertMissing: true
+  body.importantNotes.forEach((note) => {
+    const myNote = new Note();
+    myNote.id = note.id;
+    myNote.important = true;
+    myNote.message = note.msg;
+    myNote.time = note.time;
+    newChar.notes.push(myNote);
   });
-  scribe('DEBUG', 'Upserrting the spells.');
-  charId.spells = await Spell.query().upsertGraphAndFetch(spells, {
-    insertMissing: true
+  newChar.performance = body.performCust;
+  newChar.profession = body.profession;
+  newChar.race = body.race;
+  body.savingThrows.forEach((save) => {
+    const mySave = new Save();
+    mySave.id = save.id;
+    mySave.modifier = save.modifier;
+    mySave.name = save.name;
+    mySave.racial_bonus = save.racial;
   });
-  scribe('DEBUG', 'Upserrting the saves.');
-  charId.saves = await Save.query().upsertGraphAndFetch(saves, {
-    insertMissing: true
+  newChar.size = body.size;
+  body.skills.forEach((skill) => {
+    const mySkill = new Skill();
+    mySkill.id = skill.id;
+    mySkill.item_modifier = skill.item;
+    mySkill.misc_modifier = skill.misc;
+    mySkill.modifier = skill.modifier;
+    mySkill.name = skill.skillName;
+    mySkill.racial_modifier = skill.racial;
+    mySkill.ranks = skill.ranks;
+    mySkill.trained = skill.trained ? skill.trained : false;
+    mySkill.skill_type = 'skill';
+    newChar.skills.push(mySkill);
   });
-  scribe('DEBUG', 'Upserrting the notes.');
-  charId.notes = await Note.query().upsertGraphAndFetch(notes, {
-    insertMissing: true
-  }); */
-  return id;
+  body.magicSkills.forEach((skill) => {
+    const mySkill = new Skill();
+    mySkill.id = skill.id;
+    mySkill.item_modifier = skill.item;
+    mySkill.misc_modifier = skill.misc;
+    mySkill.modifier = skill.modifier;
+    mySkill.name = skill.skillName;
+    mySkill.racial_modifier = skill.racial;
+    mySkill.ranks = skill.ranks;
+    mySkill.trained = skill.trained ? skill.trained : false;
+    mySkill.skill_type = 'magic';
+    newChar.skills.push(mySkill);
+  });
+  body.weaponSkills.forEach((skill) => {
+    const mySkill = new Skill();
+    mySkill.id = skill.id;
+    mySkill.item_modifier = skill.item;
+    mySkill.misc_modifier = skill.misc;
+    mySkill.modifier = skill.modifier;
+    mySkill.name = skill.skillName;
+    mySkill.racial_modifier = skill.racial;
+    mySkill.ranks = skill.ranks;
+    mySkill.trained = skill.trained ? skill.trained : false;
+    mySkill.skill_type = 'weapon';
+    newChar.skills.push(mySkill);
+  });
+  body.spells.forEach((spell) => {
+    const mySpell = new Spell();
+    mySpell.damage = spell.damage;
+    mySpell.diety = spell.diety;
+    mySpell.effect = spell.effect;
+    mySpell.id = spell.id;
+    mySpell.modifier = spell.modifier;
+    mySpell.mp_use = spell.mpUse;
+    mySpell.name = spell.name;
+    mySpell.number_of_hit = spell.multiplier;
+    mySpell.use_diety = spell.useDiety;
+    newChar.spells.push(mySpell);
+  });
+  newChar.strength = body.attributes[0].value;
+  newChar.subrace = body.subrace;
+  newChar.touch = body.touch;
+  newChar.user = await getRepository(User).findOne(id);
+  body.weapons.forEach((weapon) => {
+    const myWeap = new Weapon();
+    myWeap.ammo = weapon.ammo;
+    myWeap.crit_multiplier = weapon.critDamage;
+    myWeap.crit_range = parseArray(weapon.critRange);
+    myWeap.damage = weapon.attack;
+    myWeap.modifier = weapon.modifier;
+    myWeap.name = weapon.name;
+    myWeap.number_of_hits = weapon.numberOfAttacks;
+    myWeap.range = weapon.range;
+    myWeap.type = weapon.type;
+    newChar.weapons.push(myWeap);
+  });
+  newChar.wisdom = body.attributes[4].value;
+  newChar = await charRepo.save(newChar);
+  return newChar.id;
 }
 
-/**
- * Function to get all the Character's names, ids, and races belonging to a single user.
- * @param {string} userId the user id necessary to know which characters to query for.
- * @returns {Promise<Array<Partial<Character>>>} returns a promise of an array of partial characters
- * @throws {DatabaseError}
- */
 export async function getUserCharacters(
   userId: string
 ): Promise<Array<Partial<Character>>> {
@@ -150,3 +191,11 @@ export async function getUserCharacters(
 }
 
 export function newWeapon(charId, weapon) {}
+
+function parseArray(array: string[]): string {
+  if (array.length === 1) {
+    return array[0];
+  } else {
+    return array[0] + ' - ' + array[array.length - 1];
+  }
+}

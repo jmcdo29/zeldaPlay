@@ -29,6 +29,5 @@ export abstract class Base {
   @BeforeInsert()
   createId() {
     this.id = this.idStart + makeId(9);
-    console.log('id is', this.id);
   }
 }

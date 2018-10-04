@@ -9,7 +9,9 @@ export class DBError extends Base {
   @Column()
   message: string;
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   code: string;
 
   @UpdateDateColumn()

@@ -28,7 +28,7 @@ export class User {
   @Column({ type: 'text' })
   password: string;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: true })
   recovery_token: string;
 
   @BeforeInsert()

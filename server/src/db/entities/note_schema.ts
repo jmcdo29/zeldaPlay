@@ -15,5 +15,5 @@ export class Note extends BaseCharacterObject {
   time: string;
 
   @Column('bool')
-  important: boolean;
+  important = false;
 }

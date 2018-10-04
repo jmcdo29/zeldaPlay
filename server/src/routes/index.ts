@@ -5,5 +5,5 @@ import { UserRouter } from './user.controller';
 export function useRoutes(app) {
   app.get('/', sendApp);
   CharacterRouter(app, '/api');
-  UserRouter(app, '/user');
+  UserRouter(app, '/users');
 }

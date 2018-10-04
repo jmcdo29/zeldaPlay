@@ -54,22 +54,18 @@ export async function signUp(
 ): Promise<Partial<User>> {
   scribe('INFO', 'Registering a new user.');
   verifyPassword(password, confPassword);
-  const user = await getRepository(User).find({ email: username });
+  const userRepo = await getRepository(User);
+  const user = await userRepo.find({ email: username });
   if (user.length !== 0) {
     throw new LoginError(
       'Email already in use. Please log in or use a new email.',
       'EMAIL_IN_USE'
     );
   } else {
-    const newUser = (await getRepository(User)
-      .createQueryBuilder()
-      .insert()
-      .values({
-        email: username,
-        password: bcrypt.hashSync(password, 12)
-      })
-      .returning('*')
-      .execute()) as Partial<User>;
+    let newUser = new User();
+    newUser.email = username;
+    newUser.password = bcrypt.hashSync(password, 12);
+    newUser = await userRepo.save(newUser);
     scribe('INFO', 'New user registered.');
     return newUser;
   }
