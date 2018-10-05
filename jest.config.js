@@ -1,7 +1,8 @@
 module.exports = {
   roots: ['<rootDir>/client', '<rootDir>/server'],
-  cacheDirectory: '<rootDir>/tmp/',
+  cacheDirectory: '<rootDir>/../tmp/',
   preset: 'jest-preset-angular',
+  rootDir: './src/',
   globals: {
     'ts-jest': {
       tsConfigFile: './tsconfig.json'
@@ -10,7 +11,7 @@ module.exports = {
   },
   transform: {
     '^.+\\.(ts|js|html)$':
-      '<rootDir>/node_modules/jest-preset-angular/preprocessor.js'
+      '<rootDir>/../node_modules/jest-preset-angular/preprocessor.js'
   },
   testMatch: ['**/*.spec.ts'],
   moduleFileExtensions: ['ts', 'js', 'json', 'html'],
@@ -20,8 +21,8 @@ module.exports = {
   },
   transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
   snapshotSerializers: [
-    '<rootDir>/node_modules/jest-preset-angular/AngularSnapshotSerializer.js',
-    '<rootDir>/node_modules/jest-preset-angular/HTMLCommentSerializer.js'
+    '<rootDir>/../node_modules/jest-preset-angular/AngularSnapshotSerializer.js',
+    '<rootDir>/../node_modules/jest-preset-angular/HTMLCommentSerializer.js'
   ],
   setupTestFrameworkScriptFile: '<rootDir>/client/setupJest.ts',
   collectCoverage: true,

@@ -4,6 +4,6 @@
   "execMap": {
     "ts": "tsc -p ./server && node dist/server/bin/www.js"
   },
-  "exec": "tsc -p ./server && node dist/server/bin/www.js",
+  "exec": "ts-node -r tsconfig-paths/register server/nest/main.ts",
   "ext": "ts"
 }

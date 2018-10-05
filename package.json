@@ -10,11 +10,6 @@
       "pre-commit": "npm run lint && npm run prettier && node gitAddMod"
     }
   },
-  "greenkeeper": {
-    "ignore": [
-      "typescript"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/jmcdo29/zeldaplay"
@@ -34,6 +29,10 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
+    "@nest-middlewares/cors": "^5.1.0",
+    "@nest-middlewares/express-session": "^5.1.0",
+    "@nest-middlewares/helmet": "^5.1.0",
+    "@nest-middlewares/morgan": "^5.1.0",
     "@nestjs/common": "^5.3.9",
     "@nestjs/core": "^5.3.10",
     "bcryptjs": "^2.4.3",
@@ -69,6 +68,7 @@
     "@angular/platform-browser": "^6.1.9",
     "@angular/platform-browser-dynamic": "^6.1.9",
     "@angular/router": "^6.1.9",
+    "@nestjs/schematics": "^5.8.0",
     "@nestjs/testing": "^5.3.8",
     "@types/bcryptjs": "^2.4.2",
     "@types/connect-redis": "0.0.7",
@@ -94,6 +94,7 @@
     "supertest": "^3.3.0",
     "ts-jest": "^23.10.3",
     "ts-node": "^7.0.1",
+    "tsconfig-paths": "^3.6.0",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "typescript": "^2.7.2"
