@@ -10,7 +10,7 @@
 
 ---
 
-For current QA test cases and future developments you can check out the [Trello Board here](https://trello.com/b/LDBn0ygB).
+For current QA test cases and future developments you can check out the [ZenHub Board here](https://app.zenhub.com/workspace/o/jmcdo29/zeldaplay/boards).
 
 ---
 
