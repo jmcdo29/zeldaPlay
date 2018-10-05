@@ -5,7 +5,6 @@ import { CharactersService } from '../characters.service';
 
 @Controller('characters')
 export class CharactersController {
-
   constructor(private readonly characterService: CharactersService) {}
 
   @Get('/')

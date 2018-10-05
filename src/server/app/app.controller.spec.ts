@@ -5,7 +5,7 @@ describe('App Controller', () => {
   let module: TestingModule;
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      controllers: [AppController],
+      controllers: [AppController]
     }).compile();
   });
   it('should be defined', () => {

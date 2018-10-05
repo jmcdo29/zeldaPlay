@@ -36,6 +36,13 @@ export class MiddlewareModule {
     CorsMiddleware.configure(corsOptions);
     ExpressSessionMiddleware.configure(sessionOpts);
     MorganMiddleware.configure(morganFormat);
-    consumer.apply(HelmetMiddleware, CorsMiddleware, ExpressSessionMiddleware, MorganMiddleware).forRoutes('*');
+    consumer
+      .apply(
+        HelmetMiddleware,
+        CorsMiddleware,
+        ExpressSessionMiddleware,
+        MorganMiddleware
+      )
+      .forRoutes('*');
   }
 }
