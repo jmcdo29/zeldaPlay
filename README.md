@@ -1,10 +1,12 @@
 # zeldaPlay
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-purple.svg?style=flat)](https://github.com/prettier/prettier)
+[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/jmcdo29/zeldaPlay.svg?branch=master)](https://travis-ci.org/jmcdo29/zeldaPlay)
 [![codecov](https://codecov.io/gh/jmcdo29/zeldaPlay/branch/master/graph/badge.svg)](https://codecov.io/gh/jmcdo29/zeldaPlay)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 [![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json)
+[![Gitter chat](https://badges.gitter.im/jmcdo29/zeldaPlay.png)](https://gitter.im/zeldaPlay/Lobby "Gitter chat")
 
 ---
 
@@ -155,6 +157,8 @@ Error codes to be used internally for determining what happened when the error w
 This is an Angular 6+ SPA. Hosted on [Heroku.com](https://zeldaplay.herokuapp.com/)
 
 ---
+
+[Contributing](./CONTRIBUTING.md)
 
 [License](./LICENSE)
 
