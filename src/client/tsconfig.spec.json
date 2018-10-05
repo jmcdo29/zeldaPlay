@@ -4,7 +4,7 @@
     "baseUrl": "./",
     "module": "commonjs",
     "allowJs": true,
-    "types": ["jest", "node"]
+    "types": ["jest"]
   },
   "files": ["test.ts"],
   "include": ["**/*.spec.ts", "**/*.d.ts"]

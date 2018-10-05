@@ -1,6 +1,6 @@
 import { BeforeInsert, Column, Entity, PrimaryColumn } from 'typeorm';
 
-import { makeId } from '../../utils/utils';
+import { makeId } from '../utils/utils';
 
 @Entity()
 export class Question {

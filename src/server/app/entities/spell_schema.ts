@@ -1,7 +1,5 @@
 import { Column, Entity } from 'typeorm';
 
-import { ISpell } from '../../interfaces/spellInterface';
-import { checkNull, makeId } from '../../utils/utils';
 import { BaseCharacterObject } from './base_character_object_schema';
 
 @Entity()

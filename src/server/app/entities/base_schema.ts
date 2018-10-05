@@ -6,7 +6,7 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
-import { makeId } from '../../utils/utils';
+import { makeId } from '../utils/utils';
 import { User } from './user_schema';
 
 export abstract class Base {

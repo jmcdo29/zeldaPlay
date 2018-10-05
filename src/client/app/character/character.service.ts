@@ -13,7 +13,7 @@ import { Character } from './characterModels/character';
   providedIn: 'root'
 })
 export class CharacterService {
-  private characterUrl = environment.apiUrl + '/api/characters';
+  private characterUrl = environment.apiUrl + '/characters';
 
   constructor(
     private httpClient: HttpClient,

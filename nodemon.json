@@ -1,9 +1,6 @@
 {
-  "watch": ["server/", ".env"],
+  "watch": ["src/server/"],
   "ignore": ["*.spec.ts", ".git", "node_modules/**"],
-  "execMap": {
-    "ts": "tsc -p ./server && node dist/server/bin/www.js"
-  },
-  "exec": "ts-node -r tsconfig-paths/register server/nest/main.ts",
+  "exec": "ts-node -r tsconfig-paths/register src/server/main.ts",
   "ext": "ts"
 }
