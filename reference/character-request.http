@@ -1,8 +1,7 @@
-GET http://localhost:4000/api/characters HTTP/1.1
+GET http://localhost:4000/characters HTTP/1.1
 
 ###
-
-GET http://localhost:4000/api/characters/00Csntj8Gozz HTTP/1.1
+GET http://localhost:4000/characters/00Csntj8Gozz HTTP/1.1
 
 ###
 
