@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 import { Character } from '../entities/character_schema';
 import { CharacterService } from './character.service';
+import { CharacterDTO } from './interfaces/character.dto';
 
 @Controller('characters')
 export class CharacterController {
@@ -13,8 +14,8 @@ export class CharacterController {
   }
 
   @Post(':userId')
-  upsertOne(@Param('userId') userId: string, @Body() body) {
-    return this.characterService.upsertChar(userId, body.character);
+  newChar(@Param('userId') userId: string, @Body() body) {
+    return this.characterService.newChar(userId, body.character);
   }
 
   @Get('/user/:userId')
@@ -25,5 +26,10 @@ export class CharacterController {
   @Get(':characterId')
   getOne(@Param('characterId') charId: string) {
     return this.characterService.getOne(charId);
+  }
+
+  @Post(':charId')
+  updateOne(@Param('charId') charId: string, @Body() inChar: CharacterDTO) {
+    return this.characterService.updateChar(charId, inChar);
   }
 }

@@ -17,10 +17,10 @@
   "scripts": {
     "ng": "ng",
     "devStart": "nodemon --config nodemon.json",
-    "start": "node dist/server/bin/www.js",
+    "start": "node dist/server/main.js",
     "build": "npm run prettier && npm run build-client && npm run build-server",
     "build-client": "ng build --prod",
-    "build-server": "tsc -p ./server/app",
+    "build-server": "tsc -p ./src/server/",
     "test": "jest --notify",
     "test:ci": "snyk test && jest --runInBand",
     "lint": "ng lint",

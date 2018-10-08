@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Character } from '../entities/character_schema';
-import { CharacterDTO } from './interfaces/characterDTO';
+import { CharacterDTO } from './interfaces/character.dto';
 
 @Injectable()
 export class CharacterService {
@@ -14,7 +14,7 @@ export class CharacterService {
 
   async getAll(): Promise<Array<Partial<CharacterDTO>>> {
     return this.characterRepo.find({
-      select: ['id', 'race', 'subrace'],
+      select: ['id', 'race', 'name'],
       join: {
         alias: 'character',
         leftJoin: {
@@ -22,7 +22,7 @@ export class CharacterService {
         }
       },
       where: {
-        userId: '00Csntj8Gozz'
+        userId: process.env.DUMMY_ID
       }
     });
   }
@@ -39,5 +39,7 @@ export class CharacterService {
 
   getUserChars(userId: string): void {}
 
-  upsertChar(userId: string, character: any): void {}
+  newChar(userId: string, character: any): void {}
+
+  updateChar(charId: string, character: CharacterDTO): void {}
 }
