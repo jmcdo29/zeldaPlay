@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { CharacterModule } from './character/character.module';
 import { MiddlewareModule } from './middleware/middleware.module';
 import { UserModule } from './user/user.module';
@@ -23,7 +22,7 @@ import { UserModule } from './user/user.module';
     }),
     UserModule
   ],
-  providers: [AppService]
+  providers: []
 })
 export class AppModule {
   constructor(private readonly connetion: Connection) {}
