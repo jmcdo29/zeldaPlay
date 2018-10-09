@@ -4,7 +4,6 @@ import { Character } from '../entities/character_schema';
 import { CharacterController } from './character.controller';
 import { CharacterService } from './character.service';
 import { NoteModule } from './note/note.module';
-import { SaveModule } from './save/save.module';
 import { SkillModule } from './skill/skill.module';
 import { SpellModule } from './spell/spell.module';
 import { WeaponModule } from './weapon/weapon.module';
@@ -15,8 +14,7 @@ import { WeaponModule } from './weapon/weapon.module';
     SkillModule,
     WeaponModule,
     SpellModule,
-    NoteModule,
-    SaveModule
+    NoteModule
   ],
   controllers: [CharacterController],
   providers: [CharacterService]

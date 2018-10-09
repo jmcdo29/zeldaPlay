@@ -35,6 +35,7 @@
     "@nest-middlewares/morgan": "^5.1.0",
     "@nestjs/common": "^5.3.9",
     "@nestjs/core": "^5.3.10",
+    "@nestjs/swagger": "^2.5.1",
     "@nestjs/typeorm": "^5.2.2",
     "bcryptjs": "^2.4.3",
     "connect-redis": "^3.4.0",

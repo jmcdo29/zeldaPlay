@@ -1,4 +1,5 @@
 export class SkillDTO {
+  id?: string;
   name: string;
   type: string;
   ranks: number;
