@@ -1,9 +1,11 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiUseTags } from '@nestjs/swagger';
 
 import { Character } from '../entities/character.entity';
 import { CharacterService } from './character.service';
 import { CharacterDTO } from './interfaces/character.dto';
 
+@ApiUseTags('character')
 @Controller('characters')
 export class CharacterController {
   constructor(private readonly characterService: CharacterService) {}

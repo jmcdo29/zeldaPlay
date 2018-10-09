@@ -1,9 +1,11 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiUseTags } from '@nestjs/swagger';
 
 import { Note } from '../../entities/note.entity';
 import { NoteDTO } from './interfaces/note.dto';
 import { NoteService } from './note.service';
 
+@ApiUseTags('character', 'note')
 @Controller('characters/note')
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}

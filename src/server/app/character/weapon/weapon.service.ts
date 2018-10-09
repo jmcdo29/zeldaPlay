@@ -25,6 +25,7 @@ export class WeaponService {
     weapon.number_of_hits = newWeap.numberOfAttacks;
     weapon.crit_range = parseRange(newWeap.critRange);
     weapon.crit_multiplier = newWeap.critDamage;
+    weapon.character.id = charId;
     return this.weaponRepo.save(weapon);
   }
 }

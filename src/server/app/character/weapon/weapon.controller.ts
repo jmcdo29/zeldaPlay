@@ -1,9 +1,11 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiUseTags } from '@nestjs/swagger';
 
 import { WeaponDTO } from './interfaces/weapon.dto';
 import { WeaponService } from './weapon.service';
 
-@Controller('weapon')
+@ApiUseTags('character', 'weapon')
+@Controller('character/weapon')
 export class WeaponController {
   constructor(private readonly weaponService: WeaponService) {}
 
