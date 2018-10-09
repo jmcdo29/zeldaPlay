@@ -1,5 +1,5 @@
 module.exports = {
-  roots: ['<rootDir>/client', '<rootDir>/server'],
+  roots: ['<rootDir>/client/app', '<rootDir>/server/app'],
   cacheDirectory: '<rootDir>/../tmp/',
   preset: 'jest-preset-angular',
   rootDir: './src/',
@@ -27,26 +27,12 @@ module.exports = {
   setupTestFrameworkScriptFile: '<rootDir>/client/setupJest.ts',
   collectCoverage: true,
   collectCoverageFrom: [
-    '**/*.{js,ts}',
-    '!**/*.d.ts',
-    '!**/*.config.js',
-    '!**/node_modules/**',
-    '!**/coverage/**',
-    '!**/reference/**',
-    '!**/migrations/**',
-    '!**/seeds/**',
-    '!**/mocks/**',
-    '!**/*.json',
-    '!**/knexfile.ts',
-    '!**/sessionConf.ts',
+    '<rootDir>/**/*.ts',
     '!**/main.ts',
     '!**/polyfills.ts',
     '!**/setupJest.ts',
     '!**/test.ts',
-    '!**/server.ts',
-    '!**/jestGlobalMocks.ts',
-    '!**/dbConnection.ts',
-    '!**/www.ts'
+    '!**/jestGlobalMocks.ts'
   ],
   coverageReporters: ['lcov', 'text']
 };
