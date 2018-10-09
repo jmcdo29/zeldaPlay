@@ -12,10 +12,15 @@ async function bootstrap() {
   app.useStaticAssets(rootPath);
 
   const options = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('ZeldaPlay')
+    .setDescription('The zeldaplay API description')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('character')
+    .addTag('weapon')
+    .addTag('user')
+    .addTag('spell')
+    .addTag('skill')
+    .addTag('note')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
