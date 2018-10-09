@@ -15,6 +15,13 @@ async function bootstrap() {
     .setTitle('ZeldaPlay')
     .setDescription('The zeldaplay API description')
     .setVersion('1.0')
+    .setSchemes('https')
+    .setContactEmail('jmcdo29@gmail.com')
+    .setHost('zeldaplay.herokuapp.com')
+    .setLicense(
+      'MIT',
+      'https://github.com/jmcdo29/zeldaPlay/blob/master/LICENSE'
+    )
     .addTag('character')
     .addTag('weapon')
     .addTag('user')

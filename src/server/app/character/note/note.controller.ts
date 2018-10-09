@@ -5,7 +5,7 @@ import { Note } from '../../entities/note.entity';
 import { NoteDTO } from './interfaces/note.dto';
 import { NoteService } from './note.service';
 
-@ApiUseTags('character', 'note')
+@ApiUseTags('note')
 @Controller('characters/note')
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}
