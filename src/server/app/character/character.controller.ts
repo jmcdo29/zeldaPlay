@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
-import { Character } from '../entities/character_schema';
+import { Character } from '../entities/character.entity';
 import { CharacterService } from './character.service';
 import { CharacterDTO } from './interfaces/character.dto';
 

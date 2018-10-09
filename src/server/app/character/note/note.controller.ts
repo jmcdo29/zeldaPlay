@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
-import { Note } from '../../entities/note_schema';
+import { Note } from '../../entities/note.entity';
 import { NoteDTO } from './interfaces/note.dto';
 import { NoteService } from './note.service';
 

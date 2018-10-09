@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 import { makeId } from '../utils/utils';
-import { User } from './user_schema';
+import { User } from './user.entity';
 
 export abstract class Base {
   abstract idStart;

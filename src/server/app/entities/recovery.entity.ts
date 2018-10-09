@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 
-import { Base } from './base_schema';
+import { Base } from './base.entity';
 
 export class Recovery extends Base {
   idStart = '00R';

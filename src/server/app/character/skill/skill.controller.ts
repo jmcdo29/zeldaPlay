@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 
-import { Skill } from '../../entities/skill_schema';
+import { Skill } from '../../entities/skill.entity';
 import { SkillService } from './skill.service';
 
 @Controller('characters/skill')
