@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Spell } from '../../entities/spell.entity';
+import { Spell } from 'entities/spell.entity';
+
 import { SpellDTO } from './interfaces/spell.dto';
 
 @Injectable()
@@ -28,7 +29,7 @@ export class SpellService {
     return this.spellRepo.save(spell);
   }
 
-  async updateSpell(newSpell: SpellDTO, spellId: string): Promise<Spell> {
+  async updateSpell(newSpell: SpellDTO): Promise<Spell> {
     const spell = await this.spellRepo.create(newSpell);
     spell.mp_use = newSpell.mpUse;
     spell.number_of_hit = newSpell.multiplier;

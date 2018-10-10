@@ -1,6 +1,8 @@
 import { Controller, Get, Post } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
+import { User } from 'entities/user.entity';
+
 import { UsersService } from './user.service';
 
 @ApiUseTags('user')
@@ -16,7 +18,7 @@ export class UsersController {
 
   @Post('/signup')
   @ApiOperation({ title: 'Signup', description: 'Sign the new user up' })
-  singup() {
+  signup() {
     return this.usersService.signup();
   }
 }

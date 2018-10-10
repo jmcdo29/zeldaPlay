@@ -1,4 +1,4 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
 export class WeaponDTO {
   @ApiModelProperty()
@@ -25,9 +25,9 @@ export class WeaponDTO {
   @ApiModelProperty()
   range: number;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   ammo?: number;
 
-  @ApiModelProperty()
+  @ApiModelPropertyOptional()
   id?: string;
 }

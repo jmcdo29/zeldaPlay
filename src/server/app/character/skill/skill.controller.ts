@@ -1,7 +1,8 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { Skill } from '../../entities/skill.entity';
+import { Skill } from 'entities/skill.entity';
+
 import { SkillService } from './skill.service';
 
 @ApiUseTags('skill')

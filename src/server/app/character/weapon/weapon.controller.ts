@@ -1,6 +1,8 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
+import { Weapon } from 'entities/weapon.entity';
+
 import { WeaponDTO } from './interfaces/weapon.dto';
 import { WeaponService } from './weapon.service';
 
@@ -18,7 +20,7 @@ export class WeaponController {
     return this.weaponService.getWeapons(charId);
   }
 
-  @Post(':charId')
+  @Post('/new/:charId')
   @ApiOperation({
     title: 'New Weapon',
     description: 'Create a new weapon for the character.'
@@ -26,7 +28,16 @@ export class WeaponController {
   async newWeapon(
     @Body() inWeapon: WeaponDTO,
     @Param('charId') charId: string
-  ) {
+  ): Promise<Weapon> {
     return this.weaponService.newWeapon(inWeapon, charId);
+  }
+
+  @Post('/update/:weaponId')
+  @ApiOperation({
+    title: 'Update Weapon',
+    description: 'Update the weapon saved in the database with the specified id'
+  })
+  async updateWeapon(@Body() inWeapon: WeaponDTO): Promise<Weapon> {
+    return this.weaponService.updateWeapon(inWeapon);
   }
 }

@@ -1,7 +1,8 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { Note } from '../../entities/note.entity';
+import { Note } from 'entities/note.entity';
+
 import { NoteDTO } from './interfaces/note.dto';
 import { NoteService } from './note.service';
 
@@ -15,9 +16,7 @@ export class NoteController {
     title: 'Get Notes',
     description: 'Get all the notes of one character.'
   })
-  async getNotes(
-    @Param('charId') charId: string
-  ): Promise<Array<Partial<Note>>> {
+  async getNotes(@Param('charId') charId: string): Promise<Note[]> {
     return this.noteService.getNotes(charId);
   }
 

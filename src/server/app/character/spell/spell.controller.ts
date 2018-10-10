@@ -1,6 +1,8 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
+import { Spell } from 'entities/spell.entity';
+
 import { SpellDTO } from './interfaces/spell.dto';
 import { SpellService } from './spell.service';
 
@@ -14,7 +16,7 @@ export class SpellController {
     title: 'Get Character Spells',
     description: 'Get all of the spells for the specified character.'
   })
-  async getSpells(@Param('charId') charId: string) {
+  async getSpells(@Param('charId') charId: string): Promise<Spell[]> {
     return this.spellService.getSpells(charId);
   }
 
@@ -23,7 +25,10 @@ export class SpellController {
     title: 'Create a new spell',
     description: 'Create a new spell to be saved to the character.'
   })
-  async newSpell(@Body() inSpell: SpellDTO, @Param('charId') charId: string) {
+  async newSpell(
+    @Body() inSpell: SpellDTO,
+    @Param('charId') charId: string
+  ): Promise<Spell> {
     return this.spellService.newSpell(inSpell, charId);
   }
 
@@ -32,10 +37,7 @@ export class SpellController {
     title: 'Update Spell',
     description: 'Update an existing spell based on its id.'
   })
-  async updateSpell(
-    @Body() inSpell: SpellDTO,
-    @Param('spellId') spellId: string
-  ) {
-    return this.spellService.updateSpell(inSpell, spellId);
+  async updateSpell(@Body() inSpell: SpellDTO): Promise<Spell> {
+    return this.spellService.updateSpell(inSpell);
   }
 }
