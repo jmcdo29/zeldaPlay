@@ -18,12 +18,24 @@ export class SpellController {
     return this.spellService.getSpells(charId);
   }
 
-  @Post(':charId')
+  @Post('/new/:charId')
   @ApiOperation({
     title: 'Create a new spell',
     description: 'Create a new spell to be saved to the character.'
   })
   async newSpell(@Body() inSpell: SpellDTO, @Param('charId') charId: string) {
     return this.spellService.newSpell(inSpell, charId);
+  }
+
+  @Post('/update/:spellId')
+  @ApiOperation({
+    title: 'Update Spell',
+    description: 'Update an existing spell based on its id.'
+  })
+  async updateSpell(
+    @Body() inSpell: SpellDTO,
+    @Param('spellId') spellId: string
+  ) {
+    return this.spellService.updateSpell(inSpell, spellId);
   }
 }
