@@ -13,7 +13,7 @@ export class CharacterService {
     private readonly characterRepo: Repository<Character>
   ) {}
 
-  async getAll(): Promise<Array<Partial<CharacterDTO>>> {
+  async getAll(): Promise<Character[]> {
     return this.characterRepo.find({
       select: ['id', 'race', 'name'],
       join: {
@@ -28,19 +28,34 @@ export class CharacterService {
     });
   }
 
-  async getOne(charId: string): Promise<Partial<CharacterDTO>> {
+  async getOne(charId: string): Promise<Character> {
     return this.characterRepo.findOne(charId, {
       relations: ['skills', 'saves'],
       where: {
         id: charId
+      }
+    });
+  }
+
+  async getUserChars(userId: string): Promise<Character[]> {
+    return this.characterRepo.find({
+      select: ['id', 'name', 'race'],
+      where: {
+        userId
       },
       cache: true
     });
   }
 
-  getUserChars(userId: string): void {}
+  async newChar(inChar: CharacterDTO, userId: string): Promise<Character> {
+    const character = await this.characterRepo.create(inChar);
 
-  newChar(userId: string, character: any): void {}
+    return this.characterRepo.save(character);
+  }
 
-  updateChar(charId: string, character: CharacterDTO): void {}
+  async updateChar(inChar: CharacterDTO): Promise<Character> {
+    const character = await this.characterRepo.create(inChar);
+
+    return this.characterRepo.save(character);
+  }
 }

@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
 import { Weapon } from 'entities/weapon.entity';
 
-import { WeaponDTO } from './interfaces/weapon.dto';
+import { WeaponPipe } from './weapon.pipe';
 import { WeaponService } from './weapon.service';
 
 @ApiUseTags('weapon')
@@ -25,8 +25,9 @@ export class WeaponController {
     title: 'New Weapon',
     description: 'Create a new weapon for the character.'
   })
+  @UsePipes(WeaponPipe)
   async newWeapon(
-    @Body() inWeapon: WeaponDTO,
+    @Body() inWeapon: Weapon,
     @Param('charId') charId: string
   ): Promise<Weapon> {
     return this.weaponService.newWeapon(inWeapon, charId);
@@ -37,7 +38,8 @@ export class WeaponController {
     title: 'Update Weapon',
     description: 'Update the weapon saved in the database with the specified id'
   })
-  async updateWeapon(@Body() inWeapon: WeaponDTO): Promise<Weapon> {
+  @UsePipes(WeaponPipe)
+  async updateWeapon(@Body() inWeapon: Weapon): Promise<Weapon> {
     return this.weaponService.updateWeapon(inWeapon);
   }
 }

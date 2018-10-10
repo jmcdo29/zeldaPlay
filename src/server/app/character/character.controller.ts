@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
 import { Character } from 'entities/character.entity';
 
+import { CharacterPipe } from './character.pipe';
 import { CharacterService } from './character.service';
-import { CharacterDTO } from './interfaces/character.dto';
 
 @ApiUseTags('character')
 @Controller('characters')
@@ -18,7 +18,7 @@ export class CharacterController {
       // tslint:disable-next-line:max-line-length
       'Get all of the characters who do not belong to a user. These are returned and shown as an example for the user to get an idea of how the app works.'
   })
-  async getAll(): Promise<Array<Partial<Character>>> {
+  async getAll(): Promise<Character[]> {
     return this.characterService.getAll();
   }
 
@@ -28,8 +28,12 @@ export class CharacterController {
     description:
       'Using the User id, create and assign a new character based on the incoming body'
   })
-  newChar(@Param('userId') userId: string, @Body() body) {
-    return this.characterService.newChar(userId, body.character);
+  @UsePipes(CharacterPipe)
+  newChar(
+    @Param('userId') userId: string,
+    @Body() character: Character
+  ): Promise<Character> {
+    return this.characterService.newChar(character, userId);
   }
 
   @Get('/user/:userId')
@@ -37,7 +41,7 @@ export class CharacterController {
     title: 'User Characters',
     description: 'Get all the characters belonging to the specified user.'
   })
-  getUser(@Param('userId') userId: string) {
+  getUser(@Param('userId') userId: string): Promise<Character[]> {
     return this.characterService.getUserChars(userId);
   }
 
@@ -47,7 +51,7 @@ export class CharacterController {
     description:
       'Return all the information pertaining to the specified character.'
   })
-  getOne(@Param('characterId') charId: string) {
+  getOne(@Param('characterId') charId: string): Promise<Character> {
     return this.characterService.getOne(charId);
   }
 
@@ -56,7 +60,8 @@ export class CharacterController {
     title: 'Update Character',
     description: 'Update the incoming character. Found based on the passed id.'
   })
-  updateOne(@Param('charId') charId: string, @Body() inChar: CharacterDTO) {
-    return this.characterService.updateChar(charId, inChar);
+  @UsePipes(CharacterPipe)
+  updateOne(@Body() inChar: Character): Promise<Character> {
+    return this.characterService.updateChar(inChar);
   }
 }

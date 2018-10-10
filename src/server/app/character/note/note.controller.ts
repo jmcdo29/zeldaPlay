@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
 import { Note } from 'entities/note.entity';
 
-import { NoteDTO } from './interfaces/note.dto';
+import { NotePipe } from './note.pipe';
 import { NoteService } from './note.service';
 
 @ApiUseTags('note')
@@ -25,8 +25,9 @@ export class NoteController {
     title: 'New Note',
     description: 'Make a new note tied to this character.'
   })
+  @UsePipes(NotePipe)
   async newNote(
-    @Body() inNote: NoteDTO,
+    @Body() inNote: Note,
     @Param('charId') charId: string
   ): Promise<Note> {
     return this.noteService.saveNote(inNote, charId);

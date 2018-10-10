@@ -4,8 +4,6 @@ import { Repository } from 'typeorm';
 
 import { Note } from 'entities/note.entity';
 
-import { NoteDTO } from './interfaces/note.dto';
-
 @Injectable()
 export class NoteService {
   constructor(
@@ -20,9 +18,8 @@ export class NoteService {
     });
   }
 
-  async saveNote(inNote: NoteDTO, charId: string): Promise<Note> {
-    const note = await this.noteRepo.create(inNote);
-    note.character.id = charId;
-    return this.noteRepo.save(note);
+  async saveNote(inNote: Note, charId: string): Promise<Note> {
+    inNote.character.id = charId;
+    return this.noteRepo.save(inNote);
   }
 }
