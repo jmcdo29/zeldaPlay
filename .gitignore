@@ -46,8 +46,7 @@ mock-characters.ts
 
 *.sql
 .env
-/reference/*.js
-/reference/*.json
+/reference
 seeds
 testDelete.js
 *.pem
