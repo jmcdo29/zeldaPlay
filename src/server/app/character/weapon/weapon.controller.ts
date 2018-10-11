@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { Weapon } from 'entities/weapon.entity';
+import { Weapon } from '../../entities/weapon.entity';
 
 import { WeaponPipe } from './weapon.pipe';
 import { WeaponService } from './weapon.service';
@@ -20,7 +20,7 @@ export class WeaponController {
     return this.weaponService.getWeapons(charId);
   }
 
-  @Post('/new/:charId')
+  @Post('new/:charId')
   @ApiOperation({
     title: 'New Weapon',
     description: 'Create a new weapon for the character.'
@@ -33,7 +33,7 @@ export class WeaponController {
     return this.weaponService.newWeapon(inWeapon, charId);
   }
 
-  @Post('/update/:weaponId')
+  @Post('update/:weaponId')
   @ApiOperation({
     title: 'Update Weapon',
     description: 'Update the weapon saved in the database with the specified id'

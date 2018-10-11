@@ -1,20 +1,13 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 
-import { MyCorsMiddleware } from './cors';
-import { MyHelmetMiddleware } from './helmet';
-import { MyMorganMiddleware } from './morgan';
-import { MySessionMiddleware } from './session';
+import { MyCors } from './cors';
+import { MyHelmet } from './helmet';
+import { MyMorgan } from './morgan';
+import { MySession } from './session';
 
 @Module({})
 export class MiddlewareModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(
-        MyHelmetMiddleware,
-        MyCorsMiddleware,
-        MyMorganMiddleware,
-        MySessionMiddleware
-      )
-      .forRoutes('*');
+    consumer.apply(MyCors, MyHelmet, MyMorgan, MySession).forRoutes('*');
   }
 }

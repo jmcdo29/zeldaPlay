@@ -1,10 +1,10 @@
-import { ArgumentMetadata, Pipe, PipeTransform } from '@nestjs/common';
+import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
-import { Spell } from 'entities/spell.entity';
+import { Spell } from '../../entities/spell.entity';
 
 import { SpellDTO } from './interfaces/spell.dto';
 
-@Pipe()
+@Injectable()
 export class SpellPipe implements PipeTransform<SpellDTO, Spell> {
   transform(value: SpellDTO, metadata: ArgumentMetadata): Spell {
     const spell = new Spell();

@@ -13,5 +13,6 @@ const sessionOpts = {
   resave: false
 };
 
-export const MySessionMiddleware = () =>
-  ExpressSessionMiddleware.configure(sessionOpts);
+ExpressSessionMiddleware.configure(sessionOpts);
+
+export const MySession = ExpressSessionMiddleware;

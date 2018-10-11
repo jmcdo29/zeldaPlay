@@ -1,7 +1,7 @@
 import { Controller, Get, Res } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 
-@Controller('')
+@Controller()
 export class AppController {
   @Get()
   @ApiOperation({

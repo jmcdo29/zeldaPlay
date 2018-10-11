@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { Spell } from 'entities/spell.entity';
+import { Spell } from '../../entities/spell.entity';
 
 import { SpellPipe } from './spell.pipe';
 import { SpellService } from './spell.service';
@@ -20,7 +20,7 @@ export class SpellController {
     return this.spellService.getSpells(charId);
   }
 
-  @Post('/new/:charId')
+  @Post('new/:charId')
   @ApiOperation({
     title: 'Create a new spell',
     description: 'Create a new spell to be saved to the character.'
@@ -33,7 +33,7 @@ export class SpellController {
     return this.spellService.newSpell(inSpell, charId);
   }
 
-  @Post('/update/:spellId')
+  @Post('update/:spellId')
   @ApiOperation({
     title: 'Update Spell',
     description: 'Update an existing spell based on its id.'

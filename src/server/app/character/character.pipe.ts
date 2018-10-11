@@ -1,24 +1,16 @@
-import { ArgumentMetadata, Pipe, PipeTransform } from '@nestjs/common';
+import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
-import { Character } from 'entities/character.entity';
-import { Save } from 'entities/save.entity';
-import { Skill } from 'entities/skill.entity';
-import { Spell } from 'entities/spell.entity';
-import { Weapon } from 'entities/weapon.entity';
+import { Character } from '../entities/character.entity';
+import { Note } from '../entities/note.entity';
+import { Save } from '../entities/save.entity';
+import { Skill } from '../entities/skill.entity';
+import { Spell } from '../entities/spell.entity';
+import { Weapon } from '../entities/weapon.entity';
 
 import { CharacterDTO } from './interfaces/character.dto';
-import { NotePipe } from './note/note.pipe';
-import { SpellPipe } from './spell/spell.pipe';
-import { WeaponPipe } from './weapon/weapon.pipe';
 
-@Pipe()
+@Injectable()
 export class CharacterPipe implements PipeTransform<CharacterDTO, Character> {
-  constructor(
-    private readonly notePipe: NotePipe,
-    private readonly spellPipe: SpellPipe,
-    private readonly weaponPipe: WeaponPipe
-  ) {}
-
   transform(value: CharacterDTO, metadata: ArgumentMetadata): Character {
     const retVal: Character = new Character();
     retVal.ac = value.ac;
@@ -93,19 +85,53 @@ export class CharacterPipe implements PipeTransform<CharacterDTO, Character> {
       retVal.saves.push(save);
     });
     value.spells.forEach((inSpell) => {
-      retVal.spells.push(this.spellPipe.transform(inSpell, { type: 'body' }));
+      const spell = new Spell();
+      spell.id = inSpell.id;
+      spell.name = inSpell.name;
+      spell.modifier = inSpell.modifier;
+      spell.damage = inSpell.damage;
+      spell.diety = inSpell.diety;
+      spell.effect = inSpell.effect;
+      spell.mp_use = inSpell.mpUse;
+      spell.number_of_hit = inSpell.multiplier;
+      spell.use_diety = inSpell.useDiety;
+      retVal.spells.push(spell);
     });
     value.weapons.forEach((inWeapon) => {
-      retVal.weapons.push(
-        this.weaponPipe.transform(inWeapon, { type: 'body' })
-      );
+      const weapon = new Weapon();
+      weapon.ammo = inWeapon.ammo;
+      weapon.modifier = inWeapon.modifier;
+      weapon.name = inWeapon.name;
+      weapon.type = inWeapon.type;
+      weapon.id = inWeapon.id;
+      weapon.damage = inWeapon.attack;
+      weapon.number_of_hits = inWeapon.numberOfAttacks;
+      weapon.crit_range = parseRange(inWeapon.critRange);
+      weapon.crit_multiplier = inWeapon.critDamage;
+      retVal.weapons.push(weapon);
     });
     value.notes.forEach((inNote) => {
-      retVal.notes.push(this.notePipe.transform(inNote, { type: 'body' }));
+      const note = new Note();
+      note.message = inNote.message;
+      note.time = inNote.time;
+      note.id = inNote.id;
+      note.important = inNote.important;
+      retVal.notes.push(note);
     });
     value.importantNotes.forEach((inNote) => {
-      retVal.notes.push(this.notePipe.transform(inNote, { type: 'body' }));
+      const note = new Note();
+      note.message = inNote.message;
+      note.time = inNote.time;
+      note.id = inNote.id;
+      note.important = inNote.important;
+      retVal.notes.push(note);
     });
     return retVal;
   }
+}
+
+function parseRange(range: number[]): string {
+  return range.length === 1
+    ? range[0].toString()
+    : range[0].toString() + ' - ' + range[range.length - 1].toString();
 }

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { Note } from 'entities/note.entity';
+import { Note } from '../../entities/note.entity';
 
 import { NotePipe } from './note.pipe';
 import { NoteService } from './note.service';

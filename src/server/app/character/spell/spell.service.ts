@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Spell } from 'entities/spell.entity';
+import { Spell } from '../../entities/spell.entity';
 
 @Injectable()
 export class SpellService {

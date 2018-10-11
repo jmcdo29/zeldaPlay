@@ -1,6 +1,8 @@
+import 'reflect-metadata';
+
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { config } from 'dotenv';
-import * as path from 'path';
+import { join } from 'path';
 config();
 
 import { NestFactory } from '@nestjs/core';
@@ -8,7 +10,7 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const rootPath = path.join(__dirname, '../client');
+  const rootPath = join(__dirname, '../client');
   app.useStaticAssets(rootPath);
 
   const options = new DocumentBuilder()
@@ -30,7 +32,7 @@ async function bootstrap() {
     .addTag('note')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('/api', app, document);
 
   await app.listen(process.env.PORT, () => {
     console.log(`Application stated on ${process.env.PORT}.`);

@@ -2,9 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Character } from 'entities/character.entity';
-
-import { CharacterDTO } from './interfaces/character.dto';
+import { Character } from '../entities/character.entity';
 
 @Injectable()
 export class CharacterService {
@@ -47,15 +45,11 @@ export class CharacterService {
     });
   }
 
-  async newChar(inChar: CharacterDTO, userId: string): Promise<Character> {
-    const character = await this.characterRepo.create(inChar);
-
-    return this.characterRepo.save(character);
+  async newChar(inChar: Character, userId: string): Promise<Character> {
+    return this.characterRepo.save(inChar);
   }
 
-  async updateChar(inChar: CharacterDTO): Promise<Character> {
-    const character = await this.characterRepo.create(inChar);
-
-    return this.characterRepo.save(character);
+  async updateChar(inChar: Character): Promise<Character> {
+    return this.characterRepo.save(inChar);
   }
 }

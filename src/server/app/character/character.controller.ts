@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { Character } from 'entities/character.entity';
+import { Character } from '../entities/character.entity';
 
 import { CharacterPipe } from './character.pipe';
 import { CharacterService } from './character.service';
@@ -11,7 +11,7 @@ import { CharacterService } from './character.service';
 export class CharacterController {
   constructor(private readonly characterService: CharacterService) {}
 
-  @Get('/')
+  @Get()
   @ApiOperation({
     title: 'Get All Unassigned Characters',
     description:
@@ -36,7 +36,7 @@ export class CharacterController {
     return this.characterService.newChar(character, userId);
   }
 
-  @Get('/user/:userId')
+  @Get('user/:userId')
   @ApiOperation({
     title: 'User Characters',
     description: 'Get all the characters belonging to the specified user.'
