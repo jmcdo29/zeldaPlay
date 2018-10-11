@@ -5683,10 +5683,10 @@ math-random@^1.0.1:
   resolved "https://registry.yarnpkg.com/math-random/-/math-random-1.0.1.tgz#8b3aac588b8a66e4975e3cdea67f7bb329601fac"
   integrity sha1-izqsWIuKZuSXXjzepn97sylgH6w=
 
-mc-scribe@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/mc-scribe/-/mc-scribe-1.2.1.tgz#eb5757b6de8b91049f0fc6050fc2c2ef7894fa52"
-  integrity sha512-KOw6AgmyzC9Ivq0f1YQDt/bZvM02HYM2Qc56ST1ybCRUy6S4BMYrgB+gLH9eSnK/fwxwW02Prt8qMBnzKPpmyw==
+mc-scribe@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/mc-scribe/-/mc-scribe-1.2.2.tgz#f5534f282fce7ec002462909494808dd399be03e"
+  integrity sha512-S8dyJXe4yj4bXbSx6twVPAWdv4EgRF9ltR+HSLHh91NhjLP0XYte787a9fClq9FeQtcafGmBID+tsMPseiYzIA==
 
 md5.js@^1.3.4:
   version "1.3.5"

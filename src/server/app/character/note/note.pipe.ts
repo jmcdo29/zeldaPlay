@@ -8,7 +8,7 @@ import { NoteDTO } from './interfaces/note.dto';
 export class NotePipe implements PipeTransform<NoteDTO, Note> {
   transform(value: NoteDTO, metadata: ArgumentMetadata): Note {
     const note = new Note();
-    note.message = value.message;
+    note.message = value.msg;
     note.time = value.time;
     note.id = value.id;
     note.important = value.important;

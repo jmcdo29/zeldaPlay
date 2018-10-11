@@ -5,7 +5,7 @@ export class SkillDTO {
   id?: string;
 
   @ApiModelProperty()
-  name: string;
+  skillName: string;
 
   @ApiModelProperty()
   type: string;

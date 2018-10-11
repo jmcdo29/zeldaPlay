@@ -2,7 +2,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
 
 export class NoteDTO {
   @ApiModelProperty()
-  message: string;
+  msg: string;
 
   @ApiModelProperty()
   time: string;

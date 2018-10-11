@@ -3,17 +3,16 @@ node_js:
   - node
 cache:
   directories:
-    - '$HOME/.npm'
     - node_modules
 before_install:
-  - npm install codecov -g
-  - '[[ $(node -v) =~ ^v9.*$ ]] || npm install -g npm@latest' # skipped when using node 9
-  - npm install -g greenkeeper-lockfile
-install: npm install
+  - yarn add codecov -g
+  - '[[ $(node -v) =~ ^v9.*$ ]] || yarn global add yarn@latest' # skipped when using node 9
+  - yarn add -g greenkeeper-lockfile
+install: yarn add
 after_success:
   - codecov --file coverage/lcov.info --disable search
 before_script: greenkeeper-lockfile-update
-script: npm run test:ci
+script: yarn test:ci
 after_script: greenkeeper-lockfile-upload
 env:
   global:

@@ -22,7 +22,7 @@ export class CharacterController {
     return this.characterService.getAll();
   }
 
-  @Post(':userId')
+  @Post('new/:userId')
   @ApiOperation({
     title: 'New Character',
     description:
@@ -55,7 +55,7 @@ export class CharacterController {
     return this.characterService.getOne(charId);
   }
 
-  @Post(':charId')
+  @Post('update/:charId')
   @ApiOperation({
     title: 'Update Character',
     description: 'Update the incoming character. Found based on the passed id.'

@@ -2,12 +2,9 @@
   "name": "zelda-play",
   "version": "1.0.0",
   "license": "MIT",
-  "engines": {
-    "npm": ">=6.x"
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run prettier && node gitAddMod"
+      "pre-commit": "yarn lint && yarn prettier && node gitAddMod"
     }
   },
   "repository": {
@@ -19,7 +16,7 @@
     "start": "node dist/server/main.js",
     "start:dev": "nodemon",
     "start:debug": "nodemon --config nodemon-debug.json",
-    "build": "npm run prettier && npm run build:client && npm run build:server",
+    "build": "yarn prettier && yarn build:client && yarn build:server",
     "build:client": "ng build --prod",
     "build:server": "tsc -p ./src/server/",
     "test": "jest --notify",
@@ -27,7 +24,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prettier": "prettier --write \"**/*.{ts,css,scss,yml,yaml,json,js}\"",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "yarn build"
   },
   "dependencies": {
     "@nest-middlewares/cors": "^5.1.0",
@@ -47,7 +44,7 @@
     "file-saver": "^1.3.8",
     "helmet": "^3.14.0",
     "jsonwebtoken": "^8.3.0",
-    "mc-scribe": "^1.2.1",
+    "mc-scribe": "1.2.2",
     "morgan": "^1.9.1",
     "node-notifier": "^5.2.1",
     "pg": "^7.5.0",
