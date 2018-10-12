@@ -10,22 +10,16 @@ import { Weapon } from '../entities/weapon.entity';
 import { CharacterDTO } from './interfaces/character.dto';
 
 @Injectable()
-export class CharacterPipe
-  implements PipeTransform<{ character: CharacterDTO }, Character> {
-  transform(
-    inValue: { character: CharacterDTO },
-    metadata: ArgumentMetadata
-  ): Character {
-    const value = inValue.character;
+export class CharacterPipe implements PipeTransform<CharacterDTO, Character> {
+  transform(inValue: CharacterDTO, metadata: ArgumentMetadata): Character {
+    const value = inValue;
     const retVal = new Character();
-    retVal.ac = value.ac;
     retVal.charisma = value.attributes[5].value;
     retVal.constitution = value.attributes[2].value;
     retVal.craft_one = value.craftOne;
     retVal.craft_two = value.craftTwo;
     retVal.dexterity = value.attributes[1].value;
     retVal.experience = value.exp;
-    retVal.flat_footed = value.flat_footed;
     retVal.health = value.health;
     retVal.id = value.id;
     retVal.intelligence = value.attributes[3].value;
@@ -37,10 +31,8 @@ export class CharacterPipe
     retVal.performance = value.performCust;
     retVal.profession = value.profession;
     retVal.race = value.race;
-    retVal.size = value.size;
     retVal.strength = value.attributes[0].value;
     retVal.subrace = value.subRace;
-    retVal.touch = value.touch;
     retVal.wisdom = value.attributes[4].value;
     retVal.skills = [];
     value.magicSkills.forEach((skill) => {
@@ -90,52 +82,6 @@ export class CharacterPipe
       save.racial_bonus = inSave.racial;
       save.id = inSave.id;
       retVal.saves.push(save);
-    });
-    retVal.spells = [];
-    value.spells.forEach((inSpell) => {
-      const spell = new Spell();
-      spell.id = inSpell.id;
-      spell.name = inSpell.name;
-      spell.modifier = inSpell.modifier;
-      spell.damage = inSpell.damage;
-      spell.diety = inSpell.diety;
-      spell.effect = inSpell.effect;
-      spell.mp_use = inSpell.mpUse;
-      spell.number_of_hit = inSpell.multiplier;
-      spell.use_diety = inSpell.useDiety;
-      retVal.spells.push(spell);
-    });
-    retVal.weapons = [];
-    value.weapons.forEach((inWeapon) => {
-      const weapon = new Weapon();
-      weapon.ammo = inWeapon.ammo;
-      weapon.modifier = inWeapon.modifier;
-      weapon.name = inWeapon.name;
-      weapon.type = inWeapon.type;
-      weapon.id = inWeapon.id;
-      weapon.range = inWeapon.range;
-      weapon.damage = inWeapon.attack;
-      weapon.number_of_hits = inWeapon.numberOfAttacks;
-      weapon.crit_range = parseRange(inWeapon.critRange);
-      weapon.crit_multiplier = inWeapon.critDamage;
-      retVal.weapons.push(weapon);
-    });
-    retVal.notes = [];
-    value.notes.forEach((inNote) => {
-      const note = new Note();
-      note.message = inNote.msg;
-      note.time = inNote.time;
-      note.id = inNote.id;
-      note.important = inNote.important;
-      retVal.notes.push(note);
-    });
-    value.importantNotes.forEach((inNote) => {
-      const note = new Note();
-      note.message = inNote.msg;
-      note.time = inNote.time;
-      note.id = inNote.id;
-      note.important = inNote.important;
-      retVal.notes.push(note);
     });
     return retVal;
   }

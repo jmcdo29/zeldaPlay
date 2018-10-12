@@ -2,32 +2,32 @@ import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
 export class WeaponDTO {
   @ApiModelProperty()
-  name: string;
+  readonly name: string;
 
   @ApiModelProperty()
-  attack: number; // Number of sides the damage dice has
+  readonly attack: number; // Number of sides the damage dice has
 
   @ApiModelProperty()
-  numberOfAttacks: number; // For the in case you have multiple attack dice
+  readonly numberOfAttacks: number; // For the in case you have multiple attack dice
 
   @ApiModelProperty()
-  critRange: number[]; // Values for which rolling a crit leads to crit damage
+  readonly critRange: number[]; // Values for which rolling a crit leads to crit damage
 
   @ApiModelProperty()
-  critDamage: number; // Crit damage multiplier
+  readonly critDamage: number; // Crit damage multiplier
 
   @ApiModelProperty()
-  type: string;
+  readonly type: string;
 
   @ApiModelProperty()
-  modifier: string;
+  readonly modifier: string;
 
   @ApiModelProperty()
-  range: number;
+  readonly range: number;
 
   @ApiModelPropertyOptional()
-  ammo?: number;
+  readonly ammo?: number;
 
   @ApiModelPropertyOptional()
-  id?: string;
+  readonly id?: string;
 }

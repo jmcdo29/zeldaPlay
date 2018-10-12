@@ -2,29 +2,29 @@ import { ApiModelProperty } from '@nestjs/swagger';
 
 export class SkillDTO {
   @ApiModelProperty()
-  id?: string;
+  readonly id?: string;
 
   @ApiModelProperty()
-  skillName: string;
+  readonly skillName: string;
 
   @ApiModelProperty()
-  type: string;
+  readonly type: string;
 
   @ApiModelProperty()
-  ranks: number;
+  readonly ranks: number;
 
   @ApiModelProperty()
-  trained: boolean;
+  readonly trained: boolean;
 
   @ApiModelProperty()
-  racial?: number;
+  readonly racial?: number;
 
   @ApiModelProperty()
-  misc?: number;
+  readonly misc?: number;
 
   @ApiModelProperty()
-  item?: number;
+  readonly item?: number;
 
   @ApiModelProperty()
-  modifier?: string;
+  readonly modifier?: string;
 }

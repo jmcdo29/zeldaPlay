@@ -2,14 +2,14 @@ import { ApiModelProperty } from '@nestjs/swagger';
 
 export class NoteDTO {
   @ApiModelProperty()
-  msg: string;
+  readonly msg: string;
 
   @ApiModelProperty()
-  time: string;
+  readonly time: string;
 
   @ApiModelProperty()
-  id?: string;
+  readonly id?: string;
 
   @ApiModelProperty()
-  important: boolean;
+  readonly important: boolean;
 }

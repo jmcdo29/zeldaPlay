@@ -1,91 +1,64 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
-import { NoteDTO } from '../note/interfaces/note.dto';
 import { SkillDTO } from '../skill/interfaces/skill.dto';
-import { SpellDTO } from '../spell/interfaces/spell.dto';
-import { WeaponDTO } from '../weapon/interfaces/weapon.dto';
 import { AttributeDTO } from './attribute.dto';
 import { SaveDTO } from './save.dto';
 
 export class CharacterDTO {
   @ApiModelPropertyOptional()
-  id?: string;
+  readonly id?: string;
 
   @ApiModelProperty()
-  level: number;
+  readonly level: number;
 
   @ApiModelProperty()
-  name: string;
+  readonly name: string;
 
   @ApiModelProperty()
-  race: string;
+  readonly race: string;
 
   @ApiModelPropertyOptional()
-  subRace?: string;
+  readonly subRace?: string;
 
-  @ApiModelPropertyOptional()
-  ac?: number;
-
-  @ApiModelPropertyOptional()
-  flat_footed?: number;
-
-  @ApiModelPropertyOptional()
-  touch?: number;
-
-  @ApiModelPropertyOptional()
-  size?: string;
+  @ApiModelProperty({ type: [AttributeDTO] })
+  readonly attributes: AttributeDTO[];
 
   @ApiModelProperty()
-  attributes: AttributeDTO[];
+  readonly health: number;
 
   @ApiModelProperty()
-  health: number;
+  readonly maxHealth: number;
 
   @ApiModelProperty()
-  maxHealth: number;
+  readonly magic: number;
 
   @ApiModelProperty()
-  magic: number;
+  readonly maxMagic: number;
 
   @ApiModelProperty()
-  maxMagic: number;
-
-  @ApiModelProperty()
-  exp: number;
+  readonly exp: number;
 
   @ApiModelPropertyOptional()
-  craftOne?: string;
+  readonly craftOne?: string;
 
   @ApiModelPropertyOptional()
-  craftTwo?: string;
+  readonly craftTwo?: string;
 
   @ApiModelPropertyOptional()
-  performCust?: string;
+  readonly performCust?: string;
 
   @ApiModelPropertyOptional()
-  profession?: string;
+  readonly profession?: string;
 
-  @ApiModelPropertyOptional()
-  skills?: SkillDTO[];
+  @ApiModelPropertyOptional({ type: [SkillDTO] })
+  readonly skills?: SkillDTO[];
 
-  @ApiModelPropertyOptional()
-  weaponSkills?: SkillDTO[];
+  @ApiModelPropertyOptional({ type: [SkillDTO] })
+  readonly weaponSkills?: SkillDTO[];
 
-  @ApiModelPropertyOptional()
-  magicSkills?: SkillDTO[];
+  @ApiModelPropertyOptional({ type: [SkillDTO] })
+  readonly magicSkills?: SkillDTO[];
 
-  @ApiModelPropertyOptional()
-  weapons?: WeaponDTO[];
-
-  @ApiModelPropertyOptional()
-  spells?: SpellDTO[];
-
-  @ApiModelPropertyOptional()
-  notes?: NoteDTO[];
-
-  @ApiModelPropertyOptional()
-  importantNotes?: NoteDTO[];
-
-  @ApiModelProperty()
-  savingThrows: SaveDTO[];
+  @ApiModelProperty({ type: [SaveDTO] })
+  readonly savingThrows: SaveDTO[];
 }

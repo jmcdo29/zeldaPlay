@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
-import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
 import { Character } from '../entities/character.entity';
 
 import { CharacterPipe } from './character.pipe';
 import { CharacterService } from './character.service';
+import { CharacterDTO } from './interfaces/character.dto';
 
 @ApiUseTags('character')
 @Controller('characters')
@@ -15,8 +16,8 @@ export class CharacterController {
   @ApiOperation({
     title: 'Get All Unassigned Characters',
     description:
-      // tslint:disable-next-line:max-line-length
-      'Get all of the characters who do not belong to a user. These are returned and shown as an example for the user to get an idea of how the app works.'
+      'Get all of the characters who do not belong to a user. ' +
+      'These are returned and shown as an example for the user to get an idea of how the app works.'
   })
   async getAll(): Promise<Character[]> {
     return this.characterService.getAll();
@@ -28,10 +29,10 @@ export class CharacterController {
     description:
       'Using the User id, create and assign a new character based on the incoming body'
   })
-  @UsePipes(CharacterPipe)
+  @ApiImplicitBody({ name: 'character', type: CharacterDTO })
   newChar(
     @Param('userId') userId: string,
-    @Body() character: Character
+    @Body('character', CharacterPipe) character: Character
   ): Promise<Character> {
     return this.characterService.newChar(character, userId);
   }
@@ -60,8 +61,10 @@ export class CharacterController {
     title: 'Update Character',
     description: 'Update the incoming character. Found based on the passed id.'
   })
-  @UsePipes(CharacterPipe)
-  updateOne(@Body() inChar: Character): Promise<Character> {
+  @ApiImplicitBody({ name: 'character', type: CharacterDTO })
+  updateOne(
+    @Body('character', CharacterPipe) inChar: Character
+  ): Promise<Character> {
     return this.characterService.updateChar(inChar);
   }
 }

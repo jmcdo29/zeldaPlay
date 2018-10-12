@@ -1,5 +1,12 @@
+import { ApiModelProperty } from '@nestjs/swagger';
+
 export class AttributeDTO {
-  name: string;
-  value: number;
-  modifier: number;
+  @ApiModelProperty()
+  readonly name: string;
+
+  @ApiModelProperty()
+  readonly value: number;
+
+  @ApiModelProperty()
+  readonly modifier: number;
 }

@@ -2,29 +2,29 @@ import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
 export class SpellDTO {
   @ApiModelProperty()
-  name: string;
+  readonly name: string;
 
   @ApiModelProperty()
-  effect: string;
+  readonly effect: string;
 
   @ApiModelProperty()
-  mpUse: number;
+  readonly mpUse: number;
 
   @ApiModelProperty()
-  damage: number;
+  readonly damage: number;
 
   @ApiModelProperty()
-  multiplier: number;
+  readonly multiplier: number;
 
   @ApiModelPropertyOptional()
-  modifier?: string;
+  readonly modifier?: string;
 
   @ApiModelProperty()
-  diety: string;
+  readonly diety: string;
 
   @ApiModelProperty()
-  useDiety = false;
+  readonly useDiety = false;
 
   @ApiModelPropertyOptional()
-  id?: string;
+  readonly id?: string;
 }

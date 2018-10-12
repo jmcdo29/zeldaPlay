@@ -50,6 +50,22 @@ export class CharacterService {
   }
 
   async updateChar(inChar: Character): Promise<Character> {
-    return this.characterRepo.save(inChar);
+    await this.characterRepo
+      .createQueryBuilder()
+      .update()
+      .set(inChar)
+      .where('id=:id', { id: inChar.id })
+      .execute();
+    await this.characterRepo
+      .createQueryBuilder()
+      .relation(Character, 'skills')
+      .of(inChar.id)
+      .add(inChar.skills);
+    await this.characterRepo
+      .createQueryBuilder()
+      .relation(Character, 'saves')
+      .of(inChar.id)
+      .add(inChar.saves);
+    return inChar;
   }
 }
