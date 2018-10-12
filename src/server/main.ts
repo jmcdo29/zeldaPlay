@@ -25,11 +25,11 @@ async function bootstrap() {
       'https://github.com/jmcdo29/zeldaPlay/blob/master/LICENSE'
     )
     .addTag('character')
-    .addTag('weapon')
-    .addTag('user')
+    .addTag('note')
     .addTag('spell')
     .addTag('skill')
-    .addTag('note')
+    .addTag('weapon')
+    .addTag('user')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('/api', app, document);

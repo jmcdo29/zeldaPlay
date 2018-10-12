@@ -6,7 +6,7 @@
     "module": "commonjs",
     "target": "es6",
     "paths": {
-      "*": ["*", "../../node_modules/*", "app/*"]
+      "*": ["*", "app/*", "../../node_modules/*"]
     },
     "experimentalDecorators": true
   },
