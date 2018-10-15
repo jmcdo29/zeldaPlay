@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { AuthModule } from '@Auth/auth.module';
 import { Character } from '@Entity/character.entity';
 import { NoteModule } from '@Note/note.module';
 import { SkillModule } from '@Skill/skill.module';
@@ -15,7 +17,9 @@ import { CharacterService } from './character.service';
     SkillModule,
     WeaponModule,
     SpellModule,
-    NoteModule
+    NoteModule,
+    AuthModule,
+    PassportModule.register({ defaultStrategy: 'jwt' })
   ],
   controllers: [CharacterController],
   providers: [CharacterService]

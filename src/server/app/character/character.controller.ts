@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
 import { Character } from '@Entity/character.entity';
@@ -30,6 +31,7 @@ export class CharacterController {
       'Using the User id, create and assign a new character based on the incoming body'
   })
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
+  @UseGuards(AuthGuard())
   newChar(
     @Param('userId') userId: string,
     @Body('character', CharacterPipe) character: Character
@@ -42,6 +44,7 @@ export class CharacterController {
     title: 'User Characters',
     description: 'Get all the characters belonging to the specified user.'
   })
+  @UseGuards(AuthGuard())
   getUser(@Param('userId') userId: string): Promise<Character[]> {
     return this.characterService.getUserChars(userId);
   }
@@ -61,6 +64,7 @@ export class CharacterController {
     title: 'Update Character',
     description: 'Update the incoming character. Found based on the passed id.'
   })
+  @UseGuards(AuthGuard())
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
   updateOne(
     @Body('character', CharacterPipe) inChar: Character
