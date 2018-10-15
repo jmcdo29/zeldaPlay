@@ -32,9 +32,12 @@ async function bootstrap() {
     .addTag('skill')
     .addTag('weapon')
     .addTag('user')
+    .addBearerAuth('Authorization', 'header')
     .build();
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('/api', app, document);
+  const document = SwaggerModule.createDocument(app, options, {});
+  SwaggerModule.setup('/api', app, document, {
+    customSiteTitle: 'ZeldaPlay'
+  });
 
   await app.listen(process.env.PORT, () => {
     console.log(`Application stated on ${process.env.PORT}.`);

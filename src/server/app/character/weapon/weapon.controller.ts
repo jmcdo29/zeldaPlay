@@ -1,6 +1,11 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiImplicitBody,
+  ApiOperation,
+  ApiUseTags
+} from '@nestjs/swagger';
 
 import { Weapon } from '@Entity/weapon.entity';
 
@@ -28,6 +33,7 @@ export class WeaponController {
     description: 'Create a new weapon for the character.'
   })
   @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   async newWeapon(
     @Body('weapon', WeaponPipe) inWeapon: Weapon,
@@ -42,6 +48,7 @@ export class WeaponController {
     description: 'Update the weapon saved in the database with the specified id'
   })
   @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   async updateWeapon(
     @Body('weapon', WeaponPipe) inWeapon: Weapon

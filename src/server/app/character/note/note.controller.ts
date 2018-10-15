@@ -1,6 +1,11 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiImplicitBody,
+  ApiOperation,
+  ApiUseTags
+} from '@nestjs/swagger';
 
 import { Note } from '@Entity/note.entity';
 
@@ -27,6 +32,7 @@ export class NoteController {
     title: 'New Note',
     description: 'Make a new note tied to this character.'
   })
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiImplicitBody({ name: 'note', type: NoteDTO })
   async newNote(
