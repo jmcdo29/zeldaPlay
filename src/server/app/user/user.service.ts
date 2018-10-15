@@ -24,6 +24,14 @@ export class UsersService {
   }
 
   async signup(user: NewUserDTO): Promise<User> {
+    const existingUser = await this.userRepo.find({ email: user.email });
+    if (existingUser.length > 0) {
+      return Promise.reject(
+        new Error(
+          'That email already exists. Please log in or choose another email.'
+        )
+      );
+    }
     const newUser = this.userRepo.create(user);
     newUser.password = await hash(newUser.password, 12);
     return this.userRepo.save(newUser);

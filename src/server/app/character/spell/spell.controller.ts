@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
-import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
 import { Spell } from '../../entities/spell.entity';
 
+import { SpellDTO } from './interfaces/spell.dto';
 import { SpellPipe } from './spell.pipe';
 import { SpellService } from './spell.service';
 
@@ -25,9 +26,9 @@ export class SpellController {
     title: 'Create a new spell',
     description: 'Create a new spell to be saved to the character.'
   })
-  @UsePipes(SpellPipe)
+  @ApiImplicitBody({ name: 'spell', type: SpellDTO })
   async newSpell(
-    @Body() inSpell: Spell,
+    @Body('spell', SpellPipe) inSpell: Spell,
     @Param('charId') charId: string
   ): Promise<Spell> {
     return this.spellService.newSpell(inSpell, charId);
@@ -38,8 +39,8 @@ export class SpellController {
     title: 'Update Spell',
     description: 'Update an existing spell based on its id.'
   })
-  @UsePipes(SpellPipe)
-  async updateSpell(@Body() inSpell: Spell): Promise<Spell> {
+  @ApiImplicitBody({ name: 'spell', type: SpellDTO })
+  async updateSpell(@Body('spell', SpellPipe) inSpell: Spell): Promise<Spell> {
     return this.spellService.updateSpell(inSpell);
   }
 }
