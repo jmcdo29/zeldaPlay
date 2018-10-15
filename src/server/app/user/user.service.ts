@@ -1,15 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { compare, hash } from 'bcryptjs';
 import { Repository } from 'typeorm';
 
 import { User } from '../entities/user.entity';
 
-import { NewUserDTO } from './interfaces/new_user.dto';
-import { UserDTO } from './interfaces/user.dto';
+import { NewUserDTO } from '../auth/interfaces/new_user.dto';
+import { UserDTO } from '../auth/interfaces/user.dto';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @InjectRepository(User) private readonly userRepo: Repository<User>
   ) {}
@@ -19,7 +23,7 @@ export class UsersService {
     if (await compare(user.password, dbUser.password)) {
       return dbUser;
     } else {
-      throw new Error('Invalid login');
+      throw new UnauthorizedException('Invalid email or password.');
     }
   }
 
@@ -27,7 +31,7 @@ export class UsersService {
     const existingUser = await this.userRepo.find({ email: user.email });
     if (existingUser.length > 0) {
       return Promise.reject(
-        new Error(
+        new ConflictException(
           'That email already exists. Please log in or choose another email.'
         )
       );
@@ -36,4 +40,16 @@ export class UsersService {
     newUser.password = await hash(newUser.password, 12);
     return this.userRepo.save(newUser);
   }
+
+  async findUserByEmail(email: string): Promise<User> {
+    return this.userRepo.findOneOrFail({ email });
+  }
+
+  async findUserByToken(token: string): Promise<User> {
+    return this.userRepo.findOneOrFail({ loginToken: token });
+  }
+
+  /* async findUserByGToken(gToken: string): Promise<User> {
+    return this.userRepo.findOneOrFail({googleToken: gToken});
+  } */
 }

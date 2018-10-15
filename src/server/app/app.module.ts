@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 
 import { AppController } from './app.controller';
+import { AuthModule } from './auth/auth.module';
 import { CharacterModule } from './character/character.module';
 import { MiddlewareModule } from './middleware/middleware.module';
 import { UserModule } from './user/user.module';
@@ -20,7 +21,8 @@ import { UserModule } from './user/user.module';
       entities: [__dirname + '/entities/*.{js,ts}'],
       schema: 'zeldaplay'
     }),
-    UserModule
+    UserModule,
+    AuthModule
   ],
   providers: []
 })

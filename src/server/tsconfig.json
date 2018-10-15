@@ -1,15 +1,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "outDir": "../../dist/server",
     "module": "commonjs",
     "target": "es6",
     "paths": {
-      "*": ["*", "app/*", "../../node_modules/*"]
+      "*": ["../../node_modules/*"]
     },
     "experimentalDecorators": true
   },
-  "include": ["app/**/*", "main.ts"],
+  "include": ["app/**/*.ts", "main.ts"],
   "exclude": ["test.ts", "tests/**", "src/**", "**/**.spec.ts"]
 }

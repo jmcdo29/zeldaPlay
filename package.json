@@ -23,7 +23,7 @@
     "test:ci": "snyk test && jest --runInBand",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": "prettier --write \"**/*.{ts,css,scss,yml,yaml,json,js}\"",
+    "prettier": "prettier --write \"{src/{server,client}/**/*.{ts,css,scss,json},*.{json,yml,yaml},.*.{yml,json,yaml}}\"",
     "heroku-postbuild": "yarn build"
   },
   "dependencies": {
@@ -33,6 +33,8 @@
     "@nest-middlewares/morgan": "^5.1.0",
     "@nestjs/common": "^5.3.11",
     "@nestjs/core": "^5.3.11",
+    "@nestjs/jwt": "^0.2.0",
+    "@nestjs/passport": "^5.1.0",
     "@nestjs/swagger": "^2.5.1",
     "@nestjs/typeorm": "^5.2.2",
     "bcryptjs": "^2.4.3",
@@ -49,6 +51,9 @@
     "mc-scribe": "1.2.2",
     "morgan": "^1.9.1",
     "node-notifier": "^5.2.1",
+    "passport": "^0.4.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-jwt": "^4.0.0",
     "pg": "^7.5.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",
