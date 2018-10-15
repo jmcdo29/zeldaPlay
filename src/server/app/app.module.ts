@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 
+import { AuthModule } from '@Auth/auth.module';
+import { CharacterModule } from '@Character/character.module';
+import { UserModule } from '@User/user.module';
 import { AppController } from './app.controller';
-import { AuthModule } from './auth/auth.module';
-import { CharacterModule } from './character/character.module';
 import { MiddlewareModule } from './middleware/middleware.module';
-import { UserModule } from './user/user.module';
 
 @Module({
   controllers: [AppController],

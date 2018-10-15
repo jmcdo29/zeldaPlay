@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { Note } from 'entities/note.entity';
+import { Note } from '@Entity/note.entity';
 
 import { NoteDTO } from './interfaces/note.dto';
 import { NotePipe } from './note.pipe';

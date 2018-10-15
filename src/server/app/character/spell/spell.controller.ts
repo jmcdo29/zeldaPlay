@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { Spell } from '../../entities/spell.entity';
+import { Spell } from '@Entity/spell.entity';
 
 import { SpellDTO } from './interfaces/spell.dto';
 import { SpellPipe } from './spell.pipe';

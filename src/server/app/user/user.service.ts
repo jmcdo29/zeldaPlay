@@ -7,10 +7,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { compare, hash } from 'bcryptjs';
 import { Repository } from 'typeorm';
 
-import { User } from '../entities/user.entity';
+import { User } from '@Entity/user.entity';
 
-import { NewUserDTO } from '../auth/interfaces/new_user.dto';
-import { UserDTO } from '../auth/interfaces/user.dto';
+import { NewUserDTO } from '@Auth/interfaces/new_user.dto';
+import { UserDTO } from '@Auth/interfaces/user.dto';
 
 @Injectable()
 export class UserService {

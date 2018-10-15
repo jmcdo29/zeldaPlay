@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { Character } from '../entities/character.entity';
+import { Character } from '@Entity/character.entity';
 
 import { CharacterPipe } from './character.pipe';
 import { CharacterService } from './character.service';

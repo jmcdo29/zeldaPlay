@@ -1,6 +1,6 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
-import { Weapon } from '../../entities/weapon.entity';
+import { Weapon } from '@Entity/weapon.entity';
 
 import { WeaponDTO } from './interfaces/weapon.dto';
 

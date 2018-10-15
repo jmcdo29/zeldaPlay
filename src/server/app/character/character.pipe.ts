@@ -1,8 +1,8 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
-import { Character } from '../entities/character.entity';
-import { Save } from '../entities/save.entity';
-import { Skill } from '../entities/skill.entity';
+import { Character } from '@Entity/character.entity';
+import { Save } from '@Entity/save.entity';
+import { Skill } from '@Entity/skill.entity';
 
 import { CharacterDTO } from './interfaces/character.dto';
 

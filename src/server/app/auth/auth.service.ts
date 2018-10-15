@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { User } from '../entities/user.entity';
-import { UserService } from '../user/user.service';
+import { User } from '@Entity/user.entity';
+import { UserService } from '@User/user.service';
 import { JwtDTO } from './interfaces/jwt.dto';
 import { NewUserDTO } from './interfaces/new_user.dto';
 import { UserDTO } from './interfaces/user.dto';

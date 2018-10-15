@@ -1,6 +1,6 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
-import { Note } from '../../entities/note.entity';
+import { Note } from '@Entity/note.entity';
 
 import { NoteDTO } from './interfaces/note.dto';
 

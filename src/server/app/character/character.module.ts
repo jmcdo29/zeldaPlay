@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Character } from '../entities/character.entity';
+import { Character } from '@Entity/character.entity';
+import { NoteModule } from '@Note/note.module';
+import { SkillModule } from '@Skill/skill.module';
+import { SpellModule } from '@Spell/spell.module';
+import { WeaponModule } from '@Weapon/weapon.module';
 import { CharacterController } from './character.controller';
 import { CharacterService } from './character.service';
-import { NoteModule } from './note/note.module';
-import { SkillModule } from './skill/skill.module';
-import { SpellModule } from './spell/spell.module';
-import { WeaponModule } from './weapon/weapon.module';
 
 @Module({
   imports: [

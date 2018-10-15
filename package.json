@@ -23,8 +23,18 @@
     "test:ci": "snyk test && jest --runInBand",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prettier": "prettier --write \"{src/{server,client}/**/*.{ts,css,scss,json},*.{json,yml,yaml},.*.{yml,json,yaml}}\"",
+    "prettier": "prettier --write \"{src/**/*.{ts,css,scss,json},*.{json,yml,yaml},.*.{yml,json,yaml}}\"",
     "heroku-postbuild": "yarn build"
+  },
+  "_moduleAliases": {
+    "@Auth": "dist/server/app/auth",
+    "@Entity": "dist/server/app/entities",
+    "@Character": "dist/server/app/character",
+    "@Note": "dist/server/app/character/note",
+    "@Skill": "dist/server/app/character/skill",
+    "@Spell": "dist/server/app/character/spell",
+    "@User": "dist/server/app/user",
+    "@Weapon": "dist/server/app/character/weapon"
   },
   "dependencies": {
     "@nest-middlewares/cors": "^5.1.0",
@@ -49,6 +59,7 @@
     "helmet": "^3.14.0",
     "jsonwebtoken": "^8.3.0",
     "mc-scribe": "1.2.2",
+    "module-alias": "^2.1.0",
     "morgan": "^1.9.1",
     "node-notifier": "^5.2.1",
     "passport": "^0.4.0",

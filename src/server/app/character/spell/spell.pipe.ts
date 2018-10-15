@@ -1,6 +1,6 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
-import { Spell } from '../../entities/spell.entity';
+import { Spell } from '@Entity/spell.entity';
 
 import { SpellDTO } from './interfaces/spell.dto';
 

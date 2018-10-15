@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { Weapon } from '../../entities/weapon.entity';
+import { Weapon } from '@Entity/weapon.entity';
 
 import { WeaponDTO } from './interfaces/weapon.dto';
 import { WeaponPipe } from './weapon.pipe';
