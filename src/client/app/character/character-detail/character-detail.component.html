@@ -174,7 +174,7 @@
           <h2>Saving Throws</h2>
         </button>
         <div class="panel" [class.active]="showSaves">
-          <app-character-saves [character]="character" [characterDetailComponent]="this"></app-character-saves>
+          <app-save [character]="character" [characterDetailComponent]="this"></app-save>
         </div>
 
       </div>
@@ -224,19 +224,19 @@
           <br/>Notes</h4>
       </div>
       <div *ngIf="showSet[0]">
-        <app-character-skills [character]="character"></app-character-skills>
+        <app-skill [character]="character"></app-skill>
       </div>
       <div *ngIf="showSet[1]">
-        <app-character-weapon [character]="character"></app-character-weapon>
+        <app-weapon [character]="character"></app-weapon>
       </div>
       <div *ngIf="showSet[2]">
-        <app-character-spell [character]="character"></app-character-spell>
+        <app-spell [character]="character"></app-spell>
       </div>
       <div *ngIf="showSet[3]">
-        <app-character-inventory [character]="character"></app-character-inventory>
+        <app-inventory [character]="character"></app-inventory>
       </div>
       <div *ngIf="showSet[4]">
-        <app-character-notes [character]="character"></app-character-notes>
+        <app-note [character]="character"></app-note>
       </div>
     </div>
   </div>

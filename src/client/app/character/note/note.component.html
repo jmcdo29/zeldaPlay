@@ -1,3 +1,31 @@
-<p>
-  note works!
-</p>
+<div class="notes">
+
+  <div class="newNoteComps">
+    <input class="noteInput" type="text" [(ngModel)]="newMsg" placeholder="New Note"> Important:
+    <input type="checkbox" [(ngModel)]="important">
+    <button class="noteButton" (click)="addNote()">Make Note</button>
+  </div>
+
+  <button class="accordian" (click)="expandNotes(0)">
+    <h2>Important Notes</h2>
+  </button>
+  <div class="panel" [class.active]="showNotes[0]">
+    <ul>
+      <li *ngFor="let note of character.getImportantNotes()">{{ note.getTime() }}
+        <span class="message">{{ note.getMsg() }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <button class="accordian" (click)="expandNotes(1)">
+    <h2>Other Notes</h2>
+  </button>
+
+  <div class="panel" [class.active]="showNotes[1]">
+    <ul>
+      <li *ngFor="let note of character.getNotes()">{{ note.getTime() }}
+        <span class="message">{{ note.getMsg() }}</span>
+      </li>
+    </ul>
+  </div>
+</div>

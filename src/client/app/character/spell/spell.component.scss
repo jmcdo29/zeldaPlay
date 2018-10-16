@@ -1,0 +1,57 @@
+input.dropdown::-webkit-inner-spin-button,
+input.dropdown::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+input,
+textarea,
+select,
+button.save {
+  width: 90%;
+}
+
+.improv-table {
+  float: left;
+  width: 48%;
+  padding: 5px 1px;
+}
+.table-holder {
+  padding: 0.5% 5%;
+}
+.table-holder::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.bad-input {
+  background-color: lightcoral;
+}
+.crit {
+  color: gold;
+}
+.critMiss {
+  color: red;
+}
+.max {
+  color: #00aa00;
+}
+
+.spellName {
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  /* .table-data-for-mobile{
+    float: left;
+  } */
+  .improv-table {
+    float: none;
+    width: 100%;
+    max-width: 100%;
+  }
+  .smaller {
+    width: 80%;
+    margin: 10% 10%;
+  }
+}

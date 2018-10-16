@@ -1,11 +1,11 @@
 import { SharedModule } from '#Shared/shared.module';
 import { NgModule } from '@angular/core';
 
-import { SaveComponent } from './save.component';
+import { DieComponent } from './die.component';
 
 @NgModule({
   imports: [SharedModule],
-  declarations: [SaveComponent],
-  exports: [SaveComponent]
+  declarations: [DieComponent],
+  exports: [DieComponent]
 })
-export class SaveModule {}
+export class DieModule {}
