@@ -20,7 +20,7 @@
     "build:client": "ng build --prod",
     "build:server": "tsc -p ./src/server/tsconfig.app.json",
     "test": "jest --notify",
-    "test:ci": "snyk test && jest --runInBand",
+    "test:ci": "jest --runInBand",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prettier": "prettier --write \"{src/**/*.{ts,css,scss,json},*.{json,yml,yaml},.*.{yml,json,yaml}}\"",
