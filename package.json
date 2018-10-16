@@ -18,7 +18,7 @@
     "start:debug": "concurrently \"yarn build:server -w\" \"node --inspect dist/server/main.js\"",
     "build": "yarn prettier && yarn build:client && yarn build:server\"",
     "build:client": "ng build --prod",
-    "build:server": "tsc -p ./src/server/",
+    "build:server": "tsc -p ./src/server/tsconfig.app.json",
     "test": "jest --notify",
     "test:ci": "snyk test && jest --runInBand",
     "lint": "ng lint",

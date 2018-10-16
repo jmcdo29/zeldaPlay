@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Jest One",
       "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": ["tests/controllers/character.controller.spec.ts", "--runInBand"],
+      "args": ["server/app/character/skill/skill.service.spec.ts", "--runInBand"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "windows": {

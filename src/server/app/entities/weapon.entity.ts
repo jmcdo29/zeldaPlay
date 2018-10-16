@@ -1,9 +1,9 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { BaseCharacterObject } from './character_object.entity';
+import { Character } from './character.entity';
 
 @Entity()
-export class Weapon extends BaseCharacterObject {
+export class Weapon {
   idStart: '00W';
 
   @Column()
@@ -32,4 +32,8 @@ export class Weapon extends BaseCharacterObject {
 
   @Column({ type: 'int', nullable: true })
   ammo: number;
+
+  @ManyToOne((type) => Character, (character) => character[this + 's'])
+  @JoinColumn()
+  character: Character;
 }

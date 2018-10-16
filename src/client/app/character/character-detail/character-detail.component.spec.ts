@@ -6,39 +6,39 @@ import { Character } from '#Models/character';
 import { MessageService } from '#Shared/messages/message.service';
 import { CharacterDetailComponent } from './character-detail.component';
 
-@Component({ selector: 'app-character-skills', template: '' })
-class CharacterSkillsStubComponent {
+@Component({ selector: 'app-skill', template: '' })
+class SkillsStubComponent {
   @Input()
   character;
 }
 
 // tslint:disable:max-classes-per-file
-@Component({ selector: 'app-character-weapon', template: '' })
-class CharacterWeaponsStubComponent {
+@Component({ selector: 'app-weapon', template: '' })
+class WeaponsStubComponent {
   @Input()
   character;
 }
 
-@Component({ selector: 'app-character-spell', template: '' })
-class CharacterSpellsStubComponent {
+@Component({ selector: 'app-spell', template: '' })
+class SpellStubComponent {
   @Input()
   character;
 }
 
-@Component({ selector: 'app-character-inventory', template: '' })
-class CharacterInventoryStubComponent {
+@Component({ selector: 'app-inventory', template: '' })
+class InventoryStubComponent {
   @Input()
   character;
 }
 
-@Component({ selector: 'app-character-notes', template: '' })
-class CharacterNotesStubComponent {
+@Component({ selector: 'app-note', template: '' })
+class NoteStubComponent {
   @Input()
   character;
 }
 
-@Component({ selector: 'app-character-saves', template: '' })
-class CharacterSavesStubComponent {
+@Component({ selector: 'app-save', template: '' })
+class SaveStubComponent {
   @Input()
   character;
   @Input()
@@ -79,13 +79,13 @@ describe('CharacterDetailComponent', () => {
       imports: [FormsModule],
       declarations: [
         CharacterDetailComponent,
-        CharacterInventoryStubComponent,
-        CharacterNotesStubComponent,
-        CharacterSkillsStubComponent,
-        CharacterSpellsStubComponent,
-        CharacterWeaponsStubComponent,
+        InventoryStubComponent,
+        NoteStubComponent,
+        SkillsStubComponent,
+        SpellStubComponent,
+        WeaponsStubComponent,
         DieStubComponent,
-        CharacterSavesStubComponent,
+        SaveStubComponent,
         CharacterLevelUpStubComponent
       ],
       providers: [{ provide: MessageService, useValue: messageServiceStub }]

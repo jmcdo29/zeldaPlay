@@ -1,9 +1,9 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { BaseCharacterObject } from './character_object.entity';
+import { Character } from './character.entity';
 
 @Entity()
-export class Save extends BaseCharacterObject {
+export class Save {
   idStart = '0St';
 
   @Column('int')
@@ -14,4 +14,8 @@ export class Save extends BaseCharacterObject {
 
   @Column()
   modifier: string;
+
+  @ManyToOne((type) => Character, (character) => character[this + 's'])
+  @JoinColumn()
+  character: Character;
 }
