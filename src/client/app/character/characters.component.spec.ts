@@ -5,12 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 
-import { AlertService } from '../alert/alert.service';
+import { AlertService } from '#Alert/alert.service';
+import { myChar } from '#Mocks/character.mock';
+import { characterReturn } from '#Mocks/characterRes.mock';
+import { Character } from '#Models/character';
 import { CharacterService } from './character.service';
-import { Character } from './characterModels/character';
 import { CharactersComponent } from './characters.component';
-import { myChar } from './mocks/character.mock';
-import { characterReturn } from './mocks/characterRes.mock';
 
 @Component({ selector: 'app-character-detail', template: '' })
 class CharacterDetailStubComponent {

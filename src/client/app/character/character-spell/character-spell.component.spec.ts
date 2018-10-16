@@ -2,11 +2,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { AlertService } from '../../alert/alert.service';
-import { MessageService } from '../../shared/messages/message.service';
-import { SharedModule } from '../../shared/shared.module';
-import { Character } from '../characterModels/character';
-import { Spell } from '../characterModels/spells';
+import { AlertService } from '#Alert/alert.service';
+import { Character } from '#Models/character';
+import { Spell } from '#Models/spells';
+import { MessageService } from '#Shared/messages/message.service';
+import { SharedModule } from '#Shared/shared.module';
 import { CharacterSpellComponent } from './character-spell.component';
 
 const alertServiceStub: Partial<AlertService> = {

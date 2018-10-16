@@ -1,6 +1,6 @@
 import * as Express from 'express';
 
-import { useErrorHandlers, useMiddleware } from '../../src/middleware/index';
+import { useErrorHandlers, useMiddleware } from '../../src/middleware';
 
 const app = Express();
 

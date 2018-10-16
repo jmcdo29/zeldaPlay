@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { MessageService } from '../../shared/messages/message.service';
-import { Character } from '../characterModels/character';
-import { Note } from '../characterModels/note';
+import { Character } from '#Models/character';
+import { Note } from '#Models/note';
+import { MessageService } from '#Shared/messages/message.service';
 
 @Component({
   selector: 'app-character-notes',

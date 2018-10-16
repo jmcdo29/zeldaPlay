@@ -4,10 +4,9 @@ import * as FileSaver from 'file-saver';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
-import { MessageService } from '../shared/messages/message.service';
-
-import { Character } from './characterModels/character';
+import { environment } from '#Environment/environment';
+import { Character } from '#Models/character';
+import { MessageService } from '#Shared/messages/message.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
-import { MessageService } from '../../shared/messages/message.service';
+import { Character } from '#Models/character';
+import { MessageService } from '#Shared/messages/message.service';
 import { CharacterLevelUpComponent } from '../character-level-up/character-level-up.component';
-import { Character } from '../characterModels/character';
 
 @Component({
   selector: 'app-character-detail',

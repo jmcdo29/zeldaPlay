@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { MessageService } from '../../shared/messages/message.service';
-import { Character } from '../characterModels/character';
+import { Character } from '#Models/character';
+import { MessageService } from '#Shared/messages/message.service';
 import { CharacterDetailComponent } from './character-detail.component';
 
 @Component({ selector: 'app-character-skills', template: '' })

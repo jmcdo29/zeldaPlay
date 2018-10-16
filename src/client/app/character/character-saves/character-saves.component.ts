@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
-import { MessageService } from '../../shared/messages/message.service';
+import { Attributes } from '#Enums/attributes.enum';
+import { Saves } from '#Enums/saves.enum';
+import { Character } from '#Models/character';
+import { MessageService } from '#Shared/messages/message.service';
 import { CharacterDetailComponent } from '../character-detail/character-detail.component';
-import { Character } from '../characterModels/character';
-import { Attributes } from '../characterModels/enums/attributes.enum';
-import { Saves } from '../characterModels/enums/saves.enum';
 
 @Component({
   selector: 'app-character-saves',

@@ -7,7 +7,7 @@ import * as express from 'express';
 
 import { connection } from './db/database';
 import { useErrorHandlers, useMiddleware } from './middleware';
-import { useRoutes } from './routes/index';
+import { useRoutes } from './routes';
 
 connection.then(() => console.log('table synced')).catch((err) => {
   console.error(err.message);

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 
-import { AlertService } from '../../alert/alert.service';
+import { AlertService } from '#Alert/alert.service';
 import { UserService } from '../user.service';
 import { UserLoginComponent } from './user-login.component';
 

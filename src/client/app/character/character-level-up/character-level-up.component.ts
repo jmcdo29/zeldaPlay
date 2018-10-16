@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Character } from '../characterModels/character';
-import { Attributes } from '../characterModels/enums/attributes.enum';
+import { Attributes } from '#Enums/attributes.enum';
+import { Character } from '#Models/character';
 
 @Component({
   selector: 'app-character-level-up',

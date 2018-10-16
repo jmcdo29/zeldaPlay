@@ -2,7 +2,15 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "module": "es2015"
+    "paths": {
+      "#Enums/*": ["app/models/enums/*"],
+      "#Races/*": ["app/models/races/*"],
+      "#Models/*": ["app/models/*"],
+      "#Alert/*": ["app/alert/*"],
+      "#Shared/*": ["app/shared/*"],
+      "#Mocks/*": ["app/mocks/*"],
+      "#Environment/*": ["environments/*"]
+    }
   },
-  "exclude": ["test.ts", "**/*.spec.ts"]
+  "exclude": ["**/*.spec.ts", "test.ts"]
 }

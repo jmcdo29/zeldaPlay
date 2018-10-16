@@ -16,7 +16,7 @@
     "start": "node dist/server/main.js",
     "start:dev": "concurrently \"yarn build:server -w\" \"nodemon dist/server/main.js\" ",
     "start:debug": "concurrently \"yarn build:server -w\" \"node --inspect dist/server/main.js\"",
-    "build": "yarn prettier && yarn build:client && yarn build:server",
+    "build": "yarn prettier && yarn build:client && yarn build:server\"",
     "build:client": "ng build --prod",
     "build:server": "tsc -p ./src/server/",
     "test": "jest --notify",

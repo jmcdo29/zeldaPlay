@@ -1,6 +1,6 @@
 import * as Express from 'express';
 
-import { useRoutes } from '../../src/routes/index';
+import { useRoutes } from '../../src/routes';
 
 const app = Express();
 

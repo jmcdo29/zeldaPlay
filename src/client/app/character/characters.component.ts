@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from '../alert/alert.service';
+
+import { AlertService } from '#Alert/alert.service';
+import { Magics } from '#Enums/magic-skills.enum';
+import { Skills } from '#Enums/skills.enum';
+import { Weapons } from '#Enums/weapon-skills.enum';
+import { Character } from '#Models/character';
 import { CharacterService } from './character.service';
-import { Character } from './characterModels/character';
-import { Magics } from './characterModels/enums/magic-skills.enum';
-import { Skills } from './characterModels/enums/skills.enum';
-import { Weapons } from './characterModels/enums/weapon-skills.enum';
 
 @Component({
   selector: 'app-characters',

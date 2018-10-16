@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageService } from '../../shared/messages/message.service';
+
+import { Attributes } from '#Enums/attributes.enum';
+import { MessageService } from '#Shared/messages/message.service';
 import { CharacterDetailComponent } from '../character-detail/character-detail.component';
-import { Attributes } from '../characterModels/enums/attributes.enum';
 
 @Component({
   selector: 'app-die',

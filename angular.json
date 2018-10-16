@@ -62,8 +62,7 @@
           "options": {
             "tsConfig": [
               "src/client/tsconfig.app.json",
-              "src/client/tsconfig.spec.json",
-              "src/server/tsconfig.json"
+              "src/client/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]
           }

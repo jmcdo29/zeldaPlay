@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessageService } from '../../shared/messages/message.service';
+import { Character } from '#Models/character';
+import { MessageService } from '#Shared/messages/message.service';
 import { CharacterDetailComponent } from '../character-detail/character-detail.component';
-import { Character } from '../characterModels/character';
 import { DieComponent } from './die.component';
 
 describe('DieComponent', () => {

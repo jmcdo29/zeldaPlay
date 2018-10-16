@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { MessageService } from '../../shared/messages/message.service';
-import { SharedModule } from '../../shared/shared.module';
-import { Character } from '../characterModels/character';
-import { Weapons } from '../characterModels/enums/weapon-skills.enum';
-import { Elemental } from '../characterModels/weapons/elemental';
-import { Weapon } from '../characterModels/weapons/weapon';
+import { Weapons } from '#Enums/weapon-skills.enum';
+import { Character } from '#Models/character';
+import { Elemental } from '#Models/weapons/elemental';
+import { Weapon } from '#Models/weapons/weapon';
+import { MessageService } from '#Shared/messages/message.service';
+import { SharedModule } from '#Shared/shared.module';
 import { CharacterWeaponComponent } from './character-weapon.component';
 
 let messageServiceStub: Partial<MessageService>;

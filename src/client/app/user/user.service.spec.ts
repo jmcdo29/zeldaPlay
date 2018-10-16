@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http/testing';
 import { inject, TestBed } from '@angular/core/testing';
 
-import { environment } from '../../environments/environment';
+import { environment } from '#Environment/environment';
 import { UserService } from './user.service';
 
 describe('#UserService', () => {

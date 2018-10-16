@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { MessageService } from '../../shared/messages/message.service';
-import { SharedModule } from '../../shared/shared.module';
+import { Character } from '#Models/character';
+import { MessageService } from '#Shared/messages/message.service';
+import { SharedModule } from '#Shared/shared.module';
 import { CharacterDetailComponent } from '../character-detail/character-detail.component';
-import { Character } from '../characterModels/character';
 import { CharacterSavesComponent } from './character-saves.component';
 
 const messageServiceStub: Partial<MessageService> = {

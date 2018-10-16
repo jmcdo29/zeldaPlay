@@ -3,8 +3,6 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "../../dist/server",
-    "module": "commonjs",
-    "target": "es6",
     "paths": {
       "@Auth/*": ["app/auth/*"],
       "@Character/*": ["app/character/*"],

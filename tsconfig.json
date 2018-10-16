@@ -6,11 +6,29 @@
     "baseUrl": "./src",
     "inlineSourceMap": true,
     "declaration": false,
+    "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es6",
     "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"]
+    "lib": ["es2017", "dom"],
+    "paths": {
+      "#Enums/*": ["client/app/models/enums/*"],
+      "#Races/*": ["client/app/models/races/*"],
+      "#Models/*": ["client/app/models/*"],
+      "#Alert/*": ["client/app/alert/*"],
+      "#Shared/*": ["client/app/shared/*"],
+      "#Mocks/*": ["client/app/mocks/*"],
+      "#Environment/*": ["client/environments/*"],
+      "@Auth/*": ["server/app/auth/*"],
+      "@Character/*": ["server/app/character/*"],
+      "@Entity/*": ["server/app/entities/*"],
+      "@Note/*": ["server/app/character/note/*"],
+      "@Skill/*": ["server/app/character/skill/*"],
+      "@Spell/*": ["server/app/character/spell/*"],
+      "@User/*": ["server/app/user/*"],
+      "@Weapon/*": ["server/app/character/weapon/*"]
+    }
   }
 }

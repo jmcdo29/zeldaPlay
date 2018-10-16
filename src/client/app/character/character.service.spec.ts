@@ -6,10 +6,10 @@ import {
 import { inject, TestBed } from '@angular/core/testing';
 import * as FileSaver from 'file-saver';
 
-import { environment } from '../../environments/environment';
+import { environment } from '#Environment/environment';
+import { characterDB } from '#Mocks/characterDB.mock';
+import { Character } from '#Models/character';
 import { CharacterService } from './character.service';
-import { Character } from './characterModels/character';
-import { characterDB } from './mocks/characterDB.mock';
 
 jest.mock('file-saver', () => {
   return {

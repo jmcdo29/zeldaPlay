@@ -1,13 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { AlertService } from '../../alert/alert.service';
-import { MessageService } from '../../shared/messages/message.service';
-import { CharacterService } from '../character.service';
-import { Character } from '../characterModels/character';
-import { Attributes } from '../characterModels/enums/attributes.enum';
-import { Magics } from '../characterModels/enums/magic-skills.enum';
-import { Skills } from '../characterModels/enums/skills.enum';
-import { Weapons } from '../characterModels/enums/weapon-skills.enum';
+import { AlertService } from '#Alert/alert.service';
+import { Attributes } from '#Enums/attributes.enum';
+import { Magics } from '#Enums/magic-skills.enum';
+import { Skills } from '#Enums/skills.enum';
+import { Weapons } from '#Enums/weapon-skills.enum';
+import { Character } from '#Models/character';
 import {
   Fairy,
   Gerudo,
@@ -17,7 +15,9 @@ import {
   Sheikah,
   Twili,
   Zora
-} from '../characterModels/Races';
+} from '#Models/Races';
+import { MessageService } from '#Shared/messages/message.service';
+import { CharacterService } from '../character.service';
 import { CharactersComponent } from '../characters.component';
 
 @Component({

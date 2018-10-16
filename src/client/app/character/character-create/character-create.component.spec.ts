@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, of } from 'rxjs';
 
-import { AlertService } from '../../alert/alert.service';
-import { MessageService } from '../../shared/messages/message.service';
-import { CharacterService } from '../character.service';
-import { Character } from '../characterModels/character';
+import { AlertService } from '#Alert/alert.service';
+import { myChar } from '#Mocks/character.mock';
+import { characterReturn } from '#Mocks/characterRes.mock';
+import { Character } from '#Models/character';
 import {
   Fairy,
   Gerudo,
@@ -17,10 +17,10 @@ import {
   Sheikah,
   Twili,
   Zora
-} from '../characterModels/Races';
+} from '#Models/Races';
+import { MessageService } from '#Shared/messages/message.service';
+import { CharacterService } from '../character.service';
 import { CharactersComponent } from '../characters.component';
-import { myChar } from '../mocks/character.mock';
-import { characterReturn } from '../mocks/characterRes.mock';
 import { CharacterCreateComponent } from './character-create.component';
 
 const alertServiceStub: Partial<AlertService> = {

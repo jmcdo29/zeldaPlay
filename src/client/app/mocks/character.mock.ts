@@ -1,7 +1,7 @@
-import { Note } from '../characterModels/note';
-import { Goron } from '../characterModels/Races';
-import { Spell } from '../characterModels/spells';
-import { Weapon } from '../characterModels/weapons/weapon';
+import { Note } from '#Models/note';
+import { Goron } from '#Models/Races';
+import { Spell } from '#Models/spells';
+import { Weapon } from '#Models/weapons/weapon';
 
 const testCharacter = new Goron();
 testCharacter.setName('Test Goron');
