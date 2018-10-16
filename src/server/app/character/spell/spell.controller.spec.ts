@@ -1,11 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SpellController } from './spell.controller';
+import { SpellService } from './spell.service';
+
+const SpellServiceStub = {};
 
 describe('Spell Controller', () => {
   let module: TestingModule;
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      controllers: [SpellController]
+      controllers: [SpellController],
+      providers: [{ provide: SpellService, useValue: SpellServiceStub }]
     }).compile();
   });
   it('should be defined', () => {
