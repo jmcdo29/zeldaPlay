@@ -1,3 +1,4 @@
+import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CharacterController } from './character.controller';
 import { CharacterService } from './character.service';
@@ -8,6 +9,7 @@ describe('Characters Controller', () => {
   let module: TestingModule;
   beforeAll(async () => {
     module = await Test.createTestingModule({
+      imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
       controllers: [CharacterController],
       providers: [{ provide: CharacterService, useValue: CharacterServiceStub }]
     }).compile();

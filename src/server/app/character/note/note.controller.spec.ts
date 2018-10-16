@@ -1,3 +1,4 @@
+import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import { NoteController } from './note.controller';
 import { NoteService } from './note.service';
@@ -8,6 +9,7 @@ describe('Note Controller', () => {
   let module: TestingModule;
   beforeAll(async () => {
     module = await Test.createTestingModule({
+      imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
       controllers: [NoteController],
       providers: [{ useValue: NoteServiceStub, provide: NoteService }]
     }).compile();
