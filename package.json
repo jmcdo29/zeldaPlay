@@ -2,6 +2,10 @@
   "name": "zelda-play",
   "version": "1.0.0",
   "license": "MIT",
+  "engines": {
+    "yarn": "1.10.1",
+    "node": "10.11.0"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint && yarn prettier && node gitAddMod"
@@ -16,7 +20,7 @@
     "start": "node dist/server/main.js",
     "start:dev": "concurrently \"yarn build:server -w\" \"nodemon dist/server/main.js\" ",
     "start:debug": "concurrently \"yarn build:server -w\" \"node --inspect dist/server/main.js\"",
-    "build": "yarn prettier && yarn build:client && yarn build:server\"",
+    "build": "yarn prettier && yarn build:client && yarn build:server",
     "build:client": "ng build --prod",
     "build:server": "tsc -p ./src/server/tsconfig.app.json",
     "test": "jest --notify",
