@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
@@ -6,6 +7,7 @@ import { Skill } from '#Models/skill';
 import { MessageService } from '#Shared/messages/message.service';
 import { SharedModule } from '#Shared/shared.module';
 import { SkillComponent } from './skill.component';
+import { SkillService } from './skill.service';
 
 const messageServiceStub: Partial<MessageService> = {
   add(message) {
@@ -19,9 +21,12 @@ describe('SkillComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, SharedModule],
+      imports: [FormsModule, HttpClientModule, SharedModule],
       declarations: [SkillComponent],
-      providers: [{ provide: MessageService, useValue: messageServiceStub }]
+      providers: [
+        { provide: MessageService, useValue: messageServiceStub },
+        SkillService
+      ]
     }).compileComponents();
   }));
 

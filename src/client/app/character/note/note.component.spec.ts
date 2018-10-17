@@ -1,9 +1,11 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { Character } from '#Models/character';
 import { MessageService } from '#Shared/messages/message.service';
 import { NoteComponent } from './note.component';
+import { NoteService } from './note.service';
 
 const messageServiceStub: Partial<MessageService> = {
   add(message) {
@@ -17,9 +19,12 @@ describe('NoteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientModule],
       declarations: [NoteComponent],
-      providers: [{ provide: MessageService, useValue: messageServiceStub }]
+      providers: [
+        { provide: MessageService, useValue: messageServiceStub },
+        NoteService
+      ]
     }).compileComponents();
   }));
 

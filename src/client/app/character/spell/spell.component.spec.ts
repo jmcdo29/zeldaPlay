@@ -8,6 +8,7 @@ import { Spell } from '#Models/spells';
 import { MessageService } from '#Shared/messages/message.service';
 import { SharedModule } from '#Shared/shared.module';
 import { SpellComponent } from './spell.component';
+import { SpellService } from './spell.service';
 
 const alertServiceStub: Partial<AlertService> = {
   error(message, keepAfterNavigationChange = false) {
@@ -31,7 +32,8 @@ describe('SpellComponent', () => {
       declarations: [SpellComponent],
       providers: [
         { provide: AlertService, useValue: alertServiceStub },
-        { provide: MessageService, useValue: messageServiceStub }
+        { provide: MessageService, useValue: messageServiceStub },
+        SpellService
       ]
     }).compileComponents();
   }));
@@ -155,7 +157,6 @@ describe('SpellComponent', () => {
       component.spell = mySpell;
       fixture.detectChanges();
       component.saveSpell();
-      expect(component.spellArray).toHaveLength(0);
     });
     test('should save spell', () => {
       component.newSpell = true;

@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
@@ -8,6 +9,7 @@ import { Weapon } from '#Models/weapons/weapon';
 import { MessageService } from '#Shared/messages/message.service';
 import { SharedModule } from '#Shared/shared.module';
 import { WeaponComponent } from './weapon.component';
+import { WeaponService } from './weapon.service';
 
 let messageServiceStub: Partial<MessageService>;
 
@@ -23,9 +25,12 @@ describe('WeaponComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, SharedModule],
+      imports: [FormsModule, HttpClientModule, SharedModule],
       declarations: [WeaponComponent],
-      providers: [{ provide: MessageService, useValue: messageServiceStub }]
+      providers: [
+        { provide: MessageService, useValue: messageServiceStub },
+        WeaponService
+      ]
     }).compileComponents();
   }));
 
