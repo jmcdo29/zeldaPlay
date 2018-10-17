@@ -1,4 +1,4 @@
-import { UserModule } from './user.module';
+import { UserModule } from '@User/user.module';
 
 describe('#UserModule', () => {
   test('user module should be truthy', () => {

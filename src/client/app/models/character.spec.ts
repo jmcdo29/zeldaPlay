@@ -1,6 +1,6 @@
-import { characterDB } from '../mocks/characterDB.mock';
-import { characterJSON } from '../mocks/characterJSON.mock';
-import { Character } from './character';
+import { characterDB } from '#Mocks/characterDB.mock';
+import { characterJSON } from '#Mocks/characterJSON.mock';
+import { Character } from '#Models/character';
 
 test('new character', () => {
   const myChar = new Character();

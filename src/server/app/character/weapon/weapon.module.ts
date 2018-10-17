@@ -4,8 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Weapon } from '@Entity/weapon.entity';
 
-import { WeaponController } from './weapon.controller';
-import { WeaponService } from './weapon.service';
+import { WeaponController } from '@Character/weapon/weapon.controller';
+import { WeaponService } from '@Character/weapon/weapon.service';
 
 @Module({
   imports: [

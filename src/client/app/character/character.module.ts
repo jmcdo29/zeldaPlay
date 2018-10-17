@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '#Shared/shared.module';
 import { CharacterCreateComponent } from './character-create/character-create.component';
 import { CharacterDetailComponent } from './character-detail/character-detail.component';
 import { CharacterLevelUpComponent } from './character-level-up/character-level-up.component';

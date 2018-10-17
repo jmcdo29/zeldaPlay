@@ -23,7 +23,6 @@
     "test:ci": "jest --runInBand",
     "lint": "ng lint",
     "prettier": "prettier --write \"{src/**/*.{ts,css,scss,json},*.{json,yml,yaml},.*.{yml,json,yaml}}\"",
-    "codecov": "codecov",
     "heroku-postbuild": "yarn build"
   },
   "_moduleAliases": {

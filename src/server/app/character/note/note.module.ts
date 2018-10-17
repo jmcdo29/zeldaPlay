@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { NoteController } from '@Character/note/note.controller';
+import { NoteService } from '@Character/note/note.service';
 import { Note } from '@Entity/note.entity';
-import { NoteController } from './note.controller';
-import { NoteService } from './note.service';
 
 @Module({
   imports: [

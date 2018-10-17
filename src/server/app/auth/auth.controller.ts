@@ -1,10 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { AuthPipe } from './auth.pipe';
-import { AuthService } from './auth.service';
-import { NewUserDTO } from './interfaces/new_user.dto';
-import { UserDTO } from './interfaces/user.dto';
+import { AuthPipe } from '@Auth/auth.pipe';
+import { AuthService } from '@Auth/auth.service';
+import { NewUserDTO } from '@Auth/interfaces/new_user.dto';
+import { UserDTO } from '@Auth/interfaces/user.dto';
 
 @ApiUseTags('user')
 @Controller('users')

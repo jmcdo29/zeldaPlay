@@ -9,12 +9,12 @@ import {
 
 import { Character } from '@Entity/character.entity';
 
-import { CharacterPipe } from './character.pipe';
-import { CharacterService } from './character.service';
-import { CharacterDTO } from './interfaces/character.dto';
+import { CharacterPipe } from '@Character/character.pipe';
+import { CharacterService } from '@Character/character.service';
+import { CharacterDTO } from '@Character/interfaces/character.dto';
 
 @ApiUseTags('character')
-@Controller('characters')
+@Controller('character')
 export class CharacterController {
   constructor(private readonly characterService: CharacterService) {}
 

@@ -1,4 +1,4 @@
-import { Item } from './item';
+import { Item } from '#Models/item';
 
 test('should create an item with full constructor', () => {
   const myItem = new Item('the id of the item', 'item', 'an item');

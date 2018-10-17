@@ -9,9 +9,9 @@ import {
 
 import { Spell } from '@Entity/spell.entity';
 
-import { SpellDTO } from './interfaces/spell.dto';
-import { SpellPipe } from './spell.pipe';
-import { SpellService } from './spell.service';
+import { SpellDTO } from '@Character/spell/interfaces/spell.dto';
+import { SpellPipe } from '@Character/spell/spell.pipe';
+import { SpellService } from '@Character/spell/spell.service';
 
 @ApiUseTags('spell')
 @Controller('character/spell')

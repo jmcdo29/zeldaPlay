@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
+import { WeaponService } from '@Character/weapon/weapon.service';
 import { Weapon } from '@Entity/weapon.entity';
-import { WeaponService } from './weapon.service';
 
 const mockRepo = {};
 

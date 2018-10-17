@@ -2,7 +2,7 @@ import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
 import { Weapon } from '@Entity/weapon.entity';
 
-import { WeaponDTO } from './interfaces/weapon.dto';
+import { WeaponDTO } from '@Character/weapon/interfaces/weapon.dto';
 
 @Injectable()
 export class WeaponPipe implements PipeTransform<WeaponDTO, Weapon> {

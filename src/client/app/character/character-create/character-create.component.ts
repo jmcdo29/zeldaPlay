@@ -126,61 +126,7 @@ export class CharacterCreateComponent implements OnInit {
         this.characterService
           .saveCharDb(this.newCharacter)
           .subscribe((characterRes) => {
-            const newChar = this.CharacterParent.selectedCharacter;
-            newChar.setId(characterRes.id);
-            for (const skill of characterRes.skills) {
-              if (skill.skill_type === 'skill') {
-                newChar.getSkills()[Skills[skill.name]].setId(skill.id);
-              } else if (skill.skill_type === 'weapon') {
-                newChar.getWeaponSkills()[Weapons[skill.name]].setId(skill.id);
-              } else {
-                newChar.getMagicSkills()[Magics[skill.name]].setId(skill.id);
-              }
-            }
-            for (const weapon of characterRes.weapons) {
-              newChar
-                .getWeapons()
-                [
-                  findObjectPartial(newChar.getWeapons(), 'name', weapon.name)
-                ].setId(weapon.id);
-            }
-            for (const spell of characterRes.spells) {
-              newChar
-                .getSpells()
-                [
-                  findObjectPartial(newChar.getSpells(), 'name', spell.name)
-                ].setId(spell.id);
-            }
-            for (const save of characterRes.saves) {
-              newChar
-                .getSavingThrows()
-                [
-                  findObjectPartial(
-                    newChar.getSavingThrows(),
-                    'name',
-                    save.name
-                  )
-                ].setId(save.id);
-            }
-            for (const note of characterRes.notes) {
-              if (note.important) {
-                newChar
-                  .getImportantNotes()
-                  [
-                    findObjectPartial(
-                      newChar.getImportantNotes(),
-                      'msg',
-                      note.message
-                    )
-                  ].setId(note.id);
-              } else {
-                newChar
-                  .getNotes()
-                  [
-                    findObjectPartial(newChar.getNotes(), 'msg', note.message)
-                  ].setId(note.id);
-              }
-            }
+            return characterRes;
           });
         this.alertService.clear();
       } else {

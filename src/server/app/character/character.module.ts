@@ -3,13 +3,13 @@ import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AuthModule } from '@Auth/auth.module';
+import { CharacterController } from '@Character/character.controller';
+import { CharacterService } from '@Character/character.service';
+import { NoteModule } from '@Character/note/note.module';
+import { SkillModule } from '@Character/skill/skill.module';
+import { SpellModule } from '@Character/spell/spell.module';
+import { WeaponModule } from '@Character/weapon/weapon.module';
 import { Character } from '@Entity/character.entity';
-import { NoteModule } from '@Note/note.module';
-import { SkillModule } from '@Skill/skill.module';
-import { SpellModule } from '@Spell/spell.module';
-import { WeaponModule } from '@Weapon/weapon.module';
-import { CharacterController } from './character.controller';
-import { CharacterService } from './character.service';
 
 @Module({
   imports: [

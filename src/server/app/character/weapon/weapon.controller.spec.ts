@@ -1,7 +1,8 @@
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
-import { WeaponController } from './weapon.controller';
-import { WeaponService } from './weapon.service';
+
+import { WeaponController } from '@Character/weapon/weapon.controller';
+import { WeaponService } from '@Character/weapon/weapon.service';
 
 const WeaponServiceStub = {};
 

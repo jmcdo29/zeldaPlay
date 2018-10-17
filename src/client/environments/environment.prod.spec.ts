@@ -1,4 +1,4 @@
-import { environment } from './environment.prod';
+import { environment } from '#Environment/environment.prod';
 
 test('assert prod env', () => {
   expect(environment.production);

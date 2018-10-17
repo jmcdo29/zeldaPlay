@@ -1,4 +1,4 @@
-import { Goron } from './goron';
+import { Goron } from '#Races/goron';
 
 test('should create a Goron', () => {
   const myGoron = new Goron();

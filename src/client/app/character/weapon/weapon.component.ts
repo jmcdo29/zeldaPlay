@@ -9,6 +9,7 @@ import { Elemental } from '#Models/weapons/elemental';
 import { Weapon } from '#Models/weapons/weapon';
 
 import { MessageService } from '#Shared/messages/message.service';
+import { WeaponService } from './weapon.service';
 
 @Component({
   selector: 'app-weapon',
@@ -56,7 +57,10 @@ export class WeaponComponent implements OnInit {
     'Ball & Chain'
   ];
 
-  constructor(public message: MessageService) {}
+  constructor(
+    private readonly message: MessageService,
+    private readonly weaponService: WeaponService
+  ) {}
 
   ngOnInit() {
     this.weapon = new Weapon(
@@ -70,8 +74,14 @@ export class WeaponComponent implements OnInit {
       undefined,
       undefined
     );
-    if (this.character.getWeapons()) {
-      this.weapons = this.character.getWeapons();
+    if (this.character.getWeapons().length === 0) {
+      this.weaponService
+        .getWeapons(this.character.getId())
+        .subscribe((weapons) => {
+          weapons.forEach((weapon) => {
+            this.character.addWeapon(weapon);
+          });
+        });
     }
   }
 

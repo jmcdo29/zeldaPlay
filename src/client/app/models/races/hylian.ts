@@ -1,7 +1,7 @@
-import { Character } from '../character';
-import { Attributes } from '../enums/attributes.enum';
-import { Skills } from '../enums/skills.enum';
-import { Weapons } from '../enums/weapon-skills.enum';
+import { Attributes } from '#Enums/attributes.enum';
+import { Skills } from '#Enums/skills.enum';
+import { Weapons } from '#Enums/weapon-skills.enum';
+import { Character } from '#Models/character';
 
 export class Hylian extends Character {
   constructor(subRace?: string) {

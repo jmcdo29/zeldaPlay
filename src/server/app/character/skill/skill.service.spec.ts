@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
+import { SkillController } from '@Character/skill/skill.controller';
+import { SkillService } from '@Character/skill/skill.service';
 import { Skill } from '@Entity/skill.entity';
-import { SkillController } from './skill.controller';
-import { SkillService } from './skill.service';
 
 const mockRepo = {};
 

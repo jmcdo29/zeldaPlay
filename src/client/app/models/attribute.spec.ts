@@ -1,4 +1,4 @@
-import { Attribute } from './attribute';
+import { Attribute } from '#Models/attribute';
 
 test('make a new attribute with even value', () => {
   const myAtt = new Attribute('Strength', 20);

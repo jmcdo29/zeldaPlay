@@ -1,4 +1,4 @@
-import { Elemental } from './elemental';
+import { Elemental } from '#Models/weapons/elemental';
 
 test('should make a lighting element', () => {
   const myElem = new Elemental('elemId', 'Lightning', 8, 4);

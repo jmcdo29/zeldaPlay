@@ -1,4 +1,4 @@
-import { Spell } from './spells';
+import { Spell } from '#Models/spells';
 
 test('should make a spell', () => {
   const mySpell = new Spell(

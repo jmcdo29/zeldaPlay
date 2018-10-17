@@ -1,4 +1,4 @@
-import { Fairy } from './fairy';
+import { Fairy } from '#Races/fairy';
 
 test('should create a fairy', () => {
   const myFairy = new Fairy();

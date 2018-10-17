@@ -3,10 +3,10 @@ import { ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
 import { Skill } from '@Entity/skill.entity';
 
-import { SkillService } from './skill.service';
+import { SkillService } from '@Character/skill/skill.service';
 
 @ApiUseTags('skill')
-@Controller('characters/skill')
+@Controller('character/skill')
 export class SkillController {
   constructor(private readonly skillService: SkillService) {}
 

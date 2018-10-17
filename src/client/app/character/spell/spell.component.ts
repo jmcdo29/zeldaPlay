@@ -7,6 +7,7 @@ import { Magics } from '#Enums/magic-skills.enum';
 import { Character } from '#Models/character';
 import { Spell } from '#Models/spells';
 import { MessageService } from '#Shared/messages/message.service';
+import { SpellService } from './spell.service';
 
 @Component({
   selector: 'app-spell',
@@ -24,20 +25,26 @@ export class SpellComponent implements OnInit {
   dieties = Diety;
   attributes = Attributes;
   spell: Spell;
-  spellArray: Spell[] = [];
 
   spellName: string;
   spellRoll: number;
   dmgRoll: number;
 
   constructor(
-    private message: MessageService,
-    private alertService: AlertService
+    private readonly message: MessageService,
+    private readonly alertService: AlertService,
+    private readonly spellService: SpellService
   ) {}
 
   ngOnInit() {
-    if (this.character.getSpells()) {
-      this.spellArray = this.character.getSpells();
+    if (this.character.getSpells().length === 0) {
+      this.spellService
+        .getSpells(this.character.getId())
+        .subscribe((spells) => {
+          spells.forEach((spell) => {
+            this.character.addSpell(spell);
+          });
+        });
     }
   }
 

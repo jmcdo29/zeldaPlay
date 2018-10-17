@@ -1,8 +1,8 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
-import { SkillDTO } from '../skill/interfaces/skill.dto';
-import { AttributeDTO } from './attribute.dto';
-import { SaveDTO } from './save.dto';
+import { AttributeDTO } from '@Character/interfaces/attribute.dto';
+import { SaveDTO } from '@Character/interfaces/save.dto';
+import { SkillDTO } from '@Character/skill/interfaces/skill.dto';
 
 export class CharacterDTO {
   @ApiModelPropertyOptional()

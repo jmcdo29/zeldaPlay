@@ -9,12 +9,12 @@ import {
 
 import { Note } from '@Entity/note.entity';
 
-import { NoteDTO } from './interfaces/note.dto';
-import { NotePipe } from './note.pipe';
-import { NoteService } from './note.service';
+import { NoteDTO } from '@Character/note/interfaces/note.dto';
+import { NotePipe } from '@Character/note/note.pipe';
+import { NoteService } from '@Character/note/note.service';
 
 @ApiUseTags('note')
-@Controller('characters/note')
+@Controller('character/note')
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}
 

@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
+import { SpellService } from '@Character/spell/spell.service';
 import { Spell } from '@Entity/spell.entity';
-import { SpellService } from './spell.service';
 
 const mockRepo = {};
 

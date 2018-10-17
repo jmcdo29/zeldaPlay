@@ -1,12 +1,12 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
-import { Base } from './base.entity';
-import { Note } from './note.entity';
-import { Save } from './save.entity';
-import { Skill } from './skill.entity';
-import { Spell } from './spell.entity';
-import { User } from './user.entity';
-import { Weapon } from './weapon.entity';
+import { Base } from '@Entity/base.entity';
+import { Note } from '@Entity/note.entity';
+import { Save } from '@Entity/save.entity';
+import { Skill } from '@Entity/skill.entity';
+import { Spell } from '@Entity/spell.entity';
+import { User } from '@Entity/user.entity';
+import { Weapon } from '@Entity/weapon.entity';
 
 @Entity()
 export class Character extends Base {

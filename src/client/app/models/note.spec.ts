@@ -1,4 +1,4 @@
-import { Note } from './note';
+import { Note } from '#Models/note';
 
 test('should create a note', () => {
   const myNote = new Note(

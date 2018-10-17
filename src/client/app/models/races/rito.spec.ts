@@ -1,4 +1,4 @@
-import { Rito } from './rito';
+import { Rito } from '#Races/rito';
 
 test('should create a Rito', () => {
   const myRito = new Rito();

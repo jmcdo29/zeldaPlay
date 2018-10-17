@@ -1,7 +1,7 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AlertService } from './alert.service';
+import { AlertService } from '#Alert/alert.service';
 
 describe('AlertService', () => {
   beforeEach(() => {

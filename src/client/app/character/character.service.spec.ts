@@ -49,12 +49,10 @@ describe('CharacterService', () => {
       });
 
       const getCharacters = backend.expectOne(
-        `${environment.apiUrl}/characters`
+        `${environment.apiUrl}/character`
       );
 
-      expect(getCharacters.request.url).toBe(
-        `${environment.apiUrl}/characters`
-      );
+      expect(getCharacters.request.url).toBe(`${environment.apiUrl}/character`);
       getCharacters.flush([
         { id: 'some id', name: 'character Name', race: 'the race' }
       ]);
@@ -110,12 +108,10 @@ describe('CharacterService', () => {
       });
 
       const getCharacters = backend.expectOne(
-        `${environment.apiUrl}/characters`
+        `${environment.apiUrl}/character`
       );
 
-      expect(getCharacters.request.url).toBe(
-        `${environment.apiUrl}/characters`
-      );
+      expect(getCharacters.request.url).toBe(`${environment.apiUrl}/character`);
       getCharacters.flush({});
 
       expect(actualReturn).not.toEqual(expectedReturn);
@@ -135,11 +131,11 @@ describe('CharacterService', () => {
       });
 
       const getChar = backend.expectOne(
-        `${environment.apiUrl}/characters/00cIDkwd242k`
+        `${environment.apiUrl}/character/00cIDkwd242k`
       );
 
       expect(getChar.request.url).toBe(
-        `${environment.apiUrl}/characters/00cIDkwd242k`
+        `${environment.apiUrl}/character/00cIDkwd242k`
       );
 
       getChar.flush(characterDB);
@@ -158,11 +154,11 @@ describe('CharacterService', () => {
       });
 
       const getChar = backend.expectOne(
-        `${environment.apiUrl}/characters/00cIDkwd242k`
+        `${environment.apiUrl}/character/00cIDkwd242k`
       );
 
       expect(getChar.request.url).toBe(
-        `${environment.apiUrl}/characters/00cIDkwd242k`
+        `${environment.apiUrl}/character/00cIDkwd242k`
       );
 
       getChar.flush({});
@@ -183,10 +179,10 @@ describe('CharacterService', () => {
       });
 
       const getUserCharacters = backend.expectOne(
-        `${environment.apiUrl}/characters/user/${userId}`
+        `${environment.apiUrl}/character/user/${userId}`
       );
       expect(getUserCharacters.request.url).toBe(
-        `${environment.apiUrl}/characters/user/${userId}`
+        `${environment.apiUrl}/character/user/${userId}`
       );
       getUserCharacters.flush([
         { id: 'some id', name: 'character Name', race: 'the race' }
@@ -244,10 +240,10 @@ describe('CharacterService', () => {
       });
 
       const getUserCharacters = backend.expectOne(
-        `${environment.apiUrl}/characters/user/${userId}`
+        `${environment.apiUrl}/character/user/${userId}`
       );
       expect(getUserCharacters.request.url).toBe(
-        `${environment.apiUrl}/characters/user/${userId}`
+        `${environment.apiUrl}/character/user/${userId}`
       );
       getUserCharacters.flush({});
 
@@ -274,11 +270,11 @@ describe('CharacterService', () => {
       characterService.saveCharDb(myChar).subscribe();
 
       const saveCharacter = backend.expectOne(
-        `${environment.apiUrl}/characters/${userId}`
+        `${environment.apiUrl}/character/${userId}`
       );
 
       expect(saveCharacter.request.url).toBe(
-        `${environment.apiUrl}/characters/${userId}`
+        `${environment.apiUrl}/character/${userId}`
       );
 
       saveCharacter.flush({});

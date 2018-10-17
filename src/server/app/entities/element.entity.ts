@@ -1,6 +1,6 @@
 import { Entity } from 'typeorm';
 
-import { Base } from './base.entity';
+import { Base } from '@Entity/base.entity';
 
 @Entity()
 export class Element extends Base {

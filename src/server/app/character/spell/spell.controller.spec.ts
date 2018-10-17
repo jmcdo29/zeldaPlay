@@ -1,7 +1,8 @@
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
-import { SpellController } from './spell.controller';
-import { SpellService } from './spell.service';
+
+import { SpellController } from '@Character/spell/spell.controller';
+import { SpellService } from '@Character/spell/spell.service';
 
 const SpellServiceStub = {};
 

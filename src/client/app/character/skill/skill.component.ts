@@ -4,6 +4,7 @@ import { Attributes } from '#Enums/attributes.enum';
 import { Skills } from '#Enums/skills.enum';
 import { Character } from '#Models/character';
 import { MessageService } from '#Shared/messages/message.service';
+import { SkillService } from './skill.service';
 
 @Component({
   selector: 'app-skill',
@@ -19,9 +20,31 @@ export class SkillComponent implements OnInit {
   skill: string;
   checkVal: number;
 
-  constructor(public messenger: MessageService) {}
+  constructor(
+    private readonly messenger: MessageService,
+    private readonly skillService: SkillService
+  ) {}
 
-  ngOnInit() {}
+  // In theory this will never be called, but it is implemented
+  // as a fail safe in case for whatever reason getting the
+  // character does not immediately get the skills too.
+  ngOnInit() {
+    if (this.character.getSkills().length === 0) {
+      this.skillService
+        .getSkills(this.character.getId())
+        .subscribe((skillMap) => {
+          skillMap.skill.forEach((inSkill) => {
+            this.character.addSkill(inSkill);
+          });
+          skillMap.magic.forEach((inSkill) => {
+            this.character.addMagicSkill(inSkill);
+          });
+          skillMap.weapon.forEach((inSkill) => {
+            this.character.addWeaponSkill(inSkill);
+          });
+        });
+    }
+  }
 
   getMod(modName: string): number {
     for (const attribute of this.character.getAttributes()) {

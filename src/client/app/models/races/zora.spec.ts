@@ -1,4 +1,4 @@
-import { Zora } from './zora';
+import { Zora } from '#Races/zora';
 
 test('should create a Zora', () => {
   const myZora = new Zora();

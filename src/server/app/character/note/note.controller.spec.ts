@@ -1,7 +1,8 @@
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
-import { NoteController } from './note.controller';
-import { NoteService } from './note.service';
+
+import { NoteController } from '@Character/note/note.controller';
+import { NoteService } from '@Character/note/note.service';
 
 const NoteServiceStub = {};
 

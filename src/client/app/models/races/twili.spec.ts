@@ -1,4 +1,4 @@
-import { Twili } from './twili';
+import { Twili } from '#Races/twili';
 
 test('should create a twili', () => {
   const myTwili = new Twili();

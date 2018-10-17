@@ -1,7 +1,8 @@
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CharacterController } from './character.controller';
-import { CharacterService } from './character.service';
+
+import { CharacterController } from '@Character/character.controller';
+import { CharacterService } from '@Character/character.service';
 
 const CharacterServiceStub = {};
 

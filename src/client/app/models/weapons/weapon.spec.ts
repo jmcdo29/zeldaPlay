@@ -1,5 +1,5 @@
-import { Elemental } from './elemental';
-import { Weapon } from './weapon';
+import { Elemental } from '#Models/weapons/elemental';
+import { Weapon } from '#Models/weapons/weapon';
 
 test('should make a weapon', () => {
   const myWep = new Weapon(

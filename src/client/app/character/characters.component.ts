@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AlertService } from '#Alert/alert.service';
-import { Magics } from '#Enums/magic-skills.enum';
-import { Skills } from '#Enums/skills.enum';
-import { Weapons } from '#Enums/weapon-skills.enum';
 import { Character } from '#Models/character';
 import { CharacterService } from './character.service';
 
@@ -88,90 +85,8 @@ export class CharactersComponent implements OnInit {
     this.characterService
       .saveCharDb(this.selectedCharacter)
       .subscribe((characterRes) => {
-        this.selectedCharacter.setId(characterRes.id);
-        for (const skill of characterRes.skills) {
-          if (skill.skill_type === 'skill') {
-            this.selectedCharacter
-              .getSkills()
-              [Skills[skill.name]].setId(skill.id);
-          } else if (skill.skill_type === 'weapon') {
-            this.selectedCharacter
-              .getWeaponSkills()
-              [Weapons[skill.name]].setId(skill.id);
-          } else {
-            this.selectedCharacter
-              .getMagicSkills()
-              [Magics[skill.name]].setId(skill.id);
-          }
-        }
-        for (const weapon of characterRes.weapons) {
-          this.selectedCharacter
-            .getWeapons()
-            [
-              findObjectPartial(
-                this.selectedCharacter.getWeapons(),
-                'name',
-                weapon.name
-              )
-            ].setId(weapon.id);
-        }
-        for (const spell of characterRes.spells) {
-          this.selectedCharacter
-            .getSpells()
-            [
-              findObjectPartial(
-                this.selectedCharacter.getSpells(),
-                'name',
-                spell.name
-              )
-            ].setId(spell.id);
-        }
-        for (const save of characterRes.saves) {
-          this.selectedCharacter
-            .getSavingThrows()
-            [
-              findObjectPartial(
-                this.selectedCharacter.getSavingThrows(),
-                'name',
-                save.name
-              )
-            ].setId(save.id);
-        }
-        for (const note of characterRes.notes) {
-          if (note.important) {
-            this.selectedCharacter
-              .getImportantNotes()
-              [
-                findObjectPartial(
-                  this.selectedCharacter.getImportantNotes(),
-                  'msg',
-                  note.message
-                )
-              ].setId(note.id);
-          } else {
-            this.selectedCharacter
-              .getNotes()
-              [
-                findObjectPartial(
-                  this.selectedCharacter.getNotes(),
-                  'msg',
-                  note.message
-                )
-              ].setId(note.id);
-          }
-        }
+        this.selectedCharacter = characterRes;
       });
     this.alertService.clear();
   }
-}
-
-function findObjectPartial(array: any[], key: string, value: string): number {
-  let index = -1;
-  for (let i = 0; i < array.length; i++) {
-    if (array[i][key] === value) {
-      index = i;
-      break;
-    }
-  }
-  return index;
 }

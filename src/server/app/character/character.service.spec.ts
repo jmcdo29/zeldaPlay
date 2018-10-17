@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
+import { CharacterService } from '@Character/character.service';
 import { Character } from '@Entity/character.entity';
-import { CharacterService } from './character.service';
 
 const mockRepo = {};
 

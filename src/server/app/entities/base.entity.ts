@@ -6,8 +6,8 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
+import { User } from '@Entity/user.entity';
 import { makeId } from '../utils/utils';
-import { User } from './user.entity';
 
 export abstract class Base {
   abstract idStart?: string;

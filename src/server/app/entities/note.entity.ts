@@ -1,9 +1,10 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { Character } from './character.entity';
+import { Base } from '@Entity/base.entity';
+import { Character } from '@Entity/character.entity';
 
 @Entity()
-export class Note {
+export class Note extends Base {
   idStart = '00N';
 
   @Column()

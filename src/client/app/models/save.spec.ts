@@ -1,4 +1,4 @@
-import { Save } from './save';
+import { Save } from '#Models/save';
 
 test('should make a save object', () => {
   const mySave = new Save(undefined, 'Reflex', 'Dexterity', 8);

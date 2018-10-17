@@ -9,9 +9,9 @@ import {
 
 import { Weapon } from '@Entity/weapon.entity';
 
-import { WeaponDTO } from './interfaces/weapon.dto';
-import { WeaponPipe } from './weapon.pipe';
-import { WeaponService } from './weapon.service';
+import { WeaponDTO } from '@Character/weapon/interfaces/weapon.dto';
+import { WeaponPipe } from '@Character/weapon/weapon.pipe';
+import { WeaponService } from '@Character/weapon/weapon.service';
 
 @ApiUseTags('weapon')
 @Controller('character/weapon')

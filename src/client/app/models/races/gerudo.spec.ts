@@ -1,4 +1,4 @@
-import { Gerudo } from './gerudo';
+import { Gerudo } from '#Races/gerudo';
 
 test('should create a Gerudo', () => {
   const myGerudo = new Gerudo();

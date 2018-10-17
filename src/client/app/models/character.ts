@@ -1,17 +1,18 @@
-import { Attribute } from './attribute';
-import { Attributes } from './enums/attributes.enum';
-import { Level } from './enums/levels.enum';
-import { Magics } from './enums/magic-skills.enum';
-import { Saves } from './enums/saves.enum';
-import { Skills } from './enums/skills.enum';
-import { Weapons } from './enums/weapon-skills.enum';
-import { Item } from './item';
-import { Note } from './note';
-import { Save } from './save';
-import { Skill } from './skill';
-import { Spell } from './spells';
-import { Elemental } from './weapons/elemental';
-import { Weapon } from './weapons/weapon';
+import { Attributes } from '#Enums/attributes.enum';
+import { Level } from '#Enums/levels.enum';
+import { Magics } from '#Enums/magic-skills.enum';
+import { Saves } from '#Enums/saves.enum';
+import { Skills } from '#Enums/skills.enum';
+import { Weapons } from '#Enums/weapon-skills.enum';
+import { Attribute } from '#Models/attribute';
+import { ICharacterQuery } from '#Models/character.db';
+import { Item } from '#Models/item';
+import { Note } from '#Models/note';
+import { Save } from '#Models/save';
+import { Skill } from '#Models/skill';
+import { Spell } from '#Models/spells';
+import { Elemental } from '#Models/weapons/elemental';
+import { Weapon } from '#Models/weapons/weapon';
 
 const BASE = 8;
 
@@ -103,79 +104,6 @@ export interface ICharacterJSON {
   }>;
 }
 
-export interface ICharacterQuery {
-  ac: number;
-  charisma: number;
-  constitution: number;
-  craft_one: string;
-  craft_two: string;
-  dexterity: number;
-  experience: number;
-  flat_footed: number;
-  health: number;
-  id: string;
-  intelligence: number;
-  level: number;
-  magic: number;
-  max_health: number;
-  max_magic: number;
-  name: string;
-  performance: string;
-  profession: string;
-  race: string;
-  size: string;
-  strength: number;
-  subrace: string;
-  touch: number;
-  wisdom: number;
-  notes: Array<{
-    message: string;
-    time: string;
-    important: boolean;
-    id?: string;
-  }>;
-  saves: Array<{
-    id?: string;
-    name: string;
-    modifier: string;
-    racial_bonus: number;
-  }>;
-  skills: Array<{
-    name: string;
-    ranks: number;
-    trained: boolean;
-    modifier?: string;
-    item_modifier?: number;
-    racial_modifier?: number;
-    misc_modifier?: number;
-    id?: string;
-    skill_type: string;
-  }>;
-  spells: Array<{
-    id?: string;
-    name: string;
-    effect: string;
-    damage: number;
-    number_of_hit: number;
-    mp_use: number;
-    diety: string;
-    use_diety: boolean;
-    modifier?: string;
-  }>;
-  weapons: Array<{
-    id?: string;
-    name: string;
-    damage: number;
-    number_of_hits: number;
-    crit_range: string;
-    crit_multiplier: number;
-    range: number;
-    ammo?: number;
-    type: string;
-    modifier: string;
-    element?: any;
-  }>;
-}
 export class Character {
   private id?: string;
   private level: number;
@@ -671,7 +599,7 @@ export class Character {
             );
           }
         }
-        for (const note of qObj.notes) {
+        /* for (const note of qObj.notes) {
           if (note.important) {
             this.addNote(
               new Note(note.id, note.message, note.time, note.important)
@@ -718,7 +646,7 @@ export class Character {
               spell.modifier
             )
           );
-        }
+        } */
       } else {
         for (const attr of jObj.attributes) {
           this.addAttribute(new Attribute(attr.name, attr.value));

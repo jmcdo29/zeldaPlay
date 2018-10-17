@@ -1,4 +1,4 @@
-import { WeaponModule } from './weapon.module';
+import { WeaponModule } from '@Character/weapon/weapon.module';
 
 describe('#WeaponModule', () => {
   test('weapon module should be truthy', () => {

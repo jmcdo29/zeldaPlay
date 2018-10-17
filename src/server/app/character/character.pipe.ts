@@ -4,7 +4,7 @@ import { Character } from '@Entity/character.entity';
 import { Save } from '@Entity/save.entity';
 import { Skill } from '@Entity/skill.entity';
 
-import { CharacterDTO } from './interfaces/character.dto';
+import { CharacterDTO } from '@Character/interfaces/character.dto';
 
 @Injectable()
 export class CharacterPipe implements PipeTransform<CharacterDTO, Character> {
@@ -82,10 +82,4 @@ export class CharacterPipe implements PipeTransform<CharacterDTO, Character> {
     });
     return retVal;
   }
-}
-
-function parseRange(range: number[]): string {
-  return range.length === 1
-    ? range[0].toString()
-    : range[0].toString() + ' - ' + range[range.length - 1].toString();
 }

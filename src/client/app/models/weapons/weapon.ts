@@ -1,4 +1,4 @@
-import { Elemental } from './elemental';
+import { Elemental } from '#Models/weapons/elemental';
 
 export class Weapon {
   private name: string;

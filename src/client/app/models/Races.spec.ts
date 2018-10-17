@@ -1,4 +1,4 @@
-import * as Races from './Races';
+import * as Races from '#Models/Races';
 
 describe('all races should be truthy', () => {
   test('fairy', () => {

@@ -1,6 +1,6 @@
 import { BeforeInsert, Column, Entity, UpdateDateColumn } from 'typeorm';
 
-import { Base } from './base.entity';
+import { Base } from '@Entity/base.entity';
 
 @Entity()
 export class DBError extends Base {

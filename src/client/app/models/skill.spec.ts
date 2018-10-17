@@ -1,4 +1,4 @@
-import { Skill } from './skill';
+import { Skill } from '#Models/skill';
 
 test('should make a regular skill', () => {
   const mySkill = new Skill(

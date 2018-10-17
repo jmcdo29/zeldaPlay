@@ -1,4 +1,4 @@
-import { Sheikah } from './sheikah';
+import { Sheikah } from '#Races/sheikah';
 
 test('should create a sheikah', () => {
   const mySheikah = new Sheikah();

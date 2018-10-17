@@ -1,4 +1,4 @@
-import { Hylian } from './hylian';
+import { Hylian } from '#Races/hylian';
 
 test('should create a Hylian', () => {
   const myHylian = new Hylian();

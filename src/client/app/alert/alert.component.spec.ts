@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, of } from 'rxjs';
 
-import { AlertComponent } from './alert.component';
-import { AlertService } from './alert.service';
+import { AlertComponent } from '#Alert/alert.component';
+import { AlertService } from '#Alert/alert.service';
 
 const alertServiceStub: Partial<AlertService> = {
   getMessage(): Observable<any> {

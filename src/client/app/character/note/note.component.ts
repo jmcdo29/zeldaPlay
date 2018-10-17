@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Character } from '#Models/character';
 import { Note } from '#Models/note';
 import { MessageService } from '#Shared/messages/message.service';
+import { NoteService } from './note.service';
 
 @Component({
   selector: 'app-note',
@@ -22,10 +23,27 @@ export class NoteComponent implements OnInit {
 
   newNote = false;
 
-  constructor(public message: MessageService) {}
+  constructor(
+    private readonly message: MessageService,
+    private readonly noteService: NoteService
+  ) {}
 
   ngOnInit() {
-    this.notes = this.character.getNotes();
+    if (
+      this.character.getNotes().length === 0 &&
+      this.character.getImportantNotes().length === 0
+    ) {
+      this.noteService
+        .getNotes(this.character.getId())
+        .subscribe((allNotes) => {
+          allNotes.notes.forEach((regNote) => {
+            this.character.addNote(regNote);
+          });
+          allNotes.importantNotes.forEach((impNote) => {
+            this.character.addImportantNote(impNote);
+          });
+        });
+    }
   }
 
   addNote(): void {

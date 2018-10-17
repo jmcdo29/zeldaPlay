@@ -1,9 +1,10 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { Character } from './character.entity';
+import { Base } from '@Entity/base.entity';
+import { Character } from '@Entity/character.entity';
 
 @Entity()
-export class Skill {
+export class Skill extends Base {
   idStart = '00S';
 
   @Column('bool')

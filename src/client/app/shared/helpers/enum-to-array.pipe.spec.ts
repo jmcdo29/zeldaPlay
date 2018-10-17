@@ -1,4 +1,4 @@
-import { EnumToArrayPipe } from './enum-to-array.pipe';
+import { EnumToArrayPipe } from '#Shared/helpers/enum-to-array.pipe';
 
 describe('Should transform an enum to an array', () => {
   test('should run the array command', () => {

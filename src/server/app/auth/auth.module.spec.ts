@@ -1,4 +1,4 @@
-import { AuthModule } from './auth.module';
+import { AuthModule } from '@Auth/auth.module';
 
 describe('#AuthModule', () => {
   test('auth module should be truthy', () => {

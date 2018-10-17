@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import { Character } from '../../models/character';
+import { Character } from '#Models/character';
 import { CharacterLevelUpComponent } from './character-level-up.component';
 
 describe('CharacterLevelUpComponent', () => {

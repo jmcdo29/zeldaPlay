@@ -1,8 +1,8 @@
 import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
+import { AuthService } from '@Auth/auth.service';
+import { JwtStrategy } from '@Auth/jwt.strategy';
 
 import { UserService } from '@User/user.service';
 
