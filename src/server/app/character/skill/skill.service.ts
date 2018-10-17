@@ -13,7 +13,9 @@ export class SkillService {
   async getCharacterSkills(charId: string): Promise<Skill[]> {
     return this.skillRepo.find({
       where: {
-        characterId: charId
+        character: {
+          id: charId
+        }
       }
     });
   }

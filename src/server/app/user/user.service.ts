@@ -19,8 +19,12 @@ export class UserService {
   ) {}
 
   async login(user: UserDTO): Promise<User> {
-    const dbUser = await this.userRepo.findOneOrFail({ email: user.email });
-    if (await compare(user.password, dbUser.password)) {
+    const dbUser = await this.userRepo.findOne({ email: user.email });
+    if (!dbUser) {
+      throw new UnauthorizedException(
+        'No user found for email ' + user.email + '. Please register first.'
+      );
+    } else if (await compare(user.password, dbUser.password)) {
       return dbUser;
     } else {
       throw new UnauthorizedException('Invalid email or password.');
@@ -42,11 +46,25 @@ export class UserService {
   }
 
   async findUserByEmail(email: string): Promise<User> {
-    return this.userRepo.findOneOrFail({ email });
+    const user = await this.userRepo.findOne({ email });
+    if (!user) {
+      throw new UnauthorizedException(
+        'No user found for email ' + user.email + '. Please register first.'
+      );
+    } else {
+      return Promise.resolve(user);
+    }
   }
 
   async findUserByToken(token: string): Promise<User> {
-    return this.userRepo.findOneOrFail({ loginToken: token });
+    const user = await this.userRepo.findOne({ loginToken: token });
+    if (!user) {
+      throw new UnauthorizedException(
+        'No user found for email ' + user.email + '. Please register first.'
+      );
+    } else {
+      return Promise.resolve(user);
+    }
   }
 
   /* async findUserByGToken(gToken: string): Promise<User> {

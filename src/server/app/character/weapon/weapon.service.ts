@@ -13,7 +13,9 @@ export class WeaponService {
   async getWeapons(charId: string): Promise<Weapon[]> {
     return this.weaponRepo.find({
       where: {
-        characterId: charId
+        character: {
+          id: charId
+        }
       }
     });
   }

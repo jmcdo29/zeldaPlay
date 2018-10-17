@@ -13,7 +13,9 @@ export class SpellService {
   async getSpells(charId: string): Promise<Spell[]> {
     return this.spellRepo.find({
       where: {
-        characterId: charId
+        character: {
+          id: charId
+        }
       }
     });
   }

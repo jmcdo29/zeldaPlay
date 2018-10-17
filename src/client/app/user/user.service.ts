@@ -11,16 +11,20 @@ export class UserService {
 
   register(username: string, password: string, confPass: string) {
     return this.http.post<any>(environment.apiUrl + '/users/signup', {
-      username,
-      password,
-      confPass
+      user: {
+        email: username,
+        password,
+        confirmationPassword: confPass
+      }
     });
   }
 
   login(username: string, password: string) {
     return this.http.post<any>(environment.apiUrl + '/users/login', {
-      username,
-      password
+      user: {
+        email: username,
+        password
+      }
     });
   }
 
