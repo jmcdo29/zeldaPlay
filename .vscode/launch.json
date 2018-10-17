@@ -1,0 +1,56 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest One",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["server/app/character/skill/skill.service.spec.ts", "--runInBand"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "program": "${workspaceFolder}\\dist\\server\\main.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "ts-node",
+      "program": "${workspaceFolder}/node_modules/.bin/ts-node",
+      "args": [
+        "--project src/server/tsconfig.json",
+        "-r tsconfig-paths/register src/server/main.ts"
+      ]
+    },
+    {
+      "name": "Current TS File",
+      "type": "node",
+      "request": "launch",
+      "args": ["${relativeFile}"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
+    },
+    {
+      "name": "Main TS File",
+      "type": "node",
+      "request": "launch",
+      "args": ["${workspaceFolder}/src/server/main.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
+    }
+  ]
+}

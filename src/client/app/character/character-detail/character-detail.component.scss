@@ -1,0 +1,64 @@
+input.skill {
+  width: 8em;
+}
+
+.crit {
+  color: gold;
+}
+.critmiss {
+  color: red;
+}
+.maxDmg {
+  color: #00aa00;
+}
+button.square {
+  height: 3em;
+  width: 3em;
+}
+.right {
+  margin-left: 83%;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+.body-head {
+  margin: 1em 0.2em;
+}
+.menuBar {
+  color: black;
+  float: left;
+  width: calc(100% / 5);
+  background-color: #5cb85c;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.6s;
+  margin-bottom: 1em;
+  /* height: 3.5em; */
+}
+h4.menu {
+  padding: 0.5em 1em;
+  margin: 0;
+}
+.menuBar:hover {
+  background-color: #229e22;
+}
+.menuBar.active {
+  background-color: #229e22;
+}
+@media (max-width: 900px) {
+  .right {
+    margin-left: 50%;
+  }
+  .menuBar {
+    line-height: 3;
+    width: 100%;
+    float: left;
+    margin-bottom: 0.125em;
+  }
+  .menu {
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: center;
+    line-height: 1;
+    word-wrap: normal;
+  }
+}

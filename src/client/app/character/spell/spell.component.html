@@ -1,0 +1,127 @@
+<div *ngIf="newSpell">
+  <div class="modal" [class.showModal]="newSpell">
+    <div class="modal-content smaller">
+      <div class="modal-header">
+        <span class="close" (click)="addSpell()">&times;</span>
+        <h2>Add Spell</h2>
+      </div>
+      <div class="modal-body">
+        <div class="table-holder">
+          <div class="improv-table">
+            <b class="head">Spell name</b>
+            <input id="spellName" type="text" [ngModel]="spell.getName()" (ngModelChange)="spell.setName($event)" title="Enter the spell's name here" class="name" (blur)="validate('spellName', 'name')">
+          </div>
+          <div class="improv-table">
+            <b class="head">Spell Effect</b>
+            <textarea id="spellEffect" rows="2" [ngModel]="spell.getEffect()" (ngModelChange)="spell.setEffect($event)" title="Enter what the spell does" class="description" (blur)="validate('spellEffect', 'effect')"></textarea>
+          </div>
+          <div class="improv-table">
+            <b class="head">Number of Dice</b>
+            <select id="spellMult" [ngModel]="spell.getMultiplier()" (ngModelChange)="spell.setMultiplier($event)" (blur)="validate('spellMult', 'multiplier')">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <div class="improv-table">
+            <b class="head">Dice Type</b>
+            <select id="spellDam" [ngModel]="spell.getDamage()" (ngModelChange)="spell.setDamage($event)" (blur)="validate('spellDam','damage')">
+              <option value="4">D4</option>
+              <option value="6">D6</option>
+              <option value="8">D8</option>
+              <option value="10">D10</option>
+              <option value="12">D12</option>
+            </select>
+          </div>
+          <div class="improv-table">
+            <b class="head">Modifier (if any)</b>
+            <select id="spellMod" [ngModel]="spell.getModifier()" (ngModelChange)="spell.setModifier($event)">
+              <option value="null">None</option>
+              <option value="Intelligence">Intelligence</option>
+              <option value="Wisdom">Wisdom</option>
+              <option value="Charisma">Charisma</option>
+            </select>
+          </div>
+          <div class="improv-table">
+            <b class="head">MP Use</b>
+            <br/>
+            <input type="number" id="mpUse" [ngModel]="spell.getMpUse()" (ngModelChange)="spell.setMpUse($event)" min="0" (blur)="validate('mpUse', 'mpUse')">
+          </div>
+          <div class="improv-table">
+            <b class="head">Magic Type</b>
+            <select id="spellGod" [ngModel]="spell.getDiety()" (ngModelChange)="spell.setDiety($event)" (blur)="validate('spellGod', 'diety')">
+              <option *ngFor="let diety of dieties | enumToArray" value="{{ diety }}">{{ diety }}</option>
+            </select>
+          </div>
+          <div class="improv-table">
+            <b class="head">Submit</b>
+            <br/>
+            <button class="save" (click)="saveSpell()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- TODO: Make a modal for casting too much magic. Or at least an error message.-->
+<button (click)="addSpell()">New Spell</button>
+<div *ngIf="character.getSpells()" class="table">
+  <div *ngIf="spellName" class="spellRoll">
+    <h4>{{ spellName }}</h4>
+    <span>Roll to hit:</span>
+    <span id="spellRoll">{{ spellRoll }}</span>
+    <br/>
+    <span>Damage/Heal Roll:</span>
+    <span id="spellDmgRoll">{{ dmgRoll }}</span>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Spell name</th>
+        <th>Spell Description</th>
+        <th>Effect Die</th>
+        <th>MP Use</th>
+        <th>Magic Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let spell of character.getSpells() index as i" [class.nayru]="spell.getDiety() === 'Nayru'" [class.farore]="spell.getDiety() === 'Farore'" [class.din]="spell.getDiety() === 'Din'">
+        <td class="spellName" (click)="castSpell(i)">{{ spell.getName() }}</td>
+        <td>{{ spell.getEffect() }}</td>
+        <td>{{ spell.getMultiplier() }}D{{ spell.getDamage() }}</td>
+        <td>{{ spell.getMpUse() }}</td>
+        <td>{{ spell.getDiety() }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="magicSkills">
+  <button class="accordian" (click)="expandMagic()">
+    <h2>{{ character.getName() | uppercase }} Magic Skills</h2>
+  </button>
+  <div class="panel" [class.active]="showMagic">
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>Magic Type</th>
+            <th>Modifier</th>
+            <th>Skill Ranks</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let magic of character.getMagicSkills()" [class.din]="magic.getModifier() === 'Intelligence'" [class.farore]="magic.getModifier() === 'Charisma'" [class.nayru]="magic.getModifier() === 'Wisdom'">
+            <td class="name">{{ magic.getSkillName() }}</td>
+            <td class="mod">{{ magic.getModifier().substr(0,3) | uppercase }}
+              <span class="info">{{ getMod(magic.getModifier()) }}</span>
+            </td>
+            <td>{{ magic.getRanks() }}</td>
+            <td class="total">{{ magic.getRanks()+getMod(magic.getModifier()) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

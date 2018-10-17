@@ -1,0 +1,96 @@
+/* charactersComponent's private CSS styles */
+.selected {
+  background-color: #cfd8dc !important;
+  color: darkslategray;
+}
+.characters {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 10em;
+}
+.characters li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  width: 60%;
+  background-color: #eee;
+  margin: 0.5em;
+  padding: 0.3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+}
+.characters li.selected:hover {
+  background-color: #bbd8dc !important;
+  color: darkslategray;
+}
+.characters li:hover {
+  color: #607d8b;
+  background-color: #ddd;
+  left: 0.1em;
+}
+.characters .text {
+  display: inline-block;
+  position: relative;
+  top: -3px;
+  text-align: center;
+}
+.characters .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #607d8b;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  margin-right: 0.8em;
+  border-radius: 4px 0 0 4px;
+}
+.character-column {
+  width: 25%;
+  float: left;
+}
+.details-column {
+  width: 75%;
+  float: left;
+}
+.accordian {
+  background: #eee;
+  color: #444444;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+.characters {
+  height: 50%;
+  width: 100%;
+}
+.messages {
+  height: 50%;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+@media (max-width: 900px) {
+  .character-column {
+    width: 50%;
+  }
+  .details-column {
+    width: 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .character-column {
+    width: 100%;
+  }
+  .details-column {
+    width: 100%;
+  }
+}

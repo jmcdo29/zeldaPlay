@@ -1,0 +1,39 @@
+.race-input {
+  width: 100%;
+}
+.radio {
+  width: 100%;
+  float: left;
+  position: relative;
+}
+.button {
+  width: 40%;
+  float: left;
+}
+
+input.skill {
+  width: 5em;
+}
+.skill-input {
+  width: 3em;
+}
+h4 {
+  color: #444;
+}
+.error {
+  color: purple;
+}
+.title {
+  display: inline;
+  font-weight: bold;
+}
+.description {
+  position: relative;
+}
+input.non-zero:in-range {
+  background-color: lightskyblue;
+}
+.bad-input,
+input:out-of-range {
+  background-color: lightcoral;
+}

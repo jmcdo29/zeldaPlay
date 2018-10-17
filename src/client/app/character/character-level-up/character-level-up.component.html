@@ -1,0 +1,175 @@
+<div class="body-header">
+  <div class="tab" (click)="showTab(0)">Attributes</div>
+  <div class="tab" (click)="showTab(1)">Skills</div>
+</div>
+<div class="modal-body">
+  <div>
+    <div *ngIf="attributeTab">
+      <p style="text-align: center;">Congratulations on leveling up! You may now place
+        <b>{{ attrPoints }}</b> attribute point into any attribute!</p>
+      <div class="table">
+        <table>
+          <thead>
+            <tr>
+              <th>Trait</th>
+              <th>Score</th>
+              <th>Modifier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let attr of currChar.getAttributes(); index as i" [class.din]="attr.getName() === 'Strength' || attr.getName() === 'Intelligence'" [class.farore]="attr.getName() === 'Dexterity' || attr.getName() === 'Charisma'" [class.nayru]="attr.getName() === 'Wisdom' || attr.getName() === 'Constitution'">
+              <td class="name">{{ attr.getName() }}</td>
+              <td>
+                <input id="{{ 'attr'+i }}" type="number" placeholder="{{ attr.getValue() }}" min="{{minimums[i]}}" max="{{ attr.getValue() + attrPoints > minimums[i] ? attr.getValue() + attrPoints : minimums[i] }}" [ngModel]="attr.getValue()" (ngModelChange) = "attr.setValue($event)" (change)="trackAtt(i)" (blur)="validateAttr(i)" />
+              </td>
+              <td>{{ attr.getModifier() }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div *ngIf="skillTab">
+      <p style="text-align: center;">Congratulations on leveling up! You may now place
+        <b>{{ skillPoints }}</b> skill point into whicever skills you would like!</p>
+      <div class="bar">
+        <div class="tab skill" (click)="showSkillTab(0)">Skills</div>
+        <div class="tab skill" (click)="showSkillTab(1)">Weapon Skills</div>
+        <div class="tab skill" (click)="showSkillTab(2)">Magic Skills</div>
+      </div>
+
+      <!--Regular Skills Table-->
+      <div *ngIf="skillTypeTab[0]">
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Trained</th>
+                <th>Skill Name</th>
+                <th>Skill Ranks</th>
+                <th>Racial Bonus</th>
+                <th>Modifier</th>
+                <th>Item Bonus</th>
+                <th>Misc. Ranks</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let skill of currChar.getSkills(); index as i" [class.din]="skill.getModifier() === 'Strength' || skill.getModifier() === 'Intelligence'" [class.farore]="skill.getModifier() === 'Dexterity' || skill.getModifier() === 'Charisma'" [class.nayru]="skill.getModifier() === 'Wisdom' || skill.getModifier() === 'Constitution'">
+                <td>
+                  <input type="checkbox" disabled [checked]="skill.getTrained()" class="skill-input">
+                </td>
+                <td class="name">
+                  <div *ngIf="skill.getSkillName()==='Craft 1' || skill.getSkillName()==='Craft 2' || skill.getSkillName()==='Profession' || skill.getSkillName()==='Perform'; then specialSkill; else normalSkill"></div>
+                  <ng-template #specialSkill>
+                    <div *ngIf="skill.getSkillName()==='Craft 1'">
+                      {{ skill.getSkillName().substr(0, skill.getSkillName().length-1)}} {{ currChar.getCraftOne() }}
+                    </div>
+                    <div *ngIf="skill.getSkillName()==='Craft 2'">
+                      {{ skill.getSkillName().substr(0, skill.getSkillName().length-1)}} {{ currChar.getCraftTwo() }}
+                    </div>
+                    <div *ngIf="skill.getSkillName()==='Profession'">
+                      {{ skill.getSkillName() }} {{ currChar.getProfession() }}
+                    </div>
+                    <div *ngIf="skill.getSkillName()==='Perform'">
+                      {{ skill.getSkillName() }} {{ currChar.getPerformCust() }}
+                    </div>
+                  </ng-template>
+                  <ng-template #normalSkill>
+                    {{ skill.getSkillName() }}
+                  </ng-template>
+                </td>
+                <td>
+                  <input id="{{ 'skills'+i }}" class="skill-input" type="number" [ngModel]="skill.getRanks()" (ngModelChange)="skill.setRanks($event)" min="{{ skillStarts[i] }}" max="{{ skill.getRanks() + skillPoints > skillStarts[i] ? skill.getRanks() + skillPoints : skillStarts[i] }}" (change)="track(i, 'skills')" (blur)="validate(i, 'skills')">
+                </td>
+                <td>
+                  {{ skill.getRacial() }}
+                </td>
+                <td class="mod">
+                  {{ skill.getModifier().substr(0,3) | uppercase }}
+                  <span class="info">{{ getMod(skill.getModifier()) }}</span>
+                </td>
+                <td>
+                  {{ skill.getItem() }}
+                </td>
+                <td>
+                  {{ skill.getMisc() }}
+                </td>
+                <td class="total">
+                  {{ (skill.getTrained() ? 3 : 0) + skill.getRanks() + getMod(skill.getModifier()) + skill.getItem() + skill.getMisc() + skill.getRacial()}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!--Weapon Skills Table-->
+      <div *ngIf="skillTypeTab[1]">
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Trained</th>
+                <th>Weapon Type</th>
+                <th>Skill Ranks</th>
+                <th>Racial Bonus</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let weapon of currChar.getWeaponSkills(); index as j" class="weapon">
+                <td>
+                  <input class="skill-input" type="checkbox" disabled [checked]="weapon.getTrained()">
+                </td>
+                <td class="name">
+                  {{ weapon.getSkillName() }}
+                </td>
+                <td>
+                  <input id="{{ 'weaponSkills'+j }}" class="skill-input" type="number" min="{{ weaponStarts[j] }}" max="{{ weapon.getRanks() + skillPoints > weaponStarts[j] ? weapon.getRanks() + skillPoints : weaponStarts[j] }}" [ngModel]="weapon.getRanks()" (ngModelChange)="weapon.setRanks($event)" (change)="track(j, 'weaponSkills')" (blur)="validate(j, 'weaponSkills')">
+                </td>
+                <td>
+                  {{ weapon.getRacial() }}
+                </td>
+                <td>
+                  {{ (weapon.getTrained() ? 3 : 0) + weapon.getRanks() + weapon.getRacial() }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!--Magic Skills Table-->
+      <div *ngIf="skillTypeTab[2]">
+        <div class="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Magic Type</th>
+                <th>Modifier</th>
+                <th>Skill Ranks</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let magic of currChar.getMagicSkills(); index as k" [class.din]="magic.getModifier() === 'Intelligence'" [class.farore]="magic.getModifier() === 'Charisma'" [class.nayru]="magic.getModifier() === 'Wisdom'">
+                <td class="name">
+                  {{ magic.getSkillName() }}
+                </td>
+                <td class="mod">
+                  {{ magic.getModifier().substr(0,3) | uppercase }}
+                  <span class="info">{{ getMod(magic.getModifier()) }}</span>
+                </td>
+                <td>
+                  <input id="{{ 'magicSkills'+k }}" class="skill-input" type="number" [ngModel]="magic.getRanks()" (ngModelChange)="magic.setRanks($event)" min="{{ magicStarts[k] }}" max="{{ magic.getRanks() + skillPoints > magicStarts[k] ? magic.getRanks() + skillPoints : magicStarts[k] }}" (change)="track(k, 'magicSkills')" (blur)="validate(k, 'magicSkills')">
+                </td>
+                <td class="total">
+                  {{ magic.getRanks() + getMod(magic.getModifier()) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+  </div>

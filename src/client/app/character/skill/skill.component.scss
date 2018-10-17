@@ -1,0 +1,54 @@
+.accordian {
+  background: #eee;
+  color: #444444;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.accordian:hover {
+  background-color: #ccc;
+}
+.panel {
+  padding: 5px 0px;
+  background-color: inherit;
+  display: none;
+}
+.active {
+  display: block;
+}
+.right {
+  float: right;
+  cursor: pointer;
+  font-size: 150%;
+  font-weight: bold;
+}
+.skillCheck {
+  padding: 0.5em 2em;
+}
+
+.skillCheck,
+h4 {
+  padding-top: 0em;
+  padding-bottom: 0em;
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+.crit {
+  color: gold;
+}
+.critMiss {
+  color: red;
+}
+.maxDmg {
+  color: #00aa00;
+}
+
+.name {
+  cursor: pointer;
+}
