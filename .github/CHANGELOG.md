@@ -13,11 +13,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Using TypeORM instead of Knex and Objection for the ORM and QueryBuilder
 
+- "Fixed" module system on client code to look like the server code and better use modules in Angular
+
+- Implemented immediate saves on Note, Spell, and Weapon creation.
+
 ### Removed
 
 - Original Express Code
 
 - References to Objection and Knex along with the migration and model files
+
+- Lots of test coverage due to new frameworks
 
 ## [1.0.0] -- 2018-10-08
 
