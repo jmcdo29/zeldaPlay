@@ -15,7 +15,7 @@
 }
 .hidden {
   color: #fff;
-}
-.hidden:hover {
-  color: #888;
+  &:hover {
+    color: #888;
+  }
 }
