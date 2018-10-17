@@ -25,22 +25,8 @@ comment:
   behavior: default
   require_changes: no
 ignore:
-  - '**/*.d.ts'
-  - '**/*.config.js'
-  - '**/node_modules/**'
-  - '**/coverage/**'
-  - '**/reference/**'
-  - '**/migrations/**'
-  - '**/seeds/**'
-  - '**/mocks/**'
-  - '**/*.json'
-  - '**/knexfile.ts'
-  - '**/sessionConf.ts'
   - '**/main.ts'
   - '**/polyfills.ts'
   - '**/setupJest.ts'
   - '**/test.ts'
-  - '**/server.ts'
   - '**/jestGlobalMocks.ts'
-  - '**/dbConnection.ts'
-  - '**/www.ts'

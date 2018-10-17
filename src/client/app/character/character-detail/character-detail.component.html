@@ -1,0 +1,243 @@
+<!--Modals for various actions liking taking damage and healing, maybe leveling up!-->
+<div *ngIf="character">
+  <!--Modify Health Modal-->
+  <div class="modal" [class.showModal]="changeHP">
+    <div class="modal-content small">
+      <div class="modal-header">
+        <span class="close" (click)="modHealth()">&times;</span>
+        <h2>Modify Health</h2>
+      </div>
+      <div class="modal-body">
+        <div class="body-head">
+          Current HP:
+          <span style="float:right; padding-right:5em; ">{{ character.getHealth() }}</span>
+        </div>
+        <select [(ngModel)]="type">
+          <option value="-1">Take Damage</option>
+          <option value="1">Regain Health</option>
+        </select>
+        <input type="number" [(ngModel)]="hpDmg" placeholder="{{ hpDmg }}" min="0" max="{{ character.getMaxHealth() + 10 }}">
+        <button class="square" (click)="modTheHMod(1)">+1</button>
+        <button class="square" (click)="modTheHMod(5)">+5</button>
+        <button class="square" (click)="modTheHMod(10)">+10</button>
+        <div class="right">
+          <button (click)="finalizeHealthMod()">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modify Magic Modal-->
+  <div class="modal" [class.showModal]="changeMP">
+    <div class="modal-content small">
+      <div class="modal-header">
+        <span class="close" (click)="modMagic()">&times;</span>
+        <h2>Modify Magic</h2>
+      </div>
+      <div class="modal-body">
+        <div class="body-head">
+          Current MP:
+          <span style="float:right; padding-right:5em; ">{{ character.getMagic() }}</span>
+        </div>
+        <select [(ngModel)]="type">
+          <option value="1">Restore Magic</option>
+          <option value="-1">Cast Magic</option>
+        </select>
+        <input type="number" min="0" [(ngModel)]="mpDmg" placeholder="{{ mpDmg }}" max="{{ character.getMaxMagic() }}">
+        <button class="square" (click)="modTheMMod(1)">+1</button>
+        <button class="square" (click)="modTheMMod(5)">+5</button>
+        <button class="square" (click)="modTheMMod(10)">+10</button>
+        <div class="right">
+          <button (click)="finalizeMagicMod()">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modify Exp Model-->
+  <div class="modal" [class.showModal]="changeExp">
+    <div class="modal-content small">
+      <div class="modal-header">
+        <span class="close" (click)="modExp()">&times;</span>
+        <h2>Gain Exp</h2>
+      </div>
+      <div class="modal-body">
+        <div class="body-head">
+          Current Exp:
+          <span style="float:right; padding-right:5em; ">{{ character.getExp() }}</span>
+        </div>
+        <div *ngIf="negExp">
+          <strong class="critmiss">You cannot gain negative experience.</strong>
+        </div>
+        <input type="number" min="0" [(ngModel)]="expMod" placeholder="{{ expMod }}" min=0>
+        <div class="right">
+          <button (click)="finalizeExpMod()">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Level Up Modal-->
+  <div class="modal" [class.showModal]="editMode">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close" (click)="setEdit()">&times;</span>
+        <h2>Level Up</h2>
+      </div>
+      <app-character-level-up [currChar]="character" #levelUp></app-character-level-up>
+    </div>
+  </div>
+</div>
+<!--The rest of the application the shows the characters attributes and skills-->
+<div class="column-holder">
+  <div *ngIf="character">
+    <!--The table to show the characters attributes and the ability to roll dice with modifiers-->
+    <div class="details">
+
+      <button style="margin-bottom: 1em;" (click)="setEdit()">Level Up</button>
+      <br/>
+      <button style="margin-bottom: 1em;" (click)="gotHeartContainer()">Get Heart Container</button>
+      <button style="margin-bottom: 1em;" (click)="gotMagicContainer()">Get Magic Container</button>
+
+      <!-- <div class="ct">
+        <h3>Charts will go here!</h3>
+        <app-character-charts [character]="character"></app-character-charts>
+      </div> -->
+
+      <button class="accordian" (click)="expandDets()">
+        <h2>{{ character.getName() | uppercase }} Details</h2>
+      </button>
+      <div class="panel" [class.active]="showDets">
+        <div class="attributes">
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Trait</th>
+                  <th>Value/Score</th>
+                  <th>Modifier</th>
+                </tr>
+              </thead>
+              <br/>
+              <tbody>
+                <tr>
+                  <td class="name">Name</td>
+                  <td>{{ character.getName() }}</td>
+                </tr>
+                <tr>
+                  <td class="name">Race</td>
+                  <td>{{ character.getRace() }}</td>
+                </tr>
+                <tr [hidden]="!character.subRace">
+                  <td class="name">Sub Race</td>
+                  <td>{{ character.getSubRace() }}</td>
+                </tr>
+                <tr>
+                  <td class="name">Level</td>
+                  <td>{{ character.getLevel() }}</td>
+                </tr>
+                <br/>
+                <tr *ngFor="let attr of character.getAttributes()" [class.din]="attr.getName() === 'Strength' || attr.getName() === 'Intelligence'" [class.farore]="attr.getName() === 'Dexterity' || attr.getName() === 'Charisma'" [class.nayru]="attr.getName() === 'Wisdom' || attr.getName() === 'Constitution'">
+                  <td class="name">{{ attr.getName() }}</td>
+                  <td>{{ attr.getValue() }}</td>
+                  <td>{{ attr.getModifier() }}</td>
+                </tr>
+                <br/>
+                <tr></tr>
+                <tr class="din">
+                  <td class="name">Health</td>
+                  <td>{{ character.getHealth() }} / {{ character.getMaxHealth() }}</td>
+                  <td>
+                    <button (click)="modHealth()">Modify HP</button>
+                  </td>
+                </tr>
+                <tr class="nayru">
+                  <td class="name">Magic</td>
+                  <td>{{ character.getMagic() }} / {{ character.getMaxMagic() }}</td>
+                  <td>
+                    <button (click)="modMagic()">Modify MP</button>
+                  </td>
+                </tr>
+                <tr class="farore">
+                  <td class="name">Experience</td>
+                  <td>{{ character.getExp() }}</td>
+                  <td>
+                    <button (click)="modExp()">Gain Exp</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <br/>
+
+      <div>
+        <button class="accordian" (click)="expandSaves()">
+          <h2>Saving Throws</h2>
+        </button>
+        <div class="panel" [class.active]="showSaves">
+          <app-save [character]="character" [characterDetailComponent]="this"></app-save>
+        </div>
+
+      </div>
+
+      <h3> Roll Dice
+        <span style="float: right; padding-right:5em;" *ngIf="roll" [class.crit]="this.crit" [class.critmiss]="this.critMiss" [class.maxDmg]="this.maxDmg">
+          {{ roll }}
+        </span>
+      </h3>
+
+      <h4> Add a modifier to your roll.</h4>
+      <select [(ngModel)]="rollMod">
+        <option value="null" selected="selected">None</option>
+        <option *ngFor="let attr of character.getAttributes()" [value]="attr.getName()">{{ attr.getName() }}</option>
+      </select>
+      <br>
+      <br>
+      <app-die [sides]="4" [character]="this" [mod]="rollMod"></app-die>
+      <app-die [sides]="6" [character]="this" [mod]="rollMod"></app-die>
+      <app-die [sides]="8" [character]="this" [mod]="rollMod"></app-die>
+      <app-die [sides]="12" [character]="this" [mod]="rollMod"></app-die>
+      <app-die [sides]="20" [character]="this" [mod]="rollMod"></app-die>
+      <app-die [sides]="100" [character]="this"></app-die>
+
+
+    </div>
+    <!--The table to show the character's skills (weapon, magic and normal)-->
+    <div class="skills scrollable">
+      <div class="menuBar" [class.active]="showSet[0]" (click)="changeSection(0)">
+        <h4 class="menu">{{ character.getName() }}
+          <br/>Skills</h4>
+      </div>
+      <div class="menuBar" [class.active]="showSet[1]" (click)="changeSection(1)">
+        <h4 class="menu">{{ character.getName() }}
+          <br/>Weapons</h4>
+      </div>
+      <div class="menuBar" [class.active]="showSet[2]" (click)="changeSection(2)">
+        <h4 class="menu">{{ character.getName() }}
+          <br/>Spells</h4>
+      </div>
+      <div class="menuBar" [class.active]="showSet[3]" (click)="changeSection(3)">
+        <h4 class="menu">{{ character.getName() }}
+          <br/>Inventory</h4>
+      </div>
+      <div class="menuBar" [class.active]="showSet[4]" (click)="changeSection(4)">
+        <h4 class="menu">{{ character.getName() }}
+          <br/>Notes</h4>
+      </div>
+      <div *ngIf="showSet[0]">
+        <app-skill [character]="character"></app-skill>
+      </div>
+      <div *ngIf="showSet[1]">
+        <app-weapon [character]="character"></app-weapon>
+      </div>
+      <div *ngIf="showSet[2]">
+        <app-spell [character]="character"></app-spell>
+      </div>
+      <div *ngIf="showSet[3]">
+        <app-inventory [character]="character"></app-inventory>
+      </div>
+      <div *ngIf="showSet[4]">
+        <app-note [character]="character"></app-note>
+      </div>
+    </div>
+  </div>
+</div>

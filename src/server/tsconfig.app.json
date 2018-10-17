@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "../../dist/server",
+    "paths": {
+      "@Auth/*": ["app/auth/*"],
+      "@Character/*": ["app/character/*"],
+      "@Entity/*": ["app/entities/*"],
+      "@Note/*": ["app/character/note/*"],
+      "@Skill/*": ["app/character/skill/*"],
+      "@Spell/*": ["app/character/spell/*"],
+      "@User/*": ["app/user/*"],
+      "@Weapon/*": ["app/character/weapon/*"]
+    }
+  },
+  "include": ["app/**/*.ts", "main.ts"],
+  "exclude": ["test.ts", "tests/**", "src/**", "**/**.spec.ts"]
+}
