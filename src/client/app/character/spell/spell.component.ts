@@ -92,6 +92,13 @@ export class SpellComponent implements OnInit {
       document.getElementById('mpUse').classList.add('bad-input');
     }
     if (!error) {
+      if (sessionStorage.getItem('currentUser')) {
+        this.spellService
+          .newSpell(this.character.getId(), this.spell)
+          .subscribe((retSpell) => {
+            this.spell = retSpell;
+          });
+      }
       this.character.addSpell(this.spell);
       this.createMessage();
       this.spell = new Spell(

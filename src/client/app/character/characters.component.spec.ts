@@ -105,7 +105,7 @@ describe('CharactersComponent', () => {
     });
     test('save', () => {
       component.selectedCharacter = myChar;
-      spyOn(characterService, 'saveCharDb').and.returnValue(
+      spyOn(characterService, 'saveUpdateCharDb').and.returnValue(
         of(characterReturn)
       );
       component.save();

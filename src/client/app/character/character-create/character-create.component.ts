@@ -124,9 +124,9 @@ export class CharacterCreateComponent implements OnInit {
       if (sessionStorage.getItem('currentUser')) {
         // save character to database
         this.characterService
-          .saveCharDb(this.newCharacter)
+          .saveNewCharDb(this.newCharacter)
           .subscribe((characterRes) => {
-            return characterRes;
+            this.newCharacter = characterRes;
           });
         this.alertService.clear();
       } else {

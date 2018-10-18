@@ -609,13 +609,13 @@ export class Character {
               new Note(note.id, note.message, note.time, note.important)
             );
           }
-        }
+        }*/
         for (const save of qObj.saves) {
           this.addSavingThrow(
             new Save(save.id, save.name, save.modifier, save.racial_bonus)
           );
         }
-        for (const weapon of qObj.weapons) {
+        /* for (const weapon of qObj.weapons) {
           this.weapons.push(
             new Weapon(
               weapon.id,

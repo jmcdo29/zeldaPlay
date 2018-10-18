@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Character } from '@Entity/character.entity';
+import { User } from '@Entity/user.entity';
 
 @Injectable()
 export class CharacterService {
@@ -39,13 +40,17 @@ export class CharacterService {
     return this.characterRepo.find({
       select: ['id', 'name', 'race'],
       where: {
-        userId
+        user: {
+          id: userId
+        }
       },
       cache: true
     });
   }
 
   async newChar(inChar: Character, userId: string): Promise<Character> {
+    inChar.user = new User();
+    inChar.user.id = userId;
     return this.characterRepo.save(inChar);
   }
 

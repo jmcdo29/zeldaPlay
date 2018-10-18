@@ -36,7 +36,7 @@ export class CharacterController {
       'Using the User id, create and assign a new character based on the incoming body'
   })
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   newChar(
     @Param('userId') userId: string,
@@ -50,7 +50,7 @@ export class CharacterController {
     title: 'User Characters',
     description: 'Get all the characters belonging to the specified user.'
   })
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   getUser(@Param('userId') userId: string): Promise<Character[]> {
     return this.characterService.getUserChars(userId);
@@ -71,7 +71,7 @@ export class CharacterController {
     title: 'Update Character',
     description: 'Update the incoming character. Found based on the passed id.'
   })
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
   updateOne(

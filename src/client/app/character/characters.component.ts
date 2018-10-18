@@ -83,7 +83,7 @@ export class CharactersComponent implements OnInit {
 
   save() {
     this.characterService
-      .saveCharDb(this.selectedCharacter)
+      .saveUpdateCharDb(this.selectedCharacter)
       .subscribe((characterRes) => {
         this.selectedCharacter = characterRes;
       });

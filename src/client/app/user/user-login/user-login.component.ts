@@ -28,9 +28,7 @@ export class UserLoginComponent implements OnInit {
     this.alertService.clear();
     this.loading = true;
     this.userService.login(this.username, this.password).subscribe(
-      (data) => {
-        sessionStorage.setItem('currentUser', data.id);
-        sessionStorage.setItem('userToken', data.token);
+      (next) => {
         this.router.navigate(['/']);
       },
       (error) => {

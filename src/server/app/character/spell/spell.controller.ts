@@ -32,7 +32,7 @@ export class SpellController {
     title: 'Create a new spell',
     description: 'Create a new spell to be saved to the character.'
   })
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
   async newSpell(
@@ -47,7 +47,7 @@ export class SpellController {
     title: 'Update Spell',
     description: 'Update an existing spell based on its id.'
   })
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
   async updateSpell(@Body('spell', SpellPipe) inSpell: Spell): Promise<Spell> {

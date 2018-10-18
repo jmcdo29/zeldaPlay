@@ -56,6 +56,13 @@ export class NoteComponent implements OnInit {
         .toString(),
       this.important
     );
+    if (sessionStorage.getItem('currentUser')) {
+      this.noteService
+        .newNote(this.character.getId(), this.note)
+        .subscribe((retNote) => {
+          this.note = retNote;
+        });
+    }
     if (this.important) {
       this.character.addImportantNote(this.note);
     } else {

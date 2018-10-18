@@ -17,9 +17,7 @@ import { Character } from '@Entity/character.entity';
     SkillModule,
     WeaponModule,
     SpellModule,
-    NoteModule,
-    AuthModule,
-    PassportModule.register({ defaultStrategy: 'jwt' })
+    NoteModule
   ],
   controllers: [CharacterController],
   providers: [CharacterService]
