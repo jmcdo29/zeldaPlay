@@ -22,7 +22,9 @@ export class CharacterService {
         }
       },
       where: {
-        userId: process.env.DUMMY_ID
+        user: {
+          id: process.env.DUMMY_ID
+        }
       }
     });
   }
