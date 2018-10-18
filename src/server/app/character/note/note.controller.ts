@@ -33,7 +33,7 @@ export class NoteController {
     description: 'Make a new note tied to this character.'
   })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @ApiImplicitBody({ name: 'note', type: NoteDTO })
   async newNote(
     @Body('note', NotePipe) inNote: Note,

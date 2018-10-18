@@ -39,7 +39,9 @@ export class CharacterService {
     return this.characterRepo.find({
       select: ['id', 'name', 'race'],
       where: {
-        userId
+        user: {
+          id: userId
+        }
       },
       cache: true
     });

@@ -147,6 +147,14 @@ export class WeaponComponent implements OnInit {
       }
     }
     if (!error) {
+      if (sessionStorage.getItem('currentUser')) {
+        this.weaponService
+          .newWeapon(this.character.getId(), this.weapon)
+          .subscribe((retWeap) => {
+            this.weapon = retWeap;
+          });
+      }
+      console.log(this.weapon);
       this.character.addWeapon(this.weapon);
       this.addWeapon();
       this.createMessage();

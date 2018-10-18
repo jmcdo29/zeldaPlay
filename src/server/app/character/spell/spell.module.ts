@@ -8,10 +8,7 @@ import { SpellController } from '@Character/spell/spell.controller';
 import { SpellService } from '@Character/spell/spell.service';
 
 @Module({
-  imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    TypeOrmModule.forFeature([Spell])
-  ],
+  imports: [TypeOrmModule.forFeature([Spell])],
   controllers: [SpellController],
   providers: [SpellService]
 })

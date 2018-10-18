@@ -32,7 +32,7 @@ export class WeaponController {
     title: 'New Weapon',
     description: 'Create a new weapon for the character.'
   })
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   async newWeapon(
@@ -47,7 +47,7 @@ export class WeaponController {
     title: 'Update Weapon',
     description: 'Update the weapon saved in the database with the specified id'
   })
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   async updateWeapon(

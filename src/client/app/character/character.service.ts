@@ -54,7 +54,7 @@ export class CharacterService {
     return this.httpClient
       .get<ICharacterQuery[]>(this.characterUrl + 'user/' + userId, {
         headers: {
-          authorization: 'Bearer ' + sessionStorage.getItem('userToken')
+          authorization: 'bearer ' + sessionStorage.getItem('userToken')
         },
         withCredentials: true
       })
@@ -103,7 +103,7 @@ export class CharacterService {
         },
         {
           headers: {
-            authorization: 'Bearer ' + sessionStorage.getItem('userToken')
+            Authorization: 'Bearer ' + sessionStorage.getItem('userToken')
           }
         }
       )

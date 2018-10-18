@@ -100,6 +100,7 @@
     "@types/jsonwebtoken": "^7.2.8",
     "@types/morgan": "^1.7.35",
     "@types/node": "^10.11.7",
+    "@types/passport-jwt": "^3.0.1",
     "@types/supertest": "^2.0.6",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
