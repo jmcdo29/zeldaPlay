@@ -154,7 +154,6 @@ export class WeaponComponent implements OnInit {
             this.weapon = retWeap;
           });
       }
-      console.log(this.weapon);
       this.character.addWeapon(this.weapon);
       this.addWeapon();
       this.createMessage();

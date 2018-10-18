@@ -13,13 +13,11 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.TOKEN_SECRET
     });
-    console.log(ExtractJwt.fromAuthHeaderAsBearerToken());
   }
 
   async validate(payload: JwtDTO): Promise<User> {
     const user = this.authService.validateUser(payload);
     if (!user) {
-      console.error('Unauthorized.');
       throw new UnauthorizedException();
     }
     return user;

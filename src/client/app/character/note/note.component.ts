@@ -63,7 +63,6 @@ export class NoteComponent implements OnInit {
           this.note = retNote;
         });
     }
-    console.log(this.note);
     if (this.important) {
       this.character.addImportantNote(this.note);
     } else {

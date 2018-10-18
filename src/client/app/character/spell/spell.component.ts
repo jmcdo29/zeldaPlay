@@ -99,7 +99,6 @@ export class SpellComponent implements OnInit {
             this.spell = retSpell;
           });
       }
-      console.log(this.spell);
       this.character.addSpell(this.spell);
       this.createMessage();
       this.spell = new Spell(
