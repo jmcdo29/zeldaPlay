@@ -11,7 +11,7 @@ import { UserModule } from '@User/user.module';
     JwtModule.register({
       secretOrPrivateKey: process.env.TOKEN_SECRET,
       signOptions: {
-        expiresIn: process.env.EXPIRE_TOKEN
+        expiresIn: process.env.TOKEN_EXPIRE
       }
     })
   ],

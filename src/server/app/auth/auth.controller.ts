@@ -27,4 +27,10 @@ export class AuthController {
   ): Promise<JwtReturnDTO> {
     return this.authService.signup(user);
   }
+
+  @Post('logout')
+  @ApiOperation({ title: 'Logout', description: 'Allow the user to log out.' })
+  async logout(): Promise<void> {
+    return;
+  }
 }

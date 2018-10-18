@@ -22,7 +22,7 @@ export class AuthService {
       id: user.id
     });
     return {
-      expiresIn: process.env.EXPIRE_TOKEN,
+      expiresIn: process.env.TOKEN_EXPIRE,
       accessToken,
       id: user.id
     };
@@ -35,7 +35,7 @@ export class AuthService {
       id: user.id
     });
     return {
-      expiresIn: process.env.EXPIRE_TOKEN,
+      expiresIn: process.env.TOKEN_EXPIRE,
       accessToken,
       id: user.id
     };

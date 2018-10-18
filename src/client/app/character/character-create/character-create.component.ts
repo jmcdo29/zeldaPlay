@@ -126,7 +126,7 @@ export class CharacterCreateComponent implements OnInit {
         this.characterService
           .saveNewCharDb(this.newCharacter)
           .subscribe((characterRes) => {
-            return characterRes;
+            this.newCharacter = characterRes;
           });
         this.alertService.clear();
       } else {
