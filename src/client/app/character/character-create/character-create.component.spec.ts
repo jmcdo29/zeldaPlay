@@ -37,7 +37,7 @@ const messageServiceStub: Partial<MessageService> = {
   }
 };
 const characterServiceStub: Partial<CharacterService> = {
-  saveCharDb(sampleChar: Character): Observable<any> {
+  saveNewCharDb(sampleChar: Character): Observable<any> {
     return of(characterReturn);
   }
 };

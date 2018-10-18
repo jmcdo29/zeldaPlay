@@ -16,7 +16,7 @@ import { MessageService } from '#Shared/messages/message.service';
   providedIn: 'root'
 })
 export class CharacterService {
-  private characterUrl = environment.apiUrl + '/character';
+  private characterUrl = environment.apiUrl + '/character/';
 
   constructor(
     private httpClient: HttpClient,
@@ -41,20 +41,18 @@ export class CharacterService {
   }
 
   getCharacter(id): Observable<Character> {
-    return this.httpClient
-      .get<ICharacterQuery>(this.characterUrl + '/' + id)
-      .pipe(
-        map<ICharacterQuery, Character>((response) => {
-          const character = new Character(null, response);
-          return character;
-        }),
-        catchError(this.handleError('get character', null))
-      );
+    return this.httpClient.get<ICharacterQuery>(this.characterUrl + id).pipe(
+      map<ICharacterQuery, Character>((response) => {
+        const character = new Character(null, response);
+        return character;
+      }),
+      catchError(this.handleError('get character', null))
+    );
   }
 
   getUserCharacters(userId): Observable<Character[]> {
     return this.httpClient
-      .get<ICharacterQuery[]>(this.characterUrl + '/user/' + userId, {
+      .get<ICharacterQuery[]>(this.characterUrl + 'user/' + userId, {
         headers: {
           authorization: 'Bearer ' + sessionStorage.getItem('userToken')
         },
@@ -64,6 +62,7 @@ export class CharacterService {
         map<ICharacterQuery[], Character[]>((ch) => {
           const characters = [];
           for (const response of ch) {
+            // these arrays are just to make the constructor work properly and have no other purpose
             response.skills = [];
             response.saves = [];
             characters.push(new Character(null, response as any));
@@ -94,11 +93,11 @@ export class CharacterService {
     FileSaver.saveAs(blob, character.getName() + '_zeldaplay.json');
   }
 
-  saveCharDb(character: Character): Observable<Character> {
+  saveNewCharDb(character: Character): Observable<Character> {
     const userId = sessionStorage.getItem('currentUser');
     return this.httpClient
       .post<ICharacterQuery>(
-        this.characterUrl + `/${userId}`,
+        this.characterUrl + `new/${userId}`,
         {
           character
         },
@@ -134,6 +133,20 @@ export class CharacterService {
           return character;
         })
       );
+  }
+
+  saveUpdateCharDb(character: Character): Observable<Character> {
+    return this.httpClient
+      .post<ICharacterQuery>(
+        this.characterUrl + `update/${character.getId()}`,
+        { character },
+        {
+          headers: {
+            authorization: 'Bearer ' + sessionStorage.getItem('userToken')
+          }
+        }
+      )
+      .pipe(map(() => character));
   }
 }
 
