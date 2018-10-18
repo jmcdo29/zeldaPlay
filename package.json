@@ -2,10 +2,6 @@
   "name": "zelda-play",
   "version": "1.0.0",
   "license": "MIT",
-  "engines": {
-    "yarn": "1.10.1",
-    "node": "10.11.0"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint && yarn prettier && node gitAddMod"
