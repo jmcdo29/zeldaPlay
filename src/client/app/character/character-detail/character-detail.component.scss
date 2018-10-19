@@ -33,16 +33,14 @@ button.square {
   transition: 0.6s;
   margin-bottom: 1em;
   /* height: 3.5em; */
+  &:hover,
+  &.active {
+    background-color: #229e22;
+  }
 }
 h4.menu {
   padding: 0.5em 1em;
   margin: 0;
-}
-.menuBar:hover {
-  background-color: #229e22;
-}
-.menuBar.active {
-  background-color: #229e22;
 }
 @media (max-width: 900px) {
   .right {

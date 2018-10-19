@@ -9,9 +9,9 @@
   transition: 0.4s;
   padding-top: 2px;
   padding-bottom: 2px;
-}
-.accordian:hover {
-  background-color: #ccc;
+  &:hover {
+    background-color: #ccc;
+  }
 }
 .panel {
   padding: 5px 0px;
@@ -30,7 +30,6 @@
 .skillCheck {
   padding: 0.5em 2em;
 }
-
 .skillCheck,
 h4 {
   padding-top: 0em;
@@ -38,7 +37,6 @@ h4 {
   margin-top: 0em;
   margin-bottom: 0em;
 }
-
 .crit {
   color: gold;
 }
@@ -48,7 +46,6 @@ h4 {
 .maxDmg {
   color: #00aa00;
 }
-
 .name {
   cursor: pointer;
 }
