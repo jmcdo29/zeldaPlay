@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
+  ApiOkResponse,
   ApiOperation,
   ApiUseTags
 } from '@nestjs/swagger';
@@ -23,6 +24,7 @@ export class NoteController {
     title: 'Get Notes',
     description: 'Get all the notes of one character.'
   })
+  @ApiOkResponse({ type: Note, isArray: true })
   async getNotes(@Param('charId') charId: string): Promise<Note[]> {
     return this.noteService.getNotes(charId);
   }
@@ -34,6 +36,7 @@ export class NoteController {
   })
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
+  @ApiOkResponse({ type: Note })
   @ApiImplicitBody({ name: 'note', type: NoteDTO })
   async newNote(
     @Body('note', NotePipe) inNote: Note,

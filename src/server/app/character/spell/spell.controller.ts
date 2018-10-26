@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
+  ApiOkResponse,
   ApiOperation,
   ApiUseTags
 } from '@nestjs/swagger';
@@ -23,6 +24,7 @@ export class SpellController {
     title: 'Get Character Spells',
     description: 'Get all of the spells for the specified character.'
   })
+  @ApiOkResponse({ type: Spell, isArray: true })
   async getSpells(@Param('charId') charId: string): Promise<Spell[]> {
     return this.spellService.getSpells(charId);
   }
@@ -35,6 +37,7 @@ export class SpellController {
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
+  @ApiOkResponse({ type: Spell })
   async newSpell(
     @Body('spell', SpellPipe) inSpell: Spell,
     @Param('charId') charId: string
@@ -49,6 +52,7 @@ export class SpellController {
   })
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
+  @ApiOkResponse({ type: Spell })
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
   async updateSpell(@Body('spell', SpellPipe) inSpell: Spell): Promise<Spell> {
     return this.spellService.updateSpell(inSpell);

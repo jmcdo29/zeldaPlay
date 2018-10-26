@@ -24,6 +24,9 @@ export class User {
   @Column({ type: 'text', unique: true, nullable: true })
   loginToken: string;
 
+  @Column({ type: 'text', unique: true, nullable: true })
+  googleToken: string;
+
   @BeforeInsert()
   createId() {
     this.id = this.idStart + makeId(9);

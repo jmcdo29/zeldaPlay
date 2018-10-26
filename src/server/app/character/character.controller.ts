@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
+  ApiOkResponse,
   ApiOperation,
   ApiUseTags
 } from '@nestjs/swagger';
@@ -25,6 +26,7 @@ export class CharacterController {
       'Get all of the characters who do not belong to a user. ' +
       'These are returned and shown as an example for the user to get an idea of how the app works.'
   })
+  @ApiOkResponse({ type: Character, isArray: true })
   async getAll(): Promise<Character[]> {
     return this.characterService.getAll();
   }
@@ -38,6 +40,7 @@ export class CharacterController {
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
+  @ApiOkResponse({ type: Character })
   newChar(
     @Param('userId') userId: string,
     @Body('character', CharacterPipe) character: Character
@@ -52,6 +55,7 @@ export class CharacterController {
   })
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
+  @ApiOkResponse({ type: Character, isArray: true })
   getUser(@Param('userId') userId: string): Promise<Character[]> {
     return this.characterService.getUserChars(userId);
   }
@@ -62,6 +66,7 @@ export class CharacterController {
     description:
       'Return all the information pertaining to the specified character.'
   })
+  @ApiOkResponse({ type: Character })
   getOne(@Param('characterId') charId: string): Promise<Character> {
     return this.characterService.getOne(charId);
   }
@@ -74,6 +79,7 @@ export class CharacterController {
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
+  @ApiOkResponse({ type: Character })
   updateOne(
     @Body('character', CharacterPipe) inChar: Character
   ): Promise<Character> {

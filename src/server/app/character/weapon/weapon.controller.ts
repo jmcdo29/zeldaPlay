@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
+  ApiOkResponse,
   ApiOperation,
   ApiUseTags
 } from '@nestjs/swagger';
@@ -23,7 +24,8 @@ export class WeaponController {
     title: 'Get Weapons',
     description: 'Get all the weapons of the specified character.'
   })
-  async getWeapons(@Param('charId') charId: string) {
+  @ApiOkResponse({ type: Weapon, isArray: true })
+  async getWeapons(@Param('charId') charId: string): Promise<Weapon[]> {
     return this.weaponService.getWeapons(charId);
   }
 
@@ -35,6 +37,7 @@ export class WeaponController {
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
+  @ApiOkResponse({ type: Weapon })
   async newWeapon(
     @Body('weapon', WeaponPipe) inWeapon: Weapon,
     @Param('charId') charId: string
@@ -49,6 +52,7 @@ export class WeaponController {
   })
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
+  @ApiOkResponse({ type: Weapon })
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   async updateWeapon(
     @Body('weapon', WeaponPipe) inWeapon: Weapon
