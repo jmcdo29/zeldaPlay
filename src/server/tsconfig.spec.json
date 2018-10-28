@@ -5,6 +5,7 @@
     "paths": {
       "@Auth/*": ["app/auth/*"],
       "@Character/*": ["app/character/*"],
+      "@Decorators/*": ["app/decorators/*"],
       "@Entity/*": ["app/entities/*"],
       "@Note/*": ["app/character/note/*"],
       "@Skill/*": ["app/character/skill/*"],

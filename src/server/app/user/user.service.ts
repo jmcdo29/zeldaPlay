@@ -67,6 +67,17 @@ export class UserService {
     }
   }
 
+  async findUserByGoogleToken(token: string): Promise<User> {
+    const user = await this.userRepo.findOne({ googleToken: token });
+    if (!user) {
+      throw new UnauthorizedException(
+        'No user found! Please connect your google account.'
+      );
+    } else {
+      return Promise.resolve(user);
+    }
+  }
+
   /* async findUserByGToken(gToken: string): Promise<User> {
     return this.userRepo.findOneOrFail({googleToken: gToken});
   } */

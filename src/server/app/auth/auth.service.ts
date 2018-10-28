@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { JwtDTO } from '@Auth/interfaces/jwt.dto';
@@ -19,10 +19,10 @@ export class AuthService {
     const user = await this.userService.login(payload);
     const accessToken = this.jwtService.sign({
       email: user.email,
-      id: user.id
+      id: user.id,
+      provider: 'local'
     });
     return {
-      expiresIn: process.env.TOKEN_EXPIRE,
       accessToken,
       id: user.id
     };
@@ -32,16 +32,24 @@ export class AuthService {
     const user = await this.userService.signup(newUser);
     const accessToken = this.jwtService.sign({
       email: user.email,
-      id: user.id
+      id: user.id,
+      provider: 'local'
     });
     return {
-      expiresIn: process.env.TOKEN_EXPIRE,
       accessToken,
       id: user.id
     };
   }
 
   async validateUser(payload: JwtDTO): Promise<User> {
-    return this.userService.findUserByEmail(payload.email);
+    console.log(payload);
+    switch (payload.provider) {
+      case 'local':
+        return this.userService.findUserByEmail(payload.email);
+      case 'google':
+        return this.userService.findUserByGoogleToken(payload.email);
+      default:
+        throw new UnauthorizedException('Login invalid. Please log in again.');
+    }
   }
 }
