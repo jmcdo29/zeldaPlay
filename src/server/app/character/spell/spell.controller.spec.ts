@@ -1,24 +1,18 @@
-import { PassportModule } from '@nestjs/passport';
-import { Test, TestingModule } from '@nestjs/testing';
-
 import { SpellController } from '@Character/spell/spell.controller';
-import { SpellService } from '@Character/spell/spell.service';
 
-const SpellServiceStub = {};
+const SpellServiceStub = {
+  getSpell: () => {},
+  newSpell: () => {},
+  updateSpell: () => {}
+};
 
 describe('Spell Controller', () => {
-  let module: TestingModule;
+  let spellController: SpellController;
+
   beforeAll(async () => {
-    module = await Test.createTestingModule({
-      imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
-      controllers: [SpellController],
-      providers: [{ provide: SpellService, useValue: SpellServiceStub }]
-    }).compile();
+    spellController = new SpellController(SpellServiceStub as any);
   });
   it('should be defined', () => {
-    const controller: SpellController = module.get<SpellController>(
-      SpellController
-    );
-    expect(controller).toBeDefined();
+    expect(spellController).toBeDefined();
   });
 });
