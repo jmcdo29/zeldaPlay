@@ -42,14 +42,51 @@ export class AuthService {
   }
 
   async validateUser(payload: JwtDTO): Promise<User> {
-    console.log(payload);
     switch (payload.provider) {
       case 'local':
         return this.userService.findUserByEmail(payload.email);
-      case 'google':
-        return this.userService.findUserByGoogleToken(payload.email);
+      /* case 'google':
+        return this.userService.findUserByGoogleToken(payload.email); */
       default:
         throw new UnauthorizedException('Login invalid. Please log in again.');
     }
   }
+
+  /* async googleToken(): Promise<string> {
+    const scopes = [
+      'https://www.googleapis.com/auth/plus.me',
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile'
+    ];
+
+    const url = this.oauth2Client.generateAuthUrl({
+      access_type: 'offline',
+      scope: scopes
+    });
+    console.log(url);
+    return url;
+  }
+
+  async getGoogleUser(code: GetTokenOptions): Promise<any> {
+    const {tokens} = await this.oauth2Client.getToken(code);
+    this.oauth2Client.setCredentials(tokens);
+    try {
+      const plus = google.plus({
+        version: 'v1',
+        auth: this.oauth2Client
+      });
+      const {data} = await plus.people.get({
+        userId: 'me',
+      });
+      console.log(data);
+      return this.googleLogin(tokens.access_token, data.emails[0].value);
+    } catch (err) {
+      console.error(err.message);
+      throw new BadRequestException('Whoops! There was a problem logging in!');
+    }
+  }
+
+  async googleLogin(token: string, email: string): Promise<User> {
+    return this.userService.googleSignup({email, token});
+  } */
 }

@@ -8,7 +8,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint && yarn prettier && node scripts/gitAddMod"
+      "pre-commit": "yarn lint && yarn format && node scripts/gitAddMod"
     }
   },
   "repository": {
@@ -16,9 +16,11 @@
     "url": "https://github.com/jmcdo29/zeldaplay"
   },
   "scripts": {
-    "build": "concurrently \"yarn build:client\" \"yarn build:server\"",
+    "build": "yarn clean && concurrently \"yarn build:client\" \"yarn build:server\"",
     "build:client": "ng build --prod",
     "build:server": "tsc -p ./src/server/tsconfig.app.json",
+    "clean": "rimraf dist && rimraf coverage",
+    "format": "prettier --write \"{src/**/*.{ts,scss,json},*.{json,yml,yaml},.*.{yml,json,yaml}}\"",
     "heroku-postbuild": "yarn build",
     "lint": "concurrently \"yarn lint:client\" \"yarn lint:server\"",
     "lint:client": "ng lint",
@@ -26,25 +28,13 @@
     "lint:server:src": "tslint -p src/server/tsconfig.app.json",
     "lint:server:test": "tslint -p src/server/tsconfig.spec.json",
     "ng": "ng",
-    "prettier": "prettier --write \"{src/**/*.{ts,scss,json},*.{json,yml,yaml},.*.{yml,json,yaml}}\"",
-    "start": "node dist/server/main.js",
-    "start:debug": "concurrently \"yarn build:server -w\" \"node --inspect dist/server/main.js\"",
+    "start": "env NODE_ENV=production node -r ./ts-config-bootstrap.js dist/server/main.js",
+    "start:debug": "concurrently \"yarn build:server -w\" \"node --inspect -r ./ts-config-bootstrap.js dist/server/main.js\"",
     "start:dev": "concurrently \"yarn start:dev:client\" \"yarn start:dev:server\"",
     "start:dev:client": "ng serve --open",
-    "start:dev:server": "concurrently \"yarn build:server -w\" \"nodemon dist/server/main.js\" ",
+    "start:dev:server": "concurrently \"yarn build:server -w\" \"nodemon -r ./ts-config-bootstrap.js dist/server/main.js\"",
     "test": "jest --notify",
     "test:ci": "jest --runInBand"
-  },
-  "_moduleAliases": {
-    "@Auth": "dist/server/app/auth",
-    "@Entity": "dist/server/app/entities",
-    "@Character": "dist/server/app/character",
-    "@Decorators": "dist/server/app/decorators",
-    "@Note": "dist/server/app/character/note",
-    "@Skill": "dist/server/app/character/skill",
-    "@Spell": "dist/server/app/character/spell",
-    "@User": "dist/server/app/user",
-    "@Weapon": "dist/server/app/character/weapon"
   },
   "dependencies": {
     "@nest-middlewares/cors": "^5.1.1",
@@ -66,10 +56,10 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "file-saver": "^2.0.0-rc.4",
+    "googleapis": "^34.0.0",
     "helmet": "^3.14.0",
     "jsonwebtoken": "^8.3.0",
     "mc-scribe": "1.2.2",
-    "module-alias": "^2.1.0",
     "morgan": "^1.9.1",
     "node-notifier": "^5.2.1",
     "passport": "^0.4.0",
@@ -79,6 +69,7 @@
     "pg": "^7.5.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",
+    "tsconfig-paths": "^3.6.0",
     "typeorm": "^0.2.8",
     "zone.js": "^0.8.26"
   },
@@ -124,11 +115,11 @@
     "jest-zone-patch": "0.0.8",
     "nodemon": "^1.18.4",
     "prettier": "^1.14.3",
+    "rimraf": "^2.6.2",
     "snyk": "1.104.1",
     "supertest": "^3.3.0",
     "ts-jest": "^23.10.4",
     "ts-node": "^7.0.1",
-    "tsconfig-paths": "^3.6.0",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "typescript": "^3.1.3"

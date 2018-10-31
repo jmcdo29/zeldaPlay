@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
@@ -10,6 +9,7 @@ import {
 
 import { Weapon } from '@Entity/weapon.entity';
 
+import { AuthGuard } from '@Auth/auth.guard';
 import { WeaponDTO } from '@Character/weapon/interfaces/weapon.dto';
 import { WeaponPipe } from '@Character/weapon/weapon.pipe';
 import { WeaponService } from '@Character/weapon/weapon.service';
@@ -34,7 +34,7 @@ export class WeaponController {
     title: 'New Weapon',
     description: 'Create a new weapon for the character.'
   })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   @ApiOkResponse({ type: Weapon })
@@ -50,7 +50,7 @@ export class WeaponController {
     title: 'Update Weapon',
     description: 'Update the weapon saved in the database with the specified id'
   })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: Weapon })
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })

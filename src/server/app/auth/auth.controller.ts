@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Body, Controller, Get, Post, Query, Res } from '@nestjs/common';
 import { ApiImplicitBody, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
 import { AuthPipe } from '@Auth/auth.pipe';
@@ -7,7 +6,6 @@ import { AuthService } from '@Auth/auth.service';
 import { JwtReturnDTO } from '@Auth/interfaces/jwtReturn.dto';
 import { NewUserDTO } from '@Auth/interfaces/new_user.dto';
 import { UserDTO } from '@Auth/interfaces/user.dto';
-import { UserDec } from '@Decorators/user.decorator';
 
 @ApiUseTags('user')
 @Controller('users')
@@ -30,23 +28,25 @@ export class AuthController {
     return this.authService.signup(user);
   }
 
-  @Get('google/login')
-  @UseGuards(AuthGuard('google'))
+  /* @Get('google/login')
   @ApiOperation({
     title: 'Google Login',
     description: 'Log user in using google'
   })
-  async googleLogin() {}
+  async googleLogin(@Res() res: any) {
+    return res.redirect(await this.authService.googleToken());
+  }
 
   @Get('google/callback')
-  @UseGuards(AuthGuard('google'))
   @ApiOperation({
     title: 'Google Login Callback',
     description: 'Callback for Google OAuth login'
   })
-  async googleCallback(@UserDec() user: any) {
-    console.log('user', user);
-  }
+  async googleCallback(@Query('code') code: string, @Query('scope') scope: string) {
+    console.log('token', code);
+    console.log('scope', scope);
+    return this.authService.getGoogleUser({code});
+  } */
 
   @Post('logout')
   @ApiOperation({ title: 'Logout', description: 'Allow the user to log out.' })

@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
@@ -10,6 +9,7 @@ import {
 
 import { Spell } from '@Entity/spell.entity';
 
+import { AuthGuard } from '@Auth/auth.guard';
 import { SpellDTO } from '@Character/spell/interfaces/spell.dto';
 import { SpellPipe } from '@Character/spell/spell.pipe';
 import { SpellService } from '@Character/spell/spell.service';
@@ -34,7 +34,7 @@ export class SpellController {
     title: 'Create a new spell',
     description: 'Create a new spell to be saved to the character.'
   })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
   @ApiOkResponse({ type: Spell })
@@ -50,7 +50,7 @@ export class SpellController {
     title: 'Update Spell',
     description: 'Update an existing spell based on its id.'
   })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: Spell })
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })

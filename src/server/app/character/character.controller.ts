@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+// import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
@@ -10,6 +10,7 @@ import {
 
 import { Character } from '@Entity/character.entity';
 
+import { AuthGuard } from '@Auth/auth.guard';
 import { CharacterPipe } from '@Character/character.pipe';
 import { CharacterService } from '@Character/character.service';
 import { CharacterDTO } from '@Character/interfaces/character.dto';
@@ -38,7 +39,7 @@ export class CharacterController {
       'Using the User id, create and assign a new character based on the incoming body'
   })
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: Character })
   newChar(
@@ -53,7 +54,7 @@ export class CharacterController {
     title: 'User Characters',
     description: 'Get all the characters belonging to the specified user.'
   })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: Character, isArray: true })
   getUser(@Param('userId') userId: string): Promise<Character[]> {
@@ -76,7 +77,7 @@ export class CharacterController {
     title: 'Update Character',
     description: 'Update the incoming character. Found based on the passed id.'
   })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
   @ApiOkResponse({ type: Character })
