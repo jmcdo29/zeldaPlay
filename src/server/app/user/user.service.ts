@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 
 import { User } from '@Entity/user.entity';
 
+import { GoogleUserDTO } from '@Auth/interfaces/googleUser.dto';
 import { NewUserDTO } from '@Auth/interfaces/new_user.dto';
 import { UserDTO } from '@Auth/interfaces/user.dto';
 
@@ -66,6 +67,31 @@ export class UserService {
       return Promise.resolve(user);
     }
   }
+
+  /* async googleSignup(user: GoogleUserDTO): Promise<User> {
+    let returnUser: User;
+    const existingUser = await this.userRepo.find({email: user.email});
+    if (existingUser.length === 0) {
+      returnUser = this.userRepo.create({
+        email: user.email,
+        googleToken: user.token
+      });
+      return this.userRepo.save(returnUser);
+    } else {
+      return existingUser[0];
+    }
+  } */
+
+  /* async findUserByGoogleToken(token: string): Promise<User> {
+    const user = await this.userRepo.findOne({ email: token });
+    if (!user) {
+      throw new UnauthorizedException(
+        'No user found! Please connect your google account.'
+      );
+    } else {
+      return Promise.resolve(user);
+    }
+  } */
 
   /* async findUserByGToken(gToken: string): Promise<User> {
     return this.userRepo.findOneOrFail({googleToken: gToken});

@@ -119,42 +119,9 @@ The smallest and second largest creatures of Hyrule. Fairies are known to be fou
 
 ---
 
-## ERROR CODE TYPES
+## Angular 2+
 
-Error codes to be used internally for determining what happened when the error was thrown and how to gracefully handle to response.
-
-### LOGIN
-
-- NO_USER_FOUND
-  - Used for when an email is provided on log in but no user is found with that email
-- INCORRECT_PASSWORD
-  - Used when a user tries to log in, but provides the wrong password. Will not tell user they used the wrong password, just a bad username/password combination
-- EMAIL_IN_USE
-  - Used when a user tries to register to use the website, but the email they registered with is already in use.
-- BAD_PASS
-  - Used when a user tries to register to use the website, but give a bad password (i.e. missing a capital, special character, number, or lowercase character)
-
----
-
-### DATABASE
-
-- DB_ERROR
-  - Used for general database errors thrown by Objection or Knex
-- BAD_USER
-  - Used when a user id is passed to save the character, but the id is not in the right format (`00Uxxxxxxxxx`)
-- NO_CHAR
-  - Used when a user logs in and does not have any characters to retrieve. Should only be thrown once for the most part.
-
-### GENERAL
-
-- GENERAL
-  - General error code for when there is no reason code to match above.
-
----
-
-## Angular 6+
-
-This is an Angular 6+ SPA. Hosted on [Heroku.com](https://zeldaplay.herokuapp.com/)
+This is an Angular 2+ SPA. Hosted on [Heroku.com](https://zeldaplay.herokuapp.com/)
 
 ---
 

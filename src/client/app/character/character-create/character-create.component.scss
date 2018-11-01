@@ -30,10 +30,12 @@ h4 {
 .description {
   position: relative;
 }
-input.non-zero:in-range {
-  background-color: lightskyblue;
-}
-.bad-input,
-input:out-of-range {
-  background-color: lightcoral;
+input {
+  .non-zero:in-range {
+    background-color: lightskyblue;
+  }
+  .bad-input,
+  &:out-of-range {
+    background-color: lightcoral;
+  }
 }

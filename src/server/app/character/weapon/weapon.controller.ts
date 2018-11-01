@@ -1,14 +1,15 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
+  ApiOkResponse,
   ApiOperation,
   ApiUseTags
 } from '@nestjs/swagger';
 
 import { Weapon } from '@Entity/weapon.entity';
 
+import { AuthGuard } from '@Auth/auth.guard';
 import { WeaponDTO } from '@Character/weapon/interfaces/weapon.dto';
 import { WeaponPipe } from '@Character/weapon/weapon.pipe';
 import { WeaponService } from '@Character/weapon/weapon.service';
@@ -23,7 +24,8 @@ export class WeaponController {
     title: 'Get Weapons',
     description: 'Get all the weapons of the specified character.'
   })
-  async getWeapons(@Param('charId') charId: string) {
+  @ApiOkResponse({ type: Weapon, isArray: true })
+  async getWeapons(@Param('charId') charId: string): Promise<Weapon[]> {
     return this.weaponService.getWeapons(charId);
   }
 
@@ -32,9 +34,10 @@ export class WeaponController {
     title: 'New Weapon',
     description: 'Create a new weapon for the character.'
   })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
+  @ApiOkResponse({ type: Weapon })
   async newWeapon(
     @Body('weapon', WeaponPipe) inWeapon: Weapon,
     @Param('charId') charId: string
@@ -47,8 +50,9 @@ export class WeaponController {
     title: 'Update Weapon',
     description: 'Update the weapon saved in the database with the specified id'
   })
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard)
   @ApiBearerAuth()
+  @ApiOkResponse({ type: Weapon })
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   async updateWeapon(
     @Body('weapon', WeaponPipe) inWeapon: Weapon

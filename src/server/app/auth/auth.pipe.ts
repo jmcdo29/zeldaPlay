@@ -1,5 +1,6 @@
 import {
   ArgumentMetadata,
+  BadRequestException,
   Injectable,
   PipeTransform,
   ValidationPipe
@@ -44,7 +45,7 @@ export class AuthPipe extends ValidationPipe
       errors.forEach((error) => {
         errStr += error + ' ';
       });
-      return Promise.reject(new Error(errStr));
+      throw new BadRequestException(errStr);
     }
     return Promise.resolve(value);
   }

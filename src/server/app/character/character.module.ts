@@ -17,7 +17,8 @@ import { Character } from '@Entity/character.entity';
     SkillModule,
     WeaponModule,
     SpellModule,
-    NoteModule
+    NoteModule,
+    AuthModule
   ],
   controllers: [CharacterController],
   providers: [CharacterService]

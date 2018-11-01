@@ -1,3 +1,4 @@
+import { ApiModelProperty } from '@nestjs/swagger';
 import {
   BeforeInsert,
   CreateDateColumn,
@@ -12,6 +13,7 @@ import { makeId } from '../utils/utils';
 export abstract class Base {
   abstract idStart?: string;
 
+  @ApiModelProperty()
   @PrimaryColumn({
     unique: true
   })

@@ -4,7 +4,6 @@
   font-family: HyliaSerif;
   src: url('./assets/fonts/HyliaSerifBeta.otf');
 }
-
 body {
   &.dark {
     background-color: rgb(238, 177, 253);
@@ -44,7 +43,6 @@ body {
   color: #888;
   font-family: Cambria, Georgia;
 }
-
 input[text],
 button {
   color: #888;
@@ -75,7 +73,6 @@ table {
   width: 100%;
   background-color: inherit;
 }
-
 tr.weapon {
   &:nth-child(3n + 1) {
     background-color: rgba(233, 150, 150, 0.74);
@@ -96,12 +93,11 @@ td {
   padding: 5px;
   text-align: center;
   word-wrap: break-word;
-  &.name,
-  &.mod {
+  &.mod,
+  &.name {
     text-align: left;
   }
 }
-
 th {
   margin: 5px;
   width: 3.5em;
@@ -138,7 +134,6 @@ td.total {
 .showModal {
   display: block;
 }
-
 .modal-header {
   padding: 2px 16px;
   background-color: #5cb85c;
@@ -146,11 +141,9 @@ td.total {
   text-align: center;
   border-bottom: solid black 1px;
 }
-
 .modal-body {
   padding: 2px 16px;
 }
-
 .modal-content {
   position: relative;
   background-color: #fefefe;
@@ -194,7 +187,6 @@ td.total {
     background-color: #229e22;
   }
 }
-
 .close {
   color: #aaa;
   float: right;
@@ -207,7 +199,6 @@ td.total {
     cursor: pointer;
   }
 }
-
 .din {
   background-color: rgba(233, 150, 150, 0.74);
   color: black;
@@ -238,7 +229,6 @@ td.total {
     background-color: #ccc;
   }
 }
-
 .panel {
   padding: 5px 0px;
   background-color: inherit;
@@ -256,7 +246,6 @@ td.total {
 .form {
   width: 40%;
 }
-
 .loading::before {
   content: '';
   box-sizing: border-box;
@@ -274,14 +263,11 @@ td.total {
   border-bottom-color: rgba(191.5, 67.5, 191.5, 1);
   animation: spinner 0.7s linear infinite;
 }
-
 @keyframes spinner {
   to {
     transform: rotate(360deg);
   }
 }
-
-/* Add Animation */
 @keyframes animatetop {
   from {
     top: -300px;
@@ -293,7 +279,6 @@ td.total {
     opacity: 1;
   }
 }
-
 @media (max-width: 900px) {
   .character-column,
   .details-column,
