@@ -31,11 +31,20 @@ h4 {
   position: relative;
 }
 input {
-  .non-zero:in-range {
+  &.non-zero:in-range {
     background-color: lightskyblue;
   }
-  .bad-input,
+  &.bad-input,
   &:out-of-range {
     background-color: lightcoral;
+  }
+}
+
+mat-form-field {
+  &.attribute {
+    width: 3em;
+  }
+  &.skill {
+    width: 2em;
   }
 }

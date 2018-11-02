@@ -481,7 +481,9 @@
             <tr *ngFor="let attr of newCharacter.getAttributes(); index as i" [class.din]="attr.getName() === 'Strength' || attr.getName() === 'Intelligence'" [class.farore]="attr.getName() === 'Dexterity' || attr.getName() === 'Charisma'" [class.nayru]="attr.getName() === 'Wisdom' || attr.getName() === 'Constitution'">
               <td class="name">{{ attr.getName() }}</td>
               <td>
-                <input id="{{ 'attr'+i }}" type="number" [ngModel]="attr.getValue()" (ngModelChange)="attr.setValue($event)" max="{{ 24 < attr.getValue() + attPoints ? 24 : attr.getValue() + attPoints }}" min="{{ attrMins[i] }}" (change)="trackAtt(i)" (blur)="validateAttr(i)">
+                <mat-form-field class="attribute">
+                  <input matInput id="{{ 'attr'+i }}" type="number" [ngModel]="attr.getValue()" (ngModelChange)="attr.setValue($event)" max="{{ 24 < attr.getValue() + attPoints ? 24 : attr.getValue() + attPoints }}" min="{{ attrMins[i] }}" (change)="trackAtt(i)" (blur)="validateAttr(i)">
+                </mat-form-field>
               </td>
               <td>
                 {{ attr.getModifier() }}
