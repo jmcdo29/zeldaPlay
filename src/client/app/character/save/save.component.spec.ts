@@ -40,13 +40,13 @@ describe('SaveComponent', () => {
   });
 
   test('make Fortitude save with positive value', () => {
-    component.character.getAttributes()[2].setValue(12);
+    component.character.attributes[2].value = 12;
     component.makeSave('Fortitude');
     expect(component.characterDetailComponent.roll).toBeTruthy();
   });
   test('make Fortitude save with negative value', () => {
-    component.character.getSavingThrows()[0].setRacial(-30);
-    component.character.getAttributes()[2].setValue(10);
+    component.character.savingThrows[0].racial = -30;
+    component.character.attributes[2].value = 10;
     component.makeSave('Fortitude');
     expect(component.characterDetailComponent.roll).toBe('1');
   });

@@ -1,45 +1,40 @@
 export class Save {
-  private racial: number;
-  private name: string;
-  private modifier: string;
-  private id?: string;
+  constructor(
+    private _id: string,
+    private _name: string,
+    private _modifier: string,
+    private _racial: number
+  ) {}
 
-  constructor(id: string, name: string, modifier: string, racial: number) {
-    this.id = id;
-    this.name = name;
-    this.modifier = modifier;
-    this.racial = racial;
+  get name(): string {
+    return this._name;
   }
 
-  getName(): string {
-    return this.name;
+  set name(name: string) {
+    this._name = name;
   }
 
-  setName(name: string): void {
-    this.name = name;
+  get racial(): number {
+    return this._racial;
   }
 
-  getRacial(): number {
-    return this.racial;
+  set racial(racial: number) {
+    this._racial = racial;
   }
 
-  setRacial(racial: number): void {
-    this.racial = racial;
+  get modifier(): string {
+    return this._modifier;
   }
 
-  getModifier(): string {
-    return this.modifier;
+  set modifier(modifier: string) {
+    this._modifier = modifier;
   }
 
-  setModifier(modifier: string): void {
-    this.modifier = modifier;
+  get id(): string {
+    return this._id;
   }
 
-  getId(): string {
-    return this.id;
-  }
-
-  setId(id: string): void {
-    this.id = id;
+  set id(id: string) {
+    this._id = id;
   }
 }

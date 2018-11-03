@@ -41,10 +41,24 @@ input {
 }
 
 mat-form-field {
+  padding: 0;
   &.attribute {
     width: 3em;
   }
   &.skill {
-    width: 2em;
+    width: 3em;
+  }
+  &.custom {
+    width: 5em;
+  }
+  &.name {
+    width: 8em;
+  }
+  &.race {
+    width: 10em;
+    padding-right: 2em;
+    &:first-of-type {
+      margin-top: 0.5em;
+    }
   }
 }

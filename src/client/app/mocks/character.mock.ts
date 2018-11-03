@@ -4,8 +4,8 @@ import { Spell } from '#Models/spells';
 import { Weapon } from '#Models/weapons/weapon';
 
 const testCharacter = new Goron();
-testCharacter.setName('Test Goron');
-testCharacter.setSubRace('Soft Belly');
+testCharacter.name = 'Test Goron';
+testCharacter.subRace = 'Soft Belly';
 testCharacter.addWeapon(
   new Weapon(
     undefined,

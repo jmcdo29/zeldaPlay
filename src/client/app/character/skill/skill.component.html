@@ -1,5 +1,5 @@
 <button class="accordian" (click)="expandSkill()">
-  <h2>{{ character.getName() | uppercase }} Skills</h2>
+  <h2>{{ character.name | uppercase }} Skills</h2>
 </button>
 
 <div class="panel" [class.active]="showSkills">
@@ -26,39 +26,39 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let skill of character.getSkills()" [class.din]="skill.getModifier() === 'Strength' || skill.getModifier() === 'Intelligence'" [class.farore]="skill.getModifier() === 'Dexterity' || skill.getModifier() === 'Charisma'" [class.nayru]="skill.getModifier() === 'Wisdom' || skill.getModifier() === 'Constitution'">
+        <tr *ngFor="let skill of character.skills" [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'" [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'" [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
           <td>
-            <input type="checkbox" [checked]="skill.getTrained()" disabled="true" />
+            <input type="checkbox" [checked]="skill.trained" disabled="true" />
           </td>
-          <td class="name" (click)="makeCheck(skill.getSkillName())">
-            <div *ngIf="skill.getSkillName()==='CraftOne' || skill.getSkillName()==='CraftTwo' || skill.getSkillName()==='Profession' || skill.getSkillName()==='Perform'; then specialSkill; else normalSkill"></div>
+          <td class="name" (click)="makeCheck(skill.skillName)">
+            <div *ngIf="skill.skillName==='CraftOne' || skill.skillName==='CraftTwo' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
 
             <ng-template #specialSkill>
-              <div *ngIf="skill.getSkillName()==='CraftOne'">
-                {{ skill.getSkillName().substr(0, skill.getSkillName().length-3) + ' ' + (character.getCraftOne() ? character.getCraftOne() : 'Other') +''}}
+              <div *ngIf="skill.skillName==='CraftOne'">
+                {{ skill.skillName.substr(0, skill.skillName.length-3) + ' ' + (character.craftOne ? character.craftOne : 'Other') +''}}
               </div>
-              <div *ngIf="skill.getSkillName()==='CraftTwo'">
-                {{ skill.getSkillName().substr(0, skill.getSkillName().length-3) + ' ' + (character.getCraftTwo() ? character.getCraftTwo() : 'Other') +''}}
+              <div *ngIf="skill.skillName==='CraftTwo'">
+                {{ skill.skillName.substr(0, skill.skillName.length-3) + ' ' + (character.craftTwo ? character.craftTwo : 'Other') +''}}
               </div>
-              <div *ngIf="skill.getSkillName()==='Profession'">
-                {{ skill.getSkillName() + ' ' + (character.getProfession() ? character.getProfession() : 'Other') +''}}
+              <div *ngIf="skill.skillName==='Profession'">
+                {{ skill.skillName + ' ' + (character.profession ? character.profession : 'Other') +''}}
               </div>
-              <div *ngIf="skill.getSkillName()==='Perform'">
-                {{ skill.getSkillName() + ' ' + (character.getPerformCust() ? character.getPerformCust() : 'Other') +''}}
+              <div *ngIf="skill.skillName==='Perform'">
+                {{ skill.skillName + ' ' + (character.performCust ? character.performCust : 'Other') +''}}
               </div>
             </ng-template>
             <ng-template #normalSkill>
-              {{ skill.getSkillName() }}
+              {{ skill.skillName }}
             </ng-template>
           </td>
-          <td>{{ skill.getRanks() }}</td>
-          <td>{{ skill.getRacial() }}</td>
-          <td class="mod">{{ skill.getModifier().substr(0,3) | uppercase }}
-            <span class="info">{{ getMod(skill.getModifier()) }}</span>
+          <td>{{ skill.ranks }}</td>
+          <td>{{ skill.racial }}</td>
+          <td class="mod">{{ skill.modifier.substr(0,3) | uppercase }}
+            <span class="info">{{ getMod(skill.modifier) }}</span>
           </td>
-          <td>{{ skill.getItem() }}</td>
-          <td>{{ skill.getMisc() }}</td>
-          <td class="total">{{ (skill.getTrained() ? 3 : 0) + skill.getRanks() + getMod(skill.getModifier()) + skill.getItem() + skill.getMisc() + skill.getRacial()}}</td>
+          <td>{{ skill.item }}</td>
+          <td>{{ skill.misc }}</td>
+          <td class="total">{{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}</td>
         </tr>
       </tbody>
     </table>

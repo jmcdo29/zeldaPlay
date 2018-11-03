@@ -8,18 +8,18 @@ test('should create a note', () => {
     false
   );
   expect(myNote).toBeTruthy();
-  expect(myNote.getId()).toBe('00Najsdf');
-  expect(myNote.getImportant()).toBe(false);
-  expect(myNote.getMsg()).toBe('message');
+  expect(myNote.id).toBe('00Najsdf');
+  expect(myNote.important).toBe(false);
+  expect(myNote.msg).toBe('message');
 
   // getters and setters
 
-  myNote.setId('noteId');
-  expect(myNote.getId()).toBe('noteId');
-  myNote.setImportant(true);
-  expect(myNote.getImportant());
-  myNote.setMsg('new message');
-  expect(myNote.getMsg()).toBe('new message');
-  myNote.setTime('my time');
-  expect(myNote.getTime()).toBe('my time');
+  myNote.id = 'noteId';
+  expect(myNote.id).toBe('noteId');
+  myNote.important = true;
+  expect(myNote.important);
+  myNote.msg = 'new message';
+  expect(myNote.msg).toBe('new message');
+  myNote.time = 'my time';
+  expect(myNote.time).toBe('my time');
 });

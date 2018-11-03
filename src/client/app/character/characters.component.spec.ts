@@ -99,7 +99,7 @@ describe('CharactersComponent', () => {
     });
     test('onSelect with id', () => {
       const myNewChar = new Character();
-      myNewChar.setId('asdjf');
+      myNewChar.id = 'asdjf';
       spyOn(characterService, 'getCharacter').and.returnValue(of(myNewChar));
       component.onSelect(myNewChar);
     });

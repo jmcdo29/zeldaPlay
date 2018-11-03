@@ -55,7 +55,7 @@ export class WeaponService {
       )
       .pipe(
         map((retWeapon) => {
-          weapon.setId(retWeapon.id);
+          weapon.id = retWeapon.id;
           return weapon;
         })
       );
@@ -65,7 +65,7 @@ export class WeaponService {
   updateWeapon(weapon: Weapon): Observable<Weapon> {
     return this.http
       .post<IWeaponDb>(
-        this.weaponURL + '/update/' + weapon.getId(),
+        this.weaponURL + '/update/' + weapon.id,
         { weapon },
         {
           headers: {

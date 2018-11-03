@@ -37,14 +37,12 @@ export class SpellComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.character.getSpells().length === 0) {
-      this.spellService
-        .getSpells(this.character.getId())
-        .subscribe((spells) => {
-          spells.forEach((spell) => {
-            this.character.addSpell(spell);
-          });
+    if (this.character.spells.length === 0) {
+      this.spellService.getSpells(this.character.id).subscribe((spells) => {
+        spells.forEach((spell) => {
+          this.character.addSpell(spell);
         });
+      });
     }
   }
 
@@ -67,34 +65,34 @@ export class SpellComponent implements OnInit {
 
   saveSpell(): void {
     let error = false;
-    if (!this.spell.getName()) {
+    if (!this.spell.name) {
       error = true;
       document.getElementById('spellName').classList.add('bad-input');
     }
-    if (!this.spell.getEffect()) {
+    if (!this.spell.effect) {
       error = true;
       document.getElementById('spellEffect').classList.add('bad-input');
     }
-    if (!this.spell.getMultiplier()) {
+    if (!this.spell.multiplier) {
       error = true;
       document.getElementById('spellMult').classList.add('bad-input');
     }
-    if (!this.spell.getDamage()) {
+    if (!this.spell.damage) {
       error = true;
       document.getElementById('spellDam').classList.add('bad-input');
     }
-    if (!this.spell.getDiety()) {
+    if (!this.spell.diety) {
       error = true;
       document.getElementById('spellGod').classList.add('bad-input');
     }
-    if (!this.spell.getMpUse()) {
+    if (!this.spell.mpUse) {
       error = true;
       document.getElementById('mpUse').classList.add('bad-input');
     }
     if (!error) {
       if (sessionStorage.getItem('currentUser')) {
         this.spellService
-          .newSpell(this.character.getId(), this.spell)
+          .newSpell(this.character.id, this.spell)
           .subscribe((retSpell) => {
             this.spell = retSpell;
           });
@@ -136,12 +134,10 @@ export class SpellComponent implements OnInit {
   }
 
   createMessage(): void {
-    const name = this.character.getName();
-    const spell = this.character.getSpells()[
-      this.character.getSpells().length - 1
-    ];
-    const spellName = spell.getName();
-    const spellType = spell.getDiety();
+    const name = this.character.name;
+    const spell = this.character.spells[this.character.spells.length - 1];
+    const spellName = spell.name;
+    const spellType = spell.diety;
 
     const message =
       name + ' added a spell of ' + spellType + ' called ' + spellName + '.';
@@ -149,7 +145,7 @@ export class SpellComponent implements OnInit {
   }
 
   getMod(modName: string): number {
-    return this.character.getAttributes()[Attributes[modName]].getModifier();
+    return this.character.attributes[Attributes[modName]].modifier;
   }
 
   expandMagic(): void {
@@ -159,36 +155,33 @@ export class SpellComponent implements OnInit {
   castSpell(spellIndex: number): void {
     let crit = false;
     const character = this.character;
-    const magicStart = character.getMagic();
-    const spell = character.getSpells()[spellIndex];
-    this.character.changeMagic(-1 * spell.getMpUse());
-    if (magicStart - spell.getMpUse() < 0) {
+    const magicStart = character.magic;
+    const spell = character.spells[spellIndex];
+    this.character.changeMagic(-1 * spell.mpUse);
+    if (magicStart - spell.mpUse < 0) {
       this.alertService.error(
         'You cannot use more magic than you have available.'
       );
     } else {
-      const magicType = character.getMagicSkills()[Magics[spell.getDiety()]];
+      const magicType = character.magicSkills[Magics[spell.diety]];
       const magicBonus =
-        magicType.getRanks() +
-        character
-          .getAttributes()
-          [Attributes[magicType.getModifier()]].getModifier();
+        magicType.ranks +
+        character.attributes[Attributes[magicType.modifier]].modifier;
       const ogSpellRoll = (Math.round(Math.random() * 100) % 20) + 1;
       const spellRoll = ogSpellRoll + magicBonus;
-      this.spellName = spell.getName();
-      const ogDmgRoll =
-        (Math.round(Math.random() * 100) % spell.getDamage()) + 1;
+      this.spellName = spell.name;
+      const ogDmgRoll = (Math.round(Math.random() * 100) % spell.damage) + 1;
       if (ogSpellRoll === 20) {
         crit = true;
       }
       const dmgRoll =
-        ogDmgRoll * spell.getMultiplier() * (crit ? 3 : 1) +
+        ogDmgRoll * spell.multiplier * (crit ? 3 : 1) +
         this.getMagicBonus(spell, character);
-      this.spellName = spell.getName();
+      this.spellName = spell.name;
       this.spellRoll = spellRoll;
       this.dmgRoll = dmgRoll;
       this.setClasses(ogSpellRoll);
-      this.dmgClasses(ogDmgRoll, spell.getDamage());
+      this.dmgClasses(ogDmgRoll, spell.damage);
     }
   }
 
@@ -223,22 +216,15 @@ export class SpellComponent implements OnInit {
 
   private getMagicBonus(spell: Spell, character: Character): number {
     let retVal = 0;
-    if (spell.getUseDiety()) {
-      let spellBon = character
-        .getMagicSkills()
-        [Magics[spell.getDiety()]].getRanks();
-      spellBon += character
-        .getAttributes()
-        [
-          Attributes[
-            character.getMagicSkills()[Magics[spell.getDiety()]].getModifier()
-          ]
-        ].getModifier();
+    if (spell.useDiety) {
+      let spellBon = character.magicSkills[Magics[spell.diety]].ranks;
+      spellBon +=
+        character.attributes[
+          Attributes[character.magicSkills[Magics[spell.diety]].modifier]
+        ].modifier;
       retVal += spellBon;
-    } else if (spell.getModifier()) {
-      retVal += character
-        .getAttributes()
-        [Attributes[spell.getModifier()]].getModifier();
+    } else if (spell.modifier) {
+      retVal += character.attributes[Attributes[spell.modifier]].modifier;
     }
     return retVal;
   }

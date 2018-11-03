@@ -105,113 +105,113 @@ export interface ICharacterJSON {
 }
 
 export class Character {
-  private id?: string;
-  private level: number;
-  private name: string;
-  private race: string;
-  private subRace?: string;
-  private ac: number;
-  private flat_footed: number;
-  private touch: number;
-  private size: string;
-  private attributes: Attribute[] = [];
-  private health: number;
-  private maxHealth: number;
-  private magic: number;
-  private maxMagic: number;
-  private exp: number;
-  private craftOne?: string;
-  private craftTwo?: string;
-  private performCust?: string;
-  private profession?: string;
-  private skills: Skill[] = [];
-  private weaponSkills: Skill[] = [];
-  private magicSkills: Skill[] = [];
-  private weapons: Weapon[] = [];
-  private spells: Spell[] = [];
-  private notes: Note[] = [];
-  private importantNotes: Note[] = [];
-  private inventory: Item[] = [];
-  private savingThrows: Save[] = [];
+  private _id?: string;
+  private _level: number;
+  private _name: string;
+  private _race: string;
+  private _subRace?: string;
+  private _ac: number;
+  private _flatFooted: number;
+  private _touch: number;
+  private _size: string;
+  private _attributes: Attribute[] = [];
+  private _health: number;
+  private _maxHealth: number;
+  private _magic: number;
+  private _maxMagic: number;
+  private _exp: number;
+  private _craftOne?: string;
+  private _craftTwo?: string;
+  private _performCust?: string;
+  private _profession?: string;
+  private _skills: Skill[] = [];
+  private _weaponSkills: Skill[] = [];
+  private _magicSkills: Skill[] = [];
+  private _weapons: Weapon[] = [];
+  private _spells: Spell[] = [];
+  private _notes: Note[] = [];
+  private _importantNotes: Note[] = [];
+  private _inventory: Item[] = [];
+  private _savingThrows: Save[] = [];
 
-  getId(): string {
-    return this.id ? this.id : '';
+  get id(): string {
+    return this._id ? this._id : '';
   }
 
-  setId(id: string): void {
-    this.id = id;
+  set id(id: string) {
+    this._id = id;
   }
 
-  getLevel(): number {
-    return this.level ? this.level : 1;
+  get level(): number {
+    return this._level ? this._level : 1;
   }
 
-  setLevel(level: number): void {
-    this.level = level;
+  set level(level: number) {
+    this._level = level;
   }
 
-  getName(): string {
-    return this.name ? this.name : '';
+  get name(): string {
+    return this._name ? this._name : '';
   }
 
-  setName(name: string): void {
-    this.name = name;
+  set name(name: string) {
+    this._name = name;
   }
 
-  getRace(): string {
-    return this.race ? this.race : '';
+  get race(): string {
+    return this._race ? this._race : '';
   }
 
-  setRace(race: string): void {
-    this.race = race;
+  set race(race: string) {
+    this._race = race;
   }
 
-  getSubRace(): string {
-    return this.subRace ? this.subRace : '';
+  get subRace(): string {
+    return this._subRace ? this._subRace : '';
   }
 
-  setSubRace(subRace: string): void {
-    this.subRace = subRace;
+  set subRace(subRace: string) {
+    this._subRace = subRace;
   }
 
-  getAC(): number {
-    return this.ac || this.ac === 0 ? this.ac : null;
+  get ac(): number {
+    return this._ac || this._ac === 0 ? this._ac : null;
   }
 
-  setAC(ac: number): void {
-    this.ac = ac;
+  set ac(ac: number) {
+    this._ac = ac;
   }
 
-  getFlatFooted(): number {
-    return this.flat_footed || this.flat_footed === 0 ? this.flat_footed : null;
+  get flatFooted(): number {
+    return this._flatFooted || this._flatFooted === 0 ? this._flatFooted : null;
   }
 
-  setFlatFooted(flatFooted: number): void {
-    this.flat_footed = flatFooted;
+  set flatFooted(flatFooted: number) {
+    this._flatFooted = flatFooted;
   }
 
-  getTouch(): number {
-    return this.touch || this.touch === 0 ? this.touch : null;
+  get touch(): number {
+    return this._touch || this._touch === 0 ? this._touch : null;
   }
 
-  setTouch(touch: number): void {
-    this.touch = touch;
+  set touch(touch: number) {
+    this._touch = touch;
   }
 
-  getSize(): string {
-    return this.size ? this.size : 'M';
+  get size(): string {
+    return this._size ? this._size : 'M';
   }
 
-  setSize(size: string): void {
-    this.size = size;
+  set size(size: string) {
+    this._size = size;
   }
 
-  getHealth(): number {
-    return this.health || this.health === 0 ? this.health : null;
+  get health(): number {
+    return this._health || this._health === 0 ? this._health : null;
   }
 
-  setHealth(health: number): void {
-    this.health = health;
+  set health(health: number) {
+    this._health = health;
   }
 
   changeHealth(healthVal: number): void {
@@ -224,20 +224,20 @@ export class Character {
           : this.health;
   }
 
-  getMaxHealth(): number {
-    return this.maxHealth || this.maxHealth === 0 ? this.maxHealth : null;
+  get maxHealth(): number {
+    return this._maxHealth || this._maxHealth === 0 ? this._maxHealth : null;
   }
 
-  setMaxHealth(maxHealth: number): void {
-    this.maxHealth = maxHealth;
+  set maxHealth(maxHealth: number) {
+    this._maxHealth = maxHealth;
   }
 
-  getMagic(): number {
-    return this.magic || this.magic === 0 ? this.magic : null;
+  get magic(): number {
+    return this._magic || this._magic === 0 ? this._magic : null;
   }
 
-  setMagic(magic: number): void {
-    this.magic = magic;
+  set magic(magic: number) {
+    this._magic = magic;
   }
 
   changeMagic(magicVal: number): void {
@@ -250,64 +250,64 @@ export class Character {
           : this.magic;
   }
 
-  getMaxMagic(): number {
-    return this.maxMagic || this.maxMagic === 0 ? this.maxMagic : null;
+  get maxMagic(): number {
+    return this._maxMagic || this._maxMagic === 0 ? this._maxMagic : null;
   }
 
-  setMaxMagic(maxMagic: number): void {
-    this.maxMagic = maxMagic;
+  set maxMagic(maxMagic: number) {
+    this._maxMagic = maxMagic;
   }
 
-  getExp(): number {
-    return this.exp ? this.exp : 0;
+  get exp(): number {
+    return this._exp ? this._exp : 0;
   }
 
-  setExp(exp: number): void {
-    this.exp = exp;
+  set exp(exp: number) {
+    this._exp = exp;
   }
 
-  getCraftOne(): string {
-    return this.craftOne ? this.craftOne : '';
+  get craftOne(): string {
+    return this._craftOne ? this._craftOne : '';
   }
 
-  setCraftOne(craftOne: string): void {
-    this.craftOne = craftOne;
+  set craftOne(craftOne: string) {
+    this._craftOne = craftOne;
   }
 
-  getCraftTwo(): string {
-    return this.craftTwo ? this.craftTwo : '';
+  get craftTwo(): string {
+    return this._craftTwo ? this._craftTwo : '';
   }
 
-  setCraftTwo(craftTwo: string): void {
-    this.craftTwo = craftTwo;
+  set craftTwo(craftTwo: string) {
+    this._craftTwo = craftTwo;
   }
 
-  getPerformCust(): string {
-    return this.performCust ? this.performCust : '';
+  get performCust(): string {
+    return this._performCust ? this._performCust : '';
   }
 
-  setPerformCust(performCust: string): void {
-    this.performCust = performCust;
+  set performCust(performCust: string) {
+    this._performCust = performCust;
   }
 
-  getProfession(): string {
-    return this.profession ? this.profession : '';
+  get profession(): string {
+    return this._profession ? this._profession : '';
   }
 
-  setProfession(profession: string): void {
-    this.profession = profession;
+  set profession(profession: string) {
+    this._profession = profession;
   }
 
-  getSkills(): Skill[] {
-    return this.skills.length > 0 ? this.skills : [];
+  get skills(): Skill[] {
+    return this._skills.length > 0 ? this._skills : [];
   }
 
   addSkill(skill: Skill): void {
-    this.skills.push(skill);
+    this._skills.push(skill);
   }
 
-  getAttributes(): Attribute[] {
-    return this.attributes.length > 0 ? this.attributes : [];
+  get attributes(): Attribute[] {
+    return this._attributes.length > 0 ? this._attributes : [];
   }
   /*
   setAttributes(attributes: Attribute[]): void {
@@ -315,7 +315,7 @@ export class Character {
   } */
 
   addAttribute(attribute: Attribute): void {
-    this.attributes.push(attribute);
+    this._attributes.push(attribute);
   }
 
   /*
@@ -323,8 +323,8 @@ export class Character {
     this.skills = skills;
   } */
 
-  getWeaponSkills(): Skill[] {
-    return this.weaponSkills.length > 0 ? this.weaponSkills : [];
+  get weaponSkills(): Skill[] {
+    return this._weaponSkills.length > 0 ? this._weaponSkills : [];
   }
   /*
   setWeaponSkills(weaponSkills: Skill[]): void {
@@ -332,11 +332,11 @@ export class Character {
   } */
 
   addWeaponSkill(weaponSkill: Skill): void {
-    this.weaponSkills.push(weaponSkill);
+    this._weaponSkills.push(weaponSkill);
   }
 
-  getMagicSkills(): Skill[] {
-    return this.magicSkills.length > 0 ? this.magicSkills : [];
+  get magicSkills(): Skill[] {
+    return this._magicSkills.length > 0 ? this._magicSkills : [];
   }
   /*
   setMagicSkills(magicSkills: Skill[]): void {
@@ -344,11 +344,11 @@ export class Character {
   } */
 
   addMagicSkill(magicSkill: Skill): void {
-    this.magicSkills.push(magicSkill);
+    this._magicSkills.push(magicSkill);
   }
 
-  getWeapons(): Weapon[] {
-    return this.weapons.length > 0 ? this.weapons : [];
+  get weapons(): Weapon[] {
+    return this._weapons.length > 0 ? this._weapons : [];
   }
   /*
   setWeapons(weapons: Weapon[]): void {
@@ -356,11 +356,11 @@ export class Character {
   } */
 
   addWeapon(weapon: Weapon): void {
-    this.weapons.push(weapon);
+    this._weapons.push(weapon);
   }
 
-  getSpells(): Spell[] {
-    return this.spells.length > 0 ? this.spells : [];
+  get spells(): Spell[] {
+    return this._spells.length > 0 ? this._spells : [];
   }
   /*
   setSpells(spells: Spell[]): void {
@@ -368,11 +368,11 @@ export class Character {
   } */
 
   addSpell(spell: Spell): void {
-    this.spells.push(spell);
+    this._spells.push(spell);
   }
 
-  getNotes(): Note[] {
-    return this.notes.length > 0 ? this.notes : [];
+  get notes(): Note[] {
+    return this._notes.length > 0 ? this._notes : [];
   }
   /*
   setNotes(notes: Note[]): void {
@@ -380,11 +380,11 @@ export class Character {
   } */
 
   addNote(note: Note): void {
-    this.notes.push(note);
+    this._notes.push(note);
   }
 
-  getImportantNotes(): Note[] {
-    return this.importantNotes.length > 0 ? this.importantNotes : [];
+  get importantNotes(): Note[] {
+    return this._importantNotes.length > 0 ? this._importantNotes : [];
   }
   /*
   setImportantNotes(importantNotes: Note[]): void {
@@ -392,11 +392,11 @@ export class Character {
   } */
 
   addImportantNote(importantNote: Note): void {
-    this.importantNotes.push(importantNote);
+    this._importantNotes.push(importantNote);
   }
 
-  getInventory(): Item[] {
-    return this.inventory.length > 0 ? this.inventory : [];
+  get inventory(): Item[] {
+    return this._inventory.length > 0 ? this._inventory : [];
   }
   /*
   setInventory(inventory: Item[]): void {
@@ -404,11 +404,11 @@ export class Character {
   } */
 
   addToInventory(item: Item): void {
-    this.inventory.push(item);
+    this._inventory.push(item);
   }
 
-  getSavingThrows(): Save[] {
-    return this.savingThrows.length > 0 ? this.savingThrows : [];
+  get savingThrows(): Save[] {
+    return this._savingThrows.length > 0 ? this._savingThrows : [];
   }
   /*
   setSavingThrows(savingThrows: Save[]): void {
@@ -416,26 +416,26 @@ export class Character {
   } */
 
   addSavingThrow(savingThrow: Save): void {
-    this.savingThrows.push(savingThrow);
+    this._savingThrows.push(savingThrow);
   }
 
   constructor(jObj?: ICharacterJSON, qObj?: ICharacterQuery) {
     if (!jObj && !qObj) {
       for (const key in Attributes) {
         if (isNaN(Number(key))) {
-          this.attributes.push(new Attribute(key, BASE));
+          this._attributes.push(new Attribute(key, BASE));
         }
       }
 
       for (const key in Skills) {
         if (isNaN(Number(key))) {
-          this.skills.push(new Skill(undefined, key, 0, false, '', 0, 0, 0));
+          this._skills.push(new Skill(undefined, key, 0, false, '', 0, 0, 0));
         }
       }
 
       for (const key in Weapons) {
         if (isNaN(Number(key))) {
-          this.weaponSkills.push(
+          this._weaponSkills.push(
             new Skill(undefined, key, 0, false, undefined, undefined, 0)
           );
         }
@@ -449,7 +449,7 @@ export class Character {
               : key === 'Nayru'
                 ? 'Wisdom'
                 : 'Charisma';
-          this.magicSkills.push(new Skill(undefined, key, 0, undefined, mod));
+          this._magicSkills.push(new Skill(undefined, key, 0, undefined, mod));
         }
       }
 
@@ -461,7 +461,7 @@ export class Character {
               : key === 'Reflex'
                 ? 'Dexterity'
                 : 'Wisdom';
-          this.addSavingThrow(new Save(undefined, key, modifier, 0));
+          this._savingThrows.push(new Save(undefined, key, modifier, 0));
         }
       }
       /* A T T R I B U T E   A R R A Y S */
@@ -519,9 +519,10 @@ export class Character {
         wisArray,
         chaArray
       ];
+
       for (let i = 0; i < attrArrays.length; i++) {
         for (const skill of attrArrays[i]) {
-          this.skills[skill].setModifier(Attributes[i]);
+          this._skills[skill].modifier = Attributes[i];
         }
         /* for (let j = 0; j < attrArrays[i].length; j++) {
           this.skills[attrArrays[i][j]].modifier = Attributes[i];
@@ -530,36 +531,35 @@ export class Character {
       this.exp = 0;
     } else {
       if (qObj) {
-        this.name = qObj.name;
-        this.ac = qObj.ac;
-        this.id = qObj.id;
-        this.level = qObj.level;
-        this.craftOne = qObj.craft_one;
-        this.craftTwo = qObj.craft_two;
-        this.profession = qObj.profession;
-        this.performCust = qObj.performance;
-        this.maxHealth = qObj.max_health;
-        this.exp = qObj.experience;
-        this.health = qObj.health;
-        this.magic = qObj.magic;
-        this.maxMagic = qObj.max_magic;
-        this.race = qObj.race;
-        this.subRace = qObj.subrace;
-        this.size = qObj.size;
-        this.flat_footed = qObj.flat_footed;
-        this.touch = qObj.touch;
+        this._name = qObj.name;
+        this._ac = qObj.ac;
+        this._id = qObj.id;
+        this._level = qObj.level;
+        this._craftOne = qObj.craft_one;
+        this._craftTwo = qObj.craft_two;
+        this._profession = qObj.profession;
+        this._performCust = qObj.performance;
+        this._maxHealth = qObj.max_health;
+        this._exp = qObj.experience;
+        this._health = qObj.health;
+        this._magic = qObj.magic;
+        this._maxMagic = qObj.max_magic;
+        this._race = qObj.race;
+        this._subRace = qObj.subrace;
+        this._size = qObj.size;
+        this._flatFooted = qObj.flat_footed;
+        this._touch = qObj.touch;
 
-        this.attributes = [
-          new Attribute('Strength', qObj.strength),
-          new Attribute('Dexterity', qObj.dexterity),
-          new Attribute('Constitution', qObj.constitution),
-          new Attribute('Intelligence', qObj.intelligence),
-          new Attribute('Wisdom', qObj.wisdom),
-          new Attribute('Charisma', qObj.charisma)
-        ];
+        this._attributes.push(new Attribute('Strength', qObj.strength));
+        this._attributes.push(new Attribute('Dexterity', qObj.dexterity));
+        this._attributes.push(new Attribute('Constitution', qObj.constitution));
+        this._attributes.push(new Attribute('Intelligence', qObj.intelligence));
+        this._attributes.push(new Attribute('Wisdom', qObj.wisdom));
+        this._attributes.push(new Attribute('Charisma', qObj.charisma));
+
         for (const skill of qObj.skills) {
           if (skill.skill_type === 'skill') {
-            this.addSkill(
+            this._skills.push(
               new Skill(
                 skill.id,
                 skill.name,
@@ -572,7 +572,7 @@ export class Character {
               )
             );
           } else if (skill.skill_type === 'weapon') {
-            this.addWeaponSkill(
+            this._weaponSkills.push(
               new Skill(
                 skill.id,
                 skill.name,
@@ -585,7 +585,7 @@ export class Character {
               )
             );
           } else {
-            this.addMagicSkill(
+            this._magicSkills.push(
               new Skill(
                 skill.id,
                 skill.name,
@@ -599,63 +599,20 @@ export class Character {
             );
           }
         }
-        /* for (const note of qObj.notes) {
-          if (note.important) {
-            this.addNote(
-              new Note(note.id, note.message, note.time, note.important)
-            );
-          } else {
-            this.addImportantNote(
-              new Note(note.id, note.message, note.time, note.important)
-            );
-          }
-        }*/
         for (const save of qObj.saves) {
-          this.addSavingThrow(
+          this._savingThrows.push(
             new Save(save.id, save.name, save.modifier, save.racial_bonus)
           );
         }
-        /* for (const weapon of qObj.weapons) {
-          this.weapons.push(
-            new Weapon(
-              weapon.id,
-              weapon.name,
-              weapon.damage,
-              weapon.number_of_hits,
-              parseRange(weapon.crit_range),
-              weapon.crit_multiplier,
-              weapon.type,
-              weapon.modifier,
-              weapon.range,
-              weapon.ammo,
-              undefined
-            )
-          );
-        }
-        for (const spell of qObj.spells) {
-          this.addSpell(
-            new Spell(
-              spell.id,
-              spell.name,
-              spell.effect,
-              spell.damage,
-              spell.number_of_hit,
-              spell.mp_use,
-              spell.diety,
-              spell.use_diety,
-              spell.modifier
-            )
-          );
-        } */
       } else {
         for (const attr of jObj.attributes) {
-          this.addAttribute(new Attribute(attr.name, attr.value));
+          this._attributes.push(new Attribute(attr.name, attr.value));
         }
         for (const item of jObj.inventory) {
-          this.addToInventory(new Item(item.id, item.name, item.description));
+          this._inventory.push(new Item(item.id, item.name, item.description));
         }
         for (const skill of jObj.skills) {
-          this.addSkill(
+          this._skills.push(
             new Skill(
               skill.id,
               skill.skillName,
@@ -669,7 +626,7 @@ export class Character {
           );
         }
         for (const skill of jObj.weaponSkills) {
-          this.addWeaponSkill(
+          this._weaponSkills.push(
             new Skill(
               skill.id,
               skill.skillName,
@@ -683,7 +640,7 @@ export class Character {
           );
         }
         for (const skill of jObj.magicSkills) {
-          this.addMagicSkill(
+          this._magicSkills.push(
             new Skill(
               skill.id,
               skill.skillName,
@@ -697,15 +654,17 @@ export class Character {
           );
         }
         for (const note of jObj.notes) {
-          this.addNote(new Note(note.id, note.msg, note.time, note.important));
+          this._notes.push(
+            new Note(note.id, note.msg, note.time, note.important)
+          );
         }
         for (const note of jObj.importantNotes) {
-          this.addImportantNote(
+          this._importantNotes.push(
             new Note(note.id, note.msg, note.time, note.important)
           );
         }
         for (const spell of jObj.spells) {
-          this.addSpell(
+          this._spells.push(
             new Spell(
               spell.id,
               spell.name,
@@ -720,12 +679,12 @@ export class Character {
           );
         }
         for (const save of jObj.savingThrows) {
-          this.addSavingThrow(
+          this._savingThrows.push(
             new Save(save.id, save.name, save.modifier, save.racial)
           );
         }
         for (const weapon of jObj.weapons) {
-          this.weapons.push(
+          this._weapons.push(
             new Weapon(
               weapon.id,
               weapon.name,
@@ -748,52 +707,48 @@ export class Character {
             )
           );
         }
-        this.ac = jObj.ac;
-        this.craftOne = jObj.craftOne;
-        this.craftOne = jObj.craftTwo;
-        this.exp = jObj.exp;
-        this.flat_footed = jObj.flat_footed;
-        this.health = jObj.health;
-        this.id = jObj.id;
-        this.level = jObj.level;
-        this.magic = jObj.magic;
-        this.maxHealth = jObj.maxHealth;
-        this.maxMagic = jObj.maxMagic;
-        this.name = jObj.name;
-        this.performCust = jObj.performCust;
-        this.profession = jObj.profession;
-        this.race = jObj.race;
-        this.size = jObj.size;
-        this.subRace = jObj.subRace;
-        this.touch = jObj.touch;
+        this._ac = jObj.ac;
+        this._craftOne = jObj.craftOne;
+        this._craftOne = jObj.craftTwo;
+        this._exp = jObj.exp;
+        this._flatFooted = jObj.flat_footed;
+        this._health = jObj.health;
+        this._id = jObj.id;
+        this._level = jObj.level;
+        this._magic = jObj.magic;
+        this._maxHealth = jObj.maxHealth;
+        this._maxMagic = jObj.maxMagic;
+        this._name = jObj.name;
+        this._performCust = jObj.performCust;
+        this._profession = jObj.profession;
+        this._race = jObj.race;
+        this._size = jObj.size;
+        this._subRace = jObj.subRace;
+        this._touch = jObj.touch;
       }
     }
   }
 
   levelUp(): void {
-    this.setMaxHealth(
-      this.getMaxHealth() + 16 + this.getAttributes()[2].getModifier()
-    );
-    this.setHealth(this.getMaxHealth());
-    this.setMaxMagic(
-      this.getMaxMagic() + 3 + this.getAttributes()[4].getModifier()
-    );
-    this.setMagic(this.getMaxMagic());
-    this.setLevel(this.getLevel() + 1);
+    this.maxHealth = this.maxHealth + 16 + this.attributes[2].modifier;
+    this.health = this.maxHealth;
+    this.maxMagic = this.maxMagic + 3 + this.attributes[4].modifier;
+    this.magic = this.maxMagic;
+    this.level += 1;
   }
 
   gainExp(expGain: number): void {
     let counter = 0;
-    this.setExp(this.getExp() + expGain);
+    this.exp += expGain;
     const lvl = 'level';
     for (const key in Level) {
       if (key.includes('level')) {
         counter++;
         if (
-          Level[lvl + counter] <= this.getExp() &&
-          this.getExp() <= Level[lvl + (counter + 1)]
+          Level[lvl + counter] <= this.exp &&
+          this.exp <= Level[lvl + (counter + 1)]
         ) {
-          this.setLevel(counter);
+          this.level = counter;
           break;
         }
       }

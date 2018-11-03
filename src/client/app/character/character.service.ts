@@ -90,7 +90,7 @@ export class CharacterService {
     const blob = new Blob([characterString], {
       type: 'application/json'
     });
-    FileSaver.saveAs(blob, character.getName() + '_zeldaplay.json');
+    FileSaver.saveAs(blob, character.name + '_zeldaplay.json');
   }
 
   saveNewCharDb(character: Character): Observable<Character> {
@@ -109,26 +109,20 @@ export class CharacterService {
       )
       .pipe(
         map((characterRes) => {
-          character.setId(characterRes.id);
+          character.id = characterRes.id;
           for (const skill of characterRes.skills) {
             if (skill.skill_type === 'skill') {
-              character.getSkills()[Skills[skill.name]].setId(skill.id);
+              character.skills[Skills[skill.name]].id = skill.id;
             } else if (skill.skill_type === 'weapon') {
-              character.getWeaponSkills()[Weapons[skill.name]].setId(skill.id);
+              character.weaponSkills[Weapons[skill.name]].id = skill.id;
             } else {
-              character.getMagicSkills()[Magics[skill.name]].setId(skill.id);
+              character.magicSkills[Magics[skill.name]].id = skill.id;
             }
           }
           for (const save of characterRes.saves) {
-            character
-              .getSavingThrows()
-              [
-                findObjectPartial(
-                  character.getSavingThrows(),
-                  'name',
-                  save.name
-                )
-              ].setId(save.id);
+            character.savingThrows[
+              findObjectPartial(character.savingThrows, 'name', save.name)
+            ].id = save.id;
           }
           return character;
         })
@@ -138,7 +132,7 @@ export class CharacterService {
   saveUpdateCharDb(character: Character): Observable<Character> {
     return this.httpClient
       .post<ICharacterQuery>(
-        this.characterUrl + `update/${character.getId()}`,
+        this.characterUrl + `update/${character.id}`,
         { character },
         {
           headers: {

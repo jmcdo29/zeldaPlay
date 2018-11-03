@@ -75,29 +75,29 @@ describe('WeaponComponent', () => {
       );
     });
     afterAll(() => {
-      component.character.getWeapons().pop();
+      component.character.weapons.pop();
     });
     test('should go through all errors', () => {
       component.saveWeapon();
-      expect(component.character.getWeapons()).toHaveLength(0);
+      expect(component.character.weapons).toHaveLength(0);
     });
     describe('range weapon specifics', () => {
       test('should show all ranged errors', () => {
         component.isRangedWeapon = true;
-        component.weapon.setRange(null);
-        component.weapon.setAmmo(null);
+        component.weapon.range = null;
+        component.weapon.ammo = null;
         fixture.detectChanges();
         component.saveWeapon();
-        expect(component.character.getWeapons()).toHaveLength(0);
+        expect(component.character.weapons).toHaveLength(0);
         component.isRangedWeapon = false;
       });
       test('should not show all ranged errors', () => {
         component.isRangedWeapon = true;
-        component.weapon.setRange(30);
-        component.weapon.setAmmo(10);
+        component.weapon.range = 30;
+        component.weapon.ammo = 10;
         fixture.detectChanges();
         component.saveWeapon();
-        expect(component.character.getWeapons()).toHaveLength(0);
+        expect(component.character.weapons).toHaveLength(0);
         component.isRangedWeapon = false;
       });
     });
@@ -112,7 +112,7 @@ describe('WeaponComponent', () => {
         );
         fixture.detectChanges();
         component.saveWeapon();
-        expect(component.character.getWeapons()).toHaveLength(0);
+        expect(component.character.weapons).toHaveLength(0);
         component.isElemental = false;
       });
       test('should not show all elemental errors', () => {
@@ -120,7 +120,7 @@ describe('WeaponComponent', () => {
         component.elemental = new Elemental(undefined, 'lightning', 3, 2);
         fixture.detectChanges();
         component.saveWeapon();
-        expect(component.character.getWeapons()).toHaveLength(0);
+        expect(component.character.weapons).toHaveLength(0);
         component.isElemental = false;
       });
     });
@@ -137,18 +137,18 @@ describe('WeaponComponent', () => {
         0
       );
       component.saveWeapon();
-      expect(component.character.getWeapons()).toHaveLength(1);
+      expect(component.character.weapons).toHaveLength(1);
     });
   });
   test('should split "18,19,20" to [18, 19, 20]', () => {
-    component.weapon.setCritRange('18,19,20' as any);
+    component.weapon.critRange = '18,19,20' as any;
     component.setCrit();
-    expect(component.weapon.getCritRange()[0]).toBe(18);
-    expect(component.weapon.getCritRange()[1]).toBe(19);
-    expect(component.weapon.getCritRange()[2]).toBe(20);
+    expect(component.weapon.critRange[0]).toBe(18);
+    expect(component.weapon.critRange[1]).toBe(19);
+    expect(component.weapon.critRange[2]).toBe(20);
   });
   test('should set isRangedWeapon', () => {
-    component.weapon.setType('Bow');
+    component.weapon.type = 'Bow';
     component.checkForRanged();
     expect(component.isRangedWeapon);
   });
@@ -171,13 +171,11 @@ describe('WeaponComponent', () => {
         0
       );
       component.character.addWeapon(myWep);
-      component.character
-        .getWeaponSkills()
-        [Weapons['Short Sword']].setTrained(true);
-      component.character.getAttributes()[0].setValue(10);
+      component.character.weaponSkills[Weapons['Short Sword']].trained = true;
+      component.character.attributes[0].value = 10;
     });
     afterEach(() => {
-      component.character.getWeapons().pop();
+      component.character.weapons.pop();
     });
     test('test making an attack roll', () => {
       component.attack(0);
@@ -190,10 +188,8 @@ describe('WeaponComponent', () => {
     });
     test('make attack rlls with element', () => {
       const myElem: Elemental = new Elemental(undefined, 'Fire', 8, 1);
-      component.character.getWeapons()[0].setElement(myElem);
-      component.character
-        .getWeaponSkills()
-        [Weapons['Short Sword']].setTrained(false);
+      component.character.weapons[0].element = myElem;
+      component.character.weaponSkills[Weapons['Short Sword']].trained = false;
       for (let i = 0; i < 25; i++) {
         component.attack(0);
       }
@@ -222,12 +218,12 @@ describe('WeaponComponent', () => {
       expect(document.getElementById('weaponName').classList).toContain(
         'bad-input'
       );
-      component.weapon.setName('b4d weapon name');
+      component.weapon.name = 'b4d weapon name';
       component.validate('weaponName', 'name');
       expect(document.getElementById('weaponName').classList).toContain(
         'bad-input'
       );
-      component.weapon.setName('weapon name');
+      component.weapon.name = 'weapon name';
       component.validate('weaponName', 'name');
       expect(document.getElementById('weaponName').classList).not.toContain(
         'bad-input'
@@ -238,7 +234,7 @@ describe('WeaponComponent', () => {
       expect(document.getElementById('weaponDam').classList).toContain(
         'bad-input'
       );
-      component.weapon.setAttack(8);
+      component.weapon.attack = 8;
       component.validate('weaponDam', 'attack');
       expect(document.getElementById('weaponDam').classList).not.toContain(
         'bad-input'
@@ -259,7 +255,7 @@ describe('WeaponComponent', () => {
         expect(document.getElementById('eType').classList).toContain(
           'bad-input'
         );
-        component.elemental.setType('Fire');
+        component.elemental.type = 'Fire';
         component.validateElement('eType', 'type');
         expect(document.getElementById('eType').classList).not.toContain(
           'bad-input'

@@ -3,8 +3,8 @@ import { Twili } from '#Races/twili';
 test('should create a twili', () => {
   const myTwili = new Twili();
   expect(myTwili).toBeTruthy();
-  expect(myTwili.getRace()).toBe('Twili');
-  expect(myTwili.getAttributes()[3].getValue()).toBe(10);
-  expect(myTwili.getAttributes()[2].getValue()).toBe(10);
-  expect(myTwili.getAttributes()[4].getValue()).toBe(6);
+  expect(myTwili.race).toBe('Twili');
+  expect(myTwili.attributes[3].value).toBe(10);
+  expect(myTwili.attributes[2].value).toBe(10);
+  expect(myTwili.attributes[4].value).toBe(6);
 });

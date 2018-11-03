@@ -54,7 +54,7 @@ export class NoteService {
       )
       .pipe(
         map((retNote) => {
-          note.setId(retNote.id);
+          note.id = retNote.id;
           return note;
         })
       );

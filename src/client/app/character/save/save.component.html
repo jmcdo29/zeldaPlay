@@ -8,15 +8,15 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let save of character.getSavingThrows() | enumToArray; index as i" [class.din]="i % 3 === 0" [class.farore]="i % 3 === 1" [class.nayru]="i % 3 === 2">
+    <tr *ngFor="let save of character.savingThrows | enumToArray; index as i" [class.din]="i % 3 === 0" [class.farore]="i % 3 === 1" [class.nayru]="i % 3 === 2">
       <td class="name">
-        <button (click)="makeSave(save.getName())" class="save">{{ save.getName() }}</button>
+        <button (click)="makeSave(save.name)" class="save">{{ save.name }}</button>
       </td>
-      <td>{{ save.getRacial() }}</td>
-      <td class="mod">{{ save.getModifier().substr(0,3) | uppercase }}
-        <span class="info">{{ character.getAttributes()[attributes[save.modifier]].getModifier() }}</span>
+      <td>{{ save.racial }}</td>
+      <td class="mod">{{ save.modifier.substr(0,3) | uppercase }}
+        <span class="info">{{ character.attributes[attributes[save.modifier]].modifier }}</span>
       </td>
-      <td>{{ save.getRacial() + character.getAttributes()[attributes[save.modifier]].getModifier() }}</td>
+      <td>{{ save.racial + character.attributes[attributes[save.modifier]].modifier }}</td>
     </tr>
   </tbody>
 </table>

@@ -7,20 +7,20 @@ export class Twili extends Character {
   constructor() {
     super();
 
-    this.setRace('Twili');
+    this.race = 'Twili';
 
-    this.getAttributes()[Attributes['Intelligence']].changeValue(2); // Int Buff
-    this.getAttributes()[Attributes['Constitution']].changeValue(2); // Con Buff
-    this.getAttributes()[Attributes['Wisdom']].changeValue(-2); // Wis Neg
+    this.attributes[Attributes['Intelligence']].changeValue(2); // Int Buff
+    this.attributes[Attributes['Constitution']].changeValue(2); // Con Buff
+    this.attributes[Attributes['Wisdom']].changeValue(-2); // Wis Neg
 
-    this.getSkills()[Skills['Perform Music']].setTrained(false); // Can't perform Music
+    this.skills[Skills['Perform Music']].trained = false; // Can't perform Music
 
-    this.getWeaponSkills()[Weapons['Dual Sword']].setTrained(true); // Dual Swords
+    this.weaponSkills[Weapons['Dual Sword']].trained = true; // Dual Swords
 
-    this.getSkills()[Skills['Bluff']].setTrained(true); // Bluff
-    this.getSkills()[Skills['Intimidate']].setTrained(true); // Intimidate
-    this.getSkills()[Skills['Knowledge History']].setTrained(true); // Knowledge (History)
-    this.getSkills()[Skills['Knowledge Plains']].setTrained(true);
-    this.getSkills()[Skills['Stealth']].setTrained(true); // Stealth
+    this.skills[Skills['Bluff']].trained = true; // Bluff
+    this.skills[Skills['Intimidate']].trained = true; // Intimidate
+    this.skills[Skills['Knowledge History']].trained = true; // Knowledge (History)
+    this.skills[Skills['Knowledge Plains']].trained = true;
+    this.skills[Skills['Stealth']].trained = true; // Stealth
   }
 }

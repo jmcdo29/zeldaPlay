@@ -1,35 +1,31 @@
 export class Item {
-  private name: string;
-  private description: string;
-  private id?: string;
+  constructor(
+    private _id: string,
+    private _name: string,
+    private _description: string
+  ) {}
 
-  constructor(id: string, name: string, description: string) {
-    this.name = name;
-    this.description = description;
-    this.id = id;
+  get name(): string {
+    return this._name;
   }
 
-  getName(): string {
-    return this.name;
+  set name(name: string) {
+    this._name = name;
   }
 
-  getDescription(): string {
-    return this.description;
+  get description(): string {
+    return this._description;
   }
 
-  getId(): string {
-    return this.id;
+  set description(desc: string) {
+    this._description = desc;
   }
 
-  setName(name: string): void {
-    this.name = name;
+  get id(): string {
+    return this._id;
   }
 
-  setDescription(desc: string): void {
-    this.description = desc;
-  }
-
-  setId(id: string): void {
-    this.id = id;
+  set id(id: string) {
+    this._id = id;
   }
 }

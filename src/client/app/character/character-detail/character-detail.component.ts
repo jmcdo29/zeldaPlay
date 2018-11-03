@@ -65,8 +65,8 @@ export class CharacterDetailComponent implements OnInit {
   }
 
   modTheHMod(addition: number): void {
-    this.hpDmg + addition > this.character.getMaxHealth() + 10
-      ? (this.hpDmg = this.character.getMaxHealth() + 10)
+    this.hpDmg + addition > this.character.maxHealth + 10
+      ? (this.hpDmg = this.character.maxHealth + 10)
       : (this.hpDmg += addition);
   }
 
@@ -76,8 +76,8 @@ export class CharacterDetailComponent implements OnInit {
   }
 
   modTheMMod(addition: number): void {
-    this.mpDmg + addition > this.character.getMaxMagic()
-      ? (this.mpDmg = this.character.getMaxMagic())
+    this.mpDmg + addition > this.character.maxMagic
+      ? (this.mpDmg = this.character.maxMagic)
       : (this.mpDmg += addition);
   }
 
@@ -125,19 +125,19 @@ export class CharacterDetailComponent implements OnInit {
   }
 
   gotHeartContainer(): void {
-    this.character.setMaxHealth(this.character.getMaxHealth() + 16);
-    this.character.setHealth(this.character.getMaxHealth());
+    this.character.maxHealth += 16;
+    this.character.health = this.character.maxHealth;
     this.createMessage(16, 'heart');
   }
 
   gotMagicContainer(): void {
-    this.character.setMaxMagic(this.character.getMaxMagic() + 6);
-    this.character.setMagic(this.character.getMaxMagic());
+    this.character.maxMagic += 6;
+    this.character.magic = this.character.maxMagic;
     this.createMessage(6, 'magic');
   }
 
   createMessage(value: number, type: string): void {
-    const name = this.character.getName();
+    const name = this.character.name;
     const obtained = ' obtained a ' + type + ' container ';
     const val = 'for ' + value + (type === 'heart' ? 'HP' : 'MP') + '.';
 

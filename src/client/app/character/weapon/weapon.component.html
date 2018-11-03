@@ -8,17 +8,17 @@
       <div class="table-holder">
         <div class="improv-table">
           <b>Weapon name</b>
-          <input id="weaponName" type="text" [ngModel]="weapon.getName()" (ngModelChange)="weapon.setName($event)" (blur)="validate('weaponName', 'name')">
+          <input id="weaponName" type="text" [(ngModel)]="weapon.name" (blur)="validate('weaponName', 'name')">
         </div>
         <div class="improv-table">
           <b>Weapon Type</b>
-          <select id="weaponType" [ngModel]="weapon.getType()" (ngModelChange)="weapon.setType($event)" (blur)="validate('weaponType', 'type')" (change)="checkForRanged()">
+          <select id="weaponType" [(ngModel)]="weapon.type" (blur)="validate('weaponType', 'type')" (change)="checkForRanged()">
             <option *ngFor="let weaponS of allWeapons | enumToArray" value="{{ weaponS }}">{{ weaponS }}</option>
           </select>
         </div>
         <div class="improv-table">
           <b>Number of Dice</b>
-          <select id="weaponMult" [ngModel]="weapon.getNOfA()" (ngModelChange)="weapon.setNOfA($event)" (blur)="validate('weaponMult', 'numberOfAttacks')">
+          <select id="weaponMult" [(ngModel)]="weapon.numberOfAttacks" (blur)="validate('weaponMult', 'numberOfAttacks')">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -27,7 +27,7 @@
         </div>
         <div class="improv-table">
           <b>Dice Type</b>
-          <select id="weaponDam" [ngModel]="weapon.getAttack()" (ngModelChange)="weapon.setAttack($event)" (blur)="validate('weaponDam','attack')">
+          <select id="weaponDam" [(ngModel)]="weapon.attack" (blur)="validate('weaponDam','attack')">
             <option value="4">D4</option>
             <option value="6">D6</option>
             <option value="8">D8</option>
@@ -37,7 +37,7 @@
         </div>
         <div class="improv-table">
           <b>Critical Hit Range</b>
-          <select id="critRange" [ngModel]="weapon.getCritRange()" (ngModelChange)="weapon.setCritRange($event)" (blur)="validate('critRange', 'critRange')" (change)="setCrit()">
+          <select id="critRange" [(ngModel)]="weapon.critRange" (blur)="validate('critRange', 'critRange')" (change)="setCrit()">
             <option value="18,19,20">18-20</option>
             <option value="19,20">19-20</option>
             <option value="20">20</option>
@@ -45,7 +45,7 @@
         </div>
         <div class="improv-table">
           <b>Critical Hit Multiplier</b>
-          <select id="weaponCrit" [ngModel]="weapon.getCritDamage()" (ngModelChange)="weapon.setCritDamage($event)" (blur)="validate('weaponCrit', 'critDamage')">
+          <select id="weaponCrit" [(ngModel)]="weapon.critDamage" (blur)="validate('weaponCrit', 'critDamage')">
             <option value="2">X 2</option>
             <option value="3">X 3</option>
             <option value="4">X 4</option>
@@ -53,7 +53,7 @@
         </div>
         <div class="improv-table">
           <b>Damage Modifier</b>
-          <select id="weaponMod" [ngModel]="weapon.getModifier()" (ngModelChange)="weapon.setModifier($event)" (blur)="validate('weaponMod', 'modifier')">
+          <select id="weaponMod" [(ngModel)]="weapon.modifier" (blur)="validate('weaponMod', 'modifier')">
             <option selected hidden>--Select the Damage Modifier</option>
             <option *ngFor="let attr of attributes | enumToArray" value="{{ attr }}">{{ attr }}</option>
           </select>
@@ -61,11 +61,11 @@
         <div *ngIf="isRangedWeapon">
           <div class="improv-table rangedWeapon">
             <b>Range</b>
-            <input id="weaponRange" [ngModel]="weapon.getRange()" (ngModelChange)="weapon.setRange($event)" step="5" (blur)="validate('weaponRange', 'range')">
+            <input id="weaponRange" [(ngModel)]="weapon.range" step="5" (blur)="validate('weaponRange', 'range')">
           </div>
           <div class="improv-table rangedWeapon">
             <b>Ammo (if any)</b>
-            <input id="weaponAmmo" [ngModel]="weapon.getAmmo()" (ngModelChange)="weapon.setAmmo($event)" step="5" (blur)="validate('weaponAmmo', 'ammo')">
+            <input id="weaponAmmo" [(ngModel)]="weapon.ammo" step="5" (blur)="validate('weaponAmmo', 'ammo')">
           </div>
         </div>
         <div class="improv-table">
@@ -75,13 +75,13 @@
         <div *ngIf="isElemental">
           <div class="improv-table">
             <b>Element Type</b>
-            <select id="eType" [ngModel]="elemental.getType()" (ngModelChange)="elemental.setType($event)" (blur)="validateElement('eType','type')">
+            <select id="eType" [(ngModel)]="elemental.type"  (blur)="validateElement('eType','type')">
               <option *ngFor="let elem of elements | enumToArray" value="{{ elem }}">{{ elem }}</option>
             </select>
           </div>
           <div class="improv-table">
             <b>Number of Elemental Dice</b>
-            <select id="elementalMult" [ngModel]="elemental.getNOfA()" (ngModelChange)="elemental.setNOfA($event)" (blur)="validateElement('elementalMult', 'numberOfAttacks')">
+            <select id="elementalMult" [(ngModel)]="elemental.numberOfAttacks" (blur)="validateElement('elementalMult', 'numberOfAttacks')">
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -90,7 +90,7 @@
           </div>
           <div class="improv-table">
             <b>Elemental Dice Type</b>
-            <select id="elementDam" [ngModel]="elemental.getAttack()" (ngModelChange)="elemental.setAttack($event)" (blur)="validateElement('elementDam','attack')">
+            <select id="elementDam" [(ngModel)]="elemental.attack" (blur)="validateElement('elementDam','attack')">
               <option value="4">D4</option>
               <option value="6">D6</option>
               <option value="8">D8</option>
@@ -109,7 +109,7 @@
 </div>
 
 <button (click)="addWeapon()">New Weapon</button>
-<div *ngIf="character.getWeapons()" class="table">
+<div *ngIf="character.weapons" class="table">
   <div class="spellRoll">
     <div *ngIf="weaponName">
       <h4>{{ weaponName }}</h4>
@@ -141,24 +141,24 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let weapon of character.getWeapons() index as i" [class.din]="weapon.getModifier() === 'Strength' || weapon.getModifier() === 'Intelligence'" [class.farore]="weapon.getModifier() === 'Dexterity' || weapon.getModifier() === 'Charisma'" [class.nayru]="weapon.getModifier() === 'Wisdom' || weapon.getModifier() === 'Constitution'">
-        <td class="weaponName" (click)="attack(i)">{{ weapon.getName() }}</td>
-        <td>{{ weapon.getType() }}</td>
-        <td>{{ weapon.getNOfA() }}D{{ weapon.getAttack() }}</td>
-        <td>{{ weapon.getCritRange() }}</td>
-        <td>X{{ weapon.getCritDamage() }}</td>
-        <td>{{ weapon.getModifier() }}</td>
-        <td>{{ weapon.getRange() ? weapon.getRange() : 'N/A' }}</td>
-        <td>{{ weapon.getAmmo() ? weapon.getAmmo() : 'N/A' }}</td>
-        <td>{{ weapon.getElement() ? weapon.getElement().getType() : 'N/A'}}</td>
-        <td>{{ weapon.getElement() ? ((weapon.getElement().getNOfA() !== null && weapon.getElement().getAttack() !== null) ? weapon.getElement().getNOfA() + 'D' + weapon.getElement().getAttack() : 'N/A'): 'N/A'}}</td>
+      <tr *ngFor="let weapon of character.weapons index as i" [class.din]="weapon.modifier === 'Strength' || weapon.modifier === 'Intelligence'" [class.farore]="weapon.modifier === 'Dexterity' || weapon.modifier === 'Charisma'" [class.nayru]="weapon.modifier === 'Wisdom' || weapon.modifier === 'Constitution'">
+        <td class="weaponName" (click)="attack(i)">{{ weapon.name }}</td>
+        <td>{{ weapon.type }}</td>
+        <td>{{ weapon.numberOfAttacks }}D{{ weapon.attack }}</td>
+        <td>{{ weapon.critRange }}</td>
+        <td>X{{ weapon.critDamage }}</td>
+        <td>{{ weapon.modifier }}</td>
+        <td>{{ weapon.range ? weapon.range : 'N/A' }}</td>
+        <td>{{ weapon.ammo ? weapon.ammo : 'N/A' }}</td>
+        <td>{{ weapon.element ? weapon.element.type : 'N/A'}}</td>
+        <td>{{ weapon.element ? ((weapon.element.numberOfAttacks !== null && weapon.element.attack !== null) ? weapon.element.numberOfAttacks + 'D' + weapon.element.attack : 'N/A'): 'N/A'}}</td>
       </tr>
     </tbody>
   </table>
 </div>
 <div class="weaponSkills">
   <button class="accordian" (click)="expandWeapon()">
-    <h2>{{ character.getName() | uppercase }} Weapon Skills</h2>
+    <h2>{{ character.name | uppercase }} Weapon Skills</h2>
   </button>
   <div class="panel" [class.active]="showWeapon">
     <div class="table">
@@ -173,14 +173,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let weapon of character.getWeaponSkills()" class="weapon">
+          <tr *ngFor="let weapon of character.weaponSkills" class="weapon">
             <td>
-              <input type="checkbox" [checked]="weapon.getTrained()" disabled="true" />
+              <input type="checkbox" [checked]="weapon.trained" disabled="true" />
             </td>
-            <td class="name">{{ weapon.getSkillName() }}</td>
-            <td>{{ weapon.getRanks() }}</td>
-            <td>{{ weapon.getRacial() }}</td>
-            <td class="total">{{ (weapon.getTrained() ? 3 : 0) + weapon.getRanks() + weapon.getRacial() }}</td>
+            <td class="name">{{ weapon.skillName }}</td>
+            <td>{{ weapon.ranks }}</td>
+            <td>{{ weapon.racial }}</td>
+            <td class="total">{{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}</td>
           </tr>
         </tbody>
       </table>

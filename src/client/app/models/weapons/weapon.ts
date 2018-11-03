@@ -1,129 +1,105 @@
 import { Elemental } from '#Models/weapons/elemental';
 
 export class Weapon {
-  private name: string;
-  private attack: number; // Number of sides the damage dice has
-  private numberOfAttacks: number; // For the in case you have multiple attack dice
-  private critRange: number[]; // Values for which rolling a crit leads to crit damage
-  private critDamage: number; // Crit damage multiplier
-  private type: string;
-  private modifier: string;
-  private range: number;
-  private element?: Elemental;
-  private ammo?: number;
-  private id?: string;
-
   constructor(
-    id: string,
-    name: string,
-    attack: number,
-    nOfA: number,
-    critRange: number[],
-    critDamage: number,
-    type: string,
-    modifier: string,
-    range: number,
-    ammo?: number,
-    element?: Elemental
-  ) {
-    this.id = id;
-    this.name = name;
-    this.attack = attack;
-    this.numberOfAttacks = nOfA;
-    this.critRange = critRange;
-    this.critDamage = critDamage;
-    this.type = type;
-    this.modifier = modifier;
-    this.range = range;
-    this.ammo = ammo;
-    this.element = element;
+    private _id: string,
+    private _name: string,
+    private _attack: number,
+    private _numberOfAttacks: number,
+    private _critRange: number[],
+    private _critDamage: number,
+    private _type: string,
+    private _modifier: string,
+    private _range: number,
+    private _ammo?: number,
+    private _element?: Elemental
+  ) {}
+
+  get name(): string {
+    return this._name;
   }
 
-  getName(): string {
-    return this.name;
+  set name(name: string) {
+    this._name = name;
   }
 
-  setName(name: string): void {
-    this.name = name;
+  get attack(): number {
+    return this._attack;
   }
 
-  getAttack(): number {
-    return this.attack;
+  set attack(attack: number) {
+    this._attack = attack;
   }
 
-  setAttack(attack: number): void {
-    this.attack = attack;
+  get numberOfAttacks(): number {
+    return this._numberOfAttacks;
   }
 
-  getNOfA(): number {
-    return this.numberOfAttacks;
+  set numberOfAttacks(nOfA: number) {
+    this._numberOfAttacks = nOfA;
   }
 
-  setNOfA(nOfA: number): void {
-    this.numberOfAttacks = nOfA;
+  get critRange(): number[] {
+    return this._critRange;
   }
 
-  getCritRange(): number[] {
-    return this.critRange;
+  set critRange(critRange: number[]) {
+    this._critRange = critRange;
   }
 
-  setCritRange(critRange: number[]): void {
-    this.critRange = critRange;
+  get critDamage(): number {
+    return this._critDamage;
   }
 
-  getCritDamage(): number {
-    return this.critDamage;
+  set critDamage(critDamage: number) {
+    this._critDamage = critDamage;
   }
 
-  setCritDamage(critDamage: number): void {
-    this.critDamage = critDamage;
+  get type(): string {
+    return this._type;
   }
 
-  getType(): string {
-    return this.type;
+  set type(type: string) {
+    this._type = type;
   }
 
-  setType(type: string): void {
-    this.type = type;
+  get modifier(): string {
+    return this._modifier;
   }
 
-  getModifier(): string {
-    return this.modifier;
+  set modifier(modifier: string) {
+    this._modifier = modifier;
   }
 
-  setModifier(modifier: string): void {
-    this.modifier = modifier;
+  get range(): number {
+    return this._range;
   }
 
-  getRange(): number {
-    return this.range;
+  set range(range: number) {
+    this._range = range;
   }
 
-  setRange(range: number): void {
-    this.range = range;
+  get element(): Elemental {
+    return this._element;
   }
 
-  getElement(): Elemental {
-    return this.element;
+  set element(element: Elemental) {
+    this._element = element;
   }
 
-  setElement(element: Elemental): void {
-    this.element = element;
+  get ammo(): number {
+    return this._ammo;
   }
 
-  getAmmo(): number {
-    return this.ammo;
+  set ammo(ammo: number) {
+    this._ammo = ammo;
   }
 
-  setAmmo(ammo: number): void {
-    this.ammo = ammo;
+  get id(): string {
+    return this._id;
   }
 
-  getId(): string {
-    return this.id;
-  }
-
-  setId(id: string): void {
-    this.id = id;
+  set id(id: string) {
+    this._id = id;
   }
 }

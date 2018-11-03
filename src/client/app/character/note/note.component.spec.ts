@@ -64,14 +64,14 @@ describe('NoteComponent', () => {
       component.newMsg = 'my message';
       component.important = false;
       component.addNote();
-      expect(component.character.getNotes()).toHaveLength(1);
-      component.character.getNotes().pop();
+      expect(component.character.notes).toHaveLength(1);
+      component.character.notes.pop();
     });
     test('make new important note', () => {
       component.newMsg = 'my important message';
       component.important = true;
       component.addNote();
-      expect(component.character.getImportantNotes()).toHaveLength(1);
+      expect(component.character.importantNotes).toHaveLength(1);
       component.notes.pop();
     });
   });

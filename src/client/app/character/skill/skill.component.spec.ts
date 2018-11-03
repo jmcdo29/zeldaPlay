@@ -64,8 +64,8 @@ describe('SkillComponent', () => {
       fixture.detectChanges();
     });
     test('should make a check for trained Acrobatics', () => {
-      component.character.getSkills()[0].setTrained(true);
-      component.character.getAttributes()[1].setValue(10);
+      component.character.skills[0].trained = true;
+      component.character.attributes[1].value = 10;
       let critHit = false;
       let critMiss = false;
       fixture.detectChanges();
@@ -80,8 +80,8 @@ describe('SkillComponent', () => {
       } while (!(critHit && critMiss));
     });
     test('should make a check for untrained Acrobatics', () => {
-      component.character.getSkills()[0].setTrained(false);
-      component.character.getAttributes()[1].setValue(10);
+      component.character.skills[0].trained = false;
+      component.character.attributes[1].value = 10;
       component.makeCheck('Acrobatics');
     });
   });

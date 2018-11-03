@@ -6,21 +6,21 @@ import { Character } from '#Models/character';
 export class Goron extends Character {
   constructor(subRace?: string) {
     super();
-    this.getSkills()[Skills['Appraise']].setTrained(true); // Appraise
-    this.getSkills()[Skills['Climb']].setTrained(true); // Climb
-    this.getSkills()[Skills['Intimidate']].setTrained(true); // Intimidate
-    this.getWeaponSkills()[Weapons['One-Handed Hammer']].setTrained(true); // Hammers
-    this.getWeaponSkills()[Weapons['Two-Handed Hammer']].setTrained(true); // Hammers
-    this.setRace('Goron');
-    this.setSubRace(subRace);
+    this.skills[Skills['Appraise']].trained = true; // Appraise
+    this.skills[Skills['Climb']].trained = true; // Climb
+    this.skills[Skills['Intimidate']].trained = true; // Intimidate
+    this.weaponSkills[Weapons['One-Handed Hammer']].trained = true; // Hammers
+    this.weaponSkills[Weapons['Two-Handed Hammer']].trained = true; // Hammers
+    this.race = 'Goron';
+    this.subRace = subRace;
 
     switch (subRace) {
       case 'Rock Spine': {
-        this.getAttributes()[Attributes['Strength']].changeValue(2); // Strength Buff
+        this.attributes[Attributes['Strength']].changeValue(2); // Strength Buff
         break;
       }
       case 'Soft Belly': {
-        this.getAttributes()[Attributes['Wisdom']].changeValue(1); // Wisdom Buff
+        this.attributes[Attributes['Wisdom']].changeValue(1); // Wisdom Buff
         break;
       }
     }

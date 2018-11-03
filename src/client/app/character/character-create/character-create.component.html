@@ -22,7 +22,7 @@
         <!--Done for now-->
         <h2>Hylians</h2>
         <div class="description">
-          <p>Hylians are the most common race of Hyrule. Players who choose to play a Hylian will more than likely follow the Goddess Hylia and come from a normal background. Most Hylians are soldiers or farm/ranch hands, though a select few have been known to be chosen in the past for special training from the Sheikah tribe, learning the ways of the assassin and the art of stealth.</p>
+          <p>Hylians are the most common race of Hyrule. Players who choose to play a Hylian will more than likely follow the Goddess Hylia and come from a normal background. Most Hylians are soldiers or farm/ranch hands, though a mat-select few have been known to be chosen in the past for special training from the Sheikah tribe, learning the ways of the assassin and the art of stealth.</p>
           <div class="bonus">
             <h3>Bonuses</h3>
             <ul>
@@ -49,7 +49,7 @@
             </ul>
           </div>
         </div>
-        <h3>Sub Race Options</h3>
+        <h3>Sub Race mat-options</h3>
         <ul>
           <li>
             <h3>Farmers</h3>
@@ -71,7 +71,7 @@
                     <span class="description">Short Sword, Wooden Shield, Slingshot, Fishing Pole, 2 Bottles (Contents Vary)</span>
                   </li>
                   <li>
-                    <p class="title">Possible Companions (Optional):</p>
+                    <p class="title">Possible Companions (mat-optional):</p>
                     <span class="description">Horse, Dog, Cucco, Hawk, Monkey</span>
                   </li>
                 </ul>
@@ -81,7 +81,7 @@
           <li>
             <h3>Sheikah</h3>
             <div class="description">
-              <p>The few select Hylians who the Sheikah have deemed worthy of training are very withdrawn and reserved. They seem to always have their eyes out for those who are untrustworthy. These Hylians speak seldom and when they do, it is usually a warning. Those trained by the Sheikah are skilled in stealth combat, meaning they have a bonus when using daggers or swords.</p>
+              <p>The few mat-select Hylians who the Sheikah have deemed worthy of training are very withdrawn and reserved. They seem to always have their eyes out for those who are untrustworthy. These Hylians speak seldom and when they do, it is usually a warning. Those trained by the Sheikah are skilled in stealth combat, meaning they have a bonus when using daggers or swords.</p>
               <div class="bonus">
                 <h4>Bonuses</h4>
                 <ul>
@@ -123,7 +123,7 @@
                     <span class="description">Long Sword OR Greatsword, Iron Shield OR Iron Braces, 2-4 Bottles (Contents vary)</span>
                   </li>
                   <li>
-                    <p class="title">Possible Animal Companions (Optional):</p>
+                    <p class="title">Possible Animal Companions (mat-optional):</p>
                     <span class="description">Horse, Dog</span>
                   </li>
                 </ul>
@@ -170,7 +170,7 @@
             </ul>
           </div>
         </div>
-        <h3>Sub Race Options</h3>
+        <h3>Sub Race mat-options</h3>
         <ul>
           <li>
             <h3>Rock Spine</h3>
@@ -233,7 +233,7 @@
             <ul></ul>
           </div>
         </div>
-        <h3>Sub Race Options</h3>
+        <h3>Sub Race mat-options</h3>
         <ul>
           <li>
             <h3>River</h3>
@@ -296,7 +296,7 @@
             <ul></ul>
           </div>
         </div>
-        <h3>Sub Race Options</h3>
+        <h3>Sub Race mat-options</h3>
         <ul>
           <li>
             <h3>Sharp Eye</h3>
@@ -339,7 +339,7 @@
             <ul></ul>
           </div>
         </div>
-        <h3>Sub Race Options</h3>
+        <h3>Sub Race mat-options</h3>
         <ul>
           <li>
             <h3>Din</h3>
@@ -385,13 +385,13 @@
     <div class="modal-body">
       <p>When creating your character, please make sure not to allocate too many or too few skill points or attribute points. Failure to recognize the limits of your character will result in an infinite loop of not being able to save. Thank you.
       </p>
-      <div *ngIf="!newCharacter.getName()">
+      <div *ngIf="!newCharacter.name">
         <p>Please make sure to give your character a name. You don't want to be the nameless adventurer for this epic quest, do you?</p>
       </div>
-      <div *ngIf="!newCharacter.getRace()">
+      <div *ngIf="!newCharacter.race">
         <p>Make sure to include a race for your character. Otherwise we shall call you a blob!</p>
       </div>
-      <div *ngIf="newCharacter.getRace() && !newCharacter.getSubRace()">
+      <div *ngIf="newCharacter.race && !newCharacter.subRace">
         <p>If you are playing a race that has a subrace, make sure to choose one. Subraces give awesome bonuses to your character!
           <br>If you are a Gerudo, Twili, or Sheikah disregard this message. You are already awesome.</p>
       </div>
@@ -400,60 +400,61 @@
 </div>
 <div class="column-holder">
   <div class="details">
-    <h2>{{ newCharacter.getName() }} Details</h2>
+    <h2>{{ newCharacter.name }} Details</h2>
 
     <button (click)="save()">Save Character</button>
     <button (click)="cancel()">Cancel New Character</button>
-    <h3> Choose your race.</h3>
     <div class="race-input">
-      <select [ngModel]="newCharacter.getRace()" (ngModelChange)="newCharacter.setRace($event)" (change)="raceChange()">
-        <option value="Hylian">Hylian</option>
-        <option value="Goron">Goron</option>
-        <option value="Zora">Zora</option>
-        <option value="Gerudo">Gerudo</option>
-        <option value="Sheikah">Sheikah</option>
-        <option value="Rito">Rito</option>
-        <option value="Twili">Twili</option>
-        <option value="Fairy">Fairy</option>
-      </select>
+      <mat-form-field class="race">
+        <mat-select [(ngModel)]="newCharacter.race"  (selectionChange)="raceChange()" placeholder="Choose your race">
+          <mat-option value="Hylian">Hylian</mat-option>
+          <mat-option value="Goron">Goron</mat-option>
+          <mat-option value="Zora">Zora</mat-option>
+          <mat-option value="Gerudo">Gerudo</mat-option>
+          <mat-option value="Sheikah">Sheikah</mat-option>
+          <mat-option value="Rito">Rito</mat-option>
+          <mat-option value="Twili">Twili</mat-option>
+          <mat-option value="Fairy">Fairy</mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;
       <button (click)="aboutRace()">About Races</button>
-      <div *ngIf="newCharacter.getRace() && !(newCharacter.getRace() ==='Gerudo' || newCharacter.getRace() === 'Twili' || newCharacter.getRace() === 'Sheikah')">
-        <h3>Choose your sub-race.</h3>
-
-        <div *ngIf="newCharacter.getRace()==='Hylian'">
-          <select [ngModel]="newCharacter.getSubRace()" (ngModelChange)="newCharacter.setSubRace($event)" (change)="raceChange()">
-            <option value="Farmer">Farmer</option>
-            <option value="Sheikah">Sheikah</option>
-            <option value="Guard">Guard</option>
-          </select>
-        </div>
-        <div *ngIf="newCharacter.getRace()==='Goron'">
-          <select [ngModel]="newCharacter.getSubRace()" (ngModelChange)="newCharacter.setSubRace($event)" (change)="raceChange()">
-            <option value="Rock Spine">Rock Spine</option>
-            <option value="Soft Belly">Soft Belly</option>
-          </select>
-        </div>
-        <div *ngIf="newCharacter.getRace()==='Zora'">
-          <select [ngModel]="newCharacter.getSubRace()" (ngModelChange)="newCharacter.setSubRace($event)" (change)="raceChange()">
-            <option value="River">River</option>
-            <option value="Ocean">Ocean</option>
-            <option value="Swamp">Swamp</option>
-          </select>
-        </div>
-        <div *ngIf="newCharacter.getRace()==='Fairy'">
-          <select [ngModel]="newCharacter.getSubRace()" (ngModelChange)="newCharacter.setSubRace($event)" (change)="raceChange()">
-            <option value="Din">Din</option>
-            <option value="Farore">Farore</option>
-            <option value="Nayru">Nayru</option>
-          </select>
-        </div>
-        <div *ngIf="newCharacter.getRace()==='Rito'">
-          <select [ngModel]="newCharacter.getSubRace()" (ngModelChange)="newCharacter.setSubRace($event)" (change)="raceChange()">
-            <option value="Sharp Eye">Sharp Eye</option>
-            <option value="Sharp Tongue">Sharp Tongue</option>
-          </select>
-        </div>
-
+      <div *ngIf="newCharacter.race && !(newCharacter.race ==='Gerudo' || newCharacter.race === 'Twili' || newCharacter.race === 'Sheikah')">
+        <mat-form-field class="race">
+          <div *ngIf="newCharacter.race==='Hylian'">
+            <mat-select [(ngModel)]="newCharacter.subRace" (selectionChange)="raceChange()" placeholder="Choose your subrace">
+              <mat-option value="Farmer">Farmer</mat-option>
+              <mat-option value="Sheikah">Sheikah</mat-option>
+              <mat-option value="Guard">Guard</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="newCharacter.race==='Goron'">
+            <mat-select [(ngModel)]="newCharacter.subRace" (selectionChange)="raceChange()" placeholder="Choose your subrace">
+              <mat-option value="Rock Spine">Rock Spine</mat-option>
+              <mat-option value="Soft Belly">Soft Belly</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="newCharacter.race==='Zora'">
+            <mat-select [(ngModel)]="newCharacter.subRace" (selectionChange)="raceChange()" placeholder="Choose your subrace">
+              <mat-option value="River">River</mat-option>
+              <mat-option value="Ocean">Ocean</mat-option>
+              <mat-option value="Swamp">Swamp</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="newCharacter.race==='Fairy'">
+            <mat-select [(ngModel)]="newCharacter.subRace" (selectionChange)="raceChange()" placeholder="Choose your subrace">
+              <mat-option value="Din">Din</mat-option>
+              <mat-option value="Farore">Farore</mat-option>
+              <mat-option value="Nayru">Nayru</mat-option>
+            </mat-select>
+          </div>
+          <div *ngIf="newCharacter.race==='Rito'">
+            <mat-select [ngModel]="newCharacter.subRace" (change)="raceChange()" placeholder="Choose your subrace">
+              <mat-option value="Sharp Eye">Sharp Eye</mat-option>
+              <mat-option value="Sharp Tongue">Sharp Tongue</mat-option>
+            </mat-select>
+          </div>
+        </mat-form-field>
       </div>
     </div>
     &nbsp;
@@ -472,21 +473,23 @@
             <tr>
               <td class="name">Name</td>
               <td>
-                <input class="skill" type="text" [ngModel]="newCharacter.getName()" (ngModelChange)="newCharacter.setName($event)" placeholder="Name" maxlength="10">
+                <mat-form-field class="name">
+                  <input matInput class="skill" type="text" [(ngModel)]="newCharacter.name"  placeholder="Name" maxlength="16">
+                </mat-form-field>
               </td>
             </tr>
 
             <br />
 
-            <tr *ngFor="let attr of newCharacter.getAttributes(); index as i" [class.din]="attr.getName() === 'Strength' || attr.getName() === 'Intelligence'" [class.farore]="attr.getName() === 'Dexterity' || attr.getName() === 'Charisma'" [class.nayru]="attr.getName() === 'Wisdom' || attr.getName() === 'Constitution'">
-              <td class="name">{{ attr.getName() }}</td>
+            <tr *ngFor="let attr of newCharacter.attributes; index as i" [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'" [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'" [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
+              <td class="name">{{ attr.name }}</td>
               <td>
                 <mat-form-field class="attribute">
-                  <input matInput id="{{ 'attr'+i }}" type="number" [ngModel]="attr.getValue()" (ngModelChange)="attr.setValue($event)" max="{{ 24 < attr.getValue() + attPoints ? 24 : attr.getValue() + attPoints }}" min="{{ attrMins[i] }}" (change)="trackAtt(i)" (blur)="validateAttr(i)">
+                  <input matInput id="{{ 'attr'+i }}" type="number" [(ngModel)]="attr.value" max="{{ 24 < attr.value + attPoints ? 24 : attr.value + attPoints }}" min="{{ attrMins[i] }}" (change)="trackAtt(i)" (blur)="validateAttr(i)">
                 </mat-form-field>
               </td>
               <td>
-                {{ attr.getModifier() }}
+                {{ attr.modifier }}
               </td>
             </tr>
 
@@ -495,13 +498,13 @@
             <tr class="din">
               <td class="name">Health</td>
               <td>
-                {{ 48+newCharacter.getAttributes()[2].getModifier() }}
+                {{ 48+newCharacter.attributes[2].modifier }}
               </td>
             </tr>
             <tr class="nayru">
               <td class="name">Magic</td>
               <td>
-                {{ 20+newCharacter.getAttributes()[4].getModifier() }}
+                {{ 20+newCharacter.attributes[4].modifier }}
               </td>
             </tr>
           </tbody>
@@ -510,7 +513,7 @@
     </div>
   </div>
   <div class="skills scrollable">
-    <h2>{{ newCharacter.getName() }} Skills</h2>
+    <h2>{{ newCharacter.name }} Skills</h2>
     <div class="abv-table">
       <h3 [class.error]="0 > skillPoints">Skill Points: {{ skillPoints }}</h3>
       <button (click)="resetSkills()">Reset Skills</button>
@@ -530,60 +533,70 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let skill of newCharacter.getSkills(); index as j" [class.din]="skill.getModifier() === 'Strength' || skill.getModifier() === 'Intelligence'" [class.farore]="skill.getModifier() === 'Dexterity' || skill.getModifier() === 'Charisma'" [class.nayru]="skill.getModifier() === 'Wisdom' || skill.getModifier() === 'Constitution'">
+          <tr *ngFor="let skill of newCharacter.skills; index as j" [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'" [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'" [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
             <td>
-              <input class="skill-input" disabled type="checkbox" [ngModel]="skill.getTrained()">
+              <mat-checkbox class="skill-input" disabled [ngModel]="skill.trained"></mat-checkbox>
             </td>
             <td class="name">
-              <div *ngIf="skill.getSkillName()==='CraftOne' || skill.getSkillName()==='CraftTwo' || skill.getSkillName()==='Profession' || skill.getSkillName()==='Perform Other'; then specialSkill; else normalSkill"></div>
+              <div *ngIf="skill.skillName==='CraftOne' || skill.skillName==='CraftTwo' || skill.skillName==='Profession' || skill.skillName==='Perform Other'; then specialSkill; else normalSkill"></div>
 
               <ng-template #specialSkill>
-                <div *ngIf="skill.getSkillName()==='CraftOne'">
-                  {{ skill.getSkillName().substr(0, skill.getSkillName().length-1)}}
-                  <input class="skill" type="text" [ngModel]="newCharacter.getCraftOne()" (ngModelChange)="newCharacter.setCraftOne($event)" placeholder="Craft One">
+                <div *ngIf="skill.skillName==='CraftOne'">
+                  <mat-form-field class="custom">
+                    <input matInput class="skill" type="text" [(ngModel)]="newCharacter.craftOne" placeholder="Craft One">
+                  </mat-form-field>
                 </div>
-                <div *ngIf="skill.getSkillName()==='CraftTwo'">
-                  {{ skill.getSkillName().substr(0, skill.getSkillName().length-1)}}
-                  <input class="skill" type="text" [ngModel]="newCharacter.getCraftTwo()" (ngModelChange)="newCharacter.setCraftTwo($event)" placeholder="Craft Two">
+                <div *ngIf="skill.skillName==='CraftTwo'">
+                  <mat-form-field class="custom">
+                    <input matInput class="skill" type="text" [(ngModel)]="newCharacter.craftTwo" placeholder="Craft Two">
+                  </mat-form-field>
                 </div>
-                <div *ngIf="skill.getSkillName()==='Profession'">
-                  {{ skill.getSkillName() }}
-                  <input class="skill" type="text" [ngModel]="newCharacter.getProfession()" (ngModelChange)="newCharacter.setProfession($event)" placeholder="Profession">
+                <div *ngIf="skill.skillName==='Profession'">
+                  <mat-form-field class="custom">
+                    <input matInput class="skill" type="text" [(ngModel)]="newCharacter.profession" placeholder="Profession">
+                  </mat-form-field>
                 </div>
-                <div *ngIf="skill.getSkillName()==='Perform Other'">
-                  {{ skill.getSkillName() }}
-                  <input class="skill" type="text" [ngModel]="newCharacter.getPerformCust()" (ngModelChange)="newCharacter.setPerformCust($event)" placeholder="(Other)">
+                <div *ngIf="skill.skillName==='Perform Other'">
+                  <mat-form-field class="custom">
+                    <input matInput class="skill" type="text" [(ngModel)]="newCharacter.performCust" placeholder="(Other)">
+                  </mat-form-field>
                 </div>
               </ng-template>
               <ng-template #normalSkill>
-                {{ skill.getSkillName() }}
+                {{ skill.skillName }}
               </ng-template>
             </td>
             <td>
-              <input id="{{ 'skills'+j }}" class="skill-input" type="number" [ngModel]="skill.getRanks()" (ngModelChange)="skill.setRanks($event)" min="0" max="{{ skill.getRanks() + skillPoints > 0 ? skill.getRanks() + skillPoints: 0 }}" (change)="track(j, 'skills')" (blur)="validate(j, 'skills')" [class.non-zero]="skill.getRanks() > 0">
+              <mat-form-field class="skill">
+                <input matInput id="{{ 'skills'+j }}" class="skill-input" type="number" [(ngModel)]="skill.ranks" min="0" max="{{ skill.ranks + skillPoints > 0 ? skill.ranks + skillPoints: 0 }}" (change)="track(j, 'skills')" (blur)="validate(j, 'skills')" [class.non-zero]="skill.ranks > 0">
+              </mat-form-field>
             </td>
             <td>
-              {{ skill.getRacial() }}
+              {{ skill.racial }}
             </td>
             <td class="mod">
-              {{ skill.getModifier().substr(0,3) | uppercase }}
-              <span class="info">{{ getMod(skill.getModifier()) }}</span>
+              {{ skill.modifier.substr(0,3) | uppercase }}
+              <span class="info">{{ getMod(skill.modifier) }}</span>
             </td>
             <td>
-              <input class="skill-input" type="number" [ngModel]="skill.getItem()" (ngModelChange)="skill.setItem($event)">
+              <mat-form-field class="skill">
+                <input matInput class="skill-input" type="number" [(ngModel)]="skill.item">
+              </mat-form-field>
             </td>
             <td>
-              <input class="skill-input" type="number" [ngModel]="skill.getMisc()" (ngModelChange)="skill.setMisc($event)">
+              <mat-form-field class="skill">
+                <input matInput class="skill-input" type="number" [(ngModel)]="skill.misc">
+              </mat-form-field>
             </td>
             <td class="total">
-              {{ (skill.getTrained() ? 3 : 0) + skill.getRanks() + getMod(skill.getModifier()) + skill.getItem() + skill.getMisc() + skill.getRacial()}}
+              {{ (skill.trained ? 3 : 0) + skill.ranks + getMod(skill.modifier) + skill.item + skill.misc + skill.racial}}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <h2>{{ newCharacter.getName() }} Weapon Skills</h2>
+    <h2>{{ newCharacter.name }} Weapon Skills</h2>
     <div class="table">
       <table>
         <thead>
@@ -596,26 +609,28 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let weapon of newCharacter.getWeaponSkills(); index as k" class="weapon">
+          <tr *ngFor="let weapon of newCharacter.weaponSkills; index as k" class="weapon">
             <td>
-              <input type="checkbox" disabled [ngModel]="weapon.getTrained()">
+              <mat-checkbox  disabled [ngModel]="weapon.trained"></mat-checkbox>
             </td>
-            <td class="name">{{ weapon.getSkillName() }}</td>
+            <td class="name">{{ weapon.skillName }}</td>
             <td>
-              <input id="{{ 'weaponSkills'+k }}" class="skill-input" type="number" [ngModel]="weapon.getRanks()" (ngModelChange)="weapon.setRanks($event)" min="0" max="{{ weapon.getRanks() + skillPoints > 0 ? weapon.getRanks() + skillPoints : 0 }}" (change)="track(k, 'weaponSkills')" (blur)="validate(k, 'weaponSkills')" [class.non-zero]="weapon.getRanks() > 0">
+              <mat-form-field>
+              <input matInput id="{{ 'weaponSkills'+k }}" class="skill-input" type="number" [(ngModel)]="weapon.ranks"min="0" max="{{ weapon.ranks + skillPoints > 0 ? weapon.ranks + skillPoints : 0 }}" (change)="track(k, 'weaponSkills')" (blur)="validate(k, 'weaponSkills')" [class.non-zero]="weapon.ranks > 0">
+            </mat-form-field>
             </td>
             <td>
-              {{ weapon.getRacial() }}
+              {{ weapon.racial }}
             </td>
             <td class="total">
-              {{ (weapon.getTrained() ? 3 : 0) + weapon.getRanks() + weapon.getRacial() }}
+              {{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <h2>{{ newCharacter.getName() }} Magic Skills</h2>
+    <h2>{{ newCharacter.name }} Magic Skills</h2>
     <div class="table">
       <table>
         <thead>
@@ -627,17 +642,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let magic of newCharacter.getMagicSkills(); index as m" [class.din]="magic.getModifier() === 'Intelligence'" [class.farore]="magic.getModifier() === 'Charisma'" [class.nayru]="magic.getModifier() === 'Wisdom'">
-            <td class="name">{{ magic.getSkillName() }}</td>
+          <tr *ngFor="let magic of newCharacter.magicSkills; index as m" [class.din]="magic.modifier === 'Intelligence'" [class.farore]="magic.modifier === 'Charisma'" [class.nayru]="magic.modifier === 'Wisdom'">
+            <td class="name">{{ magic.skillName }}</td>
             <td class="mod">
-              {{ magic.getModifier().substr(0,3) | uppercase }}
-              <span class="info">{{ getMod(magic.getModifier()) }}</span>
+              {{ magic.modifier.substr(0,3) | uppercase }}
+              <span class="info">{{ getMod(magic.modifier) }}</span>
             </td>
             <td>
-              <input id="{{ 'magicSkills'+m }}" class="skill-input" type="number" [ngModel]="magic.getRanks()" (ngModelChange)="magic.setRanks($event)" min="0" max="{{ magic.getRanks() + skillPoints > 0 ? magic.getRanks() + skillPoints : 0 }}" (change)="track(m, 'magicSkills')" (blur)="validate(m, 'magicSkills')" [class.non-zero]="magic.getRanks() > 0">
+              <mat-form-field>
+                <input matInput id="{{ 'magicSkills'+m }}" class="skill-input" type="number" [(ngModel)]="magic.ranks" min="0" max="{{ magic.ranks + skillPoints > 0 ? magic.ranks + skillPoints : 0 }}" (change)="track(m, 'magicSkills')" (blur)="validate(m, 'magicSkills')" [class.non-zero]="magic.ranks > 0">
+              </mat-form-field>
             </td>
             <td class="total">
-              {{ magic.getRanks() + getMod(magic.getModifier()) }}
+              {{ magic.ranks + getMod(magic.modifier) }}
             </td>
           </tr>
         </tbody>

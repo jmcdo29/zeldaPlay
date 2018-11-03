@@ -1,45 +1,40 @@
 export class Note {
-  private time: string;
-  private msg: string;
-  private important: boolean;
-  private id?: string;
+  constructor(
+    private _id: string,
+    private _msg: string,
+    private _time: string,
+    private _important: boolean
+  ) {}
 
-  constructor(id: string, msg: string, time: string, important: boolean) {
-    this.msg = msg;
-    this.time = time;
-    this.important = important;
-    this.id = id;
+  get msg(): string {
+    return this._msg;
   }
 
-  getMsg(): string {
-    return this.msg;
+  set msg(msg: string) {
+    this._msg = msg;
   }
 
-  setMsg(msg: string): void {
-    this.msg = msg;
+  get time(): string {
+    return this._time;
   }
 
-  getTime(): string {
-    return this.time;
+  set time(time: string) {
+    this._time = time;
   }
 
-  setTime(time: string): void {
-    this.time = time;
+  get important(): boolean {
+    return this._important;
   }
 
-  getImportant(): boolean {
-    return this.important;
+  set important(important: boolean) {
+    this._important = important;
   }
 
-  setImportant(important: boolean): void {
-    this.important = important;
+  get id(): string {
+    return this._id;
   }
 
-  getId(): string {
-    return this.id;
-  }
-
-  setId(id: string): void {
-    this.id = id;
+  set id(id: string) {
+    this._id = id;
   }
 }

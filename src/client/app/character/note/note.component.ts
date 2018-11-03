@@ -30,19 +30,17 @@ export class NoteComponent implements OnInit {
 
   ngOnInit() {
     if (
-      this.character.getNotes().length === 0 &&
-      this.character.getImportantNotes().length === 0
+      this.character.notes.length === 0 &&
+      this.character.importantNotes.length === 0
     ) {
-      this.noteService
-        .getNotes(this.character.getId())
-        .subscribe((allNotes) => {
-          allNotes.notes.forEach((regNote) => {
-            this.character.addNote(regNote);
-          });
-          allNotes.importantNotes.forEach((impNote) => {
-            this.character.addImportantNote(impNote);
-          });
+      this.noteService.getNotes(this.character.id).subscribe((allNotes) => {
+        allNotes.notes.forEach((regNote) => {
+          this.character.addNote(regNote);
         });
+        allNotes.importantNotes.forEach((impNote) => {
+          this.character.addImportantNote(impNote);
+        });
+      });
     }
   }
 
@@ -58,7 +56,7 @@ export class NoteComponent implements OnInit {
     );
     if (sessionStorage.getItem('currentUser')) {
       this.noteService
-        .newNote(this.character.getId(), this.note)
+        .newNote(this.character.id, this.note)
         .subscribe((retNote) => {
           this.note = retNote;
         });
