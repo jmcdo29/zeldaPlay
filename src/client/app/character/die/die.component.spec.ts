@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Character } from '#Models/character';
+import { MaterialModule } from '#Shared/material/material.module';
 import { MessageService } from '#Shared/messages/message.service';
 import { CharacterDetailComponent } from '../character-detail/character-detail.component';
 import { DieComponent } from './die.component';
@@ -11,6 +12,7 @@ describe('DieComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [MaterialModule],
       declarations: [DieComponent]
     }).compileComponents();
   }));
