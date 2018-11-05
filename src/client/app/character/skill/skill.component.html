@@ -1,4 +1,4 @@
-<button class="accordian" (click)="expandSkill()">
+<button mat-flat-button class="accordian" (click)="expandSkill()">
   <h2>{{ character.name | uppercase }} Skills</h2>
 </button>
 
@@ -28,7 +28,7 @@
       <tbody>
         <tr *ngFor="let skill of character.skills" [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'" [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'" [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
           <td>
-            <input type="checkbox" [checked]="skill.trained" disabled="true" />
+            <mat-checkbox [checked]="skill.trained" disabled="true"></mat-checkbox>
           </td>
           <td class="name" (click)="makeCheck(skill.skillName)">
             <div *ngIf="skill.skillName==='CraftOne' || skill.skillName==='CraftTwo' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
