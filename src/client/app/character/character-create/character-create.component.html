@@ -402,8 +402,8 @@
   <div class="details">
     <h2>{{ newCharacter.name }} Details</h2>
 
-    <button (click)="save()">Save Character</button>
-    <button (click)="cancel()">Cancel New Character</button>
+    <button mat-flat-button (click)="save()">Save Character</button>
+    <button mat-flat-button (click)="cancel()">Cancel New Character</button>
     <div class="race-input">
       <mat-form-field class="race">
         <mat-select [(ngModel)]="newCharacter.race"  (selectionChange)="raceChange()" placeholder="Choose your race">
@@ -418,7 +418,7 @@
         </mat-select>
       </mat-form-field>
       &nbsp;
-      <button (click)="aboutRace()">About Races</button>
+      <button mat-flat-button (click)="aboutRace()">About Races</button>
       <div *ngIf="newCharacter.race && !(newCharacter.race ==='Gerudo' || newCharacter.race === 'Twili' || newCharacter.race === 'Sheikah')">
         <mat-form-field class="race">
           <div *ngIf="newCharacter.race==='Hylian'">
@@ -516,7 +516,7 @@
     <h2>{{ newCharacter.name }} Skills</h2>
     <div class="abv-table">
       <h3 [class.error]="0 > skillPoints">Skill Points: {{ skillPoints }}</h3>
-      <button (click)="resetSkills()">Reset Skills</button>
+      <button mat-flat-button (click)="resetSkills()">Reset Skills</button>
     </div>
     <div class="table">
       <table>

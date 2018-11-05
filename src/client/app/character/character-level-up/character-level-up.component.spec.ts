@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { Character } from '#Models/character';
+import { MaterialModule } from '#Shared/material/material.module';
 import { CharacterLevelUpComponent } from './character-level-up.component';
 
 describe('CharacterLevelUpComponent', () => {
@@ -10,7 +11,7 @@ describe('CharacterLevelUpComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, MaterialModule],
       declarations: [CharacterLevelUpComponent]
     }).compileComponents();
   }));

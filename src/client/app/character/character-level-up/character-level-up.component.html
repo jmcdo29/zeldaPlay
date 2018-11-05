@@ -20,7 +20,9 @@
             <tr *ngFor="let attr of currChar.attributes; index as i" [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'" [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'" [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
               <td class="name">{{ attr.name }}</td>
               <td>
-                <input id="{{ 'attr'+i }}" type="number" placeholder="{{ attr.value }}" min="{{minimums[i]}}" max="{{ attr.value + attrPoints > minimums[i] ? attr.value + attrPoints : minimums[i] }}" [(ngModel)]="attr.value" (change)="trackAtt(i)" (blur)="validateAttr(i)" />
+                <mat-form-field>
+                  <input matInput id="{{ 'attr'+i }}" type="number" placeholder="{{ attr.value }}" min="{{minimums[i]}}" max="{{ attr.value + attrPoints > minimums[i] ? attr.value + attrPoints : minimums[i] }}" [(ngModel)]="attr.value" (change)="trackAtt(i)" (blur)="validateAttr(i)" />
+                </mat-form-field>
               </td>
               <td>{{ attr.modifier }}</td>
             </tr>
@@ -56,7 +58,7 @@
             <tbody>
               <tr *ngFor="let skill of currChar.skills; index as i" [class.din]="skill.modifier === 'Strength' || skill.modifier === 'Intelligence'" [class.farore]="skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'" [class.nayru]="skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'">
                 <td>
-                  <input type="checkbox" disabled [checked]="skill.trained" class="skill-input">
+                  <mat-checkbox disabled [checked]="skill.trained" class="skill-input"></mat-checkbox>
                 </td>
                 <td class="name">
                   <div *ngIf="skill.skillName==='Craft 1' || skill.skillName==='Craft 2' || skill.skillName==='Profession' || skill.skillName==='Perform'; then specialSkill; else normalSkill"></div>
@@ -79,7 +81,9 @@
                   </ng-template>
                 </td>
                 <td>
-                  <input id="{{ 'skills'+i }}" class="skill-input" type="number" [(ngModel)]="skill.ranks" min="{{ skillStarts[i] }}" max="{{ skill.ranks + skillPoints > skillStarts[i] ? skill.ranks + skillPoints : skillStarts[i] }}" (change)="track(i, 'skills')" (blur)="validate(i, 'skills')">
+                  <mat-form-field>
+                    <input matInput id="{{ 'skills'+i }}" class="skill-input" type="number" [(ngModel)]="skill.ranks" min="{{ skillStarts[i] }}" max="{{ skill.ranks + skillPoints > skillStarts[i] ? skill.ranks + skillPoints : skillStarts[i] }}" (change)="track(i, 'skills')" (blur)="validate(i, 'skills')">
+                  </mat-form-field>
                 </td>
                 <td>
                   {{ skill.racial }}
@@ -118,13 +122,15 @@
             <tbody>
               <tr *ngFor="let weapon of currChar.weaponSkills; index as j" class="weapon">
                 <td>
-                  <input class="skill-input" type="checkbox" disabled [checked]="weapon.trained">
+                  <mat-checkbox class="skill-input" disabled [checked]="weapon.trained"></mat-checkbox>
                 </td>
                 <td class="name">
                   {{ weapon.skillName }}
                 </td>
                 <td>
-                  <input id="{{ 'weaponSkills'+j }}" class="skill-input" type="number" min="{{ weaponStarts[j] }}" max="{{ weapon.ranks + skillPoints > weaponStarts[j] ? weapon.ranks + skillPoints : weaponStarts[j] }}" [(ngModel)]="weapon.ranks" (change)="track(j, 'weaponSkills')" (blur)="validate(j, 'weaponSkills')">
+                  <mat-form-field>
+                    <input matInput id="{{ 'weaponSkills'+j }}" class="skill-input" type="number" min="{{ weaponStarts[j] }}" max="{{ weapon.ranks + skillPoints > weaponStarts[j] ? weapon.ranks + skillPoints : weaponStarts[j] }}" [(ngModel)]="weapon.ranks" (change)="track(j, 'weaponSkills')" (blur)="validate(j, 'weaponSkills')">
+                  </mat-form-field>
                 </td>
                 <td>
                   {{ weapon.racial }}
@@ -159,7 +165,9 @@
                   <span class="info">{{ getMod(magic.modifier) }}</span>
                 </td>
                 <td>
-                  <input id="{{ 'magicSkills'+k }}" class="skill-input" type="number" [(ngModel)]="magic.ranks" min="{{ magicStarts[k] }}" max="{{ magic.ranks + skillPoints > magicStarts[k] ? magic.ranks + skillPoints : magicStarts[k] }}" (change)="track(k, 'magicSkills')" (blur)="validate(k, 'magicSkills')">
+                  <mat-form-field>
+                    <input matInput id="{{ 'magicSkills'+k }}" class="skill-input" type="number" [(ngModel)]="magic.ranks" min="{{ magicStarts[k] }}" max="{{ magic.ranks + skillPoints > magicStarts[k] ? magic.ranks + skillPoints : magicStarts[k] }}" (change)="track(k, 'magicSkills')" (blur)="validate(k, 'magicSkills')">
+                  </mat-form-field>
                 </td>
                 <td class="total">
                   {{ magic.ranks + getMod(magic.modifier) }}
@@ -170,6 +178,4 @@
         </div>
       </div>
     </div>
-  </div>
-  <div>
   </div>
