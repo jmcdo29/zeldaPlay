@@ -2,9 +2,9 @@
 
   <div class="newNoteComps">
     <mat-form-field>
-    <input matInput class="noteInput" type="text" [(ngModel)]="newMsg" placeholder="New Note"> Important:
+    <input matInput class="noteInput" type="text" [(ngModel)]="newMsg" placeholder="New Note">
   </mat-form-field>
-    <mat-checkbox [(ngModel)]="important"></mat-checkbox>
+    Important: <mat-checkbox [(ngModel)]="important"></mat-checkbox>
     <button mat-flat-button class="noteButton" (click)="addNote()">Make Note</button>
   </div>
 

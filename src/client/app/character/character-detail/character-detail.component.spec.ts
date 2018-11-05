@@ -77,7 +77,7 @@ describe('CharacterDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule],
+      imports: [FormsModule, MaterialModule],
       declarations: [
         CharacterDetailComponent,
         InventoryStubComponent,
@@ -87,8 +87,7 @@ describe('CharacterDetailComponent', () => {
         WeaponsStubComponent,
         DieStubComponent,
         SaveStubComponent,
-        CharacterLevelUpStubComponent,
-        MaterialModule
+        CharacterLevelUpStubComponent
       ],
       providers: [{ provide: MessageService, useValue: messageServiceStub }]
     }).compileComponents();

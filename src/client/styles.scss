@@ -45,6 +45,13 @@ input[text],
 button {
   color: #888;
   font-family: Cambria, Georgia;
+  &.mat-flat-button {
+    margin-bottom: 0.25em;
+    margin-right: 0.1em;
+    margin-left: 0.1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
 }
 .details {
   width: 33%;

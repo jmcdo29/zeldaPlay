@@ -449,7 +449,7 @@
             </mat-select>
           </div>
           <div *ngIf="newCharacter.race==='Rito'">
-            <mat-select [ngModel]="newCharacter.subRace" (change)="raceChange()" placeholder="Choose your subrace">
+            <mat-select [(ngModel)]="newCharacter.subRace" (selectionChange)="raceChange()" placeholder="Choose your subrace">
               <mat-option value="Sharp Eye">Sharp Eye</mat-option>
               <mat-option value="Sharp Tongue">Sharp Tongue</mat-option>
             </mat-select>

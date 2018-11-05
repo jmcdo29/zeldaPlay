@@ -14,11 +14,12 @@
         </div>
         <mat-form-field>
           <mat-select [(ngModel)]="type" placeholder="What is happening?">
-            <mat-option value="-1">Take Damage</mat-option>
-            <mat-option value="1">Regain Health</mat-option>
+            <mat-option value="-1">Taking Damage</mat-option>
+            <mat-option value="1">Regaining Health</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
+            <mat-label>How much?</mat-label>
           <input matInput type="number" [(ngModel)]="hpDmg" placeholder="{{ hpDmg }}" min="0" max="{{ character.maxHealth + 10 }}">
         </mat-form-field>
         <br/>
@@ -45,11 +46,12 @@
         </div>
         <mat-form-field>
           <mat-select [(ngModel)]="type" placeholder="What is happening?">
-            <mat-option value="1">Restore Magic</mat-option>
-            <mat-option value="-1">Cast Magic</mat-option>
+            <mat-option value="1">Restoring Magic</mat-option>
+            <mat-option value="-1">Casting Magic</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>How much?</mat-label>
           <input matInput type="number" min="0" [(ngModel)]="mpDmg" placeholder="{{ mpDmg }}" max="{{ character.maxMagic }}">
         </mat-form-field>
         <br/>

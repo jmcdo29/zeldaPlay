@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { Character } from '#Models/character';
-import { Skill } from '#Models/skill';
 import { MessageService } from '#Shared/messages/message.service';
 import { SharedModule } from '#Shared/shared.module';
 import { SkillComponent } from './skill.component';

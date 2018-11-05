@@ -1,4 +1,4 @@
-<button [routerLink]="['/login']">{{ loggedIn ? 'Logout' : 'Log In'}}</button>
+<button mat-flat-button style="padding-right: 0.5em; padding-left: 0.5em; margin-right: 0.1em;"[routerLink]="['/login']">{{ loggedIn ? 'Logout' : 'Log In'}}</button>
 <div [class.loading]=loading>
   <div class="column-holder">
     <div class="character-column">
@@ -12,16 +12,16 @@
         </ul>
 
         <div *ngIf="selectedCharacter">
-          <button (click)="hide()">Hide Character Sheet</button>
+          <button mat-flat-button style="margin-bottom: 0.25em;" (click)="hide()">Hide Character Sheet</button>
           <br/>
           <div *ngIf="loggedIn">
-            <button (click)="save()">Save Character</button>
+            <button mat-flat-button style="margin-bottom: 0.25em;" (click)="save()">Save Character</button>
             <br/>
           </div>
-          <button (click)="download()">Download Character Data</button>
+          <button mat-flat-button style="margin-bottom: 0.25em;" (click)="download()">Download Character Data</button>
           <br/>
         </div>
-        <button (click)="newCharacter()">Create Character</button>
+        <button mat-flat-button style="margin-bottom: 0.25em;" (click)="newCharacter()">Create Character</button>
       </div>
       <div class="messages">
         <app-messages></app-messages>
