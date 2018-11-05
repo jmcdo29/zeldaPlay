@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { Character } from '#Models/character';
+import { MaterialModule } from '#Shared/material/material.module';
 import { MessageService } from '#Shared/messages/message.service';
 import { CharacterDetailComponent } from './character-detail.component';
 
@@ -86,7 +87,8 @@ describe('CharacterDetailComponent', () => {
         WeaponsStubComponent,
         DieStubComponent,
         SaveStubComponent,
-        CharacterLevelUpStubComponent
+        CharacterLevelUpStubComponent,
+        MaterialModule
       ],
       providers: [{ provide: MessageService, useValue: messageServiceStub }]
     }).compileComponents();
