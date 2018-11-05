@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
 import { Character } from '#Models/character';
+import { MaterialModule } from '#Shared/material/material.module';
 import { MessageService } from '#Shared/messages/message.service';
 import { NoteComponent } from './note.component';
 import { NoteService } from './note.service';
@@ -19,7 +20,7 @@ describe('NoteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, HttpClientModule],
+      imports: [FormsModule, HttpClientModule, MaterialModule],
       declarations: [NoteComponent],
       providers: [
         { provide: MessageService, useValue: messageServiceStub },

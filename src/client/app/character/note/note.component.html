@@ -1,12 +1,14 @@
 <div class="notes">
 
   <div class="newNoteComps">
-    <input class="noteInput" type="text" [(ngModel)]="newMsg" placeholder="New Note"> Important:
-    <input type="checkbox" [(ngModel)]="important">
-    <button class="noteButton" (click)="addNote()">Make Note</button>
+    <mat-form-field>
+    <input matInput class="noteInput" type="text" [(ngModel)]="newMsg" placeholder="New Note"> Important:
+  </mat-form-field>
+    <mat-checkbox [(ngModel)]="important"></mat-checkbox>
+    <button mat-flat-button class="noteButton" (click)="addNote()">Make Note</button>
   </div>
 
-  <button class="accordian" (click)="expandNotes(0)">
+  <button mat-flat-button class="accordian" (click)="expandNotes(0)">
     <h2>Important Notes</h2>
   </button>
   <div class="panel" [class.active]="showNotes[0]">
@@ -17,7 +19,7 @@
     </ul>
   </div>
 
-  <button class="accordian" (click)="expandNotes(1)">
+  <button mat-flat-button class="accordian" (click)="expandNotes(1)">
     <h2>Other Notes</h2>
   </button>
 
