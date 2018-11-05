@@ -14,6 +14,7 @@ body {
     background-color: rgb(252, 252, 174);
   }
 }
+
 h1,
 h2,
 h3,
@@ -22,11 +23,13 @@ h5,
 h6 {
   font-family: HyliaSerif;
 }
+
 h1 {
   color: rgb(19, 85, 41);
   font-size: 175%;
   text-align: center;
 }
+
 h2,
 h3 {
   color: #444;
@@ -36,6 +39,7 @@ h3 {
   margin-top: 2px;
   margin-bottom: 2px;
 }
+
 body {
   margin: 2em;
   color: #888;
@@ -53,10 +57,12 @@ button {
     padding-right: 0.5em;
   }
 }
+
 .details {
   width: 33%;
   float: left;
 }
+
 .skills {
   width: 67%;
   float: left;
@@ -71,6 +77,7 @@ button {
   color: rgba(0, 0, 0, 0.666);
   float: right;
 }
+
 table {
   width: 100%;
   background-color: inherit;
@@ -89,6 +96,7 @@ tr.weapon {
     color: black;
   }
 }
+
 td {
   margin: 5px;
   padding: 5px;
@@ -103,17 +111,21 @@ th {
   margin: 5px;
   width: 3.5em;
 }
+
 .column-holder::after {
   content: '';
   display: table;
   clear: both;
 }
+
 input {
   width: 50px;
 }
+
 td.total {
   font-weight: bold;
 }
+
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -127,6 +139,7 @@ td.total {
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
+
 .showModal {
   display: block;
 }
@@ -165,6 +178,7 @@ td.total {
   padding-right: 0%;
   padding-left: 0%;
 }
+
 .tab {
   color: #444;
   border: none;
@@ -198,14 +212,17 @@ td.total {
   background-color: rgba(233, 150, 150, 0.74);
   color: black;
 }
+
 .farore {
   background-color: rgba(150, 233, 150, 0.74);
   color: black;
 }
+
 .nayru {
   background-color: rgba(150, 150, 233, 0.74);
   color: black;
 }
+
 .accordian {
   background: #eee;
   color: #444444;
@@ -226,12 +243,15 @@ td.total {
   background-color: inherit;
   display: none;
 }
+
 .active {
   display: block;
 }
+
 .user {
   width: 8em;
 }
+
 .form {
   width: 40%;
 }
@@ -262,6 +282,7 @@ td.total {
     top: -300px;
     opacity: 0;
   }
+
   to {
     top: 0;
     opacity: 1;
