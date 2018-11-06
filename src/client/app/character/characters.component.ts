@@ -18,15 +18,13 @@ export class CharactersComponent implements OnInit {
   loading = false;
 
   onSelect(character: Character): void {
-    if (character.getId()) {
+    if (character.id) {
       this.selectedCharacter = null;
       this.loading = true;
-      this.characterService
-        .getCharacter(character.getId())
-        .subscribe((data) => {
-          this.selectedCharacter = data;
-          this.loading = false;
-        });
+      this.characterService.getCharacter(character.id).subscribe((data) => {
+        this.selectedCharacter = data;
+        this.loading = false;
+      });
       this.newChar = false;
     }
   }

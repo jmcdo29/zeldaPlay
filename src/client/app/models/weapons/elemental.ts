@@ -1,50 +1,40 @@
 export class Elemental {
-  private type: string;
-  private attack: number;
-  private numberOfAttacks: number;
-  private id?: string;
-
   constructor(
-    id: string,
-    type: string,
-    attack: number,
-    numberOfAttacks: number
-  ) {
-    this.type = type;
-    this.attack = attack;
-    this.numberOfAttacks = numberOfAttacks;
-    this.id = id;
+    private _id: string,
+    private _type: string,
+    private _attack: number,
+    private _numberOfAttacks: number
+  ) {}
+
+  get type(): string {
+    return this._type;
   }
 
-  getType(): string {
-    return this.type;
+  set type(type: string) {
+    this._type = type;
   }
 
-  setType(type: string): void {
-    this.type = type;
+  get attack(): number {
+    return this._attack;
   }
 
-  getAttack(): number {
-    return this.attack;
+  set attack(attack: number) {
+    this._attack = attack;
   }
 
-  setAttack(attack: number): void {
-    this.attack = attack;
+  get numberOfAttacks(): number {
+    return this._numberOfAttacks;
   }
 
-  getNOfA(): number {
-    return this.numberOfAttacks;
+  set numberOfAttacks(nOfA: number) {
+    this._numberOfAttacks = nOfA;
   }
 
-  setNOfA(nOfA: number): void {
-    this.numberOfAttacks = nOfA;
+  get id(): string {
+    return this._id;
   }
 
-  getId(): string {
-    return this.id;
-  }
-
-  setId(id: string): void {
-    this.id = id;
+  set id(id: string) {
+    this._id = id;
   }
 }

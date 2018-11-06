@@ -76,8 +76,8 @@ export class CharacterCreateComponent implements OnInit {
     this.newCharacter = new Character();
     this.originalPoints = this.skillPoints =
       ((Math.round(Math.random() * 100) % 4) + 1) * 5;
-    for (const attr of this.newCharacter.getAttributes()) {
-      this.attrMins.push(attr.getValue());
+    for (const attr of this.newCharacter.attributes) {
+      this.attrMins.push(attr.value);
     }
     /* for (let i = 0; i < this.newCharacter.attributes.length; i++) {
       this.attrMins.push(this.newCharacter.attributes[i].value);
@@ -97,22 +97,20 @@ export class CharacterCreateComponent implements OnInit {
 
   save(): void {
     let nullSubRace = false;
-    if (!this.nullSubRaceClasses.includes(this.newCharacter.getRace())) {
-      nullSubRace = this.newCharacter.getSubRace() ? false : true;
+    if (!this.nullSubRaceClasses.includes(this.newCharacter.race)) {
+      nullSubRace = this.newCharacter.subRace ? false : true;
     }
     if (
-      this.newCharacter.getName() &&
+      this.newCharacter.name &&
       (this.skillPoints === 0 && this.attPoints === 0) &&
       !nullSubRace
     ) {
-      this.newCharacter.setMaxHealth(
-        48 + this.newCharacter.getAttributes()[2].getModifier()
-      );
-      this.newCharacter.setHealth(this.newCharacter.getMaxHealth());
-      this.newCharacter.setMaxMagic(
-        20 + this.newCharacter.getAttributes()[4].getModifier()
-      );
-      this.newCharacter.setMagic(this.newCharacter.getMaxMagic());
+      this.newCharacter.maxHealth =
+        48 + this.newCharacter.attributes[2].modifier;
+      this.newCharacter.health = this.newCharacter.maxHealth;
+      this.newCharacter.maxMagic =
+        20 + this.newCharacter.attributes[4].modifier;
+      this.newCharacter.magic = this.newCharacter.maxMagic;
       this.CharacterParent.newChar = false;
       this.CharacterParent.characters.push(this.newCharacter);
       this.CharacterParent.selectedCharacter = this.newCharacter;
@@ -145,18 +143,18 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   raceChange(): void {
-    const raceTemp = this.newCharacter.getRace();
-    switch (this.newCharacter.getRace()) {
+    const raceTemp = this.newCharacter.race;
+    switch (this.newCharacter.race) {
       case 'Hylian': {
-        this.newCharacter = new Hylian(this.newCharacter.getSubRace());
+        this.newCharacter = new Hylian(this.newCharacter.subRace);
         break;
       }
       case 'Goron': {
-        this.newCharacter = new Goron(this.newCharacter.getSubRace());
+        this.newCharacter = new Goron(this.newCharacter.subRace);
         break;
       }
       case 'Zora': {
-        this.newCharacter = new Zora(this.newCharacter.getSubRace());
+        this.newCharacter = new Zora(this.newCharacter.subRace);
         break;
       }
       case 'Gerudo': {
@@ -168,7 +166,7 @@ export class CharacterCreateComponent implements OnInit {
         break;
       }
       case 'Rito': {
-        this.newCharacter = new Rito(this.newCharacter.getSubRace());
+        this.newCharacter = new Rito(this.newCharacter.subRace);
         break;
       }
       case 'Twili': {
@@ -176,21 +174,21 @@ export class CharacterCreateComponent implements OnInit {
         break;
       }
       case 'Fairy': {
-        this.newCharacter = new Fairy(this.newCharacter.getSubRace());
+        this.newCharacter = new Fairy(this.newCharacter.subRace);
         break;
       }
     }
     this.resetPriors();
     this.attPoints = 48;
     this.skillPoints = this.originalPoints;
-    this.newCharacter.setRace(raceTemp);
-    this.newCharacter.setLevel(1);
-    this.newCharacter.setExp(0);
+    this.newCharacter.race = raceTemp;
+    this.newCharacter.level = 1;
+    this.newCharacter.exp = 0;
   }
 
   resetPriors(): void {
-    for (let i = 0; i < this.newCharacter.getAttributes().length; i++) {
-      this.attrMins[i] = this.newCharacter.getAttributes()[i].getValue();
+    for (let i = 0; i < this.newCharacter.attributes.length; i++) {
+      this.attrMins[i] = this.newCharacter.attributes[i].value;
     }
     for (let j = 0; j < this.attrPrior.length; j++) {
       this.attrPrior[j] = null;
@@ -207,7 +205,7 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   getMod(modName: string): number {
-    return this.newCharacter.getAttributes()[Attributes[modName]].getModifier();
+    return this.newCharacter.attributes[Attributes[modName]].modifier;
   }
 
   closeError(): void {
@@ -215,8 +213,8 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   trackAtt(attrIndex: number): void {
-    const val = this.newCharacter.getAttributes()[attrIndex].getValue();
-    this.newCharacter.getAttributes()[attrIndex].setValue(val);
+    const val = this.newCharacter.attributes[attrIndex].value;
+    this.newCharacter.attributes[attrIndex].value = val;
     this.attPoints -=
       val -
       (this.attrPrior[attrIndex]
@@ -236,23 +234,18 @@ export class CharacterCreateComponent implements OnInit {
   validateAttr(attrIndex: number): void {
     const input = document.getElementById('attr' + attrIndex);
     if (
-      this.newCharacter.getAttributes()[attrIndex].getValue() <
-      this.attrMins[attrIndex]
+      this.newCharacter.attributes[attrIndex].value < this.attrMins[attrIndex]
     ) {
       input.classList.add('bad-input');
       this.attPoints +=
-        this.newCharacter.getAttributes()[attrIndex].getValue() -
+        this.newCharacter.attributes[attrIndex].value -
         this.attrMins[attrIndex];
       this.attrPrior[attrIndex] = this.attrMins[attrIndex];
-      this.newCharacter
-        .getAttributes()
-        [attrIndex].setValue(this.attrMins[attrIndex]);
+      this.newCharacter.attributes[attrIndex].value = this.attrMins[attrIndex];
     } else if (this.attPoints < 0) {
       input.classList.add('bad-input');
-      this.newCharacter.getAttributes()[attrIndex].changeValue(this.attPoints);
-      this.attrPrior[attrIndex] = this.newCharacter
-        .getAttributes()
-        [attrIndex].getValue();
+      this.newCharacter.attributes[attrIndex].changeValue(this.attPoints);
+      this.attrPrior[attrIndex] = this.newCharacter.attributes[attrIndex].value;
       this.attPoints -= this.attPoints;
     } else if (input.classList.contains('bad-input')) {
       input.classList.remove('bad-input');
@@ -277,38 +270,27 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   resetSkills(): void {
-    for (const skill of this.newCharacter.getSkills()) {
-      skill.setRanks(0);
+    for (const skill of this.newCharacter.skills) {
+      skill.ranks = 0;
     }
-    for (const wep of this.newCharacter.getWeaponSkills()) {
-      wep.setRanks(0);
+    for (const wep of this.newCharacter.weaponSkills) {
+      wep.ranks = 0;
     }
-    for (const mag of this.newCharacter.getMagicSkills()) {
-      mag.setRanks(0);
+    for (const mag of this.newCharacter.magicSkills) {
+      mag.ranks = 0;
     }
     this.resetPriors();
     this.skillPoints = this.originalPoints;
   }
 
   createMessage(): void {
-    const name = this.newCharacter.getName();
-    const race = this.newCharacter.getRace();
-    const subRace = this.newCharacter.getSubRace()
-      ? this.newCharacter.getSubRace() + ' '
+    const name = this.newCharacter.name;
+    const race = this.newCharacter.race;
+    const subRace = this.newCharacter.subRace
+      ? this.newCharacter.subRace + ' '
       : '';
     const message = name + ' the ' + subRace + race + ' was created.';
 
     this.message.add(message);
   }
-}
-
-function findObjectPartial(array, key, value): number {
-  let index = -1;
-  for (let i = 0; i < array.length; i++) {
-    if (array[i][key] === value) {
-      index = i;
-      break;
-    }
-  }
-  return index;
 }

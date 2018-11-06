@@ -23,13 +23,12 @@ export class DieComponent implements OnInit {
   ngOnInit() {}
 
   createMessage(roll: number, modVal: number, sides: number): void {
-    const name = this.character.character.getName();
+    const name = this.character.character.name;
     const rolled = ' rolled a ';
     const mod = ' with a ';
     const mod_name = modVal
-      ? this.character.character
-          .getAttributes()
-          [Attributes[this.mod]].getName() + ' modifier of '
+      ? this.character.character.attributes[Attributes[this.mod]].name +
+        ' modifier of '
       : '';
     const there_is_mod = modVal ? mod + mod_name + modVal : '';
     const total = 'TOTAL: ' + (roll + (modVal ? modVal : 0)) + '.';
@@ -61,9 +60,8 @@ export class DieComponent implements OnInit {
       this.character.maxDmg = true;
     }
     if (this.mod !== 'null' && this.mod) {
-      modVal = this.character.character
-        .getAttributes()
-        [Attributes[this.mod]].getModifier();
+      modVal = this.character.character.attributes[Attributes[this.mod]]
+        .modifier;
       rollVal = roll + modVal;
     } else {
       rollVal = roll;

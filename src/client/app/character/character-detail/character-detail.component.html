@@ -10,18 +10,24 @@
       <div class="modal-body">
         <div class="body-head">
           Current HP:
-          <span style="float:right; padding-right:5em; ">{{ character.getHealth() }}</span>
+          <span style="float:right; padding-right:5em; ">{{ character.health }}</span>
         </div>
-        <select [(ngModel)]="type">
-          <option value="-1">Take Damage</option>
-          <option value="1">Regain Health</option>
-        </select>
-        <input type="number" [(ngModel)]="hpDmg" placeholder="{{ hpDmg }}" min="0" max="{{ character.getMaxHealth() + 10 }}">
-        <button class="square" (click)="modTheHMod(1)">+1</button>
-        <button class="square" (click)="modTheHMod(5)">+5</button>
-        <button class="square" (click)="modTheHMod(10)">+10</button>
+        <mat-form-field>
+          <mat-select [(ngModel)]="type" placeholder="What is happening?">
+            <mat-option value="-1">Taking Damage</mat-option>
+            <mat-option value="1">Regaining Health</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>How much?</mat-label>
+          <input matInput type="number" [(ngModel)]="hpDmg" placeholder="{{ hpDmg }}" min="0" max="{{ character.maxHealth + 10 }}">
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button class="square" (click)="modTheHMod(1)">+1</button>
+        <button mat-raised-button class="square" (click)="modTheHMod(5)">+5</button>
+        <button mat-raised-button class="square" (click)="modTheHMod(10)">+10</button>
         <div class="right">
-          <button (click)="finalizeHealthMod()">Done</button>
+          <button mat-raised-button (click)="finalizeHealthMod()">Done</button>
         </div>
       </div>
     </div>
@@ -36,18 +42,24 @@
       <div class="modal-body">
         <div class="body-head">
           Current MP:
-          <span style="float:right; padding-right:5em; ">{{ character.getMagic() }}</span>
+          <span style="float:right; padding-right:5em; ">{{ character.magic }}</span>
         </div>
-        <select [(ngModel)]="type">
-          <option value="1">Restore Magic</option>
-          <option value="-1">Cast Magic</option>
-        </select>
-        <input type="number" min="0" [(ngModel)]="mpDmg" placeholder="{{ mpDmg }}" max="{{ character.getMaxMagic() }}">
-        <button class="square" (click)="modTheMMod(1)">+1</button>
-        <button class="square" (click)="modTheMMod(5)">+5</button>
-        <button class="square" (click)="modTheMMod(10)">+10</button>
+        <mat-form-field>
+          <mat-select [(ngModel)]="type" placeholder="What is happening?">
+            <mat-option value="1">Restoring Magic</mat-option>
+            <mat-option value="-1">Casting Magic</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>How much?</mat-label>
+          <input matInput type="number" min="0" [(ngModel)]="mpDmg" placeholder="{{ mpDmg }}" max="{{ character.maxMagic }}">
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button class="square" (click)="modTheMMod(1)">+1</button>
+        <button mat-raised-button class="square" (click)="modTheMMod(5)">+5</button>
+        <button mat-raised-button class="square" (click)="modTheMMod(10)">+10</button>
         <div class="right">
-          <button (click)="finalizeMagicMod()">Done</button>
+          <button mat-raised-button (click)="finalizeMagicMod()">Done</button>
         </div>
       </div>
     </div>
@@ -62,14 +74,16 @@
       <div class="modal-body">
         <div class="body-head">
           Current Exp:
-          <span style="float:right; padding-right:5em; ">{{ character.getExp() }}</span>
+          <span style="float:right; padding-right:5em; ">{{ character.exp }}</span>
         </div>
         <div *ngIf="negExp">
           <strong class="critmiss">You cannot gain negative experience.</strong>
         </div>
-        <input type="number" min="0" [(ngModel)]="expMod" placeholder="{{ expMod }}" min=0>
+        <mat-form-field>
+          <input matInput type="number" min="0" [(ngModel)]="expMod" placeholder="{{ expMod }}" min=0>
+        </mat-form-field>
         <div class="right">
-          <button (click)="finalizeExpMod()">Done</button>
+          <button mat-raised-button (click)="finalizeExpMod()">Done</button>
         </div>
       </div>
     </div>
@@ -91,18 +105,18 @@
     <!--The table to show the characters attributes and the ability to roll dice with modifiers-->
     <div class="details">
 
-      <button style="margin-bottom: 1em;" (click)="setEdit()">Level Up</button>
-      <br/>
-      <button style="margin-bottom: 1em;" (click)="gotHeartContainer()">Get Heart Container</button>
-      <button style="margin-bottom: 1em;" (click)="gotMagicContainer()">Get Magic Container</button>
+      <button mat-flat-button style="margin-bottom: 1em;" (click)="setEdit()">Level Up</button>
+      <br />
+      <button mat-flat-button style="margin-bottom: 1em; padding-right: 0.5em; padding-left: 0.5em; margin-right: 0.1em;" (click)="gotHeartContainer()">Get Heart Container</button>
+      <button mat-flat-button style="margin-bottom: 1em; padding-right: 0.5em; padding-left: 0.5em; margin-left: 0.1em;" (click)="gotMagicContainer()">Get Magic Container</button>
 
       <!-- <div class="ct">
         <h3>Charts will go here!</h3>
         <app-character-charts [character]="character"></app-character-charts>
       </div> -->
 
-      <button class="accordian" (click)="expandDets()">
-        <h2>{{ character.getName() | uppercase }} Details</h2>
+      <button mat-flat-button class="accordian" (click)="expandDets()">
+        <h2>{{ character.name | uppercase }} Details</h2>
       </button>
       <div class="panel" [class.active]="showDets">
         <div class="attributes">
@@ -115,51 +129,51 @@
                   <th>Modifier</th>
                 </tr>
               </thead>
-              <br/>
+              <br />
               <tbody>
                 <tr>
                   <td class="name">Name</td>
-                  <td>{{ character.getName() }}</td>
+                  <td>{{ character.name }}</td>
                 </tr>
                 <tr>
                   <td class="name">Race</td>
-                  <td>{{ character.getRace() }}</td>
+                  <td>{{ character.race }}</td>
                 </tr>
                 <tr [hidden]="!character.subRace">
                   <td class="name">Sub Race</td>
-                  <td>{{ character.getSubRace() }}</td>
+                  <td>{{ character.subRace }}</td>
                 </tr>
                 <tr>
                   <td class="name">Level</td>
-                  <td>{{ character.getLevel() }}</td>
+                  <td>{{ character.level }}</td>
                 </tr>
-                <br/>
-                <tr *ngFor="let attr of character.getAttributes()" [class.din]="attr.getName() === 'Strength' || attr.getName() === 'Intelligence'" [class.farore]="attr.getName() === 'Dexterity' || attr.getName() === 'Charisma'" [class.nayru]="attr.getName() === 'Wisdom' || attr.getName() === 'Constitution'">
-                  <td class="name">{{ attr.getName() }}</td>
-                  <td>{{ attr.getValue() }}</td>
-                  <td>{{ attr.getModifier() }}</td>
+                <br />
+                <tr *ngFor="let attr of character.attributes" [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'" [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'" [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
+                  <td class="name">{{ attr.name }}</td>
+                  <td>{{ attr.value }}</td>
+                  <td>{{ attr.modifier }}</td>
                 </tr>
-                <br/>
+                <br />
                 <tr></tr>
                 <tr class="din">
                   <td class="name">Health</td>
-                  <td>{{ character.getHealth() }} / {{ character.getMaxHealth() }}</td>
+                  <td>{{ character.health }} / {{ character.maxHealth }}</td>
                   <td>
-                    <button (click)="modHealth()">Modify HP</button>
+                    <button mat-flat-button (click)="modHealth()">Modify HP</button>
                   </td>
                 </tr>
                 <tr class="nayru">
                   <td class="name">Magic</td>
-                  <td>{{ character.getMagic() }} / {{ character.getMaxMagic() }}</td>
+                  <td>{{ character.magic }} / {{ character.maxMagic }}</td>
                   <td>
-                    <button (click)="modMagic()">Modify MP</button>
+                    <button mat-flat-button (click)="modMagic()">Modify MP</button>
                   </td>
                 </tr>
                 <tr class="farore">
                   <td class="name">Experience</td>
-                  <td>{{ character.getExp() }}</td>
+                  <td>{{ character.exp }}</td>
                   <td>
-                    <button (click)="modExp()">Gain Exp</button>
+                    <button mat-flat-button (click)="modExp()">Gain Exp</button>
                   </td>
                 </tr>
               </tbody>
@@ -167,10 +181,10 @@
           </div>
         </div>
       </div>
-      <br/>
+      <br />
 
       <div>
-        <button class="accordian" (click)="expandSaves()">
+        <button mat-flat-button class="accordian" (click)="expandSaves()">
           <h2>Saving Throws</h2>
         </button>
         <div class="panel" [class.active]="showSaves">
@@ -186,10 +200,12 @@
       </h3>
 
       <h4> Add a modifier to your roll.</h4>
-      <select [(ngModel)]="rollMod">
-        <option value="null" selected="selected">None</option>
-        <option *ngFor="let attr of character.getAttributes()" [value]="attr.getName()">{{ attr.getName() }}</option>
-      </select>
+      <mat-form-field>
+      <mat-select [(ngModel)]="rollMod" placeholder="What kind of roll?">
+        <mat-option value="null" selected="selected">Standard</mat-option>
+        <mat-option *ngFor="let attr of character.attributes" [value]="attr.name">{{ attr.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
       <br>
       <br>
       <app-die [sides]="4" [character]="this" [mod]="rollMod"></app-die>
@@ -204,24 +220,24 @@
     <!--The table to show the character's skills (weapon, magic and normal)-->
     <div class="skills scrollable">
       <div class="menuBar" [class.active]="showSet[0]" (click)="changeSection(0)">
-        <h4 class="menu">{{ character.getName() }}
-          <br/>Skills</h4>
+        <h4 class="menu">{{ character.name }}
+          <br />Skills</h4>
       </div>
       <div class="menuBar" [class.active]="showSet[1]" (click)="changeSection(1)">
-        <h4 class="menu">{{ character.getName() }}
-          <br/>Weapons</h4>
+        <h4 class="menu">{{ character.name }}
+          <br />Weapons</h4>
       </div>
       <div class="menuBar" [class.active]="showSet[2]" (click)="changeSection(2)">
-        <h4 class="menu">{{ character.getName() }}
-          <br/>Spells</h4>
+        <h4 class="menu">{{ character.name }}
+          <br />Spells</h4>
       </div>
       <div class="menuBar" [class.active]="showSet[3]" (click)="changeSection(3)">
-        <h4 class="menu">{{ character.getName() }}
-          <br/>Inventory</h4>
+        <h4 class="menu">{{ character.name }}
+          <br />Inventory</h4>
       </div>
       <div class="menuBar" [class.active]="showSet[4]" (click)="changeSection(4)">
-        <h4 class="menu">{{ character.getName() }}
-          <br/>Notes</h4>
+        <h4 class="menu">{{ character.name }}
+          <br />Notes</h4>
       </div>
       <div *ngIf="showSet[0]">
         <app-skill [character]="character"></app-skill>

@@ -1,6 +1,6 @@
 <div *ngIf="messageService.messages.length">
 
-  <button class="accordian" (click)="showMessages()">
+  <button mat-flat-button class="accordian" (click)="showMessages()">
     <h2>Message Log</h2>
   </button>
   <div class="messages panel" [class.active]="show">

@@ -30,15 +30,9 @@ export class SaveComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   makeSave(saveString: string): void {
-    const modifier = this.character
-      .getSavingThrows()
-      [Saves[saveString]].getModifier();
-    const saveValAdd = this.character
-      .getAttributes()
-      [Attributes[modifier]].getModifier();
-    const saveRacAdd = this.character
-      .getSavingThrows()
-      [Saves[saveString]].getRacial();
+    const modifier = this.character.savingThrows[Saves[saveString]].modifier;
+    const saveValAdd = this.character.attributes[Attributes[modifier]].modifier;
+    const saveRacAdd = this.character.savingThrows[Saves[saveString]].racial;
     let roll = (Math.round(Math.random() * 100) % 20) + 1;
     roll += saveValAdd + saveRacAdd;
     roll = roll < 1 ? 1 : roll;
@@ -48,9 +42,9 @@ export class SaveComponent implements OnInit, OnChanges {
 
   makeMessage(roll: number, saveString: string): void {
     const message =
-      this.character.getName() +
+      this.character.name +
       ' made a ' +
-      this.character.getSavingThrows()[Saves[saveString]].getName() +
+      this.character.savingThrows[Saves[saveString]].name +
       ' save. VALUE: ' +
       roll +
       '.';

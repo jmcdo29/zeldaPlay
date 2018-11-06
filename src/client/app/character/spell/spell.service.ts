@@ -54,7 +54,7 @@ export class SpellService {
       )
       .pipe(
         map((retSpell) => {
-          spell.setId(retSpell.id);
+          spell.id = retSpell.id;
           return spell;
         })
       );
@@ -65,7 +65,7 @@ export class SpellService {
   updateSpell(spell: Spell): Observable<Spell> {
     return this.http
       .post<ISpellDb>(
-        this.spellURL + 'update/' + spell.getId(),
+        this.spellURL + 'update/' + spell.id,
         { spell },
         {
           headers: {

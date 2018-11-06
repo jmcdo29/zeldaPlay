@@ -1,37 +1,32 @@
 export class Attribute {
-  private name: string;
-  private value: number;
-  private modifier: number;
+  private _modifier: number;
 
-  constructor(name: string, value: number) {
-    this.name = name;
-    this.value = value;
-    this.modifier = (value % 2 === 0 ? value - 10 : value - 11) / 2;
+  constructor(private _name: string, private _value: number) {
+    this._modifier = (_value % 2 === 0 ? _value - 10 : _value - 11) / 2;
   }
 
-  getName(): string {
-    return this.name;
+  get name(): string {
+    return this._name;
   }
 
-  getValue(): number {
-    return this.value;
+  set name(name: string) {
+    this._name = name;
   }
 
-  getModifier(): number {
-    return this.modifier;
+  get value(): number {
+    return this._value;
   }
 
-  setName(name: string): void {
-    this.name = name;
+  set value(value: number) {
+    this._value = value;
+    this._modifier = (value % 2 === 0 ? value - 10 : value - 11) / 2;
   }
 
-  setValue(value: number): void {
-    this.value = value;
-    this.modifier = (value % 2 === 0 ? value - 10 : value - 11) / 2;
+  get modifier(): number {
+    return this._modifier;
   }
 
   changeValue(delta: number): void {
-    const value = this.value;
-    this.setValue(value + delta);
+    this.value += delta;
   }
 }

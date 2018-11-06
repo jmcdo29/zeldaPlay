@@ -1,105 +1,85 @@
 export class Spell {
-  private name: string;
-  private effect: string;
-  private mpUse: number;
-  private damage: number;
-  private multiplier: number;
-  private modifier?: string;
-  private diety: string;
-  private useDiety = false;
-  private id?: string;
-
   constructor(
-    id: string,
-    name: string,
-    effect: string,
-    damage: number,
-    multiplier: number,
-    mpUse: number,
-    diety: string,
-    useDiety: boolean,
-    modifier: string
-  ) {
-    this.id = id;
-    this.name = name;
-    this.effect = effect;
-    this.damage = damage;
-    this.multiplier = multiplier;
-    this.mpUse = mpUse;
-    this.diety = diety;
-    this.useDiety = useDiety;
-    this.modifier = modifier;
+    private _id: string,
+    private _name: string,
+    private _effect: string,
+    private _damage: number,
+    private _multiplier: number,
+    private _mpUse: number,
+    private _diety: string,
+    private _useDiety: boolean,
+    private _modifier: string
+  ) {}
+
+  get name(): string {
+    return this._name;
   }
 
-  getName(): string {
-    return this.name;
+  set name(name: string) {
+    this._name = name;
   }
 
-  setName(name: string): void {
-    this.name = name;
+  get effect(): string {
+    return this._effect;
   }
 
-  getEffect(): string {
-    return this.effect;
+  set effect(effect: string) {
+    this._effect = effect;
   }
 
-  setEffect(effect: string): void {
-    this.effect = effect;
+  get mpUse(): number {
+    return this._mpUse;
   }
 
-  getMpUse(): number {
-    return this.mpUse;
+  set mpUse(mpUse: number) {
+    this._mpUse = mpUse;
   }
 
-  setMpUse(mpUse: number): void {
-    this.mpUse = mpUse;
+  get damage(): number {
+    return this._damage;
   }
 
-  getDamage(): number {
-    return this.damage;
+  set damage(damage: number) {
+    this._damage = damage;
   }
 
-  setDamage(damage: number): void {
-    this.damage = damage;
+  get multiplier(): number {
+    return this._multiplier;
   }
 
-  getMultiplier(): number {
-    return this.multiplier;
+  set multiplier(multiplier: number) {
+    this._multiplier = multiplier;
   }
 
-  setMultiplier(multiplier: number): void {
-    this.multiplier = multiplier;
+  get modifier(): string {
+    return this._modifier;
   }
 
-  getModifier(): string {
-    return this.modifier;
+  set modifier(modifier: string) {
+    this._modifier = modifier;
   }
 
-  setModifier(modifier: string): void {
-    this.modifier = modifier;
+  get diety(): string {
+    return this._diety;
   }
 
-  getDiety(): string {
-    return this.diety;
+  set diety(diety: string) {
+    this._diety = diety;
   }
 
-  setDiety(diety: string): void {
-    this.diety = diety;
+  get useDiety(): boolean {
+    return this._useDiety;
   }
 
-  getUseDiety(): boolean {
-    return this.useDiety;
+  set useDiety(useDiety: boolean) {
+    this._useDiety = useDiety;
   }
 
-  setUseDiety(useDiety: boolean): void {
-    this.useDiety = useDiety;
+  get id(): string {
+    return this._id;
   }
 
-  getId(): string {
-    return this.id;
-  }
-
-  setId(id: string): void {
-    this.id = id;
+  set id(id: string) {
+    this._id = id;
   }
 }

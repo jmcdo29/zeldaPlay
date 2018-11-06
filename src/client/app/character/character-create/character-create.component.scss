@@ -31,11 +31,34 @@ h4 {
   position: relative;
 }
 input {
-  .non-zero:in-range {
+  &.non-zero:in-range {
     background-color: lightskyblue;
   }
-  .bad-input,
+  &.bad-input,
   &:out-of-range {
     background-color: lightcoral;
+  }
+}
+
+mat-form-field {
+  padding: 0;
+  &.attribute {
+    width: 3em;
+  }
+  &.skill {
+    width: 3em;
+  }
+  &.custom {
+    width: 5em;
+  }
+  &.name {
+    width: 8em;
+  }
+  &.race {
+    width: 10em;
+    padding-right: 2em;
+    &:first-of-type {
+      margin-top: 0.5em;
+    }
   }
 }

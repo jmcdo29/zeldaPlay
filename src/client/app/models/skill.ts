@@ -1,94 +1,76 @@
 export class Skill {
-  private trained?: boolean;
-  private skillName: string;
-  private ranks: number;
-  private modifier?: string;
-  private item?: number;
-  private racial?: number;
-  private misc?: number;
-  private id?: string;
-
   constructor(
-    id: string,
-    skillName: string,
-    ranks: number,
-    trained?: boolean,
-    modifier?: string,
-    item?: number,
-    racial?: number,
-    misc?: number
-  ) {
-    this.skillName = skillName;
-    this.ranks = ranks;
-    this.trained = trained ? trained : false;
-    this.modifier = modifier ? modifier : undefined;
-    this.item = item ? item : 0;
-    this.racial = racial ? racial : 0;
-    this.misc = misc ? misc : 0;
-    this.id = id;
+    private _id: string,
+    private _skillName: string,
+    private _ranks: number,
+    private _trained?: boolean,
+    private _modifier?: string,
+    private _item?: number,
+    private _racial?: number,
+    private _misc?: number
+  ) {}
+
+  get skillName(): string {
+    return this._skillName;
   }
 
-  getSkillName(): string {
-    return this.skillName;
+  set skillName(skillName: string) {
+    this._skillName = skillName;
   }
 
-  setSkillName(skillName: string): void {
-    this.skillName = skillName;
+  get ranks(): number {
+    return this._ranks;
   }
 
-  getRanks(): number {
-    return this.ranks;
+  set ranks(ranks: number) {
+    this._ranks = ranks;
   }
 
-  setRanks(ranks: number): void {
-    this.ranks = ranks;
+  get trained(): boolean {
+    return this._trained;
   }
 
-  getTrained(): boolean {
-    return this.trained;
+  set trained(trained: boolean) {
+    this._trained = trained;
   }
 
-  setTrained(trained: boolean): void {
-    this.trained = trained;
+  get modifier(): string {
+    return this._modifier;
   }
 
-  getModifier(): string {
-    return this.modifier;
+  set modifier(modifier: string) {
+    this._modifier = modifier;
   }
 
-  setModifier(modifier: string): void {
-    this.modifier = modifier;
+  get item(): number {
+    return this._item;
   }
 
-  getItem(): number {
-    return this.item;
+  set item(item: number) {
+    this._item = item;
   }
 
-  setItem(item: number): void {
-    this.item = item;
+  get racial(): number {
+    return this._racial;
   }
 
-  getRacial(): number {
-    return this.racial;
+  set racial(racial: number) {
+    this._racial = racial;
   }
 
-  setRacial(racial: number): void {
-    this.racial = racial;
+  get misc(): number {
+    return this._misc;
   }
 
-  getMisc(): number {
-    return this.misc;
+  set misc(misc: number) {
+    this._misc = misc;
   }
 
-  setMisc(misc: number): void {
-    this.misc = misc;
+  get id(): string {
+    return this._id;
   }
 
-  getId(): string {
-    return this.id;
-  }
-
-  setId(id: string): void {
-    this.id = id;
+  set id(id: string) {
+    this._id = id;
   }
 }

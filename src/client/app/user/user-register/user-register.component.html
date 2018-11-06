@@ -1,4 +1,4 @@
-<button [routerLink]="['/']">Characters</button>
+<button mat-flat-button [routerLink]="['/']">Characters</button>
 <div class="jumbo">
   <div [class.loading]="loading">
     <h2 class="no-padding">Welcome to ZeldaPlay!</h2>
@@ -7,24 +7,27 @@
       <a [routerLink]="['/login']">login here</a>.</p>
     <div class="custTable">
       <div class="row">
-        <div class="cell label">Email:</div>
         <div class="cell input">
-          <input class="user" [(ngModel)]="username" type="email">
+          <mat-form-field>
+          <input matInput class="user" [(ngModel)]="username" type="email" placeholder="Email">
+        </mat-form-field>
         </div>
       </div>
       <div class="row">
-        <div class="cell label">Password</div>
         <div class="cell input">
-          <input class="user" [(ngModel)]="password" type="password">
+          <mat-form-field>
+          <input matInput class="user" [(ngModel)]="password" type="password" placeholder="Password">
+        </mat-form-field>
         </div>
       </div>
       <div class="row">
-        <div class="cell label">Confirm Password</div>
         <div class="cell input">
-          <input class="user" [(ngModel)]="passwordConfirmation" type="password">
+          <mat-form-field>
+          <input matInput class="user" [(ngModel)]="passwordConfirmation" type="password" placeholder="Confirm Password">
+        </mat-form-field>
         </div>
       </div>
     </div>
-    <button (click)="register()">Register</button>
+    <button mat-flat-button (click)="register()">Register</button>
   </div>
 </div>

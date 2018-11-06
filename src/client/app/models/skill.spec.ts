@@ -12,27 +12,27 @@ test('should make a regular skill', () => {
     0
   );
   expect(mySkill).toBeTruthy();
-  expect(mySkill.getSkillName()).toBe('Climb');
-  expect(mySkill.getRanks()).toBe(5);
-  expect(mySkill.getTrained());
+  expect(mySkill.skillName).toBe('Climb');
+  expect(mySkill.ranks).toBe(5);
+  expect(mySkill.trained);
 
   // getters and setters
-  mySkill.setId('a new id');
-  expect(mySkill.getId()).toBe('a new id');
-  mySkill.setItem(1);
-  expect(mySkill.getItem()).toBe(1);
-  mySkill.setMisc(1);
-  expect(mySkill.getMisc()).toBe(1);
-  mySkill.setModifier('Dexterity');
-  expect(mySkill.getModifier()).toBe('Dexterity');
-  mySkill.setRacial(1);
-  expect(mySkill.getRacial()).toBe(1);
-  mySkill.setRanks(1);
-  expect(mySkill.getRanks()).toBe(1);
-  mySkill.setSkillName('test skill');
-  expect(mySkill.getSkillName()).toBe('test skill');
-  mySkill.setTrained(false);
-  expect(!mySkill.getTrained());
+  mySkill.id = 'a new id';
+  expect(mySkill.id).toBe('a new id');
+  mySkill.item = 1;
+  expect(mySkill.item).toBe(1);
+  mySkill.misc = 1;
+  expect(mySkill.misc).toBe(1);
+  mySkill.modifier = 'Dexterity';
+  expect(mySkill.modifier).toBe('Dexterity');
+  mySkill.racial = 1;
+  expect(mySkill.racial).toBe(1);
+  mySkill.ranks = 1;
+  expect(mySkill.ranks).toBe(1);
+  mySkill.skillName = 'test skill';
+  expect(mySkill.skillName).toBe('test skill');
+  mySkill.trained = false;
+  expect(!mySkill.trained);
 });
 test('should make a weaponSkill', () => {
   const myWeaponSkill = new Skill(

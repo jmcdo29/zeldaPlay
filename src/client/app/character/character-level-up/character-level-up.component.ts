@@ -36,29 +36,29 @@ export class CharacterLevelUpComponent implements OnInit {
     this.attrPoints = 1;
     this.skillPoints = 10;
     const minimums = [];
-    for (const attr of this.currChar.getAttributes()) {
-      minimums.push(attr.getValue());
-      this.attrPrior.push(attr.getValue());
+    for (const attr of this.currChar.attributes) {
+      minimums.push(attr.value);
+      this.attrPrior.push(attr.value);
     }
     this.minimums = minimums;
 
     const skillStarts = [];
-    for (const skill of this.currChar.getSkills()) {
-      skillStarts.push(skill.getRanks());
+    for (const skill of this.currChar.skills) {
+      skillStarts.push(skill.ranks);
     }
     this.skillStarts = skillStarts;
     this.skillsPrior = this.skillStarts;
 
     const weaponStarts = [];
-    for (const wep of this.currChar.getWeaponSkills()) {
-      weaponStarts.push(wep.getRanks());
+    for (const wep of this.currChar.weaponSkills) {
+      weaponStarts.push(wep.ranks);
     }
     this.weaponStarts = weaponStarts;
     this.weaponSkillsPrior = this.weaponStarts;
 
     const magicStarts = [];
-    for (const mag of this.currChar.getMagicSkills()) {
-      magicStarts.push(mag.getRanks());
+    for (const mag of this.currChar.magicSkills) {
+      magicStarts.push(mag.ranks);
     }
     this.magicStarts = magicStarts;
     this.magicSkillsPrior = this.magicStarts;
@@ -70,7 +70,7 @@ export class CharacterLevelUpComponent implements OnInit {
   }
 
   getMod(modName: string): number {
-    return this.currChar.getAttributes()[Attributes[modName]].getModifier();
+    return this.currChar.attributes[Attributes[modName]].modifier;
   }
 
   showSkillTab(skillTabIndex: number): void {
@@ -81,31 +81,23 @@ export class CharacterLevelUpComponent implements OnInit {
   }
 
   trackAtt(attrIndex: number): void {
-    const val = this.currChar.getAttributes()[attrIndex].getValue();
+    const val = this.currChar.attributes[attrIndex].value;
     this.attrPoints -= val - this.attrPrior[attrIndex];
     this.attrPrior[attrIndex] = val;
   }
 
   validateAttr(attrIndex: number): void {
     const input = document.getElementById('attr' + attrIndex);
-    if (
-      this.currChar.getAttributes()[attrIndex].getValue() <
-      this.minimums[attrIndex]
-    ) {
+    if (this.currChar.attributes[attrIndex].value < this.minimums[attrIndex]) {
       input.classList.add('bad-input');
       this.attrPoints +=
-        this.currChar.getAttributes()[attrIndex].getValue() -
-        this.minimums[attrIndex];
+        this.currChar.attributes[attrIndex].value - this.minimums[attrIndex];
       this.attrPrior[attrIndex] = this.minimums[attrIndex];
-      this.currChar
-        .getAttributes()
-        [attrIndex].setValue(this.minimums[attrIndex]);
+      this.currChar.attributes[attrIndex].value = this.minimums[attrIndex];
     } else if (this.attrPoints < 0) {
       input.classList.add('bad-input');
-      this.currChar.getAttributes()[attrIndex].changeValue(this.attrPoints);
-      this.attrPrior[attrIndex] = this.currChar
-        .getAttributes()
-        [attrIndex].getValue();
+      this.currChar.attributes[attrIndex].changeValue(this.attrPoints);
+      this.attrPrior[attrIndex] = this.currChar.attributes[attrIndex].value;
       this.attrPoints -= this.attrPoints;
     } else if (input.classList.contains('bad-input')) {
       input.classList.remove('bad-input');
@@ -122,16 +114,15 @@ export class CharacterLevelUpComponent implements OnInit {
   validate(index: number, type: string): void {
     const input = document.getElementById(type + index);
     const PRIOR = 'Prior';
-    if (this.currChar[type][index].getRanks() < 0) {
+    if (this.currChar[type][index].ranks < 0) {
       input.classList.add('bad-input');
       this.skillPoints += this.currChar[type][index].ranks;
       this[type + PRIOR][index] = this.currChar[type][index].ranks = 0;
     } else if (this.skillPoints < 0) {
       input.classList.add('bad-input');
-      this.currChar[type][index].setRanks(
-        this.currChar[type][index].getRanks() + this.skillPoints
-      );
-      this[type + PRIOR][index] = this.currChar[type][index].getRanks();
+      this.currChar[type][index].ranks =
+        this.currChar[type][index].ranks + this.skillPoints;
+      this[type + PRIOR][index] = this.currChar[type][index].ranks;
       this.skillPoints -= this.skillPoints;
     } else if (input.classList.contains('bad-input')) {
       input.classList.remove('bad-input');

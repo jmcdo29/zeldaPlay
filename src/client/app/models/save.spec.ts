@@ -5,12 +5,12 @@ test('should make a save object', () => {
   expect(mySave).toBeTruthy();
 
   // getters and setters
-  mySave.setId('saveId');
-  expect(mySave.getId()).toBe('saveId');
-  mySave.setModifier('Strength');
-  expect(mySave.getModifier()).toBe('Strength');
-  mySave.setName('saveName');
-  expect(mySave.getName()).toBe('saveName');
-  mySave.setRacial(2);
-  expect(mySave.getRacial()).toBe(2);
+  mySave.id = 'saveId';
+  expect(mySave.id).toBe('saveId');
+  mySave.modifier = 'Strength';
+  expect(mySave.modifier).toBe('Strength');
+  mySave.name = 'saveName';
+  expect(mySave.name).toBe('saveName');
+  mySave.racial = 2;
+  expect(mySave.racial).toBe(2);
 });

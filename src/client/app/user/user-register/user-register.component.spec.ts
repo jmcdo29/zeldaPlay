@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 
 import { AlertService } from '#Alert/alert.service';
+import { MaterialModule } from '#Shared/material/material.module';
 import { UserService } from '../user.service';
 import { UserRegisterComponent } from './user-register.component';
 
@@ -24,7 +25,12 @@ describe('UserLoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, RouterTestingModule, HttpClientModule],
+      imports: [
+        FormsModule,
+        RouterTestingModule,
+        HttpClientModule,
+        MaterialModule
+      ],
       declarations: [UserRegisterComponent],
       providers: [
         UserService,

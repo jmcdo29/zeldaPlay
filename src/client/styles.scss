@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
 @font-face {
   font-family: HyliaSerif;
   src: url('./assets/fonts/HyliaSerifBeta.otf');
@@ -47,6 +49,13 @@ input[text],
 button {
   color: #888;
   font-family: Cambria, Georgia;
+  &.mat-flat-button {
+    margin-bottom: 0.25em;
+    margin-right: 0.1em;
+    margin-left: 0.1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
 }
 
 .details {
