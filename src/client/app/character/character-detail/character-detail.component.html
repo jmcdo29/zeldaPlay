@@ -19,10 +19,10 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>How much?</mat-label>
+          <mat-label>How much?</mat-label>
           <input matInput type="number" [(ngModel)]="hpDmg" placeholder="{{ hpDmg }}" min="0" max="{{ character.maxHealth + 10 }}">
         </mat-form-field>
-        <br/>
+        <br />
         <button mat-raised-button class="square" (click)="modTheHMod(1)">+1</button>
         <button mat-raised-button class="square" (click)="modTheHMod(5)">+5</button>
         <button mat-raised-button class="square" (click)="modTheHMod(10)">+10</button>
@@ -54,7 +54,7 @@
           <mat-label>How much?</mat-label>
           <input matInput type="number" min="0" [(ngModel)]="mpDmg" placeholder="{{ mpDmg }}" max="{{ character.maxMagic }}">
         </mat-form-field>
-        <br/>
+        <br />
         <button mat-raised-button class="square" (click)="modTheMMod(1)">+1</button>
         <button mat-raised-button class="square" (click)="modTheMMod(5)">+5</button>
         <button mat-raised-button class="square" (click)="modTheMMod(10)">+10</button>
@@ -201,11 +201,11 @@
 
       <h4> Add a modifier to your roll.</h4>
       <mat-form-field>
-      <mat-select [(ngModel)]="rollMod" placeholder="What kind of roll?">
-        <mat-option value="null" selected="selected">Standard</mat-option>
-        <mat-option *ngFor="let attr of character.attributes" [value]="attr.name">{{ attr.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
+        <mat-select [(ngModel)]="rollMod" placeholder="What kind of roll?">
+          <mat-option value="null" selected="selected">Standard</mat-option>
+          <mat-option *ngFor="let attr of character.attributes" [value]="attr.name">{{ attr.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <br>
       <br>
       <app-die [sides]="4" [character]="this" [mod]="rollMod"></app-die>
@@ -217,9 +217,40 @@
 
 
     </div>
-    <!--The table to show the character's skills (weapon, magic and normal)-->
-    <div class="skills scrollable">
-      <div class="menuBar" [class.active]="showSet[0]" (click)="changeSection(0)">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4>{{ character.name }}<br />Skills</h4>
+        </ng-template>
+        <app-skill [character]="character"></app-skill>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4> {{character.name }}<br />Weapons</h4>
+        </ng-template>
+        <app-weapon [character]="character"></app-weapon>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4> {{ character.name}}<br />Spells</h4>
+        </ng-template>
+        <app-spell [character]="character"></app-spell>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4> {{character.name }}<br />Notes</h4>
+        </ng-template>
+        <app-note [character]="character"></app-note>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4> {{character.name }}<br />Inventory</h4>
+        </ng-template>
+        <app-inventory [character]="character"></app-inventory>
+      </mat-tab>
+    </mat-tab-group>
+    <!-- <div class="skills scrollable">
+<div class="menuBar" [class.active]="showSet[0]" (click)="changeSection(0)">
         <h4 class="menu">{{ character.name }}
           <br />Skills</h4>
       </div>
@@ -254,6 +285,6 @@
       <div *ngIf="showSet[4]">
         <app-note [character]="character"></app-note>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
