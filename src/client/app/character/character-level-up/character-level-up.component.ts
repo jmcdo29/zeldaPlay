@@ -12,6 +12,9 @@ export class CharacterLevelUpComponent implements OnInit {
   attributeTab = true;
   skillTab = !this.attributeTab;
 
+  topTab = 0;
+  secondTab = 0;
+
   skillTypeTab = [true, false, false];
 
   attrPoints: number;

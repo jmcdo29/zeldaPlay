@@ -1,6 +1,8 @@
-<!--Modals for various actions liking taking damage and healing, maybe leveling up!-->
+<!--
+  Modals for various actions liking taking damage and healing, maybe leveling up!
+-->
 <div *ngIf="character">
-  <!--Modify Health Modal-->
+  <!-- Modify Health Modal -->
   <div class="modal" [class.showModal]="changeHP">
     <div class="modal-content small">
       <div class="modal-header">
@@ -10,7 +12,9 @@
       <div class="modal-body">
         <div class="body-head">
           Current HP:
-          <span style="float:right; padding-right:5em; ">{{ character.health }}</span>
+          <span style="float:right; padding-right:5em; ">{{
+            character.health
+          }}</span>
         </div>
         <mat-form-field>
           <mat-select [(ngModel)]="type" placeholder="What is happening?">
@@ -19,20 +23,33 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>How much?</mat-label>
-          <input matInput type="number" [(ngModel)]="hpDmg" placeholder="{{ hpDmg }}" min="0" max="{{ character.maxHealth + 10 }}">
+          <mat-label>How much?</mat-label>
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="hpDmg"
+            placeholder="{{ hpDmg }}"
+            min="0"
+            max="{{ character.maxHealth + 10 }}"
+          />
         </mat-form-field>
-        <br/>
-        <button mat-raised-button class="square" (click)="modTheHMod(1)">+1</button>
-        <button mat-raised-button class="square" (click)="modTheHMod(5)">+5</button>
-        <button mat-raised-button class="square" (click)="modTheHMod(10)">+10</button>
+        <br />
+        <button mat-raised-button class="square" (click)="modTheHMod(1)">
+          +1
+        </button>
+        <button mat-raised-button class="square" (click)="modTheHMod(5)">
+          +5
+        </button>
+        <button mat-raised-button class="square" (click)="modTheHMod(10)">
+          +10
+        </button>
         <div class="right">
           <button mat-raised-button (click)="finalizeHealthMod()">Done</button>
         </div>
       </div>
     </div>
   </div>
-  <!--Modify Magic Modal-->
+  <!-- Modify Magic Modal -->
   <div class="modal" [class.showModal]="changeMP">
     <div class="modal-content small">
       <div class="modal-header">
@@ -42,7 +59,9 @@
       <div class="modal-body">
         <div class="body-head">
           Current MP:
-          <span style="float:right; padding-right:5em; ">{{ character.magic }}</span>
+          <span style="float:right; padding-right:5em; ">{{
+            character.magic
+          }}</span>
         </div>
         <mat-form-field>
           <mat-select [(ngModel)]="type" placeholder="What is happening?">
@@ -52,19 +71,32 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>How much?</mat-label>
-          <input matInput type="number" min="0" [(ngModel)]="mpDmg" placeholder="{{ mpDmg }}" max="{{ character.maxMagic }}">
+          <input
+            matInput
+            type="number"
+            min="0"
+            [(ngModel)]="mpDmg"
+            placeholder="{{ mpDmg }}"
+            max="{{ character.maxMagic }}"
+          />
         </mat-form-field>
-        <br/>
-        <button mat-raised-button class="square" (click)="modTheMMod(1)">+1</button>
-        <button mat-raised-button class="square" (click)="modTheMMod(5)">+5</button>
-        <button mat-raised-button class="square" (click)="modTheMMod(10)">+10</button>
+        <br />
+        <button mat-raised-button class="square" (click)="modTheMMod(1)">
+          +1
+        </button>
+        <button mat-raised-button class="square" (click)="modTheMMod(5)">
+          +5
+        </button>
+        <button mat-raised-button class="square" (click)="modTheMMod(10)">
+          +10
+        </button>
         <div class="right">
           <button mat-raised-button (click)="finalizeMagicMod()">Done</button>
         </div>
       </div>
     </div>
   </div>
-  <!--Modify Exp Model-->
+  <!-- Modify Exp Model -->
   <div class="modal" [class.showModal]="changeExp">
     <div class="modal-content small">
       <div class="modal-header">
@@ -74,13 +106,22 @@
       <div class="modal-body">
         <div class="body-head">
           Current Exp:
-          <span style="float:right; padding-right:5em; ">{{ character.exp }}</span>
+          <span style="float:right; padding-right:5em; ">{{
+            character.exp
+          }}</span>
         </div>
         <div *ngIf="negExp">
           <strong class="critmiss">You cannot gain negative experience.</strong>
         </div>
         <mat-form-field>
-          <input matInput type="number" min="0" [(ngModel)]="expMod" placeholder="{{ expMod }}" min=0>
+          <input
+            matInput
+            type="number"
+            min="0"
+            [(ngModel)]="expMod"
+            placeholder="{{ expMod }}"
+            min="0"
+          />
         </mat-form-field>
         <div class="right">
           <button mat-raised-button (click)="finalizeExpMod()">Done</button>
@@ -88,32 +129,56 @@
       </div>
     </div>
   </div>
-  <!--Level Up Modal-->
+  <!-- Level Up Modal -->
   <div class="modal" [class.showModal]="editMode">
     <div class="modal-content">
       <div class="modal-header">
         <span class="close" (click)="setEdit()">&times;</span>
         <h2>Level Up</h2>
       </div>
-      <app-character-level-up [currChar]="character" #levelUp></app-character-level-up>
+      <app-character-level-up
+        [currChar]="character"
+        #levelUp
+      ></app-character-level-up>
     </div>
   </div>
 </div>
-<!--The rest of the application the shows the characters attributes and skills-->
+<!--
+  The rest of the application the shows the characters attributes and skills
+-->
 <div class="column-holder">
   <div *ngIf="character">
-    <!--The table to show the characters attributes and the ability to roll dice with modifiers-->
+    <!--
+      The table to show the characters attributes and the ability to roll dice with modifiers
+    -->
     <div class="details">
-
-      <button mat-flat-button style="margin-bottom: 1em;" (click)="setEdit()">Level Up</button>
+      <button mat-flat-button style="margin-bottom: 1em;" (click)="setEdit()">
+        Level Up
+      </button>
       <br />
-      <button mat-flat-button style="margin-bottom: 1em; padding-right: 0.5em; padding-left: 0.5em; margin-right: 0.1em;" (click)="gotHeartContainer()">Get Heart Container</button>
-      <button mat-flat-button style="margin-bottom: 1em; padding-right: 0.5em; padding-left: 0.5em; margin-left: 0.1em;" (click)="gotMagicContainer()">Get Magic Container</button>
+      <button
+        mat-flat-button
+        style="margin-bottom: 1em; padding-right: 0.5em; padding-left: 0.5em; margin-right: 0.1em;"
+        (click)="gotHeartContainer()"
+      >
+        Get Heart Container
+      </button>
+      <button
+        mat-flat-button
+        style="margin-bottom: 1em; padding-right: 0.5em; padding-left: 0.5em; margin-left: 0.1em;"
+        (click)="gotMagicContainer()"
+      >
+        Get Magic Container
+      </button>
 
-      <!-- <div class="ct">
-        <h3>Charts will go here!</h3>
-        <app-character-charts [character]="character"></app-character-charts>
-      </div> -->
+      <!--
+        <div class="ct">
+          <h3>Charts will go here!</h3>
+
+          <app-character-charts [character]="character"></app-character-charts>
+
+        </div>
+      -->
 
       <button mat-flat-button class="accordian" (click)="expandDets()">
         <h2>{{ character.name | uppercase }} Details</h2>
@@ -148,7 +213,18 @@
                   <td>{{ character.level }}</td>
                 </tr>
                 <br />
-                <tr *ngFor="let attr of character.attributes" [class.din]="attr.name === 'Strength' || attr.name === 'Intelligence'" [class.farore]="attr.name === 'Dexterity' || attr.name === 'Charisma'" [class.nayru]="attr.name === 'Wisdom' || attr.name === 'Constitution'">
+                <tr
+                  *ngFor="let attr of character.attributes"
+                  [class.din]="
+                    attr.name === 'Strength' || attr.name === 'Intelligence'
+                  "
+                  [class.farore]="
+                    attr.name === 'Dexterity' || attr.name === 'Charisma'
+                  "
+                  [class.nayru]="
+                    attr.name === 'Wisdom' || attr.name === 'Constitution'
+                  "
+                >
                   <td class="name">{{ attr.name }}</td>
                   <td>{{ attr.value }}</td>
                   <td>{{ attr.modifier }}</td>
@@ -159,14 +235,18 @@
                   <td class="name">Health</td>
                   <td>{{ character.health }} / {{ character.maxHealth }}</td>
                   <td>
-                    <button mat-flat-button (click)="modHealth()">Modify HP</button>
+                    <button mat-flat-button (click)="modHealth()">
+                      Modify HP
+                    </button>
                   </td>
                 </tr>
                 <tr class="nayru">
                   <td class="name">Magic</td>
                   <td>{{ character.magic }} / {{ character.maxMagic }}</td>
                   <td>
-                    <button mat-flat-button (click)="modMagic()">Modify MP</button>
+                    <button mat-flat-button (click)="modMagic()">
+                      Modify MP
+                    </button>
                   </td>
                 </tr>
                 <tr class="farore">
@@ -188,72 +268,77 @@
           <h2>Saving Throws</h2>
         </button>
         <div class="panel" [class.active]="showSaves">
-          <app-save [character]="character" [characterDetailComponent]="this"></app-save>
+          <app-save
+            [character]="character"
+            [characterDetailComponent]="this"
+          ></app-save>
         </div>
-
       </div>
 
-      <h3> Roll Dice
-        <span style="float: right; padding-right:5em;" *ngIf="roll" [class.crit]="this.crit" [class.critmiss]="this.critMiss" [class.maxDmg]="this.maxDmg">
+      <h3>
+        Roll Dice
+        <span
+          style="float: right; padding-right:5em;"
+          *ngIf="roll"
+          [class.crit]="this.crit"
+          [class.critmiss]="this.critMiss"
+          [class.maxDmg]="this.maxDmg"
+        >
           {{ roll }}
         </span>
       </h3>
 
-      <h4> Add a modifier to your roll.</h4>
+      <h4>Add a modifier to your roll.</h4>
       <mat-form-field>
-      <mat-select [(ngModel)]="rollMod" placeholder="What kind of roll?">
-        <mat-option value="null" selected="selected">Standard</mat-option>
-        <mat-option *ngFor="let attr of character.attributes" [value]="attr.name">{{ attr.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-      <br>
-      <br>
+        <mat-select [(ngModel)]="rollMod" placeholder="What kind of roll?">
+          <mat-option value="null" selected="selected">Standard</mat-option>
+          <mat-option
+            *ngFor="let attr of character.attributes"
+            [value]="attr.name"
+            >{{ attr.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <br />
+      <br />
       <app-die [sides]="4" [character]="this" [mod]="rollMod"></app-die>
       <app-die [sides]="6" [character]="this" [mod]="rollMod"></app-die>
       <app-die [sides]="8" [character]="this" [mod]="rollMod"></app-die>
       <app-die [sides]="12" [character]="this" [mod]="rollMod"></app-die>
       <app-die [sides]="20" [character]="this" [mod]="rollMod"></app-die>
       <app-die [sides]="100" [character]="this"></app-die>
-
-
     </div>
-    <!--The table to show the character's skills (weapon, magic and normal)-->
-    <div class="skills scrollable">
-      <div class="menuBar" [class.active]="showSet[0]" (click)="changeSection(0)">
-        <h4 class="menu">{{ character.name }}
-          <br />Skills</h4>
-      </div>
-      <div class="menuBar" [class.active]="showSet[1]" (click)="changeSection(1)">
-        <h4 class="menu">{{ character.name }}
-          <br />Weapons</h4>
-      </div>
-      <div class="menuBar" [class.active]="showSet[2]" (click)="changeSection(2)">
-        <h4 class="menu">{{ character.name }}
-          <br />Spells</h4>
-      </div>
-      <div class="menuBar" [class.active]="showSet[3]" (click)="changeSection(3)">
-        <h4 class="menu">{{ character.name }}
-          <br />Inventory</h4>
-      </div>
-      <div class="menuBar" [class.active]="showSet[4]" (click)="changeSection(4)">
-        <h4 class="menu">{{ character.name }}
-          <br />Notes</h4>
-      </div>
-      <div *ngIf="showSet[0]">
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4>{{ character.name }}<br />Skills</h4>
+        </ng-template>
         <app-skill [character]="character"></app-skill>
-      </div>
-      <div *ngIf="showSet[1]">
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4>{{ character.name }}<br />Weapons</h4>
+        </ng-template>
         <app-weapon [character]="character"></app-weapon>
-      </div>
-      <div *ngIf="showSet[2]">
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4>{{ character.name }}<br />Spells</h4>
+        </ng-template>
         <app-spell [character]="character"></app-spell>
-      </div>
-      <div *ngIf="showSet[3]">
-        <app-inventory [character]="character"></app-inventory>
-      </div>
-      <div *ngIf="showSet[4]">
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4>{{ character.name }}<br />Notes</h4>
+        </ng-template>
         <app-note [character]="character"></app-note>
-      </div>
-    </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <h4>{{ character.name }}<br />Inventory</h4>
+        </ng-template>
+        <app-inventory [character]="character"></app-inventory>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>
