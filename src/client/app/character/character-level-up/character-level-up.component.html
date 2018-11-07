@@ -1,6 +1,6 @@
 <div class="modal-body">
   <div>
-    <mat-tab-group>
+    <mat-tab-group id="topTab" [(selectedIndex)]="topTab">
       <mat-tab label="Attributes">
         <p style="text-align: center;">
           Congratulations on leveling up! You may now place
@@ -56,7 +56,7 @@
           <b>{{ skillPoints }}</b> skill point into whicever skills you would
           like!
         </p>
-        <mat-tab-group>
+        <mat-tab-group [(selectedIndex)]="secondTab">
           <mat-tab class="second-level" label="Skills">
             <div class="table">
               <table>
