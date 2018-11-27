@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { OperatorFunction } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '#Environment/environment';
@@ -21,13 +21,7 @@ export class UserService {
           confirmationPassword: confPass
         }
       })
-      .pipe(
-        map((user) => {
-          console.log(user);
-          sessionStorage.setItem('currentUser', user.id);
-          sessionStorage.setItem('userToken', user.accessToken);
-        })
-      );
+      .pipe(saveUser());
   }
 
   login(username: string, password: string) {
@@ -38,13 +32,7 @@ export class UserService {
           password
         }
       })
-      .pipe(
-        map((user) => {
-          console.log(user);
-          sessionStorage.setItem('currentUser', user.id);
-          sessionStorage.setItem('userToken', user.accessToken);
-        })
-      );
+      .pipe(saveUser());
   }
 
   logout() {
@@ -60,4 +48,11 @@ export class UserService {
     sessionStorage.removeItem('currentUser');
     sessionStorage.removeItem('userToken');
   }
+}
+
+function saveUser(): OperatorFunction<any, void> {
+  return map((user: any) => {
+    sessionStorage.setItem('currentUser', user.id);
+    sessionStorage.setItem('userToken', user.accessToken);
+  });
 }

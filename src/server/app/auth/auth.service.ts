@@ -42,6 +42,7 @@ export class AuthService {
   }
 
   async validateUser(payload: JwtDTO): Promise<User> {
+    // tslint:disable-next-line:no-small-switch
     switch (payload.provider) {
       case 'local':
         return this.userService.findUserByEmail(payload.email);

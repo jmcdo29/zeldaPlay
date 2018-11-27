@@ -11,6 +11,8 @@ import { SharedModule } from '#Shared/shared.module';
 import { WeaponComponent } from './weapon.component';
 import { WeaponService } from './weapon.service';
 
+const sSword = 'Short Sword';
+
 let messageServiceStub: Partial<MessageService>;
 
 messageServiceStub = {
@@ -40,9 +42,25 @@ describe('WeaponComponent', () => {
     component.character = new Character();
     fixture.detectChanges();
   });
-
   test('should create', () => {
     expect(component).toBeTruthy();
+  });
+  test('should split "18,19,20" to [18, 19, 20]', () => {
+    component.weapon.critRange = '18,19,20' as any;
+    component.setCrit();
+    expect(component.weapon.critRange[0]).toBe(18);
+    expect(component.weapon.critRange[1]).toBe(19);
+    expect(component.weapon.critRange[2]).toBe(20);
+  });
+  test('should set isRangedWeapon', () => {
+    component.weapon.type = 'Bow';
+    component.checkForRanged();
+    expect(component.isRangedWeapon);
+  });
+  test('make the roll', () => {
+    const roll = component.roll(6);
+    expect(roll).toBeGreaterThanOrEqual(1);
+    expect(roll).toBeLessThanOrEqual(6);
   });
   describe('toggle options', () => {
     test('should toggle "showWeapons"', () => {
@@ -62,17 +80,7 @@ describe('WeaponComponent', () => {
   });
   describe('save weapon functionality', () => {
     beforeEach(() => {
-      component.weapon = new Weapon(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      );
+      component.weapon = new Weapon();
     });
     afterAll(() => {
       component.character.weapons.pop();
@@ -104,12 +112,7 @@ describe('WeaponComponent', () => {
     describe('elemental weapon specifics', () => {
       test('should show all elemental errors', () => {
         component.isElemental = true;
-        component.elemental = new Elemental(
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        );
+        component.elemental = new Elemental();
         fixture.detectChanges();
         component.saveWeapon();
         expect(component.character.weapons).toHaveLength(0);
@@ -132,7 +135,7 @@ describe('WeaponComponent', () => {
         1,
         [18, 19, 20],
         3,
-        'Short Sword',
+        sSword,
         'Strength',
         0
       );
@@ -140,75 +143,9 @@ describe('WeaponComponent', () => {
       expect(component.character.weapons).toHaveLength(1);
     });
   });
-  test('should split "18,19,20" to [18, 19, 20]', () => {
-    component.weapon.critRange = '18,19,20' as any;
-    component.setCrit();
-    expect(component.weapon.critRange[0]).toBe(18);
-    expect(component.weapon.critRange[1]).toBe(19);
-    expect(component.weapon.critRange[2]).toBe(20);
-  });
-  test('should set isRangedWeapon', () => {
-    component.weapon.type = 'Bow';
-    component.checkForRanged();
-    expect(component.isRangedWeapon);
-  });
-  test('make the roll', () => {
-    const roll = component.roll(6);
-    expect(roll).toBeGreaterThanOrEqual(1);
-    expect(roll).toBeLessThanOrEqual(6);
-  });
-  describe('Attack Rolls', () => {
-    beforeEach(() => {
-      const myWep = new Weapon(
-        undefined,
-        'weapon',
-        8,
-        1,
-        [18, 19, 20],
-        3,
-        'Short Sword',
-        'Strength',
-        0
-      );
-      component.character.addWeapon(myWep);
-      component.character.weaponSkills[Weapons['Short Sword']].trained = true;
-      component.character.attributes[0].value = 10;
-    });
-    afterEach(() => {
-      component.character.weapons.pop();
-    });
-    test('test making an attack roll', () => {
-      component.attack(0);
-      expect(component.weaponName).toBe('weapon');
-      expect(component.rollToHit).toBeTruthy();
-      expect(component.dmgRoll).toBeTruthy();
-      for (let i = 0; i < 25; i++) {
-        component.attack(0);
-      }
-    });
-    test('make attack rlls with element', () => {
-      const myElem: Elemental = new Elemental(undefined, 'Fire', 8, 1);
-      component.character.weapons[0].element = myElem;
-      component.character.weaponSkills[Weapons['Short Sword']].trained = false;
-      for (let i = 0; i < 25; i++) {
-        component.attack(0);
-      }
-    });
-  });
-
   describe('validation function tests', () => {
     beforeEach(() => {
-      component.weapon = new Weapon(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      );
+      component.weapon = new Weapon();
     });
     afterEach(() => {
       component.weapon = null;
@@ -261,6 +198,44 @@ describe('WeaponComponent', () => {
           'bad-input'
         );
       });
+    });
+  });
+  describe('Attack Rolls', () => {
+    beforeEach(() => {
+      const myWep = new Weapon(
+        undefined,
+        'weapon',
+        8,
+        1,
+        [18, 19, 20],
+        3,
+        sSword,
+        'Strength',
+        0
+      );
+      component.character.addWeapon(myWep);
+      component.character.weaponSkills[Weapons[sSword]].trained = true;
+      component.character.attributes[0].value = 10;
+    });
+    afterEach(() => {
+      component.character.weapons.pop();
+    });
+    test('test making an attack roll', () => {
+      component.attack(0);
+      expect(component.weaponName).toBe('weapon');
+      expect(component.rollToHit).toBeTruthy();
+      expect(component.dmgRoll).toBeTruthy();
+      for (let i = 0; i < 25; i++) {
+        component.attack(0);
+      }
+    });
+    test('make attack rlls with element', () => {
+      const myElem: Elemental = new Elemental(undefined, 'Fire', 8, 1);
+      component.character.weapons[0].element = myElem;
+      component.character.weaponSkills[Weapons[sSword]].trained = false;
+      for (let i = 0; i < 25; i++) {
+        component.attack(0);
+      }
     });
   });
 });

@@ -17,7 +17,7 @@
             "tsConfig": "src/client/tsconfig.app.json",
             "polyfills": "src/client/polyfills.ts",
             "assets": ["src/client/assets", "src/client/favicon.ico"],
-            "styles": ["src/client/styles.scss"],
+            "styles": ["src/client/zeldaTheme.scss", "src/client/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -49,6 +49,12 @@
             "production": {
               "browserTarget": "zeldaplay:build:production"
             }
+          }
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            "configPath": "../../jest.config.js"
           }
         },
         "extract-i18n": {

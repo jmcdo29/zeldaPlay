@@ -1,14 +1,14 @@
 export class Spell {
   constructor(
-    private _id: string,
-    private _name: string,
-    private _effect: string,
-    private _damage: number,
-    private _multiplier: number,
-    private _mpUse: number,
-    private _diety: string,
-    private _useDiety: boolean,
-    private _modifier: string
+    private _id?: string,
+    private _name?: string,
+    private _effect?: string,
+    private _damage?: number,
+    private _multiplier?: number,
+    private _mpUse?: number,
+    private _diety?: string,
+    private _useDiety?: boolean,
+    private _modifier?: string
   ) {}
 
   get name(): string {

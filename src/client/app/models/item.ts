@@ -1,8 +1,8 @@
 export class Item {
   constructor(
-    private _id: string,
-    private _name: string,
-    private _description: string
+    private _id?: string,
+    private _name?: string,
+    private _description?: string
   ) {}
 
   get name(): string {

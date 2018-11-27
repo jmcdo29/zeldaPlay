@@ -170,16 +170,6 @@
       >
         Get Magic Container
       </button>
-
-      <!--
-        <div class="ct">
-          <h3>Charts will go here!</h3>
-
-          <app-character-charts [character]="character"></app-character-charts>
-
-        </div>
-      -->
-
       <button mat-flat-button class="accordian" (click)="expandDets()">
         <h2>{{ character.name | uppercase }} Details</h2>
       </button>
@@ -308,37 +298,39 @@
       <app-die [sides]="20" [character]="this" [mod]="rollMod"></app-die>
       <app-die [sides]="100" [character]="this"></app-die>
     </div>
-    <mat-tab-group>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <h4>{{ character.name }}<br />Skills</h4>
-        </ng-template>
-        <app-skill [character]="character"></app-skill>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <h4>{{ character.name }}<br />Weapons</h4>
-        </ng-template>
-        <app-weapon [character]="character"></app-weapon>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <h4>{{ character.name }}<br />Spells</h4>
-        </ng-template>
-        <app-spell [character]="character"></app-spell>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <h4>{{ character.name }}<br />Notes</h4>
-        </ng-template>
-        <app-note [character]="character"></app-note>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <h4>{{ character.name }}<br />Inventory</h4>
-        </ng-template>
-        <app-inventory [character]="character"></app-inventory>
-      </mat-tab>
-    </mat-tab-group>
+    <div class="skills scrollable">
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <h4>{{ character.name }}<br />Skills</h4>
+          </ng-template>
+          <app-skill [character]="character"></app-skill>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <h4>{{ character.name }}<br />Weapons</h4>
+          </ng-template>
+          <app-weapon [character]="character"></app-weapon>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <h4>{{ character.name }}<br />Spells</h4>
+          </ng-template>
+          <app-spell [character]="character"></app-spell>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <h4>{{ character.name }}<br />Notes</h4>
+          </ng-template>
+          <app-note [character]="character"></app-note>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <h4>{{ character.name }}<br />Inventory</h4>
+          </ng-template>
+          <app-inventory [character]="character"></app-inventory>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
   </div>
 </div>

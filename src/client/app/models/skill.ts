@@ -1,8 +1,8 @@
 export class Skill {
   constructor(
-    private _id: string,
-    private _skillName: string,
-    private _ranks: number,
+    private _id?: string,
+    private _skillName?: string,
+    private _ranks?: number,
     private _trained?: boolean,
     private _modifier?: string,
     private _item?: number,

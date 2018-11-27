@@ -1,9 +1,9 @@
 export class Save {
   constructor(
-    private _id: string,
-    private _name: string,
-    private _modifier: string,
-    private _racial: number
+    private _id?: string,
+    private _name?: string,
+    private _modifier?: string,
+    private _racial?: number
   ) {}
 
   get name(): string {

@@ -5,11 +5,11 @@ cache:
   directories:
     - node_modules
 before_install:
-  - yarn add codecov -g
-install: yarn
+  - npm install -g codecov
+install: npm ci
 after_success:
-  - yarn codecov
-script: yarn test:ci
+  - npx codecov
+script: npm run test:ci
 env:
   global:
     - LOG_LEVEL=OFF

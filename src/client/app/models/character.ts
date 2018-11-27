@@ -220,8 +220,8 @@ export class Character {
       this.health > this.maxHealth
         ? this.maxHealth
         : this.health < -10
-          ? -10
-          : this.health;
+        ? -10
+        : this.health;
   }
 
   get maxHealth(): number {
@@ -246,8 +246,8 @@ export class Character {
       this.magic > this.maxMagic
         ? this.maxMagic
         : this.magic < 0
-          ? 0
-          : this.magic;
+        ? 0
+        : this.magic;
   }
 
   get maxMagic(): number {
@@ -419,6 +419,7 @@ export class Character {
     this._savingThrows.push(savingThrow);
   }
 
+  // tslint:disable-next-line:no-big-function cognitive-complexity
   constructor(jObj?: ICharacterJSON, qObj?: ICharacterQuery) {
     if (!jObj && !qObj) {
       for (const key in Attributes) {
@@ -447,8 +448,8 @@ export class Character {
             key === 'Din'
               ? 'Intelligence'
               : key === 'Nayru'
-                ? 'Wisdom'
-                : 'Charisma';
+              ? 'Wisdom'
+              : 'Charisma';
           this._magicSkills.push(new Skill(undefined, key, 0, undefined, mod));
         }
       }
@@ -459,8 +460,8 @@ export class Character {
             key === 'Fortitude'
               ? 'Constitution'
               : key === 'Reflex'
-                ? 'Dexterity'
-                : 'Wisdom';
+              ? 'Dexterity'
+              : 'Wisdom';
           this._savingThrows.push(new Save(undefined, key, modifier, 0));
         }
       }
@@ -524,9 +525,6 @@ export class Character {
         for (const skill of attrArrays[i]) {
           this._skills[skill].modifier = Attributes[i];
         }
-        /* for (let j = 0; j < attrArrays[i].length; j++) {
-          this.skills[attrArrays[i][j]].modifier = Attributes[i];
-        } */
       }
       this.exp = 0;
     } else {

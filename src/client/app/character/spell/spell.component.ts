@@ -48,17 +48,7 @@ export class SpellComponent implements OnInit {
 
   addSpell(): void {
     if (!this.newSpell) {
-      this.spell = new Spell(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      );
+      this.spell = new Spell();
     }
     this.newSpell = !this.newSpell;
   }
@@ -99,17 +89,7 @@ export class SpellComponent implements OnInit {
       }
       this.character.addSpell(this.spell);
       this.createMessage();
-      this.spell = new Spell(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      );
+      this.spell = new Spell();
       this.newSpell = false;
     }
   }

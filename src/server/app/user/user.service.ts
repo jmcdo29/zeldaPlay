@@ -9,9 +9,12 @@ import { Repository } from 'typeorm';
 
 import { User } from '@Entity/user.entity';
 
-import { GoogleUserDTO } from '@Auth/interfaces/googleUser.dto';
 import { NewUserDTO } from '@Auth/interfaces/new_user.dto';
 import { UserDTO } from '@Auth/interfaces/user.dto';
+
+const noUser = 'No user found for email ';
+
+const registerFirst = '. Please register first.';
 
 @Injectable()
 export class UserService {
@@ -22,9 +25,7 @@ export class UserService {
   async login(user: UserDTO): Promise<User> {
     const dbUser = await this.userRepo.findOne({ email: user.email });
     if (!dbUser) {
-      throw new UnauthorizedException(
-        'No user found for email ' + user.email + '. Please register first.'
-      );
+      throw new UnauthorizedException(noUser + user.email + registerFirst);
     } else if (await compare(user.password, dbUser.password)) {
       return dbUser;
     } else {
@@ -49,9 +50,7 @@ export class UserService {
   async findUserByEmail(email: string): Promise<User> {
     const user = await this.userRepo.findOne({ email });
     if (!user) {
-      throw new UnauthorizedException(
-        'No user found for email ' + user.email + '. Please register first.'
-      );
+      throw new UnauthorizedException(noUser + user.email + registerFirst);
     } else {
       return Promise.resolve(user);
     }
@@ -60,9 +59,7 @@ export class UserService {
   async findUserByToken(token: string): Promise<User> {
     const user = await this.userRepo.findOne({ loginToken: token });
     if (!user) {
-      throw new UnauthorizedException(
-        'No user found for email ' + user.email + '. Please register first.'
-      );
+      throw new UnauthorizedException(noUser + user.email + registerFirst);
     } else {
       return Promise.resolve(user);
     }

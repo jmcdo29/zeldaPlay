@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 @font-face {
   font-family: HyliaSerif;
@@ -110,6 +110,15 @@ td {
 th {
   margin: 5px;
   width: 3.5em;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  font-size: 90%;
+}
+
+.mat-header-row {
+  background-color: lightyellow;
 }
 
 .column-holder::after {

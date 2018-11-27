@@ -12,7 +12,8 @@ describe('SkillService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule],
       providers: [SkillService]
-    }));
+    })
+  );
 
   it('should be created', () => {
     const service: SkillService = TestBed.get(SkillService);

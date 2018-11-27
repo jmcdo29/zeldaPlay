@@ -1,11 +1,18 @@
 <div class="notes">
-
   <div class="newNoteComps">
     <mat-form-field>
-    <input matInput class="noteInput" type="text" [(ngModel)]="newMsg" placeholder="New Note">
-  </mat-form-field>
+      <input
+        matInput
+        class="noteInput"
+        type="text"
+        [(ngModel)]="newMsg"
+        placeholder="New Note"
+      />
+    </mat-form-field>
     Important: <mat-checkbox [(ngModel)]="important"></mat-checkbox>
-    <button mat-flat-button class="noteButton" (click)="addNote()">Make Note</button>
+    <button mat-flat-button class="noteButton" (click)="addNote()">
+      Make Note
+    </button>
   </div>
 
   <button mat-flat-button class="accordian" (click)="expandNotes(0)">
@@ -13,8 +20,8 @@
   </button>
   <div class="panel" [class.active]="showNotes[0]">
     <ul>
-      <li *ngFor="let note of character.importantNotes">{{ note.time }}
-        <span class="message">{{ note.msg }}</span>
+      <li *ngFor="let note of character.importantNotes">
+        {{ note.time }} <span class="message">{{ note.msg }}</span>
       </li>
     </ul>
   </div>
@@ -25,8 +32,8 @@
 
   <div class="panel" [class.active]="showNotes[1]">
     <ul>
-      <li *ngFor="let note of character.notes">{{ note.time }}
-        <span class="message">{{ note.msg }}</span>
+      <li *ngFor="let note of character.notes">
+        {{ note.time }} <span class="message">{{ note.msg }}</span>
       </li>
     </ul>
   </div>

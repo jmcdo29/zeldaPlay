@@ -76,7 +76,8 @@ describe('CharactersComponent', () => {
   test('should create', () => {
     expect(component).toBeTruthy();
   });
-  describe('Toggles', () => {
+
+  describe('toggle', () => {
     test('hide', () => {
       component.newChar = true;
       component.selectedCharacter = new Character();
@@ -94,9 +95,7 @@ describe('CharactersComponent', () => {
   });
   describe('async ops', () => {
     test('download', () => {
-      spyOn(characterService, 'saveCharCopy').and.callFake(() =>
-        console.log('Calling fake!')
-      );
+      spyOn(characterService, 'saveCharCopy').and.callFake(() => {});
       component.selectedCharacter = new Character();
       component.download();
     });
@@ -116,35 +115,35 @@ describe('CharactersComponent', () => {
       );
       component.save();
     });
-    describe('ops with user logged in', () => {
-      beforeEach(() => {
-        sessionStorage.setItem('currentUser', ';ajsdf');
-        component.selectedCharacter = myChar;
-      });
-      test('getCharacter', () => {
-        spyOn(characterService, 'getUserCharacters').and.returnValues(
-          of([characterReturn])
-        );
-        component.getCharacters();
-      });
-      test('getCharacters with 0 return', () => {
-        spyOn(characterService, 'getUserCharacters').and.returnValues(of([]));
-        component.getCharacters();
-      });
-      test('getCharacters undefined user', () => {
-        spyOn(characterService, 'getCharacters').and.returnValues(
-          of([characterReturn])
-        );
-        sessionStorage.setItem('currentUser', 'undefined');
-        component.getCharacters();
-      });
-      test('getCharacters undefined user 0 return', () => {
-        spyOn(characterService, 'getCharacters').and.returnValues(of([]));
-        sessionStorage.setItem('currentUser', 'undefined');
-        component.getCharacters();
-      });
-      test('return an empty array', () => {});
+  });
+  describe('logged in async stuff', () => {
+    beforeEach(() => {
+      sessionStorage.setItem('currentUser', ';ajsdf');
+      component.selectedCharacter = myChar;
     });
+    test('getCharacter', () => {
+      spyOn(characterService, 'getUserCharacters').and.returnValues(
+        of([characterReturn])
+      );
+      component.getCharacters();
+    });
+    test('getCharacters with 0 return', () => {
+      spyOn(characterService, 'getUserCharacters').and.returnValues(of([]));
+      component.getCharacters();
+    });
+    test('getCharacters undefined user', () => {
+      spyOn(characterService, 'getCharacters').and.returnValues(
+        of([characterReturn])
+      );
+      sessionStorage.setItem('currentUser', 'undefined');
+      component.getCharacters();
+    });
+    test('getCharacters undefined user 0 return', () => {
+      spyOn(characterService, 'getCharacters').and.returnValues(of([]));
+      sessionStorage.setItem('currentUser', 'undefined');
+      component.getCharacters();
+    });
+    test('return an empty array', () => {});
   });
 
   test('init with chars', () => {

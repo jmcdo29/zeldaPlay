@@ -8,6 +8,8 @@ import { inject, TestBed } from '@angular/core/testing';
 import { environment } from '#Environment/environment';
 import { UserService } from './user.service';
 
+const expectedReturn = '00Uuejo58sG2';
+
 describe('#UserService', () => {
   let backend: HttpTestingController;
   let service: UserService;
@@ -28,27 +30,25 @@ describe('#UserService', () => {
   });
 
   test('should allow a user to log in', () => {
-    const expectedReturn = '00Uuejo58sG2';
     service.login('test', 'testing').subscribe();
 
     const getUserLogin = backend.expectOne(`${environment.apiUrl}/users/login`);
     expect(getUserLogin.request.url).toBe(`${environment.apiUrl}/users/login`);
-    getUserLogin.flush('00Uuejo58sG2');
-    // expect(sessionStorage.getItem('currentUser')).toBeTruthy();
-    // expect(sessionStorage.getItem('currentUser')).toBe(expectedReturn);
+    getUserLogin.flush({ id: '00Uuejo58sG2', accessToken: 'some token' });
+    expect(sessionStorage.getItem('currentUser')).toBeTruthy();
+    expect(sessionStorage.getItem('currentUser')).toBe(expectedReturn);
   });
 
   test('should allow a user to register', () => {
-    const expectedReturn = '00Uuejo58sG2';
     service.register('test', 'testing', 'testing').subscribe();
 
     const getUserLogin = backend.expectOne(
       `${environment.apiUrl}/users/signup`
     );
     expect(getUserLogin.request.url).toBe(`${environment.apiUrl}/users/signup`);
-    getUserLogin.flush('00Uuejo58sG2');
-    // expect(sessionStorage.getItem('currentUser')).toBe(expectedReturn);
-    // expect(sessionStorage.getItem('currentUser')).toBeTruthy();
+    getUserLogin.flush({ id: '00Uuejo58sG2', accessToken: 'some token' });
+    expect(sessionStorage.getItem('currentUser')).toBe(expectedReturn);
+    expect(sessionStorage.getItem('currentUser')).toBeTruthy();
   });
 
   test('should remove a user from sessionStorage', () => {

@@ -12,7 +12,8 @@ describe('SpellService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule],
       providers: [SpellService]
-    }));
+    })
+  );
 
   it('should be created', () => {
     const service: SpellService = TestBed.get(SpellService);

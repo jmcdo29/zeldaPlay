@@ -3,6 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "../../dist/server",
+    "target": "es2018",
+    "lib": ["es2018"],
     "paths": {
       "@Auth/*": ["app/auth/*"],
       "@Character/*": ["app/character/*"],

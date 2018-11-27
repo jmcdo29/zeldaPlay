@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as FileSaver from 'file-saver';
-import { Observable, of } from 'rxjs';
+import { Observable, of, OperatorFunction } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { Magics } from '#Enums/magic-skills.enum';
@@ -25,17 +25,7 @@ export class CharacterService {
 
   getCharacters(): Observable<Character[]> {
     return this.httpClient.get<ICharacterQuery[]>(this.characterUrl).pipe(
-      map<ICharacterQuery[], Character[]>((ch) => {
-        const characters = [];
-        for (const response of ch) {
-          response.skills = [];
-          response.saves = [];
-          characters.push(new Character(null, response as any));
-        }
-        const outcome = `Got ${ch.length} character.`;
-        this.messageService.add(outcome);
-        return characters;
-      }),
+      this.mapChar(),
       catchError(this.handleError('get characters', []))
     );
   }
@@ -43,8 +33,7 @@ export class CharacterService {
   getCharacter(id): Observable<Character> {
     return this.httpClient.get<ICharacterQuery>(this.characterUrl + id).pipe(
       map<ICharacterQuery, Character>((response) => {
-        const character = new Character(null, response);
-        return character;
+        return new Character(null, response);
       }),
       catchError(this.handleError('get character', null))
     );
@@ -59,18 +48,7 @@ export class CharacterService {
         withCredentials: true
       })
       .pipe(
-        map<ICharacterQuery[], Character[]>((ch) => {
-          const characters = [];
-          for (const response of ch) {
-            // these arrays are just to make the constructor work properly and have no other purpose
-            response.skills = [];
-            response.saves = [];
-            characters.push(new Character(null, response as any));
-          }
-          const outcome = `Got ${ch.length} character.`;
-          this.messageService.add(outcome);
-          return characters;
-        }),
+        this.mapChar(),
         catchError(this.handleError('get characters', []))
       );
   }
@@ -81,7 +59,7 @@ export class CharacterService {
       const errMsg =
         'ERROR IN ' + operation.toUpperCase() + ': ' + error.message;
       this.messageService.add(errMsg);
-      return of(result as T);
+      return of(result);
     };
   }
 
@@ -141,6 +119,21 @@ export class CharacterService {
         }
       )
       .pipe(map(() => character));
+  }
+
+  mapChar(): OperatorFunction<ICharacterQuery[], Character[]> {
+    return map<ICharacterQuery[], Character[]>((ch) => {
+      const characters = [];
+      for (const response of ch) {
+        // these arrays are just to make the constructor work properly and have no other purpose
+        response.skills = [];
+        response.saves = [];
+        characters.push(new Character(null, response as any));
+      }
+      const outcome = `Got ${ch.length} character.`;
+      this.messageService.add(outcome);
+      return characters;
+    });
   }
 }
 

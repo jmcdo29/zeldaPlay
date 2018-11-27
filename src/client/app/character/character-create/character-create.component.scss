@@ -31,9 +31,6 @@ h4 {
   position: relative;
 }
 input {
-  &.non-zero:in-range {
-    background-color: lightskyblue;
-  }
   &.bad-input,
   &:out-of-range {
     background-color: lightcoral;

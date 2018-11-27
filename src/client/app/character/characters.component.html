@@ -1,35 +1,69 @@
-<button mat-flat-button style="padding-right: 0.5em; padding-left: 0.5em; margin-right: 0.1em;"[routerLink]="['/login']">{{ loggedIn ? 'Logout' : 'Log In'}}</button>
-<div [class.loading]=loading>
+<button
+  mat-flat-button
+  style="padding-right: 0.5em; padding-left: 0.5em; margin-right: 0.1em;"
+  [routerLink]="['/login']"
+>
+  {{ loggedIn ? 'Logout' : 'Log In' }}
+</button>
+<div [class.loading]="loading">
   <div class="column-holder">
     <div class="character-column">
       <div class="characters">
         <h2>My Characters</h2>
         <ul class="characters">
-          <li *ngFor="let character of characters" (click)="onSelect(character)" [class.selected]="character===selectedCharacter">
+          <li
+            *ngFor="let character of characters"
+            (click)="onSelect(character)"
+            [class.selected]="character === selectedCharacter"
+          >
             <span class="badge">{{ character.race }}</span>
             <span class="text">{{ character.name }}</span>
           </li>
         </ul>
 
         <div *ngIf="selectedCharacter">
-          <button mat-flat-button style="margin-bottom: 0.25em;" (click)="hide()">Hide Character Sheet</button>
-          <br/>
+          <button
+            mat-flat-button
+            style="margin-bottom: 0.25em;"
+            (click)="hide()"
+          >
+            Hide Character Sheet
+          </button>
+          <br />
           <div *ngIf="loggedIn">
-            <button mat-flat-button style="margin-bottom: 0.25em;" (click)="save()">Save Character</button>
-            <br/>
+            <button
+              mat-flat-button
+              style="margin-bottom: 0.25em;"
+              (click)="save()"
+            >
+              Save Character
+            </button>
+            <br />
           </div>
-          <button mat-flat-button style="margin-bottom: 0.25em;" (click)="download()">Download Character Data</button>
-          <br/>
+          <button
+            mat-flat-button
+            style="margin-bottom: 0.25em;"
+            (click)="download()"
+          >
+            Download Character Data
+          </button>
+          <br />
         </div>
-        <button mat-flat-button style="margin-bottom: 0.25em;" (click)="newCharacter()">Create Character</button>
+        <button
+          mat-flat-button
+          style="margin-bottom: 0.25em;"
+          (click)="newCharacter()"
+        >
+          Create Character
+        </button>
       </div>
-      <div class="messages">
-        <app-messages></app-messages>
-      </div>
+      <div class="messages"><app-messages></app-messages></div>
     </div>
 
     <div class="details-column">
-      <app-character-detail [character]="selectedCharacter"></app-character-detail>
+      <app-character-detail
+        [character]="selectedCharacter"
+      ></app-character-detail>
       <div *ngIf="newChar">
         <app-character-create [CharacterParent]="this"></app-character-create>
       </div>

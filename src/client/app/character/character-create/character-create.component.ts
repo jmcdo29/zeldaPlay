@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { AlertService } from '#Alert/alert.service';
 import { Attributes } from '#Enums/attributes.enum';
@@ -28,6 +28,10 @@ import { CharactersComponent } from '../characters.component';
 export class CharacterCreateComponent implements OnInit {
   @Input()
   CharacterParent: CharactersComponent;
+
+  skillColumnsToDisplay = ['trained', 'name', 'modifier', 'ranks', 'total'];
+  weaponColumnsToDisplay = ['trained', 'type', 'ranks', 'total'];
+  magicColumnsToDisplay = ['type', 'modifier', 'ranks', 'total'];
 
   skillPoints: number;
   originalPoints: number;
@@ -64,9 +68,7 @@ export class CharacterCreateComponent implements OnInit {
     public message: MessageService,
     private alertService: AlertService,
     private characterService: CharacterService
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.attrMins = [];
     this.attrPrior = [];
     this.skillsPrior = [];
@@ -79,10 +81,9 @@ export class CharacterCreateComponent implements OnInit {
     for (const attr of this.newCharacter.attributes) {
       this.attrMins.push(attr.value);
     }
-    /* for (let i = 0; i < this.newCharacter.attributes.length; i++) {
-      this.attrMins.push(this.newCharacter.attributes[i].value);
-    } */
   }
+
+  ngOnInit() {}
 
   aboutRace(): void {
     this.showRaceModal = !this.showRaceModal;
@@ -98,7 +99,7 @@ export class CharacterCreateComponent implements OnInit {
   save(): void {
     let nullSubRace = false;
     if (!this.nullSubRaceClasses.includes(this.newCharacter.race)) {
-      nullSubRace = this.newCharacter.subRace ? false : true;
+      nullSubRace = !this.newCharacter.subRace;
     }
     if (
       this.newCharacter.name &&

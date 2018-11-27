@@ -1,3 +1,5 @@
+const tornadoRod = 'Tornado Rod';
+
 export const characterJSON = {
   attributes: [
     { name: 'Strength', value: 11, modifier: 0 },
@@ -320,7 +322,7 @@ export const characterJSON = {
     { skillName: 'Sling', ranks: 0, trained: false, racial: 0 },
     { skillName: 'Small Bomb', ranks: 0, trained: false, racial: 0 },
     { skillName: 'Spear', ranks: 0, trained: false, racial: 0 },
-    { skillName: 'Tornado Rod', ranks: 9, trained: true, racial: 0 },
+    { skillName: tornadoRod, ranks: 9, trained: true, racial: 0 },
     { skillName: 'Tower Shield', ranks: 0, trained: false, racial: 0 },
     { skillName: 'Two-Handed Hammer', ranks: 0, trained: false, racial: 0 },
     { skillName: 'Unarmed', ranks: 0, trained: false, racial: 0 },
@@ -346,8 +348,8 @@ export const characterJSON = {
     {
       attack: 8,
       ammo: 20,
-      name: 'Tornado Rod',
-      type: 'Tornado Rod',
+      name: tornadoRod,
+      type: tornadoRod,
       numberOfAttacks: 1,
       critDamage: 3,
       range: 30,
