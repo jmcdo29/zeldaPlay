@@ -153,7 +153,7 @@ describe('CharacterService', () => {
         { id: 'some id', name: charName, race: 'the race' }
       ]);
       expect(actualReturn).toEqual([
-        /* {
+        {
           _ac: undefined,
           _attributes: [
             { _modifier: NaN, _name: 'Strength', _value: undefined },
@@ -193,7 +193,7 @@ describe('CharacterService', () => {
           _touch: undefined,
           _weaponSkills: [],
           _weapons: []
-        } */
+        }
       ]);
     });
     test('unsuccessful request', () => {
