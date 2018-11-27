@@ -304,31 +304,41 @@
           <ng-template mat-tab-label>
             <h4>{{ character.name }}<br />Skills</h4>
           </ng-template>
-          <app-skill [character]="character"></app-skill>
+          <ng-template matTabContent>
+            <app-skill [character]="character"></app-skill>
+          </ng-template>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             <h4>{{ character.name }}<br />Weapons</h4>
           </ng-template>
-          <app-weapon [character]="character"></app-weapon>
+          <ng-template matTabContent>
+            <app-weapon [character]="character"></app-weapon>
+          </ng-template>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             <h4>{{ character.name }}<br />Spells</h4>
           </ng-template>
-          <app-spell [character]="character"></app-spell>
+          <ng-template matTabContent>
+            <app-spell [character]="character"></app-spell>
+          </ng-template>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             <h4>{{ character.name }}<br />Notes</h4>
           </ng-template>
-          <app-note [character]="character"></app-note>
+          <ng-template matTabContent>
+            <app-note [character]="character"></app-note>
+          </ng-template>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
             <h4>{{ character.name }}<br />Inventory</h4>
           </ng-template>
-          <app-inventory [character]="character"></app-inventory>
+          <ng-template matTabContent>
+            <app-inventory [character]="character"></app-inventory>
+          </ng-template>
         </mat-tab>
       </mat-tab-group>
     </div>

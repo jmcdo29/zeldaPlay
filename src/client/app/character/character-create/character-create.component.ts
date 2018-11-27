@@ -29,9 +29,17 @@ export class CharacterCreateComponent implements OnInit {
   @Input()
   CharacterParent: CharactersComponent;
 
+  detailColumnsToDisplay = ['name', 'value', 'modifier'];
   skillColumnsToDisplay = ['trained', 'name', 'modifier', 'ranks', 'total'];
   weaponColumnsToDisplay = ['trained', 'type', 'ranks', 'total'];
   magicColumnsToDisplay = ['type', 'modifier', 'ranks', 'total'];
+  hmeColumnsToDisplay = ['name', 'value'];
+
+  hmeDataSource = [
+    { name: 'health', modifier: 'Constitution', base: 48 },
+    { name: 'magic', modifier: 'Wisdom', base: 20 },
+    { name: 'exp', modifier: undefined, base: 0 }
+  ];
 
   skillPoints: number;
   originalPoints: number;
@@ -206,7 +214,8 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   getMod(modName: string): number {
-    return this.newCharacter.attributes[Attributes[modName]].modifier;
+    const retAtt = this.newCharacter.attributes[Attributes[modName]];
+    return retAtt ? retAtt.modifier : 0;
   }
 
   closeError(): void {

@@ -732,77 +732,78 @@
       </div>
     </div>
     &nbsp;
+    <div class="characterName">
+      <span class="name">Name:</span>
+      <span class="right">
+        <mat-form-field class="name" color="accent">
+          <input
+            matInput
+            class="skill"
+            type="text"
+            [(ngModel)]="newCharacter.name"
+            placeholder="Name"
+            maxlength="16"
+          />
+        </mat-form-field>
+      </span>
+    </div>
     <div class="attributes">
       <h3 [class.error]="0 > attPoints">Attribute Points: {{ attPoints }}</h3>
       <div class="table">
-        <table>
-          <thead>
-            <tr>
-              <th>Traits</th>
-              <th>Value/Score</th>
-              <th>Modifier</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="name">Name</td>
-              <td>
-                <mat-form-field class="name" color="accent">
-                  <input
-                    matInput
-                    class="skill"
-                    type="text"
-                    [(ngModel)]="newCharacter.name"
-                    placeholder="Name"
-                    maxlength="16"
-                  />
-                </mat-form-field>
-              </td>
-            </tr>
+        <table mat-table [dataSource]="newCharacter.attributes">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Trait</th>
+            <td mat-cell *matCellDef="let attr">{{ attr.name }}</td>
+          </ng-container>
+          <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef>Ranks</th>
+            <td mat-cell *matCellDef="let attr">
+              <mat-form-field class="attribute" color="accent">
+                <input
+                  matInput
+                  type="number"
+                  [(ngModel)]="attr.value"
+                  max="{{ 24 < attr.value + attPoints ? 24 : attr.value + attPoints }}"
+                  min="{{ 8 }}"
+                />
+              </mat-form-field>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="modifier">
+            <th mat-header-cell *matHeaderCellDef>Modifier</th>
+            <td mat-cell *matCellDef="let attr">{{ attr.modifier }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="detailColumnsToDisplay"></tr>
+          <tr
+            [class.din]="row.name === 'Strength' || row.name === 'Intelligence'"
+            [class.nayru]="row.name === 'Wisdom' || row.name === 'Constitution'"
+            [class.farore]="row.name === 'Dexterity' || row.name === 'Charisma'"
+            mat-row
+            *matRowDef="let row; columns: detailColumnsToDisplay"
+          ></tr>
+        </table>
 
-            <br />
-
-            <tr
-              *ngFor="let attr of newCharacter.attributes; index as i"
-              [class.din]="
-                attr.name === 'Strength' || attr.name === 'Intelligence'
-              "
-              [class.farore]="
-                attr.name === 'Dexterity' || attr.name === 'Charisma'
-              "
-              [class.nayru]="
-                attr.name === 'Wisdom' || attr.name === 'Constitution'
-              "
-            >
-              <td class="name">{{ attr.name }}</td>
-              <td>
-                <mat-form-field class="attribute" color="accent">
-                  <input
-                    matInput
-                    id="{{ 'attr'+i }}"
-                    type="number"
-                    [(ngModel)]="attr.value"
-                    max="{{ 24 < attr.value + attPoints ? 24 : attr.value + attPoints }}"
-                    min="{{ attrMins[i] }}"
-                    (change)="trackAtt(i)"
-                    (blur)="validateAttr(i)"
-                  />
-                </mat-form-field>
-              </td>
-              <td>{{ attr.modifier }}</td>
-            </tr>
-
-            <br />
-
-            <tr class="din">
-              <td class="name">Health</td>
-              <td>{{ 48 + newCharacter.attributes[2].modifier }}</td>
-            </tr>
-            <tr class="nayru">
-              <td class="name">Magic</td>
-              <td>{{ 20 + newCharacter.attributes[4].modifier }}</td>
-            </tr>
-          </tbody>
+        <table mat-table [dataSource]="hmeDataSource">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Trait</th>
+            <td mat-cell *matCellDef="let kind">
+              {{ kind.name | capitalize }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef>Current</th>
+            <td mat-cell *matCellDef="let kind">
+              {{ kind.base + getMod(kind.modifier) }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="hmeColumnsToDisplay"></tr>
+          <tr
+            [class.din]="kind.name === 'health'"
+            [class.nayru]="kind.name === 'magic'"
+            [class.farore]="kind.name === 'exp'"
+            mat-row
+            *matRowDef="let kind; columns: hmeColumnsToDisplay"
+          ></tr>
         </table>
       </div>
     </div>
@@ -926,10 +927,10 @@
             row.modifier === 'Strength' || row.modifier === 'Intelligence'
           "
           [class.nayru]="
-            row.modifier === 'Wisdom' || row.modifier === 'Charisma'
+            row.modifier === 'Wisdom' || row.modifier === 'Constitution'
           "
           [class.farore]="
-            row.modifier === 'Dexterity' || row.modifier === 'Constitution'
+            row.modifier === 'Dexterity' || row.modifier === 'Charisma'
           "
           mat-row
           *matRowDef="let row; columns: skillColumnsToDisplay"
