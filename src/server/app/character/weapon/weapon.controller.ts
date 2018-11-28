@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
+  ApiImplicitParam,
   ApiOkResponse,
   ApiOperation,
   ApiUseTags
@@ -53,6 +54,7 @@ export class WeaponController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: Weapon })
+  @ApiImplicitParam({ name: 'weaponId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   async updateWeapon(
     @Body('weapon', WeaponPipe) inWeapon: Weapon

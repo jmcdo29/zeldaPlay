@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
+  ApiImplicitParam,
   ApiOkResponse,
   ApiOperation,
   ApiUseTags
@@ -53,6 +54,7 @@ export class SpellController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: Spell })
+  @ApiImplicitParam({ name: 'spellId', required: true, type: 'string' })
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
   async updateSpell(@Body('spell', SpellPipe) inSpell: Spell): Promise<Spell> {
     return this.spellService.updateSpell(inSpell);

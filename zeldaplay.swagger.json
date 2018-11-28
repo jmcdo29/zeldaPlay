@@ -1,0 +1,783 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The zeldaplay API description",
+    "version": "1.0",
+    "title": "ZeldaPlay",
+    "contact": { "email": "jmcdo29@gmail.com" },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/jmcdo29/zeldaPlay/blob/master/LICENSE"
+    }
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "character",
+      "description": "APIs that specifically pertain to the character or character saves"
+    },
+    {
+      "name": "note",
+      "description": "APIs for getting the Notes of and adding new Notes for the character"
+    },
+    {
+      "name": "spell",
+      "description": "APIs for getting the Spells of and adding new Spells for the character"
+    },
+    {
+      "name": "skill",
+      "description": "APIs for getting new Skills for the character"
+    },
+    {
+      "name": "weapon",
+      "description": "APIs for getting the Spells of and adding new Weapons for the character"
+    },
+    {
+      "name": "user",
+      "description": "APIs for registering and logging in to the application"
+    }
+  ],
+  "schemes": ["https"],
+  "host": "zeldaplay.herokuapp.com",
+  "securityDefinitions": {
+    "bearer": { "type": "apiKey", "name": "Authorization", "in": "header" }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Get App",
+        "description": "The base path where the angular application is sent from.",
+        "responses": { "200": { "description": "" } },
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character": {
+      "get": {
+        "summary": "Get All Unassigned Characters",
+        "description": "Get all of the characters who do not belong to a user. These are returned and shown as an example for the user to get an idea of how the app works.",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Character" }
+            }
+          }
+        },
+        "tags": ["character"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/new/{userId}": {
+      "post": {
+        "summary": "New Character",
+        "description": "Using the User id, create and assign a new character based on the incoming body",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "userId",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "character",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/CharacterDTO" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": { "$ref": "#/definitions/Character" }
+          }
+        },
+        "tags": ["character"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/user/{userId}": {
+      "get": {
+        "summary": "User Characters",
+        "description": "Get all the characters belonging to the specified user.",
+        "parameters": [
+          { "type": "string", "name": "userId", "required": true, "in": "path" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Character" }
+            }
+          }
+        },
+        "tags": ["character"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/{characterId}": {
+      "get": {
+        "summary": "Get Character",
+        "description": "Return all the information pertaining to the specified character.",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "characterId",
+            "required": true,
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": { "$ref": "#/definitions/Character" }
+          }
+        },
+        "tags": ["character"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/update/{charId}": {
+      "post": {
+        "summary": "Update Character",
+        "description": "Update the incoming character. Found based on the passed id.",
+        "parameters": [
+          {
+            "name": "character",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/CharacterDTO" }
+          },
+          { "name": "charId", "required": true, "in": "path", "type": "string" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": { "$ref": "#/definitions/Character" }
+          }
+        },
+        "tags": ["character"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/skill/{charId}": {
+      "get": {
+        "summary": "get character skills",
+        "description": "Get all the skills of the specified character.",
+        "parameters": [
+          { "type": "string", "name": "charId", "required": true, "in": "path" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Skill" }
+            }
+          }
+        },
+        "tags": ["skill"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/weapon/{charId}": {
+      "get": {
+        "summary": "Get Weapons",
+        "description": "Get all the weapons of the specified character.",
+        "parameters": [
+          { "type": "string", "name": "charId", "required": true, "in": "path" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Weapon" }
+            }
+          }
+        },
+        "tags": ["weapon"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/weapon/new/{charId}": {
+      "post": {
+        "summary": "New Weapon",
+        "description": "Create a new weapon for the character.",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "charId",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "weapon",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/WeaponDTO" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": { "$ref": "#/definitions/Weapon" }
+          }
+        },
+        "tags": ["weapon"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/weapon/update/{weaponId}": {
+      "post": {
+        "summary": "Update Weapon",
+        "description": "Update the weapon saved in the database with the specified id",
+        "parameters": [
+          {
+            "name": "weapon",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/WeaponDTO" }
+          },
+          {
+            "name": "weaponId",
+            "required": true,
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": { "$ref": "#/definitions/Weapon" }
+          }
+        },
+        "tags": ["weapon"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "Login",
+        "description": "Log the user in",
+        "parameters": [
+          {
+            "name": "user",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/UserDTO" }
+          }
+        ],
+        "responses": { "201": { "description": "" } },
+        "tags": ["user"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/users/signup": {
+      "post": {
+        "summary": "Signup",
+        "description": "Sign the new user up",
+        "parameters": [
+          {
+            "name": "user",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/NewUserDTO" }
+          }
+        ],
+        "responses": { "201": { "description": "" } },
+        "tags": ["user"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "summary": "Logout",
+        "description": "Allow the user to log out.",
+        "responses": { "201": { "description": "" } },
+        "tags": ["user"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/spell/{charId}": {
+      "get": {
+        "summary": "Get Character Spells",
+        "description": "Get all of the spells for the specified character.",
+        "parameters": [
+          { "type": "string", "name": "charId", "required": true, "in": "path" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Spell" }
+            }
+          }
+        },
+        "tags": ["spell"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/spell/new/{charId}": {
+      "post": {
+        "summary": "Create a new spell",
+        "description": "Create a new spell to be saved to the character.",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "charId",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "spell",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/SpellDTO" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": { "$ref": "#/definitions/Spell" }
+          }
+        },
+        "tags": ["spell"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/spell/update/{spellId}": {
+      "post": {
+        "summary": "Update Spell",
+        "description": "Update an existing spell based on its id.",
+        "parameters": [
+          {
+            "name": "spell",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/SpellDTO" }
+          },
+          {
+            "name": "spellId",
+            "required": true,
+            "in": "path",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": { "$ref": "#/definitions/Spell" }
+          }
+        },
+        "tags": ["spell"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    },
+    "/character/note/{charId}": {
+      "get": {
+        "summary": "Get Notes",
+        "description": "Get all the notes of one character.",
+        "parameters": [
+          { "type": "string", "name": "charId", "required": true, "in": "path" }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Note" }
+            }
+          }
+        },
+        "tags": ["note"],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      },
+      "post": {
+        "summary": "New Note",
+        "description": "Make a new note tied to this character.",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "charId",
+            "required": true,
+            "in": "path"
+          },
+          {
+            "name": "note",
+            "required": true,
+            "in": "body",
+            "schema": { "$ref": "#/definitions/NoteDTO" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": { "$ref": "#/definitions/Note" }
+          }
+        },
+        "tags": ["note"],
+        "security": [{ "bearer": [] }],
+        "produces": ["application/json"],
+        "consumes": ["application/json"]
+      }
+    }
+  },
+  "definitions": {
+    "Skill": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "trained": { "type": "object" },
+        "name": { "type": "string" },
+        "ranks": { "type": "number" },
+        "modifier": { "type": "string" },
+        "racial_modifier": { "type": "number" },
+        "item_modifier": { "type": "number" },
+        "misc_modifier": { "type": "number" },
+        "skill_type": { "type": "string" }
+      },
+      "required": [
+        "id",
+        "trained",
+        "name",
+        "ranks",
+        "modifier",
+        "racial_modifier",
+        "item_modifier",
+        "misc_modifier",
+        "skill_type"
+      ]
+    },
+    "Save": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "racial_bonus": { "type": "number" },
+        "name": { "type": "string" },
+        "modifier": { "type": "string" }
+      },
+      "required": ["id", "racial_bonus", "name", "modifier"]
+    },
+    "Character": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "race": { "type": "string" },
+        "subrace": { "type": "string" },
+        "strength": { "type": "number" },
+        "dexterity": { "type": "number" },
+        "constitution": { "type": "number" },
+        "intelligence": { "type": "number" },
+        "wisdom": { "type": "number" },
+        "charisma": { "type": "number" },
+        "ac": { "type": "number" },
+        "flat_footed": { "type": "number" },
+        "touch": { "type": "number" },
+        "health": { "type": "number" },
+        "max_health": { "type": "number" },
+        "magic": { "type": "number" },
+        "max_magic": { "type": "number" },
+        "experience": { "type": "number" },
+        "size": { "type": "string" },
+        "craft_one": { "type": "string" },
+        "craft_two": { "type": "string" },
+        "profession": { "type": "string" },
+        "performance": { "type": "string" },
+        "level": { "type": "number" },
+        "skills": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Skill" }
+        },
+        "saves": { "type": "array", "items": { "$ref": "#/definitions/Save" } }
+      },
+      "required": [
+        "id",
+        "name",
+        "race",
+        "subrace",
+        "strength",
+        "dexterity",
+        "constitution",
+        "intelligence",
+        "wisdom",
+        "charisma",
+        "ac",
+        "flat_footed",
+        "touch",
+        "health",
+        "max_health",
+        "magic",
+        "max_magic",
+        "experience",
+        "size",
+        "craft_one",
+        "craft_two",
+        "profession",
+        "performance",
+        "level",
+        "skills",
+        "saves"
+      ]
+    },
+    "AttributeDTO": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "value": { "type": "number" },
+        "modifier": { "type": "number" }
+      },
+      "required": ["name", "value", "modifier"]
+    },
+    "SkillDTO": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "skillName": { "type": "string" },
+        "type": { "type": "string" },
+        "ranks": { "type": "number" },
+        "trained": { "type": "boolean" },
+        "racial": { "type": "number" },
+        "misc": { "type": "number" },
+        "item": { "type": "number" },
+        "modifier": { "type": "string" }
+      },
+      "required": [
+        "id",
+        "skillName",
+        "type",
+        "ranks",
+        "trained",
+        "racial",
+        "misc",
+        "item",
+        "modifier"
+      ]
+    },
+    "SaveDTO": {
+      "type": "object",
+      "properties": {
+        "racial": { "type": "number" },
+        "name": { "type": "string" },
+        "modifier": { "type": "string" },
+        "id": { "type": "string" }
+      },
+      "required": ["racial", "name", "modifier"]
+    },
+    "CharacterDTO": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "level": { "type": "number" },
+        "name": { "type": "string" },
+        "race": { "type": "string" },
+        "subRace": { "type": "string" },
+        "attributes": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/AttributeDTO" }
+        },
+        "health": { "type": "number" },
+        "maxHealth": { "type": "number" },
+        "magic": { "type": "number" },
+        "maxMagic": { "type": "number" },
+        "exp": { "type": "number" },
+        "craftOne": { "type": "string" },
+        "craftTwo": { "type": "string" },
+        "performCust": { "type": "string" },
+        "profession": { "type": "string" },
+        "skills": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/SkillDTO" }
+        },
+        "weaponSkills": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/SkillDTO" }
+        },
+        "magicSkills": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/SkillDTO" }
+        },
+        "savingThrows": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/SaveDTO" }
+        }
+      },
+      "required": [
+        "level",
+        "name",
+        "race",
+        "attributes",
+        "health",
+        "maxHealth",
+        "magic",
+        "maxMagic",
+        "exp",
+        "savingThrows"
+      ]
+    },
+    "Weapon": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "damage": { "type": "number" },
+        "number_of_hits": { "type": "number" },
+        "crit_range": { "type": "string" },
+        "crit_multiplier": { "type": "number" },
+        "type": { "type": "string" },
+        "modifier": { "type": "string" },
+        "range": { "type": "number" },
+        "ammo": { "type": "number" }
+      },
+      "required": [
+        "id",
+        "name",
+        "damage",
+        "number_of_hits",
+        "crit_range",
+        "crit_multiplier",
+        "type",
+        "modifier",
+        "range",
+        "ammo"
+      ]
+    },
+    "WeaponDTO": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "attack": { "type": "number" },
+        "numberOfAttacks": { "type": "number" },
+        "critRange": { "type": "array", "items": { "type": "string" } },
+        "critDamage": { "type": "number" },
+        "type": { "type": "string" },
+        "modifier": { "type": "string" },
+        "range": { "type": "number" },
+        "ammo": { "type": "number" },
+        "id": { "type": "string" }
+      },
+      "required": [
+        "name",
+        "attack",
+        "numberOfAttacks",
+        "critRange",
+        "critDamage",
+        "type",
+        "modifier",
+        "range"
+      ]
+    },
+    "UserDTO": {
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "password": { "type": "string" }
+      },
+      "required": ["email", "password"]
+    },
+    "NewUserDTO": {
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "password": { "type": "string" },
+        "confirmationPassword": { "type": "string" }
+      },
+      "required": ["email", "password", "confirmationPassword"]
+    },
+    "Spell": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "effect": { "type": "string" },
+        "mp_use": { "type": "number" },
+        "damage": { "type": "number" },
+        "number_of_hit": { "type": "number" },
+        "modifier": { "type": "string" },
+        "diety": { "type": "string" },
+        "use_diety": { "type": "object" }
+      },
+      "required": [
+        "id",
+        "name",
+        "effect",
+        "mp_use",
+        "damage",
+        "number_of_hit",
+        "modifier",
+        "diety",
+        "use_diety"
+      ]
+    },
+    "SpellDTO": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "effect": { "type": "string" },
+        "mpUse": { "type": "number" },
+        "damage": { "type": "number" },
+        "multiplier": { "type": "number" },
+        "modifier": { "type": "string" },
+        "diety": { "type": "string" },
+        "useDiety": { "type": "object" },
+        "id": { "type": "string" }
+      },
+      "required": [
+        "name",
+        "effect",
+        "mpUse",
+        "damage",
+        "multiplier",
+        "diety",
+        "useDiety"
+      ]
+    },
+    "Note": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "message": { "type": "string" },
+        "time": { "type": "string" },
+        "important": { "type": "object" }
+      },
+      "required": ["id", "message", "time", "important"]
+    },
+    "NoteDTO": {
+      "type": "object",
+      "properties": {
+        "msg": { "type": "string" },
+        "time": { "type": "string" },
+        "id": { "type": "string" },
+        "important": { "type": "boolean" }
+      },
+      "required": ["msg", "time", "id", "important"]
+    }
+  }
+}

@@ -32,7 +32,7 @@
     "start:debug": "concurrently \"npm run build:server -w\" \"node --inspect -r ./scripts/ts-config-bootstrap.js dist/server/main.js\"",
     "start:dev": "concurrently -n \"client,server\" -c \"green,magenta\" \"npm run start:dev:client\" \"npm run start:dev:server\"",
     "start:dev:client": "ng serve --open",
-    "start:dev:server": "concurrently -n \"build,run\" -c \"cyan,blue\" \"npm run build:server -w\" \"nodemon -r ./scripts/ts-config-bootstrap.js dist/server/main.js\"",
+    "start:dev:server": "concurrently -n \"build,run\" -c \"cyan,blue\" \"npm run build:server -- -w\" \"nodemon -r ./scripts/ts-config-bootstrap.js dist/server/main.js\"",
     "test": "jest --notify",
     "test:ci": "jest --runInBand"
   },
