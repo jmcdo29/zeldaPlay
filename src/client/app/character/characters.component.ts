@@ -44,7 +44,6 @@ export class CharactersComponent implements OnInit {
   ) {}
 
   getCharacters(): void {
-    console.log(this.loggedIn);
     this.loading = true;
     const currentUser = sessionStorage.getItem('currentUser');
     if (currentUser && currentUser !== 'undefined') {
@@ -68,7 +67,7 @@ export class CharactersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loggedIn = sessionStorage.getItem('currentUser') ? true : false;
+    this.loggedIn = !!sessionStorage.getItem('currentUser');
     this.getCharacters();
     if (this.characters.length === 0) {
       this.characters = [];

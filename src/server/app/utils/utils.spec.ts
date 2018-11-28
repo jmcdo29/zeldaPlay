@@ -1,8 +1,8 @@
-import { checkNull, makeId } from './utils';
+import { Utils } from './utils';
 
 describe('#Utilities testing', () => {
   test('should make a random string x characters long.', () => {
-    const randomId = makeId(9);
+    const randomId = Utils.makeId(9);
     expect(randomId).toHaveLength(9);
     expect(randomId).toBeDefined();
     expect(typeof randomId).toBe('string');
@@ -11,7 +11,7 @@ describe('#Utilities testing', () => {
   test('should make several random ids, all being different', () => {
     let randomIds = [];
     for (let i = 0; i < 100; i++) {
-      randomIds.push(makeId(9));
+      randomIds.push(Utils.makeId(9));
     }
     expect(randomIds).toHaveLength(100);
     for (const id of randomIds) {
@@ -36,7 +36,7 @@ describe('#Utilities testing', () => {
     const objectWithNull: IobjWithNull = {
       value: NaN
     };
-    const retNull = checkNull(objectWithNull.value, 'number');
+    const retNull = Utils.checkNull(objectWithNull.value, 'number');
     expect(retNull).toBeNull();
   });
 
@@ -44,23 +44,23 @@ describe('#Utilities testing', () => {
     const objectWithoutNull = {
       value: 15
     };
-    const retNum = checkNull(objectWithoutNull.value, 'number');
+    const retNum = Utils.checkNull(objectWithoutNull.value, 'number');
     expect(retNum).toBe(15);
   });
 
-  test('should return "" for something that is not a number or string', () => {
+  test('should return undefined for something that is not a number or string', () => {
     const testObj = {
       value: null
     };
-    const retVal = checkNull(testObj.value, 'object');
-    expect(retVal).toBe('');
+    const retVal = Utils.checkNull(testObj.value, 'object');
+    expect(retVal).toBe(undefined);
   });
 
   test('should check for an undefined value and pass back ""', () => {
     const objectWithBlank = {
       name: ''
     };
-    const retBlank = checkNull(objectWithBlank.name, 'string');
+    const retBlank = Utils.checkNull(objectWithBlank.name, 'string');
     expect(retBlank).toBe('');
   });
 
@@ -68,7 +68,7 @@ describe('#Utilities testing', () => {
     const objectWithoutBlank = {
       name: 'some name'
     };
-    const retBlank = checkNull(objectWithoutBlank.name, 'string');
+    const retBlank = Utils.checkNull(objectWithoutBlank.name, 'string');
     expect(retBlank).toBe('some name');
   });
 });

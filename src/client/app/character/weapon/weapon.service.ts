@@ -80,7 +80,8 @@ export class WeaponService {
       );
   }
 }
-
+// transform the value of a string to a numeric array returning
+// returning [18, 19, 20], [19, 20], or [20] depending on the initial string
 function parseStringToIntArray(range: string): number[] {
   if (range.length === 2) {
     return [Number.parseInt(range)];

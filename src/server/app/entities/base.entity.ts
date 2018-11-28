@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { User } from '@Entity/user.entity';
-import { makeId } from '../utils/utils';
+import { Utils } from '../utils/utils';
 
 export abstract class Base {
   abstract idStart?: string;
@@ -30,6 +30,6 @@ export abstract class Base {
 
   @BeforeInsert()
   createId() {
-    this.id = this.idStart + makeId(9);
+    this.id = this.idStart + Utils.makeId(9);
   }
 }

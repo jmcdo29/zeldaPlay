@@ -10,6 +10,8 @@ import { SharedModule } from '#Shared/shared.module';
 import { SpellComponent } from './spell.component';
 import { SpellService } from './spell.service';
 
+const tSpell = 'test spell';
+
 const alertServiceStub: Partial<AlertService> = {
   error(message, keepAfterNavigationChange = false) {
     return { message, type: 'error' };
@@ -22,6 +24,7 @@ const messageServiceStub: Partial<MessageService> = {
   }
 };
 
+// tslint:disable-next-line:no-big-function
 describe('SpellComponent', () => {
   let component: SpellComponent;
   let fixture: ComponentFixture<SpellComponent>;
@@ -74,7 +77,7 @@ describe('SpellComponent', () => {
     beforeEach(() => {
       const mySpell = new Spell(
         undefined,
-        'test spell',
+        tSpell,
         'this is the spell effect',
         4,
         3,
@@ -94,7 +97,7 @@ describe('SpellComponent', () => {
     });
     test('should succeed in casting spell', () => {
       component.character.attributes[4].value = 10;
-      component.spellName = 'test spell';
+      component.spellName = tSpell;
       fixture.detectChanges();
       component.character.magic = 15;
       component.castSpell(0);
@@ -103,7 +106,7 @@ describe('SpellComponent', () => {
     test('should succeed in casting diety spell', () => {
       component.character.spells[0].useDiety = true;
       component.character.attributes[4].value = 10;
-      component.spellName = 'test spell';
+      component.spellName = tSpell;
       fixture.detectChanges();
       let critMissRoll = false;
       let critMissDmg = false;
@@ -134,7 +137,7 @@ describe('SpellComponent', () => {
     test('cast spell with no useDiety and no modifier', () => {
       component.character.spells[0].modifier = '';
       component.character.magic = 15;
-      component.spellName = 'test spell';
+      component.spellName = tSpell;
       fixture.detectChanges();
       component.castSpell(0);
       expect(component.dmgRoll).toBeTruthy();

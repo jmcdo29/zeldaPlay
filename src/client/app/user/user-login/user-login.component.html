@@ -2,20 +2,30 @@
 <div class="jumbo">
   <div [class.loading]="loading">
     <h2 class="no-padding">Welcome to ZeldaPlay!</h2>
-    <p>To register, please click
-      <a [routerLink]="['/register']">here.</a>
-    </p>
+    <p>To register, please click <a [routerLink]="['/register']">here.</a></p>
     <div class="custTable">
       <div class="row">
-          <mat-form-field>
-          <input matInput type="email" class="user" [(ngModel)]="username" placeholder="Email">
+        <mat-form-field>
+          <input
+            matInput
+            type="email"
+            class="user"
+            [(ngModel)]="username"
+            placeholder="Email"
+          />
         </mat-form-field>
       </div>
       <div class="row">
         <div class="cell input">
           <mat-form-field>
-          <input matInput class="user" [(ngModel)]="password" type="password" placeholder="Password">
-        </mat-form-field>
+            <input
+              matInput
+              class="user"
+              [(ngModel)]="password"
+              type="password"
+              placeholder="Password"
+            />
+          </mat-form-field>
         </div>
       </div>
     </div>

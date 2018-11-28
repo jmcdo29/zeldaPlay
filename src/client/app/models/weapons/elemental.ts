@@ -1,9 +1,9 @@
 export class Elemental {
   constructor(
-    private _id: string,
-    private _type: string,
-    private _attack: number,
-    private _numberOfAttacks: number
+    private _id?: string,
+    private _type?: string,
+    private _attack?: number,
+    private _numberOfAttacks?: number
   ) {}
 
   get type(): string {

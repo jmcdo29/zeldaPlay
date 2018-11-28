@@ -12,7 +12,8 @@ describe('WeaponService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule],
       providers: [WeaponService]
-    }));
+    })
+  );
 
   it('should be created', () => {
     const service: WeaponService = TestBed.get(WeaponService);

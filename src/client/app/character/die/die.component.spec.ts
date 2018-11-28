@@ -36,29 +36,18 @@ describe('DieComponent', () => {
       component.roll(20);
     } while (!component.character.crit);
   });
-  test('should roll with a mod', () => {
+  test('should roll without a mod', () => {
+    component.mod = 'null';
     component.roll(20);
   });
-  test('should roll max for 4', () => {
-    do {
-      component.roll(4);
-    } while (!component.character.maxDmg);
-  });
-  test('should roll max for 6', () => {
-    do {
-      component.roll(6);
-    } while (!component.character.maxDmg);
-  });
-  test('should roll max for 8', () => {
-    do {
-      component.roll(8);
-    } while (!component.character.maxDmg);
-  });
-  test('should roll max for 12', () => {
-    component.mod = '';
-    do {
-      component.roll(12);
-    } while (!component.character.maxDmg);
+  test('should roll max for all numbers', () => {
+    const dieValues = [4, 6, 8, 10, 12, 100];
+    for (const val of dieValues) {
+      do {
+        component.roll(val);
+      } while (!component.character.maxDmg);
+      component.character.maxDmg = false;
+    }
   });
   test('should roll a crit miss', () => {
     do {

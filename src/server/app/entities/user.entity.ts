@@ -1,6 +1,6 @@
 import { BeforeInsert, Column, Entity, PrimaryColumn } from 'typeorm';
 
-import { makeId } from '../utils/utils';
+import { Utils } from '../utils/utils';
 
 @Entity()
 export class User {
@@ -29,6 +29,6 @@ export class User {
 
   @BeforeInsert()
   createId() {
-    this.id = this.idStart + makeId(9);
+    this.id = this.idStart + Utils.makeId(9);
   }
 }

@@ -18,6 +18,8 @@ export class DieComponent implements OnInit {
   mod: string;
   crit = false;
 
+  normalDice: number[] = [4, 6, 8, 10, 12, 100];
+
   constructor(public messageService: MessageService) {}
 
   ngOnInit() {}
@@ -53,10 +55,7 @@ export class DieComponent implements OnInit {
     if (roll === 1 && sides === 20) {
       this.character.critMiss = true;
     }
-    if (
-      roll === sides &&
-      (sides === 4 || sides === 6 || sides === 8 || sides === 12)
-    ) {
+    if (roll === sides && this.normalDice.includes(roll)) {
       this.character.maxDmg = true;
     }
     if (this.mod !== 'null' && this.mod) {
@@ -66,7 +65,7 @@ export class DieComponent implements OnInit {
     } else {
       rollVal = roll;
     }
-    this.character.setRoll(rollVal.toString());
+    this.character.roll = rollVal.toString();
 
     this.createMessage(roll, modVal, sides);
   }

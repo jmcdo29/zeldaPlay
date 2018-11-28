@@ -7,6 +7,8 @@ import {
   MatMenuModule,
   MatOptionModule,
   MatSelectModule,
+  MatSortModule,
+  MatTableModule,
   MatTabsModule,
   MatTooltipModule
 } from '@angular/material';
@@ -21,11 +23,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatMenuModule,
     MatOptionModule,
     MatSelectModule,
+    MatSortModule,
+    MatTableModule,
     MatTabsModule,
     MatTooltipModule,
     BrowserAnimationsModule
   ],
-  declarations: [],
   exports: [
     CommonModule,
     MatButtonModule,
@@ -34,6 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatMenuModule,
     MatOptionModule,
     MatSelectModule,
+    MatSortModule,
+    MatTableModule,
     MatTabsModule,
     MatTooltipModule,
     BrowserAnimationsModule

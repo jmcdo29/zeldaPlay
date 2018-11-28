@@ -35,10 +35,6 @@ describe('CharacterLevelUpComponent', () => {
       expect(component.attributeTab).toBe(attributeTab);
     });
     test('showSkillTab function', () => {
-      const skillTabIndex = [];
-      for (const showSkill of component.skillTypeTab) {
-        skillTabIndex.push(showSkill);
-      }
       for (let i = 0; i < component.skillTypeTab.length; i++) {
         component.showSkillTab(i);
         expect(component.skillTypeTab[i]);

@@ -9,77 +9,127 @@
         <div class="table-holder">
           <div class="improv-table">
             <mat-form-field>
-            <input matInput id="spellName" type="text" [(ngModel)]="spell.name" title="Enter the spell's name here" class="name" (blur)="validate('spellName', 'name')" placeholder="Spell Name">
-          </mat-form-field>
+              <input
+                matInput
+                id="spellName"
+                type="text"
+                [(ngModel)]="spell.name"
+                title="Enter the spell's name here"
+                class="name"
+                (blur)="validate('spellName', 'name')"
+                placeholder="Spell Name"
+              />
+            </mat-form-field>
           </div>
           <div class="improv-table">
             <mat-form-field>
-            <textarea matInput id="spellEffect" rows="2" [(ngModel)]="spell.effect" title="Enter what the spell does" class="description" (blur)="validate('spellEffect', 'effect')" placeholder="Spell Effect"></textarea>
-          </mat-form-field>
+              <textarea
+                matInput
+                id="spellEffect"
+                rows="2"
+                [(ngModel)]="spell.effect"
+                title="Enter what the spell does"
+                class="description"
+                (blur)="validate('spellEffect', 'effect')"
+                placeholder="Spell Effect"
+              ></textarea>
+            </mat-form-field>
           </div>
           <div class="improv-table">
             <mat-form-field>
-            <mat-select id="spellMult" [(ngModel)]="spell.multiplier" (selectionChange)="validate('spellMult', 'multiplier')" placeholder="How many dice?">
-              <mat-option value="1">1</mat-option>
-              <mat-option value="2">2</mat-option>
-              <mat-option value="3">3</mat-option>
-              <mat-option value="4">4</mat-option>
-            </mat-select>
-          </mat-form-field>
+              <mat-select
+                id="spellMult"
+                [(ngModel)]="spell.multiplier"
+                (selectionChange)="validate('spellMult', 'multiplier')"
+                placeholder="How many dice?"
+              >
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
           <div class="improv-table">
             <mat-form-field>
-            <mat-select id="spellDam" [(ngModel)]="spell.damage"(selectionChange)="validate('spellDam','damage')" placeholder="What kind of die?">
-              <mat-option value="4">D4</mat-option>
-              <mat-option value="6">D6</mat-option>
-              <mat-option value="8">D8</mat-option>
-              <mat-option value="10">D10</mat-option>
-              <mat-option value="12">D12</mat-option>
-            </mat-select>
-          </mat-form-field>
+              <mat-select
+                id="spellDam"
+                [(ngModel)]="spell.damage"
+                (selectionChange)="validate('spellDam', 'damage')"
+                placeholder="What kind of die?"
+              >
+                <mat-option value="4">D4</mat-option>
+                <mat-option value="6">D6</mat-option>
+                <mat-option value="8">D8</mat-option>
+                <mat-option value="10">D10</mat-option>
+                <mat-option value="12">D12</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
           <div class="improv-table">
             <mat-form-field>
-            <mat-select id="spellMod" [(ngModel)]="spell.modifier" placeholder="What modifier (if any)?">
-              <mat-option value="null">None</mat-option>
-              <mat-option value="Intelligence">Intelligence</mat-option>
-              <mat-option value="Wisdom">Wisdom</mat-option>
-              <mat-option value="Charisma">Charisma</mat-option>
-            </mat-select>
-          </mat-form-field>
+              <mat-select
+                id="spellMod"
+                [(ngModel)]="spell.modifier"
+                placeholder="What modifier (if any)?"
+              >
+                <mat-option value="null">None</mat-option>
+                <mat-option value="Intelligence">Intelligence</mat-option>
+                <mat-option value="Wisdom">Wisdom</mat-option>
+                <mat-option value="Charisma">Charisma</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
           <div class="improv-table">
-            <br/>
+            <br />
             <mat-form-field>
-            <input matInput type="number" id="mpUse" [(ngModel)]="spell.mpUse" min="0" (selectionChange)="validate('mpUse', 'mpUse')" placeholder="MP Use">
-          </mat-form-field>
+              <input
+                matInput
+                type="number"
+                id="mpUse"
+                [(ngModel)]="spell.mpUse"
+                min="0"
+                (selectionChange)="validate('mpUse', 'mpUse')"
+                placeholder="MP Use"
+              />
+            </mat-form-field>
           </div>
           <div class="improv-table">
             <mat-form-field>
-            <mat-select id="spellGod" [(ngModel)]="spell.diety" (selectionChange)="validate('spellGod', 'diety')" placeholder="What goddess does this spell draw from?">
-              <mat-option *ngFor="let diety of dieties | enumToArray" value="{{ diety }}">{{ diety }}</mat-option>
-            </mat-select>
-          </mat-form-field>
+              <mat-select
+                id="spellGod"
+                [(ngModel)]="spell.diety"
+                (selectionChange)="validate('spellGod', 'diety')"
+                placeholder="What goddess does this spell draw from?"
+              >
+                <mat-option
+                  *ngFor="let diety of (dieties | enumToArray)"
+                  value="{{ diety }}"
+                  >{{ diety }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
           </div>
           <div class="improv-table">
-            <br/>
-            <button mat-raised-button class="center" (click)="saveSpell()">Save Spell</button>
+            <br />
+            <button mat-raised-button class="center" (click)="saveSpell()">
+              Save Spell
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- TODO: Make a modal for casting too much magic. Or at least an error message.-->
+<!--
+  TODO: Make a modal for casting too much magic. Or at least an error message.
+-->
 <button mat-flat-button (click)="addSpell()">New Spell</button>
 <div *ngIf="character.spells" class="table">
   <div *ngIf="spellName" class="spellRoll">
     <h4>{{ spellName }}</h4>
-    <span>Roll to hit:</span>
-    <span id="spellRoll">{{ spellRoll }}</span>
-    <br/>
-    <span>Damage/Heal Roll:</span>
-    <span id="spellDmgRoll">{{ dmgRoll }}</span>
+    <span>Roll to hit:</span> <span id="spellRoll">{{ spellRoll }}</span> <br />
+    <span>Damage/Heal Roll:</span> <span id="spellDmgRoll">{{ dmgRoll }}</span>
   </div>
   <table>
     <thead>
@@ -92,7 +142,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let spell of character.spells index as i" [class.nayru]="spell.diety === 'Nayru'" [class.farore]="spell.diety === 'Farore'" [class.din]="spell.diety === 'Din'">
+      <tr
+        *ngFor="let spell of character.spells; index as i"
+        [class.nayru]="spell.diety === 'Nayru'"
+        [class.farore]="spell.diety === 'Farore'"
+        [class.din]="spell.diety === 'Din'"
+      >
         <td class="spellName" (click)="castSpell(i)">{{ spell.name }}</td>
         <td>{{ spell.effect }}</td>
         <td>{{ spell.multiplier }}D{{ spell.damage }}</td>
@@ -118,13 +173,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let magic of character.magicSkills" [class.din]="magic.modifier === 'Intelligence'" [class.farore]="magic.modifier === 'Charisma'" [class.nayru]="magic.modifier === 'Wisdom'">
+          <tr
+            *ngFor="let magic of character.magicSkills"
+            [class.din]="magic.modifier === 'Intelligence'"
+            [class.farore]="magic.modifier === 'Charisma'"
+            [class.nayru]="magic.modifier === 'Wisdom'"
+          >
             <td class="name">{{ magic.skillName }}</td>
-            <td class="mod">{{ magic.modifier.substr(0,3) | uppercase }}
+            <td class="mod">
+              {{ magic.modifier.substr(0, 3) | uppercase }}
               <span class="info">{{ getMod(magic.modifier) }}</span>
             </td>
             <td>{{ magic.ranks }}</td>
-            <td class="total">{{ magic.ranks+getMod(magic.modifier) }}</td>
+            <td class="total">{{ magic.ranks + getMod(magic.modifier) }}</td>
           </tr>
         </tbody>
       </table>

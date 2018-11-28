@@ -12,7 +12,8 @@ describe('NoteService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule, HttpClientTestingModule],
       providers: [NoteService]
-    }));
+    })
+  );
 
   it('should be created', () => {
     const service: NoteService = TestBed.get(NoteService);

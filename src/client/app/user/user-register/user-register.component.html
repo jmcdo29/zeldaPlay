@@ -2,29 +2,52 @@
 <div class="jumbo">
   <div [class.loading]="loading">
     <h2 class="no-padding">Welcome to ZeldaPlay!</h2>
-    <p>I hope you enjoy the use of this app. If you would like to use the services please register!</p>
-    <p>If you already have an account please
-      <a [routerLink]="['/login']">login here</a>.</p>
+    <p>
+      I hope you enjoy the use of this app. If you would like to use the
+      services please register!
+    </p>
+    <p>
+      If you already have an account please
+      <a [routerLink]="['/login']">login here</a>.
+    </p>
     <div class="custTable">
       <div class="row">
         <div class="cell input">
           <mat-form-field>
-          <input matInput class="user" [(ngModel)]="username" type="email" placeholder="Email">
-        </mat-form-field>
+            <input
+              matInput
+              class="user"
+              [(ngModel)]="username"
+              type="email"
+              placeholder="Email"
+            />
+          </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="cell input">
           <mat-form-field>
-          <input matInput class="user" [(ngModel)]="password" type="password" placeholder="Password">
-        </mat-form-field>
+            <input
+              matInput
+              class="user"
+              [(ngModel)]="password"
+              type="password"
+              placeholder="Password"
+            />
+          </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="cell input">
           <mat-form-field>
-          <input matInput class="user" [(ngModel)]="passwordConfirmation" type="password" placeholder="Confirm Password">
-        </mat-form-field>
+            <input
+              matInput
+              class="user"
+              [(ngModel)]="passwordConfirmation"
+              type="password"
+              placeholder="Confirm Password"
+            />
+          </mat-form-field>
         </div>
       </div>
     </div>

@@ -1,8 +1,9 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-// import { AuthGuard } from '@nestjs/passport';
+
 import {
   ApiBearerAuth,
   ApiImplicitBody,
+  ApiImplicitParam,
   ApiOkResponse,
   ApiOperation,
   ApiUseTags
@@ -79,6 +80,7 @@ export class CharacterController {
   })
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
+  @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
   @ApiOkResponse({ type: Character })
   updateOne(

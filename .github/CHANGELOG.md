@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] -- 2018-11-27
+
+### Added
+
+- Angular Table theming for Character Create tables
+- Capitalize pipe for easier string capitalization
+- TSLint using SonarTS
+
+### Changed
+
+- Utils file from multiple exports to single expoerted static class
+
+## [2.0.1] -- 2018-11-01
+
+### Added
+
+- Angular Material theming
+
 ## [2.0.0] -- 2018-10-18
 
 ### Changed

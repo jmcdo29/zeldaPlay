@@ -63,17 +63,7 @@ export class WeaponComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.weapon = new Weapon(
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined
-    );
+    this.weapon = new Weapon();
     if (this.character.weapons.length === 0) {
       this.weaponService.getWeapons(this.character.id).subscribe((weapons) => {
         weapons.forEach((weapon) => {
@@ -121,28 +111,10 @@ export class WeaponComponent implements OnInit {
       document.getElementById('weaponMod').classList.add('bad-input');
     }
     if (this.isRangedWeapon) {
-      if (!this.weapon.range) {
-        error = true;
-        document.getElementById('weaponRange').classList.add('bad-input');
-      }
-      if (!this.weapon.ammo) {
-        error = true;
-        document.getElementById('weaponAmmo').classList.add('bad-input');
-      }
+      error = this.rangeChecks(error);
     }
     if (this.isElemental) {
-      if (!this.weapon.element.type) {
-        error = true;
-        document.getElementById('eType').classList.add('bad-input');
-      }
-      if (!this.weapon.element.numberOfAttacks) {
-        error = true;
-        document.getElementById('elementalMult').classList.add('bad-input');
-      }
-      if (!this.weapon.element.attack) {
-        error = true;
-        document.getElementById('elementDam').classList.add('bad-input');
-      }
+      error = this.elementalChecks(error);
     }
     if (!error) {
       if (sessionStorage.getItem('currentUser')) {
@@ -155,18 +127,36 @@ export class WeaponComponent implements OnInit {
       this.character.addWeapon(this.weapon);
       this.addWeapon();
       this.createMessage();
-      this.weapon = new Weapon(
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined
-      );
+      this.weapon = new Weapon();
     }
+  }
+
+  rangeChecks(error: boolean): boolean {
+    if (!this.weapon.range) {
+      error = true;
+      document.getElementById('weaponRange').classList.add('bad-input');
+    }
+    if (!this.weapon.ammo) {
+      error = true;
+      document.getElementById('weaponAmmo').classList.add('bad-input');
+    }
+    return error;
+  }
+
+  elementalChecks(error: boolean): boolean {
+    if (!this.weapon.element.type) {
+      error = true;
+      document.getElementById('eType').classList.add('bad-input');
+    }
+    if (!this.weapon.element.numberOfAttacks) {
+      error = true;
+      document.getElementById('elementalMult').classList.add('bad-input');
+    }
+    if (!this.weapon.element.attack) {
+      error = true;
+      document.getElementById('elementDam').classList.add('bad-input');
+    }
+    return error;
   }
 
   validate(id: string, key: string): void {

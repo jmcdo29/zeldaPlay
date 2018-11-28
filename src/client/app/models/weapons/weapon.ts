@@ -2,15 +2,15 @@ import { Elemental } from '#Models/weapons/elemental';
 
 export class Weapon {
   constructor(
-    private _id: string,
-    private _name: string,
-    private _attack: number,
-    private _numberOfAttacks: number,
-    private _critRange: number[],
-    private _critDamage: number,
-    private _type: string,
-    private _modifier: string,
-    private _range: number,
+    private _id?: string,
+    private _name?: string,
+    private _attack?: number,
+    private _numberOfAttacks?: number,
+    private _critRange?: number[],
+    private _critDamage?: number,
+    private _type?: string,
+    private _modifier?: string,
+    private _range?: number,
     private _ammo?: number,
     private _element?: Elemental
   ) {}

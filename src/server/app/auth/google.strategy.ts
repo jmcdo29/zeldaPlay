@@ -27,6 +27,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     console.log('profile\n', profile);
     console.log('accessToken\n', accessToken);
     console.log('refreshToken\n', refreshToken);
+    // tslint:disable-next-line:no-commented-code
     // this.authService.validateUser(accessToken as any);
     return accessToken;
   }

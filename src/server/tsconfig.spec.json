@@ -1,18 +1,4 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "@Auth/*": ["app/auth/*"],
-      "@Character/*": ["app/character/*"],
-      "@Decorators/*": ["app/decorators/*"],
-      "@Entity/*": ["app/entities/*"],
-      "@Note/*": ["app/character/note/*"],
-      "@Skill/*": ["app/character/skill/*"],
-      "@Spell/*": ["app/character/spell/*"],
-      "@User/*": ["app/user/*"],
-      "@Weapon/*": ["app/character/weapon/*"]
-    }
-  },
+  "extends": "./tsconfig.app.json",
   "include": ["**/**.spec.ts"]
 }

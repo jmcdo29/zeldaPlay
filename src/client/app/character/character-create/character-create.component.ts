@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { AlertService } from '#Alert/alert.service';
 import { Attributes } from '#Enums/attributes.enum';
@@ -28,6 +28,18 @@ import { CharactersComponent } from '../characters.component';
 export class CharacterCreateComponent implements OnInit {
   @Input()
   CharacterParent: CharactersComponent;
+
+  detailColumnsToDisplay = ['name', 'value', 'modifier'];
+  skillColumnsToDisplay = ['trained', 'name', 'modifier', 'ranks', 'total'];
+  weaponColumnsToDisplay = ['trained', 'type', 'ranks', 'total'];
+  magicColumnsToDisplay = ['type', 'modifier', 'ranks', 'total'];
+  hmeColumnsToDisplay = ['name', 'value'];
+
+  hmeDataSource = [
+    { name: 'health', modifier: 'Constitution', base: 48 },
+    { name: 'magic', modifier: 'Wisdom', base: 20 },
+    { name: 'exp', modifier: undefined, base: 0 }
+  ];
 
   skillPoints: number;
   originalPoints: number;
@@ -64,9 +76,7 @@ export class CharacterCreateComponent implements OnInit {
     public message: MessageService,
     private alertService: AlertService,
     private characterService: CharacterService
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.attrMins = [];
     this.attrPrior = [];
     this.skillsPrior = [];
@@ -79,10 +89,9 @@ export class CharacterCreateComponent implements OnInit {
     for (const attr of this.newCharacter.attributes) {
       this.attrMins.push(attr.value);
     }
-    /* for (let i = 0; i < this.newCharacter.attributes.length; i++) {
-      this.attrMins.push(this.newCharacter.attributes[i].value);
-    } */
   }
+
+  ngOnInit() {}
 
   aboutRace(): void {
     this.showRaceModal = !this.showRaceModal;
@@ -98,7 +107,7 @@ export class CharacterCreateComponent implements OnInit {
   save(): void {
     let nullSubRace = false;
     if (!this.nullSubRaceClasses.includes(this.newCharacter.race)) {
-      nullSubRace = this.newCharacter.subRace ? false : true;
+      nullSubRace = !this.newCharacter.subRace;
     }
     if (
       this.newCharacter.name &&
@@ -205,14 +214,15 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   getMod(modName: string): number {
-    return this.newCharacter.attributes[Attributes[modName]].modifier;
+    const retAtt = this.newCharacter.attributes[Attributes[modName]];
+    return retAtt ? retAtt.modifier : 0;
   }
 
   closeError(): void {
     this.error = false;
   }
 
-  trackAtt(attrIndex: number): void {
+  /* trackAtt(attrIndex: number): void {
     const val = this.newCharacter.attributes[attrIndex].value;
     this.newCharacter.attributes[attrIndex].value = val;
     this.attPoints -=
@@ -267,7 +277,7 @@ export class CharacterCreateComponent implements OnInit {
     } else if (input.classList.contains('bad-input')) {
       input.classList.remove('bad-input');
     }
-  }
+  } */
 
   resetSkills(): void {
     for (const skill of this.newCharacter.skills) {

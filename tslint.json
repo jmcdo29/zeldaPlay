@@ -1,6 +1,6 @@
 {
   "rulesDirectory": ["node_modules/codelyzer"],
-  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "extends": ["tslint:recommended", "tslint-config-prettier", "tslint-sonarts"],
   "rules": {
     "arrow-return-shorthand": true,
     "callable-types": true,
@@ -35,6 +35,7 @@
     "no-empty": false,
     "no-empty-interface": true,
     "no-eval": true,
+    "no-identical-functions": [true, "ignore"],
     "no-inferrable-types": [true, "ignore-params"],
     "no-misused-new": true,
     "no-non-null-assertion": true,
@@ -93,5 +94,8 @@
     "directive-class-suffix": true,
     "no-implicit-dependencies": false,
     "no-submodule-imports": false
+  },
+  "linterOptions": {
+    "exclude": ["**/*.spec.ts"]
   }
 }
