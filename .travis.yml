@@ -4,8 +4,6 @@ node_js:
 cache:
   directories:
     - node_modules
-before_install:
-  - npm install -g codecov
 install: npm ci
 after_success:
   - npx codecov
