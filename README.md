@@ -1,30 +1,16 @@
 # zeldaPlay
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-purple.svg?style=flat)](https://github.com/prettier/prettier)
-
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
-
 [![Build Status](https://travis-ci.org/jmcdo29/zeldaPlay.svg?branch=master)](https://travis-ci.org/jmcdo29/zeldaPlay)
-
 [![codecov](https://codecov.io/gh/jmcdo29/zeldaPlay/branch/master/graph/badge.svg)](https://codecov.io/gh/jmcdo29/zeldaPlay)
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+[![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json)
+[![Gitter chat](https://badges.gitter.im/jmcdo29/zeldaPlay.png)](https://gitter.im/zeldaPlay/Lobby "Gitter chat")
 
 ---
-
-For current QA test cases and future developments you can check out the [ZenHub Board here](https://app.ze
 
 For current QA test cases and future developments you can check out the [ZenHub Board here](https://app.zenhub.com/workspace/o/jmcdo29/zeldaplay/boards).
-
----
-
-A web applicat
-
----
-
-A web application in progress for a home brew D20 character tracker. Built in Angular 2+ and Node.js and h
-
----
-
-For current QA test cases and future developments you can check out the make basic dice rolls for you, and allow you to digitally save multiple characte.
 
 ---
 
@@ -135,10 +121,16 @@ The smallest and second largest creatures of Hyrule. Fairies are known to be fou
 
 ## Angular 2+
 
-This is an Angular 2+ SPA. Hosted on port](https://github.com/jmcdo29/zeldaPlay/iss
+This is an Angular 2+ SPA. Hosted on [Heroku.com](https://zeldaplay.herokuapp.com/)
 
 ---
 
 [Contributing](.github/CONTRIBUTING.md)
 
 [License](.github/LICENSE)
+
+[Bug Report](https://github.com/jmcdo29/zeldaPlay/issues/new?template=bug_report.md)
+
+[Feature Request](https://github.com/jmcdo29/zeldaPlay/issues/new?template=feature_request.md)
+
+[Code of Conduct](.github/CODE_OF_CONDUCT.md)
