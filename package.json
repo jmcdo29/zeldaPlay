@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "license": "MIT",
   "engines": {
-    "node": "^10.11.0",
-    "npm": "^6.4.1"
+    "node": "~10.14.0",
+    "npm": "~6.4.1"
   },
   "husky": {
     "hooks": {
