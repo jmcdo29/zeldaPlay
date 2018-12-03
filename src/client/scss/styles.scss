@@ -2,26 +2,15 @@
 /* Application-wide Styles */
 // @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-@font-face {
-  font-family: HyliaSerif;
-  src: url('./assets/fonts/HyliaSerifBeta.otf');
-}
+@import 'base/typography';
+@import 'abstract/variables';
 body {
   &.dark {
-    background-color: rgb(238, 177, 253);
+    background-color: $dark;
   }
   &.light {
-    background-color: rgb(252, 252, 174);
+    background-color: $light;
   }
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: HyliaSerif;
 }
 
 h1 {
@@ -84,15 +73,15 @@ table {
 }
 tr.weapon {
   &:nth-child(3n + 1) {
-    background-color: rgba(233, 150, 150, 0.74);
+    background-color: $Din;
     color: black;
   }
   &:nth-child(3n + 2) {
-    background-color: rgba(150, 233, 150, 0.74);
+    background-color: $Farore;
     color: black;
   }
   &:nth-child(3n) {
-    background-color: rgba(150, 150, 233, 0.74);
+    background-color: $Nayru;
     color: black;
   }
 }
@@ -218,17 +207,17 @@ td.total {
   }
 }
 .din {
-  background-color: rgba(233, 150, 150, 0.74);
+  background-color: $Din;
   color: black;
 }
 
 .farore {
-  background-color: rgba(150, 233, 150, 0.74);
+  background-color: $Farore;
   color: black;
 }
 
 .nayru {
-  background-color: rgba(150, 150, 233, 0.74);
+  background-color: $Nayru;
   color: black;
 }
 
@@ -276,10 +265,10 @@ td.total {
   width: 60px;
   border-radius: 50%;
   border: 5px dotted;
-  border-top-color: rgba(67.5, 67.5, 233, 1);
-  border-left-color: rgba(233, 67.5, 67.5, 1);
-  border-right-color: rgba(67.5, 233, 67.5, 1);
-  border-bottom-color: rgba(191.5, 67.5, 191.5, 1);
+  border-top-color: opacify(darken($color: $Nayru, $amount: 20), 0.26);
+  border-left-color: opacify(darken($color: $Din, $amount: 20), 0.26);
+  border-right-color: opacify(darken($color: $Farore, $amount: 20), 0.26);
+  border-bottom-color: $Majora;
   animation: spinner 0.7s linear infinite;
 }
 @keyframes spinner {
