@@ -2,19 +2,20 @@
 /* Application-wide Styles */
 // @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-@import 'base/typography';
 @import 'abstract/variables';
+@import 'base/colors', 'base/typography';
+@import 'layout/column';
 body {
   &.dark {
-    background-color: $dark;
+    background-color: $background-dark;
   }
   &.light {
-    background-color: $light;
+    background-color: $background-light;
   }
 }
 
 h1 {
-  color: rgb(19, 85, 41);
+  color: #135529;
   font-size: 175%;
   text-align: center;
 }
@@ -48,13 +49,11 @@ button {
 }
 
 .details {
-  width: 33%;
-  float: left;
+  @extend %medium-small;
 }
 
 .skills {
-  width: 67%;
-  float: left;
+  @extend %medium-large;
 }
 
 .table {
@@ -143,7 +142,7 @@ td.total {
 }
 .modal-header {
   padding: 2px 16px;
-  background-color: #5cb85c;
+  background-color: $tab-primary;
   color: white;
   text-align: center;
   border-bottom: solid black 1px;
@@ -180,7 +179,7 @@ td.total {
 .tab {
   color: #444;
   border: none;
-  background-color: #5cb85c;
+  background-color: $tab-primary;
   margin-right: 0em;
   margin-left: 0em;
   cursor: pointer;
@@ -191,7 +190,7 @@ td.total {
   text-align: center;
   transition: 0.6s;
   &:hover {
-    background-color: #229e22;
+    background-color: darken($tab-primary, 20);
   }
 }
 .close {

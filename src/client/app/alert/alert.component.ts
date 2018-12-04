@@ -24,5 +24,6 @@ export class AlertComponent implements OnDestroy {
 
   remove(): void {
     this.message = '';
+    this.alertService.clear();
   }
 }

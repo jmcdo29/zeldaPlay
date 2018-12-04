@@ -7,17 +7,14 @@ import { Observable, Subject } from 'rxjs';
 })
 export class AlertService {
   private subject = new Subject<any>();
-  private keepAfterNavigationChange = false;
 
   constructor(private router: Router) {}
 
-  success(message: string, keepAfterNavigationChange = false) {
-    this.keepAfterNavigationChange = keepAfterNavigationChange;
+  success(message: string) {
     this.subject.next({ type: 'success', text: message });
   }
 
-  error(message: string, keepAfterNavigationChange = false) {
-    this.keepAfterNavigationChange = keepAfterNavigationChange;
+  error(message: string) {
     this.subject.next({ type: 'error', text: message });
   }
 
