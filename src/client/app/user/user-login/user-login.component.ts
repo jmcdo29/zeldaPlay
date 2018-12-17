@@ -28,7 +28,7 @@ export class UserLoginComponent implements OnInit {
     this.alertService.clear();
     this.loading = true;
     this.userService.login(this.username, this.password).subscribe(
-      (next) => {
+      () => {
         this.router.navigate(['/']);
       },
       (error) => {

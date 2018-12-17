@@ -12,7 +12,7 @@
 
 [![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json)
 
-[![Gitter chat](https://badges.gitter.im/jmcdo29/zeldaPlay.png)](https://gitter.im/zeldaPlay/Lobby 'Gitter chat')
+[![Discord Char](https://img.shields.io/badge/chat-on%20Discord-blue.svg)](https://discord.gg/hGuDEgG 'Discord Chat')
 
 ---
 

@@ -1,7 +1,20 @@
+@import '../../../scss/base/colors';
+
 input.skill {
   width: 8em;
 }
-
+mat-row {
+  &.title {
+    font-weight: bold;
+    background-color: lightyellow;
+    mat-cell.mat-cell {
+      color: darkgray;
+    }
+  }
+}
+mat-cell.underline {
+  text-decoration-line: underline;
+}
 .crit {
   color: gold;
 }

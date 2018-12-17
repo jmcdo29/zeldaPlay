@@ -8,6 +8,9 @@ import { AlertService } from '#Alert/alert.service';
 const alertServiceStub: Partial<AlertService> = {
   getMessage(): Observable<any> {
     return of('string');
+  },
+  clear(): void {
+    return;
   }
 };
 

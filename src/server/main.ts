@@ -7,6 +7,21 @@ import { config } from 'dotenv';
 import { join } from 'path';
 config();
 
+import { profile } from 'appdynamics';
+
+profile({
+  controllerHostName: 'peaks201812121243154.saas.appdynamics.com',
+  controllerPort: 443,
+  controllerSslEnabled: true,
+  accountName: 'peaks201812121243154',
+  accountAccessKey: '391z017gpxeo',
+  applicationName: 'Node on Heroku',
+  tierName: 'custom-project-test',
+  nodeName: 'cp-jm-node',
+  libagent: true,
+  debug: true
+});
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 

@@ -176,78 +176,120 @@
       <div class="panel" [class.active]="showDets">
         <div class="attributes">
           <div class="table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Trait</th>
-                  <th>Value/Score</th>
-                  <th>Modifier</th>
-                </tr>
-              </thead>
-              <br />
-              <tbody>
-                <tr>
-                  <td class="name">Name</td>
-                  <td>{{ character.name }}</td>
-                </tr>
-                <tr>
-                  <td class="name">Race</td>
-                  <td>{{ character.race }}</td>
-                </tr>
-                <tr [hidden]="!character.subRace">
-                  <td class="name">Sub Race</td>
-                  <td>{{ character.subRace }}</td>
-                </tr>
-                <tr>
-                  <td class="name">Level</td>
-                  <td>{{ character.level }}</td>
-                </tr>
-                <br />
-                <tr
-                  *ngFor="let attr of character.attributes"
-                  [class.din]="
-                    attr.name === 'Strength' || attr.name === 'Intelligence'
+            <mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="trait">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>>
+                <mat-cell
+                  *matCellDef="let attr"
+                  [class.underline]="
+                    attr.name === 'Name' ||
+                    attr.name === 'Race' ||
+                    attr.name === 'Subrace'
                   "
-                  [class.farore]="
-                    attr.name === 'Dexterity' || attr.name === 'Charisma'
-                  "
-                  [class.nayru]="
-                    attr.name === 'Wisdom' || attr.name === 'Constitution'
-                  "
-                >
-                  <td class="name">{{ attr.name }}</td>
-                  <td>{{ attr.value }}</td>
-                  <td>{{ attr.modifier }}</td>
-                </tr>
-                <br />
-                <tr></tr>
-                <tr class="din">
-                  <td class="name">Health</td>
-                  <td>{{ character.health }} / {{ character.maxHealth }}</td>
-                  <td>
-                    <button mat-flat-button (click)="modHealth()">
-                      Modify HP
-                    </button>
-                  </td>
-                </tr>
-                <tr class="nayru">
-                  <td class="name">Magic</td>
-                  <td>{{ character.magic }} / {{ character.maxMagic }}</td>
-                  <td>
-                    <button mat-flat-button (click)="modMagic()">
-                      Modify MP
-                    </button>
-                  </td>
-                </tr>
-                <tr class="farore">
-                  <td class="name">Experience</td>
-                  <td>{{ character.exp }}</td>
-                  <td>
-                    <button mat-flat-button (click)="modExp()">Gain Exp</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                  >{{ attr.name }}</mat-cell
+                >>
+              </ng-container>
+              <ng-container matColumnDef="value">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>>
+                <mat-cell *matCellDef="let attr">{{
+                  attr.value !== null ? attr.value : ''
+                }}</mat-cell
+                >>
+              </ng-container>
+              <ng-container matColumnDef="mod">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>>
+                <mat-cell *matCellDef="let attr">{{
+                  attr.modifier !== null ? attr.modifier : ''
+                }}</mat-cell
+                >>
+              </ng-container>
+              <!--
+                <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+              -->
+              <mat-row
+                [class.din]="
+                  row.name === 'Strength' ||
+                  row.name === 'Intelligence' ||
+                  row.name === 'Health'
+                "
+                [class.nayru]="
+                  row.name === 'Wisdom' ||
+                  row.name === 'Constitution' ||
+                  row.name === 'Magic'
+                "
+                [class.farore]="
+                  row.name === 'Dexterity' ||
+                  row.name === 'Charisma' ||
+                  row.name === 'Exp'
+                "
+                [class.title]="row.name === 'Trait'"
+                *matRowDef="let row; columns: columnsToDisplay"
+              ></mat-row>
+              <!--
+                <tbody>
+                  <tr>
+                    <td class="name">Name</td>
+                    <td>{{ character.name }}</td>
+                  </tr>
+                  <tr>
+                    <td class="name">Race</td>
+                    <td>{{ character.race }}</td>
+                  </tr>
+                  <tr [hidden]="!character.subRace">
+                    <td class="name">Sub Race</td>
+                    <td>{{ character.subRace }}</td>
+                  </tr>
+                  <tr>
+                    <td class="name">Level</td>
+                    <td>{{ character.level }}</td>
+                  </tr>
+                  <br />
+                  <tr
+                    *ngFor="let attr of character.attributes"
+                    [class.din]="
+                      attr.name === 'Strength' || attr.name === 'Intelligence'
+                    "
+                    [class.farore]="
+                      attr.name === 'Dexterity' || attr.name === 'Charisma'
+                    "
+                    [class.nayru]="
+                      attr.name === 'Wisdom' || attr.name === 'Constitution'
+                    "
+                  >
+                    <td class="name">{{ attr.name }}</td>
+                    <td>{{ attr.value }}</td>
+                    <td>{{ attr.modifier }}</td>
+                  </tr>
+                  <br />
+                  <tr></tr>
+                  <tr class="din">
+                    <td class="name">Health</td>
+                    <td>{{ character.health }} / {{ character.maxHealth }}</td>
+                    <td>
+                      <button mat-flat-button (click)="modHealth()">
+                        Modify HP
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="nayru">
+                    <td class="name">Magic</td>
+                    <td>{{ character.magic }} / {{ character.maxMagic }}</td>
+                    <td>
+                      <button mat-flat-button (click)="modMagic()">
+                        Modify MP
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="farore">
+                    <td class="name">Experience</td>
+                    <td>{{ character.exp }}</td>
+                    <td>
+                      <button mat-flat-button (click)="modExp()">Gain Exp</button>
+                    </td>
+                  </tr>
+                </tbody>
+              -->
+            </mat-table>
           </div>
         </div>
       </div>
