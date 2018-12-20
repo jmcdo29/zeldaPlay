@@ -323,7 +323,7 @@ describe('CharacterCreateComponent', () => {
     });
   });
 
-  /* describe('track and validate commands', () => {
+  describe('track and validate commands', () => {
     describe('attribute specific', () => {
       test('track attr', () => {
         const startPoints = component.attPoints;
@@ -493,7 +493,7 @@ describe('CharacterCreateComponent', () => {
         });
       });
     });
-  }); */
+  });
 
   describe('saving the character', () => {
     describe('saving while logged in', () => {

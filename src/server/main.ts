@@ -2,27 +2,13 @@
 // require('module-alias/register');
 import 'reflect-metadata';
 
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { config } from 'dotenv';
 import { join } from 'path';
 config();
 
-import { profile } from 'appdynamics';
-
-profile({
-  controllerHostName: 'peaks201812121243154.saas.appdynamics.com',
-  controllerPort: 443,
-  controllerSslEnabled: true,
-  accountName: 'peaks201812121243154',
-  accountAccessKey: '391z017gpxeo',
-  applicationName: 'Node on Heroku',
-  tierName: 'custom-project-test',
-  nodeName: 'cp-jm-node',
-  libagent: true,
-  debug: true
-});
-
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as compression from 'compression';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
@@ -65,7 +51,7 @@ async function bootstrap() {
   SwaggerModule.setup('/api', app, document, {
     customSiteTitle: 'ZeldaPlay'
   });
-
+  app.use(compression());
   await app.listen(process.env.PORT, () => {
     console.log(`Application stated on ${process.env.PORT}.`);
   });
