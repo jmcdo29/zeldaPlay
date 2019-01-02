@@ -16,10 +16,9 @@ import { MiddlewareModule } from './middleware/middleware.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      ssl: true,
-      synchronize: true,
+      ssl: process.env.NODE_ENV !== 'dev',
       entities: [__dirname + '/entities/*.{js,ts}'],
-      schema: 'zeldaplay'
+      schema: 'public'
     }),
     UserModule,
     AuthModule
