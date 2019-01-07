@@ -1,0 +1,10 @@
+CREATE TABLE notes (
+  id VARCHAR(12) PRIMARY KEY DEFAULT createId('00N'),
+  created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+  important BOOLEAN DEFAULT FALSE,
+  last_modified_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+  message TEXT,
+  note_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
+  last_modified_by VARCHAR(12) REFERENCES players (id),
+  character_id VARCHAR(12) NOT NULL REFERENCES characters (id)
+);

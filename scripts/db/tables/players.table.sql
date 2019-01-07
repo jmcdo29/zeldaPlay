@@ -1,9 +1,9 @@
-CREATE TABLE player (
+CREATE TABLE players (
   id VARCHAR(12) PRIMARY KEY DEFAULT createId('00U'),
   email TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-  role role_type NOT NULL DEFAULT 'player',
-  recovery_token VARCHAR
+  recovery_token TEXT,
+  role role_type NOT NULL DEFAULT 'player'
 );
 
 
