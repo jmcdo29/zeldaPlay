@@ -5,4 +5,4 @@ CREATE TYPE attribute AS ENUM (
   'Intelligence',
   'Wisdom',
   'Charisma'
-)
+);

@@ -1,4 +1,4 @@
-CREATE TABLE spells (
+CREATE TABLE IF NOT EXISTS spells (
   id VARCHAR(12) PRIMARY KEY DEFAULT createId('0Sp'),
   created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW(),
   damage INTEGER CHECK (damage > 0),
@@ -11,4 +11,4 @@ CREATE TABLE spells (
   use_diety BOOLEAN DEFAULT FALSE,
   character_id VARCHAR(12) NOT NULL REFERENCES characters (id),
   last_modified_by VARCHAR(12) NOT NULL REFERENCES players (id)
-)
+);

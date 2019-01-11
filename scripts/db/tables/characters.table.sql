@@ -1,4 +1,4 @@
-CREATE TABLE characters (
+CREATE TABLE IF NOT EXISTS characters (
   id VARCHAR(12) PRIMARY KEY DEFAULT createId('00C'),
   charisma INTEGER NOT NULL CHECK (charisma > 6),
   constitution INTEGER NOT NULL CHECK (constitution > 6),
@@ -15,12 +15,12 @@ CREATE TABLE characters (
   magic INTEGER NOT NULL CHECK (magic < magic_max),
   magic_max INTEGER NOT NULL CHECK (magic_max > 0),
   name TEXT NOT NULL,
-  performance TEXT
+  performance TEXT,
   profession TEXT,
   race character_race NOT NULL,
   strength INTEGER NOT NULL CHECK (strength > 6),
   wisdom INTEGER NOT NULL CHECK (wisdom > 6),
   created_by VARCHAR(12) NOT NULL REFERENCES players (id),
   last_modified_by VARCHAR(12) NOT NULL REFERENCES players (id),
-  player_id VARCHAR(12) NOT NULL REFERENCES players (id),
+  player_id VARCHAR(12) NOT NULL REFERENCES players (id)
 );

@@ -8,7 +8,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run format && node scripts/gitAddMod"
+      "pre-commit": "npm run lint && npm run format && node scripts/node/gitAddMod"
     }
   },
   "repository": {
@@ -28,9 +28,8 @@
     "lint:server:src": "tslint -p src/server/tsconfig.app.json",
     "lint:server:test": "tslint -p src/server/tsconfig.spec.json",
     "ng": "ng",
-    "start": "env NODE_ENV=production node -r ./scripts/ts-config-bootstrap.js dist/server/main.js",
-    "start:db": "postgres -D ./database/ >database.log 2>&1 &",
-    "start:debug": "concurrently \"npm run build:server -w\" \"node --inspect -r ./scripts/ts-config-bootstrap.js dist/server/main.js\"",
+    "start": "env NODE_ENV=production node -r ./scripts/node/ts-config-bootstrap.js dist/server/main.js",
+    "start:debug": "concurrently \"npm run build:server -w\" \"node --inspect -r ./scripts/node/ts-config-bootstrap.js dist/server/main.js\"",
     "start:dev": "concurrently -n \"client,server\" -c \"green,magenta\" \"npm run start:dev:client\" \"npm run start:dev:server\"",
     "start:dev:client": "ng serve --open",
     "start:dev:server": "concurrently -n \"db,build,run\" -c \"magenta,cyan,blue\" \"npm run start:db\" \"npm run build:server -- -w\" \"nodemon -r ./scripts/ts-config-bootstrap.js dist/server/main.js\"",
