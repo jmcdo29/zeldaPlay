@@ -6,6 +6,7 @@ import { AuthModule } from '@Auth/auth.module';
 import { CharacterModule } from '@Character/character.module';
 import { UserModule } from '@User/user.module';
 import { AppController } from './app.controller';
+import { DbService } from './db/db.service';
 import { MiddlewareModule } from './middleware/middleware.module';
 
 @Module({
@@ -23,7 +24,7 @@ import { MiddlewareModule } from './middleware/middleware.module';
     UserModule,
     AuthModule
   ],
-  providers: []
+  providers: [DbService]
 })
 export class AppModule {
   constructor(private readonly connetion: Connection) {}
