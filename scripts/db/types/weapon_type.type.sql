@@ -9,7 +9,7 @@ CREATE TYPE weapon_type AS ENUM (
 	,'Halberd'
 	,'Heavy Shield'
 	,'Ice Rod'
-	,'Large bomb'
+	,'Large Bomb'
 	,'Lightning Rod'
 	,'Light Shield'
 	,'Long Sword'

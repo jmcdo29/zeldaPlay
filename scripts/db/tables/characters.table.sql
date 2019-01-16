@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS characters (
 	,profession TEXT
 	,race character_race NOT NULL
 	,strength INTEGER NOT NULL CHECK (strength > 6)
+  ,subrace TEXT
 	,wisdom INTEGER NOT NULL CHECK (wisdom > 6)
 	,created_by VARCHAR(12) NOT NULL REFERENCES players (id)
 	,last_modified_by VARCHAR(12) NOT NULL REFERENCES players (id)
