@@ -1,22 +1,23 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "outDir": "../../dist/server",
     "target": "es2018",
     "lib": ["es6"],
     "paths": {
       "@Auth/*": ["app/auth/*"],
-      "@Character/*": ["app/character/*"],
+      "@Db/*": ["app/db/*"],
+      "@Character/*": ["app/zeldaplay/character/*"],
       "@Decorators/*": ["app/decorators/*"],
       "@Entity/*": ["app/entities/*"],
-      "@Note/*": ["app/character/note/*"],
-      "@Skill/*": ["app/character/skill/*"],
-      "@Spell/*": ["app/character/spell/*"],
+      "@Note/*": ["app/zeldaplay/note/*"],
+      "@Skill/*": ["app/zeldaplay/skill/*"],
+      "@Spell/*": ["app/zeldaplay/spell/*"],
       "@User/*": ["app/user/*"],
-      "@Weapon/*": ["app/character/weapon/*"]
+      "@Weapon/*": ["app/zeldaplay/weapon/*"]
     }
   },
   "include": ["app/**/*.ts", "main.ts"],
-  "exclude": ["test.ts", "tests/**", "src/**", "**/**.spec.ts"]
+  "exclude": ["**/**.spec.ts"]
 }

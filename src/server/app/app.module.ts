@@ -1,19 +1,18 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Connection } from 'typeorm';
 
-import { AuthModule } from '@Auth/auth.module';
-import { CharacterModule } from '@Character/character.module';
 import { UserModule } from '@User/user.module';
 import { AppController } from './app.controller';
-import { DbService } from './db/db.service';
+import { DbModule } from './db/db.module';
 import { MiddlewareModule } from './middleware/middleware.module';
+import { SharedModule } from './shared/shared.module';
+import { UtilsModule } from './utils/utils.module';
+import { ZeldaplayModule } from './zeldaplay/zeldaplay.module';
 
 @Module({
   controllers: [AppController],
   imports: [
     MiddlewareModule,
-    CharacterModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DATABASE_URL,
@@ -22,10 +21,7 @@ import { MiddlewareModule } from './middleware/middleware.module';
       schema: 'public'
     }),
     UserModule,
-    AuthModule
-  ],
-  providers: [DbService]
+    ZeldaplayModule,
+  ]
 })
-export class AppModule {
-  constructor(private readonly connetion: Connection) {}
-}
+export class AppModule {}

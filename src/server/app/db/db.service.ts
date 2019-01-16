@@ -10,11 +10,13 @@ import { DbWeapon } from './models/db_weapon.model';
 @Injectable()
 export class DbService {
   private pool: Pool;
+  private schema: string;
 
-  constructor() {
+  constructor(schema: string) {
     this.pool = new Pool({
       connectionString: process.env.DATABASE_url
     });
+    this.schema = schema;
   }
 
   private async query<T>(text: string, params: any[]): Promise<T[]> {
@@ -36,7 +38,7 @@ export class DbService {
         id as chId
        ,name as chName
        ,race as chRace
-      FROM zeldaplay.characters
+      FROM ${this.schema}.characters
       WHERE player_id = $1`,
       [playerId]
     );
@@ -66,7 +68,7 @@ export class DbService {
         ,profession as chProfession
         ,craft_one as chCraftOne
         ,craft_two as chCraftTwo
-      FROM zeldaplay.characters
+      FROM ${this.schema}.characters
       WHERE id = $1`,
       [charId]
     );
@@ -80,7 +82,7 @@ export class DbService {
         ,message as nMessage
         ,note_time as nNoteTime
         ,important as nImportant
-      FROM zeldaplay.notes
+      FROM ${this.schema}.notes
       WHERE character_id = $1`,
       [charId]
     );
@@ -98,7 +100,7 @@ export class DbService {
         ,use_diety as spUseDiety
         ,modifier as spModifier
         ,damage as spDamage
-      FROM zeldaplay.spells
+      FROM ${this.schema}.spells
       WHERE character_id = $1`,
       [charId]
     );
@@ -118,7 +120,7 @@ export class DbService {
         ,number_of_hits as wNumberOfHits
         ,type as wType
         ,damage as wDamage
-      FROM zeldaplay.weapons
+      FROM ${this.schema}.weapons
       WHERE character_id = $1`,
       [charId]
     );
