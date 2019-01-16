@@ -93,7 +93,8 @@
     "component-class-suffix": true,
     "directive-class-suffix": true,
     "no-implicit-dependencies": false,
-    "no-submodule-imports": false
+    "no-submodule-imports": false,
+    "interface-name": false
   },
   "linterOptions": {
     "exclude": ["**/*.spec.ts"]
