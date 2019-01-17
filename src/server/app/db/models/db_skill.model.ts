@@ -1,6 +1,6 @@
 import { Modifier } from './enums/modifiers.enum';
 
-export class DbSave {
+export class DbSkill {
   skId: string;
   skItemModifier: number;
   skMiscModifier: number;

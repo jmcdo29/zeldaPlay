@@ -2,11 +2,7 @@ import { Module } from '@nestjs/common';
 import { DbService } from './db.service';
 
 @Module({
-  providers: [
-    {
-      provide: 'DbService',
-      useFactory: (schema: string) => new DbService(schema)
-    }
-  ]
+  providers: [DbService],
+  exports: [DbService]
 })
 export class DbModule {}

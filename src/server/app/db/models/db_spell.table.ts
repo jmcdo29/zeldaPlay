@@ -9,4 +9,5 @@ export class DbSpell {
   spMpUse: number;
   spName: string;
   spUseDiety: boolean;
+  spNumberOfHits: number;
 }
