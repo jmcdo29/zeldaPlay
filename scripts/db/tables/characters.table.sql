@@ -7,12 +7,12 @@ CREATE TABLE IF NOT EXISTS characters (
 	,created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
 	,dexterity INTEGER NOT NULL CHECK (dexterity > 6)
 	,experience INTEGER NOT NULL CHECK (experience > 0)
-	,health INTEGER NOT NULL CHECK (health < health_max)
+	,health INTEGER NOT NULL CHECK (health <= health_max)
 	,health_max INTEGER NOT NULL CHECK (health_max > 0)
 	,intelligence INTEGER NOT NULL CHECK (intelligence > 6)
 	,last_modified_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
 	,level INTEGER NOT NULL CHECK (level > 0)
-	,magic INTEGER NOT NULL CHECK (magic < magic_max)
+	,magic INTEGER NOT NULL CHECK (magic <= magic_max)
 	,magic_max INTEGER NOT NULL CHECK (magic_max > 0)
 	,name TEXT NOT NULL
 	,performance TEXT
