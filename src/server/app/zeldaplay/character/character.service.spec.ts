@@ -1,10 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { CharacterService } from '@Character/character.service';
-import { Character } from '@Entity/character.entity';
-
-const mockRepo = {};
+import { DbCharacterService } from './db-character/db-character.service';
 
 describe('CharacterService', () => {
   let service: CharacterService;
@@ -13,8 +10,8 @@ describe('CharacterService', () => {
       providers: [
         CharacterService,
         {
-          useValue: mockRepo,
-          provide: getRepositoryToken(Character)
+          provide: DbCharacterService,
+          useValue: {}
         }
       ]
     }).compile();

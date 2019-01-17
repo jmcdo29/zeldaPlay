@@ -9,7 +9,7 @@ import {
   ApiUseTags
 } from '@nestjs/swagger';
 
-import { Character } from '@Entity/character.entity';
+import { DbCharacter } from '@DbModel/db_character.model';
 
 import { AuthGuard } from '@Auth/auth.guard';
 import { CharacterPipe } from '@Character/character.pipe';
@@ -28,8 +28,8 @@ export class CharacterController {
       'Get all of the characters who do not belong to a user. ' +
       'These are returned and shown as an example for the user to get an idea of how the app works.'
   })
-  @ApiOkResponse({ type: Character, isArray: true })
-  async getAll(): Promise<Character[]> {
+  @ApiOkResponse({ type: DbCharacter, isArray: true })
+  async getAll(): Promise<DbCharacter[]> {
     return this.characterService.getAll();
   }
 
@@ -42,11 +42,11 @@ export class CharacterController {
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @ApiOkResponse({ type: Character })
+  @ApiOkResponse({ type: DbCharacter })
   newChar(
     @Param('userId') userId: string,
-    @Body('character', CharacterPipe) character: Character
-  ): Promise<Character> {
+    @Body('character', CharacterPipe) character: DbCharacter
+  ): Promise<DbCharacter> {
     return this.characterService.newChar(character, userId);
   }
 
@@ -57,8 +57,8 @@ export class CharacterController {
   })
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @ApiOkResponse({ type: Character, isArray: true })
-  getUser(@Param('userId') userId: string): Promise<Character[]> {
+  @ApiOkResponse({ type: DbCharacter, isArray: true })
+  getUser(@Param('userId') userId: string): Promise<DbCharacter[]> {
     return this.characterService.getUserChars(userId);
   }
 
@@ -68,8 +68,8 @@ export class CharacterController {
     description:
       'Return all the information pertaining to the specified character.'
   })
-  @ApiOkResponse({ type: Character })
-  getOne(@Param('characterId') charId: string): Promise<Character> {
+  @ApiOkResponse({ type: DbCharacter })
+  getOne(@Param('characterId') charId: string): Promise<DbCharacter> {
     return this.characterService.getOne(charId);
   }
 
@@ -82,10 +82,10 @@ export class CharacterController {
   @ApiBearerAuth()
   @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
-  @ApiOkResponse({ type: Character })
+  @ApiOkResponse({ type: DbCharacter })
   updateOne(
-    @Body('character', CharacterPipe) inChar: Character
-  ): Promise<Character> {
+    @Body('character', CharacterPipe) inChar: DbCharacter
+  ): Promise<DbCharacter> {
     return this.characterService.updateChar(inChar);
   }
 }

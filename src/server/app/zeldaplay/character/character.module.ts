@@ -1,17 +1,14 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AuthModule } from '@Auth/auth.module';
 import { CharacterController } from '@Character/character.controller';
 import { CharacterService } from '@Character/character.service';
-import { Character } from '@Entity/character.entity';
+import { SharedModule } from '@Shared/shared.module';
+import { DbCharacterService } from './db-character/db-character.service';
+
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Character]),
-    AuthModule
-  ],
+  imports: [SharedModule],
   controllers: [CharacterController],
-  providers: [CharacterService]
+  providers: [CharacterService, DbCharacterService]
 })
 export class CharacterModule {}
