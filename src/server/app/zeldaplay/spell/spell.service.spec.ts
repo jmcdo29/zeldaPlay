@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { SpellService } from '@Spell/spell.service';
-import { Spell } from '@Entity/spell.entity';
+import { DbSpellService } from './db-spell/db-spell.service';
 
 const mockRepo = {};
 
@@ -13,7 +12,7 @@ describe('SpellService', () => {
       providers: [
         SpellService,
         {
-          provide: getRepositoryToken(Spell),
+          provide: DbSpellService,
           useValue: mockRepo
         }
       ]

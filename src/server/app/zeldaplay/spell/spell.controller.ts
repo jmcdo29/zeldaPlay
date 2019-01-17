@@ -11,6 +11,7 @@ import {
 import { Spell } from '@Entity/spell.entity';
 
 import { AuthGuard } from '@Auth/auth.guard';
+import { DbSpell } from '@DbModel/db_spell.table';
 import { SpellDTO } from '@Spell/interfaces/spell.dto';
 import { SpellPipe } from '@Spell/spell.pipe';
 import { SpellService } from '@Spell/spell.service';
@@ -26,7 +27,7 @@ export class SpellController {
     description: 'Get all of the spells for the specified character.'
   })
   @ApiOkResponse({ type: Spell, isArray: true })
-  async getSpells(@Param('charId') charId: string): Promise<Spell[]> {
+  async getSpells(@Param('charId') charId: string): Promise<DbSpell[]> {
     return this.spellService.getSpells(charId);
   }
 
@@ -38,11 +39,11 @@ export class SpellController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
-  @ApiOkResponse({ type: Spell })
+  @ApiOkResponse({ type: DbSpell })
   async newSpell(
-    @Body('spell', SpellPipe) inSpell: Spell,
+    @Body('spell', SpellPipe) inSpell: DbSpell,
     @Param('charId') charId: string
-  ): Promise<Spell> {
+  ): Promise<DbSpell> {
     return this.spellService.newSpell(inSpell, charId);
   }
 
@@ -53,10 +54,10 @@ export class SpellController {
   })
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @ApiOkResponse({ type: Spell })
+  @ApiOkResponse({ type: DbSpell })
   @ApiImplicitParam({ name: 'spellId', required: true, type: 'string' })
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
-  async updateSpell(@Body('spell', SpellPipe) inSpell: Spell): Promise<Spell> {
+  async updateSpell(@Body('spell', SpellPipe) inSpell: DbSpell): Promise<DbSpell> {
     return this.spellService.updateSpell(inSpell);
   }
 }
