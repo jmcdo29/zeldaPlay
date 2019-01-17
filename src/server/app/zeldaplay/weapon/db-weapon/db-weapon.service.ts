@@ -31,10 +31,42 @@ export class DbWeaponService {
   }
 
   async newWeapon(weapon: DbWeapon, charId: string): Promise<DbWeapon> {
-    return this.dbService.query(``, [])[0];
+    return this.dbService.query(
+      `INSERT INTO ${this.schema}.weapons
+      (name, modifier, ammo, range, crit_damage, crit_range, number_of_hits, type, damage, character_id) VALUES
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      RETURNING id as wId`,
+      [
+        weapon.wName,
+        weapon.wModifier,
+        weapon.wAmmo,
+        weapon.wRange,
+        weapon.wCritDamage,
+        weapon.wCritRange,
+        weapon.wNumberOfHits,
+        weapon.wType,
+        weapon.wDamage,
+        charId
+      ]
+    )[0];
   }
 
   async updateWeapon(weapon: DbWeapon): Promise<DbWeapon> {
-    return this.dbService.query(``, [])[0];
+    return this.dbService.query(
+      `UPDATE ${this.schema}.weapons as w
+        SET name = inWeap.name
+        ,modifier = inWeap.modifier
+        ,ammo = inWeap.ammo
+        ,range = inWeap.range
+        ,crit_damage = inWeap.crit_damage
+        ,crit_range = inWeap.crit_range
+        ,number_of_hits = inWeap.number_of_hits
+        ,type = inWeap.type
+        ,damage = inWeap.damage
+      FROM( VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9))
+      AS inWeap(name, modifier, ammo, range, crit_damage, crit_range, number_of_hits, type, damage)
+      WHERE w.id = ${weapon.wId}`,
+      []
+    )[0];
   }
 }
