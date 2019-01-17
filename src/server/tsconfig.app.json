@@ -8,10 +8,12 @@
     "paths": {
       "@Auth/*": ["app/auth/*"],
       "@Db/*": ["app/db/*"],
+      "@DbModel/*": ["app/db/models/*"],
       "@Character/*": ["app/zeldaplay/character/*"],
       "@Decorators/*": ["app/decorators/*"],
       "@Entity/*": ["app/entities/*"],
       "@Note/*": ["app/zeldaplay/note/*"],
+      "@Shared/*": ["app/shared/*"],
       "@Skill/*": ["app/zeldaplay/skill/*"],
       "@Spell/*": ["app/zeldaplay/spell/*"],
       "@User/*": ["app/user/*"],

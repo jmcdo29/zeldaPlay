@@ -22,14 +22,17 @@
       "#Mocks/*": ["client/app/mocks/*"],
       "#Environment/*": ["client/environments/*"],
       "@Auth/*": ["server/app/auth/*"],
-      "@Character/*": ["server/app/character/*"],
+      "@Db/*": ["server/app/db/*"],
+      "@DbModel/*": ["server/app/db/models/*"],
+      "@Character/*": ["server/app/zeldaplay/character/*"],
       "@Decorators/*": ["server/app/decorators/*"],
       "@Entity/*": ["server/app/entities/*"],
-      "@Note/*": ["server/app/character/note/*"],
-      "@Skill/*": ["server/app/character/skill/*"],
-      "@Spell/*": ["server/app/character/spell/*"],
+      "@Note/*": ["server/app/zeldaplay/note/*"],
+      "@Shared/*": ["server/app/shared/*"],
+      "@Skill/*": ["server/app/zeldaplay/skill/*"],
+      "@Spell/*": ["server/app/zeldaplay/spell/*"],
       "@User/*": ["server/app/user/*"],
-      "@Weapon/*": ["server/app/character/weapon/*"]
+      "@Weapon/*": ["server/app/zeldaplay/weapon/*"]
     }
   }
 }

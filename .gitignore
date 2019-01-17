@@ -51,3 +51,4 @@ testDelete.js
 *.pem
 *.csr
 /database
+scripts/db/all.sql
