@@ -20,8 +20,14 @@ export class DbService {
   async query<T>(text: string, params: any[]): Promise<T[]> {
     const qStart = Date.now();
     try {
-      const queryRes = await this.pool.query(text.replace(/\n\s*,/g, ', ').replace(/\n\s*/g, ' '), params);
-      scribe('DEBUG', `Retrieved ${queryRes.rowCount} records in ${Date.now() - qStart} ms.`);
+      const queryRes = await this.pool.query(
+        text.replace(/\n\s*,/g, ', ').replace(/\n\s*/g, ' '),
+        params
+      );
+      scribe(
+        'DEBUG',
+        `Retrieved ${queryRes.rowCount} records in ${Date.now() - qStart} ms.`
+      );
       return queryRes.rows;
     } catch (err) {
       scribe('ERROR', err.message);

@@ -7,9 +7,7 @@ import { DbNote } from '@DbModel/db_note.model';
 export class DbNoteService {
   private schema: string;
 
-  constructor (
-    private readonly dbService: DbService
-  ) {
+  constructor(private readonly dbService: DbService) {
     this.schema = 'zeldaplay';
   }
 

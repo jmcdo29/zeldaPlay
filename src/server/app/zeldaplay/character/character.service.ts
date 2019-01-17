@@ -5,9 +5,7 @@ import { DbCharacterService } from './db-character/db-character.service';
 
 @Injectable()
 export class CharacterService {
-  constructor(
-    private readonly dbService: DbCharacterService
-  ) {}
+  constructor(private readonly dbService: DbCharacterService) {}
 
   async getAll(): Promise<DbCharacter[]> {
     return this.dbService.queryCharacters(process.env.DUMMY_ID);

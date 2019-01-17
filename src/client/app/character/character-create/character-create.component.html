@@ -779,10 +779,12 @@
                 <mat-form-field class="attribute">
                   <input
                     matInput
-                    id="{{ 'attr'+i }}"
+                    id="{{ 'attr' + i }}"
                     type="number"
                     [(ngModel)]="attr.value"
-                    max="{{ 24 < attr.value + attPoints ? 24 : attr.value + attPoints }}"
+                    max="{{
+                      24 < attr.value + attPoints ? 24 : attr.value + attPoints
+                    }}"
                     min="{{ attrMins[i] }}"
                     (change)="trackAtt(i)"
                     (blur)="validateAttr(i)"
@@ -854,8 +856,8 @@
                     skill.skillName === 'CraftTwo' ||
                     skill.skillName === 'Profession' ||
                     skill.skillName === 'Perform Other';
-                  then: specialSkill;
-                  else: normalSkill
+                  then specialSkill;
+                  else normalSkill
                 "
               ></div>
 
@@ -911,12 +913,16 @@
               <mat-form-field class="skill">
                 <input
                   matInput
-                  id="{{ 'skills'+j }}"
+                  id="{{ 'skills' + j }}"
                   class="skill-input"
                   type="number"
                   [(ngModel)]="skill.ranks"
                   min="0"
-                  max="{{ skill.ranks + skillPoints > 0 ? skill.ranks + skillPoints: 0 }}"
+                  max="{{
+                    skill.ranks + skillPoints > 0
+                      ? skill.ranks + skillPoints
+                      : 0
+                  }}"
                   (change)="track(j, 'skills')"
                   (blur)="validate(j, 'skills')"
                   [class.non-zero]="skill.ranks > 0"
@@ -988,12 +994,16 @@
               <mat-form-field>
                 <input
                   matInput
-                  id="{{ 'weaponSkills'+k }}"
+                  id="{{ 'weaponSkills' + k }}"
                   class="skill-input"
                   type="number"
                   [(ngModel)]="weapon.ranks"
                   min="0"
-                  max="{{ weapon.ranks + skillPoints > 0 ? weapon.ranks + skillPoints : 0 }}"
+                  max="{{
+                    weapon.ranks + skillPoints > 0
+                      ? weapon.ranks + skillPoints
+                      : 0
+                  }}"
                   (change)="track(k, 'weaponSkills')"
                   (blur)="validate(k, 'weaponSkills')"
                   [class.non-zero]="weapon.ranks > 0"
@@ -1036,12 +1046,16 @@
               <mat-form-field>
                 <input
                   matInput
-                  id="{{ 'magicSkills'+m }}"
+                  id="{{ 'magicSkills' + m }}"
                   class="skill-input"
                   type="number"
                   [(ngModel)]="magic.ranks"
                   min="0"
-                  max="{{ magic.ranks + skillPoints > 0 ? magic.ranks + skillPoints : 0 }}"
+                  max="{{
+                    magic.ranks + skillPoints > 0
+                      ? magic.ranks + skillPoints
+                      : 0
+                  }}"
                   (change)="track(m, 'magicSkills')"
                   (blur)="validate(m, 'magicSkills')"
                   [class.non-zero]="magic.ranks > 0"

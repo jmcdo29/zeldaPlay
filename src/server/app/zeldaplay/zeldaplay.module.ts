@@ -7,12 +7,6 @@ import { SpellModule } from '@Spell/spell.module';
 import { WeaponModule } from '@Weapon/weapon.module';
 
 @Module({
-  imports: [
-    CharacterModule,
-    NoteModule,
-    SkillModule,
-    SpellModule,
-    WeaponModule
-  ]
+  imports: [CharacterModule, NoteModule, SkillModule, SpellModule, WeaponModule]
 })
 export class ZeldaplayModule {}

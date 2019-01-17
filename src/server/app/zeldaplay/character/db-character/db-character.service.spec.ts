@@ -7,16 +7,17 @@ describe('DbCharacterService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [DbCharacterService,
-      {
-        provide: DbService,
-        useValue: {
-          query: (text: string, params: any[]) => {
-            return {text, params}
+      providers: [
+        DbCharacterService,
+        {
+          provide: DbService,
+          useValue: {
+            query: (text: string, params: any[]) => {
+              return { text, params };
+            }
           }
         }
-      }
-    ],
+      ]
     }).compile();
     service = module.get<DbCharacterService>(DbCharacterService);
   });

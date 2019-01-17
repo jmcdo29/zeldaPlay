@@ -7,9 +7,7 @@ import { DbSkill } from '@DbModel/db_skill.model';
 export class DbSkillService {
   private schema: string;
 
-  constructor (
-    private readonly dbService: DbService
-  ) {
+  constructor(private readonly dbService: DbService) {
     this.schema = 'zeldaplay';
   }
 

@@ -5,9 +5,7 @@ import { DbNoteService } from './db-note/db-note.service';
 
 @Injectable()
 export class NoteService {
-  constructor(
-    private readonly dbService: DbNoteService
-  ) {}
+  constructor(private readonly dbService: DbNoteService) {}
 
   async getNotes(characterId: string): Promise<DbNote[]> {
     return this.dbService.getNotes(characterId);

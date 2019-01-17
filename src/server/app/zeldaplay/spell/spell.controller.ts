@@ -57,7 +57,9 @@ export class SpellController {
   @ApiOkResponse({ type: DbSpell })
   @ApiImplicitParam({ name: 'spellId', required: true, type: 'string' })
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
-  async updateSpell(@Body('spell', SpellPipe) inSpell: DbSpell): Promise<DbSpell> {
+  async updateSpell(
+    @Body('spell', SpellPipe) inSpell: DbSpell
+  ): Promise<DbSpell> {
     return this.spellService.updateSpell(inSpell);
   }
 }

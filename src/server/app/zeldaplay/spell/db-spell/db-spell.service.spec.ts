@@ -7,10 +7,13 @@ describe('DbSpellService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [DbSpellService, {
-        provide: DbService,
-        useValue: {}
-      }],
+      providers: [
+        DbSpellService,
+        {
+          provide: DbService,
+          useValue: {}
+        }
+      ]
     }).compile();
     service = module.get<DbSpellService>(DbSpellService);
   });

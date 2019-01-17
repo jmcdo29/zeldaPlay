@@ -192,7 +192,9 @@ export class DbCharacterService {
       paramValues.push(skill.skRanks);
       index++;
     }
-    paramString = paramString ? paramString.substring(0, paramString.length - 2) : '';
+    paramString = paramString
+      ? paramString.substring(0, paramString.length - 2)
+      : '';
     return this.dbService.query<DbSkill>(
       `UPDATE ${this.schema}.skills AS skills
         SET ranks = inSkill.r
@@ -200,7 +202,7 @@ export class DbCharacterService {
         ($*)
       ) AS inSkill(r)
         WHERE skills.character_id = $1
-      `.replace(('$*'), paramString),
+      `.replace('$*', paramString),
       ([charId] as any).concat(paramValues)
     );
   }

@@ -5,9 +5,7 @@ import { DbSpellService } from './db-spell/db-spell.service';
 
 @Injectable()
 export class SpellService {
-  constructor(
-    private readonly dbService: DbSpellService
-  ) {}
+  constructor(private readonly dbService: DbSpellService) {}
 
   async getSpells(charId: string): Promise<DbSpell[]> {
     return this.dbService.getSpells(charId);

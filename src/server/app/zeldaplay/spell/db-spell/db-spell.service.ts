@@ -7,9 +7,7 @@ import { DbSpell } from '@Db/models/db_spell.table';
 export class DbSpellService {
   private schema: string;
 
-  constructor (
-    private readonly dbService: DbService
-  ) {
+  constructor(private readonly dbService: DbService) {
     this.schema = 'zeldaplay';
   }
 

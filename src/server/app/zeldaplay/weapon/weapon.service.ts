@@ -5,9 +5,7 @@ import { DbWeaponService } from './db-weapon/db-weapon.service';
 
 @Injectable()
 export class WeaponService {
-  constructor(
-    private readonly dbService: DbWeaponService
-  ) {}
+  constructor(private readonly dbService: DbWeaponService) {}
 
   async getWeapons(charId: string): Promise<DbWeapon[]> {
     return this.dbService.getWeapons(charId);

@@ -21,7 +21,7 @@ import { ZeldaplayModule } from './zeldaplay/zeldaplay.module';
       schema: 'public'
     }),
     UserModule,
-    ZeldaplayModule,
+    ZeldaplayModule
   ]
 })
 export class AppModule {}

@@ -7,9 +7,7 @@ import { DbWeapon } from '@Db/models/db_weapon.model';
 export class DbWeaponService {
   private schema: string;
 
-  constructor (
-    private readonly dbService: DbService
-  ) {
+  constructor(private readonly dbService: DbService) {
     this.schema = 'zeldaplay';
   }
 

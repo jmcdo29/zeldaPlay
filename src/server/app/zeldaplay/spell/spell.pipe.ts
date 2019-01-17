@@ -12,7 +12,7 @@ export class SpellPipe implements PipeTransform<SpellDTO, DbSpell> {
     spell.spName = value.name;
     spell.spModifier = value.modifier as Modifier;
     spell.spDamage = value.damage;
-    spell.spDiety = value.diety as ('Din' | 'Farore' | 'Nayru');
+    spell.spDiety = value.diety as 'Din' | 'Farore' | 'Nayru';
     spell.spEffect = value.effect;
     spell.spMpUse = value.mpUse;
     spell.spNumberOfHits = value.multiplier;
