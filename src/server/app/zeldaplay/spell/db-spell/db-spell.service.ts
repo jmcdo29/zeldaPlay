@@ -14,7 +14,20 @@ export class DbSpellService {
   }
 
   async getSpells(charId: string): Promise<DbSpell[]> {
-    return this.dbService.query<DbSpell>(``, []);
+    return this.dbService.query<DbSpell>(
+      `SELECT
+        id as spId
+        ,name as spName
+        ,diety as spDiety
+        ,effect as spEffect
+        ,mp_use as spMpUse
+        ,use_diety as spUseDiety
+        ,modifier as spModifier
+        ,damage as spDamage
+      FROM zeldaplay.spells
+      WHERE character_id = $1`,
+      [charId]
+    );
   }
 
   async newSpell(spell: DbSpell, charId: string): Promise<DbSpell> {
