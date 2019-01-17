@@ -1,8 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
-import { Skill } from '@Entity/skill.entity';
-
+import { DbSkill } from '@Db/models/db_skill.model';
 import { SkillService } from '@Skill/skill.service';
 
 @ApiUseTags('skill')
@@ -15,8 +14,8 @@ export class SkillController {
     title: 'get character skills',
     description: 'Get all the skills of the specified character.'
   })
-  @ApiOkResponse({ type: Skill, isArray: true })
-  async getSkills(@Param('charId') charId: string): Promise<Skill[]> {
+  @ApiOkResponse({ type: DbSkill, isArray: true })
+  async getSkills(@Param('charId') charId: string): Promise<DbSkill[]> {
     return this.skillService.getCharacterSkills(charId);
   }
 }

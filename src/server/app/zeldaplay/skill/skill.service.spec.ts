@@ -1,9 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { SkillController } from '@Skill/skill.controller';
 import { SkillService } from '@Skill/skill.service';
-import { Skill } from '@Entity/skill.entity';
+import { DbSkillService } from './db-skill/db-skill.service';
 
 const mockRepo = {};
 
@@ -14,7 +13,7 @@ describe('SkillService', () => {
       providers: [
         SkillService,
         {
-          provide: getRepositoryToken(Skill),
+          provide: DbSkillService,
           useValue: mockRepo
         }
       ],

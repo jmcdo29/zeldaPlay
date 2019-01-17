@@ -1,22 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 
-import { Skill } from '@Entity/skill.entity';
+import { DbSkill } from '@DbModel/db_skill.model';
+import { DbSkillService } from './db-skill/db-skill.service';
 
 @Injectable()
 export class SkillService {
   constructor(
-    @InjectRepository(Skill) private readonly skillRepo: Repository<Skill>
+    private readonly dbService: DbSkillService
   ) {}
 
-  async getCharacterSkills(charId: string): Promise<Skill[]> {
-    return this.skillRepo.find({
-      where: {
-        character: {
-          id: charId
-        }
-      }
-    });
+  async getCharacterSkills(charId: string): Promise<DbSkill[]> {
+    return this.dbService.getSkills(charId);
   }
 }
