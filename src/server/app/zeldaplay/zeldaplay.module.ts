@@ -9,10 +9,10 @@ import { WeaponModule } from '@Weapon/weapon.module';
 @Module({
   imports: [
     CharacterModule,
-    /* NoteModule,
+    NoteModule,
     SkillModule,
     SpellModule,
-    WeaponModule */
+    WeaponModule
   ]
 })
 export class ZeldaplayModule {}
