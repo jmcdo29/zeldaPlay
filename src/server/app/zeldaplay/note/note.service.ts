@@ -1,25 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 
-import { Note } from '@Entity/note.entity';
+import { DbNote } from '@DbModel/db_note.model';
+import { DbNoteService } from './db-note/db-note.service';
 
 @Injectable()
 export class NoteService {
   constructor(
-    @InjectRepository(Note) private readonly noteRepo: Repository<Note>
+    private readonly dbService: DbNoteService
   ) {}
 
-  async getNotes(characterId: string): Promise<Note[]> {
-    return this.noteRepo.find({
-      where: {
-        character: { id: characterId }
-      }
-    });
+  async getNotes(characterId: string): Promise<DbNote[]> {
+    return this.dbService.getNotes(characterId);
   }
 
-  async saveNote(inNote: Note, charId: string): Promise<Note> {
-    inNote.character.id = charId;
-    return this.noteRepo.save(inNote);
+  async saveNote(inNote: DbNote, charId: string): Promise<DbNote> {
+    return this.dbService.saveNote(inNote, charId);
   }
 }

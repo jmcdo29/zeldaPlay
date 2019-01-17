@@ -1,17 +1,16 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
-import { Note } from '@Entity/note.entity';
-
+import { DbNote } from '@Db/models/db_note.model';
 import { NoteDTO } from '@Note/interfaces/note.dto';
 
 @Injectable()
-export class NotePipe implements PipeTransform<NoteDTO, Note> {
-  transform(value: NoteDTO, metadata: ArgumentMetadata): Note {
-    const note = new Note();
-    note.message = value.msg;
-    note.time = value.time;
-    note.id = value.id;
-    note.important = value.important;
+export class NotePipe implements PipeTransform<NoteDTO, DbNote> {
+  transform(value: NoteDTO, metadata: ArgumentMetadata): DbNote {
+    const note = new DbNote();
+    note.nMessage = value.msg;
+    note.nNoteTime = value.time as any;
+    note.nId = value.id;
+    note.nImportant = value.important;
     return note;
   }
 }
