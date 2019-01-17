@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 
+import { DbWeaponService } from './db-weapon/db-weapon.service';
 import { WeaponService } from '@Weapon/weapon.service';
-import { Weapon } from '@Entity/weapon.entity';
 
 const mockRepo = {};
 
@@ -13,7 +12,7 @@ describe('WeaponService', () => {
       providers: [
         WeaponService,
         {
-          provide: getRepositoryToken(Weapon),
+          provide: DbWeaponService,
           useValue: mockRepo
         }
       ]
