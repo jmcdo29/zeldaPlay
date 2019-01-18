@@ -26,7 +26,6 @@
       "@DbModel/*": ["server/app/db/models/*"],
       "@Character/*": ["server/app/zeldaplay/character/*"],
       "@Decorators/*": ["server/app/decorators/*"],
-      "@Entity/*": ["server/app/entities/*"],
       "@Note/*": ["server/app/zeldaplay/note/*"],
       "@Shared/*": ["server/app/shared/*"],
       "@Skill/*": ["server/app/zeldaplay/skill/*"],

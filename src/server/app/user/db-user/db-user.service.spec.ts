@@ -1,23 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { DbUserService } from './db-user.service';
 
-import { UserService } from '@User/user.service';
-import { DbUserService } from './db-user/db-user.service';
+describe('DbUserService', () => {
+  let service: DbUserService;
 
-const mockRepo = {};
-
-describe('UsersService', () => {
-  let service: UserService;
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        UserService,
+        DbUserService,
         {
           provide: DbUserService,
-          useValue: mockRepo
+          useValue: {}
         }
       ]
     }).compile();
-    service = module.get<UserService>(UserService);
+    service = module.get<DbUserService>(DbUserService);
   });
   it('should be defined', () => {
     expect(service).toBeDefined();

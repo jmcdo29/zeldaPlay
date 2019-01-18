@@ -4,7 +4,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 
 import { AuthService } from '@Auth/auth.service';
 import { JwtDTO } from '@Auth/interfaces/jwt.dto';
-import { User } from '@Entity/user.entity';
+import { DbPlayer } from '@DbModel/db_player.model';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     });
   }
 
-  async validate(payload: JwtDTO): Promise<User> {
+  async validate(payload: JwtDTO): Promise<DbPlayer> {
     const user = this.authService.validateUser(payload);
     if (!user) {
       throw new UnauthorizedException();

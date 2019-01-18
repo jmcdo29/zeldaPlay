@@ -7,8 +7,6 @@ import { JwtStrategy } from '@Auth/jwt.strategy';
 import { UserService } from '@User/user.service';
 
 process.env.TOKEN_SECRET = 'some secret';
-// TODO: Still needs to be fixed
-// HACK: Set test to true to pass.
 describe('AuthService', () => {
   let service: AuthService;
   beforeAll(async () => {

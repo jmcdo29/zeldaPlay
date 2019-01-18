@@ -47,7 +47,6 @@
     "@nestjs/jwt": "^0.2.1",
     "@nestjs/passport": "^5.1.0",
     "@nestjs/swagger": "^2.5.1",
-    "@nestjs/typeorm": "^5.2.2",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.2.0",
     "class-validator": "^0.9.1",
@@ -73,7 +72,6 @@
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",
     "tsconfig-paths": "^3.6.0",
-    "typeorm": "^0.2.11",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

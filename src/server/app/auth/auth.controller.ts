@@ -28,26 +28,6 @@ export class AuthController {
     return this.authService.signup(user);
   }
 
-  /* @Get('google/login')
-  @ApiOperation({
-    title: 'Google Login',
-    description: 'Log user in using google'
-  })
-  async googleLogin(@Res() res: any) {
-    return res.redirect(await this.authService.googleToken());
-  }
-
-  @Get('google/callback')
-  @ApiOperation({
-    title: 'Google Login Callback',
-    description: 'Callback for Google OAuth login'
-  })
-  async googleCallback(@Query('code') code: string, @Query('scope') scope: string) {
-    console.log('token', code);
-    console.log('scope', scope);
-    return this.authService.getGoogleUser({code});
-  } */
-
   @Post('logout')
   @ApiOperation({ title: 'Logout', description: 'Allow the user to log out.' })
   async logout(): Promise<void> {

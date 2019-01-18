@@ -8,8 +8,6 @@ import {
   ApiUseTags
 } from '@nestjs/swagger';
 
-import { Weapon } from '@Entity/weapon.entity';
-
 import { AuthGuard } from '@Auth/auth.guard';
 import { DbWeapon } from '@DbModel/db_weapon.model';
 import { WeaponDTO } from '@Weapon/interfaces/weapon.dto';
@@ -54,7 +52,7 @@ export class WeaponController {
   })
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @ApiOkResponse({ type: Weapon })
+  @ApiOkResponse({ type: DbWeapon })
   @ApiImplicitParam({ name: 'weaponId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   async updateWeapon(

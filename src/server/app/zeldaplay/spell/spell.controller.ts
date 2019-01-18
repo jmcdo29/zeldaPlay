@@ -8,8 +8,6 @@ import {
   ApiUseTags
 } from '@nestjs/swagger';
 
-import { Spell } from '@Entity/spell.entity';
-
 import { AuthGuard } from '@Auth/auth.guard';
 import { DbSpell } from '@DbModel/db_spell.table';
 import { SpellDTO } from '@Spell/interfaces/spell.dto';
@@ -26,7 +24,7 @@ export class SpellController {
     title: 'Get Character Spells',
     description: 'Get all of the spells for the specified character.'
   })
-  @ApiOkResponse({ type: Spell, isArray: true })
+  @ApiOkResponse({ type: DbSpell, isArray: true })
   async getSpells(@Param('charId') charId: string): Promise<DbSpell[]> {
     return this.spellService.getSpells(charId);
   }
