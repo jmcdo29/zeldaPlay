@@ -9,12 +9,12 @@ import {
   ApiUseTags
 } from '@nestjs/swagger';
 
-import { DbCharacter } from '@DbModel/db_character.model';
-
 import { AuthGuard } from '@Auth/auth.guard';
 import { CharacterPipe } from '@Character/character.pipe';
 import { CharacterService } from '@Character/character.service';
 import { CharacterDTO } from '@Character/interfaces/character.dto';
+import { DbCharacterShort } from '@Db/models/db_character_short.model';
+import { DbCharacter } from '@DbModel/db_character.model';
 
 @ApiUseTags('character')
 @Controller('character')
@@ -28,8 +28,8 @@ export class CharacterController {
       'Get all of the characters who do not belong to a user. ' +
       'These are returned and shown as an example for the user to get an idea of how the app works.'
   })
-  @ApiOkResponse({ type: DbCharacter, isArray: true })
-  async getAll(): Promise<DbCharacter[]> {
+  @ApiOkResponse({ type: DbCharacterShort, isArray: true })
+  async getAll(): Promise<DbCharacterShort[]> {
     return this.characterService.getAll();
   }
 

@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS characters (
 	,strength INTEGER NOT NULL CHECK (strength > 6)
   ,subrace TEXT
 	,wisdom INTEGER NOT NULL CHECK (wisdom > 6)
-	,created_by VARCHAR(12) NOT NULL REFERENCES players (id)
-	,last_modified_by VARCHAR(12) NOT NULL REFERENCES players (id)
+	,created_by VARCHAR(12) REFERENCES players (id)
+	,last_modified_by VARCHAR(12) REFERENCES players (id)
 	,player_id VARCHAR(12) NOT NULL REFERENCES players (id)
 );

@@ -5,6 +5,5 @@ CREATE TABLE IF NOT EXISTS notes (
 	,last_modified_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 	,message TEXT
 	,note_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
-	,last_modified_by VARCHAR(12) REFERENCES players (id)
 	,character_id VARCHAR(12) NOT NULL REFERENCES characters (id)
 );

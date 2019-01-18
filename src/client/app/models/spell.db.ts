@@ -1,11 +1,11 @@
 export interface ISpellDb {
-  id?: string;
-  name: string;
-  effect: string;
-  damage: number;
-  number_of_hit: number;
-  mp_use: number;
-  diety: string;
-  use_diety: boolean;
-  modifier?: string;
+  spId?: string;
+  spName: string;
+  spEffect: string;
+  spDamage: number;
+  spNumberOfHits: number;
+  spMpUse: number;
+  spDiety: string;
+  spUseDiety: boolean;
+  spModifier?: string;
 }

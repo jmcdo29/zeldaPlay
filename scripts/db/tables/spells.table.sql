@@ -10,5 +10,4 @@ CREATE TABLE IF NOT EXISTS spells (
 	,name TEXT NOT NULL
 	,use_diety BOOLEAN DEFAULT FALSE
 	,character_id VARCHAR(12) NOT NULL REFERENCES characters (id)
-	,last_modified_by VARCHAR(12) NOT NULL REFERENCES players (id)
 );

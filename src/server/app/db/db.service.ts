@@ -1,10 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { consoleLogger as scribe } from 'mc-scribe';
 import { Pool } from 'pg';
-
-import { DbNote } from './models/db_note.model';
-import { DbSpell } from './models/db_spell.table';
-import { DbWeapon } from './models/db_weapon.model';
 
 @Injectable()
 export class DbService {
@@ -19,11 +15,11 @@ export class DbService {
 
   async query<T>(text: string, params: any[]): Promise<T[]> {
     const qStart = Date.now();
+    text = text.replace(/\n\s*,/g, ', ').replace(/\n\s*/g, ' ');
     try {
-      const queryRes = await this.pool.query(
-        text.replace(/\n\s*,/g, ', ').replace(/\n\s*/g, ' '),
-        params
-      );
+      scribe('INFO', 'query', text);
+      const queryRes = await this.pool.query(text, params);
+      scribe('INFO', queryRes);
       scribe(
         'DEBUG',
         `Retrieved ${queryRes.rowCount} records in ${Date.now() - qStart} ms.`

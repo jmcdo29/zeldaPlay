@@ -1,13 +1,13 @@
 export interface IWeaponDb {
-  id?: string;
-  name: string;
-  damage: number;
-  number_of_hits: number;
-  crit_range: string;
-  crit_multiplier: number;
-  range: number;
-  ammo?: number;
-  type: string;
-  modifier: string;
-  element?: any;
+  wId?: string;
+  wName: string;
+  wDamage: number;
+  wNumberOfHits: number;
+  wCritRange: string;
+  wCritMultiplier: number;
+  wRange: number;
+  wAmmo?: number;
+  wType: string;
+  wModifier: string;
+  wElement?: any;
 }

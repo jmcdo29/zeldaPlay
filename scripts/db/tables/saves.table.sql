@@ -6,5 +6,4 @@ CREATE TABLE IF NOT EXISTS saving_throws (
 	,name TEXT NOT NULL
 	,racial_bonus INTEGER CHECK(racial_bonus >= 0)
 	,character_id VARCHAR(12) REFERENCES characters (id)
-	,last_modified_by VARCHAR(12) REFERENCES players (id)
 );

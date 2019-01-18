@@ -4,6 +4,7 @@ import {
   UnauthorizedException
 } from '@nestjs/common';
 import { compare, hash } from 'bcryptjs';
+import { consoleLogger as scribe } from 'mc-scribe';
 
 import { NewUserDTO } from '@Auth/interfaces/new_user.dto';
 import { UserDTO } from '@Auth/interfaces/user.dto';
@@ -30,7 +31,9 @@ export class UserService {
   }
 
   async signup(user: NewUserDTO): Promise<DbPlayer> {
+    scribe('INFO', 'user.email', user.email);
     const existingUser = await this.dbService.findByEmail(user.email);
+    scribe('INFO', 'existingUser', existingUser);
     if (existingUser) {
       return Promise.reject(
         new ConflictException(
@@ -38,7 +41,12 @@ export class UserService {
         )
       );
     }
-    return this.dbService.signup(user.email, await hash(user.password, 12));
+    const newPlayer = await this.dbService.signup(
+      user.email,
+      await hash(user.password, 12)
+    );
+    newPlayer.pEmail = user.email;
+    return newPlayer;
   }
 
   async findUserByEmail(email: string): Promise<DbPlayer> {

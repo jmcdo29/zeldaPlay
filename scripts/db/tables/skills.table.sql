@@ -11,5 +11,4 @@ CREATE TABLE IF NOT EXISTS skills (
 	,trained BOOLEAN DEFAULT false
 	,type skill_type NOT NULL
 	,character_id VARCHAR(12) NOT NULL REFERENCES characters (id)
-	,last_modified_by VARCHAR(12) NOT NULL REFERENCES players (id)
 );

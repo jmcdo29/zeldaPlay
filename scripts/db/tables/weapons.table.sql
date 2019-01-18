@@ -12,5 +12,4 @@ CREATE TABLE IF NOT EXISTS weapons (
 	,range INTEGER
 	,type weapon_type NOT NULL
 	,character_id VARCHAR(12) NOT NULL REFERENCES characters (id)
-	,last_modified_by VARCHAR(12) NOT NULL REFERENCES players (id)
 );
