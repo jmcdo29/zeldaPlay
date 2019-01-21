@@ -1,9 +1,16 @@
-import { Global, Module } from '@nestjs/common';
+import { Global, Module, Provider } from '@nestjs/common';
 import { DbService } from './db.service';
+
+const dbProvider: Provider = {
+  provide: 'DbService',
+  useFactory: async () => {
+    return new DbService();
+  }
+};
 
 @Global()
 @Module({
-  providers: [DbService],
+  providers: [dbProvider],
   exports: [DbService]
 })
 export class DbModule {}

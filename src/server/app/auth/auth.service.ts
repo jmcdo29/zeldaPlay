@@ -45,7 +45,8 @@ export class AuthService {
     // tslint:disable-next-line:no-small-switch
     switch (payload.provider) {
       case 'local':
-        return this.userService.findUserByEmail(payload.email);
+        const users = await this.userService.findUserByEmail(payload.email);
+        return users[0];
       default:
         throw new UnauthorizedException('Login invalid. Please log in again.');
     }

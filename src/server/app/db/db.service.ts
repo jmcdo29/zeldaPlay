@@ -8,7 +8,7 @@ export class DbService {
 
   constructor() {
     this.pool = new Pool({
-      connectionString: process.env.DATABASE_url
+      connectionString: process.env.DATABASE_URL
     });
     this.pool.on('connect', () => scribe('DEBUG', 'Connected to database!'));
   }
@@ -19,11 +19,11 @@ export class DbService {
     try {
       scribe('INFO', 'query', text);
       const queryRes = await this.pool.query(text, params);
-      scribe('INFO', queryRes);
-      scribe(
-        'DEBUG',
-        `Retrieved ${queryRes.rowCount} records in ${Date.now() - qStart} ms.`
-      );
+      scribe('DEBUG', {
+        text,
+        duration: Date.now() - qStart,
+        rows: queryRes.rowCount
+      });
       return queryRes.rows;
     } catch (err) {
       scribe('ERROR', err.message);
