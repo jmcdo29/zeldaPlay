@@ -1,3 +1,5 @@
+@import '../../scss/base/colors';
+
 .alert {
   background-color: rgba(200, 200, 200, 0.5);
   text-align: center;
@@ -5,10 +7,10 @@
   border-radius: 7px;
   border: 0.5px solid black;
   font-size: 125%;
-}
-.alert-success {
-  color: rgba(8, 112, 8, 0.74);
-}
-.alert-danger {
-  color: rgba(112, 8, 8, 0.74);
+  &-success {
+    color: #087008;
+  }
+  &-danger {
+    color: $error;
+  }
 }

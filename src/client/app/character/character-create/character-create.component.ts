@@ -222,7 +222,7 @@ export class CharacterCreateComponent implements OnInit {
     this.error = false;
   }
 
-  /* trackAtt(attrIndex: number): void {
+  trackAtt(attrIndex: number): void {
     const val = this.newCharacter.attributes[attrIndex].value;
     this.newCharacter.attributes[attrIndex].value = val;
     this.attPoints -=
@@ -277,7 +277,7 @@ export class CharacterCreateComponent implements OnInit {
     } else if (input.classList.contains('bad-input')) {
       input.classList.remove('bad-input');
     }
-  } */
+  }
 
   resetSkills(): void {
     for (const skill of this.newCharacter.skills) {

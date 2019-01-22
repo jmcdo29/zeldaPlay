@@ -732,78 +732,79 @@
       </div>
     </div>
     &nbsp;
-    <div class="characterName">
-      <span class="name">Name:</span>
-      <span class="right">
-        <mat-form-field class="name" color="accent">
-          <input
-            matInput
-            class="skill"
-            type="text"
-            [(ngModel)]="newCharacter.name"
-            placeholder="Name"
-            maxlength="16"
-          />
-        </mat-form-field>
-      </span>
-    </div>
     <div class="attributes">
       <h3 [class.error]="0 > attPoints">Attribute Points: {{ attPoints }}</h3>
       <div class="table">
-        <table mat-table [dataSource]="newCharacter.attributes">
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Trait</th>
-            <td mat-cell *matCellDef="let attr">{{ attr.name }}</td>
-          </ng-container>
-          <ng-container matColumnDef="value">
-            <th mat-header-cell *matHeaderCellDef>Ranks</th>
-            <td mat-cell *matCellDef="let attr">
-              <mat-form-field class="attribute" color="accent">
-                <input
-                  matInput
-                  type="number"
-                  [(ngModel)]="attr.value"
-                  max="{{ 24 < attr.value + attPoints ? 24 : attr.value + attPoints }}"
-                  min="{{ 8 }}"
-                />
-              </mat-form-field>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="modifier">
-            <th mat-header-cell *matHeaderCellDef>Modifier</th>
-            <td mat-cell *matCellDef="let attr">{{ attr.modifier }}</td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="detailColumnsToDisplay"></tr>
-          <tr
-            [class.din]="row.name === 'Strength' || row.name === 'Intelligence'"
-            [class.nayru]="row.name === 'Wisdom' || row.name === 'Constitution'"
-            [class.farore]="row.name === 'Dexterity' || row.name === 'Charisma'"
-            mat-row
-            *matRowDef="let row; columns: detailColumnsToDisplay"
-          ></tr>
-        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Traits</th>
+              <th>Value/Score</th>
+              <th>Modifier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">Name</td>
+              <td>
+                <mat-form-field class="name">
+                  <input
+                    matInput
+                    class="skill"
+                    type="text"
+                    [(ngModel)]="newCharacter.name"
+                    placeholder="Name"
+                    maxlength="16"
+                  />
+                </mat-form-field>
+              </td>
+            </tr>
 
-        <table mat-table [dataSource]="hmeDataSource">
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Trait</th>
-            <td mat-cell *matCellDef="let kind">
-              {{ kind.name | capitalize }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="value">
-            <th mat-header-cell *matHeaderCellDef>Current</th>
-            <td mat-cell *matCellDef="let kind">
-              {{ kind.base + getMod(kind.modifier) }}
-            </td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="hmeColumnsToDisplay"></tr>
-          <tr
-            [class.din]="kind.name === 'health'"
-            [class.nayru]="kind.name === 'magic'"
-            [class.farore]="kind.name === 'exp'"
-            mat-row
-            *matRowDef="let kind; columns: hmeColumnsToDisplay"
-          ></tr>
+            <br />
+
+            <tr
+              *ngFor="let attr of newCharacter.attributes; index as i"
+              [class.din]="
+                attr.name === 'Strength' || attr.name === 'Intelligence'
+              "
+              [class.farore]="
+                attr.name === 'Dexterity' || attr.name === 'Charisma'
+              "
+              [class.nayru]="
+                attr.name === 'Wisdom' || attr.name === 'Constitution'
+              "
+            >
+              <td class="name">{{ attr.name }}</td>
+              <td>
+                <mat-form-field class="attribute">
+                  <input
+                    matInput
+                    id="{{ 'attr' + i }}"
+                    type="number"
+                    [(ngModel)]="attr.value"
+                    max="{{
+                      24 < attr.value + attPoints ? 24 : attr.value + attPoints
+                    }}"
+                    min="{{ attrMins[i] }}"
+                    (change)="trackAtt(i)"
+                    (blur)="validateAttr(i)"
+                  />
+                </mat-form-field>
+              </td>
+              <td>{{ attr.modifier }}</td>
+            </tr>
+
+            <br />
+
+            <tr class="din">
+              <td class="name">Health</td>
+              <td>{{ 48 + newCharacter.attributes[2].modifier }}</td>
+            </tr>
+            <tr class="nayru">
+              <td class="name">Magic</td>
+              <td>{{ 20 + newCharacter.attributes[4].modifier }}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
@@ -815,216 +816,255 @@
       <button mat-flat-button (click)="resetSkills()">Reset Skills</button>
     </div>
     <div class="table">
-      <table mat-table [dataSource]="newCharacter.skills">
-        <ng-container matColumnDef="trained">
-          <th mat-header-cell *matHeaderCellDef>Trained</th>
-          <td mat-cell *matCellDef="let skill">
-            <mat-checkbox disabled [ngModel]="skill.trained"> </mat-checkbox>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Skill Name</th>
-          <td mat-cell *matCellDef="let skill">
-            <div
-              *ngIf="
-                skill.skillName === 'CraftOne' ||
-                  skill.skillName === 'CraftTwo' ||
-                  skill.skillName === 'Profession' ||
-                  skill.skillName === 'Perform Other';
-                then: specialSkill;
-                else: normalSkill
-              "
-            ></div>
-
-            <ng-template #specialSkill>
-              <div *ngIf="skill.skillName === 'CraftOne'">
-                <mat-form-field class="custom" color="accent">
-                  <input
-                    matInput
-                    class="skill"
-                    type="text"
-                    [(ngModel)]="newCharacter.craftOne"
-                    placeholder="Craft One"
-                  />
-                </mat-form-field>
-              </div>
-              <div *ngIf="skill.skillName === 'CraftTwo'">
-                <mat-form-field class="custom" color="accent">
-                  <input
-                    matInput
-                    class="skill"
-                    type="text"
-                    [(ngModel)]="newCharacter.craftTwo"
-                    placeholder="Craft Two"
-                  />
-                </mat-form-field>
-              </div>
-              <div *ngIf="skill.skillName === 'Profession'">
-                <mat-form-field class="custom" color="accent">
-                  <input
-                    matInput
-                    class="skill"
-                    type="text"
-                    [(ngModel)]="newCharacter.profession"
-                    placeholder="Profession"
-                  />
-                </mat-form-field>
-              </div>
-              <div *ngIf="skill.skillName === 'Perform Other'">
-                <mat-form-field class="custom" color="accent">
-                  <input
-                    matInput
-                    class="skill"
-                    type="text"
-                    [(ngModel)]="newCharacter.performCust"
-                    placeholder="Perform (Other)"
-                    title="Perform (Other)"
-                  />
-                </mat-form-field>
-              </div>
-            </ng-template>
-            <ng-template #normalSkill> {{ skill.skillName }} </ng-template>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="modifier">
-          <th mat-header-cell *matHeaderCellDef>Modifier</th>
-          <td mat-cell *matCellDef="let skill">
-            {{ skill.modifier.substring(0, 3) | uppercase }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="ranks">
-          <th mat-header-cell *matHeaderCellDef>Skill Ranks</th>
-          <td mat-cell *matCellDef="let skill">
-            <mat-form-field class="skill" color="accent">
-              <input
-                matInput
+      <table>
+        <thead>
+          <tr>
+            <th>Trained</th>
+            <th>Skill Name</th>
+            <th>Skill Ranks</th>
+            <th>Racial Bonus</th>
+            <th>Modifier</th>
+            <th>Item Bonus</th>
+            <th>Misc Bonus</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let skill of newCharacter.skills; index as j"
+            [class.din]="
+              skill.modifier === 'Strength' || skill.modifier === 'Intelligence'
+            "
+            [class.farore]="
+              skill.modifier === 'Dexterity' || skill.modifier === 'Charisma'
+            "
+            [class.nayru]="
+              skill.modifier === 'Wisdom' || skill.modifier === 'Constitution'
+            "
+          >
+            <td>
+              <mat-checkbox
                 class="skill-input"
-                type="number"
-                [(ngModel)]="skill.ranks"
-                min="0"
-                max="{{ skill.ranks + skillPoints > 0 ? skill.ranks + skillPoints : 0 }}"
-                [class.non-zero]="skill.ranks > 0"
-              />
-            </mat-form-field>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef>Total</th>
-          <td mat-cell *matCellDef="let skill">
-            {{
-              skill.ranks +
+                disabled
+                [ngModel]="skill.trained"
+              ></mat-checkbox>
+            </td>
+            <td class="name">
+              <div
+                *ngIf="
+                  skill.skillName === 'CraftOne' ||
+                    skill.skillName === 'CraftTwo' ||
+                    skill.skillName === 'Profession' ||
+                    skill.skillName === 'Perform Other';
+                  then specialSkill;
+                  else normalSkill
+                "
+              ></div>
+
+              <ng-template #specialSkill>
+                <div *ngIf="skill.skillName === 'CraftOne'">
+                  <mat-form-field class="custom">
+                    <input
+                      matInput
+                      class="skill"
+                      type="text"
+                      [(ngModel)]="newCharacter.craftOne"
+                      placeholder="Craft One"
+                    />
+                  </mat-form-field>
+                </div>
+                <div *ngIf="skill.skillName === 'CraftTwo'">
+                  <mat-form-field class="custom">
+                    <input
+                      matInput
+                      class="skill"
+                      type="text"
+                      [(ngModel)]="newCharacter.craftTwo"
+                      placeholder="Craft Two"
+                    />
+                  </mat-form-field>
+                </div>
+                <div *ngIf="skill.skillName === 'Profession'">
+                  <mat-form-field class="custom">
+                    <input
+                      matInput
+                      class="skill"
+                      type="text"
+                      [(ngModel)]="newCharacter.profession"
+                      placeholder="Profession"
+                    />
+                  </mat-form-field>
+                </div>
+                <div *ngIf="skill.skillName === 'Perform Other'">
+                  <mat-form-field class="custom">
+                    <input
+                      matInput
+                      class="skill"
+                      type="text"
+                      [(ngModel)]="newCharacter.performCust"
+                      placeholder="(Other)"
+                    />
+                  </mat-form-field>
+                </div>
+              </ng-template>
+              <ng-template #normalSkill> {{ skill.skillName }} </ng-template>
+            </td>
+            <td>
+              <mat-form-field class="skill">
+                <input
+                  matInput
+                  id="{{ 'skills' + j }}"
+                  class="skill-input"
+                  type="number"
+                  [(ngModel)]="skill.ranks"
+                  min="0"
+                  max="{{
+                    skill.ranks + skillPoints > 0
+                      ? skill.ranks + skillPoints
+                      : 0
+                  }}"
+                  (change)="track(j, 'skills')"
+                  (blur)="validate(j, 'skills')"
+                  [class.non-zero]="skill.ranks > 0"
+                />
+              </mat-form-field>
+            </td>
+            <td>{{ skill.racial }}</td>
+            <td class="mod">
+              {{ skill.modifier.substr(0, 3) | uppercase }}
+              <span class="info">{{ getMod(skill.modifier) }}</span>
+            </td>
+            <td>
+              <mat-form-field class="skill">
+                <input
+                  matInput
+                  class="skill-input"
+                  type="number"
+                  [(ngModel)]="skill.item"
+                />
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field class="skill">
+                <input
+                  matInput
+                  class="skill-input"
+                  type="number"
+                  [(ngModel)]="skill.misc"
+                />
+              </mat-form-field>
+            </td>
+            <td class="total">
+              {{
                 (skill.trained ? 3 : 0) +
-                skill.misc +
-                skill.item +
-                skill.racial +
-                getMod(skill.modifier)
-            }}
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="skillColumnsToDisplay"></tr>
-        <tr
-          [class.din]="
-            row.modifier === 'Strength' || row.modifier === 'Intelligence'
-          "
-          [class.nayru]="
-            row.modifier === 'Wisdom' || row.modifier === 'Constitution'
-          "
-          [class.farore]="
-            row.modifier === 'Dexterity' || row.modifier === 'Charisma'
-          "
-          mat-row
-          *matRowDef="let row; columns: skillColumnsToDisplay"
-        ></tr>
+                  skill.ranks +
+                  getMod(skill.modifier) +
+                  skill.item +
+                  skill.misc +
+                  skill.racial
+              }}
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
     <h2>{{ newCharacter.name }} Weapon Skills</h2>
     <div class="table">
-      <table mat-table [dataSource]="newCharacter.weaponSkills">
-        <ng-container matColumnDef="trained">
-          <th mat-header-cell *matHeaderCellDef>Trained</th>
-          <td mat-cell *matCellDef="let weapon">
-            <mat-checkbox disabled [ngModel]="weapon.trained"></mat-checkbox>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef>Weapon Type</th>
-          <td mat-cell *matCellDef="let weapon">{{ weapon.skillName }}</td>
-        </ng-container>
-        <ng-container matColumnDef="ranks">
-          <th mat-header-cell *matHeaderCellDef>Weapon Ranks</th>
-          <td mat-cell *matCellDef="let weapon">
-            <mat-form-field color="accent">
-              <input
-                matInput
-                class="skill-input"
-                type="number"
-                [(ngModel)]="weapon.ranks"
-                min="0"
-                max="{{ weapon.ranks + skillPoints > 0 ? weapon.ranks + skillPoints : 0 }}"
-                [class.non-zero]="weapon.ranks > 0"
-              />
-            </mat-form-field>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef>Total</th>
-          <td mat-cell *matCellDef="let weapon">
-            {{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="weaponColumnsToDisplay"></tr>
-        <tr
-          class="weapon"
-          mat-row
-          *matRowDef="let row; columns: weaponColumnsToDisplay"
-        ></tr>
+      <table>
+        <thead>
+          <tr>
+            <th>Trained</th>
+            <th>Weapon Type</th>
+            <th>Skill Ranks</th>
+            <th>Racial Bonus</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let weapon of newCharacter.weaponSkills; index as k"
+            class="weapon"
+          >
+            <td>
+              <mat-checkbox disabled [ngModel]="weapon.trained"></mat-checkbox>
+            </td>
+            <td class="name">{{ weapon.skillName }}</td>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  id="{{ 'weaponSkills' + k }}"
+                  class="skill-input"
+                  type="number"
+                  [(ngModel)]="weapon.ranks"
+                  min="0"
+                  max="{{
+                    weapon.ranks + skillPoints > 0
+                      ? weapon.ranks + skillPoints
+                      : 0
+                  }}"
+                  (change)="track(k, 'weaponSkills')"
+                  (blur)="validate(k, 'weaponSkills')"
+                  [class.non-zero]="weapon.ranks > 0"
+                />
+              </mat-form-field>
+            </td>
+            <td>{{ weapon.racial }}</td>
+            <td class="total">
+              {{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
     <h2>{{ newCharacter.name }} Magic Skills</h2>
     <div class="table">
-      <table mat-table [dataSource]="newCharacter.magicSkills">
-        <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef>Magic Type</th>
-          <td mat-cell *matCellDef="let magic">{{ magic.skillName }}</td>
-        </ng-container>
-        <ng-container matColumnDef="modifier">
-          <th mat-header-cell *matHeaderCellDef>Modifier</th>
-          <td mat-cell *matCellDef="let magic">
-            {{ magic.modifier.substring(0, 3) | uppercase }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="ranks">
-          <th mat-header-cell *matHeaderCellDef>Magic Ranks</th>
-          <td mat-cell *matCellDef="let magic">
-            <mat-form-field color="accent">
-              <input
-                matInput
-                class="skill-input"
-                type="number"
-                [(ngModel)]="magic.ranks"
-                min="0"
-                max="{{ magic.ranks + skillPoints > 0 ? magic.ranks + skillPoints : 0 }}"
-                [class.non-zero]="magic.ranks > 0"
-              />
-            </mat-form-field>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="total">
-          <th mat-header-cell *matHeaderCellDef>Total</th>
-          <td mat-cell *matCellDef="let magic">
-            {{ magic.ranks + getMod(magic.modifier) }}
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="magicColumnsToDisplay"></tr>
-        <tr
-          [class.din]="row.modifier === 'Intelligence'"
-          [class.farore]="row.modifier === 'Charisma'"
-          [class.nayru]="row.modifier === 'Wisdom'"
-          mat-row
-          *matRowDef="let row; columns: magicColumnsToDisplay"
-        ></tr>
+      <table>
+        <thead>
+          <tr>
+            <th>Magic Type</th>
+            <th>Modifier</th>
+            <th>Skill Ranks</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let magic of newCharacter.magicSkills; index as m"
+            [class.din]="magic.modifier === 'Intelligence'"
+            [class.farore]="magic.modifier === 'Charisma'"
+            [class.nayru]="magic.modifier === 'Wisdom'"
+          >
+            <td class="name">{{ magic.skillName }}</td>
+            <td class="mod">
+              {{ magic.modifier.substr(0, 3) | uppercase }}
+              <span class="info">{{ getMod(magic.modifier) }}</span>
+            </td>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  id="{{ 'magicSkills' + m }}"
+                  class="skill-input"
+                  type="number"
+                  [(ngModel)]="magic.ranks"
+                  min="0"
+                  max="{{
+                    magic.ranks + skillPoints > 0
+                      ? magic.ranks + skillPoints
+                      : 0
+                  }}"
+                  (change)="track(m, 'magicSkills')"
+                  (blur)="validate(m, 'magicSkills')"
+                  [class.non-zero]="magic.ranks > 0"
+                />
+              </mat-form-field>
+            </td>
+            <td class="total">{{ magic.ranks + getMod(magic.modifier) }}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

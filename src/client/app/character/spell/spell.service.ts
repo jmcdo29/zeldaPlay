@@ -23,15 +23,15 @@ export class SpellService {
         inSpells.forEach((spellIn) => {
           spells.push(
             new Spell(
-              spellIn.id,
-              spellIn.name,
-              spellIn.effect,
-              spellIn.damage,
-              spellIn.number_of_hit,
-              spellIn.mp_use,
-              spellIn.diety,
-              spellIn.use_diety,
-              spellIn.modifier
+              spellIn.spId,
+              spellIn.spName,
+              spellIn.spEffect,
+              spellIn.spDamage,
+              spellIn.spNumberOfHits,
+              spellIn.spMpUse,
+              spellIn.spDiety,
+              spellIn.spUseDiety,
+              spellIn.spModifier
             )
           );
         });
@@ -54,7 +54,7 @@ export class SpellService {
       )
       .pipe(
         map((retSpell) => {
-          spell.id = retSpell.id;
+          spell.id = retSpell.spId;
           return spell;
         })
       );

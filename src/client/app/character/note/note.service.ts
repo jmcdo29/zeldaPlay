@@ -24,13 +24,23 @@ export class NoteService {
       map((inNote) => {
         const notes = { notes: [], importantNotes: [] };
         inNote.forEach((noteIn) => {
-          if (noteIn.important) {
+          if (noteIn.nImportant) {
             notes.importantNotes.push(
-              new Note(noteIn.id, noteIn.message, noteIn.time, noteIn.important)
+              new Note(
+                noteIn.nId,
+                noteIn.nMessage,
+                noteIn.nNoteTime,
+                noteIn.nImportant
+              )
             );
           } else {
             notes.notes.push(
-              new Note(noteIn.id, noteIn.message, noteIn.time, noteIn.important)
+              new Note(
+                noteIn.nId,
+                noteIn.nMessage,
+                noteIn.nNoteTime,
+                noteIn.nImportant
+              )
             );
           }
         });
@@ -54,7 +64,7 @@ export class NoteService {
       )
       .pipe(
         map((retNote) => {
-          note.id = retNote.id;
+          note.id = retNote.nId;
           return note;
         })
       );

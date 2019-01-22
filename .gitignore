@@ -42,12 +42,13 @@ testem.log
 .DS_Store
 Thumbs.db
 
-mock-characters.ts
+# Personally created files
 
-*.sql
 .env
 /reference
 seeds
 testDelete.js
 *.pem
 *.csr
+/database
+scripts/db/all.sql

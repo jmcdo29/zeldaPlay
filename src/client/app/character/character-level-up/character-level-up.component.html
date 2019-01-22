@@ -33,11 +33,15 @@
                   <mat-form-field>
                     <input
                       matInput
-                      id="{{ 'attr'+i }}"
+                      id="{{ 'attr' + i }}"
                       type="number"
                       placeholder="{{ attr.value }}"
-                      min="{{minimums[i]}}"
-                      max="{{ attr.value + attrPoints > minimums[i] ? attr.value + attrPoints : minimums[i] }}"
+                      min="{{ minimums[i] }}"
+                      max="{{
+                        attr.value + attrPoints > minimums[i]
+                          ? attr.value + attrPoints
+                          : minimums[i]
+                      }}"
                       [(ngModel)]="attr.value"
                       (change)="trackAtt(i)"
                       (blur)="validateAttr(i)"
@@ -102,8 +106,8 @@
                             skill.skillName === 'Craft 2' ||
                             skill.skillName === 'Profession' ||
                             skill.skillName === 'Perform';
-                          then: specialSkill;
-                          else: normalSkill
+                          then specialSkill;
+                          else normalSkill
                         "
                       ></div>
                       <ng-template #specialSkill>
@@ -140,12 +144,16 @@
                       <mat-form-field>
                         <input
                           matInput
-                          id="{{ 'skills'+i }}"
+                          id="{{ 'skills' + i }}"
                           class="skill-input"
                           type="number"
                           [(ngModel)]="skill.ranks"
                           min="{{ skillStarts[i] }}"
-                          max="{{ skill.ranks + skillPoints > skillStarts[i] ? skill.ranks + skillPoints : skillStarts[i] }}"
+                          max="{{
+                            skill.ranks + skillPoints > skillStarts[i]
+                              ? skill.ranks + skillPoints
+                              : skillStarts[i]
+                          }}"
                           (change)="track(i, 'skills')"
                           (blur)="validate(i, 'skills')"
                         />
@@ -202,11 +210,15 @@
                       <mat-form-field>
                         <input
                           matInput
-                          id="{{ 'weaponSkills'+j }}"
+                          id="{{ 'weaponSkills' + j }}"
                           class="skill-input"
                           type="number"
                           min="{{ weaponStarts[j] }}"
-                          max="{{ weapon.ranks + skillPoints > weaponStarts[j] ? weapon.ranks + skillPoints : weaponStarts[j] }}"
+                          max="{{
+                            weapon.ranks + skillPoints > weaponStarts[j]
+                              ? weapon.ranks + skillPoints
+                              : weaponStarts[j]
+                          }}"
                           [(ngModel)]="weapon.ranks"
                           (change)="track(j, 'weaponSkills')"
                           (blur)="validate(j, 'weaponSkills')"
@@ -251,12 +263,16 @@
                       <mat-form-field>
                         <input
                           matInput
-                          id="{{ 'magicSkills'+k }}"
+                          id="{{ 'magicSkills' + k }}"
                           class="skill-input"
                           type="number"
                           [(ngModel)]="magic.ranks"
                           min="{{ magicStarts[k] }}"
-                          max="{{ magic.ranks + skillPoints > magicStarts[k] ? magic.ranks + skillPoints : magicStarts[k] }}"
+                          max="{{
+                            magic.ranks + skillPoints > magicStarts[k]
+                              ? magic.ranks + skillPoints
+                              : magicStarts[k]
+                          }}"
                           (change)="track(k, 'magicSkills')"
                           (blur)="validate(k, 'magicSkills')"
                         />

@@ -6,7 +6,7 @@
 [![codecov](https://codecov.io/gh/jmcdo29/zeldaPlay/branch/master/graph/badge.svg)](https://codecov.io/gh/jmcdo29/zeldaPlay)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 [![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json)
-[![Gitter chat](https://badges.gitter.im/jmcdo29/zeldaPlay.png)](https://gitter.im/zeldaPlay/Lobby "Gitter chat")
+[![Discord Char](https://img.shields.io/badge/chat-on%20Discord-blue.svg)](https://discord.gg/hGuDEgG 'Discord Chat')
 
 ---
 

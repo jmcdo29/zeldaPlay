@@ -47,6 +47,6 @@ export class AuthPipe extends ValidationPipe
       });
       throw new BadRequestException(errStr);
     }
-    return Promise.resolve(value);
+    return value;
   }
 }

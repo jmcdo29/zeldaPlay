@@ -158,11 +158,7 @@ describe('CharacterService', () => {
           _attributes: [
             { _modifier: NaN, _name: 'Strength', _value: undefined },
             { _modifier: NaN, _name: 'Dexterity', _value: undefined },
-            {
-              _modifier: NaN,
-              _name: 'Constitution',
-              _value: undefined
-            },
+            { _modifier: NaN, _name: 'Constitution', _value: undefined },
             { _modifier: NaN, _name: 'Intelligence', _value: undefined },
             { _modifier: NaN, _name: 'Wisdom', _value: undefined },
             { _modifier: NaN, _name: 'Charisma', _value: undefined }
@@ -170,9 +166,9 @@ describe('CharacterService', () => {
           _craftOne: undefined,
           _craftTwo: undefined,
           _exp: undefined,
-          _flaFfooted: undefined,
+          _flatFooted: undefined,
           _health: undefined,
-          _id: 'some id',
+          _id: undefined,
           _importantNotes: [],
           _inventory: [],
           _level: undefined,
@@ -180,11 +176,11 @@ describe('CharacterService', () => {
           _magicSkills: [],
           _maxHealth: undefined,
           _maxMagic: undefined,
-          _name: charName,
+          _name: undefined,
           _notes: [],
           _performCust: undefined,
           _profession: undefined,
-          _race: 'the race',
+          _race: undefined,
           _savingThrows: [],
           _size: undefined,
           _skills: [],

@@ -23,16 +23,16 @@ export class WeaponService {
         inWeapons.forEach((weapon) => {
           retWeapons.push(
             new Weapon(
-              weapon.id,
-              weapon.name,
-              weapon.damage,
-              weapon.number_of_hits,
-              parseStringToIntArray(weapon.crit_range),
-              weapon.crit_multiplier,
-              weapon.type,
-              weapon.modifier,
-              weapon.range,
-              weapon.ammo
+              weapon.wId,
+              weapon.wName,
+              weapon.wDamage,
+              weapon.wNumberOfHits,
+              parseStringToIntArray(weapon.wCritRange),
+              weapon.wCritMultiplier,
+              weapon.wType,
+              weapon.wModifier,
+              weapon.wRange,
+              weapon.wAmmo
             )
           );
         });
@@ -55,7 +55,7 @@ export class WeaponService {
       )
       .pipe(
         map((retWeapon) => {
-          weapon.id = retWeapon.id;
+          weapon.id = retWeapon.wId;
           return weapon;
         })
       );

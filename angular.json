@@ -17,7 +17,10 @@
             "tsConfig": "src/client/tsconfig.app.json",
             "polyfills": "src/client/polyfills.ts",
             "assets": ["src/client/assets", "src/client/favicon.ico"],
-            "styles": ["src/client/zeldaTheme.scss", "src/client/styles.scss"],
+            "styles": [
+              "src/client/scss/themes/zeldaTheme.scss",
+              "src/client/scss/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {

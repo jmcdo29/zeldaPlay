@@ -529,67 +529,71 @@ export class Character {
       this.exp = 0;
     } else {
       if (qObj) {
-        this._name = qObj.name;
-        this._ac = qObj.ac;
-        this._id = qObj.id;
-        this._level = qObj.level;
-        this._craftOne = qObj.craft_one;
-        this._craftTwo = qObj.craft_two;
-        this._profession = qObj.profession;
-        this._performCust = qObj.performance;
-        this._maxHealth = qObj.max_health;
-        this._exp = qObj.experience;
-        this._health = qObj.health;
-        this._magic = qObj.magic;
-        this._maxMagic = qObj.max_magic;
-        this._race = qObj.race;
-        this._subRace = qObj.subrace;
-        this._size = qObj.size;
-        this._flatFooted = qObj.flat_footed;
-        this._touch = qObj.touch;
+        this._name = qObj.chName;
+        this._ac = qObj.chAc;
+        this._id = qObj.chId;
+        this._level = qObj.chLevel;
+        this._craftOne = qObj.chCraftOne;
+        this._craftTwo = qObj.chCraftTwo;
+        this._profession = qObj.chProfession;
+        this._performCust = qObj.chPerformance;
+        this._maxHealth = qObj.chHealthMax;
+        this._exp = qObj.chExperience;
+        this._health = qObj.chHealth;
+        this._magic = qObj.chMagic;
+        this._maxMagic = qObj.chMagicMax;
+        this._race = qObj.chRace;
+        this._subRace = qObj.chSubrace;
+        this._size = qObj.chSize;
+        this._flatFooted = qObj.chFlatFooted;
+        this._touch = qObj.chTouch;
 
-        this._attributes.push(new Attribute('Strength', qObj.strength));
-        this._attributes.push(new Attribute('Dexterity', qObj.dexterity));
-        this._attributes.push(new Attribute('Constitution', qObj.constitution));
-        this._attributes.push(new Attribute('Intelligence', qObj.intelligence));
-        this._attributes.push(new Attribute('Wisdom', qObj.wisdom));
-        this._attributes.push(new Attribute('Charisma', qObj.charisma));
+        this._attributes.push(new Attribute('Strength', qObj.chStrength));
+        this._attributes.push(new Attribute('Dexterity', qObj.chDexterity));
+        this._attributes.push(
+          new Attribute('Constitution', qObj.chConstitution)
+        );
+        this._attributes.push(
+          new Attribute('Intelligence', qObj.chIntelligence)
+        );
+        this._attributes.push(new Attribute('Wisdom', qObj.chWisdom));
+        this._attributes.push(new Attribute('Charisma', qObj.chCharisma));
 
         for (const skill of qObj.skills) {
-          if (skill.skill_type === 'skill') {
+          if (skill.skType === 'skill') {
             this._skills.push(
               new Skill(
-                skill.id,
-                skill.name,
-                skill.ranks,
-                skill.trained,
-                skill.modifier,
-                skill.item_modifier,
-                skill.racial_modifier,
-                skill.misc_modifier
+                skill.skId,
+                skill.skName,
+                skill.skRanks,
+                skill.skTrained,
+                skill.skModifier,
+                skill.skItemModifier,
+                skill.skRacialModifier,
+                skill.skMiscModifier
               )
             );
-          } else if (skill.skill_type === 'weapon') {
+          } else if (skill.skType === 'weapon') {
             this._weaponSkills.push(
               new Skill(
-                skill.id,
-                skill.name,
-                skill.ranks,
-                skill.trained,
+                skill.skId,
+                skill.skName,
+                skill.skRanks,
+                skill.skTrained,
                 undefined,
                 undefined,
-                skill.racial_modifier,
+                skill.skRacialModifier,
                 undefined
               )
             );
           } else {
             this._magicSkills.push(
               new Skill(
-                skill.id,
-                skill.name,
-                skill.ranks,
+                skill.skId,
+                skill.skName,
+                skill.skRanks,
                 undefined,
-                skill.modifier,
+                skill.skModifier,
                 undefined,
                 undefined,
                 undefined
@@ -599,7 +603,12 @@ export class Character {
         }
         for (const save of qObj.saves) {
           this._savingThrows.push(
-            new Save(save.id, save.name, save.modifier, save.racial_bonus)
+            new Save(
+              save.saId,
+              save.saName,
+              save.saModifier,
+              save.saRacialBonus
+            )
           );
         }
       } else {

@@ -1,6 +1,6 @@
 export interface INoteDb {
-  message: string;
-  time: string;
-  important: boolean;
-  id?: string;
+  nMessage: string;
+  nNoteTime: string;
+  nImportant: boolean;
+  nId?: string;
 }

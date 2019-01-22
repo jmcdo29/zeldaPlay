@@ -30,7 +30,7 @@ export class CharacterService {
     );
   }
 
-  getCharacter(id): Observable<Character> {
+  getCharacter(id: string): Observable<Character> {
     return this.httpClient.get<ICharacterQuery>(this.characterUrl + id).pipe(
       map<ICharacterQuery, Character>((response) => {
         return new Character(null, response);
@@ -39,7 +39,7 @@ export class CharacterService {
     );
   }
 
-  getUserCharacters(userId): Observable<Character[]> {
+  getUserCharacters(userId: string): Observable<Character[]> {
     return this.httpClient
       .get<ICharacterQuery[]>(this.characterUrl + 'user/' + userId, {
         headers: {
@@ -87,23 +87,24 @@ export class CharacterService {
       )
       .pipe(
         map((characterRes) => {
-          character.id = characterRes.id;
+          character.id = characterRes.chId;
           for (const skill of characterRes.skills) {
-            if (skill.skill_type === 'skill') {
-              character.skills[Skills[skill.name]].id = skill.id;
-            } else if (skill.skill_type === 'weapon') {
-              character.weaponSkills[Weapons[skill.name]].id = skill.id;
+            if (skill.skType.toLowerCase() === 'skill') {
+              character.skills[Skills[skill.skName]].id = skill.skId;
+            } else if (skill.skType.toLowerCase() === 'weapon') {
+              character.weaponSkills[Weapons[skill.skName]].id = skill.skId;
             } else {
-              character.magicSkills[Magics[skill.name]].id = skill.id;
+              character.magicSkills[Magics[skill.skName]].id = skill.skId;
             }
           }
           for (const save of characterRes.saves) {
             character.savingThrows[
-              findObjectPartial(character.savingThrows, 'name', save.name)
-            ].id = save.id;
+              findObjectPartial(character.savingThrows, 'name', save.saName)
+            ].id = save.saId;
           }
           return character;
-        })
+        }),
+        catchError(this.handleError<Character>('save character', character))
       );
   }
 
@@ -118,7 +119,10 @@ export class CharacterService {
           }
         }
       )
-      .pipe(map(() => character));
+      .pipe(
+        map(() => character),
+        catchError(this.handleError<Character>('update character', character))
+      );
   }
 
   mapChar(): OperatorFunction<ICharacterQuery[], Character[]> {

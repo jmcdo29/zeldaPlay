@@ -1,3 +1,4 @@
+@import '../../../scss/base/colors';
 .race-input {
   width: 100%;
 }
@@ -21,7 +22,7 @@ h4 {
   color: #444;
 }
 .error {
-  color: purple;
+  color: $error;
 }
 .title {
   display: inline;
@@ -30,18 +31,10 @@ h4 {
 .description {
   position: relative;
 }
-input {
-  &.bad-input,
-  &:out-of-range {
-    background-color: lightcoral;
-  }
-}
 
 mat-form-field {
   padding: 0;
-  &.attribute {
-    width: 3em;
-  }
+  &.attribute,
   &.skill {
     width: 3em;
   }

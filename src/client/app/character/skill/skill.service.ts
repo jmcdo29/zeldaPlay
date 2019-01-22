@@ -26,16 +26,16 @@ export class SkillService {
             magic: []
           };
           inSkills.forEach((skillIn) => {
-            skillMap[skillIn.skill_type].push(
+            skillMap[skillIn.skType.toLowerCase()].push(
               new Skill(
-                skillIn.id,
-                skillIn.name,
-                skillIn.ranks,
-                skillIn.trained,
-                skillIn.modifier,
-                skillIn.item_modifier,
-                skillIn.racial_modifier,
-                skillIn.misc_modifier
+                skillIn.skId,
+                skillIn.skName,
+                skillIn.skRanks,
+                skillIn.skTrained,
+                skillIn.skModifier,
+                skillIn.skItemModifier,
+                skillIn.skRacialModifier,
+                skillIn.skMiscModifier
               )
             );
           });

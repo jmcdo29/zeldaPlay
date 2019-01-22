@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 
 import { Character } from '#Models/character';
 import { MessageService } from '#Shared/messages/message.service';
@@ -9,7 +16,7 @@ import { CharacterLevelUpComponent } from '../character-level-up/character-level
   templateUrl: './character-detail.component.html',
   styleUrls: ['./character-detail.component.scss']
 })
-export class CharacterDetailComponent implements OnInit {
+export class CharacterDetailComponent implements OnInit, OnChanges {
   @ViewChild('levelUp')
   private levelUp: CharacterLevelUpComponent;
 
@@ -43,9 +50,75 @@ export class CharacterDetailComponent implements OnInit {
   expMod: number;
   negExp = false;
 
+  columnsToDisplay = ['trait', 'value', 'mod'];
+  dataSource = [];
+
   constructor(private message: MessageService) {}
 
   ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.dataSource = [
+      { name: 'Name', value: this.character.name, modifier: null },
+      { name: 'Race', value: this.character.race, modifier: null },
+      {
+        name: 'Subrace',
+        value: this.character.subRace ? this.character.subRace : 'N/A',
+        modifier: null
+      },
+      { name: 'Trait', value: 'Value', modifier: 'Modifier' },
+      {
+        name: this.character.attributes[0].name,
+        value: this.character.attributes[0].value,
+        modifier: this.character.attributes[0].modifier
+      },
+      {
+        name: this.character.attributes[1].name,
+        value: this.character.attributes[1].value,
+        modifier: this.character.attributes[1].modifier
+      },
+      {
+        name: this.character.attributes[2].name,
+        value: this.character.attributes[2].value,
+        modifier: this.character.attributes[2].modifier
+      },
+      {
+        name: this.character.attributes[3].name,
+        value: this.character.attributes[3].value,
+        modifier: this.character.attributes[3].modifier
+      },
+      {
+        name: this.character.attributes[4].name,
+        value: this.character.attributes[4].value,
+        modifier: this.character.attributes[4].modifier
+      },
+      {
+        name: this.character.attributes[5].name,
+        value: this.character.attributes[5].value,
+        modifier: this.character.attributes[5].modifier
+      },
+      {
+        name: 'Trait',
+        value: 'Current',
+        modifier: 'Max'
+      },
+      {
+        name: 'Health',
+        value: this.character.health,
+        modifier: this.character.maxHealth
+      },
+      {
+        name: 'Magic',
+        value: this.character.magic,
+        modifier: this.character.maxMagic
+      },
+      {
+        name: 'Exp',
+        value: this.character.exp,
+        modifier: null
+      }
+    ];
+  }
 
   finalizeExpMod(): void {
     if (this.expMod <= 0) {
