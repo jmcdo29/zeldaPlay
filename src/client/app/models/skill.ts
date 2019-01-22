@@ -3,7 +3,7 @@ export class Skill {
     private _id?: string,
     private _skillName?: string,
     private _ranks?: number,
-    private _trained?: boolean,
+    private _trained: boolean = false,
     private _modifier?: string,
     private _item?: number,
     private _racial?: number,
