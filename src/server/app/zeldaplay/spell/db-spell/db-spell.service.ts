@@ -29,7 +29,7 @@ export class DbSpellService {
   }
 
   async newSpell(spell: DbSpell, charId: string): Promise<DbSpell> {
-    return this.dbService.query<DbSpell>(
+    const spells = await this.dbService.query<DbSpell>(
       `INSERT INTO ${this.schema}.spells
       (name, effect, damage, diety, mp_use, use_diety, modifier, number_of_hits, character_id) VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, $9)
@@ -45,11 +45,12 @@ export class DbSpellService {
         spell.spNumberOfHits,
         charId
       ]
-    )[0];
+    );
+    return spells[0];
   }
 
   async updateSpell(spell: DbSpell): Promise<DbSpell> {
-    return this.dbService.query<DbSpell>(
+    const spells = await this.dbService.query<DbSpell>(
       `UPDATE ${this.schema}.spells as spells
         SET damage = inSpell.damage
         ,diety = inSpell.diety
@@ -72,6 +73,7 @@ export class DbSpellService {
         spell.spUseDiety,
         spell.spNumberOfHits
       ]
-    )[0];
+    );
+    return spells[0];
   }
 }

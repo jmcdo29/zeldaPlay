@@ -24,11 +24,12 @@ export class DbNoteService {
   }
 
   async saveNote(note: DbNote, charId: string): Promise<DbNote> {
-    return this.dbService.query<DbNote>(
+    const notes = await this.dbService.query<DbNote>(
       `INSERT INTO ${this.schema}.notes
       (important, message, note_time, character_id)
       RETURNING id as nId`,
       [note.nImportant, note.nMessage, note.nNoteTime, charId]
-    )[0];
+    );
+    return notes[0];
   }
 }

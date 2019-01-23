@@ -7,7 +7,7 @@ export class Spell {
     private _multiplier?: number,
     private _mpUse?: number,
     private _diety?: string,
-    private _useDiety?: boolean,
+    private _useDiety: boolean = false,
     private _modifier?: string
   ) {}
 

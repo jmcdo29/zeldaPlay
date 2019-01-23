@@ -31,7 +31,7 @@ export class DbWeaponService {
   }
 
   async newWeapon(weapon: DbWeapon, charId: string): Promise<DbWeapon> {
-    return this.dbService.query(
+    const weapons = await this.dbService.query<DbWeapon>(
       `INSERT INTO ${this.schema}.weapons
       (name, modifier, ammo, range, crit_damage, crit_range, number_of_hits, type, damage, character_id) VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
@@ -48,11 +48,12 @@ export class DbWeaponService {
         weapon.wDamage,
         charId
       ]
-    )[0];
+    );
+    return weapons[0];
   }
 
   async updateWeapon(weapon: DbWeapon): Promise<DbWeapon> {
-    return this.dbService.query(
+    const weapons = await this.dbService.query<DbWeapon>(
       `UPDATE ${this.schema}.weapons as w
         SET name = inWeap.name
         ,modifier = inWeap.modifier
@@ -67,6 +68,7 @@ export class DbWeaponService {
       AS inWeap(name, modifier, ammo, range, crit_damage, crit_range, number_of_hits, type, damage)
       WHERE w.id = ${weapon.wId}`,
       []
-    )[0];
+    );
+    return weapons[0];
   }
 }

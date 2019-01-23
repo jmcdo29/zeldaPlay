@@ -87,7 +87,7 @@ export class DbCharacterService {
     character: DbCharacter,
     userId: string
   ): Promise<DbCharacter> {
-    return this.dbService.query<DbCharacter>(
+    const char = await this.dbService.query<DbCharacter>(
       `INSERT INTO ${this.schema}.characters
       ( name
         ,race
@@ -134,11 +134,12 @@ export class DbCharacterService {
         character.chCraftTwo,
         userId
       ]
-    )[0];
+    );
+    return char[0];
   }
 
   async updateCharacter(character: DbCharacter): Promise<DbCharacter> {
-    return this.dbService.query<DbCharacter>(
+    const char = await this.dbService.query<DbCharacter>(
       `UPDATE ${this.schema}.characters as chars
         SET strength = uChar.str
         ,dexterity = uChar.dex
@@ -180,7 +181,8 @@ export class DbCharacterService {
         character.chProfession,
         character.chId
       ]
-    )[0];
+    );
+    return char[0];
   }
 
   async updateSkills(skills: DbSkill[], charId: string): Promise<DbSkill[]> {
