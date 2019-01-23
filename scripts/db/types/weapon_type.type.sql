@@ -23,6 +23,7 @@ CREATE TYPE weapon_type AS ENUM (
 	,'Spear'
 	,'Tornado Rod'
 	,'Tower Shield'
+	,'Two-Handed Hammer'
 	,'Unarmed'
 	,'Whip'
 );
