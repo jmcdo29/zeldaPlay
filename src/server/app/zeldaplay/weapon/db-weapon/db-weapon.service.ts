@@ -37,15 +37,15 @@ export class DbWeaponService {
       ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING id as wId`,
       [
-        weapon.wName,
-        weapon.wModifier,
-        weapon.wAmmo,
-        weapon.wRange,
-        weapon.wCritDamage,
-        weapon.wCritRange,
-        weapon.wNumberOfHits,
-        weapon.wType,
-        weapon.wDamage,
+        weapon.wname,
+        weapon.wmodifier,
+        weapon.wammo,
+        weapon.wrange,
+        weapon.wcritdamage,
+        weapon.wcritrange,
+        weapon.wnumberofhits,
+        weapon.wtype,
+        weapon.wdamage,
         charId
       ]
     );
@@ -66,8 +66,18 @@ export class DbWeaponService {
         ,damage = inWeap.damage
       FROM( VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9))
       AS inWeap(name, modifier, ammo, range, crit_damage, crit_range, number_of_hits, type, damage)
-      WHERE w.id = ${weapon.wId}`,
-      []
+      WHERE w.id = ${weapon.wid}`,
+      [
+        weapon.wname,
+        weapon.wmodifier,
+        weapon.wammo,
+        weapon.wrange,
+        weapon.wcritdamage,
+        weapon.wcritrange,
+        weapon.wnumberofhits,
+        weapon.wtype,
+        weapon.wtype
+      ]
     );
     return weapons[0];
   }
