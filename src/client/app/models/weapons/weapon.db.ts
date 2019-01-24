@@ -4,7 +4,7 @@ export interface IWeaponDb {
   wDamage: number;
   wNumberOfHits: number;
   wCritRange: string;
-  wCritMultiplier: number;
+  wCritDamage: number;
   wRange: number;
   wAmmo?: number;
   wType: string;

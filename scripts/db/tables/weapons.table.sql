@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS weapons (
 	,ammo INTEGER
 	,created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 	,crit_damage INTEGER NOT NULL CHECK (crit_damage > 0)
-	,crit_range INTEGER NOT NULL
+	,crit_range TEXT NOT NULL
 	,damage INTEGER NOT NULL CHECK (damage > 0)
 	,last_modified_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 	,modifier attribute NOT NULL
