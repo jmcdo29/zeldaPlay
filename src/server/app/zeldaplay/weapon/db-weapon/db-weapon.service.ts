@@ -14,16 +14,16 @@ export class DbWeaponService {
   async getWeapons(charId: string): Promise<DbWeapon[]> {
     return this.dbService.query<DbWeapon>(
       `SELECT
-        id as wId
-        ,name as wName
-        ,modifier as wModifier
-        ,ammo as wAmmo
-        ,range as wRange
-        ,crit_damage as wCritDamage
-        ,crit_range as wCritRange
-        ,number_of_hits as wNumberOfHits
-        ,type as wType
-        ,damage as wDamage
+        id as "wId"
+        ,name as "wName"
+        ,modifier as "wModifier"
+        ,ammo as "wAmmo"
+        ,range as "wRange"
+        ,crit_damage as "wCritDamage"
+        ,crit_range as "wCritRange"
+        ,number_of_hits as "wNumberOfHits"
+        ,type as "wType"
+        ,damage as "wDamage"
       FROM zeldaplay.weapons
       WHERE character_id = $1`,
       [charId]

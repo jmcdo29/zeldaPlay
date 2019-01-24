@@ -28,7 +28,7 @@ export class WeaponService {
               weapon.wDamage,
               weapon.wNumberOfHits,
               parseStringToIntArray(weapon.wCritRange),
-              weapon.wCritMultiplier,
+              weapon.wCritDamage,
               weapon.wType,
               weapon.wModifier,
               weapon.wRange,

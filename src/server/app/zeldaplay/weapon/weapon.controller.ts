@@ -10,7 +10,6 @@ import {
 
 import { AuthGuard } from '@Auth/auth.guard';
 import { DbWeapon } from '@DbModel/db_weapon.model';
-import { WeaponRes } from '@Model/weapon/weapon.res.model';
 import { WeaponDTO } from '@Weapon/interfaces/weapon.dto';
 import { WeaponPipe } from '@Weapon/weapon.pipe';
 import { WeaponService } from '@Weapon/weapon.service';
@@ -25,8 +24,8 @@ export class WeaponController {
     title: 'Get Weapons',
     description: 'Get all the weapons of the specified character.'
   })
-  @ApiOkResponse({ type: WeaponRes, isArray: true })
-  async getWeapons(@Param('charId') charId: string): Promise<WeaponRes[]> {
+  @ApiOkResponse({ type: DbWeapon, isArray: true })
+  async getWeapons(@Param('charId') charId: string): Promise<DbWeapon[]> {
     return this.weaponService.getWeapons(charId);
   }
 
@@ -38,11 +37,11 @@ export class WeaponController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
-  @ApiOkResponse({ type: WeaponRes })
+  @ApiOkResponse({ type: DbWeapon })
   async newWeapon(
     @Body('weapon', WeaponPipe) inWeapon: DbWeapon,
     @Param('charId') charId: string
-  ): Promise<WeaponRes> {
+  ): Promise<DbWeapon> {
     return this.weaponService.newWeapon(inWeapon, charId);
   }
 
@@ -53,12 +52,12 @@ export class WeaponController {
   })
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @ApiOkResponse({ type: WeaponRes })
+  @ApiOkResponse({ type: DbWeapon })
   @ApiImplicitParam({ name: 'weaponId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   async updateWeapon(
     @Body('weapon', WeaponPipe) inWeapon: DbWeapon
-  ): Promise<WeaponRes> {
+  ): Promise<DbWeapon> {
     return this.weaponService.updateWeapon(inWeapon);
   }
 }
