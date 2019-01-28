@@ -419,321 +419,322 @@ export class Character {
     this._savingThrows.push(savingThrow);
   }
 
-  // tslint:disable-next-line:no-big-function cognitive-complexity
   constructor(jObj?: ICharacterJSON, qObj?: ICharacterQuery) {
     if (!jObj && !qObj) {
-      for (const key in Attributes) {
-        if (isNaN(Number(key))) {
-          this._attributes.push(new Attribute(key, BASE));
-        }
-      }
-
-      for (const key in Skills) {
-        if (isNaN(Number(key))) {
-          this._skills.push(new Skill(undefined, key, 0, false, '', 0, 0, 0));
-        }
-      }
-
-      for (const key in Weapons) {
-        if (isNaN(Number(key))) {
-          this._weaponSkills.push(
-            new Skill(undefined, key, 0, false, undefined, undefined, 0)
-          );
-        }
-      }
-
-      for (const key in Magics) {
-        if (isNaN(Number(key))) {
-          const mod =
-            key === 'Din'
-              ? 'Intelligence'
-              : key === 'Nayru'
-              ? 'Wisdom'
-              : 'Charisma';
-          this._magicSkills.push(new Skill(undefined, key, 0, undefined, mod));
-        }
-      }
-
-      for (const key in Saves) {
-        if (isNaN(Number(key))) {
-          const modifier =
-            key === 'Fortitude'
-              ? 'Constitution'
-              : key === 'Reflex'
-              ? 'Dexterity'
-              : 'Wisdom';
-          this._savingThrows.push(new Save(undefined, key, modifier, 0));
-        }
-      }
-      /* A T T R I B U T E   A R R A Y S */
-      const strArray = [Skills['Climb'], Skills['Intimidate'], Skills['Swim']];
-
-      const dexArray = [
-        Skills['Acrobatics'],
-        Skills['Escape Artist'],
-        Skills['Fly'],
-        Skills['Ride'],
-        Skills['Sleight of Hand'],
-        Skills['Stealth']
-      ];
-
-      const conArray = [];
-
-      const intArray = [
-        Skills['Appraise'],
-        Skills['CraftOne'],
-        Skills['CraftTwo'],
-        Skills['Knowledge Geography'],
-        Skills['Knowledge History'],
-        Skills['Knowledge Language'],
-        Skills['Knowledge Local'],
-        Skills['Knowledge Magic'],
-        Skills['Knowledge Monsters'],
-        Skills['Knowledge Nature'],
-        Skills['Knowledge Nobility'],
-        Skills['Knowledge Plains'],
-        Skills['Knowledge Religion']
-      ];
-
-      const wisArray = [
-        Skills['Heal'],
-        Skills['Perception'],
-        Skills['Profession'],
-        Skills['Sense Motive'],
-        Skills['Survival']
-      ];
-
-      const chaArray = [
-        Skills['Bluff'],
-        Skills['Diplomacy'],
-        Skills['Handle Animal'],
-        Skills['Perform Music'],
-        Skills['Perform Other']
-      ];
-      /*E N D   A T T R I B U T E   A R R A Y S */
-
-      const attrArrays = [
-        strArray,
-        dexArray,
-        conArray,
-        intArray,
-        wisArray,
-        chaArray
-      ];
-
-      for (let i = 0; i < attrArrays.length; i++) {
-        for (const skill of attrArrays[i]) {
-          this._skills[skill].modifier = Attributes[i];
-        }
-      }
-      this.exp = 0;
+      this.createStandardCharacter();
     } else {
       if (qObj) {
-        this._name = qObj.chName;
-        this._ac = qObj.chAc;
-        this._id = qObj.chId;
-        this._level = qObj.chLevel;
-        this._craftOne = qObj.chCraftOne;
-        this._craftTwo = qObj.chCraftTwo;
-        this._profession = qObj.chProfession;
-        this._performCust = qObj.chPerformance;
-        this._maxHealth = qObj.chHealthMax;
-        this._exp = qObj.chExperience;
-        this._health = qObj.chHealth;
-        this._magic = qObj.chMagic;
-        this._maxMagic = qObj.chMagicMax;
-        this._race = qObj.chRace;
-        this._subRace = qObj.chSubrace;
-        this._size = qObj.chSize;
-        this._flatFooted = qObj.chFlatFooted;
-        this._touch = qObj.chTouch;
-
-        this._attributes.push(new Attribute('Strength', qObj.chStrength));
-        this._attributes.push(new Attribute('Dexterity', qObj.chDexterity));
-        this._attributes.push(
-          new Attribute('Constitution', qObj.chConstitution)
-        );
-        this._attributes.push(
-          new Attribute('Intelligence', qObj.chIntelligence)
-        );
-        this._attributes.push(new Attribute('Wisdom', qObj.chWisdom));
-        this._attributes.push(new Attribute('Charisma', qObj.chCharisma));
-
-        for (const skill of qObj.skills) {
-          if (skill.skType === 'skill') {
-            this._skills.push(
-              new Skill(
-                skill.skId,
-                skill.skName,
-                skill.skRanks,
-                skill.skTrained,
-                skill.skModifier,
-                skill.skItemModifier,
-                skill.skRacialModifier,
-                skill.skMiscModifier
-              )
-            );
-          } else if (skill.skType === 'weapon') {
-            this._weaponSkills.push(
-              new Skill(
-                skill.skId,
-                skill.skName,
-                skill.skRanks,
-                skill.skTrained,
-                undefined,
-                undefined,
-                skill.skRacialModifier,
-                undefined
-              )
-            );
-          } else {
-            this._magicSkills.push(
-              new Skill(
-                skill.skId,
-                skill.skName,
-                skill.skRanks,
-                undefined,
-                skill.skModifier,
-                undefined,
-                undefined,
-                undefined
-              )
-            );
-          }
-        }
-        for (const save of qObj.saves) {
-          this._savingThrows.push(
-            new Save(
-              save.saId,
-              save.saName,
-              save.saModifier,
-              save.saRacialBonus
-            )
-          );
-        }
+        this.createDBCharacter(qObj);
       } else {
-        for (const attr of jObj.attributes) {
-          this._attributes.push(new Attribute(attr.name, attr.value));
-        }
-        for (const item of jObj.inventory) {
-          this._inventory.push(new Item(item.id, item.name, item.description));
-        }
-        for (const skill of jObj.skills) {
-          this._skills.push(
-            new Skill(
-              skill.id,
-              skill.skillName,
-              skill.ranks,
-              skill.trained,
-              skill.modifier,
-              skill.item,
-              skill.racial,
-              skill.misc
-            )
-          );
-        }
-        for (const skill of jObj.weaponSkills) {
-          this._weaponSkills.push(
-            new Skill(
-              skill.id,
-              skill.skillName,
-              skill.ranks,
-              skill.trained,
-              undefined,
-              undefined,
-              skill.racial,
-              undefined
-            )
-          );
-        }
-        for (const skill of jObj.magicSkills) {
-          this._magicSkills.push(
-            new Skill(
-              skill.id,
-              skill.skillName,
-              skill.ranks,
-              undefined,
-              skill.modifier,
-              undefined,
-              undefined,
-              undefined
-            )
-          );
-        }
-        for (const note of jObj.notes) {
-          this._notes.push(
-            new Note(note.id, note.msg, note.time, note.important)
-          );
-        }
-        for (const note of jObj.importantNotes) {
-          this._importantNotes.push(
-            new Note(note.id, note.msg, note.time, note.important)
-          );
-        }
-        for (const spell of jObj.spells) {
-          this._spells.push(
-            new Spell(
-              spell.id,
-              spell.name,
-              spell.effect,
-              spell.damage,
-              spell.multiplier,
-              spell.mpUse,
-              spell.diety,
-              spell.useDiety,
-              spell.modifier
-            )
-          );
-        }
-        for (const save of jObj.savingThrows) {
-          this._savingThrows.push(
-            new Save(save.id, save.name, save.modifier, save.racial)
-          );
-        }
-        for (const weapon of jObj.weapons) {
-          this._weapons.push(
-            new Weapon(
-              weapon.id,
-              weapon.name,
-              weapon.attack,
-              weapon.numberOfAttacks,
-              weapon.critRange,
-              weapon.critDamage,
-              weapon.type,
-              weapon.modifier,
-              weapon.range,
-              weapon.ammo,
-              weapon.element
-                ? new Elemental(
-                    weapon.element.id,
-                    weapon.element.type,
-                    weapon.element.attack,
-                    weapon.element.numberOfAttacks
-                  )
-                : undefined
-            )
-          );
-        }
-        this._ac = jObj.ac;
-        this._craftOne = jObj.craftOne;
-        this._craftOne = jObj.craftTwo;
-        this._exp = jObj.exp;
-        this._flatFooted = jObj.flat_footed;
-        this._health = jObj.health;
-        this._id = jObj.id;
-        this._level = jObj.level;
-        this._magic = jObj.magic;
-        this._maxHealth = jObj.maxHealth;
-        this._maxMagic = jObj.maxMagic;
-        this._name = jObj.name;
-        this._performCust = jObj.performCust;
-        this._profession = jObj.profession;
-        this._race = jObj.race;
-        this._size = jObj.size;
-        this._subRace = jObj.subRace;
-        this._touch = jObj.touch;
+        this.createJSONCharacter(jObj);
       }
     }
+  }
+
+  // tslint:disable-next-line:cognitive-complexity
+  createStandardCharacter(): void {
+    for (const key in Attributes) {
+      if (isNaN(Number(key))) {
+        this._attributes.push(new Attribute(key, BASE));
+      }
+    }
+
+    for (const key in Skills) {
+      if (isNaN(Number(key))) {
+        this._skills.push(new Skill(undefined, key, 0, false, '', 0, 0, 0));
+      }
+    }
+
+    for (const key in Weapons) {
+      if (isNaN(Number(key))) {
+        this._weaponSkills.push(
+          new Skill(undefined, key, 0, false, undefined, undefined, 0)
+        );
+      }
+    }
+
+    for (const key in Magics) {
+      if (isNaN(Number(key))) {
+        const mod =
+          key === 'Din'
+            ? 'Intelligence'
+            : key === 'Nayru'
+            ? 'Wisdom'
+            : 'Charisma';
+        this._magicSkills.push(new Skill(undefined, key, 0, undefined, mod));
+      }
+    }
+
+    for (const key in Saves) {
+      if (isNaN(Number(key))) {
+        const modifier =
+          key === 'Fortitude'
+            ? 'Constitution'
+            : key === 'Reflex'
+            ? 'Dexterity'
+            : 'Wisdom';
+        this._savingThrows.push(new Save(undefined, key, modifier, 0));
+      }
+    }
+    /* A T T R I B U T E   A R R A Y S */
+    const strArray = [Skills['Climb'], Skills['Intimidate'], Skills['Swim']];
+
+    const dexArray = [
+      Skills['Acrobatics'],
+      Skills['Escape Artist'],
+      Skills['Fly'],
+      Skills['Ride'],
+      Skills['Sleight of Hand'],
+      Skills['Stealth']
+    ];
+
+    const conArray = [];
+
+    const intArray = [
+      Skills['Appraise'],
+      Skills['CraftOne'],
+      Skills['CraftTwo'],
+      Skills['Knowledge Geography'],
+      Skills['Knowledge History'],
+      Skills['Knowledge Language'],
+      Skills['Knowledge Local'],
+      Skills['Knowledge Magic'],
+      Skills['Knowledge Monsters'],
+      Skills['Knowledge Nature'],
+      Skills['Knowledge Nobility'],
+      Skills['Knowledge Plains'],
+      Skills['Knowledge Religion']
+    ];
+
+    const wisArray = [
+      Skills['Heal'],
+      Skills['Perception'],
+      Skills['Profession'],
+      Skills['Sense Motive'],
+      Skills['Survival']
+    ];
+
+    const chaArray = [
+      Skills['Bluff'],
+      Skills['Diplomacy'],
+      Skills['Handle Animal'],
+      Skills['Perform Music'],
+      Skills['Perform Other']
+    ];
+    /*E N D   A T T R I B U T E   A R R A Y S */
+
+    const attrArrays = [
+      strArray,
+      dexArray,
+      conArray,
+      intArray,
+      wisArray,
+      chaArray
+    ];
+
+    for (let i = 0; i < attrArrays.length; i++) {
+      for (const skill of attrArrays[i]) {
+        this._skills[skill].modifier = Attributes[i];
+      }
+    }
+    this.exp = 0;
+  }
+
+  createDBCharacter(qObj: ICharacterQuery): void {
+    this._name = qObj.chName;
+    this._ac = qObj.chAc;
+    this._id = qObj.chId;
+    this._level = qObj.chLevel;
+    this._craftOne = qObj.chCraftOne;
+    this._craftTwo = qObj.chCraftTwo;
+    this._profession = qObj.chProfession;
+    this._performCust = qObj.chPerformance;
+    this._maxHealth = qObj.chHealthMax;
+    this._exp = qObj.chExperience;
+    this._health = qObj.chHealth;
+    this._magic = qObj.chMagic;
+    this._maxMagic = qObj.chMagicMax;
+    this._race = qObj.chRace;
+    this._subRace = qObj.chSubrace;
+    this._size = qObj.chSize;
+    this._flatFooted = qObj.chFlatFooted;
+    this._touch = qObj.chTouch;
+
+    this._attributes.push(new Attribute('Strength', qObj.chStrength));
+    this._attributes.push(new Attribute('Dexterity', qObj.chDexterity));
+    this._attributes.push(new Attribute('Constitution', qObj.chConstitution));
+    this._attributes.push(new Attribute('Intelligence', qObj.chIntelligence));
+    this._attributes.push(new Attribute('Wisdom', qObj.chWisdom));
+    this._attributes.push(new Attribute('Charisma', qObj.chCharisma));
+
+    for (const skill of qObj.skills) {
+      if (skill.skType === 'skill') {
+        this._skills.push(
+          new Skill(
+            skill.skId,
+            skill.skName,
+            skill.skRanks,
+            skill.skTrained,
+            skill.skModifier,
+            skill.skItemModifier,
+            skill.skRacialModifier,
+            skill.skMiscModifier
+          )
+        );
+      } else if (skill.skType === 'weapon') {
+        this._weaponSkills.push(
+          new Skill(
+            skill.skId,
+            skill.skName,
+            skill.skRanks,
+            skill.skTrained,
+            undefined,
+            undefined,
+            skill.skRacialModifier,
+            undefined
+          )
+        );
+      } else {
+        this._magicSkills.push(
+          new Skill(
+            skill.skId,
+            skill.skName,
+            skill.skRanks,
+            undefined,
+            skill.skModifier,
+            undefined,
+            undefined,
+            undefined
+          )
+        );
+      }
+    }
+    for (const save of qObj.saves) {
+      this._savingThrows.push(
+        new Save(save.saId, save.saName, save.saModifier, save.saRacialBonus)
+      );
+    }
+  }
+
+  createJSONCharacter(jObj: ICharacterJSON): void {
+    for (const attr of jObj.attributes) {
+      this._attributes.push(new Attribute(attr.name, attr.value));
+    }
+    for (const item of jObj.inventory) {
+      this._inventory.push(new Item(item.id, item.name, item.description));
+    }
+    for (const skill of jObj.skills) {
+      this._skills.push(
+        new Skill(
+          skill.id,
+          skill.skillName,
+          skill.ranks,
+          skill.trained,
+          skill.modifier,
+          skill.item,
+          skill.racial,
+          skill.misc
+        )
+      );
+    }
+    for (const skill of jObj.weaponSkills) {
+      this._weaponSkills.push(
+        new Skill(
+          skill.id,
+          skill.skillName,
+          skill.ranks,
+          skill.trained,
+          undefined,
+          undefined,
+          skill.racial,
+          undefined
+        )
+      );
+    }
+    for (const skill of jObj.magicSkills) {
+      this._magicSkills.push(
+        new Skill(
+          skill.id,
+          skill.skillName,
+          skill.ranks,
+          undefined,
+          skill.modifier,
+          undefined,
+          undefined,
+          undefined
+        )
+      );
+    }
+    for (const note of jObj.notes) {
+      this._notes.push(new Note(note.id, note.msg, note.time, note.important));
+    }
+    for (const note of jObj.importantNotes) {
+      this._importantNotes.push(
+        new Note(note.id, note.msg, note.time, note.important)
+      );
+    }
+    for (const spell of jObj.spells) {
+      this._spells.push(
+        new Spell(
+          spell.id,
+          spell.name,
+          spell.effect,
+          spell.damage,
+          spell.multiplier,
+          spell.mpUse,
+          spell.diety,
+          spell.useDiety,
+          spell.modifier
+        )
+      );
+    }
+    for (const save of jObj.savingThrows) {
+      this._savingThrows.push(
+        new Save(save.id, save.name, save.modifier, save.racial)
+      );
+    }
+    for (const weapon of jObj.weapons) {
+      this._weapons.push(
+        new Weapon(
+          weapon.id,
+          weapon.name,
+          weapon.attack,
+          weapon.numberOfAttacks,
+          weapon.critRange,
+          weapon.critDamage,
+          weapon.type,
+          weapon.modifier,
+          weapon.range,
+          weapon.ammo,
+          weapon.element
+            ? new Elemental(
+                weapon.element.id,
+                weapon.element.type,
+                weapon.element.attack,
+                weapon.element.numberOfAttacks
+              )
+            : undefined
+        )
+      );
+    }
+    this._ac = jObj.ac;
+    this._craftOne = jObj.craftOne;
+    this._craftOne = jObj.craftTwo;
+    this._exp = jObj.exp;
+    this._flatFooted = jObj.flat_footed;
+    this._health = jObj.health;
+    this._id = jObj.id;
+    this._level = jObj.level;
+    this._magic = jObj.magic;
+    this._maxHealth = jObj.maxHealth;
+    this._maxMagic = jObj.maxMagic;
+    this._name = jObj.name;
+    this._performCust = jObj.performCust;
+    this._profession = jObj.profession;
+    this._race = jObj.race;
+    this._size = jObj.size;
+    this._subRace = jObj.subRace;
+    this._touch = jObj.touch;
   }
 
   levelUp(): void {
@@ -760,20 +761,5 @@ export class Character {
         }
       }
     }
-  }
-}
-
-function parseRange(range: string): number[] {
-  if (range.length === 2) {
-    return [Number.parseInt(range, 10)];
-  } else {
-    const bottom: number = Number.parseInt(range.substring(0, 2), 10);
-    const top: number = Number.parseInt(range.substring(range.length - 2), 10);
-    const diff: number = top - bottom;
-    const retArray: number[] = [];
-    for (let i = 0; i <= diff; i++) {
-      retArray.push(bottom + i);
-    }
-    return retArray;
   }
 }
