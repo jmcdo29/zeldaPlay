@@ -17,7 +17,6 @@ export class DbService {
     const qStart = Date.now();
     text = text.replace(/\n\s*,/g, ', ').replace(/\n\s*/g, ' ');
     try {
-      scribe('INFO', 'query', text);
       const queryRes = await this.pool.query(text, params);
       scribe('DEBUG', {
         text,
