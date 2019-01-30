@@ -68,7 +68,7 @@
     "passport-google-oauth20": "^1.0.0",
     "passport-http-bearer": "^1.0.1",
     "passport-jwt": "^4.0.0",
-    "pg": "^7.7.1",
+    "pg": "^7.8.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.3.3",
     "tsconfig-paths": "^3.6.0",
