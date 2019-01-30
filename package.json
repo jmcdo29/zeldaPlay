@@ -76,7 +76,7 @@
   },
   "devDependencies": {
     "@abraham/reflection": "^0.4.2",
-    "@angular-builders/jest": "^7.2.0",
+    "@angular-builders/jest": "^7.2.1",
     "@angular-devkit/build-angular": "^0.12.1",
     "@angular/animations": "^7.2.0",
     "@angular/cdk": "^7.2.1",
