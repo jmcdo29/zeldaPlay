@@ -24,17 +24,22 @@ describe('DbService', () => {
     it('should return a record of some sort', async () => {
       const querySpy = jest.spyOn(Pool.prototype, 'query').mockReturnValue({
         rowCount: 1,
-        rows: [{id: '00C2nI7nYh21'}]
+        rows: [{ id: '00C2nI7nYh21' }]
       });
-      const qResult = await service.query('SELECT Id FROM Character LIMIT 1;', []);
+      const qResult = await service.query(
+        'SELECT Id FROM Character LIMIT 1;',
+        []
+      );
       expect(querySpy).toBeCalledTimes(1);
       expect(querySpy).toBeCalledWith('SELECT Id FROM Character LIMIT 1;', []);
-      expect(qResult).toEqual([{id: '00C2nI7nYh21'}]);
+      expect(qResult).toEqual([{ id: '00C2nI7nYh21' }]);
     });
     it('should return an empty array because of a bad query', async () => {
-      const querySpy = jest.spyOn(Pool.prototype, 'query').mockImplementation(() => {
-        throw new Error('Malformed Query');
-      });
+      const querySpy = jest
+        .spyOn(Pool.prototype, 'query')
+        .mockImplementation(() => {
+          throw new Error('Malformed Query');
+        });
       const qResult = await service.query('This is a bad query', []);
       expect(querySpy).toBeCalledTimes(1);
       expect(querySpy).toBeCalledWith('This is a bad query', []);
