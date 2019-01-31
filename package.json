@@ -87,7 +87,7 @@
     "@angular/core": "^7.2.0",
     "@angular/forms": "^7.2.0",
     "@angular/http": "^7.2.0",
-    "@angular/language-service": "^7.2.0",
+    "@angular/language-service": "^7.2.3",
     "@angular/material": "^7.2.1",
     "@angular/platform-browser": "^7.2.0",
     "@angular/platform-browser-dynamic": "^7.2.0",
