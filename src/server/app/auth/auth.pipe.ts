@@ -45,6 +45,7 @@ export class AuthPipe extends ValidationPipe
       errors.forEach((error) => {
         errStr += error + ' ';
       });
+      errStr = errStr.substring(0, errStr.length - 1);
       throw new BadRequestException(errStr);
     }
     return value;

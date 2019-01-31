@@ -6,7 +6,7 @@ cache:
     - node_modules
 install: npm ci
 after_success:
-  - npx codecov
+  - cat coverage/lcov.info | npx coveralls
 script: npm run test:ci
 env:
   global:

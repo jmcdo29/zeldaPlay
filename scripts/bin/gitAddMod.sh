@@ -1,5 +1,5 @@
 #! /bin/bash
-files=$(git diff --cached --name-status)
+files=$(git diff --name-status)
 index=0
 newArray=()
 addString=""

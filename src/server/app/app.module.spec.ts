@@ -6,7 +6,6 @@ describe('#AppModule', () => {
   });
 
   test('module should be truthy', async () => {
-    process.env.NODE_ENV = 'test';
     expect(AppModule).toBeTruthy();
   });
 });
