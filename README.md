@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/jmcdo29/zeldaPlay.svg?branch=master)](https://travis-ci.org/jmcdo29/zeldaPlay)
 [![codecov](https://codecov.io/gh/jmcdo29/zeldaPlay/branch/master/graph/badge.svg)](https://codecov.io/gh/jmcdo29/zeldaPlay)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jmcdo29/zeldaPlay)](https://dependabot.com)
 [![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json)
 [![Discord Char](https://img.shields.io/badge/chat-on%20Discord-blue.svg)](https://discord.gg/hGuDEgG 'Discord Chat')
 
