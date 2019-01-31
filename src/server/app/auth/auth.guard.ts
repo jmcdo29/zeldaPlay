@@ -1,9 +1,4 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { verify } from 'jsonwebtoken';
 import { Observable } from 'rxjs';
 
@@ -26,9 +21,7 @@ export class AuthGuard implements CanActivate {
       }
     } catch (err) {
       console.error(err.message);
-      throw new UnauthorizedException(
-        'Please log in before using the application.'
-      );
+      return false;
     }
   }
 
