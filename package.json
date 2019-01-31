@@ -35,7 +35,7 @@
     "start:dev:client": "ng serve --open",
     "start:dev:server": "tsc-watch --onSuccess \" node -r ./scripts/node/ts-config-bootstrap.js dist/server/main.js\" --onFailure \"npm run failure\" -p ./src/server/tsconfig.app.json",
     "test": "jest --notify",
-    "test:ci": "snyk test && jest --runInBand"
+    "test:ci": "snyk test && jest --runInBand --coverage --coverageReporters=text-lcov | coveralls"
   },
   "dependencies": {
     "@nest-middlewares/cors": "^5.1.1",
