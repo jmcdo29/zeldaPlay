@@ -13,18 +13,9 @@ export class DbUserService {
   }
 
   async findByEmail(email: string): Promise<DbPlayer[]> {
-    const player = await this.dbService.query<DbPlayer>(
+    return this.dbService.query<DbPlayer>(
       `SELECT id as "pId" FROM ${this.schema}.players WHERE email = $1`,
       [email]
-    );
-    scribe('INFO', 'player', player);
-    return player;
-  }
-
-  async findByToken(token: string): Promise<DbPlayer[]> {
-    return this.dbService.query<DbPlayer>(
-      `SELECT id as "pId" FROM ${this.schema}.players WHERE token = $1`,
-      [token]
     );
   }
 
