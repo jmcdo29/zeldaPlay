@@ -9,15 +9,15 @@ import { WeaponDTO } from '@Weapon/interfaces/weapon.dto';
 export class WeaponPipe implements PipeTransform<WeaponDTO, DbWeapon> {
   transform(value: WeaponDTO, metadata: ArgumentMetadata): DbWeapon {
     const retVal = new DbWeapon();
-    retVal.wammo = value.ammo;
-    retVal.wmodifier = value.modifier as Modifier;
-    retVal.wname = value.name;
-    retVal.wtype = value.type as WeaponType;
-    retVal.wid = value.id;
-    retVal.wdamage = value.attack;
-    retVal.wnumberofhits = value.numberOfAttacks;
-    retVal.wcritrange = parseRange(value.critRange);
-    retVal.wcritdamage = value.critDamage;
+    retVal.wAmmo = value.ammo;
+    retVal.wModifier = value.modifier as Modifier;
+    retVal.wName = value.name;
+    retVal.wType = value.type as WeaponType;
+    retVal.wId = value.id;
+    retVal.wDamage = value.attack;
+    retVal.wNumberOfHits = value.numberOfAttacks;
+    retVal.wCritRange = parseRange(value.critRange);
+    retVal.wCritDamage = value.critDamage;
     return retVal;
   }
 }

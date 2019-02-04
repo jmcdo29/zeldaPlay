@@ -4,7 +4,6 @@ import {
   UnauthorizedException
 } from '@nestjs/common';
 import { compare, hash } from 'bcryptjs';
-import { consoleLogger as scribe } from 'mc-scribe';
 
 import { NewUserDTO } from '@Auth/interfaces/new_user.dto';
 import { UserDTO } from '@Auth/interfaces/user.dto';
@@ -32,17 +31,10 @@ export class UserService {
   }
 
   async signup(user: NewUserDTO): Promise<DbPlayer> {
-    // tslint:disable-next-line:no-duplicate-string
-    scribe('INFO', 'user.email', user.email);
-    scribe('INFO', 'Before findByEmail query');
     const existingUser = await this.dbService.findByEmail(user.email);
-    scribe('INFO', 'After findByEmail query');
-    scribe('INFO', 'existingUser', existingUser);
-    if (existingUser) {
-      return Promise.reject(
-        new ConflictException(
-          'That email already exists. Please log in or choose another email.'
-        )
+    if (existingUser.length > 0) {
+      throw new ConflictException(
+        'That email already exists. Please log in or choose another email.'
       );
     }
     const newPlayers = await this.dbService.signup(
@@ -58,15 +50,6 @@ export class UserService {
     const users = await this.dbService.findByEmail(email);
     if (!users.length) {
       throw new UnauthorizedException(noUser + email + registerFirst);
-    } else {
-      return users;
-    }
-  }
-
-  async findUserByToken(token: string): Promise<DbPlayer[]> {
-    const users = await this.dbService.findByToken(token);
-    if (!users.length) {
-      throw new UnauthorizedException(registerFirst);
     } else {
       return users;
     }

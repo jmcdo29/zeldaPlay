@@ -10,7 +10,6 @@ export class DbService {
     this.pool = new Pool({
       connectionString: process.env.DATABASE_URL
     });
-    this.pool.on('connect', () => scribe('DEBUG', 'Connected to database!'));
   }
 
   async query<T>(text: string, params: any[]): Promise<T[]> {
