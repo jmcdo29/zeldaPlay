@@ -5,7 +5,9 @@ import { SkillService } from '@Skill/skill.service';
 import { DbSkill } from '@Db/models/db_skill.model';
 
 const SkillServiceStub = {
-  getCharacterSkills: jest.fn().mockReturnValue([new DbSkill(), new DbSkill(), new DbSkill()])
+  getCharacterSkills: jest
+    .fn()
+    .mockReturnValue([new DbSkill(), new DbSkill(), new DbSkill()])
 };
 
 describe('Skill Controller', () => {

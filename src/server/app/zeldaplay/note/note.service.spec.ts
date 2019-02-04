@@ -5,9 +5,11 @@ import { DbNoteService } from './db-note/db-note.service';
 import { DbNote } from '@Db/models/db_note.model';
 
 const mockRepo = {
-  getNotes: jest.fn().mockReturnValue([new DbNote(), new DbNote(), new DbNote()]),
+  getNotes: jest
+    .fn()
+    .mockReturnValue([new DbNote(), new DbNote(), new DbNote()]),
   saveNote: jest.fn().mockReturnValue(new DbNote())
-}
+};
 const charId = '00Ctest12345';
 
 describe('NoteService', () => {
@@ -33,7 +35,7 @@ describe('NoteService', () => {
     expect(mockRepo.getNotes).toBeCalledTimes(1);
     expect(notes).toEqual([new DbNote(), new DbNote(), new DbNote()]);
   });
-  it('should work for saveNote()',async () => {
+  it('should work for saveNote()', async () => {
     const savedNote = await service.saveNote(new DbNote(), charId);
     expect(mockRepo.saveNote).toBeCalledWith(new DbNote(), charId);
     expect(mockRepo.saveNote).toBeCalledTimes(1);

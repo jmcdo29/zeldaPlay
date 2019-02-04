@@ -2,7 +2,9 @@ import { NoteController } from '@Note/note.controller';
 import { DbNote } from '@Db/models/db_note.model';
 
 const NoteServiceStub = {
-  getNotes: jest.fn().mockReturnValue([new DbNote(), new DbNote(), new DbNote()]),
+  getNotes: jest
+    .fn()
+    .mockReturnValue([new DbNote(), new DbNote(), new DbNote()]),
   saveNote: jest.fn().mockReturnValue(new DbNote())
 };
 const charId = '00Ctest12345';

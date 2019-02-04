@@ -4,8 +4,10 @@ import { DbService } from '@Db/db.service';
 import { DbSkill } from '@Db/models/db_skill.model';
 
 const mockDb = {
-  query: jest.fn().mockReturnValue([new DbSkill(), new DbSkill(), new DbSkill()])
-}
+  query: jest
+    .fn()
+    .mockReturnValue([new DbSkill(), new DbSkill(), new DbSkill()])
+};
 
 describe('DbSkillService', () => {
   let service: DbSkillService;

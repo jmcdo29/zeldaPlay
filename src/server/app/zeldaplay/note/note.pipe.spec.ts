@@ -19,7 +19,7 @@ describe('#NotePipe', () => {
   });
 
   it('should transform the request', () => {
-    const note = pipe.transform(inReq, {type: 'body'});
+    const note = pipe.transform(inReq, { type: 'body' });
     expect(note).toBeTruthy();
     expect(note.nId).toBe('00Ntest12345');
     expect(!note.nImportant);

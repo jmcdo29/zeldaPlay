@@ -6,7 +6,9 @@ import { DbSkillService } from './db-skill/db-skill.service';
 import { DbSkill } from '@Db/models/db_skill.model';
 
 const mockRepo = {
-  getSkills: jest.fn().mockReturnValue([new DbSkill(), new DbSkill(), new DbSkill()])
+  getSkills: jest
+    .fn()
+    .mockReturnValue([new DbSkill(), new DbSkill(), new DbSkill()])
 };
 
 describe('SkillService', () => {
