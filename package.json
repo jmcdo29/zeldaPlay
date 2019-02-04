@@ -8,7 +8,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run format && bash scripts/bin/gitAddMod.sh"
+      "pre-commit": "npm run clean && npm run lint && npm run format && bash scripts/bin/gitAddMod.sh"
     }
   },
   "repository": {
@@ -19,7 +19,7 @@
     "build": "npm run clean && concurrently -n \"client,server\" -c \"green,cyan\" \"npm run build:client\" \"npm run build:server\"",
     "build:client": "ng build --prod",
     "build:server": "tsc -p ./src/server/tsconfig.app.json",
-    "clean": "rimraf dist && rimraf coverage",
+    "clean": "rimraf dist && rimraf **/coverage/**",
     "failure": "echo Oops! There was a problem compiling!",
     "format": "prettier --write \"{src/**/*.{ts,scss,html,json},*.{json,yml,yaml},.*.{yml,json,yaml}}\"",
     "heroku-postbuild": "npm run build",
@@ -35,7 +35,9 @@
     "start:dev:client": "ng serve --open",
     "start:dev:server": "tsc-watch --onSuccess \" npm start\" --onFailure \"npm run failure\" -p ./src/server/tsconfig.app.json",
     "test": "jest --notify",
-    "test:ci": "snyk test && jest --runInBand --coverage --coverageReporters=text-lcov | coveralls"
+    "test:ci": "snyk test && jest --runInBand --coverage --coverageReporters=text-lcov | coveralls",
+    "test:client": "jest --projects src/client --notify",
+    "test:server": "jest --projects src/server --notify"
   },
   "dependencies": {
     "@nest-middlewares/cors": "^5.1.1",
@@ -48,6 +50,8 @@
     "@nestjs/passport": "^5.1.0",
     "@nestjs/swagger": "^2.5.1",
     "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.2.0",
+    "class-validator": "^0.9.1",
     "compression": "^1.7.3",
     "dotenv": "^6.2.0",
     "file-saver": "^2.0.0-rc.4",

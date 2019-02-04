@@ -26,6 +26,7 @@ module.exports = {
     '<rootDir>/../../node_modules/jest-preset-angular/AngularSnapshotSerializer.js',
     '<rootDir>/../../node_modules/jest-preset-angular/HTMLCommentSerializer.js'
   ],
-  setupFilesAfterEnv: ['<rootDir>/setupJest.ts']
+  setupFilesAfterEnv: ['<rootDir>/setupJest.ts'],
+  coverageDirectory: '<rootDir>/coverage'
   
 }
