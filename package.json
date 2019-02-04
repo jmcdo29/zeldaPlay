@@ -110,12 +110,12 @@
     "node-notifier": "^5.4.0",
     "prettier": "^1.16.4",
     "rimraf": "^2.6.3",
-    "snyk": "^1.124.0",
+    "snyk": "^1.124.1",
     "supertest": "^3.4.2",
     "ts-jest": "^23.10.5",
     "tsc-watch": "^1.1.36",
     "tslint": "^5.12.1",
-    "tslint-config-prettier": "^1.17.0",
+    "tslint-config-prettier": "^1.18.0",
     "tslint-sonarts": "^1.9.0",
     "typescript": "^3.3.1"
   }
