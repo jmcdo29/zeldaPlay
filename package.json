@@ -71,7 +71,7 @@
     "@angular-builders/jest": "^7.2.3",
     "@angular-devkit/build-angular": "^0.13.0",
     "@angular/animations": "^7.2.3",
-    "@angular/cdk": "^7.3.0",
+    "@angular/cdk": "^7.3.1",
     "@angular/cli": "^7.3.0",
     "@angular/common": "^7.2.3",
     "@angular/compiler": "^7.2.3",
@@ -80,7 +80,7 @@
     "@angular/forms": "^7.2.3",
     "@angular/http": "^7.2.3",
     "@angular/language-service": "^7.2.3",
-    "@angular/material": "^7.3.0",
+    "@angular/material": "^7.3.1",
     "@angular/platform-browser": "^7.2.3",
     "@angular/platform-browser-dynamic": "^7.2.3",
     "@angular/router": "^7.2.3",
@@ -117,6 +117,6 @@
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-sonarts": "^1.9.0",
-    "typescript": "^3.3.1"
+    "typescript": "^3.2.4"
   }
 }
