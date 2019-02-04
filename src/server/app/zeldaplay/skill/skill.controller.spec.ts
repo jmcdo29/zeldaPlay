@@ -2,21 +2,28 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { SkillController } from '@Skill/skill.controller';
 import { SkillService } from '@Skill/skill.service';
+import { DbSkill } from '@Db/models/db_skill.model';
 
-const SkillServiceStub = {};
+const SkillServiceStub = {
+  getCharacterSkills: jest.fn().mockReturnValue([new DbSkill(), new DbSkill(), new DbSkill()])
+};
 
 describe('Skill Controller', () => {
-  let module: TestingModule;
+  let controller: SkillController;
   beforeAll(async () => {
-    module = await Test.createTestingModule({
+    const module = await Test.createTestingModule({
       controllers: [SkillController],
       providers: [{ useValue: SkillServiceStub, provide: SkillService }]
     }).compile();
+    controller = module.get<SkillController>(SkillController);
   });
   it('should be defined', () => {
-    const controller: SkillController = module.get<SkillController>(
-      SkillController
-    );
     expect(controller).toBeDefined();
+  });
+  it('should work for getSkiklls()', async () => {
+    const skills = await controller.getSkills('00Ctest12345');
+    expect(SkillServiceStub.getCharacterSkills).toBeCalledTimes(1);
+    expect(SkillServiceStub.getCharacterSkills).toBeCalledWith('00Ctest12345');
+    expect(skills).toEqual([new DbSkill(), new DbSkill(), new DbSkill()]);
   });
 });
