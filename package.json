@@ -86,7 +86,7 @@
     "@angular/platform-browser-dynamic": "^7.2.3",
     "@angular/router": "^7.2.3",
     "@nestjs/schematics": "^5.11.2",
-    "@nestjs/testing": "^5.6.2",
+    "@nestjs/testing": "^5.7.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/compression": "0.0.36",
     "@types/connect-redis": "0.0.8",
