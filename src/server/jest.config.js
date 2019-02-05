@@ -21,5 +21,5 @@ module.exports = {
   },
   testMatch: ['**/*.spec.ts'],
   moduleFileExtensions: ['ts', 'js', 'json'],
-  coverageDirectory: '<rootDir>/coverage'
+  coverageDirectory: '<rootDir>/../../coverage'
 }
