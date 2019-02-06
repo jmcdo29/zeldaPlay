@@ -64,7 +64,7 @@
     "pg": "^7.8.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.4.0",
-    "tsconfig-paths": "^3.6.0",
+    "tsconfig-paths": "^3.8.0",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
