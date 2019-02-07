@@ -6,10 +6,10 @@ import { DbSpell } from '@Db/models/db_spell.table';
 
 const mockRepo = {
   getSpells: jest
-    .fn<DbSpell[]>()
+    .fn()
     .mockReturnValue([new DbSpell(), new DbSpell(), new DbSpell()]),
-  newSpell: jest.fn<DbSpell>().mockReturnValue(new DbSpell()),
-  updateSpell: jest.fn<DbSpell>().mockReturnValue(new DbSpell())
+  newSpell: jest.fn().mockReturnValue(new DbSpell()),
+  updateSpell: jest.fn().mockReturnValue(new DbSpell())
 };
 
 const charId = '00Ctest12345';

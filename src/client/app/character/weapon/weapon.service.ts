@@ -6,14 +6,17 @@ import { map } from 'rxjs/operators';
 import { environment } from '#Environment/environment';
 import { Weapon } from '#Models/weapons/weapon';
 import { IWeaponDb } from '#Models/weapons/weapon.db';
+import { AbstractService } from '#Shared/abstract.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WeaponService {
+export class WeaponService extends AbstractService {
   private weaponURL = environment.apiUrl + '/character/weapon/';
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
+    super();
+  }
 
   // Get all of the weapons's for a character and map the db response to the client usage
   getWeapons(charId: string): Observable<Weapon[]> {
@@ -43,10 +46,11 @@ export class WeaponService {
 
   // send a new weapon to the server and save the weapon's returned id to the original object
   newWeapon(charId: string, weapon: Weapon): Observable<Weapon> {
+    const weaponReq = this.transform(weapon);
     return this.http
       .post<IWeaponDb>(
         this.weaponURL + '/new/' + charId,
-        { weapon },
+        { weapon: weaponReq },
         {
           headers: {
             authorization: 'Bearer ' + sessionStorage.getItem('userToken')
@@ -63,10 +67,11 @@ export class WeaponService {
   // send updated information about the weapon to the server. Because the weapon already exists with
   // up to date information, just return the weapon after the request is successful
   updateWeapon(weapon: Weapon): Observable<Weapon> {
+    const weaponReq = this.transform(weapon);
     return this.http
       .post<IWeaponDb>(
         this.weaponURL + '/update/' + weapon.id,
-        { weapon },
+        { weapon: weaponReq },
         {
           headers: {
             authorization: 'Bearer ' + sessionStorage.getItem('userToken')

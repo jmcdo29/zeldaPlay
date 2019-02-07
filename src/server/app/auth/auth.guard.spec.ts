@@ -3,6 +3,8 @@ import { AuthGuard } from './auth.guard';
 
 process.env.TOKEN_SECRET = 'testSECRET';
 
+jest.mock('jsonwebtoken');
+
 const mock = {
   userService: jest.fn(),
   jwtService: jest.fn(),
@@ -30,9 +32,7 @@ describe('#AuthGuard', () => {
   });
   describe('canActivate function', () => {
     it('should authenticate correctly', async () => {
-      const verifySpy = jest
-        .spyOn(jwt, 'verify')
-        .mockReturnValueOnce('a good token');
+      const verifySpy = (jwt.verify as any).mockReturnValueOnce('a good token');
       const validateSpy = jest
         .spyOn(guard, 'validate')
         .mockReturnValueOnce(true);

@@ -6,14 +6,17 @@ import { map } from 'rxjs/operators';
 import { environment } from '#Environment/environment';
 import { Note } from '#Models/note';
 import { INoteDb } from '#Models/note.db';
+import { AbstractService } from '#Shared/abstract.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NoteService {
+export class NoteService extends AbstractService {
   private noteURL = environment.apiUrl + '/character/note/';
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
+    super();
+  }
 
   // get all of the notes for a user and sort them into the
   // important and non-important note arrays
@@ -52,10 +55,11 @@ export class NoteService {
   // send a new note to the server and save the note's id to the original object
   // the note id is returned from the server
   newNote(charId: string, note: Note): Observable<Note> {
+    const noteReq = this.transform(note);
     return this.http
       .post<INoteDb>(
         this.noteURL + charId,
-        { note },
+        { note: noteReq },
         {
           headers: {
             authorization: 'Bearer ' + sessionStorage.getItem('userToken')

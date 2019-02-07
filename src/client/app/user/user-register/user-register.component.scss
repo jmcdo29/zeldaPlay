@@ -26,6 +26,10 @@ h2.no-padding {
   }
 }
 
+.user {
+  width: 100%;
+}
+
 .cell {
   float: left;
   &.label {
@@ -39,10 +43,6 @@ h2.no-padding {
       padding: 0.5em 1em;
     }
   }
-}
-
-.user {
-  width: 100%;
 }
 
 @media (max-width: 900px) {

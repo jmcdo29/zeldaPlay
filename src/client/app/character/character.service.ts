@@ -10,18 +10,21 @@ import { Weapons } from '#Enums/weapon-skills.enum';
 import { environment } from '#Environment/environment';
 import { Character } from '#Models/character';
 import { ICharacterQuery } from '#Models/character.db';
+import { AbstractService } from '#Shared/abstract.service';
 import { MessageService } from '#Shared/messages/message.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CharacterService {
+export class CharacterService extends AbstractService {
   private characterUrl = environment.apiUrl + '/character/';
 
   constructor(
     private httpClient: HttpClient,
     private messageService: MessageService
-  ) {}
+  ) {
+    super();
+  }
 
   getCharacters(): Observable<Character[]> {
     return this.httpClient.get<ICharacterQuery[]>(this.characterUrl).pipe(
@@ -53,16 +56,6 @@ export class CharacterService {
       );
   }
 
-  private handleError<T>(operation: string, result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error.message);
-      const errMsg =
-        'ERROR IN ' + operation.toUpperCase() + ': ' + error.message;
-      this.messageService.add(errMsg);
-      return of(result);
-    };
-  }
-
   saveCharCopy(character: Character): void {
     const characterString = JSON.stringify(character);
     const blob = new Blob([characterString], {
@@ -73,11 +66,12 @@ export class CharacterService {
 
   saveNewCharDb(character: Character): Observable<Character> {
     const userId = sessionStorage.getItem('currentUser');
+    const charReq = this.transform(character);
     return this.httpClient
       .post<ICharacterQuery>(
         this.characterUrl + `new/${userId}`,
         {
-          character
+          character: charReq
         },
         {
           headers: {
@@ -109,10 +103,11 @@ export class CharacterService {
   }
 
   saveUpdateCharDb(character: Character): Observable<Character> {
+    const charReq = this.transform(character);
     return this.httpClient
       .post<ICharacterQuery>(
         this.characterUrl + `update/${character.id}`,
-        { character },
+        { character: charReq },
         {
           headers: {
             authorization: 'Bearer ' + sessionStorage.getItem('userToken')
@@ -138,6 +133,16 @@ export class CharacterService {
       this.messageService.add(outcome);
       return characters;
     });
+  }
+
+  private handleError<T>(operation: string, result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error.message);
+      const errMsg =
+        'ERROR IN ' + operation.toUpperCase() + ': ' + error.message;
+      this.messageService.add(errMsg);
+      return of(result);
+    };
   }
 }
 

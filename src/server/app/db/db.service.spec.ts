@@ -22,11 +22,11 @@ describe('DbService', () => {
       jest.clearAllMocks();
     });
     it('should return a record of some sort', async () => {
-      const querySpy = jest.spyOn(Pool.prototype, 'query').mockReturnValue({
+      const querySpy = (Pool.prototype.query as any).mockReturnValue({
         rowCount: 1,
         rows: [{ id: '00C2nI7nYh21' }]
       });
-      const qResult = await service.query(
+      const qResult = await service.query<any>(
         'SELECT Id FROM Character LIMIT 1;',
         []
       );
