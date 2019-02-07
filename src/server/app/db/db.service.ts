@@ -15,6 +15,7 @@ export class DbService {
   async query<T>(text: string, params: any[]): Promise<T[]> {
     const qStart = Date.now();
     text = text.replace(/\n\s*,/g, ', ').replace(/\n\s*/g, ' ');
+    scribe('FINE', text);
     try {
       const queryRes = await this.pool.query(text, params);
       scribe('DEBUG', {

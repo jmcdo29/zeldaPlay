@@ -3,7 +3,6 @@ module.exports = {
     'src/server/jest.config.js',
     'src/client/jest.config.js'
   ],
-  collectCoverage: true,
   collectCoverageFrom: [
     '<rootDir>/**/*.ts',
     '!**/main.ts',

@@ -109,7 +109,7 @@ export class DbCharacterService {
         ,craft_one
         ,craft_two
         ,player_id
-      ) VALUES,
+      ) VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
       RETURNING id`,
       [

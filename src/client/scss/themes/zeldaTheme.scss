@@ -1,6 +1,8 @@
 @import '~@angular/material/theming';
 
-@include mat-core();
+$zelda-typography: mat-typography-config(
+  $font-family: 'Spectral, serif'
+);
 
 $zelda-app-primary: mat-palette($mat-green, 400, 200, 500);
 $zelda-app-accent: mat-palette($mat-purple, 300, 200, 500);
@@ -22,3 +24,5 @@ $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 .zelda-dark-theme{
   @include angular-material-theme($dark-theme);
 } */
+
+@include mat-core($zelda-typography);

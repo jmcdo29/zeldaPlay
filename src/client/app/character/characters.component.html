@@ -61,9 +61,11 @@
     </div>
 
     <div class="details-column">
-      <app-character-detail
-        [character]="selectedCharacter"
-      ></app-character-detail>
+      <div *ngIf="selectedCharacter">
+        <app-character-detail
+          [character]="selectedCharacter"
+        ></app-character-detail>
+      </div>
       <div *ngIf="newChar">
         <app-character-create [CharacterParent]="this"></app-character-create>
       </div>

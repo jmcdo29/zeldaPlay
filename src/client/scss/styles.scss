@@ -6,6 +6,8 @@
 @import 'base/colors', 'base/typography';
 @import 'layout/column';
 body {
+  margin: 2em;
+  color: #888;
   &.dark {
     background-color: $background-dark;
   }
@@ -30,15 +32,10 @@ h3 {
   margin-bottom: 2px;
 }
 
-body {
-  margin: 2em;
-  color: #888;
-  font-family: Cambria, Georgia;
-}
 input[text],
 button {
   color: #888;
-  font-family: Cambria, Georgia;
+  // font-family: Cambria, Georgia;
   &.mat-flat-button {
     margin-bottom: 0.25em;
     margin-right: 0.1em;
@@ -153,7 +150,6 @@ td.total {
 .modal-content {
   position: relative;
   background-color: #fefefe;
-  margin: auto;
   border: 1px solid #888;
   margin: 5% 10%;
   width: 80%;

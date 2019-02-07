@@ -7,6 +7,7 @@ import { CapitalizePipe } from '#Shared/helpers/capitalize.pipe';
 import { EnumToArrayPipe } from '#Shared/helpers/enum-to-array.pipe';
 import { MessageService } from '#Shared/messages/message.service';
 import { MessagesComponent } from '#Shared/messages/messages.component';
+import { AbstractService } from './abstract.service';
 import { MaterialModule } from './material/material.module';
 
 @NgModule({
@@ -20,6 +21,6 @@ import { MaterialModule } from './material/material.module';
     MaterialModule,
     CapitalizePipe
   ],
-  providers: [MessageService]
+  providers: [MessageService, AbstractService]
 })
 export class SharedModule {}
