@@ -111,7 +111,7 @@ export class DbCharacterService {
         ,player_id
       ) VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
-      RETURNING id`,
+      RETURNING id as "chId"`,
       [
         character.chName,
         character.chRace,
@@ -135,7 +135,62 @@ export class DbCharacterService {
         userId
       ]
     );
+    this.insertSkills(character, char[0].chId);
+    this.insertSaves(character, char[0].chId);
     return char[0];
+  }
+
+  async insertSkills(character: DbCharacter, charId: string): Promise<void> {
+    const insert = `INSERT INTO ${this.schema}.skills
+    ( name
+      ,modifier
+      ,ranks
+      ,trained
+      ,type
+      ,character_id
+    ) VALUES `;
+    const values = [];
+    let insertString = '';
+    let counter = 1;
+    for (const skill of character.skills) {
+      insertString += '(';
+      for (let i = 0; i < 6; i++) {
+        insertString += `$${counter++},`;
+      }
+      insertString = insertString.slice(0, insertString.length - 1) + '),';
+      values.push(
+        skill.skName,
+        skill.skModifier,
+        skill.skRanks,
+        skill.skTrained,
+        skill.skType,
+        charId
+      );
+    }
+    insertString = insertString.slice(0, insertString.length - 1);
+    this.dbService.query(insert + insertString, values);
+  }
+
+  async insertSaves(character: DbCharacter, charId: string): Promise<void> {
+    const insert = `INSERT INTO ${this.schema}.saving_throws
+    ( name
+      ,modifier
+      ,racial_bonus
+      ,character_id
+    ) VALUES `;
+    const values = [];
+    let insertString = '';
+    let counter = 1;
+    for (const save of character.saves) {
+      insertString += '(';
+      for (let i = 0; i < 4; i++) {
+        insertString += `$${counter++},`;
+      }
+      insertString = insertString.slice(0, insertString.length - 1) + '),';
+      values.push(save.saName, save.saModifier, save.saRacialBonus, charId);
+    }
+    insertString = insertString.slice(0, insertString.length - 1);
+    this.dbService.query(insert + insertString, values);
   }
 
   async updateCharacter(character: DbCharacter): Promise<DbCharacter> {
