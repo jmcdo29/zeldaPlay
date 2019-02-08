@@ -70,13 +70,13 @@
           <mat-form-field>
             <mat-select
               id="critRange"
-              (selectionChange)="setCrit()"
+              [(ngModel)]="weapon.critRange"
               (selectionChange)="validate('critRange', 'critRange')"
               placeholder="What is the crit range?"
             >
-              <mat-option value="18,19,20">18-20</mat-option>
-              <mat-option value="19,20">19-20</mat-option>
-              <mat-option value="20">20</mat-option>
+              <mat-option value="[18,19,20]">18-20</mat-option>
+              <mat-option value="[19,20]">19-20</mat-option>
+              <mat-option value="[20]">20</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

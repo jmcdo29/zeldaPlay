@@ -11,7 +11,7 @@ export class WeaponDTO {
   readonly numberOfAttacks: number; // For the in case you have multiple attack dice
 
   @ApiModelProperty()
-  readonly critRange: number[]; // Values for which rolling a crit leads to crit damage
+  readonly critRange: string; // Values for which rolling a crit leads to crit damage
 
   @ApiModelProperty()
   readonly critDamage: number; // Crit damage multiplier

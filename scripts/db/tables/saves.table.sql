@@ -4,6 +4,6 @@ CREATE TABLE IF NOT EXISTS saving_throws (
 	,last_modified_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 	,modifier attribute NOT NULL
 	,name TEXT NOT NULL
-	,racial_bonus INTEGER CHECK(racial_bonus >= 0)
+	,racial_bonus INTEGER CONSTRAINT non_negative_raical_bonus CHECK(racial_bonus >= 0)
 	,character_id VARCHAR(12) REFERENCES characters (id)
 );
