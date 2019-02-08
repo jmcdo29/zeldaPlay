@@ -48,7 +48,7 @@
     "@nest-middlewares/helmet": "^5.1.1",
     "@nest-middlewares/morgan": "^5.1.1",
     "@nestjs/common": "^5.7.0",
-    "@nestjs/core": "^5.7.0",
+    "@nestjs/core": "^5.7.1",
     "@nestjs/jwt": "^0.3.0",
     "@nestjs/passport": "^5.1.0",
     "@nestjs/swagger": "^2.5.1",
