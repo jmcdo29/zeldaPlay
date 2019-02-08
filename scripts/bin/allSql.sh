@@ -42,4 +42,4 @@ done
 cd ../../
 
 # Run the sql file in psql to set up the database
-psql -f ./scripts/db/all.sql
+# psql -f ./scripts/db/all.sql
