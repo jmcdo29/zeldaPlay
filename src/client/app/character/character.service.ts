@@ -82,20 +82,6 @@ export class CharacterService extends AbstractService {
       .pipe(
         map((characterRes) => {
           character.id = characterRes.chId;
-          for (const skill of characterRes.skills) {
-            if (skill.skType.toLowerCase() === 'skill') {
-              character.skills[Skills[skill.skName]].id = skill.skId;
-            } else if (skill.skType.toLowerCase() === 'weapon') {
-              character.weaponSkills[Weapons[skill.skName]].id = skill.skId;
-            } else {
-              character.magicSkills[Magics[skill.skName]].id = skill.skId;
-            }
-          }
-          for (const save of characterRes.saves) {
-            character.savingThrows[
-              findObjectPartial(character.savingThrows, 'name', save.saName)
-            ].id = save.saId;
-          }
           return character;
         }),
         catchError(this.handleError<Character>('save character', character))

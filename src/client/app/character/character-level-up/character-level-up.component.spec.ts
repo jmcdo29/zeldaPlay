@@ -119,7 +119,6 @@ describe('CharacterLevelUpComponent', () => {
       component.currChar.weaponSkills[0].ranks =
         component.currChar.weaponSkills[0].ranks + 8;
       fixture.detectChanges();
-      console.log(document.getElementById('topTab'));
       component.track(0, 'weaponSkills');
       component.validate(0, 'weaponSkills');
       expect(document.getElementById('weaponSkills0').classList).not.toContain(

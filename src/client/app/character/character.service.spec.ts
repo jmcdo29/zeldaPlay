@@ -5,11 +5,14 @@ import {
 } from '@angular/common/http/testing';
 import { inject, TestBed } from '@angular/core/testing';
 import * as FileSaver from 'file-saver';
+import { consoleLogger as scribe } from 'mc-scribe';
 
 import { environment } from '#Environment/environment';
 import { characterDB } from '#Mocks/characterDB.mock';
 import { Character } from '#Models/character';
 import { CharacterService } from './character.service';
+
+console.error = jest.fn();
 
 jest.mock('file-saver', () => {
   return {
@@ -215,7 +218,7 @@ describe('CharacterService', () => {
   describe('#saveCharCopy', () => {
     test('save character json', () => {
       (FileSaver.saveAs as jest.Mock).mockImplementation(() =>
-        console.log('saving Character')
+        scribe('INFO', 'saving Character')
       );
       const myChar = new Character();
       characterService.saveCharCopy(myChar);

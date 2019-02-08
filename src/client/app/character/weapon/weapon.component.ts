@@ -196,15 +196,6 @@ export class WeaponComponent implements OnInit {
     this.isRangedWeapon = this.rangeList.includes(this.weapon.type);
   }
 
-  setCrit(): void {
-    const range = this.weapon.critRange.toString().split(',');
-    const rangeArray = [];
-    for (const int of range) {
-      rangeArray.push(Number.parseInt(int, 10));
-    }
-    this.weapon.critRange = rangeArray;
-  }
-
   createMessage(): void {
     const name = this.character.name;
     const weapon = this.character.weapons[this.character.weapons.length - 1];

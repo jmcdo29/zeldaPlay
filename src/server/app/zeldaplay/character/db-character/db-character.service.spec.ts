@@ -70,18 +70,19 @@ describe('DbCharacterService', () => {
     }
   });
   it('should run insertNewCharacter', async () => {
-    mockDb.query.mockReturnValueOnce([new DbCharacter()]);
-    const character = await service.insertNewCharacter(
-      new DbCharacter(),
-      '00Utest12345'
-    );
+    const newChar = new DbCharacter();
+    newChar.skills = [];
+    newChar.saves = [];
+    mockDb.query.mockReturnValueOnce([newChar]);
+    const character = await service.insertNewCharacter(newChar, '00Utest12345');
     expect(
       mockDb.query.mock.calls[queryCalls][1][
         mockDb.query.mock.calls[queryCalls][1].length - 1
       ]
     ).toBe('00Utest12345');
-    expect(mockDb.query).toBeCalledTimes(++queryCalls);
-    expect(character).toEqual(new DbCharacter());
+    queryCalls += 3;
+    expect(mockDb.query).toBeCalledTimes(queryCalls);
+    expect(character).toEqual(newChar);
   });
   it('shoudl run updateCharacter', async () => {
     mockDb.query.mockReturnValueOnce([new DbCharacter()]);

@@ -22,8 +22,10 @@ export class WeaponPipe implements PipeTransform<WeaponDTO, DbWeapon> {
   }
 }
 
-function parseRange(range: number[]): string {
-  return range.length === 1
-    ? range[0].toString()
-    : range[0].toString() + ' - ' + range[range.length - 1].toString();
+function parseRange(range: string): string {
+  return range.length === 4
+    ? range.substring(1, 3)
+    : range.substring(1, 3) +
+        ' - ' +
+        range.substring(range.length - 3, range.length - 1);
 }

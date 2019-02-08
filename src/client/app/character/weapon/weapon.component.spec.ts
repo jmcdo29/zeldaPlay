@@ -46,8 +46,7 @@ describe('WeaponComponent', () => {
     expect(component).toBeTruthy();
   });
   test('should split "18,19,20" to [18, 19, 20]', () => {
-    component.weapon.critRange = '18,19,20' as any;
-    component.setCrit();
+    component.weapon.critRange = [18, 19, 20];
     expect(component.weapon.critRange[0]).toBe(18);
     expect(component.weapon.critRange[1]).toBe(19);
     expect(component.weapon.critRange[2]).toBe(20);

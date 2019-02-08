@@ -49,7 +49,7 @@ export class WeaponService extends AbstractService {
     const weaponReq = this.transform(weapon);
     return this.http
       .post<IWeaponDb>(
-        this.weaponURL + '/new/' + charId,
+        this.weaponURL + 'new/' + charId,
         { weapon: weaponReq },
         {
           headers: {
@@ -70,7 +70,7 @@ export class WeaponService extends AbstractService {
     const weaponReq = this.transform(weapon);
     return this.http
       .post<IWeaponDb>(
-        this.weaponURL + '/update/' + weapon.id,
+        this.weaponURL + 'update/' + weapon.id,
         { weapon: weaponReq },
         {
           headers: {
