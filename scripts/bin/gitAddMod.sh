@@ -20,4 +20,7 @@ do
     i=$((i+1))
   fi
 done;
-git add$addString
+if [[ $addString != '' ]]
+then
+  git add$addString
+fi
