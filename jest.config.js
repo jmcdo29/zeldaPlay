@@ -11,6 +11,6 @@ module.exports = {
     '!**/test.ts',
     '!**/jestGlobalMocks.ts'
   ],
-  coverageReporters: ['lcov', 'text'],
+  coverageReporters: ['lcov', 'text', 'text-summary'],
   coverageDirectory: 'coverage'
 };
