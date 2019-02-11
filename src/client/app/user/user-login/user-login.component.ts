@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AlertService } from '#Alert/alert.service';
+import { NavBarService } from '#Shared/nav-bar.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -17,11 +18,13 @@ export class UserLoginComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private navBarService: NavBarService
   ) {}
 
   ngOnInit() {
     this.userService.logout();
+    this.navBarService.navigate({ page: 'login' });
   }
 
   login(): void {

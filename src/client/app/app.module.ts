@@ -8,6 +8,7 @@ import { AlertService } from '#Alert/alert.service';
 import { MaterialModule } from '#Shared/material/material.module';
 import { AppComponent } from './app.component';
 import { CharacterModule } from './character/character.module';
+import { NavBarModule } from './nav-bar/nav-bar.module';
 import { UserModule } from './user/user.module';
 
 @NgModule({
@@ -18,7 +19,8 @@ import { UserModule } from './user/user.module';
     HttpClientModule,
     CharacterModule,
     UserModule,
-    MaterialModule
+    MaterialModule,
+    NavBarModule
   ],
   bootstrap: [AppComponent],
   providers: [AlertService]

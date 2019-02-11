@@ -8,6 +8,7 @@ import { AlertService } from '#Alert/alert.service';
 import { MaterialModule } from '#Shared/material/material.module';
 import { UserService } from '../user.service';
 import { UserLoginComponent } from './user-login.component';
+import { NavBarService } from '#Shared/nav-bar.service';
 
 const alertServiceStub: Partial<AlertService> = {
   error(message) {
@@ -15,6 +16,12 @@ const alertServiceStub: Partial<AlertService> = {
   },
   clear() {
     return;
+  }
+};
+
+const navBarServiceStub: Partial<NavBarService> = {
+  navigate(nav: { page: string }) {
+    return nav;
   }
 };
 
@@ -34,7 +41,8 @@ describe('UserLoginComponent', () => {
       declarations: [UserLoginComponent],
       providers: [
         UserService,
-        { provide: AlertService, useValue: alertServiceStub }
+        { provide: AlertService, useValue: alertServiceStub },
+        { provide: NavBarService, useValue: navBarServiceStub }
       ]
     }).compileComponents();
   }));
