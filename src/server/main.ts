@@ -1,5 +1,3 @@
-// tslint:disable-next-line:no-var-requires
-// require('module-alias/register');
 import 'reflect-metadata';
 
 import { config } from 'dotenv';

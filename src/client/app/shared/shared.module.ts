@@ -9,6 +9,7 @@ import { MessageService } from '#Shared/messages/message.service';
 import { MessagesComponent } from '#Shared/messages/messages.component';
 import { AbstractService } from './abstract.service';
 import { MaterialModule } from './material/material.module';
+import { NavBarService } from './nav-bar.service';
 
 @NgModule({
   imports: [CommonModule, FormsModule, HttpClientModule, MaterialModule],
@@ -21,6 +22,6 @@ import { MaterialModule } from './material/material.module';
     MaterialModule,
     CapitalizePipe
   ],
-  providers: [MessageService, AbstractService]
+  providers: [MessageService, AbstractService, NavBarService]
 })
 export class SharedModule {}

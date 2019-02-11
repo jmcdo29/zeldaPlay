@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AlertService } from '#Alert/alert.service';
 import { Character } from '#Models/character';
+import { NavBarService } from '#Shared/nav-bar.service';
 import { CharacterService } from './character.service';
 
 @Component({
@@ -16,6 +17,21 @@ export class CharactersComponent implements OnInit {
   newChar: boolean;
   loggedIn = false;
   loading = false;
+
+  constructor(
+    private characterService: CharacterService,
+    private alertService: AlertService,
+    private readonly navBarService: NavBarService
+  ) {}
+
+  ngOnInit() {
+    this.navBarService.navigate({ page: 'character' });
+    this.loggedIn = !!sessionStorage.getItem('currentUser');
+    this.getCharacters();
+    if (this.characters.length === 0) {
+      this.characters = [];
+    }
+  }
 
   onSelect(character: Character): void {
     if (character.id) {
@@ -38,11 +54,6 @@ export class CharactersComponent implements OnInit {
     this.newChar = true;
   }
 
-  constructor(
-    private characterService: CharacterService,
-    private alertService: AlertService
-  ) {}
-
   getCharacters(): void {
     this.loading = true;
     const currentUser = sessionStorage.getItem('currentUser');
@@ -63,14 +74,6 @@ export class CharactersComponent implements OnInit {
         this.characters = characters;
         this.loading = false;
       });
-    }
-  }
-
-  ngOnInit() {
-    this.loggedIn = !!sessionStorage.getItem('currentUser');
-    this.getCharacters();
-    if (this.characters.length === 0) {
-      this.characters = [];
     }
   }
 

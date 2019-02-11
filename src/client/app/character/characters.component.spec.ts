@@ -12,6 +12,7 @@ import { Character } from '#Models/character';
 import { MaterialModule } from '#Shared/material/material.module';
 import { CharacterService } from './character.service';
 import { CharactersComponent } from './characters.component';
+import { NavBarService } from '#Shared/nav-bar.service';
 
 @Component({ selector: 'app-character-detail', template: '' })
 class CharacterDetailStubComponent {
@@ -40,6 +41,12 @@ const alertServiceStub: Partial<AlertService> = {
   }
 };
 
+const navBarServiceStub: Partial<NavBarService> = {
+  navigate(nav: { page: string }) {
+    return nav;
+  }
+};
+
 describe('CharactersComponent', () => {
   let component: CharactersComponent;
   let fixture: ComponentFixture<CharactersComponent>;
@@ -61,6 +68,7 @@ describe('CharactersComponent', () => {
       ],
       providers: [
         { provide: AlertService, useValue: alertServiceStub },
+        { provide: NavBarService, useValue: navBarServiceStub },
         CharacterService
       ]
     }).compileComponents();
