@@ -8,7 +8,8 @@ const testPass = 'Passw0rd!';
 const generalRequest = {
   email: testEmail,
   password: testPass,
-  confirmationPassword: testPass
+  confirmationPassword: testPass,
+  recovery: []
 };
 
 describe('#authPipe', () => {

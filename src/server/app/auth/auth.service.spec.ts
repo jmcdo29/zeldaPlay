@@ -60,13 +60,15 @@ describe('AuthService', () => {
       const signupRes = await service.signup({
         email: testEmail,
         password: testPass,
-        confirmationPassword: testPass
+        confirmationPassword: testPass,
+        recovery: []
       });
       expect(signupSpy).toBeCalled();
       expect(signupSpy).toBeCalledWith({
         email: testEmail,
         password: testPass,
-        confirmationPassword: testPass
+        confirmationPassword: testPass,
+        recovery: []
       });
       expect(signupRes.accessToken).toBeTruthy();
       expect(signupRes.id).toBe(testId);

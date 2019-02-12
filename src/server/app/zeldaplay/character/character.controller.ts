@@ -12,9 +12,9 @@ import {
 import { AuthGuard } from '@Auth/auth.guard';
 import { CharacterPipe } from '@Character/character.pipe';
 import { CharacterService } from '@Character/character.service';
-import { CharacterDTO } from '@Character/interfaces/character.dto';
 import { DbCharacterShort } from '@Db/models/db_character_short.model';
 import { DbCharacter } from '@DbModel/db_character.model';
+import { CharacterDTO } from '@Models/character/character.dto';
 
 @ApiUseTags('character')
 @Controller('character')

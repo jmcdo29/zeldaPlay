@@ -3,7 +3,7 @@ import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 import { DbWeapon } from '@DbModel/db_weapon.model';
 import { Modifier } from '@DbModel/enums/modifiers.enum';
 import { WeaponType } from '@DbModel/enums/weapons.enum';
-import { WeaponDTO } from '@Weapon/interfaces/weapon.dto';
+import { WeaponDTO } from '@Models/weapon/weapon.dto';
 
 @Injectable()
 export class WeaponPipe implements PipeTransform<WeaponDTO, DbWeapon> {

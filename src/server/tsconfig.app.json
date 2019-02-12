@@ -11,6 +11,7 @@
       "@DbModel/*": ["app/db/models/*"],
       "@Character/*": ["app/zeldaplay/character/*"],
       "@Decorators/*": ["app/decorators/*"],
+      "@Models/*": ["app/models/*"],
       "@Note/*": ["app/zeldaplay/note/*"],
       "@Shared/*": ["app/shared/*"],
       "@Skill/*": ["app/zeldaplay/skill/*"],

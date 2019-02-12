@@ -14,7 +14,12 @@ const mockRepo = {
 const email = 'test@test.email';
 const password = 'Passw0rd!';
 const user = { email, password };
-const newUser = { email, password, confirmationPassword: password };
+const newUser = {
+  email,
+  password,
+  confirmationPassword: password,
+  recovery: []
+};
 
 describe('UsersService', () => {
   let service: UserService;
@@ -58,7 +63,7 @@ describe('UsersService', () => {
       newPlayer.pPassword = passHash;
       mockRepo.login.mockReturnValueOnce([newPlayer]);
       try {
-        const player = await service.login(user);
+        await service.login(user);
       } catch (err) {
         expect(err.message.message).toBe('Invalid email or password.');
       }

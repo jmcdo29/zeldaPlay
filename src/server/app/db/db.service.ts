@@ -30,7 +30,15 @@ export class DbService {
         duration: Date.now() - qStart + ' ms'
       });
       scribe('FINE', err.stack);
+      this.error(err);
       return [];
     }
+  }
+
+  async error(err: Error): Promise<void> {
+    this.pool.query(
+      'INSERT INTO zeldaplay.errors (message, stack) VALUES ($1, $2)',
+      [err.message, err.stack]
+    );
   }
 }

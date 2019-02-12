@@ -55,7 +55,8 @@ describe('Auth Controller', () => {
       const signupRes = await controller.signup({
         email: testEmail,
         password: testPassword,
-        confirmationPassword: testPassword
+        confirmationPassword: testPassword,
+        recovery: []
       });
       expect(signupRes).toEqual({ accessCode: testCode, id: 'newUserId' });
     });
@@ -64,7 +65,8 @@ describe('Auth Controller', () => {
         await controller.signup({
           email: testEmail,
           password: testPassword,
-          confirmationPassword: 'somehtingElse'
+          confirmationPassword: 'somehtingElse',
+          recovery: []
         });
       } catch (err) {
         expect(err).toEqual(new Error('Passwords do not match'));
