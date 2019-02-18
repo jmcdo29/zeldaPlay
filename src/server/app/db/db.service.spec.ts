@@ -41,7 +41,7 @@ describe('DbService', () => {
           throw new Error('Malformed Query');
         });
       const qResult = await service.query('This is a bad query', []);
-      expect(querySpy).toBeCalledTimes(1);
+      expect(querySpy).toBeCalledTimes(2);
       expect(querySpy).toBeCalledWith('This is a bad query', []);
       expect(qResult).toEqual([]);
     });

@@ -9,7 +9,7 @@ import {
 
 import { AuthGuard } from '@Auth/auth.guard';
 import { DbNote } from '@DbModel/db_note.model';
-import { NoteDTO } from '@Note/interfaces/note.dto';
+import { NoteDTO } from '@Models/note/note.dto';
 import { NotePipe } from '@Note/note.pipe';
 import { NoteService } from '@Note/note.service';
 

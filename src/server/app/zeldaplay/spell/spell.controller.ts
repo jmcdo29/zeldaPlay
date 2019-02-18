@@ -10,7 +10,7 @@ import {
 
 import { AuthGuard } from '@Auth/auth.guard';
 import { DbSpell } from '@DbModel/db_spell.table';
-import { SpellDTO } from '@Spell/interfaces/spell.dto';
+import { SpellDTO } from '@Models/spell/spell.dto';
 import { SpellPipe } from '@Spell/spell.pipe';
 import { SpellService } from '@Spell/spell.service';
 

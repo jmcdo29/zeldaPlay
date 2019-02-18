@@ -4,28 +4,24 @@
     <p>To register, please click <a [routerLink]="['/register']">here.</a></p>
     <div class="custTable">
       <div class="row">
-        <mat-form-field>
+        <mat-form-field class="user">
           <input
             matInput
             type="email"
-            class="user"
             [(ngModel)]="username"
             placeholder="Email"
           />
         </mat-form-field>
       </div>
       <div class="row">
-        <div class="cell input">
-          <mat-form-field>
-            <input
-              matInput
-              class="user"
-              [(ngModel)]="password"
-              type="password"
-              placeholder="Password"
-            />
-          </mat-form-field>
-        </div>
+        <mat-form-field class="user">
+          <input
+            matInput
+            [(ngModel)]="password"
+            type="password"
+            placeholder="Password"
+          />
+        </mat-form-field>
       </div>
     </div>
     <button mat-flat-button (click)="login()">Login</button>

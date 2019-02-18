@@ -1,11 +1,11 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { JwtDTO } from '@Auth/interfaces/jwt.dto';
-import { JwtReturnDTO } from '@Auth/interfaces/jwtReturn.dto';
-import { NewUserDTO } from '@Auth/interfaces/new_user.dto';
-import { UserDTO } from '@Auth/interfaces/user.dto';
 import { DbPlayer } from '@Db/models/db_player.model';
+import { JwtDTO } from '@Models/auth/jwt.dto';
+import { JwtReturnDTO } from '@Models/auth/jwtReturn.dto';
+import { NewUserDTO } from '@Models/auth/new_user.dto';
+import { UserDTO } from '@Models/auth/user.dto';
 import { UserService } from '@User/user.service';
 
 @Injectable()

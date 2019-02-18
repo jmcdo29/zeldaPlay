@@ -9,6 +9,7 @@ import { SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
 import { consoleLogger as scribe } from 'mc-scribe';
 import { AppModule } from './app/app.module';
+import { NotFoundExceptionFilter } from './notFoundException.filter';
 import { configSwagger } from './swagger';
 
 async function bootstrap() {
@@ -21,6 +22,7 @@ async function bootstrap() {
     customSiteTitle: 'ZeldaPlay'
   });
   app.use(compression());
+  app.useGlobalFilters(new NotFoundExceptionFilter());
   await app.listen(process.env.PORT);
   scribe('INFO', `Application stated on ${process.env.PORT}.`);
 }

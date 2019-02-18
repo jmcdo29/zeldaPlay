@@ -10,7 +10,7 @@ import {
 
 import { AuthGuard } from '@Auth/auth.guard';
 import { DbWeapon } from '@DbModel/db_weapon.model';
-import { WeaponDTO } from '@Weapon/interfaces/weapon.dto';
+import { WeaponDTO } from '@Models/weapon/weapon.dto';
 import { WeaponPipe } from '@Weapon/weapon.pipe';
 import { WeaponService } from '@Weapon/weapon.service';
 

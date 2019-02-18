@@ -2,7 +2,7 @@ import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
 import { DbSpell } from '@DbModel/db_spell.table';
 import { Modifier } from '@DbModel/enums/modifiers.enum';
-import { SpellDTO } from '@Spell/interfaces/spell.dto';
+import { SpellDTO } from '@Models/spell/spell.dto';
 
 @Injectable()
 export class SpellPipe implements PipeTransform<SpellDTO, DbSpell> {

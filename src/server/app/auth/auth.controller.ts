@@ -8,9 +8,9 @@ import {
 
 import { AuthPipe } from '@Auth/auth.pipe';
 import { AuthService } from '@Auth/auth.service';
-import { JwtReturnDTO } from '@Auth/interfaces/jwtReturn.dto';
-import { NewUserDTO } from '@Auth/interfaces/new_user.dto';
-import { UserDTO } from '@Auth/interfaces/user.dto';
+import { JwtReturnDTO } from '@Models/auth/jwtReturn.dto';
+import { NewUserDTO } from '@Models/auth/new_user.dto';
+import { UserDTO } from '@Models/auth/user.dto';
 
 @ApiUseTags('user')
 @Controller('users')
