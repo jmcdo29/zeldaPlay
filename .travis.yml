@@ -5,12 +5,7 @@ cache:
   directories:
     - node_modules
 install: npm ci
-# script: npm run test:ci && npm run build
-deploy:
-  provider: script
-  script: bash scripts/bin/deploy.sh
-  on:
-    branch: master
+script: npm run test:ci
 env:
   global:
     - LOG_LEVEL=OFF
