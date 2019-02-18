@@ -8,7 +8,7 @@ install: npm ci
 script: npm run test:ci && npm run build
 deploy:
   provider: script
-  script: bash script/bin/deploy.sh
+  script: bash scripts/bin/deploy.sh
   on:
     branch: master
 env:
