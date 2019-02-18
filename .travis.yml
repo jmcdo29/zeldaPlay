@@ -8,6 +8,7 @@ install: npm ci
 script: npm run test:ci && npm run build
 deploy:
   provider: script
+  skip_cleanup: true
   script: bash script/bin/deploy.sh
   on:
     branch: master
