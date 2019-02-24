@@ -1,6 +1,5 @@
-import { DbSpell } from '@DbModel/db_spell.table';
 import { SpellPipe } from './spell.pipe';
-import { SpellDTO } from '../../models/spell/spell.dto';
+import { SpellDTO } from '@Models/bodies/spell/spell.dto';
 import { Modifier } from '@Db/models/enums/modifiers.enum';
 
 describe('#SpellPipe', () => {

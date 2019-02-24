@@ -10,7 +10,9 @@ import {
 
 import { AuthGuard } from '@Auth/auth.guard';
 import { DbWeapon } from '@DbModel/db_weapon.model';
-import { WeaponDTO } from '@Models/weapon/weapon.dto';
+import { WeaponDTO } from '@Models/bodies/weapon/weapon.dto';
+import { CharacterIdParam } from '@Models/parameters/charId.param';
+import { WeaponIdParam } from '@Models/parameters/weaponId.param';
 import { WeaponPipe } from '@Weapon/weapon.pipe';
 import { WeaponService } from '@Weapon/weapon.service';
 
@@ -24,9 +26,10 @@ export class WeaponController {
     title: 'Get Weapons',
     description: 'Get all the weapons of the specified character.'
   })
+  @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiOkResponse({ type: DbWeapon, isArray: true })
-  async getWeapons(@Param('charId') charId: string): Promise<DbWeapon[]> {
-    return this.weaponService.getWeapons(charId);
+  async getWeapons(@Param() params: CharacterIdParam): Promise<DbWeapon[]> {
+    return this.weaponService.getWeapons(params.charId);
   }
 
   @Post('new/:charId')
@@ -36,13 +39,14 @@ export class WeaponController {
   })
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
+  @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   @ApiOkResponse({ type: DbWeapon })
   async newWeapon(
     @Body('weapon', WeaponPipe) inWeapon: DbWeapon,
-    @Param('charId') charId: string
+    @Param() params: CharacterIdParam
   ): Promise<DbWeapon> {
-    return this.weaponService.newWeapon(inWeapon, charId);
+    return this.weaponService.newWeapon(inWeapon, params.charId);
   }
 
   @Post('update/:weaponId')
@@ -56,7 +60,8 @@ export class WeaponController {
   @ApiImplicitParam({ name: 'weaponId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   async updateWeapon(
-    @Body('weapon', WeaponPipe) inWeapon: DbWeapon
+    @Body('weapon', WeaponPipe) inWeapon: DbWeapon,
+    @Param() params: WeaponIdParam
   ): Promise<DbWeapon> {
     return this.weaponService.updateWeapon(inWeapon);
   }

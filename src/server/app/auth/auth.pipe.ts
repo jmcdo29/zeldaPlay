@@ -6,7 +6,7 @@ import {
   ValidationPipe
 } from '@nestjs/common';
 
-import { NewUserDTO } from '@Models/auth/new_user.dto';
+import { NewUserDTO } from '@Models/bodies/auth/new_user.dto';
 
 @Injectable()
 export class AuthPipe extends ValidationPipe

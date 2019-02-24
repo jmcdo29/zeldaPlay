@@ -33,6 +33,7 @@ export class UserRegisterComponent implements OnInit {
           this.router.navigate(['/']);
         },
         (error) => {
+          console.error(error);
           this.loading = false;
           this.alertService.error(error.error.message);
         }

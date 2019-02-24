@@ -21,16 +21,17 @@ describe('Weapon Controller', () => {
       new DbWeapon(),
       new DbWeapon()
     ]);
-    const weapons = await weaponController.getWeapons('00Ckie34m8c');
+    const weapons = await weaponController.getWeapons({
+      charId: '00Ckie34m8c'
+    });
     expect(weapons).toBeTruthy();
     expect(weapons.length).toBe(3);
   });
   it('should call newWeapon', async () => {
     WeaponServiceStub.newWeapon.mockReturnValue(new DbWeapon());
-    const newWeapon = await weaponController.newWeapon(
-      new DbWeapon(),
-      '00Ckie34m8c'
-    );
+    const newWeapon = await weaponController.newWeapon(new DbWeapon(), {
+      charId: '00Ckie34m8c'
+    });
     expect(newWeapon).toBeTruthy();
     expect(newWeapon).toEqual(new DbWeapon());
     expect(WeaponServiceStub.newWeapon).toBeCalledWith(
@@ -41,7 +42,9 @@ describe('Weapon Controller', () => {
   });
   it('should call updateWeapon', async () => {
     WeaponServiceStub.updateWeapon.mockReturnValue(new DbWeapon());
-    const updatedWeapon = await weaponController.updateWeapon(new DbWeapon());
+    const updatedWeapon = await weaponController.updateWeapon(new DbWeapon(), {
+      wepaonId: '00Wij7Mni0sa'
+    });
     expect(updatedWeapon).toEqual(new DbWeapon());
     expect(WeaponServiceStub.updateWeapon).toBeCalledWith(new DbWeapon());
     expect(WeaponServiceStub.updateWeapon).toBeCalledTimes(1);

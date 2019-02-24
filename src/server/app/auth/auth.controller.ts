@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import {
   ApiImplicitBody,
   ApiOkResponse,
@@ -6,11 +6,10 @@ import {
   ApiUseTags
 } from '@nestjs/swagger';
 
-import { AuthPipe } from '@Auth/auth.pipe';
 import { AuthService } from '@Auth/auth.service';
-import { JwtReturnDTO } from '@Models/auth/jwtReturn.dto';
-import { NewUserDTO } from '@Models/auth/new_user.dto';
-import { UserDTO } from '@Models/auth/user.dto';
+import { JwtReturnDTO } from '@Models/bodies/auth/jwtReturn.dto';
+import { NewUserDTO } from '@Models/bodies/auth/new_user.dto';
+import { UserDTO } from '@Models/bodies/auth/user.dto';
 
 @ApiUseTags('user')
 @Controller('users')
@@ -29,9 +28,7 @@ export class AuthController {
   @ApiOperation({ title: 'Signup', description: 'Sign the new user up' })
   @ApiImplicitBody({ name: 'user', type: NewUserDTO })
   @ApiOkResponse({ type: JwtReturnDTO })
-  async signup(
-    @Body('user', AuthPipe) user: NewUserDTO
-  ): Promise<JwtReturnDTO> {
+  async signup(@Body('user') user: NewUserDTO): Promise<JwtReturnDTO> {
     return this.authService.signup(user);
   }
 

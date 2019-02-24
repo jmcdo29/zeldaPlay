@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
+  ApiImplicitParam,
   ApiOkResponse,
   ApiOperation,
   ApiUseTags
@@ -9,7 +10,8 @@ import {
 
 import { AuthGuard } from '@Auth/auth.guard';
 import { DbNote } from '@DbModel/db_note.model';
-import { NoteDTO } from '@Models/note/note.dto';
+import { NoteDTO } from '@Models/bodies/note/note.dto';
+import { CharacterIdParam } from '@Models/parameters/charId.param';
 import { NotePipe } from '@Note/note.pipe';
 import { NoteService } from '@Note/note.service';
 
@@ -23,9 +25,10 @@ export class NoteController {
     title: 'Get Notes',
     description: 'Get all the notes of one character.'
   })
+  @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiOkResponse({ type: DbNote, isArray: true })
-  async getNotes(@Param('charId') charId: string): Promise<DbNote[]> {
-    return this.noteService.getNotes(charId);
+  async getNotes(@Param() params: CharacterIdParam): Promise<DbNote[]> {
+    return this.noteService.getNotes(params.charId);
   }
 
   @Post(':charId')
@@ -36,11 +39,12 @@ export class NoteController {
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @ApiOkResponse({ type: DbNote })
+  @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'note', type: NoteDTO })
   async newNote(
     @Body('note', NotePipe) inNote: DbNote,
-    @Param('charId') charId: string
+    @Param() params: CharacterIdParam
   ): Promise<DbNote> {
-    return this.noteService.saveNote(inNote, charId);
+    return this.noteService.saveNote(inNote, params.charId);
   }
 }

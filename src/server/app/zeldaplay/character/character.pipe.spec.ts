@@ -1,7 +1,7 @@
 import { CharacterPipe } from './character.pipe';
 
 import { Modifier } from '@Db/models/enums/modifiers.enum';
-import { CharacterDTO } from '@Models/character/character.dto';
+import { CharacterDTO } from '@Models/bodies/character/character.dto';
 
 describe('#CharacterPipe', () => {
   let pipe: CharacterPipe;

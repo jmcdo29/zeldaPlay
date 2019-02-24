@@ -14,7 +14,9 @@ import { CharacterPipe } from '@Character/character.pipe';
 import { CharacterService } from '@Character/character.service';
 import { DbCharacterShort } from '@Db/models/db_character_short.model';
 import { DbCharacter } from '@DbModel/db_character.model';
-import { CharacterDTO } from '@Models/character/character.dto';
+import { CharacterDTO } from '@Models/bodies/character/character.dto';
+import { CharacterIdParam } from '@Models/parameters/charId.param';
+import { UserIdParam } from '@Models/parameters/userId.param';
 
 @ApiUseTags('character')
 @Controller('character')
@@ -40,14 +42,15 @@ export class CharacterController {
       'Using the User id, create and assign a new character based on the incoming body'
   })
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
+  @ApiImplicitParam({ name: 'userId', type: 'string', required: true })
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: DbCharacter })
   newChar(
-    @Param('userId') userId: string,
+    @Param() params: UserIdParam,
     @Body('character', CharacterPipe) character: DbCharacter
   ): Promise<DbCharacter> {
-    return this.characterService.newChar(character, userId);
+    return this.characterService.newChar(character, params.userId);
   }
 
   @Get('user/:userId')
@@ -55,22 +58,24 @@ export class CharacterController {
     title: 'User Characters',
     description: 'Get all the characters belonging to the specified user.'
   })
+  @ApiImplicitParam({ name: 'userId', type: 'string', required: true })
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: DbCharacter, isArray: true })
-  getUser(@Param('userId') userId: string): Promise<DbCharacter[]> {
-    return this.characterService.getUserChars(userId);
+  getUser(@Param() params: UserIdParam): Promise<DbCharacter[]> {
+    return this.characterService.getUserChars(params.userId);
   }
 
-  @Get(':characterId')
+  @Get(':charId')
   @ApiOperation({
     title: 'Get Character',
     description:
       'Return all the information pertaining to the specified character.'
   })
+  @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiOkResponse({ type: DbCharacter })
-  getOne(@Param('characterId') charId: string): Promise<DbCharacter> {
-    return this.characterService.getOne(charId);
+  getOne(@Param() params: CharacterIdParam): Promise<DbCharacter> {
+    return this.characterService.getOne(params.charId);
   }
 
   @Post('update/:charId')
@@ -80,10 +85,11 @@ export class CharacterController {
   })
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'character', type: CharacterDTO })
+  @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiOkResponse({ type: DbCharacter })
   updateOne(
+    @Param() params: CharacterIdParam,
     @Body('character', CharacterPipe) inChar: DbCharacter
   ): Promise<DbCharacter> {
     return this.characterService.updateChar(inChar);
