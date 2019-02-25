@@ -61,7 +61,7 @@
     "file-saver": "^2.0.1",
     "hammerjs": "^2.0.8",
     "jsonwebtoken": "^8.5.0",
-    "mc-scribe": "1.2.2",
+    "mc-scribe": "2.0.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pg": "^7.8.1",
