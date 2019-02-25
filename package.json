@@ -64,7 +64,7 @@
     "mc-scribe": "1.2.2",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "pg": "^7.8.0",
+    "pg": "^7.8.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.4.0",
     "tsconfig-paths": "^3.8.0",
