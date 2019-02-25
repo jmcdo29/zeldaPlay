@@ -60,7 +60,7 @@
     "express": "^4.16.4",
     "file-saver": "^2.0.1",
     "hammerjs": "^2.0.8",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^8.5.0",
     "mc-scribe": "1.2.2",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
