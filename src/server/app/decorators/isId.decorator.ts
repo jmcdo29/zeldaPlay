@@ -2,9 +2,11 @@ import {
   registerDecorator,
   ValidationArguments,
   ValidationOptions,
+  ValidatorConstraint,
   ValidatorConstraintInterface
 } from 'class-validator';
 
+@ValidatorConstraint()
 export class IsIdConstraint implements ValidatorConstraintInterface {
   constructor(private _idStart: string) {}
 

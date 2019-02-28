@@ -2,9 +2,11 @@ import {
   registerDecorator,
   ValidationArguments,
   ValidationOptions,
+  ValidatorConstraint,
   ValidatorConstraintInterface
 } from 'class-validator';
 
+@ValidatorConstraint()
 export class HasUpperCaseConstraint implements ValidatorConstraintInterface {
   validate(value: string, args: ValidationArguments): boolean {
     return /[A-Z]+/.test(value);

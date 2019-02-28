@@ -2,9 +2,11 @@ import {
   registerDecorator,
   ValidationArguments,
   ValidationOptions,
+  ValidatorConstraint,
   ValidatorConstraintInterface
 } from 'class-validator';
 
+@ValidatorConstraint()
 export class HasNumberConstraint implements ValidatorConstraintInterface {
   validate(value: string, args: ValidationArguments): boolean {
     return /\d+/.test(value);

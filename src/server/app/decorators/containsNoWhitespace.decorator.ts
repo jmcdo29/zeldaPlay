@@ -2,9 +2,11 @@ import {
   registerDecorator,
   ValidationArguments,
   ValidationOptions,
+  ValidatorConstraint,
   ValidatorConstraintInterface
 } from 'class-validator';
 
+@ValidatorConstraint()
 export class NoWhiteSpaceConstraint implements ValidatorConstraintInterface {
   validate(value: string, args: ValidationArguments): boolean {
     return /^[\S]*$/.test(value);
