@@ -1,5 +1,6 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
+import { IsId } from '@Decorators/index';
 import { AttributeDTO } from '@Models/bodies/character/attribute.dto';
 import { SaveDTO } from '@Models/bodies/character/save.dto';
 import { SkillDTO } from '@Models/bodies/skill/skill.dto';
@@ -16,7 +17,7 @@ import {
 
 export class CharacterDTO {
   @ApiModelPropertyOptional()
-  @Matches(/^00C\w{9}$/)
+  @IsId('00C', { message: 'Invalid character id.' })
   readonly id?: string;
 
   @ApiModelProperty()

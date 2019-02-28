@@ -1,6 +1,6 @@
-import { Matches } from 'class-validator';
+import { IsId } from '@Decorators/index';
 
 export class UserIdParam {
-  @Matches(/^00U\w{9}$/)
+  @IsId('00U', { message: 'Invalid player id.' })
   userId: string;
 }

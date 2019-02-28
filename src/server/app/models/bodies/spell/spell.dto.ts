@@ -1,4 +1,6 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+
+import { IsId } from '@Decorators/index';
 import {
   IsBoolean,
   IsIn,
@@ -51,6 +53,6 @@ export class SpellDTO {
   @ApiModelPropertyOptional()
   @IsOptional()
   @IsString()
-  @Matches(/^0Sp\w{9}$/)
+  @IsId('0Sp', { message: 'Invalid spell id.' })
   readonly id?: string;
 }

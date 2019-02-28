@@ -1,11 +1,12 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+
+import { IsId } from '@Decorators/index';
 import {
   IsIn,
   IsNumber,
   IsOptional,
   IsPositive,
   IsString,
-  Matches,
   Min
 } from 'class-validator';
 
@@ -64,6 +65,6 @@ export class WeaponDTO {
   @ApiModelPropertyOptional()
   @IsOptional()
   @IsString()
-  @Matches(/^00W\w{9}$/)
+  @IsId('00W', { message: 'Invalid weapon id.' })
   readonly id?: string;
 }

@@ -1,11 +1,12 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+
+import { IsId } from '@Decorators/index';
 import {
   IsIn,
   IsNumber,
   IsOptional,
   IsPositive,
-  IsString,
-  Matches
+  IsString
 } from 'class-validator';
 
 export class SaveDTO {
@@ -26,6 +27,6 @@ export class SaveDTO {
   @ApiModelPropertyOptional()
   @IsOptional()
   @IsString()
-  @Matches(/^0St\w{9}$/)
+  @IsId('0St', { message: 'Invalid save id.' })
   readonly id?: string;
 }

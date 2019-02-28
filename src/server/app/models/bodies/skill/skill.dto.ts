@@ -1,19 +1,20 @@
 import { ApiModelProperty } from '@nestjs/swagger';
+
+import { IsId } from '@Decorators/index';
 import {
   IsBoolean,
   IsIn,
   IsNumber,
   IsOptional,
   IsPositive,
-  IsString,
-  Matches
+  IsString
 } from 'class-validator';
 
 export class SkillDTO {
   @ApiModelProperty()
   @IsOptional()
   @IsString()
-  @Matches(/^00S\w{9}$/)
+  @IsId('00S', { message: 'Invalid skill id.' })
   readonly id?: string;
 
   @ApiModelProperty()

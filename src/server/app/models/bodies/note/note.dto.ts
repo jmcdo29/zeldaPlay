@@ -1,5 +1,7 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { IsBoolean, IsOptional, IsString, Matches } from 'class-validator';
+
+import { IsId } from '@Decorators/index';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class NoteDTO {
   @ApiModelProperty()
@@ -12,7 +14,7 @@ export class NoteDTO {
   @ApiModelProperty()
   @IsOptional()
   @IsString()
-  @Matches(/^00N\w{9}$/)
+  @IsId('00N', { message: 'Invalid note id.' })
   readonly id?: string;
 
   @ApiModelProperty()

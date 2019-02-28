@@ -1,7 +1,8 @@
-import { IsString, Matches } from 'class-validator';
+import { IsId } from '@Decorators/index';
+import { IsString } from 'class-validator';
 
 export class WeaponIdParam {
   @IsString()
-  @Matches(/^00W\w{9}$/)
+  @IsId('00W', { message: 'Invalid weapon id' })
   wepaonId: string;
 }

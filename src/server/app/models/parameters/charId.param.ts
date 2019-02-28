@@ -1,6 +1,6 @@
-import { Matches } from 'class-validator';
+import { IsId } from '@Decorators/index';
 
 export class CharacterIdParam {
-  @Matches(/^00C\w{9}$/)
+  @IsId('00C', { message: 'Invalid character id.' })
   charId: string;
 }
