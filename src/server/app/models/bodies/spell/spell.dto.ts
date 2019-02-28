@@ -7,8 +7,7 @@ import {
   IsNumber,
   IsOptional,
   IsPositive,
-  IsString,
-  Matches
+  IsString
 } from 'class-validator';
 
 export class SpellDTO {

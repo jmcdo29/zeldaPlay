@@ -1,8 +1,15 @@
 import {
   registerDecorator,
   ValidationArguments,
-  ValidationOptions
+  ValidationOptions,
+  ValidatorConstraintInterface
 } from 'class-validator';
+
+export class NoWhiteSpaceConstraint implements ValidatorConstraintInterface {
+  validate(value: string, args: ValidationArguments): boolean {
+    return /^[\S]*$/.test(value);
+  }
+}
 
 export function NoWhiteSpace(validationOptions?: ValidationOptions) {
   return (object: object, propertyName: string) => {
@@ -11,11 +18,7 @@ export function NoWhiteSpace(validationOptions?: ValidationOptions) {
       target: object.constructor,
       propertyName,
       options: validationOptions,
-      validator: {
-        validate(value: any, args: ValidationArguments): boolean {
-          return /\s{0}/.test(value);
-        }
-      }
+      validator: NoWhiteSpaceConstraint
     });
   };
 }

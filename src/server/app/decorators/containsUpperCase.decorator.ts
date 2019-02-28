@@ -1,8 +1,15 @@
 import {
   registerDecorator,
   ValidationArguments,
-  ValidationOptions
+  ValidationOptions,
+  ValidatorConstraintInterface
 } from 'class-validator';
+
+export class HasUpperCaseConstraint implements ValidatorConstraintInterface {
+  validate(value: string, args: ValidationArguments): boolean {
+    return /[A-Z]+/.test(value);
+  }
+}
 
 export function HasUpperCase(validationOptions?: ValidationOptions) {
   return (object: object, propertyName: string) => {
@@ -11,11 +18,7 @@ export function HasUpperCase(validationOptions?: ValidationOptions) {
       target: object.constructor,
       propertyName,
       options: validationOptions,
-      validator: {
-        validate(value: any, args: ValidationArguments): boolean {
-          return /[A-Z]+/.test(value);
-        }
-      }
+      validator: HasUpperCaseConstraint
     });
   };
 }
