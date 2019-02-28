@@ -8,7 +8,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
-import { consoleLogger as scribe } from 'mc-scribe';
+import { scribe } from 'mc-scribe';
 import { AppModule } from './app/app.module';
 import { NotFoundExceptionFilter } from './notFoundException.filter';
 import { configSwagger } from './swagger';

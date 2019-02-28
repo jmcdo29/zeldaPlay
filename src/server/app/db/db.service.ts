@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { consoleLogger as scribe } from 'mc-scribe';
+import { scribe } from 'mc-scribe';
 import { Pool } from 'pg';
 
 @Injectable()

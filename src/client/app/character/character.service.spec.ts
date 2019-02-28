@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http/testing';
 import { inject, TestBed } from '@angular/core/testing';
 import * as FileSaver from 'file-saver';
-import { consoleLogger as scribe } from 'mc-scribe';
+import { scribe } from 'mc-scribe';
 
 import { environment } from '#Environment/environment';
 import { characterDB } from '#Mocks/characterDB.mock';
