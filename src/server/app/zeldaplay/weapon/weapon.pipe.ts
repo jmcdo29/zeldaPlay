@@ -1,8 +1,7 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
-import { DbWeapon } from '@DbModel/db_weapon.model';
-import { Modifier } from '@DbModel/enums/modifiers.enum';
-import { WeaponType } from '@DbModel/enums/weapons.enum';
+import { Modifier, WeaponType } from '@DbModel/enums/index';
+import { DbWeapon } from '@DbModel/index';
 import { WeaponDTO } from '@Models/bodies/weapon/weapon.dto';
 
 @Injectable()

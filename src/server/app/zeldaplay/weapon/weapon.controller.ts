@@ -9,7 +9,7 @@ import {
 } from '@nestjs/swagger';
 
 import { AuthGuard } from '@Auth/auth.guard';
-import { DbWeapon } from '@DbModel/db_weapon.model';
+import { DbWeapon } from '@DbModel/index';
 import { WeaponDTO } from '@Models/bodies/weapon/weapon.dto';
 import { CharacterIdParam } from '@Models/parameters/charId.param';
 import { WeaponIdParam } from '@Models/parameters/weaponId.param';
