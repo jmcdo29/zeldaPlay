@@ -10,12 +10,11 @@ import {
 } from '@nestjs/swagger';
 
 import { AuthGuard } from '@Auth/auth.guard';
+import { CharacterDTO } from '@Body/index';
 import { CharacterPipe } from '@Character/character.pipe';
 import { CharacterService } from '@Character/character.service';
 import { DbCharacter, DbCharacterShort } from '@DbModel/index';
-import { CharacterDTO } from '@Models/bodies/character/character.dto';
-import { CharacterIdParam } from '@Models/parameters/charId.param';
-import { UserIdParam } from '@Models/parameters/userId.param';
+import { CharacterIdParam, UserIdParam } from '@Parameter/index';
 
 @ApiUseTags('character')
 @Controller('character')

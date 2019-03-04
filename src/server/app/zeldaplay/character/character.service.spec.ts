@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { CharacterService } from '@Character/character.service';
 import { DbCharacterService } from './db-character/db-character.service';
-import { DbCharacter } from '@Db/models/db_character.model';
+import { DbCharacter } from '@DbModel/index';
 
 const repo = {
   queryCharacters: jest
