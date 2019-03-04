@@ -1,6 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-import { DbCharacter } from '@DbModel/db_character.model';
+import { DbCharacter } from '@DbModel/index';
 import { DbCharacterService } from './db-character/db-character.service';
 
 @Injectable()

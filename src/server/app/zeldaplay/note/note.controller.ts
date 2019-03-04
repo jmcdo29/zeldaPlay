@@ -9,7 +9,7 @@ import {
 } from '@nestjs/swagger';
 
 import { AuthGuard } from '@Auth/auth.guard';
-import { DbNote } from '@DbModel/db_note.model';
+import { DbNote } from '@DbModel/index';
 import { NoteDTO } from '@Models/bodies/note/note.dto';
 import { CharacterIdParam } from '@Models/parameters/charId.param';
 import { NotePipe } from '@Note/note.pipe';

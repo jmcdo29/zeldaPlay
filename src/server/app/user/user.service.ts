@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { compare, hash } from 'bcryptjs';
 
-import { DbPlayer } from '@DbModel/db_player.model';
+import { DbPlayer } from '@DbModel/index';
 import { NewUserDTO } from '@Models/bodies/auth/new_user.dto';
 import { UserDTO } from '@Models/bodies/auth/user.dto';
 import { DbUserService } from './db-user/db-user.service';

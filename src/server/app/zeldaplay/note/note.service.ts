@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { DbNote } from '@DbModel/db_note.model';
+import { DbNote } from '@DbModel/index';
 import { DbNoteService } from './db-note/db-note.service';
 
 @Injectable()

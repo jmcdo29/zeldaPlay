@@ -12,8 +12,7 @@ import {
 import { AuthGuard } from '@Auth/auth.guard';
 import { CharacterPipe } from '@Character/character.pipe';
 import { CharacterService } from '@Character/character.service';
-import { DbCharacterShort } from '@Db/models/db_character_short.model';
-import { DbCharacter } from '@DbModel/db_character.model';
+import { DbCharacter, DbCharacterShort } from '@DbModel/index';
 import { CharacterDTO } from '@Models/bodies/character/character.dto';
 import { CharacterIdParam } from '@Models/parameters/charId.param';
 import { UserIdParam } from '@Models/parameters/userId.param';

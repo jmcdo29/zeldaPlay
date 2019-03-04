@@ -10,8 +10,6 @@ import { SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
 import { scribe } from 'mc-scribe';
 import { AppModule } from './app/app.module';
-import { BadRequestFilter } from './bad-request-filter.filter';
-import { NotFoundExceptionFilter } from './notFoundException.filter';
 import { configSwagger } from './swagger';
 
 async function bootstrap() {
@@ -25,7 +23,6 @@ async function bootstrap() {
   });
   app.use(compression());
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new NotFoundExceptionFilter(), new BadRequestFilter());
   await app.listen(process.env.PORT);
   scribe('INFO', `Application stated on ${process.env.PORT}.`);
 }

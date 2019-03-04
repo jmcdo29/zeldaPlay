@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { DbService } from '@Db/db.service';
-import { DbNote } from '@DbModel/db_note.model';
+import { DbNote } from '@DbModel/index';
 
 @Injectable()
 export class DbNoteService {

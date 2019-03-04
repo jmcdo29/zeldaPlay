@@ -1,6 +1,6 @@
 import { ApiResponseModelProperty } from '@nestjs/swagger';
 
-import { Modifier } from './enums/modifiers.enum';
+import { Modifier } from './enums/index';
 
 export class DbSpell {
   @ApiResponseModelProperty({ type: 'string', example: '0SpPRr8azXow' })

@@ -1,8 +1,7 @@
 import { ApiResponseModelProperty } from '@nestjs/swagger';
 
-import { DbSave } from './db_save.model';
-import { DbSkill } from './db_skill.model';
-import { Race } from './enums/races.enum';
+import { Race } from './enums/index';
+import { DbSave, DbSkill } from './index';
 
 export class DbCharacter {
   @ApiResponseModelProperty({ type: 'string', example: '00Csntj8Gozz' })

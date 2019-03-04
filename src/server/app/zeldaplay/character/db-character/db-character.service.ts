@@ -1,9 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { DbService } from '@Db/db.service';
-import { DbCharacter } from '@DbModel/db_character.model';
-import { DbSave } from '@DbModel/db_save.model';
-import { DbSkill } from '@DbModel/db_skill.model';
+import { DbCharacter, DbSave, DbSkill } from '@DbModel/index';
 
 @Injectable()
 export class DbCharacterService {

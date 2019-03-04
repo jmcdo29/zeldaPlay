@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { DbPlayer } from '@Db/models/db_player.model';
+import { DbPlayer } from '@DbModel/index';
 import { JwtDTO } from '@Models/bodies/auth/jwt.dto';
 import { JwtReturnDTO } from '@Models/bodies/auth/jwtReturn.dto';
 import { NewUserDTO } from '@Models/bodies/auth/new_user.dto';

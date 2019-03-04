@@ -9,13 +9,11 @@ import {
 export class BadRequestFilter<T extends BadRequestException>
   implements ExceptionFilter {
   catch(exception: T, host: ArgumentsHost) {
-    const errors: Array<{ name: string; errors: string[] }> = [];
+    let errors = '';
     for (const error of exception.message) {
-      const nameErrors: string[] = [];
       for (const constraint of Object.values<string>(error.constraints)) {
-        nameErrors.push(constraint);
+        errors += constraint + '.\n';
       }
-      errors.push({ name: error.property, errors: nameErrors });
     }
     const http = host.switchToHttp();
     const res = http.getResponse();
