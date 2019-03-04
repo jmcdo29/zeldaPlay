@@ -7,9 +7,7 @@ import {
 } from '@nestjs/swagger';
 
 import { AuthService } from '@Auth/auth.service';
-import { JwtReturnDTO } from '@Models/bodies/auth/jwtReturn.dto';
-import { NewUserDTO } from '@Models/bodies/auth/new_user.dto';
-import { UserDTO } from '@Models/bodies/auth/user.dto';
+import { JwtReturnDTO, NewUserDTO, UserDTO } from '@Body/index';
 
 @ApiUseTags('user')
 @Controller('users')
