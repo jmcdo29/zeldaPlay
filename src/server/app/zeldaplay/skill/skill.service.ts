@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { DbSkill } from '@DbModel/db_skill.model';
+import { DbSkill } from '@DbModel/index';
 import { DbSkillService } from './db-skill/db-skill.service';
 
 @Injectable()
