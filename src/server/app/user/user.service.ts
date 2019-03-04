@@ -5,9 +5,8 @@ import {
 } from '@nestjs/common';
 import { compare, hash } from 'bcryptjs';
 
+import { NewUserDTO, UserDTO } from '@Body/index';
 import { DbPlayer } from '@DbModel/index';
-import { NewUserDTO } from '@Models/bodies/auth/new_user.dto';
-import { UserDTO } from '@Models/bodies/auth/user.dto';
 import { DbUserService } from './db-user/db-user.service';
 
 const noUser = 'No user found for email ';
