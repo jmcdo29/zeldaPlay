@@ -1,6 +1,6 @@
 import { SpellPipe } from './spell.pipe';
-import { SpellDTO } from '@Models/bodies/spell/spell.dto';
-import { Modifier } from '@Db/models/enums/modifiers.enum';
+import { SpellDTO } from '@Body/index';
+import { Modifier } from '@DbModel/enums/index';
 
 describe('#SpellPipe', () => {
   it('should trnasform the spellDTO to a DbSpell', () => {

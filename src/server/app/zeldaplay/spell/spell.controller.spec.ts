@@ -1,5 +1,5 @@
 import { SpellController } from '@Spell/spell.controller';
-import { DbSpell } from '@Db/models/db_spell.table';
+import { DbSpell } from '@DbModel/index';
 
 const SpellServiceStub = {
   getSpells: jest

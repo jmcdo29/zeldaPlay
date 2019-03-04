@@ -9,10 +9,9 @@ import {
 } from '@nestjs/swagger';
 
 import { AuthGuard } from '@Auth/auth.guard';
+import { SpellDTO } from '@Body/index';
 import { DbSpell } from '@DbModel/index';
-import { SpellDTO } from '@Models/bodies/spell/spell.dto';
-import { CharacterIdParam } from '@Models/parameters/charId.param';
-import { SpellIdParam } from '@Models/parameters/spellId.param';
+import { CharacterIdParam, SpellIdParam } from '@Parameter/index';
 import { SpellPipe } from '@Spell/spell.pipe';
 import { SpellService } from '@Spell/spell.service';
 

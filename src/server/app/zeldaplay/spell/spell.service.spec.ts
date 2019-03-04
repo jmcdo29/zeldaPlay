@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { SpellService } from '@Spell/spell.service';
 import { DbSpellService } from './db-spell/db-spell.service';
-import { DbSpell } from '@Db/models/db_spell.table';
+import { DbSpell } from '@DbModel/index';
 
 const mockRepo = {
   getSpells: jest
