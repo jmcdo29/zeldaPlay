@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { SkillController } from '@Skill/skill.controller';
 import { SkillService } from '@Skill/skill.service';
-import { DbSkill } from '@Db/models/db_skill.model';
+import { DbSkill } from '@DbModel/index';
 
 const SkillServiceStub = {
   getCharacterSkills: jest

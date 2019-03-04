@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 
 import { DbSkill } from '@DbModel/index';
-import { CharacterIdParam } from '@Models/parameters/charId.param';
+import { CharacterIdParam } from '@Parameter/index';
 import { SkillService } from '@Skill/skill.service';
 
 @ApiUseTags('skill')
