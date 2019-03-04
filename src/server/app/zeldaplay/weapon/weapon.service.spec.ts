@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { DbWeaponService } from './db-weapon/db-weapon.service';
 import { WeaponService } from '@Weapon/weapon.service';
-import { DbWeapon } from '@Db/models/db_weapon.model';
+import { DbWeapon } from '@DbModel/index';
 
 const mockRepo = {
   getWeapons: jest

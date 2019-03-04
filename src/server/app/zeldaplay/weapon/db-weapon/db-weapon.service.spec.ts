@@ -3,9 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { DbService } from '@Db/db.service';
 import { DbWeaponService } from './db-weapon.service';
 
-import { DbWeapon } from '@DbModel/db_weapon.model';
-import { Modifier } from '@DbModel/enums/modifiers.enum';
-import { WeaponType } from '@DbModel/enums/weapons.enum';
+import { DbWeapon } from '@DbModel/index';
+import { Modifier, WeaponType } from '@DbModel/enums/index';
 
 const mockDb = {
   query: jest.fn()

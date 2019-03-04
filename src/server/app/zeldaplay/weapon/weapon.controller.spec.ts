@@ -1,5 +1,5 @@
 import { WeaponController } from '@Weapon/weapon.controller';
-import { DbWeapon } from '@DbModel/db_weapon.model';
+import { DbWeapon } from '@DbModel/index';
 
 const WeaponServiceStub = {
   getWeapons: jest.fn(),

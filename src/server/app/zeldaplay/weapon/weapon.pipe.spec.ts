@@ -1,7 +1,6 @@
 import { WeaponPipe } from './weapon.pipe';
 
-import { DbWeapon } from '@DbModel/db_weapon.model';
-import { WeaponDTO } from '@Models/bodies/weapon/weapon.dto';
+import { WeaponDTO } from '@Body/index';
 
 describe('#WeaponPipe Tranform', () => {
   let inWeapon: WeaponDTO;
