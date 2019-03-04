@@ -33,9 +33,19 @@ export class UserRegisterComponent implements OnInit {
           this.router.navigate(['/']);
         },
         (error) => {
-          console.error(error);
+          console.error(error.error);
           this.loading = false;
-          this.alertService.error(error.error.message);
+          let errorStr = '';
+          if (error.error.length > 1) {
+            for (const err of error.error) {
+              let specErr = err.name.toUpperCase() + ': ';
+              for (const objErr of err.errors) {
+                specErr += ' ' + objErr;
+              }
+              errorStr += specErr + '\n';
+            }
+          }
+          this.alertService.error(errorStr);
         }
       );
   }

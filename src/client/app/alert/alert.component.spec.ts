@@ -37,9 +37,9 @@ describe('AlertComponent', () => {
   });
 
   test('remove any message', () => {
-    component.message = ';lajsdfljas;lkdf';
+    component.message = { type: 'success', text: ';lajsdfljas;lkdf' };
     component.remove();
-    expect(component.message).toBe('');
+    expect(component.message.text).toBe('');
   });
   test('testDestroy', () => {
     component.ngOnDestroy();
