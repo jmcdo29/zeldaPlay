@@ -1,5 +1,5 @@
 import { CharacterController } from '@Character/character.controller';
-import { DbCharacter } from '@Db/models/db_character.model';
+import { DbCharacter } from '@DbModel/index';
 
 const CharacterServiceStub = {
   getAll: jest

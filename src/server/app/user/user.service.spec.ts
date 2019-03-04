@@ -3,7 +3,7 @@ import { hash } from 'bcryptjs';
 
 import { UserService } from '@User/user.service';
 import { DbUserService } from './db-user/db-user.service';
-import { DbPlayer } from '@Db/models/db_player.model';
+import { DbPlayer } from '@DbModel/index';
 
 const mockRepo = {
   login: jest.fn(),
