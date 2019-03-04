@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { DbNote } from '@DbModel/index';
 import { NoteService } from '@Note/note.service';
 import { DbNoteService } from './db-note/db-note.service';
-import { DbNote } from '@Db/models/db_note.model';
 
 const mockRepo = {
   getNotes: jest

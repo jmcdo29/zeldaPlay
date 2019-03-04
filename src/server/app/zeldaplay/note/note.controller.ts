@@ -9,11 +9,11 @@ import {
 } from '@nestjs/swagger';
 
 import { AuthGuard } from '@Auth/auth.guard';
+import { NoteDTO } from '@Body/index';
 import { DbNote } from '@DbModel/index';
-import { NoteDTO } from '@Models/bodies/note/note.dto';
-import { CharacterIdParam } from '@Models/parameters/charId.param';
 import { NotePipe } from '@Note/note.pipe';
 import { NoteService } from '@Note/note.service';
+import { CharacterIdParam } from '@Parameter/index';
 
 @ApiUseTags('note')
 @Controller('character/note')

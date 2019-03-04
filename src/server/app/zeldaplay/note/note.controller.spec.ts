@@ -1,5 +1,5 @@
 import { NoteController } from '@Note/note.controller';
-import { DbNote } from '@Db/models/db_note.model';
+import { DbNote } from '@DbModel/index';
 
 const NoteServiceStub = {
   getNotes: jest
