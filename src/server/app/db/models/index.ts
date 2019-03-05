@@ -1,6 +1,7 @@
 export * from './db_character.model';
 export * from './db_character_short.model';
 export * from './db_error.model';
+export * from './db_metrics.model';
 export * from './db_note.model';
 export * from './db_player.model';
 export * from './db_question.model';

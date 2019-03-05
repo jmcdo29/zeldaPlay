@@ -1,9 +1,7 @@
 import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 
+import { AttributeDTO, SaveDTO, SkillDTO } from '@Body/index';
 import { IsId } from '@Decorators/index';
-import { AttributeDTO } from '@Models/bodies/character/attribute.dto';
-import { SaveDTO } from '@Models/bodies/character/save.dto';
-import { SkillDTO } from '@Models/bodies/skill/skill.dto';
 import {
   IsIn,
   IsNumber,
