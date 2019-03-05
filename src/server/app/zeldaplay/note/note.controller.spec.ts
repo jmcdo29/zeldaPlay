@@ -1,5 +1,5 @@
 import { NoteController } from '@Note/note.controller';
-import { DbNote } from '@Db/models/db_note.model';
+import { DbNote } from '@DbModel/index';
 
 const NoteServiceStub = {
   getNotes: jest
@@ -18,13 +18,13 @@ describe('Note Controller', () => {
     expect(noteController).toBeDefined();
   });
   it('should work for getNotes', async () => {
-    const notes = await noteController.getNotes(charId);
+    const notes = await noteController.getNotes({ charId });
     expect(NoteServiceStub.getNotes).toBeCalledTimes(1);
     expect(NoteServiceStub.getNotes).toBeCalledWith(charId);
     expect(notes).toEqual([new DbNote(), new DbNote(), new DbNote()]);
   });
   it('should work for newNote', async () => {
-    const saveNote = await noteController.newNote(new DbNote(), charId);
+    const saveNote = await noteController.newNote(new DbNote(), { charId });
     expect(NoteServiceStub.saveNote).toBeCalledTimes(1);
     expect(NoteServiceStub.saveNote).toBeCalledWith(new DbNote(), charId);
     expect(saveNote).toEqual(new DbNote());

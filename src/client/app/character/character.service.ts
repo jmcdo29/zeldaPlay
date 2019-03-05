@@ -4,9 +4,6 @@ import * as FileSaver from 'file-saver';
 import { Observable, of, OperatorFunction } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { Magics } from '#Enums/magic-skills.enum';
-import { Skills } from '#Enums/skills.enum';
-import { Weapons } from '#Enums/weapon-skills.enum';
 import { environment } from '#Environment/environment';
 import { Character } from '#Models/character';
 import { ICharacterQuery } from '#Models/character.db';
@@ -130,15 +127,4 @@ export class CharacterService extends AbstractService {
       return of(result);
     };
   }
-}
-
-function findObjectPartial(array: any[], key: string, value: string): number {
-  let index = -1;
-  for (let i = 0; i < array.length; i++) {
-    if (array[i][key] === value) {
-      index = i;
-      break;
-    }
-  }
-  return index;
 }

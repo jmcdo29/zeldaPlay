@@ -1,7 +1,6 @@
 import { NotePipe } from './note.pipe';
 
-import { DbNote } from '@DbModel/db_note.model';
-import { NoteDTO } from '../../models/note/note.dto';
+import { NoteDTO } from '@Body/index';
 
 describe('#NotePipe', () => {
   let pipe: NotePipe;

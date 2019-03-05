@@ -10,7 +10,7 @@ import { AlertService } from '#Alert/alert.service';
 })
 export class AlertComponent implements OnDestroy {
   private subscription: Subscription;
-  message: any;
+  message: { type: 'success' | 'error'; text: string };
 
   constructor(private alertService: AlertService) {
     this.subscription = alertService.getMessage().subscribe((message) => {
@@ -23,7 +23,7 @@ export class AlertComponent implements OnDestroy {
   }
 
   remove(): void {
-    this.message = '';
+    this.message.text = '';
     this.alertService.clear();
   }
 }

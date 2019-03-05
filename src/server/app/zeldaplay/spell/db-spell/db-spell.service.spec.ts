@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DbSpellService } from './db-spell.service';
 import { DbService } from '@Db/db.service';
-import { DbSpell } from '@Db/models/db_spell.table';
+import { DbSpell } from '@DbModel/index';
 
 const mockDb = {
   query: jest.fn()

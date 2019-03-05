@@ -1,5 +1,4 @@
-import { Modifier } from './enums/modifiers.enum';
-import { WeaponType } from './enums/weapons.enum';
+import { Modifier, WeaponType } from './enums/index';
 
 export class DbWeapon {
   wId: string;

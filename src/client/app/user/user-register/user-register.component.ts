@@ -34,7 +34,7 @@ export class UserRegisterComponent implements OnInit {
         },
         (error) => {
           this.loading = false;
-          this.alertService.error(error.error.message);
+          this.alertService.error(error.error);
         }
       );
   }

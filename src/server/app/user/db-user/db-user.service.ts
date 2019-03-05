@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { consoleLogger as scribe } from 'mc-scribe';
 
 import { DbService } from '@Db/db.service';
-import { DbPlayer } from '@Db/models/db_player.model';
+import { DbPlayer } from '@DbModel/index';
 
 @Injectable()
 export class DbUserService {

@@ -1,6 +1,6 @@
 import { ApiResponseModelProperty } from '@nestjs/swagger';
 
-import { Race } from './enums/races.enum';
+import { Race } from './enums/index';
 
 export class DbCharacterShort {
   @ApiResponseModelProperty({ type: 'string', example: '00Csntj8Gozz' })

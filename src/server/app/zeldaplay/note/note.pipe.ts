@@ -1,7 +1,7 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
-import { DbNote } from '@Db/models/db_note.model';
-import { NoteDTO } from '@Models/note/note.dto';
+import { NoteDTO } from '@Body/index';
+import { DbNote } from '@DbModel/index';
 
 @Injectable()
 export class NotePipe implements PipeTransform<NoteDTO, DbNote> {

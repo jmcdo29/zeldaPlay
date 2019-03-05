@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { SkillController } from '@Skill/skill.controller';
 import { SkillService } from '@Skill/skill.service';
-import { DbSkill } from '@Db/models/db_skill.model';
+import { DbSkill } from '@DbModel/index';
 
 const SkillServiceStub = {
   getCharacterSkills: jest
@@ -23,7 +23,7 @@ describe('Skill Controller', () => {
     expect(controller).toBeDefined();
   });
   it('should work for getSkiklls()', async () => {
-    const skills = await controller.getSkills('00Ctest12345');
+    const skills = await controller.getSkills({ charId: '00Ctest12345' });
     expect(SkillServiceStub.getCharacterSkills).toBeCalledTimes(1);
     expect(SkillServiceStub.getCharacterSkills).toBeCalledWith('00Ctest12345');
     expect(skills).toEqual([new DbSkill(), new DbSkill(), new DbSkill()]);

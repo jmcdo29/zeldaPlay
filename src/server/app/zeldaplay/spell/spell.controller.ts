@@ -9,8 +9,9 @@ import {
 } from '@nestjs/swagger';
 
 import { AuthGuard } from '@Auth/auth.guard';
-import { DbSpell } from '@DbModel/db_spell.table';
-import { SpellDTO } from '@Models/spell/spell.dto';
+import { SpellDTO } from '@Body/index';
+import { DbSpell } from '@DbModel/index';
+import { CharacterIdParam, SpellIdParam } from '@Parameter/index';
 import { SpellPipe } from '@Spell/spell.pipe';
 import { SpellService } from '@Spell/spell.service';
 
@@ -24,9 +25,10 @@ export class SpellController {
     title: 'Get Character Spells',
     description: 'Get all of the spells for the specified character.'
   })
+  @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiOkResponse({ type: DbSpell, isArray: true })
-  async getSpells(@Param('charId') charId: string): Promise<DbSpell[]> {
-    return this.spellService.getSpells(charId);
+  async getSpells(@Param() params: CharacterIdParam): Promise<DbSpell[]> {
+    return this.spellService.getSpells(params.charId);
   }
 
   @Post('new/:charId')
@@ -36,13 +38,14 @@ export class SpellController {
   })
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
+  @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
   @ApiOkResponse({ type: DbSpell })
   async newSpell(
     @Body('spell', SpellPipe) inSpell: DbSpell,
-    @Param('charId') charId: string
+    @Param() params: CharacterIdParam
   ): Promise<DbSpell> {
-    return this.spellService.newSpell(inSpell, charId);
+    return this.spellService.newSpell(inSpell, params.charId);
   }
 
   @Post('update/:spellId')
@@ -56,7 +59,8 @@ export class SpellController {
   @ApiImplicitParam({ name: 'spellId', required: true, type: 'string' })
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
   async updateSpell(
-    @Body('spell', SpellPipe) inSpell: DbSpell
+    @Body('spell', SpellPipe) inSpell: DbSpell,
+    @Param() params: SpellIdParam
   ): Promise<DbSpell> {
     return this.spellService.updateSpell(inSpell);
   }

@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { verify } from 'jsonwebtoken';
-import { consoleLogger as scribe } from 'mc-scribe';
+import { scribe } from 'mc-scribe';
 import { Observable } from 'rxjs';
 
 import { AuthService } from './auth.service';

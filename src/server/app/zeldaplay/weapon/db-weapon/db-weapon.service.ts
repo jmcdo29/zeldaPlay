@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { DbService } from '@Db/db.service';
-import { DbWeapon } from '@Db/models/db_weapon.model';
+import { DbWeapon } from '@DbModel/index';
 
 @Injectable()
 export class DbWeaponService {

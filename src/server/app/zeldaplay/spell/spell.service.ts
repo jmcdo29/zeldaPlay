@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { DbSpell } from '@Db/models/db_spell.table';
+import { DbSpell } from '@DbModel/index';
 import { DbSpellService } from './db-spell/db-spell.service';
 
 @Injectable()

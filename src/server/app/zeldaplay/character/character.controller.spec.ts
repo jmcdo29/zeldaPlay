@@ -1,5 +1,5 @@
 import { CharacterController } from '@Character/character.controller';
-import { DbCharacter } from '@Db/models/db_character.model';
+import { DbCharacter } from '@DbModel/index';
 
 const CharacterServiceStub = {
   getAll: jest
@@ -30,7 +30,9 @@ describe('Characters Controller', () => {
     ]);
   });
   it('should work for getUserChars', async () => {
-    const characters = await characterController.getUser('00Utest12345');
+    const characters = await characterController.getUser({
+      userId: '00Utest12345'
+    });
     expect(characters).toEqual([
       new DbCharacter(),
       new DbCharacter(),
@@ -38,18 +40,23 @@ describe('Characters Controller', () => {
     ]);
   });
   it('should work for getOne', async () => {
-    const character = await characterController.getOne('00Ctest12345');
+    const character = await characterController.getOne({
+      charId: '00Ctest12345'
+    });
     expect(character).toEqual(new DbCharacter());
   });
   it('should work for newChar', async () => {
     const character = await characterController.newChar(
-      '00Utest12345',
+      { userId: '00Utest12345' },
       new DbCharacter()
     );
     expect(character).toEqual(new DbCharacter());
   });
   it('should work for updateChar', async () => {
-    const character = await characterController.updateOne(new DbCharacter());
+    const character = await characterController.updateOne(
+      { charId: '' },
+      new DbCharacter()
+    );
     expect(character).toEqual(new DbCharacter());
   });
 });

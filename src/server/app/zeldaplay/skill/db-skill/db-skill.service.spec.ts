@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DbSkillService } from './db-skill.service';
 import { DbService } from '@Db/db.service';
-import { DbSkill } from '@Db/models/db_skill.model';
+import { DbSkill } from '@DbModel/index';
 
 const mockDb = {
   query: jest

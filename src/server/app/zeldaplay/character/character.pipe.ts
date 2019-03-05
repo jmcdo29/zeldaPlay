@@ -1,11 +1,8 @@
 import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
 
-import { DbCharacter } from '@DbModel/db_character.model';
-import { DbSave } from '@DbModel/db_save.model';
-import { DbSkill } from '@DbModel/db_skill.model';
-import { Modifier } from '@DbModel/enums/modifiers.enum';
-import { Race } from '@DbModel/enums/races.enum';
-import { CharacterDTO } from '@Models/character/character.dto';
+import { CharacterDTO } from '@Body/index';
+import { Modifier, Race } from '@DbModel/enums/index';
+import { DbCharacter, DbSave, DbSkill } from '@DbModel/index';
 
 @Injectable()
 export class CharacterPipe implements PipeTransform<CharacterDTO, DbCharacter> {
