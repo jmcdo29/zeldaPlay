@@ -113,7 +113,7 @@
     "node-notifier": "^5.4.0",
     "prettier": "^1.16.4",
     "rimraf": "^2.6.3",
-    "snyk": "^1.135.1",
+    "snyk": "^1.136.0",
     "stylelint": "^9.10.1",
     "stylelint-config-recommended-scss": "^3.2.0",
     "stylelint-scss": "^3.5.4",
