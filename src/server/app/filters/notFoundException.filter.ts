@@ -4,11 +4,14 @@ import {
   ExceptionFilter,
   NotFoundException
 } from '@nestjs/common';
-import { HttpException } from '@nestjs/common';
+import { BaseFilter } from './base.filter';
 
 @Catch(NotFoundException)
-export class NotFoundExceptionFilter implements ExceptionFilter {
-  catch(exception: HttpException, host: ArgumentsHost) {
+export class NotFoundExceptionFilter<T extends NotFoundException>
+  extends BaseFilter<T>
+  implements ExceptionFilter {
+  catch(exception: T, host: ArgumentsHost) {
+    super.catch(exception, host);
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     response.redirect('/');

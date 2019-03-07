@@ -4,11 +4,14 @@ import {
   Catch,
   ExceptionFilter
 } from '@nestjs/common';
+import { BaseFilter } from './base.filter';
 
 @Catch(BadRequestException)
 export class BadRequestFilter<T extends BadRequestException>
+  extends BaseFilter<T>
   implements ExceptionFilter {
   catch(exception: T, host: ArgumentsHost) {
+    super.catch(exception, host);
     let errors = '';
     for (const error of exception.message) {
       for (const constraint of Object.values<string>(error.constraints)) {

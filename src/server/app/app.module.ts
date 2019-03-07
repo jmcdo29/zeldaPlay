@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-
 import { AppController } from './app.controller';
 import { DbModule } from './db/db.module';
 import {
@@ -12,6 +11,7 @@ import { MetricsInterceptor } from './interceptors/index';
 import { MiddlewareModule } from './middleware/middleware.module';
 import { UserModule } from './user/user.module';
 import { ZeldaplayModule } from './zeldaplay/zeldaplay.module';
+
 @Module({
   controllers: [AppController],
   imports: [DbModule, MiddlewareModule, UserModule, ZeldaplayModule],

@@ -54,12 +54,10 @@ describe('CharacterService', () => {
       });
 
       const getCharacters = backend.expectOne(
-        `${environment.apiUrl}/character/`
+        `${environment.apiUrl}/character`
       );
 
-      expect(getCharacters.request.url).toBe(
-        `${environment.apiUrl}/character/`
-      );
+      expect(getCharacters.request.url).toBe(`${environment.apiUrl}/character`);
       getCharacters.flush([
         { id: 'some id', name: charName, race: 'the race' }
       ]);
@@ -74,12 +72,10 @@ describe('CharacterService', () => {
       });
 
       const getCharacters = backend.expectOne(
-        `${environment.apiUrl}/character/`
+        `${environment.apiUrl}/character`
       );
 
-      expect(getCharacters.request.url).toBe(
-        `${environment.apiUrl}/character/`
-      );
+      expect(getCharacters.request.url).toBe(`${environment.apiUrl}/character`);
       getCharacters.flush({});
 
       expect(actualReturn).not.toEqual(expectedReturn);
