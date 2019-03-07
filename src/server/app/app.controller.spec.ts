@@ -13,9 +13,9 @@ describe('App Controller', () => {
     expect(controller).toBeDefined();
   });
   it('should return index.html', async () => {
-    const resMock = { sendFile: jest.fn() };
-    const response = await controller.returnApp(resMock);
-    expect(resMock.sendFile).toBeCalled();
-    expect(resMock.sendFile).toBeCalledWith('index.html');
+    const sendFile = { sendFile: jest.fn() };
+    await controller.returnApp(sendFile);
+    expect(sendFile.sendFile).toBeCalled();
+    expect(sendFile.sendFile).toBeCalledWith('index.html');
   });
 });

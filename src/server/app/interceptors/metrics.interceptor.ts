@@ -18,19 +18,21 @@ export class MetricsInterceptor implements NestInterceptor {
   ): Observable<any> {
     const start = Date.now();
     const request = context.switchToHttp().getRequest();
+    const method = request.method || request.raw.method;
+    const route = request.url || request.raw.url;
     return call$.pipe(
       tap(() => {
         this.makeQuery({
-          method: request.method,
-          route: request.url,
+          method,
+          route,
           responseStatus: 200,
           responseTime: Date.now() - start
         });
       }),
       catchError((err) => {
         this.makeQuery({
-          method: request.method,
-          route: request.url,
+          method,
+          route,
           responseStatus: 400,
           responseTime: Date.now() - start
         });

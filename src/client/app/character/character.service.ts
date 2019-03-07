@@ -14,7 +14,7 @@ import { MessageService } from '#Shared/messages/message.service';
   providedIn: 'root'
 })
 export class CharacterService extends AbstractService {
-  private characterUrl = environment.apiUrl + '/character/';
+  private characterUrl = environment.apiUrl + '/character';
 
   constructor(
     private httpClient: HttpClient,
@@ -31,17 +31,19 @@ export class CharacterService extends AbstractService {
   }
 
   getCharacter(id: string): Observable<Character> {
-    return this.httpClient.get<ICharacterQuery>(this.characterUrl + id).pipe(
-      map<ICharacterQuery, Character>((response) => {
-        return new Character(null, response);
-      }),
-      catchError(this.handleError('get character', null))
-    );
+    return this.httpClient
+      .get<ICharacterQuery>(this.characterUrl + '/' + id)
+      .pipe(
+        map<ICharacterQuery, Character>((response) => {
+          return new Character(null, response);
+        }),
+        catchError(this.handleError('get character', null))
+      );
   }
 
   getUserCharacters(userId: string): Observable<Character[]> {
     return this.httpClient
-      .get<ICharacterQuery[]>(this.characterUrl + 'user/' + userId, {
+      .get<ICharacterQuery[]>(this.characterUrl + '/user/' + userId, {
         headers: {
           authorization: 'bearer ' + sessionStorage.getItem('userToken')
         },
@@ -66,7 +68,7 @@ export class CharacterService extends AbstractService {
     const charReq = this.transform(character);
     return this.httpClient
       .post<ICharacterQuery>(
-        this.characterUrl + `new/${userId}`,
+        this.characterUrl + `/new/${userId}`,
         {
           character: charReq
         },
@@ -89,7 +91,7 @@ export class CharacterService extends AbstractService {
     const charReq = this.transform(character);
     return this.httpClient
       .post<ICharacterQuery>(
-        this.characterUrl + `update/${character.id}`,
+        this.characterUrl + `/update/${character.id}`,
         { character: charReq },
         {
           headers: {

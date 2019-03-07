@@ -9,7 +9,7 @@ export class AppController {
     description: 'The base path where the angular application is sent from.'
   })
   @ApiProduces('text/html')
-  returnApp(@Res() res) {
+  returnApp(@Res() res: any) {
     res.sendFile('index.html');
   }
 }
