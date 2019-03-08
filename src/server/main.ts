@@ -10,10 +10,14 @@ import { SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
 import { scribe } from 'mc-scribe';
 import { AppModule } from './app/app.module';
+import { MyLogger } from './app/logger/logger.service';
 import { configSwagger } from './swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, new FastifyAdapter());
+  const app = await NestFactory.create(AppModule, new FastifyAdapter(), {
+    logger: false
+  });
+  app.useLogger(app.get(MyLogger));
   app.enableCors({
     origin: [
       'http://localhost:4200',

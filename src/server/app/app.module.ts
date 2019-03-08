@@ -8,13 +8,20 @@ import {
   UnauthorizedFilter
 } from './filters/index';
 import { MetricsInterceptor } from './interceptors/index';
+import { LoggerModule } from './logger/logger.module';
 import { MiddlewareModule } from './middleware/middleware.module';
 import { UserModule } from './user/user.module';
 import { ZeldaplayModule } from './zeldaplay/zeldaplay.module';
 
 @Module({
   controllers: [AppController],
-  imports: [SharedModule, MiddlewareModule, UserModule, ZeldaplayModule],
+  imports: [
+    SharedModule,
+    MiddlewareModule,
+    UserModule,
+    ZeldaplayModule,
+    LoggerModule
+  ],
   providers: [
     {
       provide: APP_INTERCEPTOR,
