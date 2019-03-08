@@ -39,6 +39,8 @@
     "test:ci": "snyk test && npm run test:cov -- --runInBand --coverageReporters=text-lcov | coveralls",
     "test:client": "npm test -- --projects src/client",
     "test:client:cov": "npm run test:client -- --coverage",
+    "test:e2e": "npm test -- -c src/server/tests/jest.config.js",
+    "test:e2e:cov": "npm run test:e2e -- --coverage",
     "test:server": "npm test -- --projects src/server",
     "test:server:cov": "npm run test:server -- --coverage"
   },

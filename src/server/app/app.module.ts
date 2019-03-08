@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { SharedModule } from '@Shared/shared.module';
 import { AppController } from './app.controller';
-import { DbModule } from './db/db.module';
 import {
   BadRequestFilter,
   NotFoundExceptionFilter,
@@ -14,7 +14,7 @@ import { ZeldaplayModule } from './zeldaplay/zeldaplay.module';
 
 @Module({
   controllers: [AppController],
-  imports: [DbModule, MiddlewareModule, UserModule, ZeldaplayModule],
+  imports: [SharedModule, MiddlewareModule, UserModule, ZeldaplayModule],
   providers: [
     {
       provide: APP_INTERCEPTOR,

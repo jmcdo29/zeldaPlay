@@ -1,26 +1,25 @@
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
 
-const { compilerOptions } = require('./tsconfig.app.json');
+const { compilerOptions } = require('../tsconfig.app.json');
 
 module.exports = {
   rootDir: '.',
-  name: 'server',
-  displayName: 'server',
+  name: 'e2e',
+  displayName: 'e2e',
   preset: 'ts-jest',
-  roots: ['<rootDir>/app'],
   moduleNameMapper: pathsToModuleNameMapper(
     compilerOptions.paths,
     {
-      prefix: '<rootDir>/'
+      prefix: '<rootDir>/../'
     }
   ),
   globals: {
     'ts-jest': {
-      tsConfig: '<rootDir>/tsconfig.spec.json'
+      tsConfig: '<rootDir>/../tsconfig.spec.json'
     }
   },
-  testMatch: ['**/*.spec.ts', '<rootDir>/tests/**'],
+  testMatch: ['**/*.e2e.spec.ts'],
   moduleFileExtensions: ['ts', 'js', 'json'],
-  coverageDirectory: '<rootDir>/../../coverage/server',
+  coverageDirectory: '<rootDir>/../../coverage/e2e',
   testEnvironment: "node"
 }
