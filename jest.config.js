@@ -1,6 +1,7 @@
 module.exports = {
   projects: [
     'src/server/jest.config.js',
+    'src/server/tests/jest.config.js',
     'src/client/jest.config.js'
   ],
   collectCoverageFrom: [
