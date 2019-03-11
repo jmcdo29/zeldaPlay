@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
@@ -48,7 +56,7 @@ export class SpellController {
     return this.spellService.newSpell(inSpell, params.charId);
   }
 
-  @Post('update/:spellId')
+  @Patch('update/:spellId')
   @ApiOperation({
     title: 'Update Spell',
     description: 'Update an existing spell based on its id.'

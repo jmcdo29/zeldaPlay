@@ -1,9 +1,9 @@
 import { Controller, Get, Res } from '@nestjs/common';
 import { ApiOperation, ApiProduces } from '@nestjs/swagger';
 
-@Controller()
+@Controller('/')
 export class AppController {
-  @Get()
+  @Get('/')
   @ApiOperation({
     title: 'Get App',
     description: 'The base path where the angular application is sent from.'

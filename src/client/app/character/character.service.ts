@@ -90,7 +90,7 @@ export class CharacterService extends AbstractService {
   saveUpdateCharDb(character: Character): Observable<Character> {
     const charReq = this.transform(character);
     return this.httpClient
-      .post<ICharacterQuery>(
+      .patch<ICharacterQuery>(
         this.characterUrl + `/update/${character.id}`,
         { character: charReq },
         {
