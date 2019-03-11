@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { BaseFilter } from './base.filter';
 
-@Catch(UnauthorizedFilter)
+@Catch(UnauthorizedException)
 export class UnauthorizedFilter<T extends UnauthorizedException>
   extends BaseFilter<T>
   implements ExceptionFilter {

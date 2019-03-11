@@ -13,7 +13,7 @@ export class BadRequestFilter<T extends BadRequestException>
   catch(exception: T, host: ArgumentsHost) {
     super.catch(exception, host);
     let errors = '';
-    for (const error of exception.message) {
+    for (const error of exception.message.message) {
       for (const constraint of Object.values<string>(error.constraints)) {
         errors += constraint + '.\n';
       }
