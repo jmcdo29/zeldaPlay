@@ -26,11 +26,11 @@ describe('AlertComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(AlertComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   test('should create', () => {
     expect(component).toBeTruthy();
