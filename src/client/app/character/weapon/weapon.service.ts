@@ -69,7 +69,7 @@ export class WeaponService extends AbstractService {
   updateWeapon(weapon: Weapon): Observable<Weapon> {
     const weaponReq = this.transform(weapon);
     return this.http
-      .post<IWeaponDb>(
+      .patch<IWeaponDb>(
         this.weaponURL + 'update/' + weapon.id,
         { weapon: weaponReq },
         {

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiImplicitBody,
@@ -48,7 +56,7 @@ export class WeaponController {
     return this.weaponService.newWeapon(inWeapon, params.charId);
   }
 
-  @Post('update/:weaponId')
+  @Patch('update/:weaponId')
   @ApiOperation({
     title: 'Update Weapon',
     description: 'Update the weapon saved in the database with the specified id'

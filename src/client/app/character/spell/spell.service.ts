@@ -69,7 +69,7 @@ export class SpellService extends AbstractService {
   updateSpell(spell: Spell): Observable<Spell> {
     const spellReq = this.transform(spell);
     return this.http
-      .post<ISpellDb>(
+      .patch<ISpellDb>(
         this.spellURL + 'update/' + spell.id,
         { spell: spellReq },
         {

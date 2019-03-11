@@ -45,7 +45,7 @@ export class SpellDTO {
   @IsIn(['Din', 'Farore', 'Nayru'])
   readonly diety: string;
 
-  @ApiModelProperty()
+  @ApiModelProperty({ type: 'boolean', default: false })
   @IsBoolean()
   readonly useDiety = false;
 

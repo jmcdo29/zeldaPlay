@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards
+} from '@nestjs/common';
 
 import {
   ApiBearerAuth,
@@ -76,7 +84,7 @@ export class CharacterController {
     return this.characterService.getOne(params.charId);
   }
 
-  @Post('update/:charId')
+  @Patch('update/:charId')
   @ApiOperation({
     title: 'Update Character',
     description: 'Update the incoming character. Found based on the passed id.'
