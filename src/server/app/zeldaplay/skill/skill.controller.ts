@@ -4,6 +4,7 @@ import { ApiOkResponse, ApiOperation, ApiUseTags } from '@nestjs/swagger';
 import { DbSkill } from '@DbModel/index';
 import { CharacterIdParam } from '@Parameter/index';
 import { SkillService } from '@Skill/skill.service';
+import { Observable } from 'rxjs';
 
 @ApiUseTags('skill')
 @Controller('character/skill')
@@ -16,7 +17,7 @@ export class SkillController {
     description: 'Get all the skills of the specified character.'
   })
   @ApiOkResponse({ type: DbSkill, isArray: true })
-  async getSkills(@Param() params: CharacterIdParam): Promise<DbSkill[]> {
+  getSkills(@Param() params: CharacterIdParam): Observable<DbSkill[]> {
     return this.skillService.getCharacterSkills(params.charId);
   }
 }

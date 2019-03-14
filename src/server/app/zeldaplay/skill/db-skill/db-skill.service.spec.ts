@@ -1,12 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DbSkillService } from './db-skill.service';
+import { of } from 'rxjs';
+
 import { DbService } from '@Db/db.service';
 import { DbSkill } from '@DbModel/index';
+import { DbSkillService } from './db-skill.service';
 
 const mockDb = {
   query: jest
     .fn()
-    .mockReturnValue([new DbSkill(), new DbSkill(), new DbSkill()])
+    .mockReturnValue(of([new DbSkill(), new DbSkill(), new DbSkill()]))
 };
 
 describe('DbSkillService', () => {
@@ -27,10 +29,11 @@ describe('DbSkillService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
-  it('should work for the get query', async () => {
-    const skills = await service.getSkills('00Ctest12345');
-    expect(mockDb.query.mock.calls[0][1][0]).toBe('00Ctest12345');
-    expect(mockDb.query).toBeCalledTimes(1);
-    expect(skills).toEqual([new DbSkill(), new DbSkill(), new DbSkill()]);
+  it('should work for the get query', () => {
+    service.getSkills('00Ctest12345').subscribe((skills) => {
+      expect(mockDb.query.mock.calls[0][1][0]).toBe('00Ctest12345');
+      expect(mockDb.query).toBeCalledTimes(1);
+      expect(skills).toEqual([new DbSkill(), new DbSkill(), new DbSkill()]);
+    });
   });
 });

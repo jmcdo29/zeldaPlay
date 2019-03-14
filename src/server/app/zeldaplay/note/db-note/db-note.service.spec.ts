@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DbNoteService } from './db-note.service';
+import { of } from 'rxjs';
+
 import { DbService } from '@Db/db.service';
 import { DbNote } from '@Db/models/db_note.model';
+import { DbNoteService } from './db-note.service';
 
 const mockDb = {
   query: jest.fn()
@@ -28,26 +30,26 @@ describe('DbNoteService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
-  it('should work for getNotes', async () => {
-    mockDb.query.mockReturnValueOnce([
-      new DbNote(),
-      new DbNote(),
-      new DbNote()
-    ]);
-    const notes = await service.getNotes(charId);
-    expect(mockDb.query.mock.calls[queryCalls][1][0]).toBe(charId);
-    expect(mockDb.query).toBeCalledTimes(++queryCalls);
-    expect(notes).toEqual([new DbNote(), new DbNote(), new DbNote()]);
+  it('should work for getNotes', () => {
+    mockDb.query.mockReturnValueOnce(
+      of([new DbNote(), new DbNote(), new DbNote()])
+    );
+    service.getNotes(charId).subscribe((notes) => {
+      expect(mockDb.query.mock.calls[queryCalls][1][0]).toBe(charId);
+      expect(mockDb.query).toBeCalledTimes(++queryCalls);
+      expect(notes).toEqual([new DbNote(), new DbNote(), new DbNote()]);
+    });
   });
   it('should work for saveNote', async () => {
-    mockDb.query.mockReturnValueOnce([new DbNote()]);
-    const savedNote = await service.saveNote(new DbNote(), charId);
-    expect(
-      mockDb.query.mock.calls[queryCalls][1][
-        mockDb.query.mock.calls[queryCalls][1].length - 1
-      ]
-    ).toBe(charId);
-    expect(mockDb.query).toBeCalledTimes(++queryCalls);
-    expect(savedNote).toEqual(new DbNote());
+    mockDb.query.mockReturnValueOnce(of([new DbNote()]));
+    service.saveNote(new DbNote(), charId).subscribe((savedNote) => {
+      expect(
+        mockDb.query.mock.calls[queryCalls][1][
+          mockDb.query.mock.calls[queryCalls][1].length - 1
+        ]
+      ).toBe(charId);
+      expect(mockDb.query).toBeCalledTimes(++queryCalls);
+      expect(savedNote).toEqual(new DbNote());
+    });
   });
 });

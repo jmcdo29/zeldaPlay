@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { DbService } from '@Db/db.service';
 import { DbPlayer } from '@DbModel/index';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class DbUserService {
@@ -11,14 +12,14 @@ export class DbUserService {
     this.schema = 'zeldaplay';
   }
 
-  async findByEmail(email: string): Promise<DbPlayer[]> {
+  findByEmail(email: string): Observable<DbPlayer[]> {
     return this.dbService.query<DbPlayer>(
       `SELECT id as "pId" FROM ${this.schema}.players WHERE email = $1`,
       [email]
     );
   }
 
-  async signup(email: string, password: string): Promise<DbPlayer[]> {
+  signup(email: string, password: string): Observable<DbPlayer[]> {
     return this.dbService.query<DbPlayer>(
       `INSERT INTO ${this.schema}.players
       (email, password) VALUES
@@ -27,7 +28,7 @@ export class DbUserService {
     );
   }
 
-  async login(email: string): Promise<DbPlayer[]> {
+  login(email: string): Observable<DbPlayer[]> {
     return this.dbService.query<DbPlayer>(
       `SELECT
         id as "pId"

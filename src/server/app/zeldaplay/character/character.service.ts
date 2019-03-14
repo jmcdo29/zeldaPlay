@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Observable, zip } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DbCharacter } from '@DbModel/index';
 import { DbCharacterService } from './db-character/db-character.service';
@@ -7,25 +9,30 @@ import { DbCharacterService } from './db-character/db-character.service';
 export class CharacterService {
   constructor(private readonly dbService: DbCharacterService) {}
 
-  async getAll(): Promise<DbCharacter[]> {
+  getAll(): Observable<DbCharacter[]> {
     return this.dbService.queryCharacters(process.env.DUMMY_ID);
   }
 
-  async getOne(charId: string): Promise<DbCharacter> {
+  getOne(charId: string): Observable<DbCharacter> {
     return this.dbService.queryCharacterOne(charId);
   }
 
-  async getUserChars(userId: string): Promise<DbCharacter[]> {
+  getUserChars(userId: string): Observable<DbCharacter[]> {
     return this.dbService.queryCharacters(userId);
   }
 
-  async newChar(inChar: DbCharacter, userId: string): Promise<DbCharacter> {
+  newChar(inChar: DbCharacter, userId: string): Observable<DbCharacter> {
     return this.dbService.insertNewCharacter(inChar, userId);
   }
 
-  async updateChar(inChar: DbCharacter): Promise<DbCharacter> {
-    await this.dbService.updateCharacter(inChar);
-    await this.dbService.updateSkills(inChar.skills, inChar.chId);
-    return inChar;
+  updateChar(inChar: DbCharacter): Observable<DbCharacter> {
+    return zip(
+      this.dbService.updateCharacter(inChar),
+      this.dbService.updateSkills(inChar.skills, inChar.chId)
+    ).pipe(
+      map((result) => {
+        return result[0];
+      })
+    );
   }
 }

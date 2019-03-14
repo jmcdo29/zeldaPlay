@@ -95,8 +95,5 @@
     "no-implicit-dependencies": false,
     "no-submodule-imports": false,
     "interface-name": false
-  },
-  "linterOptions": {
-    "exclude": ["**/*.spec.ts"]
   }
 }

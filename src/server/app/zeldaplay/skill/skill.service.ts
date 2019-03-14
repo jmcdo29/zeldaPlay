@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Observable } from 'rxjs';
 
 import { DbSkill } from '@DbModel/index';
 import { DbSkillService } from './db-skill/db-skill.service';
@@ -7,7 +8,7 @@ import { DbSkillService } from './db-skill/db-skill.service';
 export class SkillService {
   constructor(private readonly dbService: DbSkillService) {}
 
-  async getCharacterSkills(charId: string): Promise<DbSkill[]> {
+  getCharacterSkills(charId: string): Observable<DbSkill[]> {
     return this.dbService.getSkills(charId);
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { DbService } from '@Db/db.service';
 import { DbSkill } from '@DbModel/index';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class DbSkillService {
@@ -11,7 +12,7 @@ export class DbSkillService {
     this.schema = 'zeldaplay';
   }
 
-  async getSkills(charId: string): Promise<DbSkill[]> {
+  getSkills(charId: string): Observable<DbSkill[]> {
     return this.dbService.query<DbSkill>(
       `SELECT
         id as "skId"

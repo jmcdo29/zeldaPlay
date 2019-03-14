@@ -55,16 +55,4 @@ describe('#AuthGuard', () => {
       expect(!valid);
     });
   });
-  describe('validate function', () => {
-    it('should validate', async () => {
-      mock.validateUser.mockReturnValueOnce({ pId: 'playerId' });
-      const validResult = await guard.validate('token!');
-      expect(validResult);
-    });
-    it('should not validate', async () => {
-      mock.validateUser.mockReturnValueOnce({});
-      const invalidResult = await guard.validate('badToken');
-      expect(!invalidResult);
-    });
-  });
 });

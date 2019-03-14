@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 
 import { DbService } from '@Db/db.service';
 import { DbNote } from '@DbModel/index';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class DbNoteService {
@@ -11,7 +13,7 @@ export class DbNoteService {
     this.schema = 'zeldaplay';
   }
 
-  async getNotes(charId: string): Promise<DbNote[]> {
+  getNotes(charId: string): Observable<DbNote[]> {
     return this.dbService.query<DbNote>(
       `SELECT
         important as nImportant
@@ -23,13 +25,14 @@ export class DbNoteService {
     );
   }
 
-  async saveNote(note: DbNote, charId: string): Promise<DbNote> {
-    const notes = await this.dbService.query<DbNote>(
-      `INSERT INTO ${this.schema}.notes
+  saveNote(note: DbNote, charId: string): Observable<DbNote> {
+    return this.dbService
+      .query<DbNote>(
+        `INSERT INTO ${this.schema}.notes
       (important, message, note_time, character_id)
       RETURNING id as nId`,
-      [note.nImportant, note.nMessage, note.nNoteTime, charId]
-    );
-    return notes[0];
+        [note.nImportant, note.nMessage, note.nNoteTime, charId]
+      )
+      .pipe(map((notes) => notes[0]));
   }
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Observable } from 'rxjs';
 
 import { DbSpell } from '@DbModel/index';
 import { DbSpellService } from './db-spell/db-spell.service';
@@ -7,15 +8,15 @@ import { DbSpellService } from './db-spell/db-spell.service';
 export class SpellService {
   constructor(private readonly dbService: DbSpellService) {}
 
-  async getSpells(charId: string): Promise<DbSpell[]> {
+  getSpells(charId: string): Observable<DbSpell[]> {
     return this.dbService.getSpells(charId);
   }
 
-  async newSpell(newSpell: DbSpell, charId: string): Promise<DbSpell> {
+  newSpell(newSpell: DbSpell, charId: string): Observable<DbSpell> {
     return this.dbService.newSpell(newSpell, charId);
   }
 
-  async updateSpell(newSpell: DbSpell): Promise<DbSpell> {
+  updateSpell(newSpell: DbSpell): Observable<DbSpell> {
     return this.dbService.updateSpell(newSpell);
   }
 }

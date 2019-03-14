@@ -14,6 +14,7 @@ import { DbNote } from '@DbModel/index';
 import { NotePipe } from '@Note/note.pipe';
 import { NoteService } from '@Note/note.service';
 import { CharacterIdParam } from '@Parameter/index';
+import { Observable } from 'rxjs';
 
 @ApiUseTags('note')
 @Controller('character/note')
@@ -27,7 +28,7 @@ export class NoteController {
   })
   @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiOkResponse({ type: DbNote, isArray: true })
-  async getNotes(@Param() params: CharacterIdParam): Promise<DbNote[]> {
+  getNotes(@Param() params: CharacterIdParam): Observable<DbNote[]> {
     return this.noteService.getNotes(params.charId);
   }
 
@@ -41,10 +42,10 @@ export class NoteController {
   @ApiOkResponse({ type: DbNote })
   @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'note', type: NoteDTO })
-  async newNote(
+  newNote(
     @Body('note', NotePipe) inNote: DbNote,
     @Param() params: CharacterIdParam
-  ): Promise<DbNote> {
+  ): Observable<DbNote> {
     return this.noteService.saveNote(inNote, params.charId);
   }
 }

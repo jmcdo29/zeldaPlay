@@ -12,9 +12,9 @@ describe('App Controller', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
-  it('should return index.html', async () => {
+  it('should return index.html', () => {
     const sendFile = { sendFile: jest.fn() };
-    await controller.returnApp(sendFile);
+    controller.returnApp(sendFile);
     expect(sendFile.sendFile).toBeCalled();
     expect(sendFile.sendFile).toBeCalledWith('index.html');
   });

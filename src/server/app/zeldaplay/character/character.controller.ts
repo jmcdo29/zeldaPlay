@@ -16,6 +16,7 @@ import {
   ApiOperation,
   ApiUseTags
 } from '@nestjs/swagger';
+import { Observable } from 'rxjs';
 
 import { AuthGuard } from '@Auth/auth.guard';
 import { CharacterDTO } from '@Body/index';
@@ -37,7 +38,7 @@ export class CharacterController {
       'These are returned and shown as an example for the user to get an idea of how the app works.'
   })
   @ApiOkResponse({ type: DbCharacterShort, isArray: true })
-  async getAll(): Promise<DbCharacterShort[]> {
+  getAll(): Observable<DbCharacterShort[]> {
     return this.characterService.getAll();
   }
 
@@ -55,7 +56,7 @@ export class CharacterController {
   newChar(
     @Param() params: UserIdParam,
     @Body('character', CharacterPipe) character: DbCharacter
-  ): Promise<DbCharacter> {
+  ): Observable<DbCharacter> {
     return this.characterService.newChar(character, params.userId);
   }
 
@@ -68,7 +69,7 @@ export class CharacterController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: DbCharacter, isArray: true })
-  getUser(@Param() params: UserIdParam): Promise<DbCharacter[]> {
+  getUser(@Param() params: UserIdParam): Observable<DbCharacter[]> {
     return this.characterService.getUserChars(params.userId);
   }
 
@@ -80,7 +81,7 @@ export class CharacterController {
   })
   @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiOkResponse({ type: DbCharacter })
-  getOne(@Param() params: CharacterIdParam): Promise<DbCharacter> {
+  getOne(@Param() params: CharacterIdParam): Observable<DbCharacter> {
     return this.characterService.getOne(params.charId);
   }
 
@@ -97,7 +98,7 @@ export class CharacterController {
   updateOne(
     @Param() params: CharacterIdParam,
     @Body('character', CharacterPipe) inChar: DbCharacter
-  ): Promise<DbCharacter> {
+  ): Observable<DbCharacter> {
     return this.characterService.updateChar(inChar);
   }
 }

@@ -22,6 +22,7 @@ import { DbWeapon } from '@DbModel/index';
 import { CharacterIdParam, WeaponIdParam } from '@Parameter/index';
 import { WeaponPipe } from '@Weapon/weapon.pipe';
 import { WeaponService } from '@Weapon/weapon.service';
+import { Observable } from 'rxjs';
 
 @ApiUseTags('weapon')
 @Controller('character/weapon')
@@ -35,7 +36,7 @@ export class WeaponController {
   })
   @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiOkResponse({ type: DbWeapon, isArray: true })
-  async getWeapons(@Param() params: CharacterIdParam): Promise<DbWeapon[]> {
+  getWeapons(@Param() params: CharacterIdParam): Observable<DbWeapon[]> {
     return this.weaponService.getWeapons(params.charId);
   }
 
@@ -49,10 +50,10 @@ export class WeaponController {
   @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
   @ApiOkResponse({ type: DbWeapon })
-  async newWeapon(
+  newWeapon(
     @Body('weapon', WeaponPipe) inWeapon: DbWeapon,
     @Param() params: CharacterIdParam
-  ): Promise<DbWeapon> {
+  ): Observable<DbWeapon> {
     return this.weaponService.newWeapon(inWeapon, params.charId);
   }
 
@@ -66,10 +67,10 @@ export class WeaponController {
   @ApiOkResponse({ type: DbWeapon })
   @ApiImplicitParam({ name: 'weaponId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'weapon', type: WeaponDTO })
-  async updateWeapon(
+  updateWeapon(
     @Body('weapon', WeaponPipe) inWeapon: DbWeapon,
     @Param() params: WeaponIdParam
-  ): Promise<DbWeapon> {
+  ): Observable<DbWeapon> {
     return this.weaponService.updateWeapon(inWeapon);
   }
 }
