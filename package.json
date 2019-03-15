@@ -55,7 +55,7 @@
     "class-validator": "^0.9.1",
     "compression": "^1.7.3",
     "dotenv": "^6.2.0",
-    "fastify": "^2.0.1",
+    "fastify": "^2.1.0",
     "fastify-formbody": "^3.1.0",
     "fastify-swagger": "^2.3.2",
     "file-saver": "^2.0.1",
