@@ -13,7 +13,7 @@ async function bootstrap() {
     logger: false
   });
   configure(app);
-  await app.listen(process.env.PORT);
+  await app.listen(process.env.PORT, process.env.NODE_ENV.toLowerCase() === 'production' ? '0.0.0.0' : '127.0.0.1');
   scribe('INFO', `Application stated on ${process.env.PORT}.`);
 }
 
