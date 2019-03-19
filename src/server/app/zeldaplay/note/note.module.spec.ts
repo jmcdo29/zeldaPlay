@@ -1,7 +1,7 @@
-import { NoteModule } from '@Note/note.module';
+import { NoteServerModule } from '@Note/note.module';
 
 describe('#NoteModule', () => {
   test('note module should be truthy', () => {
-    expect(NoteModule).toBeTruthy();
+    expect(NoteServerModule).toBeTruthy();
   });
 });

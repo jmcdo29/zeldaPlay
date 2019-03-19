@@ -1,5 +1,5 @@
-import { MetricsInterceptor } from './metrics.interceptor';
 import { of, throwError } from 'rxjs';
+import { MetricsInterceptor } from './metrics.interceptor';
 
 describe('MetricsInterceptor', () => {
   let interceptor: MetricsInterceptor;
@@ -21,14 +21,13 @@ describe('MetricsInterceptor', () => {
           })
         })
       };
-      const call$ = of([]);
+      const call$ = { handle: () => of([]) };
+      const error$ = { handle: () => throwError(new Error('Error')) };
       it('should work for non-errors', () => {
         interceptor.intercept(context, call$).subscribe();
       });
       it('should work for errors', () => {
-        interceptor
-          .intercept(context, throwError(new Error('Error')))
-          .subscribe({ error(err) {} });
+        interceptor.intercept(context, error$).subscribe({ error(err) {} });
       });
     });
     describe('fastify', () => {
@@ -42,14 +41,13 @@ describe('MetricsInterceptor', () => {
           })
         })
       };
-      const call$ = of([]);
+      const call$ = { handle: () => of([]) };
+      const errored$ = { handle: () => throwError(new Error('Error')) };
       it('should work for non-errors', () => {
         interceptor.intercept(context, call$).subscribe();
       });
       it('should work for errors', () => {
-        interceptor
-          .intercept(context, throwError(new Error('Error')))
-          .subscribe({ error(err) {} });
+        interceptor.intercept(context, errored$).subscribe({ error(err) {} });
       });
     });
   });

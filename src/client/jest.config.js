@@ -10,13 +10,13 @@ module.exports = {
   preset: 'jest-preset-angular',
   globals: {
     'ts-jest': {
-      tsConfigFile: './tsconfig.spec.json'
-    },
-    __TRANSFORM_HTML__: true
+      tsConfigFile: './tsconfig.spec.json',
+      astTransformer: [ require.resolve('jest-preset-angular/InlineHtmlStripStylesTransformer')],
+      stringifyContextPathRegex: '\\.html$'
+    }
   },
   transform: {
-    '^.+\\.(ts|js|html)$':
-      '<rootDir>/../../node_modules/jest-preset-angular/preprocessor.js'
+    '^.+\\.(ts|js|html)$': 'ts-jest'
   },
   testMatch: ['**/*.spec.ts'],
   moduleFileExtensions: ['ts', 'js', 'json', 'html'],
@@ -28,5 +28,4 @@ module.exports = {
   ],
   setupFilesAfterEnv: ['<rootDir>/setupJest.ts'],
   coverageDirectory: '<rootDir>/../../coverage/client'
-  
 }

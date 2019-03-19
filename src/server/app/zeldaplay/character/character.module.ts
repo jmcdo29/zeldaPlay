@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 
 import { CharacterController } from '@Character/character.controller';
 import { CharacterService } from '@Character/character.service';
-import { SharedModule } from '@Shared/shared.module';
+import { SharedServerModule } from '@Shared/shared.module';
 import { DbCharacterService } from './db-character/db-character.service';
 
 @Module({
-  imports: [SharedModule],
+  imports: [SharedServerModule],
   controllers: [CharacterController],
   providers: [CharacterService, DbCharacterService]
 })
-export class CharacterModule {}
+export class CharacterServerModule {}

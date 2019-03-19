@@ -126,12 +126,12 @@ This is an Angular 2+ SPA. Hosted on [Heroku.com](https://zeldaplay.herokuapp.co
 
 ---
 
-[Contributing](.github/CONTRIBUTING.md)
+[Contributing](/CONTRIBUTING.md)
 
-[License](.github/LICENSE)
+[License](/LICENSE)
 
 [Bug Report](https://github.com/jmcdo29/zeldaPlay/issues/new?template=bug_report.md)
 
 [Feature Request](https://github.com/jmcdo29/zeldaPlay/issues/new?template=feature_request.md)
 
-[Code of Conduct](.github/CODE_OF_CONDUCT.md)
+[Code of Conduct](/CODE_OF_CONDUCT.md)

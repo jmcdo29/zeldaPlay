@@ -1,5 +1,5 @@
-import { UnauthorizedFilter } from './unauthorized.filter';
 import { UnauthorizedException } from '@nestjs/common';
+import { UnauthorizedFilter } from './unauthorized.filter';
 
 describe('UnauthorizedFilter', () => {
   let filter: UnauthorizedFilter<UnauthorizedException>;

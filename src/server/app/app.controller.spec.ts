@@ -13,7 +13,7 @@ describe('App Controller', () => {
     expect(controller).toBeDefined();
   });
   it('should return index.html', () => {
-    const sendFile = { sendFile: jest.fn() };
+    const sendFile: any = { sendFile: jest.fn() };
     controller.returnApp(sendFile);
     expect(sendFile.sendFile).toBeCalled();
     expect(sendFile.sendFile).toBeCalledWith('index.html');

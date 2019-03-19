@@ -1,4 +1,4 @@
-import { AppModule } from './app.module';
+import { AppServerModule } from './app.module';
 
 describe('#AppModule', () => {
   beforeAll(() => {
@@ -6,6 +6,6 @@ describe('#AppModule', () => {
   });
 
   test('module should be truthy', async () => {
-    expect(AppModule).toBeTruthy();
+    expect(AppServerModule).toBeTruthy();
   });
 });
