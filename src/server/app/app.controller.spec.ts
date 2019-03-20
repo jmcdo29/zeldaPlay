@@ -16,6 +16,6 @@ describe('App Controller', () => {
     const sendFile: any = { sendFile: jest.fn() };
     controller.returnApp(sendFile);
     expect(sendFile.sendFile).toBeCalled();
-    expect(sendFile.sendFile).toBeCalledWith('index.html');
+    expect(sendFile.sendFile).toBeCalledWith('build/client/index.html');
   });
 });

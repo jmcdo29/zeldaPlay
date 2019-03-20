@@ -5,7 +5,9 @@ describe('MetricsInterceptor', () => {
   let interceptor: MetricsInterceptor;
 
   beforeAll(() => {
-    interceptor = new MetricsInterceptor({ query: jest.fn() } as any);
+    interceptor = new MetricsInterceptor({
+      query: jest.fn().mockReturnValue(of([]))
+    } as any);
   });
 
   it('should be defined', () => {
@@ -44,7 +46,7 @@ describe('MetricsInterceptor', () => {
       const call$ = { handle: () => of([]) };
       const errored$ = { handle: () => throwError(new Error('Error')) };
       it('should work for non-errors', () => {
-        interceptor.intercept(context, call$).subscribe();
+        interceptor.intercept(context, call$).subscribe(() => {});
       });
       it('should work for errors', () => {
         interceptor.intercept(context, errored$).subscribe({ error(err) {} });

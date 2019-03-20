@@ -35,6 +35,10 @@ const characterServiceStub: Partial<CharacterService> = {
   }
 };
 
+const navBarServiceStub: any = {
+  navigate: (naviagation: { page: string }) => {}
+};
+
 describe('CharacterCreateComponent', () => {
   let component: CharacterCreateComponent;
   let fixture: ComponentFixture<CharacterCreateComponent>;
@@ -84,7 +88,8 @@ describe('CharacterCreateComponent', () => {
     test('cancel new character creation', () => {
       component.CharacterParent = new CharactersComponent(
         characterServiceStub as CharacterService,
-        alertServiceStub as AlertService
+        alertServiceStub as AlertService,
+        navBarServiceStub
       );
       component.cancel();
       expect(component.newCharacter).toBeNull();
@@ -147,7 +152,8 @@ describe('CharacterCreateComponent', () => {
         sessionStorage.setItem('currentUser', '00UjYh3bYs92');
         component.CharacterParent = new CharactersComponent(
           characterServiceStub as CharacterService,
-          alertServiceStub as AlertService
+          alertServiceStub as AlertService,
+          navBarServiceStub
         );
         component.attPoints = component.skillPoints = 0;
         component.save();
@@ -164,7 +170,8 @@ describe('CharacterCreateComponent', () => {
         component.attPoints = 0;
         component.CharacterParent = new CharactersComponent(
           characterServiceStub as CharacterService,
-          alertServiceStub as AlertService
+          alertServiceStub as AlertService,
+          navBarServiceStub
         );
         sessionStorage.removeItem('currentUser');
         component.save();
