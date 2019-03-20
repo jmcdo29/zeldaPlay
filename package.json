@@ -47,11 +47,11 @@
     "test:server:cov": "npm run test:server -- --coverage"
   },
   "dependencies": {
-    "@nestjs/common": "^6.0.1",
-    "@nestjs/core": "^6.0.1",
+    "@nestjs/common": "^6.0.2",
+    "@nestjs/core": "^6.0.2",
     "@nestjs/jwt": "^6.0.0",
     "@nestjs/passport": "^6.0.0",
-    "@nestjs/platform-fastify": "^6.0.1",
+    "@nestjs/platform-fastify": "^6.0.2",
     "@nestjs/swagger": "^3.0.1",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.2.0",
