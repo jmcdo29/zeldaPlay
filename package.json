@@ -8,7 +8,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run clean && npm run format && bash scripts/bin/gitAddMod.sh"
+      "pre-commit": "scripts/bin/pre-commit.sh"
     }
   },
   "repository": {
@@ -27,15 +27,15 @@
     "document:server:dev": "npm run document:client -- -s",
     "failure": "echo Oops! There was a problem compiling!",
     "format": "prettier --write \"{src/**/*.{ts,scss,html,json},*.{json,yml,yaml},.*.{yml,json,yaml}}\"",
-    "lint": "scripts/bin.lint.sh",
+    "lint": "scripts/bin/lint.sh",
     "lint:client": "ng lint",
-    "lint:server": "srcipts/bin/lint_server.sh",
+    "lint:server": "scripts/bin/lint_server.sh",
     "lint:server:src": "tslint -p src/server/tsconfig.app.json",
     "lint:server:test": "tslint -p src/server/tsconfig.spec.json",
     "ng": "ng",
     "start": "node -r ./scripts/node/ts-config-bootstrap.js dist/server/main.js",
     "start:debug": "scripts/bin/start_debug.sh",
-    "start:dev": "concurrently -n \"client,server\" -c \"green,magenta\" \"npm run start:dev:client\" \"npm run start:dev:server\"",
+    "start:dev": "scripts/bin/start_dev.sh",
     "start:dev:client": "ng serve --open",
     "start:dev:server": "scripts/bin/start_dev_server.sh",
     "test": "jest",

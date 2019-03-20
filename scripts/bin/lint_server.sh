@@ -1,3 +1,3 @@
 #! /bin/sh
 
-npx concurrently -n "main,tests" -c "cyan,magent" "npm run lint:server:src" "npm run lint:server:test"
+npx concurrently -n "main,tests" -c "cyan,magenta" "npm run lint:server:src" "npm run lint:server:test"
