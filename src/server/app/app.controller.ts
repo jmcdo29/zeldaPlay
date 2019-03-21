@@ -10,6 +10,6 @@ export class AppController {
   })
   @ApiProduces('text/html')
   returnApp(@Res() res: any) {
-    res.sendFile('build/client/index.html');
+    res.sendFile('index.html');
   }
 }
