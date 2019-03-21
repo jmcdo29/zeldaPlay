@@ -16,7 +16,7 @@ export function configure(app: INestApplication & NestFastifyApplication) {
   app.enableCors({
     origin: [/localhost:*/, 'https://zeladplay.herokuapp.com/']
   });
-  const rootPath = join(__dirname, '../../');
+  const rootPath = join(__dirname, '../client/');
   app.useStaticAssets({ root: rootPath });
   app.use(
     morgan(morganFormat, {
