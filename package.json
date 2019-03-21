@@ -33,7 +33,7 @@
     "lint:server:src": "tslint -p src/server/tsconfig.app.json",
     "lint:server:test": "tslint -p src/server/tsconfig.spec.json",
     "ng": "ng",
-    "start": "node -r ./scripts/node/ts-config-bootstrap.js dist/server/main.js",
+    "start": "node -r ./scripts/node/ts-config-bootstrap.js dist/build/server/main.js",
     "start:debug": "scripts/bin/start_debug.sh",
     "start:dev": "scripts/bin/start_dev.sh",
     "start:dev:client": "ng serve --open",
