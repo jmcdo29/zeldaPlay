@@ -2,6 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { verify } from 'jsonwebtoken';
 import { scribe } from 'mc-scribe';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
 
@@ -28,6 +29,6 @@ export class AuthGuard implements CanActivate {
   }
 
   validate(token: any): boolean | Promise<boolean> | Observable<boolean> {
-    return !!this.authService.validateUser(token);
+    return this.authService.validateUser(token).pipe(map((user) => !!user));
   }
 }

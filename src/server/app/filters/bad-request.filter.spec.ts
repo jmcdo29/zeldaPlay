@@ -1,5 +1,5 @@
-import { BadRequestFilter } from './bad-request-filter.filter';
 import { BadRequestException } from '@nestjs/common';
+import { BadRequestFilter } from './bad-request.filter';
 
 describe('BadRequestFilterFilter', () => {
   let filter: BadRequestFilter<BadRequestException>;
@@ -11,17 +11,9 @@ describe('BadRequestFilterFilter', () => {
   });
   it('should catch the error', () => {
     filter.catch(
-      {
-        getStatus: jest.fn().mockReturnValue(400),
-        message: [
-          {
-            constraints: [
-              'Password should be more than 8 characters',
-              'Password should contain an upper case character'
-            ]
-          }
-        ]
-      } as any,
+      new BadRequestException({
+        message: [{ constraints: ['A bad request'] }]
+      }),
       {
         switchToHttp: jest.fn().mockReturnValue({
           getResponse: jest.fn().mockReturnValue({

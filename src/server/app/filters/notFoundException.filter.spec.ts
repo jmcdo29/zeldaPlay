@@ -1,10 +1,10 @@
-import { NotFoundExceptionFilter } from './notFoundException.filter';
 import { NotFoundException } from '@nestjs/common';
+import { NotFoundFilter } from './notFoundException.filter';
 
 describe('UnauthorizedFilter', () => {
-  let filter: NotFoundExceptionFilter<NotFoundException>;
+  let filter: NotFoundFilter<NotFoundException>;
   beforeAll(() => {
-    filter = new NotFoundExceptionFilter({ catch: jest.fn() } as any);
+    filter = new NotFoundFilter({ catch: jest.fn() } as any);
   });
   it('should be defined', () => {
     expect(filter).toBeTruthy();

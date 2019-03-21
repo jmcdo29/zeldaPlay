@@ -10,23 +10,14 @@ module.exports = {
   preset: 'jest-preset-angular',
   globals: {
     'ts-jest': {
-      tsConfigFile: './tsconfig.spec.json'
-    },
-    __TRANSFORM_HTML__: true
-  },
-  transform: {
-    '^.+\\.(ts|js|html)$':
-      '<rootDir>/../../node_modules/jest-preset-angular/preprocessor.js'
+      tsConfig: '<rootDir>/tsconfig.spec.json',
+      astTransformers: [ require.resolve('jest-preset-angular/InlineHtmlStripStylesTransformer')],
+      stringifyContentPathRegex: '\\.html$'
+    }
   },
   testMatch: ['**/*.spec.ts'],
   moduleFileExtensions: ['ts', 'js', 'json', 'html'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {prefix: '<rootDir>/'}),
-  transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
-  snapshotSerializers: [
-    '<rootDir>/../../node_modules/jest-preset-angular/AngularSnapshotSerializer.js',
-    '<rootDir>/../../node_modules/jest-preset-angular/HTMLCommentSerializer.js'
-  ],
   setupFilesAfterEnv: ['<rootDir>/setupJest.ts'],
   coverageDirectory: '<rootDir>/../../coverage/client'
-  
 }

@@ -5,6 +5,7 @@ import { AuthService } from '@Auth/auth.service';
 import { JwtStrategy } from '@Auth/jwt.strategy';
 
 import { UserService } from '@User/user.service';
+import { of } from 'rxjs';
 
 process.env.TOKEN_SECRET = 'some secret';
 
@@ -38,63 +39,84 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
   describe('login', () => {
-    it('should allow a user to log in', async () => {
+    it('should allow a user to log in', () => {
       const loginSpy = jest
         .spyOn(userServiceMock, 'login')
-        .mockImplementationOnce(() => ({ pEmail: testEmail, pId: testId }));
-      const loginRes = await service.login({
-        email: testEmail,
-        password: testPass
-      });
-      expect(loginSpy).toBeCalled();
-      expect(loginSpy).toBeCalledWith({ email: testEmail, password: testPass });
-      expect(loginRes.accessToken).toBeTruthy();
-      expect(loginRes.id).toBe(testId);
+        .mockReturnValueOnce(of({ pEmail: testEmail, pId: testId }));
+      service
+        .login({
+          email: testEmail,
+          password: testPass
+        })
+        .subscribe((loginRes) => {
+          expect(loginSpy).toBeCalled();
+          expect(loginSpy).toBeCalledWith({
+            email: testEmail,
+            password: testPass
+          });
+          expect(loginRes.accessToken).toBeTruthy();
+          expect(loginRes.id).toBe(testId);
+        });
     });
   });
   describe('signup', () => {
-    it('should allow a user to signup', async () => {
+    it('should allow a user to signup', () => {
       const signupSpy = jest
         .spyOn(userServiceMock, 'signup')
-        .mockReturnValueOnce({ pEmail: testEmail, pId: testId });
-      const signupRes = await service.signup({
-        email: testEmail,
-        password: testPass,
-        confirmationPassword: testPass,
-        recovery: []
-      });
-      expect(signupSpy).toBeCalled();
-      expect(signupSpy).toBeCalledWith({
-        email: testEmail,
-        password: testPass,
-        confirmationPassword: testPass,
-        recovery: []
-      });
-      expect(signupRes.accessToken).toBeTruthy();
-      expect(signupRes.id).toBe(testId);
+        .mockReturnValueOnce(of({ pEmail: testEmail, pId: testId }));
+      service
+        .signup({
+          email: testEmail,
+          password: testPass,
+          confirmationPassword: testPass,
+          recovery: []
+        })
+        .subscribe((signupRes) => {
+          expect(signupSpy).toBeCalled();
+          expect(signupSpy).toBeCalledWith({
+            email: testEmail,
+            password: testPass,
+            confirmationPassword: testPass,
+            recovery: []
+          });
+          expect(signupRes.accessToken).toBeTruthy();
+          expect(signupRes.id).toBe(testId);
+        });
     });
   });
   describe('validateUser', () => {
-    it('should validate the token from the user', async () => {
+    it('should validate the token from the user', () => {
       const findSpy = jest
         .spyOn(userServiceMock, 'findUserByEmail')
-        .mockImplementationOnce(() => [{ pEmail: testEmail, pId: testId }]);
-      const validateRes = await service.validateUser({
-        provider: 'local',
-        email: testEmail,
-        id: testId,
-        iat: Date.now().toString(),
-        exp: '3000'
-      });
-      expect(findSpy).toBeCalledWith(testEmail);
-      expect(validateRes).toEqual({ pEmail: testEmail, pId: testId });
+        .mockReturnValueOnce(of([{ pEmail: testEmail, pId: testId }]));
+      service
+        .validateUser({
+          provider: 'local',
+          email: testEmail,
+          id: testId,
+          iat: Date.now().toString(),
+          exp: '3000'
+        })
+        .subscribe((validateRes) => {
+          expect(findSpy).toBeCalledWith(testEmail);
+          expect(validateRes).toEqual({ pEmail: testEmail, pId: testId });
+        });
     });
-    it('should throw an error for an invalid token', async () => {
-      try {
-        await service.validateUser({ provider: '' } as any);
-      } catch (err) {
-        expect(err.message.message).toBe('Login invalid. Please log in again.');
-      }
+    it('should throw an error for an invalid token', () => {
+      const findSpy = jest
+        .spyOn(userServiceMock, 'findUserByEmail')
+        .mockReturnValueOnce(of([]));
+      service.validateUser({ provider: '' } as any).subscribe(
+        () => {
+          throw new Error('Should not be here');
+        },
+        (err) => {
+          expect(findSpy).toBeCalledWith(undefined);
+          expect(err.message.message).toBe(
+            'Login invalid. Please log in again.'
+          );
+        }
+      );
     });
   });
 });

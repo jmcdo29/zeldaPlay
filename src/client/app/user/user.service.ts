@@ -14,7 +14,7 @@ export class UserService {
 
   register(username: string, password: string, confPass: string) {
     return this.http
-      .post<any>(environment.apiUrl + '/users/signup', {
+      .post<any>(environment.apiUrl + '/signup', {
         user: {
           email: username,
           password,
@@ -26,7 +26,7 @@ export class UserService {
 
   login(username: string, password: string) {
     return this.http
-      .post<any>(environment.apiUrl + '/users/login', {
+      .post<any>(environment.apiUrl + '/login', {
         user: {
           email: username,
           password
@@ -38,7 +38,7 @@ export class UserService {
   logout() {
     this.http
       .post<any>(
-        environment.apiUrl + '/users/logout',
+        environment.apiUrl + '/logout',
         {},
         {
           withCredentials: true

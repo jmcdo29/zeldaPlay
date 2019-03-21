@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 
 import { DbService } from '@Db/db.service';
 import { DbWeapon } from '@DbModel/index';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class DbWeaponService {
@@ -11,7 +13,7 @@ export class DbWeaponService {
     this.schema = 'zeldaplay';
   }
 
-  async getWeapons(charId: string): Promise<DbWeapon[]> {
+  getWeapons(charId: string): Observable<DbWeapon[]> {
     return this.dbService.query<DbWeapon>(
       `SELECT
         id as "wId"
@@ -30,31 +32,33 @@ export class DbWeaponService {
     );
   }
 
-  async newWeapon(weapon: DbWeapon, charId: string): Promise<DbWeapon> {
-    const weapons = await this.dbService.query<DbWeapon>(
-      `INSERT INTO ${this.schema}.weapons
+  newWeapon(weapon: DbWeapon, charId: string): Observable<DbWeapon> {
+    return this.dbService
+      .query<DbWeapon>(
+        `INSERT INTO ${this.schema}.weapons
       (name, modifier, ammo, range, crit_damage, crit_range, number_of_hits, type, damage, character_id) VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING id as wId`,
-      [
-        weapon.wName,
-        weapon.wModifier,
-        weapon.wAmmo,
-        weapon.wRange,
-        weapon.wCritDamage,
-        weapon.wCritRange,
-        weapon.wNumberOfHits,
-        weapon.wType,
-        weapon.wDamage,
-        charId
-      ]
-    );
-    return weapons[0];
+        [
+          weapon.wName,
+          weapon.wModifier,
+          weapon.wAmmo,
+          weapon.wRange,
+          weapon.wCritDamage,
+          weapon.wCritRange,
+          weapon.wNumberOfHits,
+          weapon.wType,
+          weapon.wDamage,
+          charId
+        ]
+      )
+      .pipe(map((weapons) => weapons[0]));
   }
 
-  async updateWeapon(weapon: DbWeapon): Promise<DbWeapon> {
-    const weapons = await this.dbService.query<DbWeapon>(
-      `UPDATE ${this.schema}.weapons as w
+  updateWeapon(weapon: DbWeapon): Observable<DbWeapon> {
+    return this.dbService
+      .query<DbWeapon>(
+        `UPDATE ${this.schema}.weapons as w
         SET name = inWeap.name
         ,modifier = inWeap.modifier
         ,ammo = inWeap.ammo
@@ -67,18 +71,18 @@ export class DbWeaponService {
       FROM( VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9))
       AS inWeap(name, modifier, ammo, range, crit_damage, crit_range, number_of_hits, type, damage)
       WHERE w.id = ${weapon.wId}`,
-      [
-        weapon.wName,
-        weapon.wModifier,
-        weapon.wAmmo,
-        weapon.wRange,
-        weapon.wCritDamage,
-        weapon.wCritRange,
-        weapon.wNumberOfHits,
-        weapon.wType,
-        weapon.wDamage
-      ]
-    );
-    return weapons[0];
+        [
+          weapon.wName,
+          weapon.wModifier,
+          weapon.wAmmo,
+          weapon.wRange,
+          weapon.wCritDamage,
+          weapon.wCritRange,
+          weapon.wNumberOfHits,
+          weapon.wType,
+          weapon.wDamage
+        ]
+      )
+      .pipe(map((weapons) => weapons[0]));
   }
 }

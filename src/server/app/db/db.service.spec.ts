@@ -21,29 +21,33 @@ describe('DbService', () => {
     beforeEach(() => {
       jest.clearAllMocks();
     });
-    it('should return a record of some sort', async () => {
-      const querySpy = (Pool.prototype.query as any).mockReturnValue({
-        rowCount: 1,
-        rows: [{ id: '00C2nI7nYh21' }]
-      });
-      const qResult = await service.query<any>(
-        'SELECT Id FROM Character LIMIT 1;',
-        []
+    it('should return a record of some sort', () => {
+      const querySpy = (Pool.prototype.query as any).mockImplementation(() =>
+        Promise.resolve({
+          rowCount: 1,
+          rows: [{ id: '00C2nI7nYh21' }]
+        })
       );
-      expect(querySpy).toBeCalledTimes(1);
-      expect(querySpy).toBeCalledWith('SELECT Id FROM Character LIMIT 1;', []);
-      expect(qResult).toEqual([{ id: '00C2nI7nYh21' }]);
-    });
-    it('should return an empty array because of a bad query', async () => {
-      const querySpy = jest
-        .spyOn(Pool.prototype, 'query')
-        .mockImplementation(() => {
-          throw new Error('Malformed Query');
+      service
+        .query<{ id: string }>('SELECT Id FROM Character LIMIT 1;', [])
+        .subscribe((queryRes) => {
+          expect(querySpy).toBeCalledTimes(1);
+          expect(querySpy).toBeCalledWith(
+            'SELECT Id FROM Character LIMIT 1;',
+            []
+          );
+          expect(queryRes).toEqual([{ id: '00C2nI7nYh21' }]);
         });
-      const qResult = await service.query('This is a bad query', []);
-      expect(querySpy).toBeCalledTimes(2);
-      expect(querySpy).toBeCalledWith('This is a bad query', []);
-      expect(qResult).toEqual([]);
+    });
+    it('should return an empty array because of a bad query', () => {
+      const querySpy = (Pool.prototype.query as any).mockImplementationOnce(
+        () => Promise.reject(new Error('Error'))
+      );
+      service.query<any>('This is a bad query', []).subscribe((qResult) => {
+        expect(querySpy).toBeCalledTimes(2);
+        expect(querySpy).toBeCalledWith('This is a bad query', []);
+        expect(qResult).toEqual([]);
+      });
     });
   });
 });

@@ -7,8 +7,7 @@ import {
 import { BaseFilter } from './base.filter';
 
 @Catch(NotFoundException)
-export class NotFoundExceptionFilter<T extends NotFoundException>
-  extends BaseFilter<T>
+export class NotFoundFilter<T extends NotFoundException> extends BaseFilter<T>
   implements ExceptionFilter {
   catch(exception: T, host: ArgumentsHost) {
     super.catch(exception, host);

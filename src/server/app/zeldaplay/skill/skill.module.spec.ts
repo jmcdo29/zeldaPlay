@@ -1,7 +1,7 @@
-import { SkillModule } from '@Skill/skill.module';
+import { SkillServerModule } from '@Skill/skill.module';
 
 describe('#SkillModule', () => {
   test('skill module should be truthy', () => {
-    expect(SkillModule).toBeTruthy();
+    expect(SkillServerModule).toBeTruthy();
   });
 });

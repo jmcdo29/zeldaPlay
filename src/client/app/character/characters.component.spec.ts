@@ -10,9 +10,9 @@ import { myChar } from '#Mocks/character.mock';
 import { characterReturn } from '#Mocks/characterRes.mock';
 import { Character } from '#Models/character';
 import { MaterialModule } from '#Shared/material/material.module';
+import { NavBarService } from '#Shared/nav-bar.service';
 import { CharacterService } from './character.service';
 import { CharactersComponent } from './characters.component';
-import { NavBarService } from '#Shared/nav-bar.service';
 
 @Component({ selector: 'app-character-detail', template: '' })
 class CharacterDetailStubComponent {

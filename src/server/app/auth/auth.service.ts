@@ -4,6 +4,8 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtDTO, JwtReturnDTO, NewUserDTO, UserDTO } from '@Body/index';
 import { DbPlayer } from '@DbModel/index';
 import { UserService } from '@User/user.service';
+import { Observable, OperatorFunction } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -12,40 +14,39 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  async login(payload: UserDTO): Promise<JwtReturnDTO> {
-    const user = await this.userService.login(payload);
-    const accessToken = this.jwtService.sign({
-      email: user.pEmail,
-      id: user.pId,
-      provider: 'local'
-    });
-    return {
-      accessToken,
-      id: user.pId
-    };
+  login(payload: UserDTO): Observable<JwtReturnDTO> {
+    return this.userService.login(payload).pipe(this.signToken());
   }
 
-  async signup(newUser: NewUserDTO): Promise<JwtReturnDTO> {
-    const user = await this.userService.signup(newUser);
-    const accessToken = this.jwtService.sign({
-      email: user.pEmail,
-      id: user.pId,
-      provider: 'local'
-    });
-    return {
-      accessToken,
-      id: user.pId
-    };
+  signup(newUser: NewUserDTO): Observable<JwtReturnDTO> {
+    return this.userService.signup(newUser).pipe(this.signToken());
   }
 
-  async validateUser(payload: JwtDTO): Promise<DbPlayer> {
-    // tslint:disable-next-line:no-small-switch
-    switch (payload.provider) {
-      case 'local':
-        const users = await this.userService.findUserByEmail(payload.email);
-        return users[0];
-      default:
-        throw new UnauthorizedException('Login invalid. Please log in again.');
-    }
+  validateUser(payload: JwtDTO): Observable<DbPlayer> {
+    return this.userService.findUserByEmail(payload.email).pipe(
+      map((users) => {
+        if (users.length === 0) {
+          throw new UnauthorizedException(
+            'Login invalid. Please log in again.'
+          );
+        } else {
+          return users[0];
+        }
+      })
+    );
+  }
+
+  signToken(): OperatorFunction<any, JwtReturnDTO> {
+    return map((user) => {
+      const accessToken = this.jwtService.sign({
+        email: user.pEmail,
+        id: user.pId,
+        provider: 'local'
+      });
+      return {
+        accessToken,
+        id: user.pId
+      };
+    });
   }
 }

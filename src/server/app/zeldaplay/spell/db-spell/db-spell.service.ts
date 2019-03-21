@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DbService } from '@Db/db.service';
 import { DbSpell } from '@DbModel/index';
@@ -11,7 +13,7 @@ export class DbSpellService {
     this.schema = 'zeldaplay';
   }
 
-  async getSpells(charId: string): Promise<DbSpell[]> {
+  getSpells(charId: string): Observable<DbSpell[]> {
     return this.dbService.query<DbSpell>(
       `SELECT
         id as "spId"
@@ -28,30 +30,32 @@ export class DbSpellService {
     );
   }
 
-  async newSpell(spell: DbSpell, charId: string): Promise<DbSpell> {
-    const spells = await this.dbService.query<DbSpell>(
-      `INSERT INTO ${this.schema}.spells
+  newSpell(spell: DbSpell, charId: string): Observable<DbSpell> {
+    return this.dbService
+      .query<DbSpell>(
+        `INSERT INTO ${this.schema}.spells
       (name, effect, damage, diety, mp_use, use_diety, modifier, number_of_hits, character_id) VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING id as spId`,
-      [
-        spell.spName,
-        spell.spEffect,
-        spell.spDamage,
-        spell.spDiety,
-        spell.spMpUse,
-        spell.spUseDiety,
-        spell.spModifier,
-        spell.spNumberOfHits,
-        charId
-      ]
-    );
-    return spells[0];
+        [
+          spell.spName,
+          spell.spEffect,
+          spell.spDamage,
+          spell.spDiety,
+          spell.spMpUse,
+          spell.spUseDiety,
+          spell.spModifier,
+          spell.spNumberOfHits,
+          charId
+        ]
+      )
+      .pipe(map((spells) => spells[0]));
   }
 
-  async updateSpell(spell: DbSpell): Promise<DbSpell> {
-    const spells = await this.dbService.query<DbSpell>(
-      `UPDATE ${this.schema}.spells as spells
+  updateSpell(spell: DbSpell): Observable<DbSpell> {
+    return this.dbService
+      .query<DbSpell>(
+        `UPDATE ${this.schema}.spells as spells
         SET damage = inSpell.damage
         ,diety = inSpell.diety
         ,effect = inSpell.effect
@@ -63,17 +67,17 @@ export class DbSpellService {
       FROM( VALUES($1, $2, $3, $4, $5, $6, $7, $8))
       AS inSpell(damage ,diety ,effect ,modifier ,mp_use ,name ,use_diety ,number_of_hits)
       WHERE spell.id = ${spell.spId}`,
-      [
-        spell.spDamage,
-        spell.spDiety,
-        spell.spEffect,
-        spell.spModifier,
-        spell.spMpUse,
-        spell.spName,
-        spell.spUseDiety,
-        spell.spNumberOfHits
-      ]
-    );
-    return spells[0];
+        [
+          spell.spDamage,
+          spell.spDiety,
+          spell.spEffect,
+          spell.spModifier,
+          spell.spMpUse,
+          spell.spName,
+          spell.spUseDiety,
+          spell.spNumberOfHits
+        ]
+      )
+      .pipe(map((spells) => spells[0]));
   }
 }

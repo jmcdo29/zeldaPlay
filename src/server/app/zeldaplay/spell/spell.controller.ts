@@ -22,6 +22,7 @@ import { DbSpell } from '@DbModel/index';
 import { CharacterIdParam, SpellIdParam } from '@Parameter/index';
 import { SpellPipe } from '@Spell/spell.pipe';
 import { SpellService } from '@Spell/spell.service';
+import { Observable } from 'rxjs';
 
 @ApiUseTags('spell')
 @Controller('character/spell')
@@ -35,7 +36,7 @@ export class SpellController {
   })
   @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiOkResponse({ type: DbSpell, isArray: true })
-  async getSpells(@Param() params: CharacterIdParam): Promise<DbSpell[]> {
+  getSpells(@Param() params: CharacterIdParam): Observable<DbSpell[]> {
     return this.spellService.getSpells(params.charId);
   }
 
@@ -49,10 +50,10 @@ export class SpellController {
   @ApiImplicitParam({ name: 'charId', type: 'string', required: true })
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
   @ApiOkResponse({ type: DbSpell })
-  async newSpell(
+  newSpell(
     @Body('spell', SpellPipe) inSpell: DbSpell,
     @Param() params: CharacterIdParam
-  ): Promise<DbSpell> {
+  ): Observable<DbSpell> {
     return this.spellService.newSpell(inSpell, params.charId);
   }
 
@@ -66,10 +67,10 @@ export class SpellController {
   @ApiOkResponse({ type: DbSpell })
   @ApiImplicitParam({ name: 'spellId', required: true, type: 'string' })
   @ApiImplicitBody({ name: 'spell', type: SpellDTO })
-  async updateSpell(
+  updateSpell(
     @Body('spell', SpellPipe) inSpell: DbSpell,
     @Param() params: SpellIdParam
-  ): Promise<DbSpell> {
+  ): Observable<DbSpell> {
     return this.spellService.updateSpell(inSpell);
   }
 }

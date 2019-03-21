@@ -14,12 +14,4 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       secretOrKey: process.env.TOKEN_SECRET
     });
   }
-
-  async validate(payload: JwtDTO): Promise<DbPlayer> {
-    const user = this.authService.validateUser(payload);
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-    return user;
-  }
 }

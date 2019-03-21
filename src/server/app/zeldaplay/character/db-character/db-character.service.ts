@@ -1,7 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { Observable, zip } from 'rxjs';
 
 import { DbService } from '@Db/db.service';
 import { DbCharacter, DbSave, DbSkill } from '@DbModel/index';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class DbCharacterService {
@@ -10,7 +12,7 @@ export class DbCharacterService {
     this.schema = 'zeldaplay';
   }
 
-  async queryCharacters(playerId: string): Promise<DbCharacter[]> {
+  queryCharacters(playerId: string): Observable<DbCharacter[]> {
     return this.dbService.query<DbCharacter>(
       `SELECT
         id as "chId"
@@ -22,9 +24,10 @@ export class DbCharacterService {
     );
   }
 
-  async queryCharacterOne(charId: string): Promise<DbCharacter> {
-    const character = await this.dbService.query<DbCharacter>(
-      `SELECT
+  queryCharacterOne(charId: string): Observable<DbCharacter> {
+    return zip(
+      this.dbService.query<DbCharacter>(
+        `SELECT
         id as "chId"
         ,name as "chName"
         ,race as "chRace"
@@ -47,13 +50,10 @@ export class DbCharacterService {
         ,craft_two as "chCraftTwo"
       FROM ${this.schema}."characters"
       WHERE id = $1`,
-      [charId]
-    );
-    if (!character[0]) {
-      throw new BadRequestException('No character found');
-    }
-    const skills = await this.dbService.query<DbSkill>(
-      `SELECT
+        [charId]
+      ),
+      this.dbService.query<DbSkill>(
+        `SELECT
         id as "skId"
         ,name as "skName"
         ,modifier as "skModifier"
@@ -64,29 +64,38 @@ export class DbCharacterService {
         ,misc_modifier as "skMiscModifier"
       FROM ${this.schema}.skills
       WHERE character_id = $1`,
-      [charId]
-    );
-    const saves = await this.dbService.query<DbSave>(
-      `SELECT
+        [charId]
+      ),
+      this.dbService.query<DbSave>(
+        `SELECT
         id as "saId"
         ,name as "saName"
         ,modifier as "saModifier"
         ,racial_bonus as "saRacialBonus"
       FROM ${this.schema}.saving_throws
       WHERE character_id = $1`,
-      [charId]
+        [charId]
+      )
+    ).pipe(
+      map((results) => {
+        if (results[0].length === 0) {
+          throw new BadRequestException('No character found');
+        }
+        const char = results[0][0];
+        char.skills = results[1];
+        char.saves = results[2];
+        return char;
+      })
     );
-    character[0].skills = skills;
-    character[0].saves = saves;
-    return character[0];
   }
 
-  async insertNewCharacter(
+  insertNewCharacter(
     character: DbCharacter,
     userId: string
-  ): Promise<DbCharacter> {
-    const char = await this.dbService.query<DbCharacter>(
-      `INSERT INTO ${this.schema}.characters
+  ): Observable<DbCharacter> {
+    return this.dbService
+      .query<DbCharacter>(
+        `INSERT INTO ${this.schema}.characters
       ( name
         ,race
         ,subrace
@@ -110,35 +119,39 @@ export class DbCharacterService {
       ) VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20)
       RETURNING id as "chId"`,
-      [
-        character.chName,
-        character.chRace,
-        character.chSubrace,
-        character.chStrength,
-        character.chDexterity,
-        character.chConstitution,
-        character.chIntelligence,
-        character.chWisdom,
-        character.chCharisma,
-        character.chHealth,
-        character.chHealthMax,
-        character.chMagic,
-        character.chMagicMax,
-        character.chExperience,
-        character.chLevel,
-        character.chPerformance,
-        character.chProfession,
-        character.chCraftOne,
-        character.chCraftTwo,
-        userId
-      ]
-    );
-    this.insertSkills(character, char[0].chId);
-    this.insertSaves(character, char[0].chId);
-    return char[0];
+        [
+          character.chName,
+          character.chRace,
+          character.chSubrace,
+          character.chStrength,
+          character.chDexterity,
+          character.chConstitution,
+          character.chIntelligence,
+          character.chWisdom,
+          character.chCharisma,
+          character.chHealth,
+          character.chHealthMax,
+          character.chMagic,
+          character.chMagicMax,
+          character.chExperience,
+          character.chLevel,
+          character.chPerformance,
+          character.chProfession,
+          character.chCraftOne,
+          character.chCraftTwo,
+          userId
+        ]
+      )
+      .pipe(
+        map((char) => {
+          this.insertSkills(character, char[0].chId);
+          this.insertSaves(character, char[0].chId);
+          return char[0];
+        })
+      );
   }
 
-  async insertSkills(character: DbCharacter, charId: string): Promise<void> {
+  insertSkills(character: DbCharacter, charId: string): Observable<DbSkill[]> {
     const insert = `INSERT INTO ${this.schema}.skills
     ( name
       ,modifier
@@ -166,10 +179,10 @@ export class DbCharacterService {
       );
     }
     insertString = insertString.slice(0, insertString.length - 1);
-    this.dbService.query(insert + insertString, values);
+    return this.dbService.query(insert + insertString, values);
   }
 
-  async insertSaves(character: DbCharacter, charId: string): Promise<void> {
+  insertSaves(character: DbCharacter, charId: string): Observable<DbSave[]> {
     const insert = `INSERT INTO ${this.schema}.saving_throws
     ( name
       ,modifier
@@ -188,12 +201,13 @@ export class DbCharacterService {
       values.push(save.saName, save.saModifier, save.saRacialBonus, charId);
     }
     insertString = insertString.slice(0, insertString.length - 1);
-    this.dbService.query(insert + insertString, values);
+    return this.dbService.query(insert + insertString, values);
   }
 
-  async updateCharacter(character: DbCharacter): Promise<DbCharacter> {
-    const char = await this.dbService.query<DbCharacter>(
-      `UPDATE ${this.schema}.characters as chars
+  updateCharacter(character: DbCharacter): Observable<DbCharacter> {
+    return this.dbService
+      .query<DbCharacter>(
+        `UPDATE ${this.schema}.characters as chars
         SET strength = uChar.str
         ,dexterity = uChar.dex
         ,constitution = uChar.con
@@ -215,30 +229,30 @@ export class DbCharacterService {
         as uChar(str, dex, con, int, wis, cha, h, hm, m, mm, exp, l, co, ct, per, pro, id)
       WHERE chars.id = uChar.id
       `,
-      [
-        character.chStrength,
-        character.chDexterity,
-        character.chConstitution,
-        character.chIntelligence,
-        character.chWisdom,
-        character.chCharisma,
-        character.chHealth,
-        character.chHealthMax,
-        character.chMagic,
-        character.chMagicMax,
-        character.chExperience,
-        character.chLevel,
-        character.chCraftOne,
-        character.chCraftTwo,
-        character.chPerformance,
-        character.chProfession,
-        character.chId
-      ]
-    );
-    return char[0];
+        [
+          character.chStrength,
+          character.chDexterity,
+          character.chConstitution,
+          character.chIntelligence,
+          character.chWisdom,
+          character.chCharisma,
+          character.chHealth,
+          character.chHealthMax,
+          character.chMagic,
+          character.chMagicMax,
+          character.chExperience,
+          character.chLevel,
+          character.chCraftOne,
+          character.chCraftTwo,
+          character.chPerformance,
+          character.chProfession,
+          character.chId
+        ]
+      )
+      .pipe(map((char) => char[0]));
   }
 
-  async updateSkills(skills: DbSkill[], charId: string): Promise<DbSkill[]> {
+  updateSkills(skills: DbSkill[], charId: string): Observable<DbSkill[]> {
     let paramString: string;
     const paramValues: number[] = [];
     let index = 2;

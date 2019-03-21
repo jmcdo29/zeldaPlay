@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Observable } from 'rxjs';
 
 import { DbWeapon } from '@DbModel/index';
 import { DbWeaponService } from './db-weapon/db-weapon.service';
@@ -7,15 +8,15 @@ import { DbWeaponService } from './db-weapon/db-weapon.service';
 export class WeaponService {
   constructor(private readonly dbService: DbWeaponService) {}
 
-  async getWeapons(charId: string): Promise<DbWeapon[]> {
+  getWeapons(charId: string): Observable<DbWeapon[]> {
     return this.dbService.getWeapons(charId);
   }
 
-  async newWeapon(newWeap: DbWeapon, charId: string): Promise<DbWeapon> {
+  newWeapon(newWeap: DbWeapon, charId: string): Observable<DbWeapon> {
     return this.dbService.newWeapon(newWeap, charId);
   }
 
-  async updateWeapon(newWeap: DbWeapon): Promise<DbWeapon> {
+  updateWeapon(newWeap: DbWeapon): Observable<DbWeapon> {
     return this.dbService.updateWeapon(newWeap);
   }
 }

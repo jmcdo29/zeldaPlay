@@ -24,4 +24,10 @@ describe('LoggerService', () => {
   it('should log warn', () => {
     service.warn('Warning!');
   });
+  it('should log debug messages', () => {
+    service.debug('Debug');
+  });
+  it('should log verbose', () => {
+    service.verbose('verbose!');
+  });
 });

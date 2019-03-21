@@ -7,4 +7,4 @@ import { DbModule } from '../db/db.module';
   imports: [AuthModule, DbModule],
   exports: [AuthModule, DbModule]
 })
-export class SharedModule {}
+export class SharedServerModule {}

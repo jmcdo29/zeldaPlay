@@ -13,4 +13,10 @@ export class MyLogger extends Logger {
   warn(message: string) {
     scribe('DEBUG', message);
   }
+  debug(message: string) {
+    scribe('DEBUG', message);
+  }
+  verbose(message: string) {
+    scribe('FINE', message);
+  }
 }

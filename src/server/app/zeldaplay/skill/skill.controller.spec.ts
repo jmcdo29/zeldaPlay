@@ -1,13 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { DbSkill } from '@DbModel/index';
 import { SkillController } from '@Skill/skill.controller';
 import { SkillService } from '@Skill/skill.service';
-import { DbSkill } from '@DbModel/index';
+import { of } from 'rxjs';
 
 const SkillServiceStub = {
   getCharacterSkills: jest
     .fn()
-    .mockReturnValue([new DbSkill(), new DbSkill(), new DbSkill()])
+    .mockReturnValue(of([new DbSkill(), new DbSkill(), new DbSkill()]))
 };
 
 describe('Skill Controller', () => {
@@ -23,9 +24,12 @@ describe('Skill Controller', () => {
     expect(controller).toBeDefined();
   });
   it('should work for getSkiklls()', async () => {
-    const skills = await controller.getSkills({ charId: '00Ctest12345' });
-    expect(SkillServiceStub.getCharacterSkills).toBeCalledTimes(1);
-    expect(SkillServiceStub.getCharacterSkills).toBeCalledWith('00Ctest12345');
-    expect(skills).toEqual([new DbSkill(), new DbSkill(), new DbSkill()]);
+    controller.getSkills({ charId: '00Ctest12345' }).subscribe((skills) => {
+      expect(SkillServiceStub.getCharacterSkills).toBeCalledTimes(1);
+      expect(SkillServiceStub.getCharacterSkills).toBeCalledWith(
+        '00Ctest12345'
+      );
+      expect(skills).toEqual([new DbSkill(), new DbSkill(), new DbSkill()]);
+    });
   });
 });

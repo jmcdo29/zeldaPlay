@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Observable } from 'rxjs';
 
 import { DbNote } from '@DbModel/index';
 import { DbNoteService } from './db-note/db-note.service';
@@ -7,11 +8,11 @@ import { DbNoteService } from './db-note/db-note.service';
 export class NoteService {
   constructor(private readonly dbService: DbNoteService) {}
 
-  async getNotes(characterId: string): Promise<DbNote[]> {
+  getNotes(characterId: string): Observable<DbNote[]> {
     return this.dbService.getNotes(characterId);
   }
 
-  async saveNote(inNote: DbNote, charId: string): Promise<DbNote> {
+  saveNote(inNote: DbNote, charId: string): Observable<DbNote> {
     return this.dbService.saveNote(inNote, charId);
   }
 }

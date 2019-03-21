@@ -5,10 +5,10 @@ import { AuthController } from '@Auth/auth.controller';
 import { AuthGuard } from '@Auth/auth.guard';
 import { AuthService } from '@Auth/auth.service';
 import { JwtStrategy } from '@Auth/jwt.strategy';
-import { UserModule } from '@User/user.module';
+import { UserServerModule } from '@User/user.module';
 @Module({
   imports: [
-    UserModule,
+    UserServerModule,
     JwtModule.register({
       secretOrPrivateKey: process.env.TOKEN_SECRET,
       signOptions: {
