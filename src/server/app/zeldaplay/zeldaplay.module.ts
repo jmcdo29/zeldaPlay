@@ -13,6 +13,7 @@ import { WeaponServerModule } from '@Weapon/weapon.module';
     SkillServerModule,
     SpellServerModule,
     WeaponServerModule
-  ]
+  ],
+  exports: [CharacterServerModule]
 })
 export class ZeldaplayModule {}

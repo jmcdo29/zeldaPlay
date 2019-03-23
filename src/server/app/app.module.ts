@@ -7,6 +7,7 @@ import {
   NotFoundFilter,
   UnauthorizedFilter
 } from './filters/index';
+import { HealthModule } from './health/health.module';
 import { MetricsInterceptor } from './interceptors/index';
 import { LoggerModule } from './logger/logger.module';
 import { UserServerModule } from './user/user.module';
@@ -15,6 +16,7 @@ import { ZeldaplayModule } from './zeldaplay/zeldaplay.module';
 @Module({
   controllers: [AppController],
   imports: [
+    HealthModule,
     SharedServerModule,
     UserServerModule,
     ZeldaplayModule,
