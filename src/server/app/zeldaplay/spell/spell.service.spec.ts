@@ -1,19 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
 
+import { DbService } from '@Db/db.service';
 import { DbSpell } from '@DbModel/index';
 import { SpellService } from '@Spell/spell.service';
-import { DbSpellService } from './db-spell/db-spell.service';
 
 const mockRepo = {
-  getSpells: jest
-    .fn()
-    .mockReturnValue(of([new DbSpell(), new DbSpell(), new DbSpell()])),
-  newSpell: jest.fn().mockReturnValue(of(new DbSpell())),
-  updateSpell: jest.fn().mockReturnValue(of(new DbSpell()))
+  query: jest.fn()
 };
 
 const charId = '00Ctest12345';
+let queryCalls = 0;
 
 describe('SpellService', () => {
   let service: SpellService;
@@ -22,7 +19,7 @@ describe('SpellService', () => {
       providers: [
         SpellService,
         {
-          provide: DbSpellService,
+          provide: DbService,
           useValue: mockRepo
         }
       ]
@@ -33,23 +30,25 @@ describe('SpellService', () => {
     expect(service).toBeDefined();
   });
   it('should call getSpells()', () => {
+    mockRepo.query.mockReturnValue(
+      of([new DbSpell(), new DbSpell(), new DbSpell()])
+    );
     service.getSpells(charId).subscribe((spells) => {
-      expect(mockRepo.getSpells).toBeCalledTimes(1);
-      expect(mockRepo.getSpells).toBeCalledWith(charId);
+      expect(mockRepo.query).toBeCalledTimes(++queryCalls);
       expect(spells).toEqual([new DbSpell(), new DbSpell(), new DbSpell()]);
     });
   });
   it('should call newSpell()', () => {
+    mockRepo.query.mockReturnValue(of([new DbSpell()]));
     service.newSpell(new DbSpell(), charId).subscribe((newSpell) => {
-      expect(mockRepo.newSpell).toBeCalledTimes(1);
-      expect(mockRepo.newSpell).toBeCalledWith(new DbSpell(), charId);
+      expect(mockRepo.query).toBeCalledTimes(++queryCalls);
       expect(newSpell).toEqual(new DbSpell());
     });
   });
   it('should call updateSpell()', () => {
+    mockRepo.query.mockReturnValue(of([new DbSpell()]));
     service.updateSpell(new DbSpell()).subscribe((updatedSpell) => {
-      expect(mockRepo.updateSpell).toBeCalledTimes(1);
-      expect(mockRepo.updateSpell).toBeCalledWith(new DbSpell());
+      expect(mockRepo.query).toBeCalledTimes(++queryCalls);
       expect(updatedSpell).toEqual(new DbSpell());
     });
   });
