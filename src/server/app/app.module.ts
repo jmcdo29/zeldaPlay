@@ -9,6 +9,7 @@ import {
 } from './filters/index';
 import { MetricsInterceptor } from './interceptors/index';
 import { LoggerModule } from './logger/logger.module';
+import { QuestionModule } from './question/question.module';
 import { UserServerModule } from './user/user.module';
 import { ZeldaplayModule } from './zeldaplay/zeldaplay.module';
 
@@ -18,7 +19,8 @@ import { ZeldaplayModule } from './zeldaplay/zeldaplay.module';
     ZeldaplayModule,
     SharedServerModule,
     UserServerModule,
-    LoggerModule
+    LoggerModule,
+    QuestionModule
   ],
   providers: [
     {

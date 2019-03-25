@@ -11,7 +11,7 @@ import { UserService } from './user.service';
 const expectedReturn = '00Uuejo58sG2';
 
 describe('#UserService', () => {
-  let backend: HttpTestingController;
+  let backEnd: HttpTestingController;
   let service: UserService;
 
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe('#UserService', () => {
       providers: [UserService]
     });
     service = TestBed.get(UserService);
-    backend = TestBed.get(HttpTestingController);
+    backEnd = TestBed.get(HttpTestingController);
 
     jest.spyOn(console, 'error').mockImplementation(() => undefined);
   });
@@ -32,26 +32,33 @@ describe('#UserService', () => {
   test('should allow a user to log in', () => {
     service.login('test', 'testing').subscribe();
 
-    const getUserLogin = backend.expectOne(`${environment.apiUrl}/login`);
+    const getUserLogin = backEnd.expectOne(`${environment.apiUrl}/login`);
     expect(getUserLogin.request.url).toBe(`${environment.apiUrl}/login`);
-    getUserLogin.flush({ id: '00Uuejo58sG2', accessToken: 'some token' });
+    getUserLogin.flush({ id: 'expectedReturn', accessToken: 'some token' });
     expect(sessionStorage.getItem('currentUser')).toBeTruthy();
     expect(sessionStorage.getItem('currentUser')).toBe(expectedReturn);
   });
 
   test('should allow a user to register', () => {
-    service.register('test', 'testing', 'testing').subscribe();
+    service
+      .register({
+        email: 'test',
+        password: 'testing',
+        confirmationPassword: 'testing',
+        recovery: []
+      })
+      .subscribe();
 
-    const getUserLogin = backend.expectOne(`${environment.apiUrl}/signup`);
+    const getUserLogin = backEnd.expectOne(`${environment.apiUrl}/signup`);
     expect(getUserLogin.request.url).toBe(`${environment.apiUrl}/signup`);
-    getUserLogin.flush({ id: '00Uuejo58sG2', accessToken: 'some token' });
+    getUserLogin.flush({ id: 'expectedReturn', accessToken: 'some token' });
     expect(sessionStorage.getItem('currentUser')).toBe(expectedReturn);
     expect(sessionStorage.getItem('currentUser')).toBeTruthy();
   });
 
   test('should remove a user from sessionStorage', () => {
     service.logout();
-    const userLogout = backend.expectOne(`${environment.apiUrl}/logout`);
+    const userLogout = backEnd.expectOne(`${environment.apiUrl}/logout`);
     userLogout.flush({});
     expect(sessionStorage.getItem('currentUser')).toBeFalsy();
   });

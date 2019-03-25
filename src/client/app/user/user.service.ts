@@ -6,20 +6,23 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '#Environment/environment';
 
+interface UserReg {
+  email: string;
+  password: string;
+  confirmationPassword: string;
+  recovery: Array<{ question: string; answer: string }>;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  register(username: string, password: string, confPass: string) {
+  register(newUser: UserReg) {
     return this.http
       .post<any>(environment.apiUrl + '/signup', {
-        user: {
-          email: username,
-          password,
-          confirmationPassword: confPass
-        }
+        user: newUser
       })
       .pipe(saveUser());
   }

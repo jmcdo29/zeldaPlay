@@ -18,6 +18,8 @@ const alertServiceStub: Partial<AlertService> = {
   }
 };
 
+const pa = 'password';
+
 describe('UserLoginComponent', () => {
   let component: UserRegisterComponent;
   let fixture: ComponentFixture<UserRegisterComponent>;
@@ -56,16 +58,16 @@ describe('UserLoginComponent', () => {
         of({ token: 'a long token', id: 'the userId' })
       );
       component.username = 'userName';
-      component.password = 'password';
-      component.passwordConfirmation = 'password';
+      component.password = pa;
+      component.passwordConfirmation = pa;
       component.register();
       expect(userService.register).toHaveBeenCalled();
     });
     test('unsuccessful registration', () => {
       spyOn(userService, 'register').and.returnValue(throwError({}));
       component.username = 'userName';
-      component.password = 'password';
-      component.passwordConfirmation = 'password';
+      component.password = pa;
+      component.passwordConfirmation = pa;
       component.register();
       expect(userService.register).toHaveBeenCalled();
     });

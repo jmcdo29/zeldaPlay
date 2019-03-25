@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { JwtDTO, JwtReturnDTO, NewUserDTO, UserDTO } from '@Body/index';
-import { DbPlayer } from '@DbModel/index';
+import { DbPlayer, DbQuestion } from '@DbModel/index';
 import { UserService } from '@User/user.service';
 import { Observable, OperatorFunction } from 'rxjs';
 import { map } from 'rxjs/operators';

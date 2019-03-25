@@ -1,4 +1,4 @@
 export class DbQuestion {
-  qId: string;
-  qQuestion: string;
+  dbId: string;
+  dbQuestion: string;
 }

@@ -27,7 +27,12 @@ export class UserRegisterComponent implements OnInit {
     this.alertService.clear();
     this.loading = true;
     this.userService
-      .register(this.username, this.password, this.passwordConfirmation)
+      .register({
+        email: this.username,
+        password: this.password,
+        confirmationPassword: this.passwordConfirmation,
+        recovery: []
+      })
       .subscribe(
         () => {
           this.router.navigate(['/']);
