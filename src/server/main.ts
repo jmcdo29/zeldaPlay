@@ -13,6 +13,9 @@ import { AppServerModule } from './app/app.module';
 import { MyLogger } from './app/logger/logger.service';
 import { configure } from './appConfig';
 
+import { mkdirSync } from 'fs';
+import { join } from 'path';
+
 const PORT = process.env.PORT;
 const HOST = process.env.NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1';
 
@@ -36,3 +39,13 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+// this should really only happen in dev, because I clean the dist folder, but I'm tired of fixing it
+// so it is happening programmatically
+process.on('unhandledRejection', (err: any) => {
+  if (err.message.includes('root"')) {
+    scribe('ERROR', 'Missing root error');
+    mkdirSync(join(__dirname, '..', 'client'));
+    bootstrap();
+  }
+});

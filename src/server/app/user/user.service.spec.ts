@@ -2,14 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { hashSync } from 'bcryptjs';
 import { of } from 'rxjs';
 
+import { DbService } from '@Db/db.service';
 import { DbPlayer } from '@DbModel/index';
 import { UserService } from '@User/user.service';
-import { DbUserService } from './db-user/db-user.service';
 
 const mockRepo = {
-  login: jest.fn(),
-  findByEmail: jest.fn(),
-  signup: jest.fn()
+  query: jest.fn()
 };
 
 const email = 'test@test.email';
@@ -29,7 +27,7 @@ describe('UsersService', () => {
       providers: [
         UserService,
         {
-          provide: DbUserService,
+          provide: DbService,
           useValue: mockRepo
         }
       ]
@@ -44,13 +42,13 @@ describe('UsersService', () => {
       const passHash = hashSync(pWord, 12);
       const newPlayer = new DbPlayer();
       newPlayer.pPassword = passHash;
-      mockRepo.login.mockReturnValueOnce(of([newPlayer]));
+      mockRepo.query.mockReturnValueOnce(of([newPlayer]));
       service.login(user).subscribe((player) => {
         expect(player).toBe(newPlayer);
       });
     });
     it('should not find the email', () => {
-      mockRepo.login.mockReturnValueOnce(of([]));
+      mockRepo.query.mockReturnValueOnce(of([]));
       service.login(user).subscribe(
         () => {},
         (err) => {
@@ -64,7 +62,7 @@ describe('UsersService', () => {
       const passHash = hashSync(pWord + '$', 12);
       const newPlayer = new DbPlayer();
       newPlayer.pPassword = passHash;
-      mockRepo.login.mockReturnValueOnce(of([newPlayer]));
+      mockRepo.query.mockReturnValueOnce(of([newPlayer]));
       service.login(user).subscribe(
         () => {
           throw new Error('Should not be here');
@@ -79,14 +77,14 @@ describe('UsersService', () => {
     it('should sign up a new user', () => {
       const newPlayer = new DbPlayer();
       newPlayer.pEmail = email;
-      mockRepo.findByEmail.mockReturnValueOnce(of([]));
-      mockRepo.signup.mockReturnValueOnce(of([newPlayer]));
+      mockRepo.query.mockReturnValueOnce(of([]));
+      mockRepo.query.mockReturnValueOnce(of([newPlayer]));
       service.signup(newUser).subscribe((signUp) => {
         expect(signUp).toEqual(newPlayer);
       });
     });
     it('should throw an error for an already existing user', () => {
-      mockRepo.findByEmail.mockReturnValueOnce(of([new DbPlayer()]));
+      mockRepo.query.mockReturnValueOnce(of([new DbPlayer()]));
       service.signup(newUser).subscribe(
         () => {},
         (err) => {
@@ -99,13 +97,13 @@ describe('UsersService', () => {
   });
   describe('#findByEmail', () => {
     it('should find users by email', () => {
-      mockRepo.findByEmail.mockReturnValueOnce(of([new DbPlayer()]));
+      mockRepo.query.mockReturnValueOnce(of([new DbPlayer()]));
       service.findUserByEmail(email).subscribe((users) => {
         expect(users).toEqual([new DbPlayer()]);
       });
     });
     it('should throw an error with no email', () => {
-      mockRepo.findByEmail.mockReturnValueOnce(of([]));
+      mockRepo.query.mockReturnValueOnce(of([]));
       service.findUserByEmail(email).subscribe(
         () => {},
         (err) => {
