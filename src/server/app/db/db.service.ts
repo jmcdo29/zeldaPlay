@@ -45,7 +45,7 @@ export class DbService implements OnModuleInit {
     );
   }
 
-  error(err: Error): void {
+  private error(err: Error): void {
     if (this.counter < 3) {
       this.pool.query(
         'INSERT INTO zeldaplay.errors (message, stack) VALUES ($1, $2)',
