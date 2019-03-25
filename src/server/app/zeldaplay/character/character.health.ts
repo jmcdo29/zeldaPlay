@@ -8,7 +8,6 @@ import { CharacterService } from './character.service';
 export class CharacterHealthIndicator extends HealthIndicator {
   constructor(private readonly charService: CharacterService) {
     super();
-    console.log('CharacterHealthIndicator constructed');
   }
 
   isHealthy(key: string): Observable<HealthIndicatorResult> {

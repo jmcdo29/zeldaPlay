@@ -7,12 +7,9 @@ import {
 import { CharacterHealthIndicator } from '@Character/character.health';
 
 export class TerminusOptionsService implements TerminusOptionsFactory {
-  constructor(private readonly charHealth: CharacterHealthIndicator) {
-    console.log('TerminusOptionsService constructed');
-  }
+  constructor(private readonly charHealth: CharacterHealthIndicator) {}
 
   createTerminusOptions(): TerminusModuleOptions {
-    console.log(this.charHealth);
     const healthEndpoint: TerminusEndpoint = {
       url: '/health/character',
       healthIndicators: [

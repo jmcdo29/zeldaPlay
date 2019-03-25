@@ -10,6 +10,7 @@ import {
 } from '@nestjs/platform-fastify';
 import { scribe } from 'mc-scribe';
 import { AppServerModule } from './app/app.module';
+import { MyLogger } from './app/logger/logger.service';
 import { configure } from './appConfig';
 
 const PORT = process.env.PORT;
@@ -21,7 +22,7 @@ async function bootstrap() {
       AppServerModule,
       new FastifyAdapter(),
       {
-        logger: false
+        logger: new MyLogger()
       }
     );
     configure(app);
