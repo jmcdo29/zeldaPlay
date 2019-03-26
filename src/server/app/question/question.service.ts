@@ -10,7 +10,7 @@ export class QuestionService {
 
   getQuestions(): Observable<DbQuestion[]> {
     return this.db.query<DbQuestion>(
-      'SELECT question as "dbQuestion" FROM zeldaplay.questions',
+      'SELECT question as "qQuestion" FROM zeldaplay.questions',
       []
     );
   }

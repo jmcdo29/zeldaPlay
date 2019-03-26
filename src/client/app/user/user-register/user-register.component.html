@@ -46,6 +46,41 @@
           </mat-form-field>
         </div>
       </div>
+      <div *ngFor="let i of [0, 1, 2]">
+        <div class="row">
+          <div class="cell input question">
+            <mat-form-field class="user">
+              <mat-select
+                id="{{ 'answer' + i }}"
+                [(ngModel)]="answers[i].question"
+                (selectionChange)="removeQuestion(answers[i].question)"
+                (selectionChange)="restoreQuestions()"
+                placeholder="Choose a recovery question."
+              >
+                <mat-option
+                  *ngFor="let q of shownQuestions"
+                  value="{{ q.qQuestion }}"
+                >
+                  {{ q.qQuestion }}
+                </mat-option>
+                <div *ngIf="answers[i].question">
+                  <mat-option value="{{ answers[i].question }}">{{
+                    answers[i].question
+                  }}</mat-option>
+                </div>
+                <mat-option> None </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="cell input question">
+            <mat-form-field class="user">
+              <input matInput [(ngModel)]="answers[i].answer" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
     </div>
     <button mat-flat-button (click)="register()">Register</button>
   </div>

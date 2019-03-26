@@ -19,6 +19,8 @@ const alertServiceStub: Partial<AlertService> = {
 };
 
 const pa = 'password';
+const qString = 'a Question';
+const qString2 = 'Another question';
 
 describe('UserLoginComponent', () => {
   let component: UserRegisterComponent;
@@ -35,7 +37,17 @@ describe('UserLoginComponent', () => {
       ],
       declarations: [UserRegisterComponent],
       providers: [
-        UserService,
+        {
+          provide: UserService,
+          useValue: {
+            register: jest.fn(),
+            getQuestions: jest
+              .fn()
+              .mockReturnValue(
+                of([{ qQuestion: qString }, { qQuestion: qString2 }])
+              )
+          }
+        },
         { provide: AlertService, useValue: alertServiceStub }
       ]
     }).compileComponents();
@@ -50,6 +62,28 @@ describe('UserLoginComponent', () => {
 
   test('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.shownQuestions).toEqual([
+      { qQuestion: qString },
+      { qQuestion: qString2 }
+    ]);
+  });
+
+  describe('remove Question', () => {
+    it('should remove a question after being chosen', () => {
+      component.removeQuestion(qString);
+      expect(component.shownQuestions.length).toBe(1);
+      expect(component.shownQuestions).not.toContain(qString);
+    });
+    it('should put a question back after original choice is changed', () => {
+      component.answers[0].question = qString;
+      component.removeQuestion(qString);
+      const originalLength = component.shownQuestions.length;
+      component.answers[0].question = qString2;
+      component.removeQuestion(qString2);
+      component.restoreQuestions();
+      expect(component.shownQuestions.length).toBe(originalLength); // this may change
+      expect(component.shownQuestions).toContainEqual({ qQuestion: qString });
+    });
   });
 
   describe('registration function', () => {
@@ -64,7 +98,7 @@ describe('UserLoginComponent', () => {
       expect(userService.register).toHaveBeenCalled();
     });
     test('unsuccessful registration', () => {
-      spyOn(userService, 'register').and.returnValue(throwError({}));
+      jest.spyOn(userService, 'register').mockReturnValue(throwError({}));
       component.username = 'userName';
       component.password = pa;
       component.passwordConfirmation = pa;

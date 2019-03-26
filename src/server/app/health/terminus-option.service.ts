@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import {
   TerminusEndpoint,
   TerminusModuleOptions,
@@ -6,6 +7,7 @@ import {
 
 import { CharacterHealthIndicator } from '@Character/character.health';
 
+@Injectable()
 export class TerminusOptionsService implements TerminusOptionsFactory {
   constructor(private readonly charHealth: CharacterHealthIndicator) {}
 

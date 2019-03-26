@@ -13,6 +13,8 @@ import { QuestionModule } from './question/question.module';
 import { UserServerModule } from './user/user.module';
 import { ZeldaplayModule } from './zeldaplay/zeldaplay.module';
 
+import { HealthModule } from './health/health.module';
+
 @Module({
   controllers: [AppController],
   imports: [
@@ -20,7 +22,8 @@ import { ZeldaplayModule } from './zeldaplay/zeldaplay.module';
     SharedServerModule,
     UserServerModule,
     LoggerModule,
-    QuestionModule
+    QuestionModule,
+    HealthModule
   ],
   providers: [
     {

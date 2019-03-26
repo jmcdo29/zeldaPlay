@@ -37,9 +37,4 @@ export class AuthController {
   logout(): void {
     return;
   }
-
-  @Get('questions')
-  getQuestions(): Observable<DbQuestion[]> {
-    return of([]);
-  }
 }

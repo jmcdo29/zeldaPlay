@@ -34,7 +34,7 @@ describe('#UserService', () => {
 
     const getUserLogin = backEnd.expectOne(`${environment.apiUrl}/login`);
     expect(getUserLogin.request.url).toBe(`${environment.apiUrl}/login`);
-    getUserLogin.flush({ id: 'expectedReturn', accessToken: 'some token' });
+    getUserLogin.flush({ id: expectedReturn, accessToken: 'some token' });
     expect(sessionStorage.getItem('currentUser')).toBeTruthy();
     expect(sessionStorage.getItem('currentUser')).toBe(expectedReturn);
   });
@@ -43,6 +43,7 @@ describe('#UserService', () => {
     service
       .register({
         email: 'test',
+        // tslint:disable-next-line: no-hardcoded-credentials
         password: 'testing',
         confirmationPassword: 'testing',
         recovery: []
@@ -51,9 +52,24 @@ describe('#UserService', () => {
 
     const getUserLogin = backEnd.expectOne(`${environment.apiUrl}/signup`);
     expect(getUserLogin.request.url).toBe(`${environment.apiUrl}/signup`);
-    getUserLogin.flush({ id: 'expectedReturn', accessToken: 'some token' });
+    getUserLogin.flush({ id: expectedReturn, accessToken: 'some token' });
     expect(sessionStorage.getItem('currentUser')).toBe(expectedReturn);
     expect(sessionStorage.getItem('currentUser')).toBeTruthy();
+  });
+
+  test('it should get the recovery questions', () => {
+    service.getQuestions().subscribe();
+
+    const getQuestionFunction = backEnd.expectOne(
+      `${environment.apiUrl}/questions`
+    );
+    expect(getQuestionFunction.request.url).toBe(
+      `${environment.apiUrl}/questions`
+    );
+    getQuestionFunction.flush([
+      { qQuestion: 'A question' },
+      { qQuestion: 'Another question' }
+    ]);
   });
 
   test('should remove a user from sessionStorage', () => {

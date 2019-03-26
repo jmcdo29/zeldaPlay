@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DbQuestion } from '@Db/models';
 import { QuestionService } from './question.service';
 
-@Controller('question')
+@Controller('questions')
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
 

@@ -43,6 +43,7 @@ bootstrap();
 // this should really only happen in dev, because I clean the dist folder, but I'm tired of fixing it
 // so it is happening programmatically
 process.on('unhandledRejection', (err: any) => {
+  scribe('ERROR', err);
   if (err.message.includes('root"')) {
     scribe('ERROR', 'Missing root error');
     mkdirSync(join(__dirname, '..', 'client'));
