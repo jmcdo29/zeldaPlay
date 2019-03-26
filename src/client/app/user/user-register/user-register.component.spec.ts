@@ -94,6 +94,20 @@ describe('UserLoginComponent', () => {
       component.username = 'userName';
       component.password = pa;
       component.passwordConfirmation = pa;
+      component.answers = [
+        {
+          question: 'question 1',
+          answer: 'answer 1'
+        },
+        {
+          question: 'question 2',
+          answer: 'answer 2'
+        },
+        {
+          question: 'question 3',
+          answer: 'answer 3'
+        }
+      ];
       component.register();
       expect(userService.register).toHaveBeenCalled();
     });
@@ -102,8 +116,42 @@ describe('UserLoginComponent', () => {
       component.username = 'userName';
       component.password = pa;
       component.passwordConfirmation = pa;
+      component.answers = [
+        {
+          question: 'question 1',
+          answer: 'answer 1'
+        },
+        {
+          question: 'question 2',
+          answer: 'answer 2'
+        },
+        {
+          question: 'question 3',
+          answer: 'answer 3'
+        }
+      ];
       component.register();
       expect(userService.register).toHaveBeenCalled();
+    });
+    it('should be unsuccessful due to missing recovery answers', () => {
+      component.username = '';
+      component.password = '';
+      component.passwordConfirmation = null;
+      component.answers = [
+        {
+          question: '',
+          answer: ''
+        },
+        {
+          question: '',
+          answer: ''
+        },
+        {
+          question: '',
+          answer: ''
+        }
+      ];
+      component.register();
     });
   });
 });
