@@ -49,7 +49,7 @@
   "dependencies": {
     "@godaddy/terminus": "^4.1.0",
     "@nestjs/common": "^6.0.3",
-    "@nestjs/core": "^6.0.3",
+    "@nestjs/core": "^6.0.4",
     "@nestjs/jwt": "^6.0.0",
     "@nestjs/passport": "^6.0.0",
     "@nestjs/platform-fastify": "^6.0.3",
