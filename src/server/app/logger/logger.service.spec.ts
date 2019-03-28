@@ -15,19 +15,45 @@ describe('LoggerService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
-  it('should log error', () => {
-    service.error('Error!', 'Stack trace');
+  describe('dev env', () => {
+    beforeAll(() => {
+      process.env.NODE_ENV = 'dev';
+    });
+    it('should log error', () => {
+      service.error('Error!', 'Stack trace');
+    });
+    it('should log log', () => {
+      service.log('logs here');
+    });
+    it('should log warn', () => {
+      service.warn('Warning!');
+    });
+    it('should log debug messages', () => {
+      service.debug('Debug');
+    });
+    it('should log verbose', () => {
+      service.verbose('verbose!');
+    });
   });
-  it('should log log', () => {
-    service.log('logs here');
-  });
-  it('should log warn', () => {
-    service.warn('Warning!');
-  });
-  it('should log debug messages', () => {
-    service.debug('Debug');
-  });
-  it('should log verbose', () => {
-    service.verbose('verbose!');
+  describe('prod env', () => {
+    beforeAll(() => {
+      process.env.NODE_ENV = 'production';
+    });
+    it('should log error', () => {
+      service.error('Error!', 'Stack trace');
+      service.error('ERROR!', '');
+    });
+    it('should log log', () => {
+      service.log('logs here');
+    });
+    it('should log warn', () => {
+      service.warn('Warning!');
+    });
+    it('should log debug messages', () => {
+      service.debug('Debug');
+    });
+    it('should log verbose', () => {
+      service.verbose('verbose!');
+    });
   });
 });
