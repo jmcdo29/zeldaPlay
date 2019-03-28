@@ -98,7 +98,7 @@
     "@angular/router": "^7.2.10",
     "@compodoc/compodoc": "^1.1.9",
     "@nestjs/schematics": "^6.0.1",
-    "@nestjs/testing": "^6.0.3",
+    "@nestjs/testing": "^6.0.4",
     "@types/bcryptjs": "^2.4.2",
     "@types/compression": "0.0.36",
     "@types/connect-redis": "0.0.9",
