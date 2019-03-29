@@ -25,7 +25,7 @@ import { CharacterService } from '@Character/character.service';
 import { DbCharacter, DbCharacterShort } from '@DbModel/index';
 import { CharacterIdParam, UserIdParam } from '@Parameter/index';
 
-@ApiUseTags('character')
+@ApiUseTags('Character')
 @Controller('character')
 export class CharacterController {
   constructor(private readonly characterService: CharacterService) {}

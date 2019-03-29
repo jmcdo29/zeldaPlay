@@ -214,7 +214,7 @@ describe('CharacterService', () => {
   describe('#saveCharCopy', () => {
     test('save character json', () => {
       (FileSaver.saveAs as jest.Mock).mockImplementation(() =>
-        scribe('INFO', 'saving Character')
+        scribe.info('saving Character')
       );
       const myChar = new Character();
       characterService.saveCharCopy(myChar);

@@ -2,24 +2,25 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
 
 import { CharacterService } from '@Character/character.service';
-import { DbCharacter } from '@DbModel/index';
-import { DbCharacterService } from './db-character/db-character.service';
+import { DbService } from '@Db/db.service';
+import { DbCharacter, DbSave, DbSkill } from '@DbModel/index';
 
 const repo = {
-  queryCharacters: jest
-    .fn()
-    .mockReturnValue(
-      of([new DbCharacter(), new DbCharacter(), new DbCharacter()])
-    ),
-  queryCharacterOne: jest.fn().mockReturnValue(of(new DbCharacter())),
-  insertNewCharacter: jest.fn().mockReturnValue(of(new DbCharacter())),
-  updateCharacter: jest.fn().mockReturnValue(of([])),
-  updateSkills: jest.fn().mockReturnValue(of([]))
+  query: jest.fn()
 };
 
 process.env.DUMMY_ID = 'DUMMY_ID';
-let queryCharCalls = 0;
+let queryCalls = 0;
 const userId = '00Utest123454';
+
+const getMulti = (characters: any) => {
+  expect(repo.query).toBeCalledTimes(++queryCalls);
+  expect(characters).toEqual([
+    new DbCharacter(),
+    new DbCharacter(),
+    new DbCharacter()
+  ]);
+};
 
 describe('CharacterService', () => {
   let service: CharacterService;
@@ -28,7 +29,7 @@ describe('CharacterService', () => {
       providers: [
         CharacterService,
         {
-          provide: DbCharacterService,
+          provide: DbService,
           useValue: repo
         }
       ]
@@ -39,47 +40,69 @@ describe('CharacterService', () => {
     expect(service).toBeDefined();
   });
   it('should work for getCharacters (not logged in)', () => {
-    service.getAll().subscribe((characters) => {
-      expect(repo.queryCharacters).toBeCalledWith('DUMMY_ID');
-      expect(repo.queryCharacters).toBeCalledTimes(++queryCharCalls);
-      expect(characters).toEqual([
-        new DbCharacter(),
-        new DbCharacter(),
-        new DbCharacter()
-      ]);
-    });
+    repo.query.mockReturnValueOnce(
+      of([new DbCharacter(), new DbCharacter(), new DbCharacter()])
+    );
+    service.getAll().subscribe(getMulti);
   });
   it('should work for getCharacters (logged in)', () => {
-    service.getUserChars(userId).subscribe((characters) => {
-      expect(repo.queryCharacters).toBeCalledWith(userId);
-      expect(repo.queryCharacters).toBeCalledTimes(++queryCharCalls);
-      expect(characters).toEqual([
-        new DbCharacter(),
-        new DbCharacter(),
-        new DbCharacter()
-      ]);
-    });
+    repo.query.mockReturnValueOnce(
+      of([new DbCharacter(), new DbCharacter(), new DbCharacter()])
+    );
+    service.getUserChars(userId).subscribe(getMulti);
   });
-  it('should work for get ONE character', () => {
-    service.getOne('00Ctest12345').subscribe((character) => {
-      expect(repo.queryCharacterOne).toBeCalledTimes(1);
-      expect(repo.queryCharacterOne).toBeCalledWith('00Ctest12345');
-      expect(character).toEqual(new DbCharacter());
+  describe('getOne', () => {
+    it('should work for get ONE character', () => {
+      repo.query
+        .mockReturnValueOnce(of([new DbCharacter()]))
+        .mockReturnValueOnce(of([new DbSkill()]))
+        .mockReturnValueOnce(of([new DbSave()]));
+      queryCalls += 3;
+      const expectedChar = new DbCharacter();
+      expectedChar.skills = [new DbSkill()];
+      expectedChar.saves = [new DbSave()];
+      service.getOne('00Ctest12345').subscribe((character) => {
+        expect(repo.query).toBeCalledTimes(queryCalls);
+        expect(character).toEqual(expectedChar);
+      });
+    });
+    it('should error if there are no characters to return', () => {
+      repo.query
+        .mockReturnValueOnce(of([]))
+        .mockReturnValueOnce(of([]))
+        .mockReturnValueOnce(of([]));
+      queryCalls += 3;
+      service.getOne('00Ctest12345').subscribe(
+        (character) => {},
+        (err) => {
+          expect(repo.query).toBeCalledTimes(queryCalls);
+          expect(err).toBeTruthy();
+        }
+      );
     });
   });
   it('should work for newCharacter', () => {
-    service.newChar(new DbCharacter(), userId).subscribe((newChar) => {
-      expect(repo.insertNewCharacter).toBeCalledTimes(1);
-      expect(repo.insertNewCharacter).toBeCalledWith(new DbCharacter(), userId);
+    repo.query
+      .mockReturnValueOnce(of([new DbCharacter()]))
+      .mockResolvedValueOnce(of([new DbSkill()]))
+      .mockReturnValueOnce(of([new DbSave()]));
+    queryCalls += 3;
+    const insertChar = new DbCharacter();
+    insertChar.skills = [new DbSkill()];
+    insertChar.saves = [new DbSave()];
+    service.newChar(insertChar, userId).subscribe((newChar) => {
+      expect(repo.query).toBeCalledTimes(queryCalls);
       expect(newChar).toEqual(new DbCharacter());
     });
   });
   it('should work for updateCharacter', () => {
-    service.updateChar(new DbCharacter()).subscribe((updateChar) => {
-      expect(repo.updateCharacter).toBeCalledTimes(1);
-      expect(repo.updateCharacter).toBeCalledWith(new DbCharacter());
-      expect(repo.updateSkills).toBeCalledTimes(1);
-      expect(updateChar).toEqual([]);
+    repo.query.mockReturnValueOnce(of([])).mockReturnValueOnce(of([]));
+    queryCalls += 2;
+    const char = new DbCharacter();
+    char.skills = [new DbSkill()];
+    service.updateChar(char).subscribe((updateChar) => {
+      expect(repo.query).toBeCalledTimes(queryCalls);
+      expect(updateChar).toEqual(undefined);
     });
   });
 });

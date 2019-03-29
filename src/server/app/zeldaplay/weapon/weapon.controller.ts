@@ -24,7 +24,7 @@ import { WeaponPipe } from '@Weapon/weapon.pipe';
 import { WeaponService } from '@Weapon/weapon.service';
 import { Observable } from 'rxjs';
 
-@ApiUseTags('weapon')
+@ApiUseTags('Weapon')
 @Controller('character/weapon')
 export class WeaponController {
   constructor(private readonly weaponService: WeaponService) {}

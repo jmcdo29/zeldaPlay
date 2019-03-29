@@ -22,8 +22,8 @@ export class AuthGuard implements CanActivate {
         return this.validate(token);
       }
     } catch (err) {
-      scribe('ERROR', err.message);
-      scribe('FINE', err.stack);
+      scribe.error(err.message);
+      scribe.fine(err.stack);
       return false;
     }
   }

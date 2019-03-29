@@ -6,7 +6,7 @@ import { CharacterIdParam } from '@Parameter/index';
 import { SkillService } from '@Skill/skill.service';
 import { Observable } from 'rxjs';
 
-@ApiUseTags('skill')
+@ApiUseTags('Skill')
 @Controller('character/skill')
 export class SkillController {
   constructor(private readonly skillService: SkillService) {}

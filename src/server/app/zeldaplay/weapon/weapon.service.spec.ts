@@ -1,11 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
 
+import { DbService } from '@Db/db.service';
 import { DbWeapon } from '@DbModel/index';
 import { WeaponService } from '@Weapon/weapon.service';
-import { DbWeaponService } from './db-weapon/db-weapon.service';
 
 const mockRepo = {
+  query: jest.fn(),
   getWeapons: jest
     .fn()
     .mockReturnValue(of([new DbWeapon(), new DbWeapon(), new DbWeapon()])),
@@ -14,6 +15,7 @@ const mockRepo = {
 };
 
 const charId = '00Ctest12345';
+let queryCalls = 0;
 
 describe('WeaponService', () => {
   let service: WeaponService;
@@ -22,7 +24,7 @@ describe('WeaponService', () => {
       providers: [
         WeaponService,
         {
-          provide: DbWeaponService,
+          provide: DbService,
           useValue: mockRepo
         }
       ]
@@ -33,9 +35,11 @@ describe('WeaponService', () => {
     expect(service).toBeDefined();
   });
   it('should run the getWeapons functionality', () => {
+    mockRepo.query.mockReturnValue(
+      of([new DbWeapon(), new DbWeapon(), new DbWeapon()])
+    );
     service.getWeapons(charId).subscribe((queryRes) => {
-      expect(mockRepo.getWeapons).toBeCalledTimes(1);
-      expect(mockRepo.getWeapons).toBeCalledWith(charId);
+      expect(mockRepo.query).toBeCalledTimes(++queryCalls);
       expect(queryRes).toEqual([
         new DbWeapon(),
         new DbWeapon(),
@@ -44,16 +48,16 @@ describe('WeaponService', () => {
     });
   });
   it('should run the newWeapon functionality', () => {
+    mockRepo.query.mockReturnValue(of([new DbWeapon()]));
     service.newWeapon(new DbWeapon(), charId).subscribe((insertRes) => {
-      expect(mockRepo.newWeapon).toBeCalledTimes(1);
-      expect(mockRepo.newWeapon).toBeCalledWith(new DbWeapon(), charId);
+      expect(mockRepo.query).toBeCalledTimes(++queryCalls);
       expect(insertRes).toEqual(new DbWeapon());
     });
   });
   it('should run the updateWeapons functionality', () => {
+    mockRepo.query.mockReturnValue(of([new DbWeapon()]));
     service.updateWeapon(new DbWeapon()).subscribe((updateRes) => {
-      expect(mockRepo.updateWeapon).toBeCalledTimes(1);
-      expect(mockRepo.updateWeapon).toBeCalledWith(new DbWeapon());
+      expect(mockRepo.query).toBeCalledTimes(++queryCalls);
       expect(updateRes).toEqual(new DbWeapon());
     });
   });

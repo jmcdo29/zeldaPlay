@@ -16,7 +16,7 @@ import { NoteService } from '@Note/note.service';
 import { CharacterIdParam } from '@Parameter/index';
 import { Observable } from 'rxjs';
 
-@ApiUseTags('note')
+@ApiUseTags('Note')
 @Controller('character/note')
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}

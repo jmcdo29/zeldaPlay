@@ -12,6 +12,7 @@ describe('DbService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [DbService]
     }).compile();
+    module.init();
     service = module.get<DbService>(DbService);
   });
   it('should be defined', () => {

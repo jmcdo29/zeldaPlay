@@ -5,14 +5,12 @@ import { scribe } from 'mc-scribe';
 import * as morgan from 'morgan';
 import { join } from 'path';
 
-import { MyLogger } from './app/logger/logger.service';
 import { configSwagger } from './swagger';
 
 const morganFormat =
   process.env.NODE_ENV.toLowerCase() === 'production' ? 'combined' : 'dev';
 
 export function configure(app: INestApplication & NestFastifyApplication) {
-  app.useLogger(app.get(MyLogger));
   app.enableCors({
     origin: [/localhost:*/, 'https://zeladplay.herokuapp.com/']
   });
@@ -22,7 +20,7 @@ export function configure(app: INestApplication & NestFastifyApplication) {
     morgan(morganFormat, {
       skip: (req, res) => morganFormat === 'combined' && req.statusCode < 400,
       stream: {
-        write: (value) => scribe('INFO', value)
+        write: (value) => scribe.info(value)
       }
     })
   );

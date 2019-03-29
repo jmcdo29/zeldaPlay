@@ -24,7 +24,7 @@ import { SpellPipe } from '@Spell/spell.pipe';
 import { SpellService } from '@Spell/spell.service';
 import { Observable } from 'rxjs';
 
-@ApiUseTags('spell')
+@ApiUseTags('Spell')
 @Controller('character/spell')
 export class SpellController {
   constructor(private readonly spellService: SpellService) {}

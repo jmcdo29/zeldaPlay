@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
 
+import { DbService } from '@Db/db.service';
 import { DbSkill } from '@DbModel/index';
 import { SkillController } from '@Skill/skill.controller';
 import { SkillService } from '@Skill/skill.service';
-import { DbSkillService } from './db-skill/db-skill.service';
 
 const mockRepo = {
-  getSkills: jest
+  query: jest
     .fn()
     .mockReturnValue(of([new DbSkill(), new DbSkill(), new DbSkill()]))
 };
@@ -19,7 +19,7 @@ describe('SkillService', () => {
       providers: [
         SkillService,
         {
-          provide: DbSkillService,
+          provide: DbService,
           useValue: mockRepo
         }
       ],
@@ -32,8 +32,7 @@ describe('SkillService', () => {
   });
   it('should return three skills from getSkills()', () => {
     service.getCharacterSkills('00Ctest12345').subscribe((skills) => {
-      expect(mockRepo.getSkills).toBeCalledTimes(1);
-      expect(mockRepo.getSkills).toBeCalledWith('00Ctest12345');
+      expect(mockRepo.query).toBeCalledTimes(1);
       expect(skills).toEqual([new DbSkill(), new DbSkill(), new DbSkill()]);
     });
   });
