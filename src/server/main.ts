@@ -42,10 +42,12 @@ bootstrap();
 
 // this should really only happen in dev, because I clean the dist folder, but I'm tired of fixing it
 // so it is happening programmatically
-process.on('unhandledRejection', (err: any) => {
-  scribe.error(err);
-  if (err.message.includes('root"')) {
+process.on('unhandledRejection', (err: Error) => {
+  scribe.error(err.message);
+  scribe.fine(err.stack);
+  if (err.message.includes('root')) {
     mkdirSync(join(__dirname, '..', 'client'));
+    scribe.debug('Restarting the server.');
     bootstrap();
   }
 });

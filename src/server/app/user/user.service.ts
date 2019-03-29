@@ -4,6 +4,7 @@ import {
   UnauthorizedException
 } from '@nestjs/common';
 import { compareSync, hashSync } from 'bcryptjs';
+import { scribe } from 'mc-scribe';
 import { Observable } from 'rxjs';
 import { flatMap, map, tap } from 'rxjs/operators';
 
@@ -65,10 +66,39 @@ export class UserService {
             `INSERT INTO zeldaplay.players
           (email, password) VALUES
           ($1, $2) RETURNING id as "pId"`,
-            [user.email, hashSync(user.password)]
+            [user.email, hashSync(user.password, 12)]
           )
         ),
-        map((players) => players[0])
+        map((players) => {
+          const player = players[0];
+          let insertString = '';
+          let insertValues = [];
+          let count = 0;
+          for (const recovery of user.recovery) {
+            insertString += `($${1 + count * 3}, $${2 + count * 3}, $${3 +
+              count * 3}),`;
+            insertValues.push(
+              recovery.question,
+              hashSync(recovery.answer, 12),
+              player.pId
+            );
+            count++;
+          }
+          insertString = insertString.substring(0, insertString.length - 1);
+          scribe.debug(
+            `INSERT INTO zeldaplay.recoveries
+          (question, answer, player_id) VALUES ${insertString}`,
+            insertValues
+          );
+          this.dbService
+            .query(
+              `INSERT INTO zeldaplay.recoveries
+          (question, answer, player_id) VALUES ${insertString}`,
+              insertValues
+            )
+            .subscribe();
+          return player;
+        })
       );
   }
 

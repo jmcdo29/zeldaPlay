@@ -17,7 +17,12 @@ const newUser = {
   email,
   password: pWord,
   confirmationPassword: pWord,
-  recovery: []
+  recovery: [
+    {
+      question: 'This is a question',
+      answer: 'And I am the answer'
+    }
+  ]
 };
 
 describe('UsersService', () => {
@@ -77,8 +82,10 @@ describe('UsersService', () => {
     it('should sign up a new user', () => {
       const newPlayer = new DbPlayer();
       newPlayer.pEmail = email;
-      mockRepo.query.mockReturnValueOnce(of([]));
-      mockRepo.query.mockReturnValueOnce(of([newPlayer]));
+      mockRepo.query
+        .mockReturnValueOnce(of([]))
+        .mockReturnValueOnce(of([newPlayer]))
+        .mockReturnValueOnce(of([]));
       service.signup(newUser).subscribe((signUp) => {
         expect(signUp).toEqual(newPlayer);
       });

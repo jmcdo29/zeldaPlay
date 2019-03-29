@@ -26,27 +26,19 @@ export class MyLogger extends Logger {
     context?: string,
     isTimeDiffEnabled: boolean = false
   ) {
-    const colorStart = '\x1b[';
-    const reset = '0m';
-    const green = '32m';
-    const yellow = '33m';
+    const colorStart = '\x1b';
+    const reset = colorStart + '[0m';
+    const green = colorStart + '[32m';
+    const yellow = colorStart + '[33m';
     const nest =
       process.env.NODE_ENV === 'dev'
-        ? '[' + colorStart + green + 'Nest' + colorStart + reset + ']'
+        ? '[' + green + 'Nest' + reset + ']'
         : '[Nest]';
     const con =
       process.env.NODE_ENV === 'dev'
-        ? '[' +
-          colorStart +
-          yellow +
-          '' +
-          context +
-          '' +
-          colorStart +
-          reset +
-          ']'
+        ? '[' + yellow + context + reset + ']'
         : '' + context + '';
-    scribe[level](`${nest} ${process.pid}\t${con} ${message}`);
+    scribe[level](`${nest} ${process.pid} ${con} ${message}`);
   }
 
   printStackTrace(trace: string) {
@@ -54,12 +46,9 @@ export class MyLogger extends Logger {
       return;
     }
     const colorStart = '\x1b[';
-    const reset = '0m';
-    const red = '31m';
-    trace =
-      process.env.NODE_ENV === 'dev'
-        ? colorStart + red + trace + colorStart + reset
-        : trace;
+    const reset = colorStart + '0m';
+    const red = colorStart + '31m';
+    trace = process.env.NODE_ENV === 'dev' ? red + trace + reset : trace;
     scribe.fine(trace);
   }
 }
