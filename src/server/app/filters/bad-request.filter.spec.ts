@@ -12,7 +12,7 @@ describe('BadRequestFilterFilter', () => {
   it('should catch the error', () => {
     filter.catch(
       new BadRequestException({
-        message: [{ constraints: ['A bad request'] }]
+        message: { message: [{ constraints: ['A bad request'] }] }
       }),
       {
         switchToHttp: jest.fn().mockReturnValue({

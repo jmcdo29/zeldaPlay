@@ -25,7 +25,7 @@ export class DbService implements OnModuleInit {
     return from(this.pool.query(text, params)).pipe(
       map((queryRes) => {
         this.counter = 0;
-        scribe('DEBUG', {
+        scribe.debug({
           text,
           duration: Date.now() - qStart + ' ms',
           rows: queryRes.rowCount
@@ -33,12 +33,12 @@ export class DbService implements OnModuleInit {
         return queryRes.rows;
       }),
       catchError((err: Error) => {
-        scribe('ERROR', err.message);
-        scribe('DEBUG', {
+        scribe.error(err.message);
+        scribe.debug({
           text,
           duration: Date.now() - qStart + ' ms'
         });
-        scribe('FINE', err.stack);
+        scribe.fine(err.stack);
         this.error(err);
         return of([]);
       })

@@ -52,7 +52,7 @@ describe('UsersService', () => {
       service.login(user).subscribe(
         () => {},
         (err) => {
-          expect(err.message.message).toBe(
+          expect(err.message).toBe(
             'No user found for email ' + email + '. Please register first.'
           );
         }
@@ -68,7 +68,7 @@ describe('UsersService', () => {
           throw new Error('Should not be here');
         },
         (err) => {
-          expect(err.message.message).toBe('Invalid email or password.');
+          expect(err.message).toBe('Invalid email or password.');
         }
       );
     });
@@ -88,7 +88,7 @@ describe('UsersService', () => {
       service.signup(newUser).subscribe(
         () => {},
         (err) => {
-          expect(err.message.message).toBe(
+          expect(err.message).toBe(
             'That email already exists. Please log in or choose another email.'
           );
         }
@@ -108,7 +108,7 @@ describe('UsersService', () => {
         () => {},
         (err) => {
           expect(err.status).toBe(401);
-          expect(err.message.message).toBe(
+          expect(err.message).toBe(
             'No user found for email ' + email + '. Please register first.'
           );
         }

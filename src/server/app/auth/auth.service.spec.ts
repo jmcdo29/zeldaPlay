@@ -112,9 +112,7 @@ describe('AuthService', () => {
         },
         (err) => {
           expect(findSpy).toBeCalledWith(undefined);
-          expect(err.message.message).toBe(
-            'Login invalid. Please log in again.'
-          );
+          expect(err.message).toBe('Login invalid. Please log in again.');
         }
       );
     });

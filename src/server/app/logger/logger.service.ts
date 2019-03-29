@@ -4,24 +4,24 @@ import { scribe } from 'mc-scribe';
 @Injectable()
 export class MyLogger extends Logger {
   error(message: string, trace: string, context?: string) {
-    this.printMessage('ERROR', message, context);
+    this.printMessage('error', message, context);
     this.printStackTrace(trace);
   }
   log(message: string, context?: string) {
-    this.printMessage('INFO', message, context);
+    this.printMessage('info', message, context);
   }
   warn(message: string, context?: string) {
-    this.printMessage('DEBUG', message, context);
+    this.printMessage('warn', message, context);
   }
   debug(message: string, context?: string) {
-    this.printMessage('DEBUG', message, context);
+    this.printMessage('debug', message, context);
   }
   verbose(message: string, context?: string) {
-    this.printMessage('FINE', message, context);
+    this.printMessage('fine', message, context);
   }
 
   printMessage(
-    level: ('DEBUG' | 'INFO') | ('FINE' | 'ERROR'),
+    level: ('debug' | 'info') | ('fine' | 'error') | ('warn'),
     message: string,
     context?: string,
     isTimeDiffEnabled: boolean = false
@@ -46,7 +46,7 @@ export class MyLogger extends Logger {
           reset +
           ']'
         : '' + context + '';
-    scribe(level, `${nest} ${process.pid}\t${con} ${message}`);
+    scribe[level](`${nest} ${process.pid}\t${con} ${message}`);
   }
 
   printStackTrace(trace: string) {
@@ -60,6 +60,6 @@ export class MyLogger extends Logger {
       process.env.NODE_ENV === 'dev'
         ? colorStart + red + trace + colorStart + reset
         : trace;
-    scribe('FINE', trace);
+    scribe.fine(trace);
   }
 }

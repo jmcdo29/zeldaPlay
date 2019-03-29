@@ -30,10 +30,10 @@ async function bootstrap() {
     );
     configure(app);
     await app.listen(PORT, HOST);
-    scribe('INFO', `Application stated on ${HOST}:${PORT}.`);
+    scribe.info(`Application stated on ${HOST}:${PORT}.`);
   } catch (err) {
-    scribe('ERROR', err.message);
-    scribe('FINE', err.stack);
+    scribe.error(err.message);
+    scribe.fine(err.stack);
     process.exit(0);
   }
 }
@@ -43,9 +43,8 @@ bootstrap();
 // this should really only happen in dev, because I clean the dist folder, but I'm tired of fixing it
 // so it is happening programmatically
 process.on('unhandledRejection', (err: any) => {
-  scribe('ERROR', err);
+  scribe.error(err);
   if (err.message.includes('root"')) {
-    scribe('ERROR', 'Missing root error');
     mkdirSync(join(__dirname, '..', 'client'));
     bootstrap();
   }
