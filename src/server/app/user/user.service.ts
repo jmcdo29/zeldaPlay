@@ -72,7 +72,7 @@ export class UserService {
         map((players) => {
           const player = players[0];
           let insertString = '';
-          let insertValues = [];
+          const insertValues = [];
           let count = 0;
           for (const recovery of user.recovery) {
             insertString += `($${1 + count * 3}, $${2 + count * 3}, $${3 +
