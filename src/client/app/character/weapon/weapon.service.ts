@@ -18,7 +18,10 @@ export class WeaponService extends AbstractService {
     super();
   }
 
-  // Get all of the weapons's for a character and map the db response to the client usage
+  /**
+   * Get all of the weapon's for a character and map the db response to the client usage
+   * @param charId The character whose weapons should be gotten
+   */
   getWeapons(charId: string): Observable<Weapon[]> {
     return this.http.get<IWeaponDb[]>(this.weaponURL + charId).pipe(
       map((inWeapons) => {
@@ -44,7 +47,11 @@ export class WeaponService extends AbstractService {
     );
   }
 
-  // send a new weapon to the server and save the weapon's returned id to the original object
+  /**
+   * send a new weapon to the server and save the weapon's returned id to the original object
+   * @param charId The character the weapon belongs to
+   * @param weapon The new weapon to save
+   */
   newWeapon(charId: string, weapon: Weapon): Observable<Weapon> {
     const weaponReq = this.transform(weapon);
     return this.http
@@ -64,8 +71,12 @@ export class WeaponService extends AbstractService {
         })
       );
   }
-  // send updated information about the weapon to the server. Because the weapon already exists with
-  // up to date information, just return the weapon after the request is successful
+  /**
+   * send updated information about the weapon to the server.
+   * Because the weapon already exists with up to date information,
+   * just return the weapon after the request is successful
+   * @param weapon The weapon being updated
+   */
   updateWeapon(weapon: Weapon): Observable<Weapon> {
     const weaponReq = this.transform(weapon);
     return this.http
@@ -85,8 +96,12 @@ export class WeaponService extends AbstractService {
       );
   }
 }
-// transform the value of a string to a numeric array returning
-// returning [18, 19, 20], [19, 20], or [20] depending on the initial string
+
+/**
+ * transform the value of a string to a numeric array returning
+ * returning [18, 19, 20], [19, 20], or [20] depending on the initial string
+ * @param range The range string to parse
+ */
 function parseStringToIntArray(range: string): number[] {
   if (range.length === 2) {
     return [Number.parseInt(range)];

@@ -62,6 +62,9 @@ export class WeaponComponent implements OnInit {
     private readonly weaponService: WeaponService
   ) {}
 
+  /**
+   * Initialization of the weapons module
+   */
   ngOnInit() {
     this.weapon = new Weapon();
     if (this.character.weapons.length === 0) {
@@ -73,10 +76,16 @@ export class WeaponComponent implements OnInit {
     }
   }
 
+  /**
+   * Toggle the new weapon modal
+   */
   addWeapon(): void {
     this.newWeapon = !this.newWeapon;
   }
 
+  /**
+   * Check for any problems with the new weapon. If there are none, save it
+   */
   saveWeapon(): void {
     let error = false;
     if (this.elemental) {
@@ -131,6 +140,10 @@ export class WeaponComponent implements OnInit {
     }
   }
 
+  /**
+   * Error checking specifically for ranged weapons
+   * @param error The running error from the rest of the checks
+   */
   rangeChecks(error: boolean): boolean {
     if (!this.weapon.range) {
       error = true;
@@ -143,6 +156,10 @@ export class WeaponComponent implements OnInit {
     return error;
   }
 
+  /**
+   * Error checking for elemental weapons
+   * @param error The running error from previous checks
+   */
   elementalChecks(error: boolean): boolean {
     if (!this.weapon.element.type) {
       error = true;
@@ -159,6 +176,11 @@ export class WeaponComponent implements OnInit {
     return error;
   }
 
+  /**
+   * Validate that the inputs for the weapon are correct
+   * @param id the id of the component with changed data
+   * @param key The field of the weapon being input
+   */
   validate(id: string, key: string): void {
     if (!this.weapon[key]) {
       document.getElementById(id).classList.add('bad-input');
@@ -177,6 +199,11 @@ export class WeaponComponent implements OnInit {
     }
   }
 
+  /**
+   * Validate that the fields of the element component are correct
+   * @param id The id of the field being worked on
+   * @param key The name of the field being worked on
+   */
   validateElement(id: string, key: string): void {
     if (!this.elemental[key]) {
       document.getElementById(id).classList.add('bad-input');
@@ -186,16 +213,25 @@ export class WeaponComponent implements OnInit {
     }
   }
 
+  /**
+   * Make a new elemental Object if the weapon has elemental damage
+   */
   makeElement(): void {
     this.elemental = !this.isElemental
       ? new Elemental(undefined, undefined, undefined, undefined)
       : null;
   }
 
+  /**
+   * Check if the new weapon is on the ranged list
+   */
   checkForRanged(): void {
     this.isRangedWeapon = this.rangeList.includes(this.weapon.type);
   }
 
+  /**
+   * Audit trail message creation
+   */
   createMessage(): void {
     const name = this.character.name;
     const weapon = this.character.weapons[this.character.weapons.length - 1];
@@ -208,10 +244,17 @@ export class WeaponComponent implements OnInit {
     this.message.add(message);
   }
 
+  /**
+   * Toggle showing the weapons
+   */
   expandWeapon(): void {
     this.showWeapon = !this.showWeapon;
   }
 
+  /**
+   * Make an attack roll with the weapon chosen
+   * @param weaponIndex The index of the weapon in the character's weapon array
+   */
   attack(weaponIndex: number): void {
     let elemDmg;
     let crit = false;
@@ -256,6 +299,15 @@ export class WeaponComponent implements OnInit {
     this.dmgRoll = dmgRoll;
   }
 
+  /**
+   * Create message for audit trail of the weapon attack
+   * @param character Character making the attack
+   * @param weapon What weapon was used
+   * @param hit Hit value
+   * @param dmg Damage value
+   * @param elemDam Elemental damage
+   * @param elem Elemental Type
+   */
   attackMessage(
     character: Character,
     weapon: Weapon,
@@ -283,6 +335,10 @@ export class WeaponComponent implements OnInit {
     this.message.add(message);
   }
 
+  /**
+   * Roll to attack!
+   * @param mod Number of sides on the dice
+   */
   roll(mod: number): number {
     return (Math.round(Math.random() * 100) % mod) + 1;
   }

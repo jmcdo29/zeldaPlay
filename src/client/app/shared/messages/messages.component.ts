@@ -14,6 +14,9 @@ export class MessagesComponent implements OnInit {
 
   ngOnInit() {}
 
+  /**
+   * toggle function to show or hide messages
+   */
   showMessages(): void {
     this.show = !this.show;
   }

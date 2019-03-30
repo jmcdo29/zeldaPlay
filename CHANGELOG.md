@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Health check indicator for Characters (@nestjs/terminus module)
+- Health check indicator for Characters [@nestjs/terminus module](https://github.com/nestjs/terminus)
 - Started to add recovery questions to user registration
   - Should probably add better error handling for the recovery question
 

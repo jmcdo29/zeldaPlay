@@ -24,6 +24,12 @@ export class DieComponent implements OnInit {
 
   ngOnInit() {}
 
+  /**
+   * Creates a message for the audit trail.
+   * @param roll Roll value
+   * @param modVal the modifier value, if any
+   * @param sides the number of sides the dice has
+   */
   createMessage(roll: number, modVal: number, sides: number): void {
     const name = this.character.character.name;
     const rolled = ' rolled a ';
@@ -40,12 +46,16 @@ export class DieComponent implements OnInit {
     this.messageService.add(rollString);
   }
 
+  /**
+   * Makes a roll, using a pseudo-random number generator for the number of sides the dice should have
+   * @param sides number of sides to roll for
+   */
   roll(sides: number): void {
     this.character.crit = false;
     this.character.critMiss = false;
     this.character.maxDmg = false;
     const roll = (Math.round(Math.random() * 100) % sides) + 1;
-    let modVal;
+    let modVal: number;
 
     let rollVal: number;
 

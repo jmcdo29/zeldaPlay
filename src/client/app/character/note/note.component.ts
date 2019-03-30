@@ -28,6 +28,9 @@ export class NoteComponent implements OnInit {
     private readonly noteService: NoteService
   ) {}
 
+  /**
+   * Initialize the note module. Get notes if there are any and separate them
+   */
   ngOnInit() {
     if (
       this.character.notes.length === 0 &&
@@ -44,6 +47,9 @@ export class NoteComponent implements OnInit {
     }
   }
 
+  /**
+   * Create a new note and mark the timestamp of it
+   */
   addNote(): void {
     this.note = new Note(
       undefined,
@@ -70,10 +76,17 @@ export class NoteComponent implements OnInit {
     this.important = false;
   }
 
+  /**
+   * toggle making a note
+   */
   makeNewNote(): void {
     this.newNote = !this.newNote;
   }
 
+  /**
+   * toggle which notes are showing (important, not, all, none)
+   * @param index index of note's array (important or not)
+   */
   expandNotes(index: number): void {
     this.showNotes[index] = !this.showNotes[index];
   }

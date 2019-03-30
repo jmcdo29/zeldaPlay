@@ -25,9 +25,11 @@ export class SkillComponent implements OnInit {
     private readonly skillService: SkillService
   ) {}
 
-  // In theory this will never be called, but it is implemented
-  // as a fail safe in case for whatever reason getting the
-  // character does not immediately get the skills too.
+  /**
+   * In theory this will never be called, but it is implemented
+   * as a fail safe in case for whatever reason getting the
+   * character does not immediately get the skills too.
+   */
   ngOnInit() {
     if (this.character.skills.length === 0) {
       this.skillService.getSkills(this.character.id).subscribe((skillMap) => {
@@ -44,18 +46,25 @@ export class SkillComponent implements OnInit {
     }
   }
 
+  /**
+   * utility function to get the value of the modifier from the character's attributes
+   * @param modName Whatever mod is related to the skill (Strength, Dexterity, etc.)
+   */
   getMod(modName: string): number {
-    for (const attribute of this.character.attributes) {
-      if (attribute.name === modName) {
-        return attribute.modifier;
-      }
-    }
+    return this.character.attributes[Attributes[modName]].modifier;
   }
 
+  /**
+   * Toggle if skills are showing
+   */
   expandSkill(): void {
     this.showSkills = !this.showSkills;
   }
 
+  /**
+   * Roll a skill check for the skill and add the according bonuses
+   * @param skillName What skill is making the skill check
+   */
   makeCheck(skillName: string): void {
     const originalRoll = (Math.round(Math.random() * 100) % 20) + 1;
     const skill = this.character.skills[Skills[skillName]];
@@ -83,11 +92,19 @@ export class SkillComponent implements OnInit {
     this.addMessage(skillName, roll);
   }
 
+  /**
+   * Hide the skill check from the page
+   */
   hideCheck(): void {
     this.checkVal = null;
     this.skill = null;
   }
 
+  /**
+   * Message for the audit trail if a character makes a skill check
+   * @param skillName Skill check being made
+   * @param skillRoll Roll for the skill check
+   */
   private addMessage(skillName: string, skillRoll: number) {
     const name = this.character.name;
     const message =
@@ -95,6 +112,10 @@ export class SkillComponent implements OnInit {
     this.messenger.add(message);
   }
 
+  /**
+   * Utility to color the skillCheck if crit hit or crit miss
+   * @param roll value of the roll
+   */
   private setClasses(roll: number): void {
     this.nullify('roll', 'crit');
     this.nullify('roll', 'critMiss');
@@ -105,6 +126,9 @@ export class SkillComponent implements OnInit {
     }
   }
 
+  /**
+   * Removes crit and/or critMiss if the roll element has them in its class list
+   */
   private nullify(id: string, className: string): void {
     if (
       document.getElementById(id) &&

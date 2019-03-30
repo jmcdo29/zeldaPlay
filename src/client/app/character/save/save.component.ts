@@ -29,6 +29,10 @@ export class SaveComponent implements OnInit, OnChanges {
 
   ngOnInit() {}
 
+  /**
+   * Roll to make the according save and add corresponding bonus
+   * @param saveString Which save to make (Reflex, Fortitude, Will)
+   */
   makeSave(saveString: string): void {
     const modifier = this.character.savingThrows[Saves[saveString]].modifier;
     const saveValAdd = this.character.attributes[Attributes[modifier]].modifier;
@@ -40,6 +44,11 @@ export class SaveComponent implements OnInit, OnChanges {
     this.makeMessage(roll, saveString);
   }
 
+  /**
+   * Function to create the message for the audit trail
+   * @param roll The value of the roll
+   * @param saveString Which save was made
+   */
   makeMessage(roll: number, saveString: string): void {
     const message =
       this.character.name +

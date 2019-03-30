@@ -37,7 +37,7 @@ export class MyLogger extends Logger {
     const con =
       process.env.NODE_ENV === 'dev'
         ? '[' + yellow + context + reset + ']'
-        : '' + context + '';
+        : '[' + context + ']';
     scribe[level](`${nest} ${process.pid} ${con} ${message}`);
   }
 

@@ -13,6 +13,10 @@ import { ISkillDb } from '#Models/skill.db';
 export class SkillService {
   constructor(private readonly http: HttpClient) {}
 
+  /**
+   * Function to retrieve the skills for the character, if needed for some reason
+   * @param charId the Character related to the skills being gotten
+   */
   getSkills(
     charId: string
   ): Observable<{ skill: Skill[]; weapon: Skill[]; magic: Skill[] }> {
