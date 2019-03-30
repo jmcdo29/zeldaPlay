@@ -76,7 +76,12 @@ export class CharacterCreateComponent implements OnInit {
     public message: MessageService,
     private alertService: AlertService,
     private characterService: CharacterService
-  ) {
+  ) {}
+
+  /**
+   * init function to set up new character for creation
+   */
+  ngOnInit(): void {
     this.attrMins = [];
     this.attrPrior = [];
     this.skillsPrior = [];
@@ -91,12 +96,17 @@ export class CharacterCreateComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
-
+  /**
+   * Toggle the about races modal
+   */
   aboutRace(): void {
     this.showRaceModal = !this.showRaceModal;
   }
 
+  /**
+   * Changes which race tab is being shown
+   * @param race Index of which race to show
+   */
   show(race: number): void {
     for (let i = 0; i < this.showRace.length; i++) {
       this.showRace[i] = false;
@@ -104,6 +114,13 @@ export class CharacterCreateComponent implements OnInit {
     this.showRace[race] = true;
   }
 
+  /**
+   * Saves the character. If the user is logged in, saves them to the database,
+   * otherwise persists only locally. If the character is not a Null Sub Race race
+   * and does not have a sub race, an error will be shown. If the character does not have a name
+   * an error will be show. If the user has not allocated all their skill and attribute points
+   * an error will be shown. If there is no error and the user is logged in, the character will be saved.
+   */
   save(): void {
     let nullSubRace = false;
     if (!this.nullSubRaceClasses.includes(this.newCharacter.race)) {
@@ -146,11 +163,18 @@ export class CharacterCreateComponent implements OnInit {
     }
   }
 
+  /**
+   * Cancels new character creation
+   */
   cancel(): void {
     this.CharacterParent.newChar = false;
     this.newCharacter = null;
   }
 
+  /**
+   * Change which race the new character will be. Instantiates a new object each time.
+   * No stats are saved on new race selection
+   */
   raceChange(): void {
     const raceTemp = this.newCharacter.race;
     switch (this.newCharacter.race) {
@@ -195,6 +219,9 @@ export class CharacterCreateComponent implements OnInit {
     this.newCharacter.exp = 0;
   }
 
+  /**
+   * Resets the new character back to its original state and gives back all allocated points
+   */
   resetPriors(): void {
     for (let i = 0; i < this.newCharacter.attributes.length; i++) {
       this.attrMins[i] = this.newCharacter.attributes[i].value;
@@ -213,15 +240,26 @@ export class CharacterCreateComponent implements OnInit {
     }
   }
 
+  /**
+   * Utility function to get the modifier value based on mod name
+   * @param modName The modifier's name
+   */
   getMod(modName: string): number {
     const retAtt = this.newCharacter.attributes[Attributes[modName]];
     return retAtt ? retAtt.modifier : 0;
   }
 
+  /**
+   * Dismiss the error
+   */
   closeError(): void {
     this.error = false;
   }
 
+  /**
+   * Track the attributes to know how many skills points remain.
+   * @param attrIndex The attribute's index in the attribute array
+   */
   trackAtt(attrIndex: number): void {
     const val = this.newCharacter.attributes[attrIndex].value;
     this.newCharacter.attributes[attrIndex].value = val;
@@ -233,6 +271,11 @@ export class CharacterCreateComponent implements OnInit {
     this.attrPrior[attrIndex] = val;
   }
 
+  /**
+   * Track the skill points allocated to know what is remaining
+   * @param index Skill's index in the skill array
+   * @param type which type of skills (skill, weapon, or magic)
+   */
   track(index: number, type: string): void {
     const val = this.newCharacter[type][index].ranks;
     const PRIOR = 'Prior';
@@ -241,6 +284,11 @@ export class CharacterCreateComponent implements OnInit {
     this[type + PRIOR][index] = val;
   }
 
+  /**
+   * Function to validate that the allocated points are allowed. Will show error on specific attribute if not
+   * Will also remove error once error has been resolved
+   * @param attrIndex The attribute's index in the attribute array
+   */
   validateAttr(attrIndex: number): void {
     const input = document.getElementById('attr' + attrIndex);
     if (
@@ -262,6 +310,12 @@ export class CharacterCreateComponent implements OnInit {
     }
   }
 
+  /**
+   * Validate that the allocated skill points are allowed. Will show error on skill if not.
+   * Error will be cleared on resolve.
+   * @param index Skill's index in the skills array
+   * @param type Which type of skills it is (skill, weapon,magic)
+   */
   validate(index: number, type: string): void {
     const input = document.getElementById(type + index);
     const PRIOR = 'Prior';
@@ -279,6 +333,9 @@ export class CharacterCreateComponent implements OnInit {
     }
   }
 
+  /**
+   * Resets the skills
+   */
   resetSkills(): void {
     for (const skill of this.newCharacter.skills) {
       skill.ranks = 0;
@@ -293,6 +350,9 @@ export class CharacterCreateComponent implements OnInit {
     this.skillPoints = this.originalPoints;
   }
 
+  /**
+   * Create message for audit trail
+   */
   createMessage(): void {
     const name = this.newCharacter.name;
     const race = this.newCharacter.race;

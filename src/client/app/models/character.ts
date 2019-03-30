@@ -309,27 +309,14 @@ export class Character {
   get attributes(): Attribute[] {
     return this._attributes.length > 0 ? this._attributes : [];
   }
-  /*
-  setAttributes(attributes: Attribute[]): void {
-    this.attributes = attributes;
-  } */
 
   addAttribute(attribute: Attribute): void {
     this._attributes.push(attribute);
   }
 
-  /*
-  setSkills(skills: Skill[]): void {
-    this.skills = skills;
-  } */
-
   get weaponSkills(): Skill[] {
     return this._weaponSkills.length > 0 ? this._weaponSkills : [];
   }
-  /*
-  setWeaponSkills(weaponSkills: Skill[]): void {
-    this.weaponSkills = weaponSkills;
-  } */
 
   addWeaponSkill(weaponSkill: Skill): void {
     this._weaponSkills.push(weaponSkill);
@@ -338,10 +325,6 @@ export class Character {
   get magicSkills(): Skill[] {
     return this._magicSkills.length > 0 ? this._magicSkills : [];
   }
-  /*
-  setMagicSkills(magicSkills: Skill[]): void {
-    this.magicSkills = magicSkills;
-  } */
 
   addMagicSkill(magicSkill: Skill): void {
     this._magicSkills.push(magicSkill);
@@ -350,10 +333,6 @@ export class Character {
   get weapons(): Weapon[] {
     return this._weapons.length > 0 ? this._weapons : [];
   }
-  /*
-  setWeapons(weapons: Weapon[]): void {
-    this.weapons = weapons;
-  } */
 
   addWeapon(weapon: Weapon): void {
     this._weapons.push(weapon);
@@ -362,10 +341,6 @@ export class Character {
   get spells(): Spell[] {
     return this._spells.length > 0 ? this._spells : [];
   }
-  /*
-  setSpells(spells: Spell[]): void {
-    this.spells = spells;
-  } */
 
   addSpell(spell: Spell): void {
     this._spells.push(spell);
@@ -374,10 +349,6 @@ export class Character {
   get notes(): Note[] {
     return this._notes.length > 0 ? this._notes : [];
   }
-  /*
-  setNotes(notes: Note[]): void {
-    this.notes = notes;
-  } */
 
   addNote(note: Note): void {
     this._notes.push(note);
@@ -386,10 +357,6 @@ export class Character {
   get importantNotes(): Note[] {
     return this._importantNotes.length > 0 ? this._importantNotes : [];
   }
-  /*
-  setImportantNotes(importantNotes: Note[]): void {
-    this.importantNotes = importantNotes;
-  } */
 
   addImportantNote(importantNote: Note): void {
     this._importantNotes.push(importantNote);
@@ -398,10 +365,6 @@ export class Character {
   get inventory(): Item[] {
     return this._inventory.length > 0 ? this._inventory : [];
   }
-  /*
-  setInventory(inventory: Item[]): void {
-    this.inventory = inventory;
-  } */
 
   addToInventory(item: Item): void {
     this._inventory.push(item);
@@ -410,10 +373,6 @@ export class Character {
   get savingThrows(): Save[] {
     return this._savingThrows.length > 0 ? this._savingThrows : [];
   }
-  /*
-  setSavingThrows(savingThrows: Save[]): void {
-    this.savingThrows = savingThrows;
-  } */
 
   addSavingThrow(savingThrow: Save): void {
     this._savingThrows.push(savingThrow);
@@ -431,20 +390,33 @@ export class Character {
     }
   }
 
-  // tslint:disable-next-line:cognitive-complexity
   createStandardCharacter(): void {
+    this.createAttributes();
+    this.createSkills();
+    this.createWeaponSkills();
+    this.createMagicSkills();
+    this.createSaves();
+    this.setSkills();
+    this.exp = 0;
+  }
+
+  private createAttributes(): void {
     for (const key in Attributes) {
       if (isNaN(Number(key))) {
         this._attributes.push(new Attribute(key, BASE));
       }
     }
+  }
 
+  private createSkills(): void {
     for (const key in Skills) {
       if (isNaN(Number(key))) {
         this._skills.push(new Skill(undefined, key, 0, false, '', 0, 0, 0));
       }
     }
+  }
 
+  private createWeaponSkills(): void {
     for (const key in Weapons) {
       if (isNaN(Number(key))) {
         this._weaponSkills.push(
@@ -452,7 +424,9 @@ export class Character {
         );
       }
     }
+  }
 
+  private createMagicSkills(): void {
     for (const key in Magics) {
       if (isNaN(Number(key))) {
         const mod =
@@ -464,7 +438,9 @@ export class Character {
         this._magicSkills.push(new Skill(undefined, key, 0, undefined, mod));
       }
     }
+  }
 
+  private createSaves(): void {
     for (const key in Saves) {
       if (isNaN(Number(key))) {
         const modifier =
@@ -476,6 +452,12 @@ export class Character {
         this._savingThrows.push(new Save(undefined, key, modifier, 0));
       }
     }
+  }
+
+  /**
+   * Function to set the modifier correctly for all the skills.
+   */
+  private setSkills(): void {
     /* A T T R I B U T E   A R R A Y S */
     const strArray = [Skills['Climb'], Skills['Intimidate'], Skills['Swim']];
 
@@ -537,9 +519,12 @@ export class Character {
         this._skills[skill].modifier = Attributes[i];
       }
     }
-    this.exp = 0;
   }
 
+  /**
+   * Function that parses the database character and creates the object accordingly
+   * @param qObj The database character object
+   */
   createDBCharacter(qObj: ICharacterQuery): void {
     this._name = qObj.chName;
     this._ac = qObj.chAc;
@@ -616,6 +601,10 @@ export class Character {
     }
   }
 
+  /**
+   * Function to parse the JSON of the character and create the instance correctly
+   * @param jObj The JSON character object (as if it were from a file)
+   */
   createJSONCharacter(jObj: ICharacterJSON): void {
     for (const attr of jObj.attributes) {
       this._attributes.push(new Attribute(attr.name, attr.value));
@@ -737,6 +726,9 @@ export class Character {
     this._touch = jObj.touch;
   }
 
+  /**
+   * Levels the character up and adds the appropriate values.
+   */
   levelUp(): void {
     this.maxHealth = this.maxHealth + 16 + this.attributes[2].modifier;
     this.health = this.maxHealth;
@@ -744,7 +736,10 @@ export class Character {
     this.magic = this.maxMagic;
     this.level += 1;
   }
-
+  /**
+   * Function to let a player gain experience. Level will happen automatically if need be
+   * @param expGain amount of experience gained
+   */
   gainExp(expGain: number): void {
     let counter = 0;
     this.exp += expGain;

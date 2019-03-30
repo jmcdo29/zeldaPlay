@@ -35,6 +35,11 @@ export class CharacterLevelUpComponent implements OnInit {
 
   constructor() {}
 
+  /**
+   * Set up the value tracking for character level up
+   * Also creates a minimum/starting array for all skills
+   * to allow better tracking and reverting values
+   */
   ngOnInit() {
     this.attrPoints = 1;
     this.skillPoints = 10;
@@ -67,15 +72,27 @@ export class CharacterLevelUpComponent implements OnInit {
     this.magicSkillsPrior = this.magicStarts;
   }
 
+  /**
+   * Function to switch which tab is visible
+   * @param tabIndex The tab's array index
+   */
   showTab(tabIndex: number): void {
     this.attributeTab = tabIndex === 0;
     this.skillTab = !this.attributeTab;
   }
 
+  /**
+   * Utility function to get the modifier's value based on the mod name
+   * @param modName Mod name string ('Strength', 'Dexterity', etc.)
+   */
   getMod(modName: string): number {
     return this.currChar.attributes[Attributes[modName]].modifier;
   }
 
+  /**
+   * Another function to allow for the changing of tabs. This time for skills.
+   * @param skillTabIndex The Array index of the skills tab
+   */
   showSkillTab(skillTabIndex: number): void {
     this.skillTypeTab[skillTabIndex] = true;
     this.skillTypeTab[(skillTabIndex + 1) % 3] = this.skillTypeTab[
@@ -83,12 +100,25 @@ export class CharacterLevelUpComponent implements OnInit {
     ] = false;
   }
 
+  /**
+   * Function to manage the tracking of adding values to the attribute while also updating
+   * the attribute's prior value
+   * @param attrIndex The attribute's index in the attribute array
+   */
   trackAtt(attrIndex: number): void {
     const val = this.currChar.attributes[attrIndex].value;
     this.attrPoints -= val - this.attrPrior[attrIndex];
     this.attrPrior[attrIndex] = val;
   }
 
+  /**
+   * Function to validate that the recently assigned attribute value is in fact a
+   * valid value. To do this it checks that the attribute's value is not below
+   * it's original value (minimum) and that the current number of points for allocation
+   * is not less than zero. Lastly it checks if there were any problems in the
+   * allocation beforehand: if so, remove the problems, if not ignore.
+   * @param attrIndex The attribute's index in the attribute array
+   */
   validateAttr(attrIndex: number): void {
     const input = document.getElementById('attr' + attrIndex);
     if (this.currChar.attributes[attrIndex].value < this.minimums[attrIndex]) {
@@ -107,6 +137,11 @@ export class CharacterLevelUpComponent implements OnInit {
     }
   }
 
+  /**
+   * Like trackAttr but for Skills
+   * @param index The skill's index in the skills array
+   * @param type Which skills array to look in (skills, weaponSkills, magicSkills)
+   */
   track(index: number, type: string): void {
     const val = this.currChar[type][index].ranks;
     const PRIOR = 'Prior';
@@ -114,6 +149,11 @@ export class CharacterLevelUpComponent implements OnInit {
     this[type + PRIOR][index] = val;
   }
 
+  /**
+   * Like validateAttr but for skills
+   * @param index the skill's index in its skills array
+   * @param type Which skills array to look in (skills, weaponSkills, or magicSkills)
+   */
   validate(index: number, type: string): void {
     const input = document.getElementById(type + index);
     const PRIOR = 'Prior';

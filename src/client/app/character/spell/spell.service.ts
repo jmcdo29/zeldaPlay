@@ -18,7 +18,10 @@ export class SpellService extends AbstractService {
     super();
   }
 
-  // Get all of the spell's for a character and map the db response to the client usage
+  /**
+   * Get all of the spell's for a character and map the db response to the client usage
+   * @param charId The character to get the spells for
+   */
   getSpells(charId: string): Observable<Spell[]> {
     return this.http.get<ISpellDb[]>(this.spellURL + charId).pipe(
       map((inSpells) => {
@@ -43,7 +46,11 @@ export class SpellService extends AbstractService {
     );
   }
 
-  // send a new spell to the server and save the spell's returned id to the original object
+  /**
+   * send a new spell to the server and save the spell's returned id to the original object
+   * @param charId The character to save the spell for
+   * @param spell The new spell to save
+   */
   newSpell(charId: string, spell: Spell): Observable<Spell> {
     const spellReq = this.transform(spell);
     return this.http
@@ -64,8 +71,11 @@ export class SpellService extends AbstractService {
       );
   }
 
-  // send updated information about the spell to the server. Because the spell already exists with
-  // up to date information, just return the spell after the request is successful
+  /**
+   * send updated information about the spell to the server. Because the spell already exists with
+   * up to date information, just return the spell after the request is successful
+   * @param spell The spell to update
+   */
   updateSpell(spell: Spell): Observable<Spell> {
     const spellReq = this.transform(spell);
     return this.http

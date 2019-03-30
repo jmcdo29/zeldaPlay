@@ -23,6 +23,9 @@ export class CharacterService extends AbstractService {
     super();
   }
 
+  /**
+   * Generic call to the server to get all demo characters
+   */
   getCharacters(): Observable<Character[]> {
     return this.httpClient.get<ICharacterQuery[]>(this.characterUrl).pipe(
       this.mapChar(),
@@ -30,6 +33,11 @@ export class CharacterService extends AbstractService {
     );
   }
 
+  /**
+   * Function to retrieve information about one character.
+   * Retrieves skills, saves, and general stats
+   * @param id the id of the character to retrieve
+   */
   getCharacter(id: string): Observable<Character> {
     return this.httpClient
       .get<ICharacterQuery>(this.characterUrl + '/' + id)
@@ -41,6 +49,10 @@ export class CharacterService extends AbstractService {
       );
   }
 
+  /**
+   * Function to get names, races, and ids of all current user characters
+   * @param userId The currently logged in user
+   */
   getUserCharacters(userId: string): Observable<Character[]> {
     return this.httpClient
       .get<ICharacterQuery[]>(this.characterUrl + '/user/' + userId, {
@@ -55,6 +67,10 @@ export class CharacterService extends AbstractService {
       );
   }
 
+  /**
+   * Function to save character as a JSON file
+   * @param character The current character
+   */
   saveCharCopy(character: Character): void {
     const characterString = JSON.stringify(character);
     const blob = new Blob([characterString], {
@@ -63,6 +79,10 @@ export class CharacterService extends AbstractService {
     FileSaver.saveAs(blob, character.name + '_zeldaplay.json');
   }
 
+  /**
+   * Function to save the current character to the database. This is called only on initial save
+   * @param character Current character
+   */
   saveNewCharDb(character: Character): Observable<Character> {
     const userId = sessionStorage.getItem('currentUser');
     const charReq = this.transform(character);
@@ -87,6 +107,10 @@ export class CharacterService extends AbstractService {
       );
   }
 
+  /**
+   * Function to save the updated character to the database after all updates have finished
+   * @param character Current Character
+   */
   saveUpdateCharDb(character: Character): Observable<Character> {
     const charReq = this.transform(character);
     return this.httpClient
@@ -105,6 +129,10 @@ export class CharacterService extends AbstractService {
       );
   }
 
+  /**
+   * Internal operator function for reusablity in Observable pipes.
+   * Maps the Server character response to the character object
+   */
   mapChar(): OperatorFunction<ICharacterQuery[], Character[]> {
     return map<ICharacterQuery[], Character[]>((ch) => {
       const characters = [];
@@ -120,6 +148,11 @@ export class CharacterService extends AbstractService {
     });
   }
 
+  /**
+   * Function that allows graceful handling of observable errors
+   * @param operation The operation that failed
+   * @param result What should be returned instead of the requested object
+   */
   private handleError<T>(operation: string, result?: T) {
     return (error: any): Observable<T> => {
       console.error(error.message);

@@ -22,6 +22,9 @@ export class AlertComponent implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  /**
+   * Clear the messages and move on
+   */
   remove(): void {
     this.message.text = '';
     this.alertService.clear();
