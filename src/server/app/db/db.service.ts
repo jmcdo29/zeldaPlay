@@ -31,18 +31,18 @@ export class DbService implements OnModuleInit {
             duration: Date.now() - qStart + ' ms',
             rows: queryRes.rowCount
           },
-          'DbService'
+          DbService.name
         );
         return queryRes.rows;
       }),
       catchError((err: Error) => {
-        this.logger.error(err.message, err.stack, 'DbService');
+        this.logger.error(err.message, err.stack, DbService.name);
         this.logger.debug(
           {
             text,
             duration: Date.now() - qStart + ' ms'
           },
-          'DbService'
+          DbService.name
         );
         this.error(err);
         return of([]);

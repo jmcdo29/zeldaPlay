@@ -39,9 +39,7 @@ export class MyLogger extends Logger {
         ? '[' + yellow + context + reset + ']'
         : '[' + context + ']';
     if (typeof message === 'object') {
-      scribe[level](
-        `${nest} ${process.pid} ${con}, ${JSON.stringify(message)}`
-      );
+      scribe[level](`${nest} ${process.pid} ${con} ` + JSON.stringify(message));
     } else {
       scribe[level](`${nest} ${process.pid} ${con} ${message}`);
     }

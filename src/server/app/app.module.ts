@@ -7,13 +7,13 @@ import {
   NotFoundFilter,
   UnauthorizedFilter
 } from './filters/index';
+import { HealthModule } from './health/health.module';
 import { MetricsInterceptor } from './interceptors/index';
 import { LoggerModule } from './logger/logger.module';
 import { QuestionModule } from './question/question.module';
 import { UserServerModule } from './user/user.module';
+import { WebhooksModule } from './webhooks/webhooks.module';
 import { ZeldaplayModule } from './zeldaplay/zeldaplay.module';
-
-import { HealthModule } from './health/health.module';
 
 @Module({
   controllers: [AppController],
@@ -23,7 +23,8 @@ import { HealthModule } from './health/health.module';
     UserServerModule,
     LoggerModule,
     QuestionModule,
-    HealthModule
+    HealthModule,
+    WebhooksModule
   ],
   providers: [
     {

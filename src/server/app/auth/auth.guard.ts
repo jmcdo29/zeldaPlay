@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
         return this.validate(token);
       }
     } catch (err) {
-      MyLogger.error(err.message, err.stack, 'AuthGuard');
+      MyLogger.error(err.message, err.stack, AuthGuard.name);
       return false;
     }
   }

@@ -10,7 +10,7 @@ import { BaseFilter } from './base.filter';
 export class NotFoundFilter<T extends NotFoundException> extends BaseFilter<T>
   implements ExceptionFilter {
   catch(exception: T, host: ArgumentsHost) {
-    super.catch(exception, host, 'NotFoundFilter');
+    super.catch(exception, host, NotFoundFilter.name);
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     response.redirect('/');

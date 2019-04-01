@@ -20,7 +20,7 @@ export function configure(app: INestApplication & NestFastifyApplication) {
     morgan(morganFormat, {
       skip: (req, res) => morganFormat === 'combined' && req.statusCode < 400,
       stream: {
-        write: (value) => MyLogger.log(value, 'Morgan')
+        write: (value) => MyLogger.log(value.trim(), 'Morgan')
       }
     })
   );
