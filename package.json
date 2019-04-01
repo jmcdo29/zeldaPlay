@@ -128,7 +128,7 @@
     "stylelint-config-recommended-scss": "^3.2.0",
     "stylelint-scss": "^3.5.4",
     "supertest": "^4.0.2",
-    "ts-jest": "^24.0.0",
+    "ts-jest": "^24.0.1",
     "tsc-watch": "^2.1.2",
     "tslint": "^5.14.0",
     "tslint-config-prettier": "^1.18.0",
