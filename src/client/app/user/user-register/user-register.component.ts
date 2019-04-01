@@ -11,13 +11,13 @@ import { UserService } from '../user.service';
   styleUrls: ['./user-register.component.scss']
 })
 export class UserRegisterComponent implements OnInit {
-  private allQuestions: any[];
+  private allQuestions: Array<{ qQuestion: string }>;
 
   password: string;
   username: string;
   passwordConfirmation: string;
   loading = false;
-  shownQuestions: any[];
+  shownQuestions: Array<{ qQuestion: string }>;
   answers: Array<{ question: string; answer: string }>;
 
   constructor(
@@ -26,6 +26,9 @@ export class UserRegisterComponent implements OnInit {
     private alertService: AlertService
   ) {}
 
+  /**
+   * Set all the user answers to blank initially. Also get all the questions
+   */
   ngOnInit() {
     this.answers = [
       { question: '', answer: '' },
@@ -38,6 +41,12 @@ export class UserRegisterComponent implements OnInit {
     });
   }
 
+  /**
+   * Function called when a users click on register.
+   *
+   * Will validate that the user object about to be sent to the server is valid.
+   * If not will call the alertService and tell the user what is wrong
+   */
   register() {
     this.alertService.clear();
     this.loading = true;
@@ -59,17 +68,27 @@ export class UserRegisterComponent implements OnInit {
           }
         );
     } else {
-      console.log('Did not send user for registration.');
       this.loading = false;
     }
   }
 
+  /**
+   * A function to find the question that the user chose and to remove it from the shownQuestions array.
+   * This allows for the questions array to be dynamically updated
+   * @param question The question the user chose
+   */
   removeQuestion(question: string): void {
     this.shownQuestions = this.shownQuestions.filter(
       (q) => q.qQuestion !== question
     );
   }
 
+  /**
+   * A function to find what recovery questions have already been chosen and add those that have not been
+   * back into the questions array so that it can be chosen by the user.
+   *
+   * This is for if the user chooses a question and then decides they do not want to use that question.
+   */
   restoreQuestions(): void {
     const questionsToRestore = [];
     const ansQuestions = this.answers.map((ans) => ans.question);
@@ -81,6 +100,12 @@ export class UserRegisterComponent implements OnInit {
     this.shownQuestions = questionsToRestore;
   }
 
+  /**
+   * Checks that the current user is valid.
+   *
+   * Will check that there is a username, a password, a matching confirmation password,
+   * and valid answer objects (3 of them)
+   */
   isValidUser(): boolean {
     let hasNoError = true;
     if (!this.username) {

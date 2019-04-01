@@ -4,5 +4,5 @@ CREATE TABLE IF NOT EXISTS recoveries (
 	,created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 	,last_modified_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
 	,player_id VARCHAR(12) REFERENCES players (id)
-	,question VARCHAR(12) REFERENCES questions (id)
+	,question TEXT
 );

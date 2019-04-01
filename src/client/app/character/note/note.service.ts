@@ -18,8 +18,11 @@ export class NoteService extends AbstractService {
     super();
   }
 
-  // get all of the notes for a user and sort them into the
-  // important and non-important note arrays
+  /**
+   * get all of the notes for a user and sort them into the
+   * important and non-important note arrays
+   * @param charId the character to get the notes for
+   */
   getNotes(
     charId: string
   ): Observable<{ notes: Note[]; importantNotes: Note[] }> {
@@ -52,8 +55,12 @@ export class NoteService extends AbstractService {
     );
   }
 
-  // send a new note to the server and save the note's id to the original object
-  // the note id is returned from the server
+  /**
+   * send a new note to the server and save the note's id to the original object
+   * the note id is returned from the server
+   * @param charId the character to save the note to
+   * @param note the note being made
+   */
   newNote(charId: string, note: Note): Observable<Note> {
     const noteReq = this.transform(note);
     return this.http

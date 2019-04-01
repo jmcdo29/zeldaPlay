@@ -22,11 +22,17 @@ export class UserLoginComponent implements OnInit {
     private navBarService: NavBarService
   ) {}
 
+  /**
+   * Initialize the login service. Ensure that there is not already a user logged in by logging out.
+   */
   ngOnInit() {
     this.userService.logout();
     this.navBarService.navigate({ page: 'login' });
   }
 
+  /**
+   * Standard login function. Nothing much else to say.
+   */
   login(): void {
     this.alertService.clear();
     this.loading = true;
@@ -35,7 +41,6 @@ export class UserLoginComponent implements OnInit {
         this.router.navigate(['/']);
       },
       (error) => {
-        console.error(error);
         this.loading = false;
         this.alertService.error(error.error);
       }

@@ -1,15 +1,15 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { scribe } from 'mc-scribe';
 import { Pool } from 'pg';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { MyLogger } from '../logger/logger.service';
 
 @Injectable()
 export class DbService implements OnModuleInit {
   private pool: Pool;
   private counter: number;
 
-  constructor() {}
+  constructor(private readonly logger: MyLogger) {}
 
   onModuleInit() {
     this.pool = new Pool({
@@ -25,20 +25,25 @@ export class DbService implements OnModuleInit {
     return from(this.pool.query(text, params)).pipe(
       map((queryRes) => {
         this.counter = 0;
-        scribe.debug({
-          text,
-          duration: Date.now() - qStart + ' ms',
-          rows: queryRes.rowCount
-        });
+        this.logger.debug(
+          {
+            text,
+            duration: Date.now() - qStart + ' ms',
+            rows: queryRes.rowCount
+          },
+          DbService.name
+        );
         return queryRes.rows;
       }),
       catchError((err: Error) => {
-        scribe.error(err.message);
-        scribe.debug({
-          text,
-          duration: Date.now() - qStart + ' ms'
-        });
-        scribe.fine(err.stack);
+        this.logger.error(err.message, err.stack, DbService.name);
+        this.logger.debug(
+          {
+            text,
+            duration: Date.now() - qStart + ' ms'
+          },
+          DbService.name
+        );
         this.error(err);
         return of([]);
       })

@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
+    "removeComments": true,
     "target": "es5",
     "paths": {
       "#Enums/*": ["app/models/enums/*"],

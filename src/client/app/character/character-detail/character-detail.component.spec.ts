@@ -227,16 +227,6 @@ describe('CharacterDetailComponent', () => {
       expect(component.character.maxMagic).toBe(startMaxMagic + 6);
     });
   });
-  test('changeSection', () => {
-    for (let i = 0; i < component.showSet.length; i++) {
-      component.changeSection(i);
-      for (let j = 0; j < component.showSet.length; j++) {
-        if (i !== j) {
-          expect(component.showSet[i]).not.toBe(component.showSet[j]);
-        }
-      }
-    }
-  });
   test('set edit', () => {
     component.setEdit();
     component.setEdit();

@@ -33,6 +33,11 @@ export class CharactersComponent implements OnInit {
     }
   }
 
+  /**
+   * Function that will call to the server to get the requested character.
+   * Request retrieves saves, general stats, and skills
+   * @param character Character that is selected
+   */
   onSelect(character: Character): void {
     if (character.id) {
       this.selectedCharacter = null;
@@ -44,16 +49,26 @@ export class CharactersComponent implements OnInit {
       this.newChar = false;
     }
   }
+  /**
+   * Function to hide all character stats
+   */
   hide(): void {
     this.selectedCharacter = null;
     this.newChar = false;
   }
 
+  /**
+   * Function to start new character creation process
+   */
   newCharacter(): void {
     this.hide();
     this.newChar = true;
   }
 
+  /**
+   * Function to make request to server to retrieve all characters that belong to the specified user.
+   * If no user is logged in, then get all the demo characters.
+   */
   getCharacters(): void {
     this.loading = true;
     const currentUser = sessionStorage.getItem('currentUser');
@@ -77,10 +92,16 @@ export class CharactersComponent implements OnInit {
     }
   }
 
+  /**
+   * Function to download the current character as a JSON file
+   */
   download() {
     this.characterService.saveCharCopy(this.selectedCharacter);
   }
 
+  /**
+   * Function to call save to database for current character
+   */
   save() {
     this.characterService
       .saveUpdateCharDb(this.selectedCharacter)

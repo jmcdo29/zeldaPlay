@@ -3,26 +3,26 @@ import { scribe } from 'mc-scribe';
 
 @Injectable()
 export class MyLogger extends Logger {
-  error(message: string, trace: string, context?: string) {
-    this.printMessage('error', message, context);
-    this.printStackTrace(trace);
+  static error(message: string | object, trace: string, context?: string) {
+    MyLogger.printMyMessage('error', message, context);
+    MyLogger.printMyStackTrace(trace);
   }
-  log(message: string, context?: string) {
-    this.printMessage('info', message, context);
+  static log(message: string | object, context?: string) {
+    MyLogger.printMyMessage('info', message, context);
   }
-  warn(message: string, context?: string) {
-    this.printMessage('warn', message, context);
+  static warn(message: string | object, context?: string) {
+    MyLogger.printMyMessage('warn', message, context);
   }
-  debug(message: string, context?: string) {
-    this.printMessage('debug', message, context);
+  static debug(message: string | object, context?: string) {
+    MyLogger.printMyMessage('debug', message, context);
   }
-  verbose(message: string, context?: string) {
-    this.printMessage('fine', message, context);
+  static verbose(message: string | object, context?: string) {
+    MyLogger.printMyMessage('fine', message, context);
   }
 
-  printMessage(
+  private static printMyMessage(
     level: ('debug' | 'info') | ('fine' | 'error') | ('warn'),
-    message: string,
+    message: string | object,
     context?: string,
     isTimeDiffEnabled: boolean = false
   ) {
@@ -37,11 +37,15 @@ export class MyLogger extends Logger {
     const con =
       process.env.NODE_ENV === 'dev'
         ? '[' + yellow + context + reset + ']'
-        : '' + context + '';
-    scribe[level](`${nest} ${process.pid} ${con} ${message}`);
+        : '[' + context + ']';
+    if (typeof message === 'object') {
+      scribe[level](`${nest} ${process.pid} ${con} ` + JSON.stringify(message));
+    } else {
+      scribe[level](`${nest} ${process.pid} ${con} ${message}`);
+    }
   }
 
-  printStackTrace(trace: string) {
+  private static printMyStackTrace(trace: string) {
     if (!trace) {
       return;
     }
@@ -50,5 +54,21 @@ export class MyLogger extends Logger {
     const red = colorStart + '31m';
     trace = process.env.NODE_ENV === 'dev' ? red + trace + reset : trace;
     scribe.fine(trace);
+  }
+
+  error(message: string, trace: string, context?: string) {
+    MyLogger.error(message, trace, context);
+  }
+  log(message: string | object, context?: string) {
+    MyLogger.log(message, context);
+  }
+  warn(message: string | object, context?: string) {
+    MyLogger.warn(message, context);
+  }
+  debug(message: string | object, context?: string) {
+    MyLogger.debug(message, context);
+  }
+  verbose(message: string | object, context?: string) {
+    MyLogger.verbose(message, context);
   }
 }

@@ -36,6 +36,9 @@ export class SpellComponent implements OnInit {
     private readonly spellService: SpellService
   ) {}
 
+  /**
+   * Initialize the spell module. Get the character's spells
+   */
   ngOnInit() {
     if (this.character.spells.length === 0) {
       this.spellService.getSpells(this.character.id).subscribe((spells) => {
@@ -46,6 +49,9 @@ export class SpellComponent implements OnInit {
     }
   }
 
+  /**
+   * New Spell modal toggle. Also creates new Spell object
+   */
   addSpell(): void {
     if (!this.newSpell) {
       this.spell = new Spell();
@@ -53,6 +59,9 @@ export class SpellComponent implements OnInit {
     this.newSpell = !this.newSpell;
   }
 
+  /**
+   * Checks for errors in the spell and allows for saving
+   */
   saveSpell(): void {
     let error = false;
     if (!this.spell.name) {
@@ -94,6 +103,11 @@ export class SpellComponent implements OnInit {
     }
   }
 
+  /**
+   * Validate that the current field that was just changed has legitimate data
+   * @param id Id of the component being worked on
+   * @param key Field name of the spell being modified
+   */
   validate(id: string, key: string): void {
     if (!this.spell[key]) {
       document.getElementById(id).classList.add('bad-input');
@@ -113,6 +127,9 @@ export class SpellComponent implements OnInit {
     }
   }
 
+  /**
+   * Audit trail message for creating a new spell.
+   */
   createMessage(): void {
     const name = this.character.name;
     const spell = this.character.spells[this.character.spells.length - 1];
@@ -124,14 +141,25 @@ export class SpellComponent implements OnInit {
     this.message.add(message);
   }
 
+  /**
+   * Util function to get the modifier of the spell's attribute type
+   * @param modName mod name to get the value of
+   */
   getMod(modName: string): number {
     return this.character.attributes[Attributes[modName]].modifier;
   }
 
+  /**
+   * Toggle seeing the spells
+   */
   expandMagic(): void {
     this.showMagic = !this.showMagic;
   }
 
+  /**
+   * Cast the specified spell. Will throw an error if there is not enough MP to do so.
+   * @param spellIndex the spell's index from the character's spells array
+   */
   castSpell(spellIndex: number): void {
     let crit = false;
     const character = this.character;
@@ -165,6 +193,10 @@ export class SpellComponent implements OnInit {
     }
   }
 
+  /**
+   * Set the classes for the roll, if needed
+   * @param roll The value of the roll made
+   */
   private setClasses(roll: number): void {
     this.nullify('spellRoll', 'crit');
     this.nullify('spellRoll', 'critMiss');
@@ -175,6 +207,11 @@ export class SpellComponent implements OnInit {
     }
   }
 
+  /**
+   * Sets the classes for spellDmgRoll, if needed
+   * @param roll the value of the roll
+   * @param sides the number of sides the dice had
+   */
   private dmgClasses(roll: number, sides: number): void {
     this.nullify('spellDmgRoll', 'max');
     this.nullify('spellDmgRoll', 'critMiss');
@@ -185,6 +222,11 @@ export class SpellComponent implements OnInit {
     }
   }
 
+  /**
+   * remove "crit", "max" and "critMiss" from the spellDmgRoll and spellRoll element if any exist
+   * @param id Id of the component to check
+   * @param className className to see if it needs to be removed
+   */
   private nullify(id: string, className: string): void {
     if (
       document.getElementById(id) &&
@@ -194,6 +236,13 @@ export class SpellComponent implements OnInit {
     }
   }
 
+  /**
+   * Function to get the specified value of the spell bonus.
+   * Based on the useDiety field, the spell modifier value,
+   * and the spell diety value
+   * @param spell The spell being used
+   * @param character The character casting the spell
+   */
   private getMagicBonus(spell: Spell, character: Character): number {
     let retVal = 0;
     if (spell.useDiety) {

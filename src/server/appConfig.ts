@@ -1,10 +1,10 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { SwaggerModule } from '@nestjs/swagger';
-import { scribe } from 'mc-scribe';
 import * as morgan from 'morgan';
 import { join } from 'path';
 
+import { MyLogger } from './app/logger/logger.service';
 import { configSwagger } from './swagger';
 
 const morganFormat =
@@ -20,7 +20,7 @@ export function configure(app: INestApplication & NestFastifyApplication) {
     morgan(morganFormat, {
       skip: (req, res) => morganFormat === 'combined' && req.statusCode < 400,
       stream: {
-        write: (value) => scribe.info(value)
+        write: (value) => MyLogger.log(value.trim(), 'Morgan')
       }
     })
   );

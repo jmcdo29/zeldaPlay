@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Pool } from 'pg';
 
+import { MyLogger } from '../logger/logger.service';
 import { DbService } from './db.service';
 Pool.prototype.connect = jest.fn();
 jest.mock('pg');
@@ -10,7 +11,7 @@ describe('DbService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [DbService]
+      providers: [DbService, MyLogger]
     }).compile();
     module.init();
     service = module.get<DbService>(DbService);

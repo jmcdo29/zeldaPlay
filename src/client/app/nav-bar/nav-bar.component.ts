@@ -31,22 +31,38 @@ export class NavBarComponent {
     );
   }
 
+  /**
+   * Toggle function to show the "About" modal
+   */
   about() {
     this.showModal = !this.showModal;
   }
 
+  /**
+   * Toggle function to show the "Creating a Character" modal
+   */
   characterCreate() {
     this.showCharacterCreate = !this.showCharacterCreate;
   }
 
+  /**
+   * Function to open the menu
+   */
   showMenu(): void {
     document.getElementById('nav-bar').style.width = '20%';
   }
 
+  /**
+   * Function to close the menu
+   */
   closeMenu(): void {
     document.getElementById('nav-bar').style.width = '0';
   }
 
+  /**
+   * Function to handle which buttons should be visible depending on the page that is showing
+   * @param variable which page was loaded
+   */
   handleAction(variable: { page: string }): void {
     switch (variable.page) {
       case 'login':
@@ -69,6 +85,10 @@ export class NavBarComponent {
     }
   }
 
+  /**
+   * Function that helps switch tabs for "Creating a Character" modal
+   * @param index Tab index relating to the "Creating a Character" modal
+   */
   showTab(index: number): void {
     this.showRace = false;
     this.showAttributes = false;
