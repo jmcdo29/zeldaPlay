@@ -7,9 +7,10 @@ import { MyLogger } from '../logger/logger.service';
 export class WebhooksService {
   constructor(private readonly http: HttpService) {}
 
-  herokuWebhook(herokuHMACKey: string, payload: any): void {
+  herokuWebhook(herokuHeaders: any, payload: any): void {
+    console.log(herokuHeaders);
     console.log(payload);
-    if (this.checkValidity(herokuHMACKey, payload)) {
+    if (this.checkValidity(herokuHeaders.herokuHMACKey, payload)) {
     }
     this.http
       .post(process.env.DISCORD_WEBHOOK, {
@@ -17,9 +18,8 @@ export class WebhooksService {
           payload.action.toUpperCase() +
           ' caused by ' +
           payload.actor.email +
-          ' for app ' +
-          payload.data.app.name +
-          '.'
+          '.\t' +
+          payload.url.status.toUpperCase()
       })
       .pipe(
         tap((data) => {
