@@ -7,10 +7,8 @@ import { MyLogger } from '../logger/logger.service';
 export class WebhooksService {
   constructor(private readonly http: HttpService) {}
 
-  herokuWebhook(herokuHeaders: any, payload: any): void {
-    console.log(herokuHeaders);
-    console.log(payload);
-    if (this.checkValidity(herokuHeaders.herokuHMACKey, payload)) {
+  herokuWebhook(herokuHMACKey: string, payload: any): void {
+    if (this.checkValidity(herokuHMACKey, payload)) {
     }
     this.http
       .post(process.env.DISCORD_WEBHOOK, {
@@ -31,9 +29,8 @@ export class WebhooksService {
 
   checkValidity(herokuHMACKey: string, payload: any): boolean {
     const hmac = createHmac('SHA256', process.env.WEBHOOK_SIGNATURE)
-      .update(JSON.stringify(payload), 'utf8')
-      .digest('hex');
-    console.log('hmac', hmac, 'herokuHmac', herokuHMACKey);
+      .update(Buffer.from(JSON.stringify(payload)))
+      .digest('base64');
     return hmac === herokuHMACKey;
   }
 }

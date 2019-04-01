@@ -7,7 +7,10 @@ export class WebhooksController {
 
   @Post('/heroku')
   @HttpCode(204)
-  herokuWebhook(@Headers() header: any, @Body() body: any) {
+  herokuWebhook(
+    @Headers('heroku-webhook-hmac-sha256') header: string,
+    @Body() body: any
+  ) {
     this.whService.herokuWebhook(header, body);
   }
 }
