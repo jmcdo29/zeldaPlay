@@ -1,9 +1,9 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { verify } from 'jsonwebtoken';
-import { scribe } from 'mc-scribe';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { MyLogger } from '../logger/logger.service';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -22,8 +22,7 @@ export class AuthGuard implements CanActivate {
         return this.validate(token);
       }
     } catch (err) {
-      scribe.error(err.message);
-      scribe.fine(err.stack);
+      MyLogger.error(err.message, err.stack, 'AuthGuard');
       return false;
     }
   }

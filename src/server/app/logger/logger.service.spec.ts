@@ -30,6 +30,7 @@ describe('LoggerService', () => {
     });
     it('should log debug messages', () => {
       service.debug('Debug');
+      service.debug({ debug: 'DEBUG' });
     });
     it('should log verbose', () => {
       service.verbose('verbose!');

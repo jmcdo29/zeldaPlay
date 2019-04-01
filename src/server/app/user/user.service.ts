@@ -4,8 +4,7 @@ import {
   UnauthorizedException
 } from '@nestjs/common';
 import { compareSync, hashSync } from 'bcryptjs';
-import { scribe } from 'mc-scribe';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { flatMap, map, tap } from 'rxjs/operators';
 
 import { NewUserDTO, UserDTO } from '@Body/index';
@@ -85,11 +84,6 @@ export class UserService {
             count++;
           }
           insertString = insertString.substring(0, insertString.length - 1);
-          scribe.debug(
-            `INSERT INTO zeldaplay.recoveries
-          (question, answer, player_id) VALUES ${insertString}`,
-            insertValues
-          );
           this.dbService
             .query(
               `INSERT INTO zeldaplay.recoveries
@@ -117,5 +111,9 @@ export class UserService {
           }
         })
       );
+  }
+
+  getPlayerInfo(id: string): Observable<any> {
+    return of([]);
   }
 }

@@ -8,7 +8,6 @@ import {
   FastifyAdapter,
   NestFastifyApplication
 } from '@nestjs/platform-fastify';
-import { scribe } from 'mc-scribe';
 import { AppServerModule } from './app/app.module';
 import { MyLogger } from './app/logger/logger.service';
 import { configure } from './appConfig';
@@ -30,10 +29,9 @@ async function bootstrap() {
     );
     configure(app);
     await app.listen(PORT, HOST);
-    scribe.info(`Application stated on ${HOST}:${PORT}.`);
+    MyLogger.log(`Application stated on ${HOST}:${PORT}.`, 'Main');
   } catch (err) {
-    scribe.error(err.message);
-    scribe.fine(err.stack);
+    MyLogger.error(err.message, err.stack, 'Main');
     process.exit(0);
   }
 }
@@ -43,11 +41,10 @@ bootstrap();
 // this should really only happen in dev, because I clean the dist folder, but I'm tired of fixing it
 // so it is happening programmatically
 process.on('unhandledRejection', (err: Error) => {
-  scribe.error(err.message);
-  scribe.fine(err.stack);
+  MyLogger.error(err.message, err.stack, 'UnhandledRejection');
   if (err.message.includes('root')) {
     mkdirSync(join(__dirname, '..', 'client'));
-    scribe.debug('Restarting the server.');
+    MyLogger.debug('Restarting the server.', 'UnhandledRejection');
     bootstrap();
   }
 });

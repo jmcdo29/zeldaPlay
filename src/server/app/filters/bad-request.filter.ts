@@ -11,7 +11,7 @@ export class BadRequestFilter<T extends BadRequestException>
   extends BaseFilter<T>
   implements ExceptionFilter {
   catch(exception: T, host: ArgumentsHost) {
-    super.catch(exception, host);
+    super.catch(exception, host, 'BadRequestFilter');
     let errors = '';
     for (const error of exception.message.message) {
       for (const constraint of Object.values<string>(error.constraints)) {
