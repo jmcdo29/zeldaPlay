@@ -8,6 +8,7 @@ export class WebhooksService {
   constructor(private readonly http: HttpService) {}
 
   herokuWebhook(herokuHMACKey: string, payload: any): void {
+    MyLogger.log(payload);
     if (this.checkValidity(herokuHMACKey, payload)) {
     }
     this.http
