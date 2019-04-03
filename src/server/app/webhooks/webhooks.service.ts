@@ -16,10 +16,7 @@ export class WebhooksService {
           payload.action.toUpperCase() +
           ' caused by ' +
           payload.actor.email +
-          '.\t' +
-          payload.url
-            ? payload.url.status.toUpperCase()
-            : ''
+          '.'
       })
       .pipe(
         tap((data) => {
