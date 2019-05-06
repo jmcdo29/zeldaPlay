@@ -6,4 +6,8 @@ ignore:
     - '@nestjs/terminus > typeorm > cli-highlight > yargs > os-locale > mem':
         reason: No patch available
         expires: '2019-04-28T21:35:56.288Z'
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-AXIOS-174505:
+    - '@nestjs/common > axios':
+        patched: '2019-05-06T04:21:37.370Z'

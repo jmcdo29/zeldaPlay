@@ -44,7 +44,9 @@
     "test:client": "npm test -- --projects src/client",
     "test:client:cov": "npm run test:client -- --coverage",
     "test:server": "npm test -- --projects src/server",
-    "test:server:cov": "npm run test:server -- --coverage"
+    "test:server:cov": "npm run test:server -- --coverage",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@godaddy/terminus": "^4.1.0",
@@ -76,7 +78,8 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.4.0",
     "tsconfig-paths": "^3.8.0",
-    "zone.js": "^0.9.0"
+    "zone.js": "^0.9.0",
+    "snyk": "^1.161.1"
   },
   "devDependencies": {
     "@abraham/reflection": "^0.5.1",
@@ -123,7 +126,6 @@
     "node-notifier": "^5.4.0",
     "prettier": "^1.16.4",
     "rimraf": "^2.6.3",
-    "snyk": "^1.147.0",
     "stylelint": "^9.10.1",
     "stylelint-config-recommended-scss": "^3.2.0",
     "stylelint-scss": "^3.5.4",
@@ -134,5 +136,6 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-sonarts": "^1.9.0",
     "typescript": "^3.2.4"
-  }
+  },
+  "snyk": true
 }
