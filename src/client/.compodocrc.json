@@ -1,5 +1,0 @@
-{
-  "theme": "readthedocs",
-  "tsconfig": "src/client/tsconfig.app.json",
-  "output": "dist/documentation/client/"
-}

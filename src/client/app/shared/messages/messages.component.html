@@ -1,8 +1,0 @@
-<div *ngIf="messageService.messages.length">
-  <button mat-flat-button class="accordian" (click)="showMessages()">
-    <h2>Message Log</h2>
-  </button>
-  <div class="messages panel" [class.active]="show">
-    <div *ngFor="let message of messageService.messages">{{ message }}</div>
-  </div>
-</div>
