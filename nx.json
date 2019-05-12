@@ -19,24 +19,6 @@
     },
     "api-interface": {
       "tags": ["shared"]
-    },
-    "five-e": {
-      "tags": ["frontend d20"]
-    },
-    "five-e-e2e": {
-      "tags": []
-    },
-    "four-e": {
-      "tags": ["frontend d20"]
-    },
-    "four-e-e2e": {
-      "tags": []
-    },
-    "zeldaplay": {
-      "tags": ["frontend d20"]
-    },
-    "zeldaplay-e2e": {
-      "tags": []
     }
   }
 }
