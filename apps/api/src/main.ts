@@ -1,9 +1,5 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- **/
-
 import { NestFactory } from "@nestjs/core";
+import { scribe } from 'mc-scribe';
 
 import { AppModule } from "./app/app.module";
 
@@ -13,7 +9,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.port || 3333;
   await app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}/${globalPrefix}`);
+    scribe.info(`Listening at http://localhost:${port}/${globalPrefix}`);
   });
 }
 

@@ -9,16 +9,16 @@
   },
   "projects": {
     "tabletop-companion": {
-      "tags": []
+      "tags": ["frontend"]
     },
     "tabletop-companion-e2e": {
-      "tags": []
+      "tags": ["frontend", "test"]
     },
     "api": {
-      "tags": []
+      "tags": ["backend"]
     },
     "api-interface": {
-      "tags": []
+      "tags": ["shared"]
     }
   }
 }
