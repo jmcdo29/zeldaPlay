@@ -201,6 +201,121 @@
         }
       },
       "schematics": {}
+    },
+    "five-e": {
+      "root": "apps/five-e/",
+      "sourceRoot": "apps/five-e/src",
+      "projectType": "application",
+      "prefix": "five-e",
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/five-e",
+            "index": "apps/five-e/src/index.html",
+            "main": "apps/five-e/src/main.ts",
+            "polyfills": "apps/five-e/src/polyfills.ts",
+            "tsConfig": "apps/five-e/tsconfig.app.json",
+            "assets": ["apps/five-e/src/favicon.ico", "apps/five-e/src/assets"],
+            "styles": ["apps/five-e/src/styles.scss"],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/five-e/src/environments/environment.ts",
+                  "with": "apps/five-e/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "five-e:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "five-e:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "five-e:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/five-e/tsconfig.app.json",
+              "apps/five-e/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/five-e/jest.config.js",
+            "tsConfig": "apps/five-e/tsconfig.spec.json",
+            "setupFile": "apps/five-e/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "five-e-e2e": {
+      "root": "apps/five-e-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/five-e-e2e/cypress.json",
+            "tsConfig": "apps/five-e-e2e/tsconfig.e2e.json",
+            "devServerTarget": "five-e:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "five-e:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/five-e-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "cli": {

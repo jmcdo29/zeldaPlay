@@ -19,6 +19,12 @@
     },
     "api-interface": {
       "tags": ["shared"]
+    },
+    "five-e": {
+      "tags": ["frontend d20"]
+    },
+    "five-e-e2e": {
+      "tags": []
     }
   }
 }
