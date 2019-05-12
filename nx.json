@@ -25,6 +25,12 @@
     },
     "five-e-e2e": {
       "tags": []
+    },
+    "four-e": {
+      "tags": ["frontend d20"]
+    },
+    "four-e-e2e": {
+      "tags": []
     }
   }
 }

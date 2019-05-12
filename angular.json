@@ -316,6 +316,121 @@
           }
         }
       }
+    },
+    "four-e": {
+      "root": "apps/four-e/",
+      "sourceRoot": "apps/four-e/src",
+      "projectType": "application",
+      "prefix": "four-e",
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/four-e",
+            "index": "apps/four-e/src/index.html",
+            "main": "apps/four-e/src/main.ts",
+            "polyfills": "apps/four-e/src/polyfills.ts",
+            "tsConfig": "apps/four-e/tsconfig.app.json",
+            "assets": ["apps/four-e/src/favicon.ico", "apps/four-e/src/assets"],
+            "styles": ["apps/four-e/src/styles.scss"],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/four-e/src/environments/environment.ts",
+                  "with": "apps/four-e/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "four-e:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "four-e:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "four-e:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/four-e/tsconfig.app.json",
+              "apps/four-e/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/four-e/jest.config.js",
+            "tsConfig": "apps/four-e/tsconfig.spec.json",
+            "setupFile": "apps/four-e/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "four-e-e2e": {
+      "root": "apps/four-e-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/four-e-e2e/cypress.json",
+            "tsConfig": "apps/four-e-e2e/tsconfig.e2e.json",
+            "devServerTarget": "four-e:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "four-e:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/four-e-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "cli": {
