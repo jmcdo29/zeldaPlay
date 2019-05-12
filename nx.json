@@ -31,6 +31,12 @@
     },
     "four-e-e2e": {
       "tags": []
+    },
+    "zeldaplay": {
+      "tags": ["frontend d20"]
+    },
+    "zeldaplay-e2e": {
+      "tags": []
     }
   }
 }

@@ -431,6 +431,124 @@
           }
         }
       }
+    },
+    "zeldaplay": {
+      "root": "apps/zeldaplay/",
+      "sourceRoot": "apps/zeldaplay/src",
+      "projectType": "application",
+      "prefix": "zeldaplay",
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/zeldaplay",
+            "index": "apps/zeldaplay/src/index.html",
+            "main": "apps/zeldaplay/src/main.ts",
+            "polyfills": "apps/zeldaplay/src/polyfills.ts",
+            "tsConfig": "apps/zeldaplay/tsconfig.app.json",
+            "assets": [
+              "apps/zeldaplay/src/favicon.ico",
+              "apps/zeldaplay/src/assets"
+            ],
+            "styles": ["apps/zeldaplay/src/styles.scss"],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/zeldaplay/src/environments/environment.ts",
+                  "with": "apps/zeldaplay/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "zeldaplay:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "zeldaplay:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "zeldaplay:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/zeldaplay/tsconfig.app.json",
+              "apps/zeldaplay/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/zeldaplay/jest.config.js",
+            "tsConfig": "apps/zeldaplay/tsconfig.spec.json",
+            "setupFile": "apps/zeldaplay/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "zeldaplay-e2e": {
+      "root": "apps/zeldaplay-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/zeldaplay-e2e/cypress.json",
+            "tsConfig": "apps/zeldaplay-e2e/tsconfig.e2e.json",
+            "devServerTarget": "zeldaplay:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "zeldaplay:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/zeldaplay-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "cli": {

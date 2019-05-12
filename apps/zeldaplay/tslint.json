@@ -1,0 +1,7 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [true, "attribute", "zeldaplay", "camelCase"],
+    "component-selector": [true, "element", "zeldaplay", "kebab-case"]
+  }
+}
