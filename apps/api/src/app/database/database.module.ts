@@ -1,6 +1,6 @@
-import { Module, Global } from '@nestjs/common';
-import { DatabaseService } from './database.service';
+import { Global, Module } from '@nestjs/common';
 import { ConfigService } from '../config/config.service';
+import { DatabaseService } from './database.service';
 
 const databaseServiceFactory = {
   provide: DatabaseService,

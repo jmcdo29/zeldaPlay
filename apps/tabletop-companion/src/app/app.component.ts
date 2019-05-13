@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { Message } from '@tabletop-companion/api-interface';
 
 @Component({

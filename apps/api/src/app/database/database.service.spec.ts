@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DatabaseService } from './database.service';
 import { Pool } from 'pg';
 import { tap } from 'rxjs/operators';
+import { DatabaseService } from './database.service';
 
 Pool.prototype.connect = jest.fn();
 Pool.prototype.query = jest.fn().mockReturnValue({

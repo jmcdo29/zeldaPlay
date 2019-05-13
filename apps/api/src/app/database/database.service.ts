@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Pool } from 'pg';
-import { Observable, of, from } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 import { scribe } from 'mc-scribe';
+import { Pool } from 'pg';
+import { from, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class DatabaseService {
