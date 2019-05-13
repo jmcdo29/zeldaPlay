@@ -22,7 +22,7 @@ describe('DatabaseService', () => {
           provide: DatabaseService,
           useFactory: () => new DatabaseService('connectionString', false)
         }
-      ],
+      ]
     }).compile();
 
     service = module.get<DatabaseService>(DatabaseService);
@@ -31,30 +31,37 @@ describe('DatabaseService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
-
   it('should run the query for getOne', () => {
-    service.getOne<any>('*', 'characterId').pipe(
-      tap((result) => expect(result).toBe({}))
-    )
+    service
+      .getOne<any>('*', 'characterId')
+      .pipe(tap(result => expect(result).toBe({})));
   });
   it('should run the query for getMany', () => {
-    service.getMany<any>('*', 'userId').pipe(
-      tap((result) => expect(result).toBe([]))
-    )
+    service
+      .getMany<any>('*', 'userId')
+      .pipe(tap(result => expect(result).toBe([])));
   });
   it('should run the query for insertOne', () => {
-    service.insertOne<any>('Insert string', []).pipe(
-      tap((result) => expect(result).toBe({}))
-    )
+    service
+      .insertOne<any>('Insert string', [])
+      .pipe(tap(result => expect(result).toBe({})));
   });
   it('should run the query for updateOne', () => {
-    service.updateOne<any>('Update string', [], 'charId').pipe(
-      tap((result) => expect(result).toBe({}))
-    )
+    service
+      .updateOne<any>('Update string', [], 'charId')
+      .pipe(tap(result => expect(result).toBe({})));
   });
   it('should run the query for deleteOne', () => {
-    service.deleteOne<any>('character', 'characterId').pipe(
-      tap((result) => expect(result).toBe({}))
-    )
+    service
+      .deleteOne<any>('character', 'characterId')
+      .pipe(tap(result => expect(result).toBe({})));
+  });
+  it('should work even if there is a query error', () => {
+    Pool.prototype.query = jest.fn().mockImplementationOnce(() => {
+      throw new Error('Error thrown');
+    });
+    service
+      .getOne('', 'characterId')
+      .pipe(tap(result => expect(result).toBeTruthy()));
   });
 });

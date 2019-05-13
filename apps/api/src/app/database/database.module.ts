@@ -5,10 +5,13 @@ import { ConfigService } from '../config/config.service';
 const databaseServiceFactory = {
   provide: DatabaseService,
   useFactory: (configService: ConfigService) => {
-    return new DatabaseService(configService.get('DATABASE_URL'), configService.isProd());
+    return new DatabaseService(
+      configService.get('DATABASE_URL'),
+      configService.isProd()
+    );
   },
   inject: [ConfigService]
-}
+};
 
 @Global()
 @Module({

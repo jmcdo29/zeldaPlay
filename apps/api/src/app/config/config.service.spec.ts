@@ -9,19 +9,20 @@ describe('ConfigService', () => {
 
   beforeEach(() => {
     service = null;
-  })
-  
+  });
+
   describe('prod config', () => {
     beforeAll(() => {
       process.env.NODE_ENV = 'production';
-      process.env.DATABASE_URL = 'postgres://postgres:postgres@localhost:5432/testing';
+      process.env.DATABASE_URL =
+        'postgres://postgres:postgres@localhost:5432/testing';
       process.env.PORT = '3333';
-    })
+    });
     beforeEach(async () => {
       const module: TestingModule = await Test.createTestingModule({
-        providers: [ConfigService],
+        providers: [ConfigService]
       }).compile();
-  
+
       service = module.get<ConfigService>(ConfigService);
     });
     it('should get the NODE_ENV', () => {
@@ -33,15 +34,19 @@ describe('ConfigService', () => {
   });
 
   describe('dev config', () => {
-    jest.spyOn(dotenv, 'parse').mockReturnValue(
-      {PORT: '3333', DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/testing', NODE_ENV: 'dev'}
-    );
+    jest
+      .spyOn(dotenv, 'parse')
+      .mockReturnValue({
+        PORT: '3333',
+        DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/testing',
+        NODE_ENV: 'dev'
+      });
     beforeEach(async () => {
       process.env.NODE_ENV = 'dev';
       const module: TestingModule = await Test.createTestingModule({
-        providers: [ConfigService],
+        providers: [ConfigService]
       }).compile();
-  
+
       service = module.get<ConfigService>(ConfigService);
     });
     it('should get PORT', () => {
@@ -61,16 +66,16 @@ describe('ConfigService', () => {
       process.env.PORT = '4444';
     });
 
-    it ('should fail in a try catch', async () => {
+    it('should fail in a try catch', async () => {
       try {
         const module: TestingModule = await Test.createTestingModule({
-          providers: [ConfigService],
+          providers: [ConfigService]
         }).compile();
-    
+
         service = module.get<ConfigService>(ConfigService);
       } catch (err) {
         expect(err).toBeTruthy();
       }
     });
-  })
+  });
 });
