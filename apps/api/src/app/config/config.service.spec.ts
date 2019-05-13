@@ -34,13 +34,11 @@ describe('ConfigService', () => {
   });
 
   describe('dev config', () => {
-    jest
-      .spyOn(dotenv, 'parse')
-      .mockReturnValue({
-        PORT: '3333',
-        DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/testing',
-        NODE_ENV: 'dev'
-      });
+    jest.spyOn(dotenv, 'parse').mockReturnValue({
+      PORT: '3333',
+      DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/testing',
+      NODE_ENV: 'dev'
+    });
     beforeEach(async () => {
       process.env.NODE_ENV = 'dev';
       const module: TestingModule = await Test.createTestingModule({
