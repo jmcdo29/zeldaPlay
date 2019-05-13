@@ -12,12 +12,28 @@ export class DatabaseService {
     this.pool = new Pool({connectionString, ssl});
   }
 
-  getOne<T>(): Observable<T> {
+  getOne<T>(query: string, association: string): Observable<T> {
+    return this.query<T>({query, variables: [association]}).pipe(
+      map((result) => result[0])
+    );
+  }
+
+  getMany<T>(query: string, association: string): Observable<T[]> {
+    return this.query<T>({query, variables: [association]});
+  }
+
+  insertOne<T>(query: string, fields: any[]): Observable<T> {
+    return this.query<T>({query, variables: [fields]}).pipe(
+      map((result) => result[0])
+    );
+  }
+
+  updateOne<T>(query: string, fields: any, association: string): Observable<T> {
     return of();
   }
 
-  getMany<T>(): Observable<T[]> {
-    return of([]);
+  deleteOne<T>(object: string, association: string): Observable<T> {
+    return of();
   }
 
   private query<T>(params: {query: string, variables: any[]}): Observable<T[]> {

@@ -48,12 +48,12 @@ describe('DatabaseService', () => {
     )
   });
   it('should run the query for updateOne', () => {
-    service.updateOne<any>('Update string', []).pipe(
+    service.updateOne<any>('Update string', [], 'charId').pipe(
       tap((result) => expect(result).toBe({}))
     )
   });
   it('should run the query for deleteOne', () => {
-    service.deleteOne<any>('', 'characterId').pipe(
+    service.deleteOne<any>('character', 'characterId').pipe(
       tap((result) => expect(result).toBe({}))
     )
   });
