@@ -39,4 +39,9 @@ export class ConfigService{
   get(key: string): string {
     return this.envConfig[key];
   }
+
+  isProd(): boolean {
+    const env = this.get('NODE_ENV').toLowerCase();
+    return env === 'production' || env === 'prod';
+  }
 }
