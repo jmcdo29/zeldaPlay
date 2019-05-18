@@ -20,7 +20,7 @@ do
     i=$((i+1))
   fi
 done;
-if [[ $addString != '' ]]
+if [[ -z $addString ]]
 then
   git add$addString
 fi
