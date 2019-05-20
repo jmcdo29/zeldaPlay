@@ -7,4 +7,5 @@ CREATE TABLE IF NOT EXISTS players (
   ,"lastName" TEXT NOT NULL
   ,"consentToEmail" BOOLEAN DEFAULT false
   ,"recoveryToken" TEXT
+  ,"isActive" BOOLEAN DEFAULT true
 );
