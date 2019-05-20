@@ -20,7 +20,7 @@ do
     i=$((i+1))
   fi
 done;
-if [[ -z $addString ]]
+if [[ -n $addString ]]
 then
   git add$addString
 fi
