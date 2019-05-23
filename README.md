@@ -1,41 +1,16 @@
-# TabletopCompanion
+# Tabletop Companion
 
-This project was generated using [Nx](https://nx.dev).
+[![Nx](https://img.shields.io/badge/Built%20With-Nx-blueviolet.svg?style=plastic)](https://nx.dev/getting-started/what-is-nx)
+[![MIT license](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=plastic)](http://opensource.org/licenses/MIT)
+[![Jest](https://img.shields.io/badge/Tested%20With-Jest-maroon.svg?style=plastic)](https://jestjs.io)
+[![Cypress](https://img.shields.io/badge/Tested%20With-Cypress-2e3138.svg?style=plastic)](https://www.cypress.io)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jmcdo29/zeldaPlay)](https://dependabot.com)
+[![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json)
+[![Discord Chat](https://img.shields.io/badge/chat%20on-Discord-blue.svg?style=plastic)](https://discord.gg/hGuDEgG 'Discord Chat')
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
 
-🔎 **Nx is a set of Angular CLI power-ups for modern development.**
+## Built With
 
-## Quick Start & Documentation
-
-[30-minute video showing all Nx features](https://nx.dev/getting-started/what-is-nx)
-
-[Interactive tutorial](https://nx.dev/tutorial/01-create-application)
-
-## Generate your first application
-
-Run `ng g app myapp` to generate an application. When using Nx, you can create multiple applications and libraries in the same CLI workspace.
-
-## Development server
-
-Run `ng serve myapp` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name --project=myapp` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build myapp` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Jest](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Cypress](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+<a href="https://https://nx.dev/getting-started/what-is-nx" align="left"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="50" alt="Nx Logo"></a>
+<a href="https://angular.io"><img src="https://angular.io/assets/imagxt.es/logos/angular/angular.svg" width=45 alt="Angular Logo"></a>
+<a href="https://docs.nestjs.com"><img src="https://nestjs.com/img/logo_tesvg" width=100 alt="Nest Logo"></a>

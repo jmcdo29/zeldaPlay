@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS attributes (
+CREATE TABLE IF NOT EXISTS "abilityScores" (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid()
   ,name TEXT NOT NULL
   ,value INTEGER NOT NULL
