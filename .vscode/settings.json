@@ -1,8 +1,5 @@
 {
-  "cSpell.ignoreWords": [
-    "datname",
-    "pgcrypto"
-  ],
+  "cSpell.ignoreWords": ["datname", "pgcrypto"],
   "cSpell.words": [
     "dragonborn",
     "halfling",

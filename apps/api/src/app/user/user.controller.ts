@@ -8,6 +8,8 @@ import {
   Post
 } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
+
+import { LoginBody, UserId } from '@tabletop-companion/api-interface';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -15,7 +17,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('/:id')
-  getAccount(@Param() accountId: any): Observable<any> {
+  getAccount(@Param() userId: UserId): Observable<any> {
     return of();
   }
 
@@ -25,20 +27,20 @@ export class UserController {
   }
 
   @Post('/login')
-  login(@Body() loginBody: any): Observable<any> {
+  login(@Body() loginBody: LoginBody): Observable<any> {
     return of();
   }
 
   @Patch('/update/:id')
   updateAccount(
     @Body() updateBody: any,
-    @Param() updateParam: any
+    @Param() userId: UserId
   ): Observable<any> {
     return of();
   }
 
   @Delete('/:id')
-  deactivateAccount(@Param() accountId: any): Observable<any> {
+  deactivateAccount(@Param() userId: UserId): Observable<any> {
     return of();
   }
 }

@@ -1,8 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc/apps/tabletop-companion/",
-    "module": "commonjs",
+    "outDir": "../../dist/out-tsc",
     "types": ["jest"]
   },
   "files": ["src/test-setup.ts"],

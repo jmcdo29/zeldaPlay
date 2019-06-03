@@ -8,7 +8,6 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json)
 [![Discord Chat](https://img.shields.io/badge/chat%20on-Discord-blue.svg?style=plastic)](https://discord.gg/hGuDEgG 'Discord Chat')
 
-
 ## Built With
 
 <a href="https://https://nx.dev/getting-started/what-is-nx" align="left"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="50" alt="Nx Logo"></a>
