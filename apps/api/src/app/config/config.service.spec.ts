@@ -62,6 +62,7 @@ describe('ConfigService', () => {
     beforeAll(() => {
       process.env.NODE_ENV = 'production';
       process.env.PORT = '4444';
+      process.env.DATABASE_URL = '';
     });
 
     it('should fail in a try catch', async () => {
@@ -73,6 +74,9 @@ describe('ConfigService', () => {
         service = module.get<ConfigService>(ConfigService);
       } catch (err) {
         expect(err).toBeTruthy();
+        expect(err.message).toBe(
+          'Config validation error: child "DATABASE_URL" fails because ["DATABASE_URL" is not allowed to be empty]'
+        );
       }
     });
   });

@@ -10,9 +10,8 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
   const config = app.get<ConfigService>(ConfigService);
   const port = config.get('PORT');
-  await app.listen(port, () => {
-    scribe.info(`Listening at http://localhost:${port}/${globalPrefix}`);
-  });
+  await app.listen(port);
+  scribe.info(`Listening at http://localhost:${port}/${globalPrefix}`);
 }
 
 bootstrap();
