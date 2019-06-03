@@ -1,5 +1,6 @@
 {
   "hooks": {
-    "pre-commit": "bash scripts/bin/pre-commit.sh"
+    "pre-commit": "bash scripts/bin/pre-commit.sh",
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
   }
 }
