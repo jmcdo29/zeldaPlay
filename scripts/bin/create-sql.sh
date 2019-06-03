@@ -7,6 +7,7 @@ echo "-- Database migration script made from all the sql files created during de
 echo . >> migration.sql
 
 echo "-- Databases to be used." >> migration.sql
+
 for i in $(ls database/); do
   cat $i >> migration.sql
 done;
