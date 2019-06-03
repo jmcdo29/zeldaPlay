@@ -9,7 +9,12 @@ import {
 } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 
-import { LoginBody, UserId } from '@tabletop-companion/api-interface';
+import {
+  LoginBody,
+  SignupBody,
+  UpdateBody,
+  UserId
+} from '@tabletop-companion/api-interface';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -18,29 +23,29 @@ export class UserController {
 
   @Get('/:id')
   getAccount(@Param() userId: UserId): Observable<any> {
-    return of();
+    return this.userService.getAccount(userId);
   }
 
   @Post('/signup')
-  signup(@Body() signupBody: any): Observable<any> {
-    return of();
+  signup(@Body() signupBody: SignupBody): Observable<any> {
+    return this.userService.signup(signupBody);
   }
 
   @Post('/login')
   login(@Body() loginBody: LoginBody): Observable<any> {
-    return of();
+    return this.userService.login(loginBody);
   }
 
   @Patch('/update/:id')
   updateAccount(
-    @Body() updateBody: any,
+    @Body() updateBody: UpdateBody,
     @Param() userId: UserId
   ): Observable<any> {
-    return of();
+    return this.userService.update(updateBody, userId);
   }
 
   @Delete('/:id')
   deactivateAccount(@Param() userId: UserId): Observable<any> {
-    return of();
+    return this.userService.delete(userId);
   }
 }

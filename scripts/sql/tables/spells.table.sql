@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS spells (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+  id TEXT PRIMARY KEY DEFAULT CONCAT('SPL', gen_random_uuid())
   ,name TEXT NOT NULL
   ,effect TEXT NOT NULL
   ,focus TEXT NOT NULL

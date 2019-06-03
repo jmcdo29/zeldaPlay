@@ -1,3 +1,3 @@
 CREATE TABLE IF NOT EXISTS weapons (
-
+  id TEXT PRIMARY KEY DEFAULT CONCAT('WEP', gen_random_uuid())
 );

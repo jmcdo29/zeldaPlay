@@ -11,7 +11,13 @@ describe('User Controller', () => {
       providers: [
         {
           provide: UserService,
-          useValue: {}
+          useValue: {
+            getAccount: jest.fn(),
+            login: jest.fn(),
+            signup: jest.fn(),
+            update: jest.fn(),
+            delete: jest.fn()
+          }
         }
       ]
     }).compile();

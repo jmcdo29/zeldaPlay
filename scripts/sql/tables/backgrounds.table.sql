@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS backgrounds (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid()
+  id TEXT PRIMARY KEY DEFAULT CONCAT('BKG', gen_random_uuid())
   ,name TEXT NOT NULL
   ,proficiencies TEXT[]
   ,languages TEXT[]
