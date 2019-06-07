@@ -77,13 +77,17 @@ export class DatabaseService {
     }).pipe(this.returnFirst());
   }
 
+  raw<T>(query: string, variables: any[]): Observable<T[]> {
+    return this.query<T>({ query, variables });
+  }
+
   private query<T>(params: {
     query: string;
     variables: any[];
   }): Observable<T[]> {
     return from(this.pool.query(params.query, params.variables)).pipe(
-      map(qRes => qRes.rows),
-      catchError(err => {
+      map((qRes) => qRes.rows),
+      catchError((err) => {
         scribe.error(err.message);
         scribe.fine(err.stack);
         return of([]);
@@ -92,6 +96,6 @@ export class DatabaseService {
   }
 
   private returnFirst<T>(): OperatorFunction<T[], T> {
-    return map(result => result[0]);
+    return map((result) => result[0]);
   }
 }

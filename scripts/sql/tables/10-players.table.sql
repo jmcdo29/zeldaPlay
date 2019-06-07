@@ -8,4 +8,5 @@ CREATE TABLE IF NOT EXISTS players (
   ,"consentToEmail" BOOLEAN DEFAULT false
   ,"recoveryToken" TEXT
   ,"isActive" BOOLEAN DEFAULT true
+  ,roles TEXT[] DEFAULT '{"player"}'
 );

@@ -47,55 +47,61 @@ describe('DatabaseService', () => {
     expect(service).toBeDefined();
   });
   describe('queries', () => {
-    it('should run the query for getOne', done => {
-      service.getOne<any>('*', 'characterId').subscribe(result => {
+    it('should run the query for getOne', (done) => {
+      service.getOne<any>('*', 'characterId').subscribe((result) => {
         expect(result).toBe(returnResult[0]);
         done();
       });
     });
-    it('should run the query for getMany', done => {
-      service.getMany<any>('*', 'userId').subscribe(result => {
+    it('should run the query for getMany', (done) => {
+      service.getMany<any>('*', 'userId').subscribe((result) => {
         expect(result).toBe(returnResult);
         done();
       });
     });
-    it('should run the query for getAll', done => {
-      service.getAll<any>('character').subscribe(result => {
+    it('should run the query for getAll', (done) => {
+      service.getAll<any>('character').subscribe((result) => {
         expect(result).toBe(returnResult);
         done();
       });
     });
-    it('should run the query for insertOne', done => {
+    it('should run the query for insertOne', (done) => {
       service
         .insertOne<any>('MockObject', {
           field1: 'value1',
           field2: 'value2',
           field3: 'value3'
         })
-        .subscribe(result => {
+        .subscribe((result) => {
           expect(result).toBe(returnResult[0]);
           done();
         });
     });
-    it('should run the query for updateOne', done => {
+    it('should run the query for updateOne', (done) => {
       service
         .updateOne<any>('character', { field1: 'value1', id: 'the id' })
-        .subscribe(result => {
+        .subscribe((result) => {
           expect(result).toBe(returnResult[0]);
           done();
         });
     });
-    it('should run the query for deleteOne', done => {
-      service.deleteOne<any>('character', 'characterId').subscribe(result => {
+    it('should run the query for deleteOne', (done) => {
+      service.deleteOne<any>('character', 'characterId').subscribe((result) => {
         expect(result).toBe(returnResult[0]);
         done();
       });
     });
-    it('should work even if there is a query error', done => {
+    it('should run the query for raw', (done) => {
+      service.raw<any>('CREATE TABLE testing', []).subscribe((result) => {
+        expect(result).toBeTruthy();
+        done();
+      });
+    });
+    it('should work even if there is a query error', (done) => {
       querySpy.mockImplementationOnce(
         () => Promise.reject(new Error('Query Error')) as any
       );
-      service.getMany<any>('', 'characterId').subscribe(result => {
+      service.getMany<any>('', 'characterId').subscribe((result) => {
         expect(result).toBeTruthy();
         expect(result).toStrictEqual([]);
         done();

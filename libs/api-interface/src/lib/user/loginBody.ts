@@ -6,7 +6,6 @@ export class LoginBody {
   @IsNotEmpty()
   email: string;
 
-  @MinLength(8)
   @IsString()
   @IsNotEmpty()
   password: string;

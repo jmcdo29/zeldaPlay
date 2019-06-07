@@ -7,12 +7,12 @@ import {
   Patch,
   Post
 } from '@nestjs/common';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import {
   LoginBody,
   SignupBody,
-  UpdateBody,
+  User,
   UserId
 } from '@tabletop-companion/api-interface';
 import { UserService } from './user.service';
@@ -38,7 +38,7 @@ export class UserController {
 
   @Patch('/update/:id')
   updateAccount(
-    @Body() updateBody: UpdateBody,
+    @Body() updateBody: Partial<User>,
     @Param() userId: UserId
   ): Observable<any> {
     return this.userService.update(updateBody, userId);

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {
   LoginBody,
   SignupBody,
-  UpdateBody,
+  User,
   UserId
 } from '@tabletop-companion/api-interface';
 import { Observable, of } from 'rxjs';
@@ -21,7 +21,7 @@ export class UserService {
     return of();
   }
 
-  update(updateBody: UpdateBody, id: UserId): Observable<any> {
+  update(updateBody: Partial<User>, id: UserId): Observable<any> {
     return of();
   }
 

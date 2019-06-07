@@ -17,4 +17,5 @@ CREATE TABLE IF NOT EXISTS characters (
   ,flaw TEXT NOT NULL
   ,"personalityTraits" TEXT[] NOT NULL
   ,proficiencies TEXT[] NOT NULL
+  ,game TEXT NOT NULL
 );
