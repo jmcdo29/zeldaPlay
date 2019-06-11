@@ -23,7 +23,7 @@ export class UserController {
 
   @Get('/:id')
   getAccount(@Param() userId: UserId): Observable<any> {
-    return this.userService.getAccount(userId);
+    return this.userService.get(userId);
   }
 
   @Post('/signup')

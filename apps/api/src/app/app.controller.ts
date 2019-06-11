@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Req, Session } from '@nestjs/common';
 
 import { Message } from '@tabletop-companion/api-interface';
 
@@ -9,7 +9,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('hello')
-  getData(): Message {
+  getData(@Session() session: any): Message {
+    console.log(session);
     return this.appService.getData();
   }
 }

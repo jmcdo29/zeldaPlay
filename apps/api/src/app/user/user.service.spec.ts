@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
+import { DatabaseService } from '../database/database.service';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
@@ -9,7 +11,7 @@ describe('UserService', () => {
       providers: [
         UserService,
         {
-          provide: UserService,
+          provide: DatabaseService,
           useValue: {}
         }
       ]

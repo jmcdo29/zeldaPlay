@@ -15,6 +15,7 @@ const databaseServiceFactory = {
 
 @Global()
 @Module({
-  providers: [databaseServiceFactory]
+  providers: [databaseServiceFactory],
+  exports: [DatabaseService]
 })
 export class DatabaseModule {}
