@@ -17,6 +17,8 @@ describe('ConfigService', () => {
       process.env.DATABASE_URL =
         'postgres://postgres:postgres@localhost:5432/testing';
       process.env.PORT = '3333';
+      process.env.SESSION_SECRET = 'itsasecret';
+      process.env.REDIS_URL = 'redis://localhost:1234';
     });
     beforeEach(async () => {
       const module: TestingModule = await Test.createTestingModule({
@@ -37,7 +39,9 @@ describe('ConfigService', () => {
     jest.spyOn(dotenv, 'parse').mockReturnValue({
       PORT: '3333',
       DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/testing',
-      NODE_ENV: 'dev'
+      NODE_ENV: 'dev',
+      SESSION_SECRET: 'itsasecret',
+      REDIS_URL: 'redis://localhost:1234'
     });
     beforeEach(async () => {
       process.env.NODE_ENV = 'dev';
@@ -55,6 +59,9 @@ describe('ConfigService', () => {
     });
     it('should return false for isProd', () => {
       expect(service.isProd()).toBe(false);
+    });
+    it('should get back a blank string for a bad key name', () => {
+      expect(service.get(':LKJASFJSDFLKJASDLKF')).toBe('');
     });
   });
 

@@ -38,7 +38,7 @@ export class ConfigService {
   }
 
   get(key: string): string {
-    return this.envConfig[key];
+    return this.envConfig[key] || '';
   }
 
   isProd(): boolean {

@@ -47,11 +47,22 @@ describe('DatabaseService', () => {
     expect(service).toBeDefined();
   });
   describe('queries', () => {
-    it('should run the query for getOne', (done) => {
+    it('should run the query for query', (done) => {
       service
         .query<any>({ query: '*', variables: ['characterId'] })
         .subscribe((result) => {
-          expect(result).toBe(returnResult[0]);
+          expect(result).toBe(returnResult);
+          done();
+        });
+    });
+    it('should return for an error in the query', (done) => {
+      querySpy.mockImplementationOnce(
+        () => Promise.reject(new Error('Error')) as any
+      );
+      service
+        .query<any>({ query: '*', variables: ['characterId'] })
+        .subscribe((result) => {
+          expect(result).toEqual([]);
           done();
         });
     });

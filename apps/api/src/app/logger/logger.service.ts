@@ -33,10 +33,11 @@ export class MyLogger implements LoggerService {
       process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development'
         ? '[' + green + 'Nest' + reset + ']'
         : '[Nest]';
-    const con =
-      process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development'
+    const con = context
+      ? process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development'
         ? '[' + yellow + context + reset + ']'
-        : '[' + context + ']';
+        : '[' + context + ']'
+      : '';
     if (typeof message === 'object') {
       scribe[level](`${nest} ${process.pid} ${con} ` + JSON.stringify(message));
     } else {

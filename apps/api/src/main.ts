@@ -14,7 +14,9 @@ async function bootstrap() {
   const port = config.get('PORT');
   configure(app, config);
   await app.listen(port);
-  scribe.info(`Listening at http://localhost:${port}`);
+  scribe.info(
+    `Listening at http://localhost:${port}/${config.get('GLOBAL_PREFIX')}`
+  );
 }
 
 bootstrap();

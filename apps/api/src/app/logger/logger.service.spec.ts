@@ -23,7 +23,7 @@ describe('LoggerService', () => {
       service.error('Error!', 'Stack trace');
     });
     it('should log log', () => {
-      service.log('logs here');
+      service.log('logs here', 'Test');
     });
     it('should log warn', () => {
       service.warn('Warning!');
@@ -44,7 +44,7 @@ describe('LoggerService', () => {
       service.error('Error!', 'Stack trace');
     });
     it('should log log', () => {
-      service.log('logs here');
+      service.log('logs here', 'Test');
     });
     it('should log warn', () => {
       service.warn('Warning!');
@@ -66,7 +66,7 @@ describe('LoggerService', () => {
       service.error('ERROR!', '');
     });
     it('should log log', () => {
-      service.log('logs here');
+      service.log('logs here', 'Test');
     });
     it('should log warn', () => {
       service.warn('Warning!');
