@@ -31,11 +31,11 @@ export class MyLogger implements LoggerService {
     const yellow = colorStart + '[33m';
     const nest =
       process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development'
-        ? '[' + green + 'Nest' + reset + ']'
+        ? green + '[' + 'Nest' + ']' + reset
         : '[Nest]';
     const con = context
       ? process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development'
-        ? '[' + yellow + context + reset + ']'
+        ? yellow + '[' + context + ']' + reset
         : '[' + context + ']'
       : '';
     if (typeof message === 'object') {

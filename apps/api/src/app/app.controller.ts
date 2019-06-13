@@ -9,8 +9,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('hello')
-  getData(@Session() session: any): Message {
-    console.log(session);
+  getData(): Message {
     return this.appService.getData();
   }
 }
