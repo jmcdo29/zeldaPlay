@@ -12,7 +12,7 @@ describe('User Controller', () => {
         {
           provide: UserService,
           useValue: {
-            getAccount: jest.fn(),
+            getById: jest.fn(),
             login: jest.fn(),
             signup: jest.fn(),
             update: jest.fn(),

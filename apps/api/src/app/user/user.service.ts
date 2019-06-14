@@ -15,7 +15,7 @@ import { DatabaseService } from '../database/database.service';
 export class UserService {
   constructor(private readonly db: DatabaseService) {}
 
-  private getByEmail(email: string): Observable<User> {
+  getByEmail(email: string): Observable<User> {
     return this.db
       .query<User>({
         query: 'SELECT id, email FROM players WHERE email = $1',
@@ -24,8 +24,13 @@ export class UserService {
       .pipe(map((users) => users[0]));
   }
 
-  login(loginBody: LoginBody): Observable<User> {
-    return of();
+  getById(id: UserId): Observable<User> {
+    return this.db
+      .query<User>({
+        query: 'SELECT * FROM players WHERE id = $1',
+        variables: [id]
+      })
+      .pipe(map((users) => users[0]));
   }
 
   signup(signupBody: SignupBody): Observable<User> {
@@ -70,14 +75,5 @@ export class UserService {
 
   delete(id: UserId): Observable<any> {
     return of();
-  }
-
-  get(id: UserId): Observable<User> {
-    return this.db
-      .query<User>({
-        query: 'SELECT * FROM players WHERE id = $1',
-        variables: [id]
-      })
-      .pipe(map((users) => users[0]));
   }
 }

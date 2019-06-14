@@ -22,8 +22,8 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('/:id')
-  getAccount(@Param() userId: UserId): Observable<any> {
-    return this.userService.get(userId);
+  getUser(@Param() userId: UserId): Observable<any> {
+    return this.userService.getById(userId);
   }
 
   @Post('/signup')

@@ -12,5 +12,7 @@ export const envVarSchema = Joi.object({
   REDIS_URL: Joi.string()
     .uri()
     .required(),
-  GLOBAL_PREFIX: Joi.string().default('api')
+  GLOBAL_PREFIX: Joi.string().default('api'),
+  JWT_SECRET: Joi.string().required(),
+  JWT_EXPIRES: Joi.number().default(3600)
 });
