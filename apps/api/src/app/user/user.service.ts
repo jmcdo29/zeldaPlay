@@ -1,11 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   LoginBody,
   SignupBody,
   User,
   UserId
 } from '@tabletop-companion/api-interface';
-import { hash } from 'bcrypt';
+import { hashSync } from 'bcrypt';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -33,47 +33,39 @@ export class UserService {
       .pipe(map((users) => users[0]));
   }
 
-  signup(signupBody: SignupBody): Observable<User> {
-    return this.getByEmail(signupBody.email).pipe(
-      map(async (existingUser) => {
-        if (existingUser) {
-          throw new BadRequestException(
-            `User with email ${signupBody.email} already exists.`
-          );
-        }
-        const hashPass = await hash(signupBody.password, 12);
-        return this.db.query<User>({
-          query: `INSERT INTO players
-            (
-              email
-              ,password
-              ,"consentToEmail"
-              ,"firstName"
-              ,"lastName"
-              ,role
-            )
-            VALUES
-            ($1, $2, $3, $4, $5, $6)
-            RETURNING id`,
-          variables: [
-            signupBody.email,
-            hashPass,
-            signupBody.consentToEmail,
-            signupBody.firstName,
-            signupBody.lastName,
-            signupBody.role
-          ]
-        });
-      }),
-      map((newUsers) => newUsers[0])
-    );
+  insertUser(signupBody: SignupBody): Observable<User> {
+    const hashPass = hashSync(signupBody.password, 12);
+    return this.db
+      .query<User>({
+        query: `INSERT INTO players
+        (
+          email
+          ,password
+          ,"consentToEmail"
+          ,"firstName"
+          ,"lastName"
+          ,role
+        )
+        VALUES
+        ($1, $2, $3, $4, $5, $6)
+        RETURNING id`,
+        variables: [
+          signupBody.email,
+          hashPass,
+          signupBody.consentToEmail,
+          signupBody.firstName,
+          signupBody.lastName,
+          signupBody.role
+        ]
+      })
+      .pipe(map((newUsers) => newUsers[0]));
   }
 
   update(updateBody: Partial<User>, id: UserId): Observable<any> {
     return of();
   }
 
-  delete(id: UserId): Observable<any> {
+  delete(id: UserId): Observable<void> {
     return of();
   }
 }

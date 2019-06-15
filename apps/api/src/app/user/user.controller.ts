@@ -26,16 +26,6 @@ export class UserController {
     return this.userService.getById(userId);
   }
 
-  @Post('/signup')
-  signup(@Body() signupBody: SignupBody): Observable<any> {
-    return this.userService.signup(signupBody);
-  }
-
-  @Post('/login')
-  login(@Body() loginBody: LoginBody): Observable<any> {
-    return this.userService.login(loginBody);
-  }
-
   @Patch('/update/:id')
   updateAccount(
     @Body() updateBody: Partial<User>,
