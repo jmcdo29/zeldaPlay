@@ -1,8 +1,10 @@
-import { Injectable, LoggerService } from '@nestjs/common';
+import { Injectable, LoggerService, Optional } from '@nestjs/common';
 import { scribe } from 'mc-scribe';
 
 @Injectable()
 export class MyLogger implements LoggerService {
+  private context: string;
+
   static error(message: string | object, trace: string, context?: string) {
     MyLogger.printMyMessage('error', message, context);
     MyLogger.printMyStackTrace(trace);
@@ -59,19 +61,28 @@ export class MyLogger implements LoggerService {
     scribe.fine(trace);
   }
 
+  constructor(@Optional() context?: string) {
+    this.context = context ? context : '';
+  }
+
   error(message: string, trace: string, context?: string) {
+    context = context ? context : this.context;
     MyLogger.error(message, trace, context);
   }
   log(message: string | object, context?: string) {
+    context = context ? context : this.context;
     MyLogger.log(message, context);
   }
   warn(message: string | object, context?: string) {
+    context = context ? context : this.context;
     MyLogger.warn(message, context);
   }
   debug(message: string | object, context?: string) {
+    context = context ? context : this.context;
     MyLogger.debug(message, context);
   }
   verbose(message: string | object, context?: string) {
+    context = context ? context : this.context;
     MyLogger.verbose(message, context);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import {
   LoginBody,
   SignupBody,
@@ -10,24 +10,28 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DatabaseService } from '../database/database.service';
+import { MyLogger } from '../logger/logger.service';
 
 @Injectable()
 export class UserService {
+  private readonly logger = new MyLogger(UserService.name);
+
   constructor(private readonly db: DatabaseService) {}
 
   getByEmail(email: string): Observable<User> {
-    return of({
+    // used for testing purposes
+    /* return of({
       email: 'test@test.com',
       password: hashSync('Pa$$w0rd', 12),
       role: ['player'],
       id: 'USR'
-    } as any);
-    /* return this.db
+    } as any); */
+    return this.db
       .query<User>({
         query: 'SELECT id, email, role, password FROM players WHERE email = $1',
         variables: [email]
       })
-      .pipe(map((users) => users[0])); */
+      .pipe(map((users) => users[0]));
   }
 
   getById(id: UserId): Observable<User> {
@@ -40,7 +44,6 @@ export class UserService {
   }
 
   insertUser(signupBody: SignupBody): Observable<User> {
-    const hashPass = hashSync(signupBody.password, 12);
     return this.db
       .query<User>({
         query: `INSERT INTO players
@@ -57,7 +60,7 @@ export class UserService {
         RETURNING id`,
         variables: [
           signupBody.email,
-          hashPass,
+          hashSync(signupBody.password, 12),
           signupBody.consentToEmail,
           signupBody.firstName,
           signupBody.lastName,
@@ -72,6 +75,13 @@ export class UserService {
   }
 
   delete(id: UserId): Observable<void> {
+    this.db
+      .query({
+        query: 'UPDATE players SET "isActive"=$1 WHERE id = $2',
+        variables: [false, id]
+      })
+      .subscribe();
+    this.logger.log(`User with id ${id} deactivated.`);
     return of();
   }
 }

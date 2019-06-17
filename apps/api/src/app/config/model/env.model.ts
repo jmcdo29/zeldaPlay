@@ -10,5 +10,5 @@ export const envVarSchema = Joi.object({
     .required(),
   GLOBAL_PREFIX: Joi.string().default('api'),
   JWT_SECRET: Joi.string().required(),
-  JWT_EXPIRES: Joi.number().default(3600)
+  JWT_EXPIRES: Joi.string().default(3600)
 });
