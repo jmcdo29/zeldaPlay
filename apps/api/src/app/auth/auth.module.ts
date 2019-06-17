@@ -9,7 +9,7 @@ import { JwtStrategy } from './jwt.strategy';
 
 const jwtModuleAsyncOptions = {
   useFactory: async (configService: ConfigService) => ({
-    secretOrPrivateKey: configService.get('JWT_SECRET'),
+    secret: configService.get('JWT_SECRET'),
     signOptions: {
       expiresIn: configService.get('JWT_EXPIRES')
     }
@@ -19,7 +19,7 @@ const jwtModuleAsyncOptions = {
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    PassportModule.register({ defaultStrategy: 'jwt', session: true }),
     JwtModule.registerAsync(jwtModuleAsyncOptions),
     UserModule
   ],

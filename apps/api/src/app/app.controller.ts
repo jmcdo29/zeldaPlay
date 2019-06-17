@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Session } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 
 import { Message } from '@tabletop-companion/api-interface';
 

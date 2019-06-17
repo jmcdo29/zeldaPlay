@@ -17,8 +17,6 @@ describe('ConfigService', () => {
       process.env.DATABASE_URL =
         'postgres://postgres:postgres@localhost:5432/testing';
       process.env.PORT = '3333';
-      process.env.SESSION_SECRET = 'itsasecret';
-      process.env.REDIS_URL = 'redis://localhost:1234';
       process.env.JWT_SECRET = 'itsasecret';
     });
     beforeEach(async () => {
@@ -41,8 +39,6 @@ describe('ConfigService', () => {
       PORT: '3333',
       DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/testing',
       NODE_ENV: 'dev',
-      SESSION_SECRET: 'itsasecret',
-      REDIS_URL: 'redis://localhost:1234',
       JWT_SECRET: 'itsasecret'
     });
     beforeEach(async () => {

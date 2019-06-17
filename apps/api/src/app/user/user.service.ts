@@ -16,12 +16,18 @@ export class UserService {
   constructor(private readonly db: DatabaseService) {}
 
   getByEmail(email: string): Observable<User> {
-    return this.db
+    return of({
+      email: 'test@test.com',
+      password: hashSync('Pa$$w0rd', 12),
+      role: ['player'],
+      id: 'USR'
+    } as any);
+    /* return this.db
       .query<User>({
-        query: 'SELECT id, email FROM players WHERE email = $1',
+        query: 'SELECT id, email, role, password FROM players WHERE email = $1',
         variables: [email]
       })
-      .pipe(map((users) => users[0]));
+      .pipe(map((users) => users[0])); */
   }
 
   getById(id: UserId): Observable<User> {
