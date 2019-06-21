@@ -19,7 +19,7 @@ const jwtModuleAsyncOptions = {
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt', session: true }),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync(jwtModuleAsyncOptions),
     UserModule
   ],

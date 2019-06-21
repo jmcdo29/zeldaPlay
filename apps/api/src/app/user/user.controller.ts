@@ -1,20 +1,7 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
-import {
-  LoginBody,
-  SignupBody,
-  User,
-  UserId
-} from '@tabletop-companion/api-interface';
+import { User, UserId } from '@tabletop-companion/api-interface';
 import { UserService } from './user.service';
 
 @Controller('user')
