@@ -11,5 +11,5 @@
 ## Built With
 
 <a href="https://https://nx.dev/getting-started/what-is-nx" align="left"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="50" alt="Nx Logo"></a>
-<a href="https://angular.io"><img src="https://angular.io/assets/imagxt.es/logos/angular/angular.svg" width=45 alt="Angular Logo"></a>
-<a href="https://docs.nestjs.com"><img src="https://nestjs.com/img/logo_tesvg" width=100 alt="Nest Logo"></a>
+<a href="https://angular.io"><img src="https://angular.io/assets/images/logos/angular/angular.svg" width=45 alt="Angular Logo"></a>
+<a href="https://docs.nestjs.com"><img src="https://d33wubrfki0l68.cloudfront.net/49c2be6f2607b5c12dd27f8ecc8521723447975d/f05c5/logo-small.cbbeba89.svg" width=100 alt="Nest Logo"></a>
