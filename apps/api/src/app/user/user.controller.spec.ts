@@ -1,4 +1,7 @@
+import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
+import { of } from 'rxjs';
+
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
@@ -7,16 +10,21 @@ describe('User Controller', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
       controllers: [UserController],
       providers: [
         {
           provide: UserService,
           useValue: {
-            getById: jest.fn(),
-            login: jest.fn(),
-            signup: jest.fn(),
-            update: jest.fn(),
-            delete: jest.fn()
+            getById: jest.fn().mockReturnValue(
+              of({
+                id: 'USR-TEST1',
+                email: 'test@test.com',
+                role: ['player']
+              })
+            ),
+            updateUser: jest.fn().mockReturnValue(of()),
+            deleteUser: jest.fn().mockReturnValue(of())
           }
         }
       ]
@@ -27,5 +35,39 @@ describe('User Controller', () => {
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  it('should get a user', (done) => {
+    controller.getUser({ id: 'USR-TEST1' }).subscribe(
+      (user) => {
+        expect(user).toEqual({
+          id: 'USR-TEST1',
+          email: 'test@test.com',
+          role: ['player']
+        });
+      },
+      (error) => {
+        throw new Error(error);
+      },
+      () => done()
+    );
+  });
+  it('should update a user', (done) => {
+    controller.updateAccount({}, { id: 'USR-TEST1' }).subscribe(
+      (user) => {},
+      (error) => {
+        throw new Error(error);
+      },
+      () => done()
+    );
+  });
+  it('should delete a user', (done) => {
+    controller.deactivateAccount({ id: 'USR-TEST1' }).subscribe(
+      (user) => {},
+      (error) => {
+        throw new Error(error);
+      },
+      () => done()
+    );
   });
 });

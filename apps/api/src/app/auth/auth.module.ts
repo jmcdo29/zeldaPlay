@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigService } from '../config/config.service';
@@ -21,7 +21,7 @@ const jwtModuleAsyncOptions = {
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync(jwtModuleAsyncOptions),
-    UserModule
+    forwardRef(() => UserModule)
   ],
   providers: [AuthService, JwtStrategy],
   exports: [PassportModule, AuthService],

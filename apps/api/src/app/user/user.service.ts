@@ -6,7 +6,7 @@ import {
   UserId
 } from '@tabletop-companion/api-interface';
 import { hashSync } from 'bcrypt';
-import { Observable, of } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DatabaseService } from '../database/database.service';
@@ -34,11 +34,11 @@ export class UserService {
       .pipe(map((users) => users[0]));
   }
 
-  getById(id: UserId): Observable<User> {
+  getById(userId: UserId): Observable<User> {
     return this.db
       .query<User>({
         query: 'SELECT * FROM players WHERE id = $1',
-        variables: [id]
+        variables: [userId.id]
       })
       .pipe(map((users) => users[0]));
   }
@@ -70,18 +70,18 @@ export class UserService {
       .pipe(map((newUsers) => newUsers[0]));
   }
 
-  update(updateBody: Partial<User>, id: UserId): Observable<any> {
+  updateUser(updateBody: Partial<User>, userId: UserId): Observable<any> {
     return of();
   }
 
-  delete(id: UserId): Observable<void> {
+  deleteUser(userId: UserId): Observable<void> {
     this.db
       .query({
         query: 'UPDATE players SET "isActive"=$1 WHERE id = $2',
-        variables: [false, id]
+        variables: [false, userId.id]
       })
       .subscribe();
-    this.logger.log(`User with id ${id} deactivated.`);
+    this.logger.log(`User with id ${userId.id} deactivated.`);
     return of();
   }
 }

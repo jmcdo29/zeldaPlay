@@ -9,18 +9,11 @@ export class AuthController {
 
   @Post('login')
   login(@Body() loginBody: LoginBody): Observable<string> {
-    console.log(loginBody);
     return this.authService.login(loginBody);
   }
 
   @Post('signup')
   signup(@Body() signupBody: SignupBody): Observable<string> {
     return this.authService.signup(signupBody);
-  }
-
-  @Post('/logout')
-  logout(@Req() req): void {
-    req.logout();
-    return;
   }
 }
