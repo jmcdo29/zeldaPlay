@@ -12,11 +12,12 @@ async function bootstrap() {
   });
   const config = app.get<ConfigService>(ConfigService);
   const port = config.get('PORT');
+  const location = config.isProd()
+    ? 'https://zeldaplay.herokuapp.com'
+    : `http://localhost:${port}`;
   configure(app, config);
   await app.listen(port);
-  scribe.info(
-    `Listening at http://localhost:${port}/${config.get('GLOBAL_PREFIX')}`
-  );
+  scribe.info(`Listening at ${location}/${config.get('GLOBAL_PREFIX')}`);
 }
 
 bootstrap();
