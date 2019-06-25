@@ -16,9 +16,7 @@ export class ConfigService {
 
   constructor() {
     if (!this.prods.includes(process.env.NODE_ENV.toLowerCase())) {
-      const config = parse(
-        readFileSync(join(__dirname, '..', '..', '..', '.env'))
-      );
+      const config = parse(readFileSync(join(process.env.PWD, '.env')));
       this.envConfig = this.validateConfig(config);
     } else {
       this.envConfig = this.validateConfig(process.env);

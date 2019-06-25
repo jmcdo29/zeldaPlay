@@ -6,7 +6,7 @@ import {
   UserId
 } from '@tabletop-companion/api-interface';
 import { hashSync } from 'bcrypt';
-import { EMPTY, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DatabaseService } from '../database/database.service';
@@ -19,13 +19,6 @@ export class UserService {
   constructor(private readonly db: DatabaseService) {}
 
   getByEmail(email: string): Observable<User> {
-    // used for testing purposes
-    /* return of({
-      email: 'test@test.com',
-      password: hashSync('Pa$$w0rd', 12),
-      role: ['player'],
-      id: 'USR'
-    } as any); */
     return this.db
       .query<User>({
         query: 'SELECT id, email, role, password FROM players WHERE email = $1',
