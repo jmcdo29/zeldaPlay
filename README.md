@@ -4,13 +4,15 @@
 
 <div align="center">
 
-[![Nx](https://img.shields.io/badge/Built%20With-Nx-blueviolet.svg?style=plastic)](https://nx.dev/getting-started/what-is-nx)
-[![MIT license](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=plastic)](http://opensource.org/licenses/MIT)
-[![Jest](https://img.shields.io/badge/Tested%20With-Jest-maroon.svg?style=plastic)](https://jestjs.io)
-[![Cypress](https://img.shields.io/badge/Tested%20With-Cypress-2e3138.svg?style=plastic)](https://www.cypress.io)
+[![code style: prettier](https://badgen.net/badge/Code%20style/prettier/cyan?icon=typescript)](https://github.com/prettier/prettier)
+[![Nx](https://badgen.net/badge/Built%20With/Nx/8A2BE2)](https://nx.dev/getting-started/what-is-nx)
+[![MIT license](https://badgen.net/badge/License/MIT/66CC00)](http://opensource.org/licenses/MIT)
+[![Jest](https://badgen.net/badge/Tested%20With/Jest/800000)](https://jestjs.io)
+[![Cypress](https://badgen.net/badge/Tested%20With/Cypress/2e3138)](https://www.cypress.io)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jmcdo29/zeldaPlay)](https://dependabot.com)
 [![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json)
-[![Discord Chat](https://img.shields.io/badge/chat%20on-Discord-blue.svg?style=plastic)](https://discord.gg/hGuDEgG 'Discord Chat')
+[![Discord Chat](https://badgen.net/badge/Chat%20on/Discord/blue?icon=discord)](https://discord.gg/hGuDEgG)
+[![Heroku](https://badgen.net/badge/Running%20on/Heroku/79589f)](https://heroku.com)
 
 </div>
 
