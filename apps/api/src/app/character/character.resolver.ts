@@ -13,4 +13,11 @@ export class CharacterResolver {
   ): Observable<Character> {
     return this.characterService.getCharacterById(id);
   }
+
+  @Query((returns) => [Character], { name: 'userCharacters' })
+  getUserCharacters(
+    @Args({ name: 'userId', type: () => String }) userId: string
+  ): Observable<Character[]> {
+    return this.characterService.getCharactersByUserId(userId);
+  }
 }

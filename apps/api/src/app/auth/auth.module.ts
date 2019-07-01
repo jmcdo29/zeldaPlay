@@ -4,6 +4,7 @@ import { PassportModule } from '@nestjs/passport';
 import { ConfigService } from '../config/config.service';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
+import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 
@@ -23,7 +24,7 @@ const jwtModuleAsyncOptions = {
     JwtModule.registerAsync(jwtModuleAsyncOptions),
     forwardRef(() => UserModule)
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, AuthResolver],
   exports: [PassportModule, AuthService],
   controllers: [AuthController]
 })

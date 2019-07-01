@@ -4,7 +4,7 @@ import {
   UnauthorizedException
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { LoginBody, SignupBody, User } from '@tabletop-companion/api-interface';
+import { Auth, Login, Signup, User } from '@tabletop-companion/api-interface';
 import { compareSync } from 'bcrypt';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -18,15 +18,18 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  login(login: LoginBody): Observable<string> {
+  login(login: Login): Observable<Auth> {
     return this.userService.getByEmail(login.email).pipe(
       map((user) => {
         if (compareSync(login.password, user.password)) {
-          return this.signToken({
+          return {
             id: user.id,
-            email: user.email,
-            role: user.role
-          });
+            token: this.signToken({
+              id: user.id,
+              email: user.email,
+              role: user.role
+            })
+          };
         } else {
           throw new UnauthorizedException('Invalid email or password.');
         }
@@ -34,7 +37,7 @@ export class AuthService {
     );
   }
 
-  signup(signup: SignupBody): Observable<string> {
+  signup(signup: Signup): Observable<Auth> {
     return this.userService.getByEmail(signup.email).pipe(
       switchMap((existingUser) => {
         if (existingUser) {
@@ -44,11 +47,14 @@ export class AuthService {
         }
       }),
       map((newUser) => {
-        return this.signToken({
+        return {
           id: newUser.id,
-          email: signup.email,
-          role: signup.role
-        });
+          token: this.signToken({
+            id: newUser.id,
+            email: signup.email,
+            role: signup.role
+          })
+        };
       })
     );
   }

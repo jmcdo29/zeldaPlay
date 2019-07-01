@@ -51,7 +51,7 @@ describe('AuthService', () => {
     it('should return a token', (done) => {
       service.login({ email: 'test@test.com', password: 'Pa$$w0rd' }).subscribe(
         (token) => {
-          expect(token).toBe('token');
+          expect(token).toEqual({ id: 'USR-TEST', token: 'token' });
         },
         (error) => {
           throw new Error(error);
@@ -90,7 +90,7 @@ describe('AuthService', () => {
       jest.spyOn(userService, 'getByEmail').mockReturnValueOnce(of(undefined));
       service.signup(signupTest).subscribe(
         (newUser) => {
-          expect(newUser).toBe('token');
+          expect(newUser).toEqual({ id: 'USR-TEST', token: 'token' });
         },
         (error) => {
           throw new Error(error);

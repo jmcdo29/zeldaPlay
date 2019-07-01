@@ -19,16 +19,16 @@ export function IsPassword(validationOptions?: ValidationOptions) {
       validator: {
         validate(value: string, args: ValidationArguments) {
           let error = '';
-          if (/\d+/.test(value)) {
+          if (!/\d+/.test(value)) {
             error += 'Password must contain at least one number.';
           }
-          if (/[A-Z]+/.test(value)) {
+          if (!/[A-Z]+/.test(value)) {
             error += 'Password must contain at least one uppercase character.';
           }
-          if (/[a-z]+/.test(value)) {
+          if (!/[a-z]+/.test(value)) {
             error += 'Password must contain at least one lowercase character.';
           }
-          if (/[!@#$%^&*]+/.test(value)) {
+          if (!/[!@#$%^&*]+/.test(value)) {
             error += 'Password must contain at least one special character.';
           }
           if (error) {

@@ -1,45 +1,53 @@
 import {
+  ArrayContains,
   IsBoolean,
   IsEmail,
-  IsIn,
   IsNotEmpty,
   IsOptional,
   IsString,
   MinLength
 } from 'class-validator';
+import { ArgsType, Field } from 'type-graphql';
 import { IsPassword } from '../validators';
 
-export class SignupBody {
+@ArgsType()
+export class Signup {
   @IsEmail()
   @IsString()
   @IsNotEmpty()
+  @Field()
   email: string;
 
   @IsString()
   @MinLength(8)
   @IsNotEmpty()
   @IsPassword()
+  @Field()
   password: string;
 
   @IsNotEmpty()
   @IsString()
   @MinLength(8)
   @IsPassword()
+  @Field()
   confirmationPassword: string;
 
   @IsString()
   @IsNotEmpty()
+  @Field()
   firstName: string;
 
   @IsString()
   @IsNotEmpty()
+  @Field()
   lastName: string;
 
   @IsBoolean()
   @IsOptional()
+  @Field((type) => Boolean)
   consentToEmail = false;
 
-  @IsIn(['player', 'admin', 'dm'])
   @IsOptional()
-  role = ['player'];
+  @Field((type) => [String], { nullable: true })
+  role: string[] = ['player'];
 }

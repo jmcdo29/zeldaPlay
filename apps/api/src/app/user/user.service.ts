@@ -1,10 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import {
-  LoginBody,
-  SignupBody,
-  User,
-  UserId
-} from '@tabletop-companion/api-interface';
+import { Signup, User, UserId } from '@tabletop-companion/api-interface';
 import { hashSync } from 'bcrypt';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -36,7 +31,7 @@ export class UserService {
       .pipe(map((users) => users[0]));
   }
 
-  insertUser(signupBody: SignupBody): Observable<User> {
+  insertUser(signupBody: Signup): Observable<User> {
     return this.db
       .query<User>({
         query: `INSERT INTO players

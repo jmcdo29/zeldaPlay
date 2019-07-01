@@ -16,4 +16,11 @@ export class CharacterService {
       })
       .pipe(map((characters) => characters[0]));
   }
+
+  getCharactersByUserId(userId: string): Observable<Character[]> {
+    return this.db.query<Character>({
+      query: 'SELECT * FROM characters WHERE "playerId" = $1',
+      variables: [userId]
+    });
+  }
 }
