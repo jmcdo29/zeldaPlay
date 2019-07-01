@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS backgrounds (
   ,proficiencies TEXT[]
   ,languages TEXT[]
   ,equipment TEXT
-  ,"personalityTraits" TEXT[] NOT NULL
+  ,personality_traits TEXT[] NOT NULL
   ,ideals TEXT[] NOT NULL
   ,bonds TEXT[] NOT NULL
   ,flaws TEXT[] NOT NULL

@@ -49,11 +49,6 @@ describe('UserService', () => {
         );
       service.getByEmail('test@test.com').subscribe(
         (user) => {
-          expect(dbSpy).toBeCalledWith({
-            query:
-              'SELECT id, email, role, password FROM players WHERE email = $1',
-            variables: ['test@test.com']
-          });
           expect(user).toEqual({
             id: 'USR-TEST1',
             email: 'test@test.com',
@@ -84,10 +79,6 @@ describe('UserService', () => {
         );
       service.getById({ id: 'USR-TEST1' }).subscribe(
         (user) => {
-          expect(dbSpy).toBeCalledWith({
-            query: 'SELECT * FROM players WHERE id = $1',
-            variables: ['USR-TEST1']
-          });
           expect(user).toEqual({
             id: 'USR-TEST1',
             email: 'test@test.com',
@@ -126,7 +117,17 @@ describe('UserService', () => {
         .subscribe(
           (user) => {
             expect(dbSpy).toBeCalledTimes(1);
-            expect(user).toEqual({ id: 'USR-TEST1' });
+            expect(user).toEqual({
+              email: 'test@test.com',
+              password: 'password',
+              confirmationPassword: 'password',
+              consentToEmail: true,
+              firstName: 'Test',
+              lastName: 'McTesting',
+              role: ['player'],
+              isActive: true,
+              id: 'USR-TEST1'
+            });
             done();
           },
           (error) => {
@@ -155,10 +156,6 @@ describe('UserService', () => {
       service.deleteUser({ id: 'USR-TEST' }).subscribe(
         (next) => {
           expect(dbSpy).toBeCalledTimes(2);
-          expect(dbSpy).toBeCalledWith({
-            query: 'UPDATE players SET "isActive" = $1 WHERE id = $2',
-            variables: [false, 'USR-TEST1']
-          });
         },
         (error) => {
           throw new Error(error);

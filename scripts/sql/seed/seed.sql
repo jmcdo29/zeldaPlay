@@ -37,7 +37,7 @@ INSERT INTO subraces
 ,("rock", "gnome", "dd5")
 ,("forest", "gnome", "dd5");
 
-INSERT INTO backgrounds(name, proficiencies, languages, equipment, feature, "personalityTraits", ideals, bonds, flaws)
+INSERT INTO backgrounds(name, proficiencies, languages, equipment, feature, personality_traits, ideals, bonds, flaws)
 VALUES
 (
   'acolyte'

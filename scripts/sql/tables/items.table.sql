@@ -3,5 +3,5 @@ CREATE TABLE IF NOT EXISTS items (
   ,name TEXT NOT NULL
   ,description TEXT NOT NULL
   ,weight FLOAT CHECK (weight >= 0)
-  ,"characterId" TEXT REFERENCES characters (id)
+  ,character_id TEXT REFERENCES characters (id)
 )

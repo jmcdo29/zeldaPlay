@@ -32,7 +32,7 @@ describe('CharacterService', () => {
   });
   it('should return a character related to the id', (done) => {
     db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
-    service.getCharacterById('CHR-TEST1').subscribe(
+    service.getCharacterById({ id: 'CHR-TEST1' }).subscribe(
       (character) => {
         expect(character).toBeTruthy();
         expect(character).toEqual(mockCharacter);
@@ -47,10 +47,56 @@ describe('CharacterService', () => {
     db.query = jest
       .fn()
       .mockReturnValueOnce(of([mockCharacter, mockCharacter]));
-    service.getCharactersByUserId('USR-TEST1').subscribe(
+    service.getCharactersByUserId({ id: 'USR-TEST1' }).subscribe(
       (characters) => {
         expect(characters.length).toBe(2);
         expect(characters).toEqual([mockCharacter, mockCharacter]);
+      },
+      (error) => {
+        throw new Error(error);
+      },
+      () => done()
+    );
+  });
+  it('should insert character and return the new id', (done) => {
+    const characterInput = {
+      name: 'Test character',
+      race: 'Halfling',
+      subrace: 'Lightfoot',
+      experience: 0,
+      level: 1,
+      ideal: '',
+      proficiencies: [],
+      background: 'Hermit',
+      alignment: 'Neutral Good',
+      flaw: '',
+      personalityTraits: [],
+      maxHealth: 15,
+      health: 15,
+      isDead: false,
+      playerId: 'USR-TEST',
+      bond: '',
+      languages: ['Common', 'Dwarvish'],
+      game: 'dd5'
+    };
+    db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
+    service.insertNewCharacter(characterInput).subscribe(
+      (character) => {
+        expect(character).toBeTruthy();
+        expect(character).toEqual(characterInput);
+      },
+      (error) => {
+        throw new Error(error);
+      },
+      () => done()
+    );
+  });
+  it('should update the character and return the id', (done) => {
+    db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
+    service.updateCharacter({ level: 2 }, { id: 'CHR-TEST' }).subscribe(
+      (character) => {
+        expect(character).toBeTruthy();
+        expect(character).toEqual(mockCharacter);
       },
       (error) => {
         throw new Error(error);

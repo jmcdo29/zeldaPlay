@@ -1,18 +1,24 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { Auth, Login, Signup } from '@tabletop-companion/api-interface';
+import {
+  Auth,
+  Login,
+  ofAuth,
+  returnAuth,
+  Signup
+} from '@tabletop-companion/api-interface';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
-@Resolver((of) => Auth)
+@Resolver(ofAuth)
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
-  @Query((returns) => Auth, { name: 'login' })
+  @Query(returnAuth, { name: 'login' })
   login(@Args() loginBody: Login): Observable<Auth> {
     return this.authService.login(loginBody);
   }
 
-  @Query((returns) => Auth, { name: 'signup' })
+  @Query(returnAuth, { name: 'signup' })
   signup(@Args() signupBody: Signup): Observable<Auth> {
     return this.authService.signup(signupBody);
   }
