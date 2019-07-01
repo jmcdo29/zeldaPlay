@@ -1,15 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
-
+import { Query, Resolver } from '@nestjs/graphql';
 import { Message } from '@tabletop-companion/api-interface';
-
 import { AppService } from './app.service';
 
-@Controller()
-export class AppController {
+@Resolver((of) => Message)
+export class AppResolver {
   constructor(private readonly appService: AppService) {}
 
-  @Get('hello')
-  getData(): Message {
+  @Query((returns) => Message)
+  sayHello(): Message {
     return this.appService.getData();
   }
 }
