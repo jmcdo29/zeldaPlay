@@ -1,18 +1,15 @@
-import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
-
-import { UserController } from './user.controller';
+import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
 
-describe('User Controller', () => {
-  let controller: UserController;
+describe('UserResolver', () => {
+  let resolver: UserResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
-      controllers: [UserController],
       providers: [
+        UserResolver,
         {
           provide: UserService,
           useValue: {
@@ -30,15 +27,14 @@ describe('User Controller', () => {
       ]
     }).compile();
 
-    controller = module.get<UserController>(UserController);
+    resolver = module.get<UserResolver>(UserResolver);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(resolver).toBeDefined();
   });
-
   it('should get a user', (done) => {
-    controller.getUser({ id: 'USR-TEST1' }).subscribe(
+    resolver.getUser({ id: 'USR-TEST1' }).subscribe(
       (user) => {
         expect(user).toEqual({
           id: 'USR-TEST1',
@@ -53,7 +49,7 @@ describe('User Controller', () => {
     );
   });
   it('should update a user', (done) => {
-    controller.updateAccount({}, { id: 'USR-TEST1' }).subscribe(
+    resolver.updateUser({ id: 'USR-TEST1' }, {}).subscribe(
       (user) => {},
       (error) => {
         throw new Error(error);
@@ -62,7 +58,7 @@ describe('User Controller', () => {
     );
   });
   it('should delete a user', (done) => {
-    controller.deactivateAccount({ id: 'USR-TEST1' }).subscribe(
+    resolver.deleteUser({ id: 'USR-TEST1' }).subscribe(
       (user) => {},
       (error) => {
         throw new Error(error);
