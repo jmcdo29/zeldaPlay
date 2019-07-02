@@ -1,3 +1,4 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
   Character,
@@ -10,6 +11,7 @@ import {
   UserId
 } from '@tabletop-companion/api-interface';
 import { Observable } from 'rxjs';
+import { GqlAuthGuard } from '../guards/gql-auth-guard.guard';
 import { CharacterService } from './character.service';
 
 @Resolver(ofCharacter)
@@ -26,6 +28,7 @@ export class CharacterResolver {
     return this.characterService.getCharactersByUserId(userId);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(returnCharacter, { name: 'newCharacter' })
   insertCharacter(
     @Args('characterData') characterInsert: CharacterInsertData
@@ -33,6 +36,7 @@ export class CharacterResolver {
     return this.characterService.insertNewCharacter(characterInsert);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(returnCharacter, { name: 'updateCharacter' })
   updateCharacter(
     @Args('characterData') characterUpdate: CharacterUpdateData,

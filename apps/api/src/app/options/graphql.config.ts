@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql';
-import { ConfigService } from './config/config.service';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class GraphQLModuleConfig implements GqlOptionsFactory {
@@ -11,7 +11,8 @@ export class GraphQLModuleConfig implements GqlOptionsFactory {
     return {
       playground: !isProd,
       debug: !isProd,
-      autoSchemaFile: 'schema.gql'
+      autoSchemaFile: 'schema.gql',
+      context: ({ req }) => ({ req })
     };
   }
 }

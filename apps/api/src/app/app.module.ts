@@ -8,9 +8,9 @@ import { CharacterModule } from './character/character.module';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 import { DatabaseModule } from './database/database.module';
-import { GraphQLModuleConfig } from './graphql.config';
 import { LoggerModule } from './logger/logger.module';
-import { TerminusOptionsService } from './terminusOptionsService';
+import { GraphQLModuleConfig } from './options/graphql.config';
+import { TerminusOptionsService } from './options/terminusOptionsService';
 import { UserModule } from './user/user.module';
 
 @Module({

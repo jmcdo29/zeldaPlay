@@ -1,3 +1,4 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
   ofUser,
@@ -8,6 +9,7 @@ import {
   UserUpdateData
 } from '@tabletop-companion/api-interface';
 import { Observable } from 'rxjs';
+import { GqlAuthGuard } from '../guards/gql-auth-guard.guard';
 import { UserService } from './user.service';
 
 @Resolver(ofUser)
@@ -19,6 +21,7 @@ export class UserResolver {
     return this.userService.getById(userId);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(returnUser, { name: 'updateUser' })
   updateUser(
     @Args('userId') id: UserId,
@@ -27,6 +30,7 @@ export class UserResolver {
     return this.userService.updateUser(userData, id);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(returnString, { name: 'deleteUser' })
   deleteUser(@Args('userId') userId: UserId): Observable<any> {
     return this.userService.deleteUser(userId);
