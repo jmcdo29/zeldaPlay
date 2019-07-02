@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { TerminusModule } from '@nestjs/terminus';
 import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -9,6 +10,7 @@ import { ConfigService } from './config/config.service';
 import { DatabaseModule } from './database/database.module';
 import { GraphQLModuleConfig } from './graphql.config';
 import { LoggerModule } from './logger/logger.module';
+import { TerminusOptionsService } from './terminusOptionsService';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -21,6 +23,9 @@ import { UserModule } from './user/user.module';
     DatabaseModule,
     UserModule,
     LoggerModule,
+    TerminusModule.forRootAsync({
+      useClass: TerminusOptionsService
+    }),
     AuthModule,
     CharacterModule
   ],
