@@ -1,3 +1,4 @@
+export * from './lib/abilityScore';
 export * from './lib/auth';
 export * from './lib/character';
 export * from './lib/gqlReturns';

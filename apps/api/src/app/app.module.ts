@@ -12,24 +12,25 @@ import { LoggerModule } from './logger/logger.module';
 import { GraphQLModuleConfig } from './options/graphql.config';
 import { TerminusOptionsService } from './options/terminusOptionsService';
 import { UserModule } from './user/user.module';
+import { AbilityScoreModule } from './ability-score/ability-score.module';
 
 @Module({
   imports: [
+    ConfigModule,
+    DatabaseModule,
+    LoggerModule,
     GraphQLModule.forRootAsync({
       useClass: GraphQLModuleConfig,
       inject: [ConfigService]
     }),
-    ConfigModule,
-    DatabaseModule,
-    UserModule,
-    LoggerModule,
     TerminusModule.forRootAsync({
       useClass: TerminusOptionsService
     }),
     AuthModule,
-    CharacterModule
+    CharacterModule,
+    UserModule,
+    AbilityScoreModule
   ],
-  controllers: [],
   providers: [AppService, AppResolver]
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "abilityScores" (
+CREATE TABLE IF NOT EXISTS ability_scores (
   id TEXT PRIMARY KEY DEFAULT CONCAT('ABL', gen_random_uuid())
   ,name TEXT NOT NULL
   ,value INTEGER NOT NULL
