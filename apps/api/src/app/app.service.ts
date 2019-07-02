@@ -3,7 +3,7 @@ import { Message } from '@tabletop-companion/api-interface';
 
 @Injectable()
 export class AppService {
-  getData(): Message {
-    return { message: 'Welcome to api!' };
+  getData(data?: string): Message {
+    return { message: data || 'Welcome to api!' };
   }
 }

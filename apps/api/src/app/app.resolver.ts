@@ -1,8 +1,9 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Args, Query, Resolver } from '@nestjs/graphql';
 import {
   Message,
   ofMessage,
-  returnMessage
+  returnMessage,
+  typeString
 } from '@tabletop-companion/api-interface';
 import { AppService } from './app.service';
 
@@ -11,7 +12,7 @@ export class AppResolver {
   constructor(private readonly appService: AppService) {}
 
   @Query(returnMessage)
-  sayHello(): Message {
-    return this.appService.getData();
+  sayHello(@Args({ name: 'data', type: typeString }) data?: string): Message {
+    return this.appService.getData(data);
   }
 }

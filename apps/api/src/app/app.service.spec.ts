@@ -17,5 +17,10 @@ describe('AppService', () => {
     it('should return "Welcome to api!"', () => {
       expect(service.getData()).toEqual({ message: 'Welcome to api!' });
     });
+    it('should return "Hello, world!"', () => {
+      expect(service.getData('Hello, world!')).toEqual({
+        message: 'Hello, world!'
+      });
+    });
   });
 });

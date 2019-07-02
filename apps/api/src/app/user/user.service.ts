@@ -58,22 +58,19 @@ export class UserService {
     const userVariables: any[] = [];
     let query = 'INSERT INTO players (';
     params.fields.push('email');
-    params.values.push('$1');
     userVariables.push(signupBody.email);
     params.fields.push('password');
-    params.values.push('$2');
     userVariables.push(hashSync(signupBody.password, 12));
     params.fields.push('consent_to_email');
-    params.values.push('$3');
     userVariables.push(signupBody.consentToEmail);
     params.fields.push('first_name');
-    params.values.push('$4');
     userVariables.push(signupBody.firstName);
     params.fields.push('last_name');
-    params.values.push('$5');
     userVariables.push(signupBody.lastName);
     params.fields.push('role');
-    params.values.push('$6');
+    for (let i = 1; i <= params.fields.length; i++) {
+      params.values.push(`$${i}`);
+    }
     userVariables.push(signupBody.role);
     query += params.fields.join(', ');
     query += ') VALUES (';
