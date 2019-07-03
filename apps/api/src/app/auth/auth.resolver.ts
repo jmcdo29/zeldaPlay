@@ -1,4 +1,4 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
   Auth,
   Login,
@@ -18,8 +18,8 @@ export class AuthResolver {
     return this.authService.login(loginBody);
   }
 
-  @Query(returnAuth, { name: 'signup' })
-  signup(@Args() signupBody: Signup): Observable<Auth> {
+  @Mutation(returnAuth, { name: 'signup' })
+  signup(@Args('signupBody') signupBody: Signup): Observable<Auth> {
     return this.authService.signup(signupBody);
   }
 }

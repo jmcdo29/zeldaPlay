@@ -8,7 +8,8 @@ import {
   CharacterId,
   ofAbilityScore,
   returnAbilityScore,
-  returnAbilityScores
+  returnAbilityScores,
+  typeAbilityScoreInputs
 } from '@tabletop-companion/api-interface';
 import { Observable } from 'rxjs';
 import { GqlAuthGuard } from '../guards/gql-auth-guard.guard';
@@ -43,7 +44,8 @@ export class AbilityScoreResolver {
   @UseGuards(GqlAuthGuard)
   @Mutation(returnAbilityScores, { name: 'newAbilityScores' })
   insertManyAbilityScores(
-    @Args('abilityScores') abilities: AbilityScoreInput[]
+    @Args({ name: 'abilityScores', type: typeAbilityScoreInputs })
+    abilities: AbilityScoreInput[]
   ): Observable<AbilityScore[]> {
     return this.abilityScoreService.insertManyAbilityScores(abilities);
   }

@@ -1,5 +1,5 @@
 import { Int } from 'type-graphql';
-import { AbilityScore } from './abilityScore';
+import { AbilityScore, AbilityScoreInput } from './abilityScore';
 import { Auth } from './auth';
 import { Character } from './character';
 import { Message } from './interfaces';
@@ -23,3 +23,4 @@ export const returnString = (returns) => String;
 // For @Args() decorator
 export const typeString = () => String;
 export const typeInt = () => Int;
+export const typeAbilityScoreInputs = () => [AbilityScoreInput];

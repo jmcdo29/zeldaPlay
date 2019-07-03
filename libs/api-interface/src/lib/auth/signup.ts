@@ -7,10 +7,10 @@ import {
   IsString,
   MinLength
 } from 'class-validator';
-import { ArgsType, Field } from 'type-graphql';
+import { Field, InputType } from 'type-graphql';
 import { IsPassword } from '../validators';
 
-@ArgsType()
+@InputType()
 export class Signup {
   @IsEmail()
   @IsString()
