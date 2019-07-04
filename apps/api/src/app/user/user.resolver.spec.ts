@@ -1,7 +1,34 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { User } from '@tabletop-companion/api-interface';
 import { of } from 'rxjs';
 import { UserResolver } from './user.resolver';
 import { UserService } from './user.service';
+
+const userObserver = (done: () => void) => ({
+  next(value: User) {
+    expect(value).toEqual({
+      id: 'USR-TEST1',
+      email: 'test@test.com',
+      role: ['player']
+    });
+  },
+  error(error: Error) {
+    throw new Error(error.message);
+  },
+  complete() {
+    done();
+  }
+});
+
+const emptyObserver = (done: () => void) => ({
+  next(value: User) {},
+  error(error: Error) {
+    throw new Error(error.message);
+  },
+  complete() {
+    done();
+  }
+});
 
 describe('UserResolver', () => {
   let resolver: UserResolver;
@@ -34,36 +61,12 @@ describe('UserResolver', () => {
     expect(resolver).toBeDefined();
   });
   it('should get a user', (done) => {
-    resolver.getUser({ id: 'USR-TEST1' }).subscribe(
-      (user) => {
-        expect(user).toEqual({
-          id: 'USR-TEST1',
-          email: 'test@test.com',
-          role: ['player']
-        });
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    resolver.getUser({ id: 'USR-TEST1' }).subscribe(userObserver(done));
   });
   it('should update a user', (done) => {
-    resolver.updateUser({ id: 'USR-TEST1' }, {}).subscribe(
-      (user) => {},
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    resolver.updateUser({ id: 'USR-TEST1' }, {}).subscribe(emptyObserver(done));
   });
   it('should delete a user', (done) => {
-    resolver.deleteUser({ id: 'USR-TEST1' }).subscribe(
-      (user) => {},
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    resolver.deleteUser({ id: 'USR-TEST1' }).subscribe(emptyObserver(done));
   });
 });

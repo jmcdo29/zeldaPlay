@@ -1,8 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { User } from '@tabletop-companion/api-interface';
 import { of } from 'rxjs';
 
 import { DatabaseService } from '../database/database.service';
 import { UserService } from './user.service';
+
+const userObserver = (done: () => void) => ({
+  next(value: User) {
+    expect(value).toEqual({
+      id: 'USR-TEST1',
+      email: 'test@test.com',
+      role: ['player'],
+      password: 'someHashedPassword'
+    });
+  },
+  error(error) {
+    throw new Error(error.message);
+  },
+  complete() {
+    done();
+  }
+});
 
 describe('UserService', () => {
   let service: UserService;
@@ -47,20 +65,7 @@ describe('UserService', () => {
             }
           ])
         );
-      service.getByEmail('test@test.com').subscribe(
-        (user) => {
-          expect(user).toEqual({
-            id: 'USR-TEST1',
-            email: 'test@test.com',
-            role: ['player'],
-            password: 'someHashedPassword'
-          });
-        },
-        (error) => {
-          throw new Error(error);
-        },
-        () => done()
-      );
+      service.getByEmail('test@test.com').subscribe(userObserver(done));
     });
   });
   describe('getById', () => {
@@ -77,20 +82,7 @@ describe('UserService', () => {
             }
           ])
         );
-      service.getById({ id: 'USR-TEST1' }).subscribe(
-        (user) => {
-          expect(user).toEqual({
-            id: 'USR-TEST1',
-            email: 'test@test.com',
-            role: ['player'],
-            password: 'someHashedPassword'
-          });
-        },
-        (error) => {
-          throw new Error(error);
-        },
-        () => done()
-      );
+      service.getById({ id: 'USR-TEST1' }).subscribe(userObserver(done));
     });
   });
   describe('insertUser', () => {
@@ -114,10 +106,10 @@ describe('UserService', () => {
           lastName: 'McTesting',
           role: ['player']
         })
-        .subscribe(
-          (user) => {
+        .subscribe({
+          next(value) {
             expect(dbSpy).toBeCalledTimes(1);
-            expect(user).toEqual({
+            expect(value).toEqual({
               email: 'test@test.com',
               password: 'password',
               confirmationPassword: 'password',
@@ -128,13 +120,14 @@ describe('UserService', () => {
               isActive: true,
               id: 'USR-TEST1'
             });
+          },
+          error(error) {
+            throw new Error(error.message);
+          },
+          complete() {
             done();
-          },
-          (error) => {
-            throw new Error(error);
-          },
-          () => done()
-        );
+          }
+        });
     });
   });
   describe('updateUser', () => {
@@ -153,15 +146,17 @@ describe('UserService', () => {
       const dbSpy = jest
         .spyOn(module.get(DatabaseService), 'query')
         .mockReturnValueOnce(of([]));
-      service.deleteUser({ id: 'USR-TEST' }).subscribe(
-        (next) => {
+      service.deleteUser({ id: 'USR-TEST' }).subscribe({
+        next(value) {
           expect(dbSpy).toBeCalledTimes(2);
         },
-        (error) => {
-          throw new Error(error);
+        error(error) {
+          throw new Error(error.message);
         },
-        () => done()
-      );
+        complete() {
+          done();
+        }
+      });
     });
   });
 });

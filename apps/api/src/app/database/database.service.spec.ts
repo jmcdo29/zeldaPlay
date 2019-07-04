@@ -48,23 +48,33 @@ describe('DatabaseService', () => {
   });
   describe('queries', () => {
     it('should run the query for query', (done) => {
-      service
-        .query<any>({ query: '*', variables: ['characterId'] })
-        .subscribe((result) => {
+      service.query<any>({ query: '*', variables: ['characterId'] }).subscribe({
+        next(result) {
           expect(result).toBe(returnResult);
+        },
+        error(error) {
+          throw new Error(error.message);
+        },
+        complete() {
           done();
-        });
+        }
+      });
     });
     it('should return for an error in the query', (done) => {
       querySpy.mockImplementationOnce(
         () => Promise.reject(new Error('Error')) as any
       );
-      service
-        .query<any>({ query: '*', variables: ['characterId'] })
-        .subscribe((result) => {
+      service.query<any>({ query: '*', variables: ['characterId'] }).subscribe({
+        next(result) {
           expect(result).toEqual([]);
+        },
+        error(error) {
+          throw new Error(error.message);
+        },
+        complete() {
           done();
-        });
+        }
+      });
     });
   });
 });

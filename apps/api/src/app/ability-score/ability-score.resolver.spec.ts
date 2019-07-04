@@ -53,9 +53,6 @@ const abilityScore = {
   value: 10,
   characterId: charId
 };
-const abilityInsertReturn = {
-  id: 'ABL-TEST1'
-};
 const abilityScoreInput: AbilityScoreInput = {
   name: 'Strength',
   value: 12,
@@ -65,6 +62,30 @@ const abilityScoreUpdate: AbilityScoreUpdate = {
   value: 10,
   id: 'ABL-TEST1'
 };
+
+const abilityScoreObserver = (done: () => void) => ({
+  next(value: AbilityScore) {
+    expect(value).toEqual(abilityScore);
+  },
+  error(error: Error) {
+    throw new Error(error.message);
+  },
+  complete() {
+    done();
+  }
+});
+
+const abilityScoresObserver = (done: () => void) => ({
+  next(value: AbilityScore[]) {
+    expect(value).toEqual(abilityScores);
+  },
+  error(error: Error) {
+    throw new Error(error.message);
+  },
+  complete() {
+    done();
+  }
+});
 
 describe('AbilityScoreResolver', () => {
   let resolver: AbilityScoreResolver;
@@ -108,26 +129,14 @@ describe('AbilityScoreResolver', () => {
     expect(resolver).toBeDefined();
   });
   it('should get the ability scores for one character', (done) => {
-    resolver.getAbilityScoresByCharacterId({ id: charId }).subscribe(
-      (scores) => {
-        expect(scores).toEqual(abilityScores);
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    resolver
+      .getAbilityScoresByCharacterId({ id: charId })
+      .subscribe(abilityScoresObserver(done));
   });
   it('should get one ability score', (done) => {
-    resolver.getAbilityScoreById({ id: 'ABL-TEST1' }).subscribe(
-      (score) => {
-        expect(score).toEqual(abilityScore);
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    resolver
+      .getAbilityScoreById({ id: 'ABL-TEST1' })
+      .subscribe(abilityScoreObserver(done));
   });
   it('should insert multiple ability scores', (done) => {
     resolver
@@ -136,37 +145,17 @@ describe('AbilityScoreResolver', () => {
         abilityScoreInput,
         abilityScoreInput
       ])
-      .subscribe(
-        (scores) => {
-          expect(scores).toEqual(abilityScores);
-        },
-        (error) => {
-          throw new Error(error);
-        },
-        () => done()
-      );
+      .subscribe(abilityScoresObserver(done));
   });
   it('should insert one ability score', (done) => {
-    resolver.insertOneAbilityScore(abilityScoreInput).subscribe(
-      (score) => {
-        expect(score).toEqual(abilityScore);
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    resolver
+      .insertOneAbilityScore(abilityScoreInput)
+      .subscribe(abilityScoreObserver(done));
   });
   it('should update one ability score', (done) => {
-    resolver.updateOneAbilityScore(abilityScoreUpdate).subscribe(
-      (score) => {
-        expect(score).toEqual(abilityScore);
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    resolver
+      .updateOneAbilityScore(abilityScoreUpdate)
+      .subscribe(abilityScoreObserver(done));
   });
   it('should update many ability scores', (done) => {
     resolver
@@ -175,15 +164,6 @@ describe('AbilityScoreResolver', () => {
         abilityScoreUpdate,
         abilityScoreUpdate
       ])
-      .subscribe(
-        (scores) => {
-          expect(scores.length).toBe(abilityScores.length);
-          expect(scores).toContainEqual(abilityScores[0]);
-        },
-        (error) => {
-          throw new Error(error);
-        },
-        () => done()
-      );
+      .subscribe(abilityScoresObserver(done));
   });
 });

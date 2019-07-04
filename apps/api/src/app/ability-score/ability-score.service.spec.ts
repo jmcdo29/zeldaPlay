@@ -80,6 +80,30 @@ const abilityScoresUpdate: AbilityScoreUpdate[] = [
   }
 ];
 
+const abilityScoreObserver = (done: () => void) => ({
+  next(value: AbilityScore) {
+    expect(value).toEqual(abilityScore);
+  },
+  error(error: Error) {
+    throw new Error(error.message);
+  },
+  complete() {
+    done();
+  }
+});
+
+const abilityScoresObserver = (done: () => void) => ({
+  next(value: AbilityScore[]) {
+    expect(value).toEqual(abilityScores);
+  },
+  error(error: Error) {
+    throw new Error(error.message);
+  },
+  complete() {
+    done();
+  }
+});
+
 describe('AbilityScoreService', () => {
   let service: AbilityScoreService;
   let db: DatabaseService;
@@ -106,40 +130,29 @@ describe('AbilityScoreService', () => {
   });
   it('should get the ability scores for one character', (done) => {
     db.query = jest.fn().mockReturnValueOnce(of(abilityScores));
-    service.getAbilityScoresByCharId({ id: charId }).subscribe(
-      (abScores) => {
-        expect(abScores.length).toBe(abilityScores.length);
-        expect(abScores).toEqual(abilityScores);
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    service
+      .getAbilityScoresByCharId({ id: charId })
+      .subscribe(abilityScoresObserver(done));
   });
   it('should get one ability score', (done) => {
     db.query = jest.fn().mockReturnValueOnce(of([abilityScore]));
-    service.getAbilityScoreById({ id: 'ABL-TEST1' }).subscribe(
-      (abScore) => {
-        expect(abScore).toEqual(abilityScore);
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    service
+      .getAbilityScoreById({ id: 'ABL-TEST1' })
+      .subscribe(abilityScoreObserver(done));
   });
   it('should insert one ability score', (done) => {
     db.query = jest.fn().mockReturnValueOnce(of([abilityInsertReturn]));
-    service.insertOneAbilityScore(abilityScoreInput).subscribe(
-      (abScore) => {
+    service.insertOneAbilityScore(abilityScoreInput).subscribe({
+      next(abScore) {
         expect(abScore).toEqual({ id: 'ABL-TEST1', ...abilityScoreInput });
       },
-      (error) => {
+      error(error) {
         throw new Error(error);
       },
-      () => done()
-    );
+      complete() {
+        done();
+      }
+    });
   });
   it('should insert multiple ability scores', (done) => {
     db.query = jest
@@ -153,8 +166,8 @@ describe('AbilityScoreService', () => {
         abilityScoreInput,
         abilityScoreInput
       ])
-      .subscribe(
-        (abScores) => {
+      .subscribe({
+        next(abScores) {
           expect(abScores.length).toBe(3);
           expect(abScores).toEqual([
             {
@@ -171,26 +184,22 @@ describe('AbilityScoreService', () => {
             }
           ]);
         },
-        (error) => {
+        error(error) {
           throw new Error(error);
         },
-        () => done()
-      );
+        complete() {
+          done();
+        }
+      });
   });
   it('should update one ability score', (done) => {
     db.query = jest
       .fn()
       .mockReturnValueOnce(of([abilityInsertReturn]))
       .mockReturnValueOnce(of([abilityScore]));
-    service.updateOneAbilityScore(abilityScoreUpdate).subscribe(
-      (abScore) => {
-        expect(abScore).toEqual(abilityScore);
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    service
+      .updateOneAbilityScore(abilityScoreUpdate)
+      .subscribe(abilityScoreObserver(done));
   });
   it('should update multiple ability scores', (done) => {
     db.query = jest
@@ -218,8 +227,8 @@ describe('AbilityScoreService', () => {
           }
         ])
       );
-    service.updateManyAbilityScores(abilityScoresUpdate).subscribe(
-      (scores) => {
+    service.updateManyAbilityScores(abilityScoresUpdate).subscribe({
+      next(scores) {
         expect(scores.length).toBe(3);
         expect(scores).toContainEqual({
           id: 'ABL-TEST1',
@@ -228,10 +237,12 @@ describe('AbilityScoreService', () => {
           characterId: 'CHR-TEST1'
         });
       },
-      (error) => {
+      error(error) {
         throw new Error(error);
       },
-      () => done()
-    );
+      complete() {
+        done();
+      }
+    });
   });
 });

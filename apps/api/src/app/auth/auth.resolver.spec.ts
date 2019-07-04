@@ -1,7 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { Auth } from '@tabletop-companion/api-interface';
 import { of } from 'rxjs';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
+
+const tokenObserver = (done: () => void) => ({
+  next(result: Auth) {
+    expect(typeof result).toBe('string');
+  },
+  error(error: Error) {
+    throw new Error(error.message);
+  },
+  complete() {
+    done();
+  }
+});
 
 describe('AuthResolver', () => {
   let resolver: AuthResolver;
@@ -35,10 +48,7 @@ describe('AuthResolver', () => {
   it('should return a value for login', (done) => {
     resolver
       .login({ email: 'testEmail', password: 'testPassword' })
-      .subscribe((result) => {
-        expect(typeof result).toBe('string');
-        done();
-      });
+      .subscribe(tokenObserver(done));
   });
   it('should return a value for signup', (done) => {
     resolver
@@ -51,9 +61,6 @@ describe('AuthResolver', () => {
         lastName: 'Test',
         role: ['player']
       })
-      .subscribe((result) => {
-        expect(typeof result).toBe('string');
-        done();
-      });
+      .subscribe(tokenObserver(done));
   });
 });

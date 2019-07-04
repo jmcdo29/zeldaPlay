@@ -6,6 +6,34 @@ import { of } from 'rxjs';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 
+const userObserver = (done: () => void) => ({
+  next(token: { id: string; token: string }) {
+    expect(token).toEqual({ id: 'USR-TEST', token: 'token' });
+  },
+  error(error: Error) {
+    throw new Error(error.message);
+  },
+  complete() {
+    done();
+  }
+});
+
+const errorObserver = (
+  done: () => void,
+  errorValue: { statusCode: number; error: string; message: string }
+) => ({
+  next(value: unknown) {
+    throw new Error('Expected null got value: ' + value);
+  },
+  error(error: Error) {
+    expect(error.message).toEqual(errorValue);
+    done();
+  },
+  complete() {
+    done();
+  }
+});
+
 describe('AuthService', () => {
   let service: AuthService;
   let module: TestingModule;
@@ -49,29 +77,17 @@ describe('AuthService', () => {
   });
   describe('login', () => {
     it('should return a token', (done) => {
-      service.login({ email: 'test@test.com', password: 'Pa$$w0rd' }).subscribe(
-        (token) => {
-          expect(token).toEqual({ id: 'USR-TEST', token: 'token' });
-        },
-        (error) => {
-          throw new Error(error);
-        },
-        () => done()
-      );
+      service
+        .login({ email: 'test@test.com', password: 'Pa$$w0rd' })
+        .subscribe(userObserver(done));
     });
     it('should throw an error', (done) => {
       service.login({ email: 'test@test.com', password: 'Passw0rd' }).subscribe(
-        () => {
-          throw new Error('Should not be here');
-        },
-        (error) => {
-          expect(error.message).toEqual({
-            statusCode: 401,
-            error: 'Unauthorized',
-            message: 'Invalid email or password.'
-          });
-          done();
-        }
+        errorObserver(done, {
+          statusCode: 401,
+          error: 'Unauthorized',
+          message: 'Invalid email or password.'
+        })
       );
     });
   });
@@ -88,29 +104,15 @@ describe('AuthService', () => {
     it('should allow a user to signup', (done) => {
       const userService = module.get<UserService>(UserService);
       jest.spyOn(userService, 'getByEmail').mockReturnValueOnce(of(undefined));
-      service.signup(signupTest).subscribe(
-        (newUser) => {
-          expect(newUser).toEqual({ id: 'USR-TEST', token: 'token' });
-        },
-        (error) => {
-          throw new Error(error);
-        },
-        () => done()
-      );
+      service.signup(signupTest).subscribe(userObserver(done));
     });
     it('should throw an error for same email address', (done) => {
       service.signup(signupTest).subscribe(
-        () => {
-          throw new Error('Should not be here');
-        },
-        (error) => {
-          expect(error.message).toEqual({
-            statusCode: 400,
-            error: 'Bad Request',
-            message: 'Email already in use'
-          });
-          done();
-        }
+        errorObserver(done, {
+          statusCode: 400,
+          error: 'Bad Request',
+          message: 'Email already in use'
+        })
       );
     });
   });
@@ -122,18 +124,20 @@ describe('AuthService', () => {
           role: ['player'],
           id: 'USR-TEST'
         })
-        .subscribe(
-          (user) => {
+        .subscribe({
+          next(user) {
             expect(user.id).toBe('USR-TEST');
             expect(user.email).toBe('test@test.com');
             expect(user.role).toEqual(['player']);
             expect(typeof user.password).toBe('string');
           },
-          (error) => {
+          error(error) {
             throw new Error(error);
           },
-          () => done()
-        );
+          complete() {
+            done();
+          }
+        });
     });
   });
 });
