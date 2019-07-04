@@ -62,7 +62,8 @@ const abilityScoreInput: AbilityScoreInput = {
   characterId: charId
 };
 const abilityScoreUpdate: AbilityScoreUpdate = {
-  value: 10
+  value: 10,
+  id: 'ABL-TEST1'
 };
 
 describe('AbilityScoreResolver', () => {
@@ -90,7 +91,10 @@ describe('AbilityScoreResolver', () => {
               .mockReturnValueOnce(of(abilityScore)),
             updateOneAbilityScore: jest
               .fn()
-              .mockReturnValueOnce(of(abilityScore))
+              .mockReturnValueOnce(of(abilityScore)),
+            updateManyAbilityScores: jest
+              .fn()
+              .mockReturnValueOnce(of(abilityScores))
           }
         }
       ]
@@ -154,11 +158,27 @@ describe('AbilityScoreResolver', () => {
     );
   });
   it('should update one ability score', (done) => {
+    resolver.updateOneAbilityScore(abilityScoreUpdate).subscribe(
+      (score) => {
+        expect(score).toEqual(abilityScore);
+      },
+      (error) => {
+        throw new Error(error);
+      },
+      () => done()
+    );
+  });
+  it('should update many ability scores', (done) => {
     resolver
-      .updateOneAbilityScore(abilityScoreUpdate, { id: 'ABL-TEST1' })
+      .updateManyAbilityScores([
+        abilityScoreUpdate,
+        abilityScoreUpdate,
+        abilityScoreUpdate
+      ])
       .subscribe(
-        (score) => {
-          expect(score).toEqual(abilityScore);
+        (scores) => {
+          expect(scores.length).toBe(abilityScores.length);
+          expect(scores).toContainEqual(abilityScores[0]);
         },
         (error) => {
           throw new Error(error);

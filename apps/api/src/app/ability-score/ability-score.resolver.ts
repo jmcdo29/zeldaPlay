@@ -9,7 +9,8 @@ import {
   ofAbilityScore,
   returnAbilityScore,
   returnAbilityScores,
-  typeAbilityScoreInputs
+  typeAbilityScoreInputs,
+  typeAbilityScoreUpdates
 } from '@tabletop-companion/api-interface';
 import { Observable } from 'rxjs';
 import { GqlAuthGuard } from '../guards/gql-auth-guard.guard';
@@ -53,12 +54,17 @@ export class AbilityScoreResolver {
   @UseGuards(GqlAuthGuard)
   @Mutation(returnAbilityScore, { name: 'updateAbilityScore' })
   updateOneAbilityScore(
-    @Args('abilityUpdate') abilityUpdate: AbilityScoreUpdate,
-    @Args('abilityId') abilityId: AbilityScoreId
+    @Args('abilityUpdate') abilityUpdate: AbilityScoreUpdate
   ): Observable<AbilityScore> {
-    return this.abilityScoreService.updateOneAbilityScore(
-      abilityUpdate,
-      abilityId
-    );
+    return this.abilityScoreService.updateOneAbilityScore(abilityUpdate);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(returnAbilityScores, { name: 'updateAbilityScores' })
+  updateManyAbilityScores(
+    @Args({ name: 'abilityScores', type: typeAbilityScoreUpdates })
+    abilities: AbilityScoreUpdate[]
+  ): Observable<AbilityScore[]> {
+    return this.abilityScoreService.updateManyAbilityScores(abilities);
   }
 }

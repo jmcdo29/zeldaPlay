@@ -62,8 +62,23 @@ const abilityScoreInput: AbilityScoreInput = {
   characterId: charId
 };
 const abilityScoreUpdate: AbilityScoreUpdate = {
-  value: 10
+  value: 10,
+  id: 'ABL-TEST1'
 };
+const abilityScoresUpdate: AbilityScoreUpdate[] = [
+  {
+    value: 10,
+    id: 'ABL-TEST1'
+  },
+  {
+    value: 12,
+    id: 'ABL-TEST2'
+  },
+  {
+    value: 16,
+    id: 'ABL-TEST4'
+  }
+];
 
 describe('AbilityScoreService', () => {
   let service: AbilityScoreService;
@@ -167,16 +182,56 @@ describe('AbilityScoreService', () => {
       .fn()
       .mockReturnValueOnce(of([abilityInsertReturn]))
       .mockReturnValueOnce(of([abilityScore]));
-    service
-      .updateOneAbilityScore(abilityScoreUpdate, { id: 'ABL-TEST1' })
-      .subscribe(
-        (abScore) => {
-          expect(abScore).toEqual(abilityScore);
-        },
-        (error) => {
-          throw new Error(error);
-        },
-        () => done()
+    service.updateOneAbilityScore(abilityScoreUpdate).subscribe(
+      (abScore) => {
+        expect(abScore).toEqual(abilityScore);
+      },
+      (error) => {
+        throw new Error(error);
+      },
+      () => done()
+    );
+  });
+  it('should update multiple ability scores', (done) => {
+    db.query = jest
+      .fn()
+      .mockReturnValueOnce(of(['ABL-TEST1', 'ABL-TEST2', 'ABL-TEST4']))
+      .mockReturnValueOnce(
+        of([
+          {
+            id: 'ABL-TEST1',
+            value: 10,
+            name: 'Strength',
+            characterId: 'CHR-TEST1'
+          },
+          {
+            id: 'ABL-TEST2',
+            value: 12,
+            name: 'Dexterity',
+            characterId: 'CHR-TEST1'
+          },
+          {
+            id: 'ABL-TEST4',
+            name: 'Intelligence',
+            value: 16,
+            characterId: 'CHR-TEST1'
+          }
+        ])
       );
+    service.updateManyAbilityScores(abilityScoresUpdate).subscribe(
+      (scores) => {
+        expect(scores.length).toBe(3);
+        expect(scores).toContainEqual({
+          id: 'ABL-TEST1',
+          value: 10,
+          name: 'Strength',
+          characterId: 'CHR-TEST1'
+        });
+      },
+      (error) => {
+        throw new Error(error);
+      },
+      () => done()
+    );
   });
 });

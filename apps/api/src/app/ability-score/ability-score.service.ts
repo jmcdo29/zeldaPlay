@@ -111,21 +111,47 @@ export class AbilityScoreService {
       );
   }
 
-  updateOneAbilityScore(
-    ability: AbilityScoreUpdate,
-    abilityId: AbilityScoreId
-  ): Observable<AbilityScore> {
+  updateOneAbilityScore(ability: AbilityScoreUpdate): Observable<AbilityScore> {
     let query = 'UPDATE ability_scores SET';
     query += ' value = $1';
     query += ' WHERE id = $2';
     query += ' RETURNING id;';
     return this.db
-      .query<AbilityScore>({ query, variables: [ability.value, abilityId] })
+      .query<AbilityScore>({ query, variables: [ability.value, ability.id] })
       .pipe(
         map((abilityScores) => abilityScores[0]),
         mergeMap((abilityScore) => {
           return this.getAbilityScoreById({ id: abilityScore.id });
         })
       );
+  }
+
+  updateManyAbilityScores(
+    abilities: AbilityScoreUpdate[]
+  ): Observable<AbilityScore[]> {
+    const variables = [];
+    let query = 'UPDATE ability_scores as scores SET ';
+    query += 'scores.value = incoming.value';
+    query += 'FROM (VALUES ';
+    for (let i = 0; i < abilities.length; i++) {
+      query += `($${i * 2 + 1}, $${i * 2 + 2}),`;
+      variables.push(abilities[i].value, abilities[i].id);
+    }
+    query.substring(0, query.length - 1);
+    query += ') AS incoming(values, id)';
+    query += ' WHERE incoming.id = scores.id;';
+    return this.db.query<AbilityScore>({ query, variables }).pipe(
+      mergeMap(() => {
+        const ids = [];
+        for (const abil of abilities) {
+          ids.push(abil.id);
+        }
+        return this.db.query<AbilityScore>({
+          query:
+            'SELECT id, name, value, character_id as "characterId" FROM ability_scores WHERE id IN $1;',
+          variables: [ids]
+        });
+      })
+    );
   }
 }
