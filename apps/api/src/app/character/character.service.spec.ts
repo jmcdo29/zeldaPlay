@@ -6,6 +6,32 @@ import { CharacterService } from './character.service';
 
 const mockCharacter: Character = {} as any;
 
+const characterObserver = (done: () => void, data?: any) => ({
+  next(character: Character) {
+    expect(character).toBeTruthy();
+    expect(character).toEqual(data || mockCharacter);
+  },
+  error(error: Error) {
+    throw error;
+  },
+  complete() {
+    done();
+  }
+});
+
+const charactersObserver = (done: () => void) => ({
+  next(characters: Character[]) {
+    expect(characters.length).toBe(2);
+    expect(characters).toEqual([mockCharacter, mockCharacter]);
+  },
+  error(error: Error) {
+    throw error;
+  },
+  complete() {
+    done();
+  }
+});
+
 describe('CharacterService', () => {
   let service: CharacterService;
   let db: DatabaseService;
@@ -32,31 +58,17 @@ describe('CharacterService', () => {
   });
   it('should return a character related to the id', (done) => {
     db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
-    service.getCharacterById({ id: 'CHR-TEST1' }).subscribe(
-      (character) => {
-        expect(character).toBeTruthy();
-        expect(character).toEqual(mockCharacter);
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    service
+      .getCharacterById({ id: 'CHR-TEST1' })
+      .subscribe(characterObserver(done));
   });
   it('should get multiple characters related to the userId', (done) => {
     db.query = jest
       .fn()
       .mockReturnValueOnce(of([mockCharacter, mockCharacter]));
-    service.getCharactersByUserId({ id: 'USR-TEST1' }).subscribe(
-      (characters) => {
-        expect(characters.length).toBe(2);
-        expect(characters).toEqual([mockCharacter, mockCharacter]);
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    service
+      .getCharactersByUserId({ id: 'USR-TEST1' })
+      .subscribe(charactersObserver(done));
   });
   it('should insert character and return the new id', (done) => {
     const characterInput = {
@@ -80,28 +92,14 @@ describe('CharacterService', () => {
       game: 'dd5'
     };
     db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
-    service.insertNewCharacter(characterInput).subscribe(
-      (character) => {
-        expect(character).toBeTruthy();
-        expect(character).toEqual(characterInput);
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    service
+      .insertNewCharacter(characterInput)
+      .subscribe(characterObserver(done, characterInput));
   });
   it('should update the character and return the id', (done) => {
     db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
-    service.updateCharacter({ level: 2 }, { id: 'CHR-TEST' }).subscribe(
-      (character) => {
-        expect(character).toBeTruthy();
-        expect(character).toEqual(mockCharacter);
-      },
-      (error) => {
-        throw new Error(error);
-      },
-      () => done()
-    );
+    service
+      .updateCharacter({ level: 2 }, { id: 'CHR-TEST' })
+      .subscribe(characterObserver(done));
   });
 });

@@ -6,26 +6,26 @@ import { CharacterService } from './character.service';
 
 const mockCharacter: Character = {} as any;
 
-const singleCharacterObserver = (done) => ({
-  next(character) {
+const singleCharacterObserver = (done: () => void) => ({
+  next(character: Character) {
     expect(character).toBeTruthy();
     expect(character).toEqual(mockCharacter);
   },
-  error(error) {
-    throw new Error(error);
+  error(error: Error) {
+    throw error;
   },
   complete() {
     done();
   }
 });
 
-const multiCharacterObserver = (done) => ({
-  next(characters) {
+const multiCharacterObserver = (done: () => void) => ({
+  next(characters: Character[]) {
     expect(characters.length).toBe(2);
     expect(characters).toEqual([mockCharacter, mockCharacter]);
   },
-  error(error) {
-    throw new Error(error);
+  error(error: Error) {
+    throw error;
   },
   complete() {
     done();

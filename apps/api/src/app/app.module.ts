@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TerminusModule } from '@nestjs/terminus';
+import { AbilityScoreModule } from './ability-score/ability-score.module';
 import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -12,7 +13,6 @@ import { LoggerModule } from './logger/logger.module';
 import { GraphQLModuleConfig } from './options/graphql.config';
 import { TerminusOptionsService } from './options/terminusOptionsService';
 import { UserModule } from './user/user.module';
-import { AbilityScoreModule } from './ability-score/ability-score.module';
 
 @Module({
   imports: [

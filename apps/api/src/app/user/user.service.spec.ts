@@ -15,7 +15,7 @@ const userObserver = (done: () => void) => ({
     });
   },
   error(error) {
-    throw new Error(error.message);
+    throw error;
   },
   complete() {
     done();

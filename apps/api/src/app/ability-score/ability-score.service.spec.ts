@@ -85,7 +85,7 @@ const abilityScoreObserver = (done: () => void) => ({
     expect(value).toEqual(abilityScore);
   },
   error(error: Error) {
-    throw new Error(error.message);
+    throw error;
   },
   complete() {
     done();
@@ -97,7 +97,7 @@ const abilityScoresObserver = (done: () => void) => ({
     expect(value).toEqual(abilityScores);
   },
   error(error: Error) {
-    throw new Error(error.message);
+    throw error;
   },
   complete() {
     done();
@@ -147,7 +147,7 @@ describe('AbilityScoreService', () => {
         expect(abScore).toEqual({ id: 'ABL-TEST1', ...abilityScoreInput });
       },
       error(error) {
-        throw new Error(error);
+        throw error;
       },
       complete() {
         done();
@@ -185,7 +185,7 @@ describe('AbilityScoreService', () => {
           ]);
         },
         error(error) {
-          throw new Error(error);
+          throw error;
         },
         complete() {
           done();
@@ -238,7 +238,7 @@ describe('AbilityScoreService', () => {
         });
       },
       error(error) {
-        throw new Error(error);
+        throw error;
       },
       complete() {
         done();

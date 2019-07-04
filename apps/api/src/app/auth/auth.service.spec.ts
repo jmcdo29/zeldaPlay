@@ -11,7 +11,7 @@ const userObserver = (done: () => void) => ({
     expect(token).toEqual({ id: 'USR-TEST', token: 'token' });
   },
   error(error: Error) {
-    throw new Error(error.message);
+    throw error;
   },
   complete() {
     done();
@@ -131,8 +131,8 @@ describe('AuthService', () => {
             expect(user.role).toEqual(['player']);
             expect(typeof user.password).toBe('string');
           },
-          error(error) {
-            throw new Error(error);
+          error(error: Error) {
+            throw error;
           },
           complete() {
             done();

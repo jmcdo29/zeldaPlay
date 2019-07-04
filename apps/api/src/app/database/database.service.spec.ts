@@ -53,7 +53,7 @@ describe('DatabaseService', () => {
           expect(result).toBe(returnResult);
         },
         error(error) {
-          throw new Error(error.message);
+          throw error;
         },
         complete() {
           done();
@@ -69,7 +69,7 @@ describe('DatabaseService', () => {
           expect(result).toEqual([]);
         },
         error(error) {
-          throw new Error(error.message);
+          throw error;
         },
         complete() {
           done();

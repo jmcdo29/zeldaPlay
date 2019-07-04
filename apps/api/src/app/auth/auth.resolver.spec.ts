@@ -9,7 +9,7 @@ const tokenObserver = (done: () => void) => ({
     expect(typeof result).toBe('string');
   },
   error(error: Error) {
-    throw new Error(error.message);
+    throw error;
   },
   complete() {
     done();
