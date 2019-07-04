@@ -36,3 +36,7 @@ patch:
         patched: '2019-07-04T04:21:36.662Z'
     - '@nestjs/terminus > mongoose > async > lodash':
         patched: '2019-07-04T04:21:36.662Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-04T23:49:43.845Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-04T23:49:43.845Z'
