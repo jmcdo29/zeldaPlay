@@ -132,27 +132,32 @@ describe('AbilityScoreService', () => {
     db.query = jest.fn().mockReturnValueOnce(of(abilityScores));
     service
       .getAbilityScoresByCharId({ id: charId })
-      .subscribe(abilityScoresObserver(done));
+      .subscribe(abilityScoresObserver(done))
+      .unsubscribe();
   });
   it('should get one ability score', (done) => {
     db.query = jest.fn().mockReturnValueOnce(of([abilityScore]));
     service
       .getAbilityScoreById({ id: 'ABL-TEST1' })
-      .subscribe(abilityScoreObserver(done));
+      .subscribe(abilityScoreObserver(done))
+      .unsubscribe();
   });
   it('should insert one ability score', (done) => {
     db.query = jest.fn().mockReturnValueOnce(of([abilityInsertReturn]));
-    service.insertOneAbilityScore(abilityScoreInput).subscribe({
-      next(abScore) {
-        expect(abScore).toEqual({ id: 'ABL-TEST1', ...abilityScoreInput });
-      },
-      error(error) {
-        throw error;
-      },
-      complete() {
-        done();
-      }
-    });
+    service
+      .insertOneAbilityScore(abilityScoreInput)
+      .subscribe({
+        next(abScore) {
+          expect(abScore).toEqual({ id: 'ABL-TEST1', ...abilityScoreInput });
+        },
+        error(error) {
+          throw error;
+        },
+        complete() {
+          done();
+        }
+      })
+      .unsubscribe();
   });
   it('should insert multiple ability scores', (done) => {
     db.query = jest
@@ -190,7 +195,8 @@ describe('AbilityScoreService', () => {
         complete() {
           done();
         }
-      });
+      })
+      .unsubscribe();
   });
   it('should update one ability score', (done) => {
     db.query = jest
@@ -199,7 +205,8 @@ describe('AbilityScoreService', () => {
       .mockReturnValueOnce(of([abilityScore]));
     service
       .updateOneAbilityScore(abilityScoreUpdate)
-      .subscribe(abilityScoreObserver(done));
+      .subscribe(abilityScoreObserver(done))
+      .unsubscribe();
   });
   it('should update multiple ability scores', (done) => {
     db.query = jest
@@ -227,22 +234,25 @@ describe('AbilityScoreService', () => {
           }
         ])
       );
-    service.updateManyAbilityScores(abilityScoresUpdate).subscribe({
-      next(scores) {
-        expect(scores.length).toBe(3);
-        expect(scores).toContainEqual({
-          id: 'ABL-TEST1',
-          value: 10,
-          name: 'Strength',
-          characterId: 'CHR-TEST1'
-        });
-      },
-      error(error) {
-        throw error;
-      },
-      complete() {
-        done();
-      }
-    });
+    service
+      .updateManyAbilityScores(abilityScoresUpdate)
+      .subscribe({
+        next(scores) {
+          expect(scores.length).toBe(3);
+          expect(scores).toContainEqual({
+            id: 'ABL-TEST1',
+            value: 10,
+            name: 'Strength',
+            characterId: 'CHR-TEST1'
+          });
+        },
+        error(error) {
+          throw error;
+        },
+        complete() {
+          done();
+        }
+      })
+      .unsubscribe();
   });
 });

@@ -60,7 +60,8 @@ describe('CharacterService', () => {
     db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
     service
       .getCharacterById({ id: 'CHR-TEST1' })
-      .subscribe(characterObserver(done));
+      .subscribe(characterObserver(done))
+      .unsubscribe();
   });
   it('should get multiple characters related to the userId', (done) => {
     db.query = jest
@@ -68,7 +69,8 @@ describe('CharacterService', () => {
       .mockReturnValueOnce(of([mockCharacter, mockCharacter]));
     service
       .getCharactersByUserId({ id: 'USR-TEST1' })
-      .subscribe(charactersObserver(done));
+      .subscribe(charactersObserver(done))
+      .unsubscribe();
   });
   it('should insert character and return the new id', (done) => {
     const characterInput = {
@@ -94,12 +96,14 @@ describe('CharacterService', () => {
     db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
     service
       .insertNewCharacter(characterInput)
-      .subscribe(characterObserver(done, characterInput));
+      .subscribe(characterObserver(done, characterInput))
+      .unsubscribe();
   });
   it('should update the character and return the id', (done) => {
     db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
     service
       .updateCharacter({ level: 2 }, { id: 'CHR-TEST' })
-      .subscribe(characterObserver(done));
+      .subscribe(characterObserver(done))
+      .unsubscribe();
   });
 });

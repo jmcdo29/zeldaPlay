@@ -14,7 +14,7 @@ const userObserver = (done: () => void) => ({
       password: 'someHashedPassword'
     });
   },
-  error(error) {
+  error(error: Error) {
     throw error;
   },
   complete() {
@@ -82,7 +82,10 @@ describe('UserService', () => {
             }
           ])
         );
-      service.getById({ id: 'USR-TEST1' }).subscribe(userObserver(done));
+      service
+        .getById({ id: 'USR-TEST1' })
+        .subscribe(userObserver(done))
+        .unsubscribe();
     });
   });
   describe('insertUser', () => {
@@ -132,13 +135,18 @@ describe('UserService', () => {
   });
   describe('updateUser', () => {
     it('should update the user', (done) => {
-      service.updateUser({} as any, { id: 'USR-TEST' }).subscribe(
-        (next) => {},
-        (error) => {
-          throw new Error(error);
-        },
-        () => done()
-      );
+      service
+        .updateUser({} as any, { id: 'USR-TEST' })
+        .subscribe({
+          next(value) {},
+          error(error) {
+            throw new Error(error);
+          },
+          complete() {
+            done();
+          }
+        })
+        .unsubscribe();
     });
   });
   describe('deleteUser', () => {
@@ -146,17 +154,20 @@ describe('UserService', () => {
       const dbSpy = jest
         .spyOn(module.get(DatabaseService), 'query')
         .mockReturnValueOnce(of([]));
-      service.deleteUser({ id: 'USR-TEST' }).subscribe({
-        next(value) {
-          expect(dbSpy).toBeCalledTimes(2);
-        },
-        error(error) {
-          throw new Error(error.message);
-        },
-        complete() {
-          done();
-        }
-      });
+      service
+        .deleteUser({ id: 'USR-TEST' })
+        .subscribe({
+          next(value) {
+            expect(dbSpy).toBeCalledTimes(2);
+          },
+          error(error) {
+            throw new Error(error.message);
+          },
+          complete() {
+            done();
+          }
+        })
+        .unsubscribe();
     });
   });
 });

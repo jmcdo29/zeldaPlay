@@ -61,12 +61,21 @@ describe('UserResolver', () => {
     expect(resolver).toBeDefined();
   });
   it('should get a user', (done) => {
-    resolver.getUser({ id: 'USR-TEST1' }).subscribe(userObserver(done));
+    resolver
+      .getUser({ id: 'USR-TEST1' })
+      .subscribe(userObserver(done))
+      .unsubscribe();
   });
   it('should update a user', (done) => {
-    resolver.updateUser({ id: 'USR-TEST1' }, {}).subscribe(emptyObserver(done));
+    resolver
+      .updateUser({ id: 'USR-TEST1' }, {})
+      .subscribe(emptyObserver(done))
+      .unsubscribe();
   });
   it('should delete a user', (done) => {
-    resolver.deleteUser({ id: 'USR-TEST1' }).subscribe(emptyObserver(done));
+    resolver
+      .deleteUser({ id: 'USR-TEST1' })
+      .subscribe(emptyObserver(done))
+      .unsubscribe();
   });
 });

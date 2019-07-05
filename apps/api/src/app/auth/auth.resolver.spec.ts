@@ -48,7 +48,8 @@ describe('AuthResolver', () => {
   it('should return a value for login', (done) => {
     resolver
       .login({ email: 'testEmail', password: 'testPassword' })
-      .subscribe(tokenObserver(done));
+      .subscribe(tokenObserver(done))
+      .unsubscribe();
   });
   it('should return a value for signup', (done) => {
     resolver
@@ -61,6 +62,7 @@ describe('AuthResolver', () => {
         lastName: 'Test',
         role: ['player']
       })
-      .subscribe(tokenObserver(done));
+      .subscribe(tokenObserver(done))
+      .unsubscribe();
   });
 });

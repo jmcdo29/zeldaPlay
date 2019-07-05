@@ -62,12 +62,14 @@ describe('CharacterResolver', () => {
   it('should return a character for getCharacter', (done) => {
     resolver
       .getCharacter({ id: 'CHR-TEST1' })
-      .subscribe(singleCharacterObserver(done));
+      .subscribe(singleCharacterObserver(done))
+      .unsubscribe();
   });
   it('should return multiple characters for getUserCharacters', (done) => {
     resolver
       .getUserCharacters({ id: 'USR-TEST1' })
-      .subscribe(multiCharacterObserver(done));
+      .subscribe(multiCharacterObserver(done))
+      .unsubscribe();
   });
   it('should get return for character insert', (done) => {
     resolver
@@ -91,11 +93,13 @@ describe('CharacterResolver', () => {
         languages: ['Common', 'Dwarvish'],
         game: 'dd5'
       })
-      .subscribe(singleCharacterObserver(done));
+      .subscribe(singleCharacterObserver(done))
+      .unsubscribe();
   });
   it('should get return for character update', (done) => {
     resolver
       .updateCharacter({ level: 2 }, { id: 'CHR-TEST' })
-      .subscribe(singleCharacterObserver(done));
+      .subscribe(singleCharacterObserver(done))
+      .unsubscribe();
   });
 });

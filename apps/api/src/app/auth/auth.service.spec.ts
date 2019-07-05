@@ -79,16 +79,20 @@ describe('AuthService', () => {
     it('should return a token', (done) => {
       service
         .login({ email: 'test@test.com', password: 'Pa$$w0rd' })
-        .subscribe(userObserver(done));
+        .subscribe(userObserver(done))
+        .unsubscribe();
     });
     it('should throw an error', (done) => {
-      service.login({ email: 'test@test.com', password: 'Passw0rd' }).subscribe(
-        errorObserver(done, {
-          statusCode: 401,
-          error: 'Unauthorized',
-          message: 'Invalid email or password.'
-        })
-      );
+      service
+        .login({ email: 'test@test.com', password: 'Passw0rd' })
+        .subscribe(
+          errorObserver(done, {
+            statusCode: 401,
+            error: 'Unauthorized',
+            message: 'Invalid email or password.'
+          })
+        )
+        .unsubscribe();
     });
   });
   describe('signup', () => {
@@ -104,16 +108,22 @@ describe('AuthService', () => {
     it('should allow a user to signup', (done) => {
       const userService = module.get<UserService>(UserService);
       jest.spyOn(userService, 'getByEmail').mockReturnValueOnce(of(undefined));
-      service.signup(signupTest).subscribe(userObserver(done));
+      service
+        .signup(signupTest)
+        .subscribe(userObserver(done))
+        .unsubscribe();
     });
     it('should throw an error for same email address', (done) => {
-      service.signup(signupTest).subscribe(
-        errorObserver(done, {
-          statusCode: 400,
-          error: 'Bad Request',
-          message: 'Email already in use'
-        })
-      );
+      service
+        .signup(signupTest)
+        .subscribe(
+          errorObserver(done, {
+            statusCode: 400,
+            error: 'Bad Request',
+            message: 'Email already in use'
+          })
+        )
+        .unsubscribe();
     });
   });
   describe('validateUser', () => {
@@ -137,7 +147,8 @@ describe('AuthService', () => {
           complete() {
             done();
           }
-        });
+        })
+        .unsubscribe();
     });
   });
 });

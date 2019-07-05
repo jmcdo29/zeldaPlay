@@ -131,12 +131,14 @@ describe('AbilityScoreResolver', () => {
   it('should get the ability scores for one character', (done) => {
     resolver
       .getAbilityScoresByCharacterId({ id: charId })
-      .subscribe(abilityScoresObserver(done));
+      .subscribe(abilityScoresObserver(done))
+      .unsubscribe();
   });
   it('should get one ability score', (done) => {
     resolver
       .getAbilityScoreById({ id: 'ABL-TEST1' })
-      .subscribe(abilityScoreObserver(done));
+      .subscribe(abilityScoreObserver(done))
+      .unsubscribe();
   });
   it('should insert multiple ability scores', (done) => {
     resolver
@@ -145,17 +147,20 @@ describe('AbilityScoreResolver', () => {
         abilityScoreInput,
         abilityScoreInput
       ])
-      .subscribe(abilityScoresObserver(done));
+      .subscribe(abilityScoresObserver(done))
+      .unsubscribe();
   });
   it('should insert one ability score', (done) => {
     resolver
       .insertOneAbilityScore(abilityScoreInput)
-      .subscribe(abilityScoreObserver(done));
+      .subscribe(abilityScoreObserver(done))
+      .unsubscribe();
   });
   it('should update one ability score', (done) => {
     resolver
       .updateOneAbilityScore(abilityScoreUpdate)
-      .subscribe(abilityScoreObserver(done));
+      .subscribe(abilityScoreObserver(done))
+      .unsubscribe();
   });
   it('should update many ability scores', (done) => {
     resolver
@@ -164,6 +169,7 @@ describe('AbilityScoreResolver', () => {
         abilityScoreUpdate,
         abilityScoreUpdate
       ])
-      .subscribe(abilityScoresObserver(done));
+      .subscribe(abilityScoresObserver(done))
+      .unsubscribe();
   });
 });
