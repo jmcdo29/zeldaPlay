@@ -98,7 +98,7 @@ describe('CharacterResolver', () => {
   });
   it('should get return for character update', (done) => {
     resolver
-      .updateCharacter({ level: 2 }, { id: 'CHR-TEST' })
+      .updateCharacter({ id: 'CHR-TEST', level: 2 })
       .subscribe(singleCharacterObserver(done))
       .unsubscribe();
   });

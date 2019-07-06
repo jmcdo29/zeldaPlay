@@ -50,7 +50,6 @@ describe('DatabaseService', () => {
     it('should run the query for query', (done) => {
       service.query<any>({ query: '*', variables: ['characterId'] }).subscribe({
         next(result) {
-          console.log('Got result');
           expect(result).toBe(returnResult);
         },
         error(error) {

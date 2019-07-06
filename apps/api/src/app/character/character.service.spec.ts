@@ -102,7 +102,7 @@ describe('CharacterService', () => {
   it('should update the character and return the id', (done) => {
     db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
     service
-      .updateCharacter({ level: 2 }, { id: 'CHR-TEST' })
+      .updateCharacter({ level: 2, id: 'CHR-TEST' })
       .subscribe(characterObserver(done))
       .unsubscribe();
   });

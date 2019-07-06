@@ -1,5 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Signup, User, UserId } from '@tabletop-companion/api-interface';
+import {
+  Signup,
+  User,
+  UserId,
+  UserUpdateData
+} from '@tabletop-companion/api-interface';
 import { hashSync } from 'bcrypt';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -93,7 +98,7 @@ export class UserService {
       );
   }
 
-  updateUser(updateBody: Partial<User>, userId: UserId): Observable<any> {
+  updateUser(updateBody: UserUpdateData): Observable<any> {
     return of();
   }
 

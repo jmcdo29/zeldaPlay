@@ -1,5 +1,14 @@
-import { IsArray, IsBoolean, IsNumber, IsOptional, Min } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Min
+} from 'class-validator';
 import { Field, InputType, Int } from 'type-graphql';
+import { IsCustomId } from '../validators/isCustomId';
 import { Character } from './character';
 
 const nullable = { nullable: true };
@@ -8,6 +17,12 @@ const intType = (type) => Int;
 
 @InputType()
 export class CharacterUpdateData implements Partial<Character> {
+  @Field()
+  @IsCustomId('CHR')
+  @IsNotEmpty()
+  @IsString()
+  id: string;
+
   @Field(intType, nullable)
   @IsNumber()
   @IsOptional()

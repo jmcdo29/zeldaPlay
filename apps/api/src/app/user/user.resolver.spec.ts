@@ -68,7 +68,7 @@ describe('UserResolver', () => {
   });
   it('should update a user', (done) => {
     resolver
-      .updateUser({ id: 'USR-TEST1' }, {})
+      .updateUser({ id: 'USR-TEST1' })
       .subscribe(emptyObserver(done))
       .unsubscribe();
   });

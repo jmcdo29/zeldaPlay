@@ -136,7 +136,7 @@ describe('UserService', () => {
   describe('updateUser', () => {
     it('should update the user', (done) => {
       service
-        .updateUser({} as any, { id: 'USR-TEST' })
+        .updateUser({ id: 'USR-TEST' })
         .subscribe({
           next(value) {},
           error(error) {

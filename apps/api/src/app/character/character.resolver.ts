@@ -39,9 +39,8 @@ export class CharacterResolver {
   @UseGuards(GqlAuthGuard)
   @Mutation(returnCharacter, { name: 'updateCharacter' })
   updateCharacter(
-    @Args('characterData') characterUpdate: CharacterUpdateData,
-    @Args('charId') charId: CharacterId
+    @Args('characterData') characterUpdate: CharacterUpdateData
   ): Observable<Character> {
-    return this.characterService.updateCharacter(characterUpdate, charId);
+    return this.characterService.updateCharacter(characterUpdate);
   }
 }

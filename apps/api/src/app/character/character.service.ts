@@ -15,7 +15,7 @@ export class CharacterService {
   constructor(private readonly db: DatabaseService) {}
 
   getCharacterById(id: CharacterId): Observable<Character> {
-    const fields = [];
+    const fields: string[] = [];
     fields.push('id as id');
     fields.push('name as name');
     fields.push('race as race');
@@ -46,7 +46,7 @@ export class CharacterService {
   }
 
   getCharactersByUserId(userId: UserId): Observable<Character[]> {
-    const fields = [];
+    const fields: string[] = [];
     fields.push('id as id');
     fields.push('name as name');
     fields.push('race as race');
@@ -137,10 +137,7 @@ export class CharacterService {
     );
   }
 
-  updateCharacter(
-    characterData: CharacterUpdateData,
-    charId: CharacterId
-  ): Observable<Character> {
+  updateCharacter(characterData: CharacterUpdateData): Observable<Character> {
     return this.db
       .query<Character>({ query: '', variables: [] })
       .pipe(map((characters) => characters[0]));

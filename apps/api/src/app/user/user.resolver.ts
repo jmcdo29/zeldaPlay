@@ -24,10 +24,9 @@ export class UserResolver {
   @UseGuards(GqlAuthGuard)
   @Mutation(returnUser, { name: 'updateUser' })
   updateUser(
-    @Args('userId') id: UserId,
     @Args('updateUserData') userData: UserUpdateData
   ): Observable<User> {
-    return this.userService.updateUser(userData, id);
+    return this.userService.updateUser(userData);
   }
 
   @UseGuards(GqlAuthGuard)
