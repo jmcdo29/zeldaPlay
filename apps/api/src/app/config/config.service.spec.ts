@@ -18,6 +18,7 @@ describe('ConfigService', () => {
         'postgres://postgres:postgres@localhost:5432/testing';
       process.env.PORT = '3333';
       process.env.JWT_SECRET = 'itsasecret';
+      process.env.RATE_LIMIT = '4040';
     });
     beforeEach(async () => {
       const module: TestingModule = await Test.createTestingModule({
@@ -31,6 +32,9 @@ describe('ConfigService', () => {
     });
     it('should return true for isProd', () => {
       expect(service.isProd()).toBe(true);
+    });
+    it('should return 4040 for RATE_LIMIT', () => {
+      expect(service.getRateLimit()).toBe(4040);
     });
   });
 
@@ -57,6 +61,9 @@ describe('ConfigService', () => {
     });
     it('should return false for isProd', () => {
       expect(service.isProd()).toBe(false);
+    });
+    it('should return 1000 for RATE_LIMIT', () => {
+      expect(service.getRateLimit()).toBe(100);
     });
     it('should get back a blank string for a bad key name', () => {
       expect(service.get(':LKJASFJSDFLKJASDLKF')).toBe('');

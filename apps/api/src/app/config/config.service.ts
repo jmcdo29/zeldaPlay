@@ -43,4 +43,8 @@ export class ConfigService {
     const env = this.get('NODE_ENV').toLowerCase();
     return env === 'production' || env === 'prod';
   }
+
+  getRateLimit(): number {
+    return Number.parseInt(this.envConfig['RATE_LIMIT'], 10);
+  }
 }
