@@ -4,6 +4,7 @@ import { Message } from '@tabletop-companion/api-interface';
 @Injectable()
 export class AppService {
   getData(data?: string): Message {
-    return { message: data || 'Welcome to api!' };
+    const message = data ? `Hello ${data}.` : 'Welcome to api!';
+    return { message };
   }
 }

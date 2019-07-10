@@ -12,7 +12,9 @@ export class AppResolver {
   constructor(private readonly appService: AppService) {}
 
   @Query(returnMessage)
-  sayHello(@Args({ name: 'data', type: typeString }) data?: string): Message {
+  sayHello(
+    @Args({ name: 'data', type: typeString, nullable: true }) data?: string
+  ): Message {
     return this.appService.getData(data);
   }
 }

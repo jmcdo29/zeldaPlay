@@ -12,6 +12,7 @@ import { DatabaseModule } from './database/database.module';
 import { LoggerModule } from './logger/logger.module';
 import { GraphQLModuleConfig } from './options/graphql.config';
 import { TerminusOptionsService } from './options/terminusOptionsService';
+import { SpellModule } from './spell/spell.module';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -29,7 +30,8 @@ import { UserModule } from './user/user.module';
     AuthModule,
     CharacterModule,
     UserModule,
-    AbilityScoreModule
+    AbilityScoreModule,
+    SpellModule
   ],
   providers: [AppService, AppResolver]
 })
