@@ -3,9 +3,9 @@ WORKDIR /app
 
 FROM base AS dependencies
 COPY package*.json ./
-RUN npm install --prod
+RUN npm install --prod --silent
 RUN cp -R node_modules /tmp/node_modules
-RUN npm install
+RUN npm install --silent
 COPY . .
 
 FROM dependencies AS lint

@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-const sayHello = gql`
+export const sayHello = gql`
   query sayHello {
     sayHello(data: "") {
       message

@@ -12,16 +12,19 @@ export class AppComponent implements OnInit, OnDestroy {
   private hello$: Subscription;
 
   public greeting: Message;
+  public error: Error;
 
   constructor(private readonly appService: AppService) {}
 
   ngOnInit() {
-    this.hello$ = this.appService
-      .getHello()
-      .subscribe(
-        (result) => (this.greeting = result),
-        (error) => console.error(error)
-      );
+    this.hello$ = this.appService.getHello().subscribe({
+      next: (result: Message) => {
+        this.greeting = result;
+      },
+      error: (error: Error) => {
+        this.error = error;
+      }
+    });
   }
 
   ngOnDestroy() {

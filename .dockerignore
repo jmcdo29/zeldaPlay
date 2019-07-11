@@ -33,3 +33,12 @@ testem.log
 Thumbs.db
 .env
 scripts/
+Docker/
+.gitignore
+.huskyrc
+.github/
+.vscode/
+.editorconfig
+scheam.gql
+docker-compose.yml
+.cache
