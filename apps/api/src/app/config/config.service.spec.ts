@@ -31,7 +31,6 @@ describe('ConfigService', () => {
       }).compile();
 
       service = module.get<ConfigService>(ConfigService);
-      await module.init();
     });
     it('should get the NODE_ENV', () => {
       expect(service.get('NODE_ENV')).toBe('production');
@@ -63,7 +62,6 @@ describe('ConfigService', () => {
       }).compile();
 
       service = module.get<ConfigService>(ConfigService);
-      await module.init();
     });
     it('should get PORT', () => {
       expect(service.get('PORT')).toBe(3333);
@@ -101,7 +99,6 @@ describe('ConfigService', () => {
         }).compile();
 
         service = module.get<ConfigService>(ConfigService);
-        await module.init();
       } catch (err) {
         expect(err).toBeTruthy();
         expect(err.message).toBe(
@@ -118,7 +115,6 @@ describe('ConfigService', () => {
         }).compile();
 
         service = module.get<ConfigService>(ConfigService);
-        await module.init();
       } catch (err) {
         expect(err).toBeTruthy();
         expect(err.message).toBe(

@@ -10,14 +10,14 @@ import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 import { DatabaseModule } from './database/database.module';
 import { LoggerModule } from './logger/logger.module';
-import { GraphQLModuleConfig } from './options/graphql.config';
-import { TerminusOptionsService } from './options/terminusOptionsService';
+import { GraphQLModuleConfig, TerminusOptionsService } from './options';
 import { SpellModule } from './spell/spell.module';
 import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      useProcess: false,
       fileName: '.env',
     }),
     DatabaseModule.forRootAsync({
@@ -27,7 +27,6 @@ import { UserModule } from './user/user.module';
       }),
       inject: [ConfigService],
     }),
-    LoggerModule,
     GraphQLModule.forRootAsync({
       useClass: GraphQLModuleConfig,
       inject: [ConfigService],
@@ -35,6 +34,7 @@ import { UserModule } from './user/user.module';
     TerminusModule.forRootAsync({
       useClass: TerminusOptionsService,
     }),
+    LoggerModule,
     AuthModule,
     CharacterModule,
     UserModule,

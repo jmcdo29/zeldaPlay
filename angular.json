@@ -201,52 +201,6 @@
         }
       },
       "schematics": {}
-    },
-    "api-e2e": {
-      "root": "apps/api-e2e",
-      "sourceRoot": "apps/api-e2e/src",
-      "projectType": "application",
-      "prefix": "api-e2e",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/api-e2e",
-            "tsConfig": "apps/api-e2e/tsconfig.app.json"
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false
-            }
-          }
-        },
-        /* "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api-e2e:build"
-          }
-        }, */
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "apps/api-e2e/tsconfig.app.json",
-              "apps/api-e2e/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/api-e2e/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/api-e2e/jest.config.js",
-            "tsConfig": "apps/api-e2e/tsconfig.spec.json"
-          }
-        }
-      }
     }
   },
   "cli": {

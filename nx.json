@@ -19,9 +19,6 @@
     },
     "api-interface": {
       "tags": ["shared"]
-    },
-    "api-e2e": {
-      "tags": []
     }
   }
 }

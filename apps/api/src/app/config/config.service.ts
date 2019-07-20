@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { parse } from 'dotenv';
 import { readFileSync } from 'fs';
 import * as Joi from 'joi';
@@ -12,16 +12,13 @@ export interface EnvConfig {
 }
 
 @Injectable()
-export class ConfigService implements OnModuleInit {
+export class ConfigService {
   private envConfig: EnvConfig;
-  private prods: string[] = ['prod', 'production'];
 
   constructor(
     @Inject(CONFIG_MODULE_OPTIONS) private readonly options: ConfigModuleOptions
-  ) {}
-
-  onModuleInit() {
-    if (!this.options.useProcess && !this.options.fileName) {
+  ) {
+    if (!options.useProcess && !options.fileName) {
       throw new Error(
         'Missing configuration options.' +
           ' If using process.env variables, please mark useProcess as "true".' +
@@ -29,10 +26,8 @@ export class ConfigService implements OnModuleInit {
       );
     }
     let config: { [key: string]: any };
-    if (this.options.fileName) {
-      config = parse(
-        readFileSync(join(process.env.PWD, this.options.fileName))
-      );
+    if (options.fileName) {
+      config = parse(readFileSync(join(process.env.PWD, options.fileName)));
     } else {
       config = process.env;
     }
