@@ -32,26 +32,18 @@ describe('AppComponent', () => {
     it('should create the app', () => {
       expect(component).toBeTruthy();
     });
-    it('should sayHello', () => {
-      expect(component.greeting).toEqual({ message: 'Welcome to api!' });
-    });
-  });
-
-  describe.skip('errors', () => {
-    const normalError = new Error('error');
-
-    beforeEach(() => {
-      const appService = TestBed.get<AppService>(AppService);
-      appService.getHello = jest
-        .fn()
-        .mockReturnValueOnce(throwError(normalError));
-      const fixture = TestBed.createComponent(AppComponent);
-      component = fixture.debugElement.componentInstance;
-      fixture.detectChanges();
-    });
-
-    it('should handle an error from AppService', () => {
-      expect(component).toBeTruthy();
+    it('should sayHello', (done) => {
+      component.hello$.subscribe({
+        next(value) {
+          expect(value).toEqual({ message: 'Welcome to api!' });
+        },
+        error(error: Error) {
+          throw error;
+        },
+        complete() {
+          done();
+        }
+      });
     });
   });
 });

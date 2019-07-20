@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Message } from '@tabletop-companion/api-interface';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AppService } from './app.service';
 
 @Component({
@@ -8,26 +8,12 @@ import { AppService } from './app.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
-  private hello$: Subscription;
-
-  public greeting: Message;
-  public error: Error;
+export class AppComponent implements OnInit /*, OnDestroy */ {
+  public hello$: Observable<Message>;
 
   constructor(private readonly appService: AppService) {}
 
   ngOnInit() {
-    this.hello$ = this.appService.getHello().subscribe({
-      next: (result: Message) => {
-        this.greeting = result;
-      },
-      error: (error: Error) => {
-        this.error = error;
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.hello$.unsubscribe();
+    this.hello$ = this.appService.getHello();
   }
 }

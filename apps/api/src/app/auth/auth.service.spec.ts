@@ -1,6 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
-import { hashSync } from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { of } from 'rxjs';
 
 import { UserService } from '../user/user.service';
@@ -50,7 +50,7 @@ describe('AuthService', () => {
                 id: 'USR-TEST',
                 email: 'test@test.com',
                 role: ['player'],
-                password: hashSync('Pa$$w0rd', 12)
+                password: 'Pa$$w0rd'
               })
             ),
             insertUser: jest.fn().mockReturnValue(
@@ -77,12 +77,14 @@ describe('AuthService', () => {
   });
   describe('login', () => {
     it('should return a token', (done) => {
+      jest.spyOn(bcrypt, 'compareSync').mockReturnValueOnce(true);
       service
         .login({ email: 'test@test.com', password: 'Pa$$w0rd' })
         .subscribe(userObserver(done))
         .unsubscribe();
     });
     it('should throw an error', (done) => {
+      jest.spyOn(bcrypt, 'compareSync').mockReturnValueOnce(false);
       service
         .login({ email: 'test@test.com', password: 'Passw0rd' })
         .subscribe(
