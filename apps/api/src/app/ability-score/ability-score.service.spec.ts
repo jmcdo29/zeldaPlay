@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import {
   AbilityScore,
   AbilityScoreInput,
-  AbilityScoreUpdate
+  AbilityScoreUpdate,
 } from '@tabletop-companion/api-interface';
 import { of } from 'rxjs';
 import { DatabaseService } from '../database/database.service';
@@ -14,70 +14,70 @@ const abilityScores: AbilityScore[] = [
     id: 'ABL-TEST1',
     name: 'Strength',
     value: 10,
-    characterId: charId
+    characterId: charId,
   },
   {
     id: 'ABL-TEST2',
     name: 'Dexterity',
     value: 12,
-    characterId: charId
+    characterId: charId,
   },
   {
     id: 'ABL-TEST3',
     name: 'Constitution',
     value: 8,
-    characterId: charId
+    characterId: charId,
   },
   {
     id: 'ABL-TEST4',
     name: 'Intelligence',
     value: 15,
-    characterId: charId
+    characterId: charId,
   },
   {
     id: 'ABL-TEST5',
     name: 'Wisdom',
     value: 18,
-    characterId: charId
+    characterId: charId,
   },
   {
     id: 'ABL-TEST6',
     name: 'Charisma',
     value: 16,
-    characterId: charId
-  }
+    characterId: charId,
+  },
 ];
 const abilityScore = {
   id: 'ABL-TEST1',
   name: 'Strength',
   value: 10,
-  characterId: charId
+  characterId: charId,
 };
 const abilityInsertReturn = {
-  id: 'ABL-TEST1'
+  id: 'ABL-TEST1',
 };
 const abilityScoreInput: AbilityScoreInput = {
   name: 'Strength',
   value: 12,
-  characterId: charId
+  characterId: charId,
 };
 const abilityScoreUpdate: AbilityScoreUpdate = {
   value: 10,
-  id: 'ABL-TEST1'
+  id: 'ABL-TEST1',
 };
 const abilityScoresUpdate: AbilityScoreUpdate[] = [
   {
     value: 10,
-    id: 'ABL-TEST1'
+    id: 'ABL-TEST1',
   },
   {
     value: 12,
-    id: 'ABL-TEST2'
+    id: 'ABL-TEST2',
   },
   {
     value: 16,
-    id: 'ABL-TEST4'
-  }
+    id: 'ABL-TEST4',
+  },
 ];
 
 const abilityScoreObserver = (done: () => void) => ({
@@ -89,7 +89,7 @@ const abilityScoreObserver = (done: () => void) => ({
   },
   complete() {
     done();
-  }
+  },
 });
 
 const abilityScoresObserver = (done: () => void) => ({
@@ -101,7 +101,7 @@ const abilityScoresObserver = (done: () => void) => ({
   },
   complete() {
     done();
-  }
+  },
 });
 
 describe('AbilityScoreService', () => {
@@ -115,10 +115,10 @@ describe('AbilityScoreService', () => {
         {
           provide: DatabaseService,
           useValue: {
-            query: jest.fn()
-          }
-        }
-      ]
+            query: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     service = module.get<AbilityScoreService>(AbilityScoreService);
@@ -155,7 +155,7 @@ describe('AbilityScoreService', () => {
         },
         complete() {
           done();
-        }
+        },
       })
       .unsubscribe();
   });
@@ -169,7 +169,7 @@ describe('AbilityScoreService', () => {
       .insertManyAbilityScores([
         abilityScoreInput,
         abilityScoreInput,
-        abilityScoreInput
+        abilityScoreInput,
       ])
       .subscribe({
         next(abScores) {
@@ -177,16 +177,16 @@ describe('AbilityScoreService', () => {
           expect(abScores).toEqual([
             {
               id: 'ABL-TEST1',
-              ...abilityScoreInput
+              ...abilityScoreInput,
             },
             {
               id: 'ABL-TEST2',
-              ...abilityScoreInput
+              ...abilityScoreInput,
             },
             {
               id: 'ABL-TEST3',
-              ...abilityScoreInput
-            }
+              ...abilityScoreInput,
+            },
           ]);
         },
         error(error) {
@@ -194,7 +194,7 @@ describe('AbilityScoreService', () => {
         },
         complete() {
           done();
-        }
+        },
       })
       .unsubscribe();
   });
@@ -218,20 +218,20 @@ describe('AbilityScoreService', () => {
             id: 'ABL-TEST1',
             value: 10,
             name: 'Strength',
-            characterId: 'CHR-TEST1'
+            characterId: 'CHR-TEST1',
           },
           {
             id: 'ABL-TEST2',
             value: 12,
             name: 'Dexterity',
-            characterId: 'CHR-TEST1'
+            characterId: 'CHR-TEST1',
           },
           {
             id: 'ABL-TEST4',
             name: 'Intelligence',
             value: 16,
-            characterId: 'CHR-TEST1'
-          }
+            characterId: 'CHR-TEST1',
+          },
         ])
       );
     service
@@ -243,7 +243,7 @@ describe('AbilityScoreService', () => {
             id: 'ABL-TEST1',
             value: 10,
             name: 'Strength',
-            characterId: 'CHR-TEST1'
+            characterId: 'CHR-TEST1',
           });
         },
         error(error) {
@@ -251,7 +251,7 @@ describe('AbilityScoreService', () => {
         },
         complete() {
           done();
-        }
+        },
       })
       .unsubscribe();
   });

@@ -2,7 +2,7 @@ import { Int } from 'type-graphql';
 import {
   AbilityScore,
   AbilityScoreInput,
-  AbilityScoreUpdate
+  AbilityScoreUpdate,
 } from './abilityScore';
 import { Auth } from './auth';
 import { Character } from './character';

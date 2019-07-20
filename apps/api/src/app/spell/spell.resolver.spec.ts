@@ -6,7 +6,7 @@ describe('SpellResolver', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SpellResolver]
+      providers: [SpellResolver],
     }).compile();
 
     resolver = module.get<SpellResolver>(SpellResolver);

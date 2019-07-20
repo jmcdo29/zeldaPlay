@@ -3,7 +3,7 @@ import {
   Signup,
   User,
   UserId,
-  UserUpdateData
+  UserUpdateData,
 } from '@tabletop-companion/api-interface';
 import { hashSync } from 'bcrypt';
 import { Observable, of } from 'rxjs';
@@ -29,7 +29,7 @@ export class UserService {
     return this.db
       .query<User>({
         query,
-        variables: [email]
+        variables: [email],
       })
       .pipe(map((users) => users[0]));
   }
@@ -50,7 +50,7 @@ export class UserService {
     return this.db
       .query<User>({
         query,
-        variables: [userId.id]
+        variables: [userId.id],
       })
       .pipe(map((users) => users[0]));
   }
@@ -58,7 +58,7 @@ export class UserService {
   insertUser(signupBody: Signup): Observable<User> {
     const params: { fields: string[]; values: string[] } = {
       fields: [],
-      values: []
+      values: [],
     };
     const userVariables: any[] = [];
     let query = 'INSERT INTO players (';
@@ -84,7 +84,7 @@ export class UserService {
     return this.db
       .query<User>({
         query,
-        variables: userVariables
+        variables: userVariables,
       })
       .pipe(
         map((newUsers) => newUsers[0]),
@@ -106,7 +106,7 @@ export class UserService {
     this.db
       .query({
         query: 'UPDATE players SET is_active=$1 WHERE id = $2',
-        variables: [false, userId.id]
+        variables: [false, userId.id],
       })
       .subscribe();
     this.logger.log(`User with id ${userId.id} deactivated.`);

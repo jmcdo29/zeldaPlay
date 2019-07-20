@@ -4,7 +4,7 @@ import {
   Message,
   ofMessage,
   returnMessage,
-  typeString
+  typeString,
 } from '@tabletop-companion/api-interface';
 import { AppService } from './app.service';
 

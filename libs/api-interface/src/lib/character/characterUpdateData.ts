@@ -5,7 +5,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
-  Min
+  Min,
 } from 'class-validator';
 import { Field, InputType, Int } from 'type-graphql';
 import { IsCustomId } from '../validators/isCustomId';

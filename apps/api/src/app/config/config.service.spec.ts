@@ -11,7 +11,7 @@ describe('ConfigService', () => {
     service = null;
   });
 
-  describe('prod config', () => {
+  describe('process.env config', () => {
     beforeAll(() => {
       process.env.NODE_ENV = 'production';
       process.env.DATABASE_URL =
@@ -22,10 +22,16 @@ describe('ConfigService', () => {
     });
     beforeEach(async () => {
       const module: TestingModule = await Test.createTestingModule({
-        providers: [ConfigService]
+        providers: [
+          {
+            provide: ConfigService,
+            useFactory: () => new ConfigService({ useProcess: true }),
+          },
+        ],
       }).compile();
 
       service = module.get<ConfigService>(ConfigService);
+      await module.init();
     });
     it('should get the NODE_ENV', () => {
       expect(service.get('NODE_ENV')).toBe('production');
@@ -38,20 +44,26 @@ describe('ConfigService', () => {
     });
   });
 
-  describe('dev config', () => {
+  describe('.env config', () => {
     jest.spyOn(dotenv, 'parse').mockReturnValue({
       PORT: '3333',
       DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/testing',
       NODE_ENV: 'dev',
-      JWT_SECRET: 'itsasecret'
+      JWT_SECRET: 'itsasecret',
     });
     beforeEach(async () => {
       process.env.NODE_ENV = 'dev';
       const module: TestingModule = await Test.createTestingModule({
-        providers: [ConfigService]
+        providers: [
+          {
+            provide: ConfigService,
+            useFactory: () => new ConfigService({ fileName: '.env' }),
+          },
+        ],
       }).compile();
 
       service = module.get<ConfigService>(ConfigService);
+      await module.init();
     });
     it('should get PORT', () => {
       expect(service.get('PORT')).toBe(3333);
@@ -77,17 +89,42 @@ describe('ConfigService', () => {
       process.env.DATABASE_URL = '';
     });
 
-    it('should fail in a try catch', async () => {
+    it('should fail in a try catch (no database url)', async () => {
       try {
         const module: TestingModule = await Test.createTestingModule({
-          providers: [ConfigService]
+          providers: [
+            {
+              provide: ConfigService,
+              useFactory: () => new ConfigService({ useProcess: true }),
+            },
+          ],
         }).compile();
 
         service = module.get<ConfigService>(ConfigService);
+        await module.init();
       } catch (err) {
         expect(err).toBeTruthy();
         expect(err.message).toBe(
           'Config validation error: child "DATABASE_URL" fails because ["DATABASE_URL" is not allowed to be empty]'
+        );
+      }
+    });
+    it('should fail in a try catch (no parameter passed)', async () => {
+      try {
+        const module: TestingModule = await Test.createTestingModule({
+          providers: [
+            { provide: ConfigService, useFactory: () => new ConfigService({}) },
+          ],
+        }).compile();
+
+        service = module.get<ConfigService>(ConfigService);
+        await module.init();
+      } catch (err) {
+        expect(err).toBeTruthy();
+        expect(err.message).toBe(
+          'Missing configuration options.' +
+            ' If using process.env variables, please mark useProcess as "true".' +
+            ' Otherwise, please provide and env file.'
         );
       }
     });

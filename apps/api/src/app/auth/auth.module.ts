@@ -11,19 +11,19 @@ const jwtModuleAsyncOptions = {
   useFactory: async (configService: ConfigService) => ({
     secret: configService.get('JWT_SECRET'),
     signOptions: {
-      expiresIn: configService.get('JWT_EXPIRES')
-    }
+      expiresIn: configService.get('JWT_EXPIRES'),
+    },
   }),
-  inject: [ConfigService]
+  inject: [ConfigService],
 };
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync(jwtModuleAsyncOptions),
-    forwardRef(() => UserModule)
+    forwardRef(() => UserModule),
   ],
   providers: [AuthService, JwtStrategy, AuthResolver],
-  exports: [PassportModule, AuthService]
+  exports: [PassportModule, AuthService],
 })
 export class AuthModule {}

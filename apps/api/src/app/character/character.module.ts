@@ -5,6 +5,6 @@ import { CharacterService } from './character.service';
 
 @Module({
   imports: [AuthModule],
-  providers: [CharacterResolver, CharacterService]
+  providers: [CharacterResolver, CharacterService],
 })
 export class CharacterModule {}

@@ -12,7 +12,7 @@ export class GraphQLModuleConfig implements GqlOptionsFactory {
       playground: !isProd,
       debug: !isProd,
       autoSchemaFile: 'schema.gql',
-      context: ({ req }) => ({ req })
+      context: ({ req }) => ({ req }),
     };
   }
 }

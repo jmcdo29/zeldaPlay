@@ -4,7 +4,7 @@ import {
   Login,
   ofAuth,
   returnAuth,
-  Signup
+  Signup,
 } from '@tabletop-companion/api-interface';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';

@@ -16,7 +16,7 @@ const characterObserver = (done: () => void, data?: any) => ({
   },
   complete() {
     done();
-  }
+  },
 });
 
 const charactersObserver = (done: () => void) => ({
@@ -29,7 +29,7 @@ const charactersObserver = (done: () => void) => ({
   },
   complete() {
     done();
-  }
+  },
 });
 
 describe('CharacterService', () => {
@@ -43,10 +43,10 @@ describe('CharacterService', () => {
         {
           provide: DatabaseService,
           useValue: {
-            query: jest.fn()
-          }
-        }
-      ]
+            query: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     service = module.get<CharacterService>(CharacterService);
@@ -91,7 +91,7 @@ describe('CharacterService', () => {
       playerId: 'USR-TEST',
       bond: '',
       languages: ['Common', 'Dwarvish'],
-      game: 'dd5'
+      game: 'dd5',
     };
     db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
     service

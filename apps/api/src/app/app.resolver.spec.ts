@@ -12,10 +12,10 @@ describe('AppResolver', () => {
         {
           provide: AppService,
           useValue: {
-            getData: jest.fn().mockReturnValue({ message: 'Welcome to api!' })
-          }
-        }
-      ]
+            getData: jest.fn().mockReturnValue({ message: 'Welcome to api!' }),
+          },
+        },
+      ],
     }).compile();
 
     resolver = module.get<AppResolver>(AppResolver);

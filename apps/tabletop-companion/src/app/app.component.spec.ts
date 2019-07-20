@@ -15,10 +15,10 @@ describe('AppComponent', () => {
           useValue: {
             getHello: jest
               .fn()
-              .mockReturnValue(of<Message>({ message: 'Welcome to api!' }))
-          }
-        }
-      ]
+              .mockReturnValue(of<Message>({ message: 'Welcome to api!' })),
+          },
+        },
+      ],
     }).compileComponents();
   }));
 
@@ -42,7 +42,7 @@ describe('AppComponent', () => {
         },
         complete() {
           done();
-        }
+        },
       });
     });
   });

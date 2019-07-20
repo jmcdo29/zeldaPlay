@@ -3,7 +3,7 @@
 import {
   registerDecorator,
   ValidationArguments,
-  ValidationOptions
+  ValidationOptions,
 } from 'class-validator';
 
 /**
@@ -35,8 +35,8 @@ export function IsPassword(validationOptions?: ValidationOptions) {
             throw new Error('Invalid password. ' + error);
           }
           return true;
-        }
-      }
+        },
+      },
     });
   };
 }

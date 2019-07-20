@@ -3,6 +3,6 @@ import { SpellResolver } from './spell.resolver';
 import { SpellService } from './spell.service';
 
 @Module({
-  providers: [SpellResolver, SpellService]
+  providers: [SpellResolver, SpellService],
 })
 export class SpellModule {}

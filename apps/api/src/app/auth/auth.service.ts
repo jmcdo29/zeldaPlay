@@ -1,7 +1,7 @@
 import {
   BadRequestException,
   Injectable,
-  UnauthorizedException
+  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Auth, Login, Signup, User } from '@tabletop-companion/api-interface';
@@ -27,8 +27,8 @@ export class AuthService {
             token: this.signToken({
               id: user.id,
               email: user.email,
-              role: user.role
-            })
+              role: user.role,
+            }),
           };
         } else {
           throw new UnauthorizedException('Invalid email or password.');
@@ -52,8 +52,8 @@ export class AuthService {
           token: this.signToken({
             id: newUser.id,
             email: signup.email,
-            role: signup.role
-          })
+            role: signup.role,
+          }),
         };
       })
     );

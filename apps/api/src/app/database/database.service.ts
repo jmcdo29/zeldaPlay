@@ -1,15 +1,25 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { scribe } from 'mc-scribe';
 import { Pool } from 'pg';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { DATABASE_MODULE_OPTIONS } from './database.constants';
+import { DatabaseModuleOptions } from './interfaces/database-options.interface';
 
 @Injectable()
-export class DatabaseService {
-  private readonly pool: Pool;
+export class DatabaseService implements OnModuleInit {
+  private pool: Pool;
 
-  constructor(connectionString: string, ssl: boolean) {
-    this.pool = new Pool({ connectionString, ssl });
+  constructor(
+    @Inject(DATABASE_MODULE_OPTIONS)
+    private readonly options: DatabaseModuleOptions
+  ) {}
+
+  onModuleInit() {
+    this.pool = new Pool({
+      connectionString: this.options.connectionUrl,
+      ssl: this.options.ssl || false,
+    });
   }
 
   query<T>(params: { query: string; variables: any[] }): Observable<T[]> {

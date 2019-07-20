@@ -10,7 +10,7 @@ import {
   returnAbilityScore,
   returnAbilityScores,
   typeAbilityScoreInputs,
-  typeAbilityScoreUpdates
+  typeAbilityScoreUpdates,
 } from '@tabletop-companion/api-interface';
 import { Observable } from 'rxjs';
 import { GqlAuthGuard } from '../guards/gql-auth-guard.guard';

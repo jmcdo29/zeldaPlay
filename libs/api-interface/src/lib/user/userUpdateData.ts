@@ -4,7 +4,7 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsOptional,
-  IsString
+  IsString,
 } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
 import { IsCustomId } from '../validators';

@@ -7,7 +7,7 @@ describe('AppService', () => {
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
-      providers: [AppService]
+      providers: [AppService],
     }).compile();
 
     service = app.get<AppService>(AppService);
@@ -18,8 +18,8 @@ describe('AppService', () => {
       expect(service.getData()).toEqual({ message: 'Welcome to api!' });
     });
     it('should return "Hello, world!"', () => {
-      expect(service.getData('Hello, world!')).toEqual({
-        message: 'Hello, world!'
+      expect(service.getData('world')).toEqual({
+        message: 'Hello, world!',
       });
     });
   });

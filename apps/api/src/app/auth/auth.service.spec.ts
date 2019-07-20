@@ -15,7 +15,7 @@ const userObserver = (done: () => void) => ({
   },
   complete() {
     done();
-  }
+  },
 });
 
 const errorObserver = (
@@ -31,7 +31,7 @@ const errorObserver = (
   },
   complete() {
     done();
-  }
+  },
 });
 
 describe('AuthService', () => {
@@ -50,23 +50,23 @@ describe('AuthService', () => {
                 id: 'USR-TEST',
                 email: 'test@test.com',
                 role: ['player'],
-                password: 'Pa$$w0rd'
+                password: 'Pa$$w0rd',
               })
             ),
             insertUser: jest.fn().mockReturnValue(
               of({
-                id: 'USR-TEST'
+                id: 'USR-TEST',
               })
-            )
-          }
+            ),
+          },
         },
         {
           provide: JwtService,
           useValue: {
-            sign: jest.fn().mockReturnValue('token')
-          }
-        }
-      ]
+            sign: jest.fn().mockReturnValue('token'),
+          },
+        },
+      ],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
@@ -91,7 +91,7 @@ describe('AuthService', () => {
           errorObserver(done, {
             statusCode: 401,
             error: 'Unauthorized',
-            message: 'Invalid email or password.'
+            message: 'Invalid email or password.',
           })
         )
         .unsubscribe();
@@ -105,7 +105,7 @@ describe('AuthService', () => {
       consentToEmail: true,
       role: ['player'],
       firstName: 'Tester',
-      lastName: 'McTesting'
+      lastName: 'McTesting',
     };
     it('should allow a user to signup', (done) => {
       const userService = module.get<UserService>(UserService);
@@ -122,7 +122,7 @@ describe('AuthService', () => {
           errorObserver(done, {
             statusCode: 400,
             error: 'Bad Request',
-            message: 'Email already in use'
+            message: 'Email already in use',
           })
         )
         .unsubscribe();
@@ -134,7 +134,7 @@ describe('AuthService', () => {
         .validateUser({
           email: 'test@test.com',
           role: ['player'],
-          id: 'USR-TEST'
+          id: 'USR-TEST',
         })
         .subscribe({
           next(user) {
@@ -148,7 +148,7 @@ describe('AuthService', () => {
           },
           complete() {
             done();
-          }
+          },
         })
         .unsubscribe();
     });

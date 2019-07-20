@@ -9,6 +9,6 @@ import { GraphQLModule } from './graphql.module';
   declarations: [AppComponent],
   imports: [BrowserModule, HttpClientModule, GraphQLModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

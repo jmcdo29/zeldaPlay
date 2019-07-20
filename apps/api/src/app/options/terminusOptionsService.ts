@@ -4,7 +4,7 @@ import {
   MemoryHealthIndicator,
   TerminusEndpoint,
   TerminusModuleOptions,
-  TerminusOptionsFactory
+  TerminusOptionsFactory,
 } from '@nestjs/terminus';
 
 @Injectable()
@@ -19,11 +19,11 @@ export class TerminusOptionsService implements TerminusOptionsFactory {
       url: '/health',
       healthIndicators: [
         async () => this.dns.pingCheck('google', 'https://google.com'),
-        async () => this.mem.checkHeap('mem', 150 * 1024 * 1024)
-      ]
+        async () => this.mem.checkHeap('mem', 150 * 1024 * 1024),
+      ],
     };
     return {
-      endpoints: [healthEndpoint]
+      endpoints: [healthEndpoint],
     };
   }
 }

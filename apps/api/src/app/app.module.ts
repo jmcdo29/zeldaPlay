@@ -17,22 +17,30 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    ConfigModule,
-    DatabaseModule,
+    ConfigModule.forRoot({
+      fileName: '.env',
+    }),
+    DatabaseModule.forRootAsync({
+      useFactory: (configService: ConfigService) => ({
+        connectionUrl: configService.get('DATABASE_URL'),
+        ssl: configService.isProd(),
+      }),
+      inject: [ConfigService],
+    }),
     LoggerModule,
     GraphQLModule.forRootAsync({
       useClass: GraphQLModuleConfig,
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
     TerminusModule.forRootAsync({
-      useClass: TerminusOptionsService
+      useClass: TerminusOptionsService,
     }),
     AuthModule,
     CharacterModule,
     UserModule,
     AbilityScoreModule,
-    SpellModule
+    SpellModule,
   ],
-  providers: [AppService, AppResolver]
+  providers: [AppService, AppResolver],
 })
 export class AppModule {}

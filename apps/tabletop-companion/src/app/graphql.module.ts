@@ -8,7 +8,7 @@ const uri = 'http://localhost:3333/graphql';
 export function createApollo(httpLink: HttpLink) {
   return {
     link: httpLink.create({ uri }),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
   };
 }
 
@@ -18,8 +18,8 @@ export function createApollo(httpLink: HttpLink) {
     {
       provide: APOLLO_OPTIONS,
       useFactory: createApollo,
-      deps: [HttpLink]
-    }
-  ]
+      deps: [HttpLink],
+    },
+  ],
 })
 export class GraphQLModule {}

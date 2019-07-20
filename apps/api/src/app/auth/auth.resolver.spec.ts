@@ -13,7 +13,7 @@ const tokenObserver = (done: () => void) => ({
   },
   complete() {
     done();
-  }
+  },
 });
 
 describe('AuthResolver', () => {
@@ -33,10 +33,12 @@ describe('AuthResolver', () => {
               ),
             signup: jest
               .fn()
-              .mockReturnValue(of(Math.floor(Math.random() * 1000).toString(8)))
-          }
-        }
-      ]
+              .mockReturnValue(
+                of(Math.floor(Math.random() * 1000).toString(8))
+              ),
+          },
+        },
+      ],
     }).compile();
 
     resolver = module.get<AuthResolver>(AuthResolver);
@@ -60,7 +62,7 @@ describe('AuthResolver', () => {
         consentToEmail: false,
         firstName: 'Test',
         lastName: 'Test',
-        role: ['player']
+        role: ['player'],
       })
       .subscribe(tokenObserver(done))
       .unsubscribe();

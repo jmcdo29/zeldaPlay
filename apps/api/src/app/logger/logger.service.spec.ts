@@ -8,7 +8,7 @@ describe('LoggerService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MyLogger]
+      providers: [MyLogger],
     }).compile();
     service = module.get<MyLogger>(MyLogger);
   });

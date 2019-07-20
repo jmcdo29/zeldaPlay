@@ -3,7 +3,7 @@
 import {
   registerDecorator,
   ValidationArguments,
-  ValidationOptions
+  ValidationOptions,
 } from 'class-validator';
 
 export function IsCustomId(
@@ -25,8 +25,8 @@ export function IsCustomId(
               id.substring(args.constraints[0].length)
             )
           );
-        }
-      }
+        },
+      },
     });
   };
 }

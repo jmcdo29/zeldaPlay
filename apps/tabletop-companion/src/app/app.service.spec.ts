@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import {
   ApolloTestingController,
-  ApolloTestingModule
+  ApolloTestingModule,
 } from 'apollo-angular/testing';
 
 import { AppService, sayHello } from './app.service';
@@ -12,7 +12,7 @@ describe('AppService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ApolloTestingModule]
+      imports: [ApolloTestingModule],
     });
     service = TestBed.get(AppService);
     controller = TestBed.get(ApolloTestingController);
@@ -42,9 +42,9 @@ describe('AppService', () => {
     op.flush({
       data: {
         sayHello: {
-          message: 'Welcome to api!'
-        }
-      }
+          message: 'Welcome to api!',
+        },
+      },
     });
     controller.verify();
   });

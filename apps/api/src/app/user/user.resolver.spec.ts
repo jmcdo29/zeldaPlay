@@ -9,7 +9,7 @@ const userObserver = (done: () => void) => ({
     expect(value).toEqual({
       id: 'USR-TEST1',
       email: 'test@test.com',
-      role: ['player']
+      role: ['player'],
     });
   },
   error(error: Error) {
@@ -17,7 +17,7 @@ const userObserver = (done: () => void) => ({
   },
   complete() {
     done();
-  }
+  },
 });
 
 const emptyObserver = (done: () => void) => ({
@@ -27,7 +27,7 @@ const emptyObserver = (done: () => void) => ({
   },
   complete() {
     done();
-  }
+  },
 });
 
 describe('UserResolver', () => {
@@ -44,14 +44,14 @@ describe('UserResolver', () => {
               of({
                 id: 'USR-TEST1',
                 email: 'test@test.com',
-                role: ['player']
+                role: ['player'],
               })
             ),
             updateUser: jest.fn().mockReturnValue(of()),
-            deleteUser: jest.fn().mockReturnValue(of())
-          }
-        }
-      ]
+            deleteUser: jest.fn().mockReturnValue(of()),
+          },
+        },
+      ],
     }).compile();
 
     resolver = module.get<UserResolver>(UserResolver);

@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 @Component({
   selector: 'tabletop-companion-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit /*, OnDestroy */ {
   public hello$: Observable<Message>;

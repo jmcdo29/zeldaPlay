@@ -5,7 +5,7 @@ import { GqlAuthGuard } from './gql-auth-guard.guard';
 GqlExecutionContext.create = jest.fn().mockReturnValue({
   getContext: jest.fn().mockReturnThis(),
   value: 'something',
-  req: 'Request'
+  req: 'Request',
 });
 
 const mockContext = {
@@ -16,7 +16,7 @@ const mockContext = {
   getArgByIndex: jest.fn().mockReturnThis(),
   switchToRpc: jest.fn().mockReturnThis(),
   switchToWs: jest.fn().mockReturnThis(),
-  getResponse: jest.fn().mockReturnThis()
+  getResponse: jest.fn().mockReturnThis(),
 };
 
 AuthGuard('jwt').prototype.canActivate = jest

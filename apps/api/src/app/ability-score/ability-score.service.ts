@@ -4,7 +4,7 @@ import {
   AbilityScoreId,
   AbilityScoreInput,
   AbilityScoreUpdate,
-  CharacterId
+  CharacterId,
 } from '@tabletop-companion/api-interface';
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -44,7 +44,7 @@ export class AbilityScoreService {
     let query = 'INSERT INTO ability_scores (';
     const params: { fields: string[]; values: string[] } = {
       fields: [],
-      values: []
+      values: [],
     };
     const abilVariables = [];
     params.fields.push('name');
@@ -79,7 +79,7 @@ export class AbilityScoreService {
     let query = 'INSERT INTO ability_scores (';
     const params: { fields: string[]; values: string[] } = {
       fields: [],
-      values: []
+      values: [],
     };
     params.fields.push('name');
     params.fields.push('value');
@@ -149,7 +149,7 @@ export class AbilityScoreService {
         return this.db.query<AbilityScore>({
           query:
             'SELECT id, name, value, character_id as "characterId" FROM ability_scores WHERE id IN $1;',
-          variables: [ids]
+          variables: [ids],
         });
       })
     );

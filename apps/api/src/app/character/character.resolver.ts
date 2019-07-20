@@ -8,7 +8,7 @@ import {
   ofCharacter,
   returnCharacter,
   returnCharacterArray,
-  UserId
+  UserId,
 } from '@tabletop-companion/api-interface';
 import { Observable } from 'rxjs';
 import { GqlAuthGuard } from '../guards/gql-auth-guard.guard';

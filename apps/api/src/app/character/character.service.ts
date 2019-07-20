@@ -4,7 +4,7 @@ import {
   CharacterId,
   CharacterInsertData,
   CharacterUpdateData,
-  UserId
+  UserId,
 } from '@tabletop-companion/api-interface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -40,7 +40,7 @@ export class CharacterService {
     return this.db
       .query<Character>({
         query,
-        variables: [id.id]
+        variables: [id.id],
       })
       .pipe(map((characters) => characters[0]));
   }
@@ -70,7 +70,7 @@ export class CharacterService {
       'SELECT ' + fields.join(', ') + ' FROM characters WHERE player_id = $1;';
     return this.db.query<Character>({
       query,
-      variables: [userId.id]
+      variables: [userId.id],
     });
   }
 
@@ -79,7 +79,7 @@ export class CharacterService {
   ): Observable<Character> {
     const params: { values: string[]; fields: string[] } = {
       values: [],
-      fields: []
+      fields: [],
     };
     const charVariables: any[] = [];
     let query = 'INSERT INTO characters (';

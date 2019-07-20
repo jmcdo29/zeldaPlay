@@ -6,6 +6,6 @@ import { UserService } from './user.service';
 @Module({
   imports: [forwardRef(() => AuthModule)],
   providers: [UserService, UserResolver],
-  exports: [UserService]
+  exports: [UserService],
 })
 export class UserModule {}

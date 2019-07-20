@@ -13,14 +13,14 @@ export function configure(app: INestApplication, config: ConfigService): void {
       skip: (req: any, res: any) =>
         morganFormat === 'combined' && req.statusCode < 400,
       stream: {
-        write: (value: string) => MyLogger.log(value.trim(), 'Morgan')
-      }
+        write: (value: string) => MyLogger.log(value.trim(), 'Morgan'),
+      },
     }),
     helmet(),
     compression(),
     new rateLimiter({
       windowMs: 10 * 60 * 1000,
-      max: config.getRateLimit()
+      max: config.getRateLimit(),
     })
   );
   app.setGlobalPrefix(config.get('GLOBAL_PREFIX'));

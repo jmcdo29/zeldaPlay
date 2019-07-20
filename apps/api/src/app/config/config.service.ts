@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { parse } from 'dotenv';
 import { readFileSync } from 'fs';
 import * as Joi from 'joi';
 import { join } from 'path';
+import { CONFIG_MODULE_OPTIONS } from './config.constants';
+import { ConfigModuleOptions } from './interfaces/config-options.interface';
 import { envVarSchema } from './model/env.model';
 
 export interface EnvConfig {
@@ -10,17 +12,31 @@ export interface EnvConfig {
 }
 
 @Injectable()
-export class ConfigService {
-  private readonly envConfig: EnvConfig;
+export class ConfigService implements OnModuleInit {
+  private envConfig: EnvConfig;
   private prods: string[] = ['prod', 'production'];
 
-  constructor() {
-    if (!this.prods.includes(process.env.NODE_ENV.toLowerCase())) {
-      const config = parse(readFileSync(join(process.env.PWD, '.env')));
-      this.envConfig = this.validateConfig(config);
-    } else {
-      this.envConfig = this.validateConfig(process.env);
+  constructor(
+    @Inject(CONFIG_MODULE_OPTIONS) private readonly options: ConfigModuleOptions
+  ) {}
+
+  onModuleInit() {
+    if (!this.options.useProcess && !this.options.fileName) {
+      throw new Error(
+        'Missing configuration options.' +
+          ' If using process.env variables, please mark useProcess as "true".' +
+          ' Otherwise, please provide and env file.'
+      );
     }
+    let config: { [key: string]: any };
+    if (this.options.fileName) {
+      config = parse(
+        readFileSync(join(process.env.PWD, this.options.fileName))
+      );
+    } else {
+      config = process.env;
+    }
+    this.envConfig = this.validateConfig(config);
   }
 
   private validateConfig(config: EnvConfig): EnvConfig {

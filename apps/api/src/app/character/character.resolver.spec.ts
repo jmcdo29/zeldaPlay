@@ -16,7 +16,7 @@ const singleCharacterObserver = (done: () => void) => ({
   },
   complete() {
     done();
-  }
+  },
 });
 
 const multiCharacterObserver = (done: () => void) => ({
@@ -29,7 +29,7 @@ const multiCharacterObserver = (done: () => void) => ({
   },
   complete() {
     done();
-  }
+  },
 });
 
 describe('CharacterResolver', () => {
@@ -47,10 +47,10 @@ describe('CharacterResolver', () => {
               .fn()
               .mockReturnValue(of([mockCharacter, mockCharacter])),
             insertNewCharacter: jest.fn().mockReturnValue(of(mockCharacter)),
-            updateCharacter: jest.fn().mockReturnValue(of(mockCharacter))
-          }
-        }
-      ]
+            updateCharacter: jest.fn().mockReturnValue(of(mockCharacter)),
+          },
+        },
+      ],
     }).compile();
 
     resolver = module.get<CharacterResolver>(CharacterResolver);
@@ -91,7 +91,7 @@ describe('CharacterResolver', () => {
         playerId: 'USR-TEST',
         bond: '',
         languages: ['Common', 'Dwarvish'],
-        game: 'dd5'
+        game: 'dd5',
       })
       .subscribe(singleCharacterObserver(done))
       .unsubscribe();

@@ -11,7 +11,7 @@ const userObserver = (done: () => void) => ({
       id: 'USR-TEST1',
       email: 'test@test.com',
       role: ['player'],
-      password: 'someHashedPassword'
+      password: 'someHashedPassword',
     });
   },
   error(error: Error) {
@@ -19,7 +19,7 @@ const userObserver = (done: () => void) => ({
   },
   complete() {
     done();
-  }
+  },
 });
 
 describe('UserService', () => {
@@ -33,10 +33,10 @@ describe('UserService', () => {
         {
           provide: DatabaseService,
           useValue: {
-            query: jest.fn()
-          }
-        }
-      ]
+            query: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
     service = module.get<UserService>(UserService);
@@ -55,14 +55,14 @@ describe('UserService', () => {
               id: 'USR-TEST1',
               email: 'test@test.com',
               role: ['player'],
-              password: 'someHashedPassword'
+              password: 'someHashedPassword',
             },
             {
               id: 'USR-TEST2',
               email: 'test@test.org',
               role: ['player'],
-              password: 'SomeOtherHashedPassword'
-            }
+              password: 'SomeOtherHashedPassword',
+            },
           ])
         );
       service.getByEmail('test@test.com').subscribe(userObserver(done));
@@ -78,8 +78,8 @@ describe('UserService', () => {
               id: 'USR-TEST1',
               email: 'test@test.com',
               role: ['player'],
-              password: 'someHashedPassword'
-            }
+              password: 'someHashedPassword',
+            },
           ])
         );
       service
@@ -95,8 +95,8 @@ describe('UserService', () => {
         .mockReturnValueOnce(
           of([
             {
-              id: 'USR-TEST1'
-            }
+              id: 'USR-TEST1',
+            },
           ])
         );
       service
@@ -107,7 +107,7 @@ describe('UserService', () => {
           consentToEmail: true,
           firstName: 'Test',
           lastName: 'McTesting',
-          role: ['player']
+          role: ['player'],
         })
         .subscribe({
           next(value) {
@@ -121,7 +121,7 @@ describe('UserService', () => {
               lastName: 'McTesting',
               role: ['player'],
               isActive: true,
-              id: 'USR-TEST1'
+              id: 'USR-TEST1',
             });
           },
           error(error) {
@@ -129,7 +129,7 @@ describe('UserService', () => {
           },
           complete() {
             done();
-          }
+          },
         });
     });
   });
@@ -144,7 +144,7 @@ describe('UserService', () => {
           },
           complete() {
             done();
-          }
+          },
         })
         .unsubscribe();
     });
@@ -165,7 +165,7 @@ describe('UserService', () => {
           },
           complete() {
             done();
-          }
+          },
         })
         .unsubscribe();
     });

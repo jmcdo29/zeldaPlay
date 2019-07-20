@@ -8,7 +8,7 @@ import { configure } from './config.main';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: new MyLogger()
+    logger: new MyLogger(),
   });
   const config = app.get<ConfigService>(ConfigService);
   const port = config.get('PORT');

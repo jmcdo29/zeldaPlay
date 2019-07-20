@@ -5,7 +5,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  MinLength
+  MinLength,
 } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
 import { IsPassword } from '../validators';

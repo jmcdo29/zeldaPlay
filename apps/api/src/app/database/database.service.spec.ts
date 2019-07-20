@@ -7,13 +7,13 @@ const returnResult = [
   {
     id: 1,
     field1: 'value1',
-    field2: 'value2'
+    field2: 'value2',
   },
   {
     id: 2,
     field1: 'value1',
-    field2: 'value2'
-  }
+    field2: 'value2',
+  },
 ];
 
 const querySpy = jest.spyOn(Pool.prototype, 'query').mockImplementation(
@@ -23,28 +23,39 @@ const querySpy = jest.spyOn(Pool.prototype, 'query').mockImplementation(
       rowCount: 0,
       oid: 'something, I guess',
       fields: ['id', 'name'],
-      rows: returnResult
+      rows: returnResult,
     }) as any
 );
 
 describe('DatabaseService', () => {
+  let module: TestingModule;
   let service: DatabaseService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    module = await Test.createTestingModule({
       providers: [
         {
           provide: DatabaseService,
-          useFactory: () => new DatabaseService('connectionString', false)
-        }
-      ]
+          useFactory: () =>
+            new DatabaseService({
+              connectionUrl: 'connectionString',
+              ssl: false,
+            }),
+        },
+      ],
     }).compile();
 
     service = module.get<DatabaseService>(DatabaseService);
+    await module.init();
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+  it('should initialize', async () => {
+    await module.init();
+    expect(service).toBeDefined();
+    await module.close();
   });
   describe('queries', () => {
     it('should run the query for query', (done) => {
@@ -57,7 +68,7 @@ describe('DatabaseService', () => {
         },
         complete() {
           done();
-        }
+        },
       });
     });
     it('should return for an error in the query', (done) => {
@@ -73,7 +84,7 @@ describe('DatabaseService', () => {
         },
         complete() {
           done();
-        }
+        },
       });
     });
   });
