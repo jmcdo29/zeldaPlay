@@ -10,21 +10,22 @@ import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 import { DatabaseModule } from './database/database.module';
 import { LoggerModule } from './logger/logger.module';
-import { GraphQLModuleConfig, TerminusOptionsService } from './options';
+import {
+  ConfigModuleConfig,
+  DatabaseModuleConfig,
+  GraphQLModuleConfig,
+  TerminusOptionsService,
+} from './options';
 import { SpellModule } from './spell/spell.module';
 import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      useProcess: false,
-      fileName: '.env',
+    ConfigModule.forRootAsync({
+      useClass: ConfigModuleConfig,
     }),
     DatabaseModule.forRootAsync({
-      useFactory: (configService: ConfigService) => ({
-        connectionUrl: configService.get('DATABASE_URL'),
-        ssl: configService.isProd(),
-      }),
+      useClass: DatabaseModuleConfig,
       inject: [ConfigService],
     }),
     GraphQLModule.forRootAsync({

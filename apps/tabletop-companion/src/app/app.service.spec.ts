@@ -35,7 +35,7 @@ describe('AppService', () => {
       (error) => {
         throw new Error(error.message);
       },
-      () => done()
+      () => done(),
     );
     const op = controller.expectOne(sayHello);
 

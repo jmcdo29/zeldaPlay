@@ -63,7 +63,7 @@ describe('UserService', () => {
               role: ['player'],
               password: 'SomeOtherHashedPassword',
             },
-          ])
+          ]),
         );
       service.getByEmail('test@test.com').subscribe(userObserver(done));
     });
@@ -80,7 +80,7 @@ describe('UserService', () => {
               role: ['player'],
               password: 'someHashedPassword',
             },
-          ])
+          ]),
         );
       service
         .getById({ id: 'USR-TEST1' })
@@ -97,7 +97,7 @@ describe('UserService', () => {
             {
               id: 'USR-TEST1',
             },
-          ])
+          ]),
         );
       service
         .insertUser({

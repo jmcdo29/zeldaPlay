@@ -29,12 +29,12 @@ describe('AuthResolver', () => {
             login: jest
               .fn()
               .mockReturnValue(
-                of(Math.floor(Math.random() * 1000).toString(8))
+                of(Math.floor(Math.random() * 1000).toString(8)),
               ),
             signup: jest
               .fn()
               .mockReturnValue(
-                of(Math.floor(Math.random() * 1000).toString(8))
+                of(Math.floor(Math.random() * 1000).toString(8)),
               ),
           },
         },

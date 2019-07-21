@@ -75,7 +75,7 @@ export class CharacterService {
   }
 
   insertNewCharacter(
-    characterData: CharacterInsertData
+    characterData: CharacterInsertData,
   ): Observable<Character> {
     const params: { values: string[]; fields: string[] } = {
       values: [],
@@ -133,7 +133,7 @@ export class CharacterService {
           character[key] = characterData[key];
         }
         return character;
-      })
+      }),
     );
   }
 

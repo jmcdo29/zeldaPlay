@@ -11,7 +11,7 @@ import {
 export class TerminusOptionsService implements TerminusOptionsFactory {
   constructor(
     private readonly dns: DNSHealthIndicator,
-    private readonly mem: MemoryHealthIndicator
+    private readonly mem: MemoryHealthIndicator,
   ) {}
 
   createTerminusOptions(): TerminusModuleOptions {

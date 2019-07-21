@@ -8,7 +8,7 @@ import {
 
 export function IsCustomId(
   property: string,
-  validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ) {
   return function(object: Object, propertyName: string) {
     registerDecorator({
@@ -22,7 +22,7 @@ export function IsCustomId(
           return (
             id.startsWith(args.constraints[0]) &&
             /^[a-z0-9]{8}-[a-z0-9]{4}-4[a-z0-9]{3}-[ab89][a-z0-9]{3}-[a-z0-9]{12}$/.test(
-              id.substring(args.constraints[0].length)
+              id.substring(args.constraints[0].length),
             )
           );
         },

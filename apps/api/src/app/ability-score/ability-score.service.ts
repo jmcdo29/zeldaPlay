@@ -69,12 +69,12 @@ export class AbilityScoreService {
             abilityScore[key] = ability[key];
           }
           return abilityScore;
-        })
+        }),
       );
   }
 
   insertManyAbilityScores(
-    abilities: AbilityScoreInput[]
+    abilities: AbilityScoreInput[],
   ): Observable<AbilityScore[]> {
     let query = 'INSERT INTO ability_scores (';
     const params: { fields: string[]; values: string[] } = {
@@ -89,7 +89,7 @@ export class AbilityScoreService {
       abilVariables.push(
         abilities[i].name,
         abilities[i].value,
-        abilities[i].characterId
+        abilities[i].characterId,
       );
       params.values.push(`$${i * 3 + 1}, $${i * 3 + 2}, $${i * 3 + 3}`);
     }
@@ -107,7 +107,7 @@ export class AbilityScoreService {
             }
           }
           return abs;
-        })
+        }),
       );
   }
 
@@ -122,12 +122,12 @@ export class AbilityScoreService {
         map((abilityScores) => abilityScores[0]),
         mergeMap((abilityScore) => {
           return this.getAbilityScoreById({ id: abilityScore.id });
-        })
+        }),
       );
   }
 
   updateManyAbilityScores(
-    abilities: AbilityScoreUpdate[]
+    abilities: AbilityScoreUpdate[],
   ): Observable<AbilityScore[]> {
     const variables = [];
     let query = 'UPDATE ability_scores as scores SET ';
@@ -151,7 +151,7 @@ export class AbilityScoreService {
             'SELECT id, name, value, character_id as "characterId" FROM ability_scores WHERE id IN $1;',
           variables: [ids],
         });
-      })
+      }),
     );
   }
 }

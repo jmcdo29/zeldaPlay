@@ -22,14 +22,14 @@ export class AbilityScoreResolver {
 
   @Query(returnAbilityScores, { name: 'characterAbilities' })
   getAbilityScoresByCharacterId(
-    @Args('characterId') charId: CharacterId
+    @Args('characterId') charId: CharacterId,
   ): Observable<AbilityScore[]> {
     return this.abilityScoreService.getAbilityScoresByCharId(charId);
   }
 
   @Query(returnAbilityScore, { name: 'getAbilityScore' })
   getAbilityScoreById(
-    @Args('abilityId') abilityId: AbilityScoreId
+    @Args('abilityId') abilityId: AbilityScoreId,
   ): Observable<AbilityScore> {
     return this.abilityScoreService.getAbilityScoreById(abilityId);
   }
@@ -37,7 +37,7 @@ export class AbilityScoreResolver {
   @UseGuards(GqlAuthGuard)
   @Mutation(returnAbilityScore, { name: 'newAbilityScore' })
   insertOneAbilityScore(
-    @Args('abilityScore') abilityScore: AbilityScoreInput
+    @Args('abilityScore') abilityScore: AbilityScoreInput,
   ): Observable<AbilityScore> {
     return this.abilityScoreService.insertOneAbilityScore(abilityScore);
   }
@@ -46,7 +46,7 @@ export class AbilityScoreResolver {
   @Mutation(returnAbilityScores, { name: 'newAbilityScores' })
   insertManyAbilityScores(
     @Args({ name: 'abilityScores', type: typeAbilityScoreInputs })
-    abilities: AbilityScoreInput[]
+    abilities: AbilityScoreInput[],
   ): Observable<AbilityScore[]> {
     return this.abilityScoreService.insertManyAbilityScores(abilities);
   }
@@ -54,7 +54,7 @@ export class AbilityScoreResolver {
   @UseGuards(GqlAuthGuard)
   @Mutation(returnAbilityScore, { name: 'updateAbilityScore' })
   updateOneAbilityScore(
-    @Args('abilityUpdate') abilityUpdate: AbilityScoreUpdate
+    @Args('abilityUpdate') abilityUpdate: AbilityScoreUpdate,
   ): Observable<AbilityScore> {
     return this.abilityScoreService.updateOneAbilityScore(abilityUpdate);
   }
@@ -63,7 +63,7 @@ export class AbilityScoreResolver {
   @Mutation(returnAbilityScores, { name: 'updateAbilityScores' })
   updateManyAbilityScores(
     @Args({ name: 'abilityScores', type: typeAbilityScoreUpdates })
-    abilities: AbilityScoreUpdate[]
+    abilities: AbilityScoreUpdate[],
   ): Observable<AbilityScore[]> {
     return this.abilityScoreService.updateManyAbilityScores(abilities);
   }

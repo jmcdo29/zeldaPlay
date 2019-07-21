@@ -20,7 +20,7 @@ const userObserver = (done: () => void) => ({
 
 const errorObserver = (
   done: () => void,
-  errorValue: { statusCode: number; error: string; message: string }
+  errorValue: { statusCode: number; error: string; message: string },
 ) => ({
   next(value: unknown) {
     throw new Error('Expected null got value: ' + value);
@@ -51,12 +51,12 @@ describe('AuthService', () => {
                 email: 'test@test.com',
                 role: ['player'],
                 password: 'Pa$$w0rd',
-              })
+              }),
             ),
             insertUser: jest.fn().mockReturnValue(
               of({
                 id: 'USR-TEST',
-              })
+              }),
             ),
           },
         },
@@ -92,7 +92,7 @@ describe('AuthService', () => {
             statusCode: 401,
             error: 'Unauthorized',
             message: 'Invalid email or password.',
-          })
+          }),
         )
         .unsubscribe();
     });
@@ -123,7 +123,7 @@ describe('AuthService', () => {
             statusCode: 400,
             error: 'Bad Request',
             message: 'Email already in use',
-          })
+          }),
         )
         .unsubscribe();
     });

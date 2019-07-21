@@ -21,7 +21,7 @@ export function configure(app: INestApplication, config: ConfigService): void {
     new rateLimiter({
       windowMs: 10 * 60 * 1000,
       max: config.getRateLimit(),
-    })
+    }),
   );
   app.setGlobalPrefix(config.get('GLOBAL_PREFIX'));
   app.useGlobalPipes(new ValidationPipe());

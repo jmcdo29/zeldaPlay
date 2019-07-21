@@ -16,13 +16,14 @@ export class ConfigService {
   private envConfig: EnvConfig;
 
   constructor(
-    @Inject(CONFIG_MODULE_OPTIONS) private readonly options: ConfigModuleOptions
+    @Inject(CONFIG_MODULE_OPTIONS)
+    private readonly options: ConfigModuleOptions,
   ) {
     if (!options.useProcess && !options.fileName) {
       throw new Error(
         'Missing configuration options.' +
           ' If using process.env variables, please mark useProcess as "true".' +
-          ' Otherwise, please provide and env file.'
+          ' Otherwise, please provide and env file.',
       );
     }
     let config: { [key: string]: any };
@@ -38,7 +39,7 @@ export class ConfigService {
     const { error, value: validatedEnvConfig } = Joi.validate(
       config,
       envVarSchema,
-      { allowUnknown: true }
+      { allowUnknown: true },
     );
     if (error) {
       throw new Error(`Config validation error: ${error.message}`);

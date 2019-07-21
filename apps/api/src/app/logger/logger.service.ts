@@ -25,7 +25,7 @@ export class MyLogger implements LoggerService {
   private static printMyMessage(
     level: ('debug' | 'info') | ('fine' | 'error') | ('warn'),
     message: string | object,
-    context?: string
+    context?: string,
   ) {
     const colorStart = '\x1b';
     const reset = colorStart + '[0m';

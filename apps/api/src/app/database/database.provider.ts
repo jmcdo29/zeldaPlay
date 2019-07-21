@@ -3,7 +3,7 @@ import { DATABASE_MODULE_OPTIONS } from './database.constants';
 import { DatabaseModuleOptions } from './interfaces/database-options.interface';
 
 export function createDatabaseProvider(
-  options: DatabaseModuleOptions
+  options: DatabaseModuleOptions,
 ): Provider[] {
   return [
     {

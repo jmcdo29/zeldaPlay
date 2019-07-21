@@ -94,7 +94,7 @@ export class UserService {
           }
           user.isActive = true;
           return user;
-        })
+        }),
       );
   }
 

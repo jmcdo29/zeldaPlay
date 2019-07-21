@@ -163,7 +163,7 @@ describe('AbilityScoreService', () => {
     db.query = jest
       .fn()
       .mockReturnValueOnce(
-        of([{ id: 'ABL-TEST1' }, { id: 'ABL-TEST2' }, { id: 'ABL-TEST3' }])
+        of([{ id: 'ABL-TEST1' }, { id: 'ABL-TEST2' }, { id: 'ABL-TEST3' }]),
       );
     service
       .insertManyAbilityScores([
@@ -232,7 +232,7 @@ describe('AbilityScoreService', () => {
             value: 16,
             characterId: 'CHR-TEST1',
           },
-        ])
+        ]),
       );
     service
       .updateManyAbilityScores(abilityScoresUpdate)

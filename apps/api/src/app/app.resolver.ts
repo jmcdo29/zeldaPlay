@@ -14,7 +14,7 @@ export class AppResolver {
 
   @Query(returnMessage)
   sayHello(
-    @Args({ name: 'data', type: typeString, nullable: true }) data?: string
+    @Args({ name: 'data', type: typeString, nullable: true }) data?: string,
   ): Message {
     return this.appService.getData(data);
   }

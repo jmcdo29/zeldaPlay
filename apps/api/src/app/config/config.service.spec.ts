@@ -102,7 +102,7 @@ describe('ConfigService', () => {
       } catch (err) {
         expect(err).toBeTruthy();
         expect(err.message).toBe(
-          'Config validation error: child "DATABASE_URL" fails because ["DATABASE_URL" is not allowed to be empty]'
+          'Config validation error: child "DATABASE_URL" fails because ["DATABASE_URL" is not allowed to be empty]',
         );
       }
     });
@@ -120,7 +120,7 @@ describe('ConfigService', () => {
         expect(err.message).toBe(
           'Missing configuration options.' +
             ' If using process.env variables, please mark useProcess as "true".' +
-            ' Otherwise, please provide and env file.'
+            ' Otherwise, please provide and env file.',
         );
       }
     });

@@ -45,7 +45,7 @@ describe('UserResolver', () => {
                 id: 'USR-TEST1',
                 email: 'test@test.com',
                 role: ['player'],
-              })
+              }),
             ),
             updateUser: jest.fn().mockReturnValue(of()),
             deleteUser: jest.fn().mockReturnValue(of()),

@@ -31,7 +31,7 @@ export class CharacterResolver {
   @UseGuards(GqlAuthGuard)
   @Mutation(returnCharacter, { name: 'newCharacter' })
   insertCharacter(
-    @Args('characterData') characterInsert: CharacterInsertData
+    @Args('characterData') characterInsert: CharacterInsertData,
   ): Observable<Character> {
     return this.characterService.insertNewCharacter(characterInsert);
   }
@@ -39,7 +39,7 @@ export class CharacterResolver {
   @UseGuards(GqlAuthGuard)
   @Mutation(returnCharacter, { name: 'updateCharacter' })
   updateCharacter(
-    @Args('characterData') characterUpdate: CharacterUpdateData
+    @Args('characterData') characterUpdate: CharacterUpdateData,
   ): Observable<Character> {
     return this.characterService.updateCharacter(characterUpdate);
   }

@@ -30,7 +30,7 @@ export class ConfigModule {
   }
 
   private static createAsyncProviders(
-    options: ConfigModuleAsyncOptions
+    options: ConfigModuleAsyncOptions,
   ): Provider[] {
     if (options.useExisting || options.useFactory) {
       return [this.createAsyncOptionsProviders(options)];
@@ -45,7 +45,7 @@ export class ConfigModule {
   }
 
   private static createAsyncOptionsProviders(
-    options: ConfigModuleAsyncOptions
+    options: ConfigModuleAsyncOptions,
   ): Provider {
     if (options.useFactory) {
       return {
@@ -58,7 +58,7 @@ export class ConfigModule {
       provide: CONFIG_MODULE_OPTIONS,
       useFactory: async (optionsFactory: ConfigOptionsFactory) =>
         await optionsFactory.createConfigOptions(),
-      inject: [options.useClass || options.useExisting],
+      inject: [options.useExisting || options.useClass],
     };
   }
 }

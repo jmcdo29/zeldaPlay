@@ -24,7 +24,7 @@ const querySpy = jest.spyOn(Pool.prototype, 'query').mockImplementation(
       oid: 'something, I guess',
       fields: ['id', 'name'],
       rows: returnResult,
-    }) as any
+    }) as any,
 );
 
 describe('DatabaseService', () => {
@@ -73,7 +73,7 @@ describe('DatabaseService', () => {
     });
     it('should return for an error in the query', (done) => {
       querySpy.mockImplementationOnce(
-        () => Promise.reject(new Error('Error')) as any
+        () => Promise.reject(new Error('Error')) as any,
       );
       service.query<any>({ query: '*', variables: ['characterId'] }).subscribe({
         next(result) {

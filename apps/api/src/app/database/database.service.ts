@@ -12,7 +12,7 @@ export class DatabaseService implements OnModuleInit {
 
   constructor(
     @Inject(DATABASE_MODULE_OPTIONS)
-    private readonly options: DatabaseModuleOptions
+    private readonly options: DatabaseModuleOptions,
   ) {}
 
   onModuleInit() {
@@ -29,7 +29,7 @@ export class DatabaseService implements OnModuleInit {
         scribe.error(err.message);
         scribe.fine(err.stack);
         return of([]);
-      })
+      }),
     );
   }
 }

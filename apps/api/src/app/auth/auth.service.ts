@@ -15,7 +15,7 @@ import { JwtPayload } from './models/jwtPayload';
 export class AuthService {
   constructor(
     private readonly userService: UserService,
-    private readonly jwtService: JwtService
+    private readonly jwtService: JwtService,
   ) {}
 
   login(login: Login): Observable<Auth> {
@@ -33,7 +33,7 @@ export class AuthService {
         } else {
           throw new UnauthorizedException('Invalid email or password.');
         }
-      })
+      }),
     );
   }
 
@@ -55,7 +55,7 @@ export class AuthService {
             role: signup.role,
           }),
         };
-      })
+      }),
     );
   }
 

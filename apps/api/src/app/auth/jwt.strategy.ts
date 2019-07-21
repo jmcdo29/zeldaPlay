@@ -10,7 +10,7 @@ import { JwtPayload } from './models/jwtPayload';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private readonly configService: ConfigService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -25,7 +25,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
           throw new UnauthorizedException();
         }
         return user;
-      })
+      }),
     );
   }
 }

@@ -27,7 +27,7 @@ export class AppService {
       })
       .valueChanges.pipe(
         map((result) => ({ message: result.data.sayHello.message })),
-        tap((data) => console.log(data))
+        tap((data) => console.log(data)),
       );
   }
 }
