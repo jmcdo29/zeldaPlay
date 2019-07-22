@@ -1,16 +1,6 @@
-import { Field, Int, ObjectType } from 'type-graphql';
-
-@ObjectType()
-export class AbilityScore {
-  @Field()
+export interface AbilityScore {
   id: string;
-
-  @Field()
   name: string;
-
-  @Field((type) => Int)
   value: number;
-
-  @Field()
   characterId: string;
 }

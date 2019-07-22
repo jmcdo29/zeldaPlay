@@ -4,12 +4,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Auth, Login, Signup, User } from '@tabletop-companion/api-interface';
 import { compareSync } from 'bcrypt';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { UserDTO } from '../user/models';
 import { UserService } from '../user/user.service';
-import { JwtPayload } from './models/jwtPayload';
+import { AuthDTO, JwtPayload, LoginDTO, SignupDTO } from './models';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +18,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  login(login: Login): Observable<Auth> {
+  login(login: LoginDTO): Observable<AuthDTO> {
     return this.userService.getByEmail(login.email).pipe(
       map((user) => {
         if (compareSync(login.password, user.password)) {
@@ -37,7 +37,7 @@ export class AuthService {
     );
   }
 
-  signup(signup: Signup): Observable<Auth> {
+  signup(signup: SignupDTO): Observable<AuthDTO> {
     return this.userService.getByEmail(signup.email).pipe(
       switchMap((existingUser) => {
         if (existingUser) {
@@ -63,7 +63,7 @@ export class AuthService {
     return this.jwtService.sign(tokenUser);
   }
 
-  validateUser(payload: JwtPayload): Observable<User> {
+  validateUser(payload: JwtPayload): Observable<UserDTO> {
     return this.userService.getByEmail(payload.email);
   }
 }

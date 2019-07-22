@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Character } from '@tabletop-companion/api-interface';
 import { of } from 'rxjs';
 import { DatabaseService } from '../database/database.service';
 import { CharacterService } from './character.service';
+import { CharacterDTO } from './models';
 
-const mockCharacter: Character = {} as any;
+const mockCharacter: CharacterDTO = {} as any;
 
 const characterObserver = (done: () => void, data?: any) => ({
-  next(character: Character) {
+  next(character: CharacterDTO) {
     expect(character).toBeTruthy();
     expect(character).toEqual(data || mockCharacter);
   },
@@ -20,7 +20,7 @@ const characterObserver = (done: () => void, data?: any) => ({
 });
 
 const charactersObserver = (done: () => void) => ({
-  next(characters: Character[]) {
+  next(characters: CharacterDTO[]) {
     expect(characters.length).toBe(2);
     expect(characters).toEqual([mockCharacter, mockCharacter]);
   },

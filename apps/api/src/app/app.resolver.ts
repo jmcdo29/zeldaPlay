@@ -1,12 +1,6 @@
-import { UseInterceptors } from '@nestjs/common';
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import {
-  Message,
-  ofMessage,
-  returnMessage,
-  typeString,
-} from '@tabletop-companion/api-interface';
 import { AppService } from './app.service';
+import { MessageDTO, ofMessage, returnMessage, typeString } from './models';
 
 @Resolver(ofMessage)
 export class AppResolver {
@@ -15,7 +9,7 @@ export class AppResolver {
   @Query(returnMessage)
   sayHello(
     @Args({ name: 'data', type: typeString, nullable: true }) data?: string,
-  ): Message {
+  ): MessageDTO {
     return this.appService.getData(data);
   }
 }

@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Auth } from '@tabletop-companion/api-interface';
 import { of } from 'rxjs';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
+import { AuthDTO } from './models';
 
 const tokenObserver = (done: () => void) => ({
-  next(result: Auth) {
+  next(result: AuthDTO) {
     expect(typeof result).toBe('string');
   },
   error(error: Error) {
