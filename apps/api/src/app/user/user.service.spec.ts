@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from '@tabletop-companion/api-interface';
 import { of } from 'rxjs';
 
 import { DatabaseService } from '../database/database.service';
+import { UserDTO } from './models';
 import { UserService } from './user.service';
 
 const userObserver = (done: () => void) => ({
-  next(value: User) {
+  next(value: UserDTO) {
     expect(value).toEqual({
       id: 'USR-TEST1',
       email: 'test@test.com',

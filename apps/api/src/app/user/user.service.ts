@@ -1,16 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
-import {
-  Signup,
-  User,
-  UserId,
-  UserUpdateData,
-} from '@tabletop-companion/api-interface';
+import { Injectable } from '@nestjs/common';
 import { hashSync } from 'bcrypt';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { SignupDTO } from '../auth/models';
 import { DatabaseService } from '../database/database.service';
 import { MyLogger } from '../logger/logger.service';
+import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 
 @Injectable()
 export class UserService {
@@ -18,7 +14,7 @@ export class UserService {
 
   constructor(private readonly db: DatabaseService) {}
 
-  getByEmail(email: string): Observable<User> {
+  getByEmail(email: string): Observable<UserDTO> {
     const fields: string[] = [];
     fields.push('id as id');
     fields.push('email as email');
@@ -27,14 +23,14 @@ export class UserService {
     const query =
       'SELECT ' + fields.join(', ') + ' FROM players WHERE email = $1;';
     return this.db
-      .query<User>({
+      .query<UserDTO>({
         query,
         variables: [email],
       })
       .pipe(map((users) => users[0]));
   }
 
-  getById(userId: UserId): Observable<User> {
+  getById(userId: UserIdDTO): Observable<UserDTO> {
     const fields: string[] = [];
     fields.push('id as id');
     fields.push('email as email');
@@ -48,14 +44,14 @@ export class UserService {
     const query =
       'SELECT ' + fields.join(', ') + ' FROM players WHERE id = $1;';
     return this.db
-      .query<User>({
+      .query<UserDTO>({
         query,
         variables: [userId.id],
       })
       .pipe(map((users) => users[0]));
   }
 
-  insertUser(signupBody: Signup): Observable<User> {
+  insertUser(signupBody: SignupDTO): Observable<UserDTO> {
     const params: { fields: string[]; values: string[] } = {
       fields: [],
       values: [],
@@ -82,7 +78,7 @@ export class UserService {
     query += params.values.join(', ');
     query += ') RETURNING id;';
     return this.db
-      .query<User>({
+      .query<UserDTO>({
         query,
         variables: userVariables,
       })
@@ -98,11 +94,11 @@ export class UserService {
       );
   }
 
-  updateUser(updateBody: UserUpdateData): Observable<any> {
+  updateUser(updateBody: UserUpdateDataDTO): Observable<any> {
     return of();
   }
 
-  deleteUser(userId: UserId): Observable<void> {
+  deleteUser(userId: UserIdDTO): Observable<void> {
     this.db
       .query({
         query: 'UPDATE players SET is_active=$1 WHERE id = $2',

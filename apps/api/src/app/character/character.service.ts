@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import {
-  Character,
-  CharacterId,
-  CharacterInsertData,
-  CharacterUpdateData,
-  UserId,
-} from '@tabletop-companion/api-interface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DatabaseService } from '../database/database.service';
+import { UserIdDTO } from '../user/models';
+import {
+  CharacterDTO,
+  CharacterIdDTO,
+  CharacterInsertDataDTO,
+  CharacterUpdateDataDTO,
+} from './models';
 
 @Injectable()
 export class CharacterService {
   constructor(private readonly db: DatabaseService) {}
 
-  getCharacterById(id: CharacterId): Observable<Character> {
+  getCharacterById(id: CharacterIdDTO): Observable<CharacterDTO> {
     const fields: string[] = [];
     fields.push('id as id');
     fields.push('name as name');
@@ -38,14 +38,14 @@ export class CharacterService {
     const query =
       'SELECT ' + fields.join(', ') + ' FROM characters WHERE id = $1;';
     return this.db
-      .query<Character>({
+      .query<CharacterDTO>({
         query,
         variables: [id.id],
       })
       .pipe(map((characters) => characters[0]));
   }
 
-  getCharactersByUserId(userId: UserId): Observable<Character[]> {
+  getCharactersByUserId(userId: UserIdDTO): Observable<CharacterDTO[]> {
     const fields: string[] = [];
     fields.push('id as id');
     fields.push('name as name');
@@ -68,15 +68,15 @@ export class CharacterService {
     fields.push('game as game');
     const query =
       'SELECT ' + fields.join(', ') + ' FROM characters WHERE player_id = $1;';
-    return this.db.query<Character>({
+    return this.db.query<CharacterDTO>({
       query,
       variables: [userId.id],
     });
   }
 
   insertNewCharacter(
-    characterData: CharacterInsertData,
-  ): Observable<Character> {
+    characterData: CharacterInsertDataDTO,
+  ): Observable<CharacterDTO> {
     const params: { values: string[]; fields: string[] } = {
       values: [],
       fields: [],
@@ -126,20 +126,24 @@ export class CharacterService {
     query += ') VALUES (';
     query += params.values.join(', ');
     query += ') RETURNING id;';
-    return this.db.query<Character>({ query, variables: charVariables }).pipe(
-      map((characters) => characters[0]),
-      map((character) => {
-        for (const key of Object.keys(characterData)) {
-          character[key] = characterData[key];
-        }
-        return character;
-      }),
-    );
+    return this.db
+      .query<CharacterDTO>({ query, variables: charVariables })
+      .pipe(
+        map((characters) => characters[0]),
+        map((character) => {
+          for (const key of Object.keys(characterData)) {
+            character[key] = characterData[key];
+          }
+          return character;
+        }),
+      );
   }
 
-  updateCharacter(characterData: CharacterUpdateData): Observable<Character> {
+  updateCharacter(
+    characterData: CharacterUpdateDataDTO,
+  ): Observable<CharacterDTO> {
     return this.db
-      .query<Character>({ query: '', variables: [] })
+      .query<CharacterDTO>({ query: '', variables: [] })
       .pipe(map((characters) => characters[0]));
   }
 }

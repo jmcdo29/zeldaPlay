@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Message } from '@tabletop-companion/api-interface';
+import { MessageDTO } from './models/message.graphql';
 
 @Injectable()
 export class AppService {
-  getData(data?: string): Message {
+  getData(data?: string): MessageDTO {
     const message = data ? `Hello, ${data}!` : 'Welcome to api!';
     return { message };
   }
