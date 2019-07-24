@@ -7,7 +7,6 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CharacterModule } from './character/character.module';
 import { ConfigModule } from './config/config.module';
-import { ConfigService } from './config/config.service';
 import { DatabaseModule } from './database/database.module';
 import { LoggerModule } from './logger/logger.module';
 import {
@@ -26,11 +25,9 @@ import { UserModule } from './user/user.module';
     }),
     DatabaseModule.forRootAsync({
       useClass: DatabaseModuleConfig,
-      inject: [ConfigService],
     }),
     GraphQLModule.forRootAsync({
       useClass: GraphQLModuleConfig,
-      inject: [ConfigService],
     }),
     TerminusModule.forRootAsync({
       useClass: TerminusOptionsService,

@@ -6,6 +6,8 @@
   />
 </div>
 <div>
+  <input type="text" [formControl]="name" />
+  <button (click)="submit()">Submit!</button>
   <tabletop-companion-message
     [message]="hello$ | async"
   ></tabletop-companion-message>

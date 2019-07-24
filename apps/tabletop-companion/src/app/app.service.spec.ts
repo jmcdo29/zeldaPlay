@@ -48,4 +48,26 @@ describe('AppService', () => {
     });
     controller.verify();
   });
+  it('should say Hello "name"', (done) => {
+    service.getHello('Tester').subscribe(
+      (result) => {
+        expect(result.message).toBe('Hello, Tester!');
+        done();
+      },
+      (error) => {
+        throw new Error(error.message);
+      },
+      () => done(),
+    );
+    const op = controller.expectOne(sayHello);
+
+    op.flush({
+      data: {
+        sayHello: {
+          message: 'Hello, Tester!',
+        },
+      },
+    });
+    controller.verify();
+  });
 });

@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 export const sayHello = gql`
-  query sayHello {
-    sayHello(data: "") {
+  query sayHello($name: String) {
+    sayHello(data: $name) {
       message
     }
   }
@@ -19,11 +19,14 @@ export const sayHello = gql`
 export class AppService {
   constructor(private readonly apollo: Apollo) {}
 
-  getHello(): Observable<Message> {
+  getHello(name?: string | number): Observable<Message> {
     console.log('calling for graphql sayHello');
     return this.apollo
       .watchQuery<{ sayHello: Message }>({
         query: sayHello,
+        variables: {
+          name,
+        },
       })
       .valueChanges.pipe(
         map((result) => ({ message: result.data.sayHello.message })),
