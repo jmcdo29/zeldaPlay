@@ -8,7 +8,7 @@ describe('ConfigService', () => {
   let service: ConfigService;
 
   beforeEach(() => {
-    service = null;
+    service = null as any;
   });
 
   describe('process.env config', () => {

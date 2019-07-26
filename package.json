@@ -16,7 +16,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "env LOG_LEVEL=off ng test && npm run test:jest",
+    "test": "env LOG_LEVEL=off ng test",
     "lint": "nx lint && ng lint",
     "e2e": "ng e2e",
     "affected:apps": "nx affected:apps",
@@ -140,7 +140,12 @@
     }
   },
   "lint-staged": {
-    "*.format:write": [
+    "*.ts": [
+      "prettier --write",
+      "tslint -p tsconfig.json",
+      "git add"
+    ],
+    "*.{md,html,json,js}": [
       "prettier --write",
       "git add"
     ]

@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '../config/config.service';
 import {
   ConfigModuleOptions,
   ConfigOptionsFactory,

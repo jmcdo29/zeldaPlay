@@ -17,7 +17,7 @@ export class ConfigService {
 
   constructor(
     @Inject(CONFIG_MODULE_OPTIONS)
-    private readonly options: ConfigModuleOptions,
+    options: ConfigModuleOptions,
   ) {
     if (!options.useProcess && !options.fileName) {
       throw new Error(
@@ -28,7 +28,9 @@ export class ConfigService {
     }
     let config: { [key: string]: any };
     if (options.fileName) {
-      config = parse(readFileSync(join(process.env.PWD, options.fileName)));
+      config = parse(
+        readFileSync(join(process.env.PWD as string, options.fileName)),
+      );
     } else {
       config = process.env;
     }
