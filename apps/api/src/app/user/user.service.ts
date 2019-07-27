@@ -85,10 +85,11 @@ export class UserService {
       .pipe(
         map((newUsers) => newUsers[0]),
         map((user) => {
-          for (const key of Object.keys(signupBody)) {
-            user[key] = signupBody[key];
-          }
-          user.isActive = true;
+          user = {
+            id: user.id,
+            isActive: true,
+            ...signupBody,
+          };
           return user;
         }),
       );

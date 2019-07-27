@@ -1,6 +1,6 @@
 import { Character } from './character';
 export class CharacterUpdateData implements Partial<Character> {
-  id: string;
+  id!: string;
   experience?: number;
   maxHealth?: number;
   health?: number;

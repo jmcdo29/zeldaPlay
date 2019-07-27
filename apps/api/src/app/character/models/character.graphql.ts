@@ -1,62 +1,69 @@
 import { Character } from '@tabletop-companion/api-interface';
-import { Field, Int, ObjectType } from 'type-graphql';
+import { Field, ObjectType } from 'type-graphql';
+import {
+  nullable,
+  typeBoolean,
+  typeInt,
+  typeString,
+  typeStrings,
+} from '../../models';
 
 @ObjectType()
 export class CharacterDTO implements Character {
   @Field()
-  id: string;
+  id!: string;
 
   @Field()
-  name: string;
+  name!: string;
 
   @Field()
-  race: string;
+  race!: string;
 
-  @Field({ nullable: true })
-  subrace: string;
+  @Field(nullable)
+  subrace!: string;
 
-  @Field((type) => Int)
-  experience: number;
+  @Field(typeInt)
+  experience!: number;
 
-  @Field((type) => Int)
-  maxHealth: number;
+  @Field(typeInt)
+  maxHealth!: number;
 
-  @Field((type) => Int)
-  health: number;
+  @Field(typeInt)
+  health!: number;
 
-  @Field((type) => Boolean, { nullable: true })
+  @Field(typeBoolean, nullable)
   isDead = false;
 
   @Field()
-  playerId: string;
+  playerId!: string;
 
-  @Field((type) => Int)
+  @Field(typeInt)
   level = 1;
 
   @Field()
-  alignment: string;
+  alignment!: string;
 
   @Field()
-  background: string;
+  background!: string;
 
   @Field()
-  ideal: string;
+  ideal!: string;
 
   @Field()
-  bond: string;
+  bond!: string;
 
   @Field()
-  flaw: string;
+  flaw!: string;
 
-  @Field((type) => [String])
-  personalityTraits: string[];
+  @Field(typeStrings)
+  personalityTraits!: string[];
 
-  @Field((type) => [String])
-  proficiencies: string[];
+  @Field(typeStrings)
+  proficiencies!: string[];
 
-  @Field((type) => [String])
-  languages: string[];
+  @Field(typeStrings)
+  languages!: string[];
 
-  @Field((type) => String)
+  @Field(typeString)
   game = 'dd5';
 }

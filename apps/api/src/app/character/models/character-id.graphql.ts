@@ -7,5 +7,5 @@ import { IsCustomId } from '../../validators';
 export class CharacterIdDTO implements CharacterId {
   @Field()
   @IsCustomId('CHR')
-  id: string;
+  id!: string;
 }

@@ -8,12 +8,9 @@ import {
   IsString,
   Min,
 } from 'class-validator';
-import { Field, InputType, Int } from 'type-graphql';
+import { Field, InputType } from 'type-graphql';
+import { nullable, typeBoolean, typeInt, typeStrings } from '../../models';
 import { IsCustomId } from '../../validators/isCustomId';
-
-const nullable = { nullable: true };
-
-const intType = (type) => Int;
 
 @InputType()
 export class CharacterUpdateDataDTO implements CharacterUpdateData {
@@ -21,40 +18,40 @@ export class CharacterUpdateDataDTO implements CharacterUpdateData {
   @IsCustomId('CHR')
   @IsNotEmpty()
   @IsString()
-  id: string;
+  id!: string;
 
-  @Field(intType, nullable)
+  @Field(typeInt, nullable)
   @IsNumber()
   @IsOptional()
   experience?: number;
 
-  @Field(intType, nullable)
+  @Field(typeInt, nullable)
   @IsNumber()
   @IsOptional()
   maxHealth?: number;
 
-  @Field(intType, nullable)
+  @Field(typeInt, nullable)
   @IsNumber()
   @IsOptional()
   health?: number;
 
-  @Field((type) => Boolean, nullable)
+  @Field(typeBoolean, nullable)
   @IsBoolean()
   @IsOptional()
   isDead?: boolean;
 
-  @Field(intType, nullable)
+  @Field(typeInt, nullable)
   @IsNumber()
   @Min(1)
   @IsOptional()
   level?: number;
 
-  @Field((type) => [String], { nullable: 'itemsAndList' })
+  @Field(typeStrings, { nullable: 'itemsAndList' })
   @IsArray()
   @IsOptional()
   languages?: string[];
 
-  @Field((type) => [String], { nullable: 'itemsAndList' })
+  @Field(typeStrings, { nullable: 'itemsAndList' })
   @IsArray()
   @IsOptional()
   proficiencies?: string[];

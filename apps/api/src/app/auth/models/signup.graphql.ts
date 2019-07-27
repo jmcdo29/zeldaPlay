@@ -8,6 +8,7 @@ import {
   MinLength,
 } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
+import { typeBoolean, typeStrings } from '../../models';
 import { IsPassword } from '../../validators';
 
 @InputType()
@@ -16,38 +17,38 @@ export class SignupDTO implements Signup {
   @IsString()
   @IsNotEmpty()
   @Field()
-  email: string;
+  email!: string;
 
   @IsString()
   @MinLength(8)
   @IsNotEmpty()
   @IsPassword()
   @Field()
-  password: string;
+  password!: string;
 
   @IsNotEmpty()
   @IsString()
   @MinLength(8)
   @IsPassword()
   @Field()
-  confirmationPassword: string;
+  confirmationPassword!: string;
 
   @IsString()
   @IsNotEmpty()
   @Field()
-  firstName: string;
+  firstName!: string;
 
   @IsString()
   @IsNotEmpty()
   @Field()
-  lastName: string;
+  lastName!: string;
 
   @IsBoolean()
   @IsOptional()
-  @Field((type) => Boolean)
+  @Field(typeBoolean)
   consentToEmail = false;
 
   @IsOptional()
-  @Field((type) => [String], { nullable: true })
+  @Field(typeStrings, { nullable: true })
   role: string[] = ['player'];
 }

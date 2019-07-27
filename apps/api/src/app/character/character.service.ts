@@ -131,9 +131,10 @@ export class CharacterService {
       .pipe(
         map((characters) => characters[0]),
         map((character) => {
-          for (const key of Object.keys(characterData)) {
-            character[key] = characterData[key];
-          }
+          character = {
+            id: character.id,
+            ...characterData,
+          };
           return character;
         }),
       );

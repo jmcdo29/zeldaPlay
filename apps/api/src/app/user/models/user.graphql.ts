@@ -1,30 +1,31 @@
 import { User } from '@tabletop-companion/api-interface';
 import { Field, ObjectType } from 'type-graphql';
+import { typeBoolean, typeStrings } from '../../models';
 
 @ObjectType()
 export class UserDTO implements User {
   @Field()
-  id: string;
+  id!: string;
 
   @Field()
-  email: string;
+  email!: string;
 
-  password: string;
-
-  @Field()
-  firstName: string;
+  password!: string;
 
   @Field()
-  lastName: string;
+  firstName!: string;
 
-  @Field((type) => Boolean)
+  @Field()
+  lastName!: string;
+
+  @Field(typeBoolean)
   consentToEmail = false;
 
-  recoveryToken: string;
+  recoveryToken?: string;
 
-  @Field((type) => Boolean)
+  @Field(typeBoolean)
   isActive = true;
 
-  @Field((type) => [String])
+  @Field(typeStrings)
   role: string[] = ['player'];
 }

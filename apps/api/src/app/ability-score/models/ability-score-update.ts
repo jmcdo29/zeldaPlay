@@ -1,6 +1,7 @@
 import { AbilityScoreUpdate } from '@tabletop-companion/api-interface';
 import { IsNotEmpty, IsNumber, IsString, Max, Min } from 'class-validator';
-import { Field, InputType, Int } from 'type-graphql';
+import { Field, InputType } from 'type-graphql';
+import { typeInt } from '../../models';
 import { IsCustomId } from '../../validators';
 
 @InputType()
@@ -9,12 +10,12 @@ export class AbilityScoreUpdateDTO implements AbilityScoreUpdate {
   @IsCustomId('ABL')
   @IsNotEmpty()
   @IsString()
-  id: string;
+  id!: string;
 
-  @Field((type) => Int)
+  @Field(typeInt)
   @Max(20)
   @Min(0)
   @IsNumber()
   @IsNotEmpty()
-  value: number;
+  value!: number;
 }

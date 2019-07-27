@@ -9,7 +9,8 @@ import {
   IsString,
   Min,
 } from 'class-validator';
-import { Field, InputType, Int } from 'type-graphql';
+import { Field, InputType } from 'type-graphql';
+import { nullable, typeBoolean, typeInt, typeStrings } from '../../models';
 import { IsCustomId } from '../../validators';
 
 @InputType()
@@ -17,42 +18,42 @@ export class CharacterInsertDataDTO implements CharacterInsertData {
   @Field()
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @Field()
   @IsString()
   @IsNotEmpty()
-  race: string;
+  race!: string;
 
-  @Field({ nullable: true })
+  @Field(nullable)
   @IsString()
-  subrace: string;
+  subrace!: string;
 
-  @Field((type) => Int)
+  @Field(typeInt)
   @IsNumber()
   @Min(0)
-  experience: number;
+  experience!: number;
 
-  @Field((type) => Int)
+  @Field(typeInt)
   @IsNumber()
   @Min(1)
-  maxHealth: number;
+  maxHealth!: number;
 
-  @Field((type) => Int)
+  @Field(typeInt)
   @IsNumber()
   @Min(0)
-  health: number;
+  health!: number;
 
-  @Field((type) => Boolean, { nullable: true })
+  @Field(typeBoolean, nullable)
   @IsBoolean()
   @IsOptional()
   isDead = false;
 
   @Field()
   @IsCustomId('USR')
-  playerId: string;
+  playerId!: string;
 
-  @Field((type) => Int)
+  @Field(typeInt)
   @IsNumber()
   @Min(1)
   level = 1;
@@ -60,44 +61,44 @@ export class CharacterInsertDataDTO implements CharacterInsertData {
   @Field()
   @IsString()
   @IsNotEmpty()
-  alignment: string;
+  alignment!: string;
 
   @Field()
   @IsString()
   @IsNotEmpty()
-  background: string;
+  background!: string;
 
   @Field()
   @IsString()
   @IsNotEmpty()
-  ideal: string;
+  ideal!: string;
 
   @Field()
   @IsString()
   @IsNotEmpty()
-  bond: string;
+  bond!: string;
 
   @Field()
   @IsString()
   @IsNotEmpty()
-  flaw: string;
+  flaw!: string;
 
-  @Field((type) => [String])
+  @Field(typeStrings)
   @IsArray()
   @ArrayNotEmpty()
-  personalityTraits: string[];
+  personalityTraits!: string[];
 
-  @Field((type) => [String])
+  @Field(typeStrings)
   @IsArray()
   @ArrayNotEmpty()
-  proficiencies: string[];
+  proficiencies!: string[];
 
-  @Field((type) => [String])
+  @Field(typeStrings)
   @IsArray()
   @ArrayNotEmpty()
-  languages: string[];
+  languages!: string[];
 
-  @Field((type) => String)
+  @Field(typeStrings)
   @IsString()
   @IsNotEmpty()
   game = 'dd5';

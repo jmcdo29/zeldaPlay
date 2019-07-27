@@ -10,5 +10,5 @@ export class AbilityScoreIdDTO implements AbilityScoreId {
   @IsCustomId('ABL')
   @IsNotEmpty()
   @IsString()
-  id: string;
+  id!: string;
 }

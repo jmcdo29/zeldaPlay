@@ -35,13 +35,16 @@ export class ConfigModule {
     if (options.useExisting || options.useFactory) {
       return [this.createAsyncOptionsProviders(options)];
     }
-    return [
-      this.createAsyncOptionsProviders(options),
-      {
-        provide: options.useClass,
-        useClass: options.useClass,
-      },
-    ];
+    if (options.useClass) {
+      return [
+        this.createAsyncOptionsProviders(options),
+        {
+          provide: options.useClass,
+          useClass: options.useClass,
+        },
+      ];
+    }
+    throw new Error('Invalid ConfigModule configuration.');
   }
 
   private static createAsyncOptionsProviders(
@@ -58,7 +61,7 @@ export class ConfigModule {
       provide: CONFIG_MODULE_OPTIONS,
       useFactory: async (optionsFactory: ConfigOptionsFactory) =>
         await optionsFactory.createConfigOptions(),
-      inject: [options.useExisting || options.useClass],
+      inject: [options.useExisting || options.useClass || ''],
     };
   }
 }

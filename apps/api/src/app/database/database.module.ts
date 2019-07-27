@@ -35,13 +35,16 @@ export class DatabaseModule {
     if (options.useExisting || options.useFactory) {
       return [this.createAsyncOptionsProvider(options)];
     }
-    return [
-      this.createAsyncOptionsProvider(options),
-      {
-        provide: options.useClass,
-        useClass: options.useClass,
-      },
-    ];
+    if (options.useClass) {
+      return [
+        this.createAsyncOptionsProvider(options),
+        {
+          provide: options.useClass,
+          useClass: options.useClass,
+        },
+      ];
+    }
+    throw new Error('Invalid DatabaseModule configuration.');
   }
 
   private static createAsyncOptionsProvider(
@@ -58,7 +61,7 @@ export class DatabaseModule {
       provide: DATABASE_MODULE_OPTIONS,
       useFactory: async (optionsFactory: DatabaseOptionsFactory) =>
         await optionsFactory.createDatabaseOptions(),
-      inject: [options.useExisting || options.useClass],
+      inject: [options.useExisting || options.useClass || ''],
     };
   }
 }

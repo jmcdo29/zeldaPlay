@@ -7,5 +7,5 @@ import { IsCustomId } from '../../validators';
 export class UserIdDTO implements UserId {
   @Field()
   @IsCustomId('USR')
-  readonly id: string;
+  readonly id!: string;
 }

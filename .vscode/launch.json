@@ -6,12 +6,9 @@
   "configurations": [
     {
       "type": "node",
-      "request": "launch",
-      "name": "Launch program",
-      // "program": "${workspaceFolder}/apps/api/src/main.ts",
-      "preLaunchTask": "build",
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "args": ["${workspaceFolder}/dist/apps/api/main.js"]
+      "request": "attach",
+      "name": "Attach",
+      "port": 7777
     }
   ]
 }

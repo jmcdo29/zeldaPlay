@@ -8,7 +8,7 @@ import { DatabaseModuleOptions } from './interfaces/database-options.interface';
 
 @Injectable()
 export class DatabaseService implements OnModuleInit {
-  private pool: Pool;
+  private pool!: Pool;
 
   constructor(
     @Inject(DATABASE_MODULE_OPTIONS)

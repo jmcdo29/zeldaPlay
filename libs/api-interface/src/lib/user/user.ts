@@ -5,7 +5,7 @@ export interface User {
   firstName: string;
   lastName: string;
   consentToEmail: boolean;
-  recoveryToken: string;
+  recoveryToken?: string;
   isActive: boolean;
   role: string[];
 }

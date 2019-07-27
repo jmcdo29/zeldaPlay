@@ -11,7 +11,7 @@ import {
   CharacterUpdateDataDTO,
   ofCharacter,
   returnCharacter,
-  returnCharacterArray,
+  returnCharacters,
 } from './models';
 
 @Resolver(ofCharacter)
@@ -23,7 +23,7 @@ export class CharacterResolver {
     return this.characterService.getCharacterById(id);
   }
 
-  @Query(returnCharacterArray, { name: 'userCharacters' })
+  @Query(returnCharacters, { name: 'userCharacters' })
   getUserCharacters(
     @Args('userId') userId: UserIdDTO,
   ): Observable<CharacterDTO[]> {

@@ -64,12 +64,10 @@ export class AbilityScoreService {
       .query<AbilityScore>({ query, variables: abilVariables })
       .pipe(
         map((abilityScores) => abilityScores[0]),
-        map((abilityScore) => {
-          for (const key of Object.keys(ability)) {
-            abilityScore[key] = ability[key];
-          }
-          return abilityScore;
-        }),
+        map((abilityScore) => ({
+          id: abilityScore.id,
+          ...ability,
+        })),
       );
   }
 
@@ -102,9 +100,10 @@ export class AbilityScoreService {
       .pipe(
         map((abs) => {
           for (let i = 0; i < abs.length; i++) {
-            for (const key of Object.keys(abilities[i])) {
-              abs[i][key] = abilities[i][key];
-            }
+            abs[i] = {
+              id: abs[i].id,
+              ...abilities[i],
+            };
           }
           return abs;
         }),

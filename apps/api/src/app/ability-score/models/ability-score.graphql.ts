@@ -1,17 +1,18 @@
 import { AbilityScore } from '@tabletop-companion/api-interface';
-import { Field, Int, ObjectType } from 'type-graphql';
+import { Field, ObjectType } from 'type-graphql';
+import { typeInt } from '../../models';
 
 @ObjectType()
 export class AbilityScoreDTO implements AbilityScore {
   @Field()
-  id: string;
+  id!: string;
 
   @Field()
-  name: string;
+  name!: string;
 
-  @Field((type) => Int)
-  value: number;
+  @Field(typeInt)
+  value!: number;
 
   @Field()
-  characterId: string;
+  characterId!: string;
 }
