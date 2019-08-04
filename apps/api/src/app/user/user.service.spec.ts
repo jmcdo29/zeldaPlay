@@ -47,41 +47,37 @@ describe('UserService', () => {
   });
   describe('getByEmail', () => {
     it('should get the first corresponding user', (done) => {
-      const dbSpy = jest
-        .spyOn(module.get(DatabaseService), 'query')
-        .mockReturnValueOnce(
-          of([
-            {
-              id: 'USR-TEST1',
-              email: 'test@test.com',
-              role: ['player'],
-              password: 'someHashedPassword',
-            },
-            {
-              id: 'USR-TEST2',
-              email: 'test@test.org',
-              role: ['player'],
-              password: 'SomeOtherHashedPassword',
-            },
-          ]),
-        );
+      jest.spyOn(module.get(DatabaseService), 'query').mockReturnValueOnce(
+        of([
+          {
+            id: 'USR-TEST1',
+            email: 'test@test.com',
+            role: ['player'],
+            password: 'someHashedPassword',
+          },
+          {
+            id: 'USR-TEST2',
+            email: 'test@test.org',
+            role: ['player'],
+            password: 'SomeOtherHashedPassword',
+          },
+        ]),
+      );
       service.getByEmail('test@test.com').subscribe(userObserver(done));
     });
   });
   describe('getById', () => {
     it('should return the user with the id', (done) => {
-      const dbSpy = jest
-        .spyOn(module.get(DatabaseService), 'query')
-        .mockReturnValueOnce(
-          of([
-            {
-              id: 'USR-TEST1',
-              email: 'test@test.com',
-              role: ['player'],
-              password: 'someHashedPassword',
-            },
-          ]),
-        );
+      jest.spyOn(module.get(DatabaseService), 'query').mockReturnValueOnce(
+        of([
+          {
+            id: 'USR-TEST1',
+            email: 'test@test.com',
+            role: ['player'],
+            password: 'someHashedPassword',
+          },
+        ]),
+      );
       service
         .getById({ id: 'USR-TEST1' })
         .subscribe(userObserver(done))

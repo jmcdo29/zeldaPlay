@@ -11,8 +11,8 @@ COPY . .
 FROM dependencies AS lint
 RUN npm run affected:lint
 
-# FROM dependencies AS test
-# RUN env LOG_LEVEL=OFF npm run affected:test
+FROM dependencies AS test
+RUN npm run affected:test
 
 FROM dependencies AS build
 RUN npm run affected:build -- --prod

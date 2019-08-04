@@ -89,7 +89,6 @@ const abilityScoresObserver = (done: () => void) => ({
 
 describe('AbilityScoreResolver', () => {
   let resolver: AbilityScoreResolver;
-  let service: AbilityScoreService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -122,7 +121,6 @@ describe('AbilityScoreResolver', () => {
     }).compile();
 
     resolver = module.get<AbilityScoreResolver>(AbilityScoreResolver);
-    service = module.get<AbilityScoreService>(AbilityScoreService);
   });
 
   it('should be defined', () => {

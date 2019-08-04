@@ -1,14 +1,25 @@
-import { async, TestBed } from '@angular/core/testing';
+import { Component, Input } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Message } from '@tabletop-companion/api-interface';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 
+@Component({ selector: 'tabletop-companion-message', template: '' })
+class MessageMockComponent {
+  @Input()
+  message: Message;
+}
+
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
   let component: AppComponent;
+  let service: AppService;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
+      imports: [ReactiveFormsModule],
+      declarations: [AppComponent, MessageMockComponent],
       providers: [
         {
           provide: AppService,
@@ -24,9 +35,10 @@ describe('AppComponent', () => {
 
   describe('successes', () => {
     beforeEach(() => {
-      const fixture = TestBed.createComponent(AppComponent);
+      fixture = TestBed.createComponent(AppComponent);
       component = fixture.debugElement.componentInstance;
       fixture.detectChanges();
+      service = TestBed.get(AppService);
     });
 
     it('should create the app', () => {
@@ -44,6 +56,13 @@ describe('AppComponent', () => {
           done();
         },
       });
+    });
+    it('should update the name', () => {
+      service.getHello = jest
+        .fn()
+        .mockReturnValueOnce(of<Message>({ message: 'Hello, Tester!' }));
+      component.name.setValue('Tester');
+      expect(component.name.value).toBe('Tester');
     });
   });
 });

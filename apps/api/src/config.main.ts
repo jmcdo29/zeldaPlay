@@ -10,8 +10,7 @@ export function configure(app: INestApplication, config: ConfigService): void {
   const morganFormat = config.isProd() ? 'combined' : 'dev';
   app.use(
     morgan(morganFormat, {
-      skip: (req: any, res: any) =>
-        morganFormat === 'combined' && req.statusCode < 400,
+      skip: (req: any, res: any) => config.isProd() && req.statusCode < 400,
       stream: {
         write: (value: string) => MyLogger.log(value.trim(), 'Morgan'),
       },

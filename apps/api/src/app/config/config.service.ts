@@ -1,7 +1,7 @@
+import * as Joi from '@hapi/joi';
 import { Inject, Injectable } from '@nestjs/common';
 import { parse } from 'dotenv';
 import { readFileSync } from 'fs';
-import * as Joi from 'joi';
 import { join } from 'path';
 import { CONFIG_MODULE_OPTIONS } from './config.constants';
 import { ConfigModuleOptions } from './interfaces/config-options.interface';
