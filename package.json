@@ -65,7 +65,7 @@
     "class-transformer": "^0.2.3",
     "class-validator": "^0.9.1",
     "compression": "^1.7.4",
-    "connect-redis": "^3.4.1",
+    "connect-redis": "^3.4.2",
     "core-js": "^3.1.4",
     "dotenv": "^8.0.0",
     "express-rate-limit": "^5.0.0",

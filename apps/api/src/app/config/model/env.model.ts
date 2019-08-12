@@ -13,4 +13,8 @@ export const envVarSchema = Joi.object({
   JWT_EXPIRES: Joi.string().default(3600),
   RATE_LIMIT: Joi.number().default(100),
   LOG_LEVEL: Joi.string().default('INFO'),
+  SESSION_SECRET: Joi.string().required(),
+  REDIS_URL: Joi.string()
+    .uri()
+    .required(),
 });
