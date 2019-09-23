@@ -1,39 +1,25 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "types": ["node", "jest"],
-    "outDir": "./dist",
-    "baseUrl": "./src",
-    "inlineSourceMap": true,
+    "sourceMap": true,
     "declaration": false,
-    "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es6",
+    "module": "commonjs",
     "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"],
-    "target": "es2018",
+    "lib": ["es2017", "dom", "esnext.asynciterable", "esnext"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
     "paths": {
-      "#Enums/*": ["client/app/models/enums/*"],
-      "#Races/*": ["client/app/models/races/*"],
-      "#Models/*": ["client/app/models/*"],
-      "#Alert/*": ["client/app/alert/*"],
-      "#Shared/*": ["client/app/shared/*"],
-      "#Mocks/*": ["client/app/mocks/*"],
-      "#Environment/*": ["client/environments/*"],
-      "@Auth/*": ["server/app/auth/*"],
-      "@Body/*": ["server/app/models/bodies/*"],
-      "@Db/*": ["server/app/db/*"],
-      "@DbModel/*": ["server/app/db/models/*"],
-      "@Character/*": ["server/app/zeldaplay/character/*"],
-      "@Decorators/*": ["server/app/decorators/*"],
-      "@Parameter/*": ["server/app/models/parameters/*"],
-      "@Note/*": ["server/app/zeldaplay/note/*"],
-      "@Shared/*": ["server/app/shared/*"],
-      "@Skill/*": ["server/app/zeldaplay/skill/*"],
-      "@Spell/*": ["server/app/zeldaplay/spell/*"],
-      "@User/*": ["server/app/user/*"],
-      "@Weapon/*": ["server/app/zeldaplay/weapon/*"]
-    }
-  }
+      "@tabletop-companion/api-interface": ["libs/api-interface/src/index.ts"]
+    },
+    "rootDir": ".",
+    "noUnusedLocals": true,
+    "pretty": true
+  },
+  "exclude": ["node_modules", "tmp"]
 }

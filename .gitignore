@@ -2,12 +2,12 @@
 
 # compiled output
 /dist
-/dist-server
 /tmp
 /out-tsc
 
 # dependencies
 /node_modules
+node_modules/
 
 # IDEs and editors
 /.idea
@@ -20,6 +20,7 @@
 
 # IDE - VSCode
 .vscode/*
+!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
@@ -27,28 +28,19 @@
 # misc
 /.sass-cache
 /connect.lock
-**/coverage/**
+/coverage
 /libpeerconnection.log
 npm-debug.log
+yarn-error.log
 testem.log
 /typings
-*.log
-
-# e2e
-/e2e/*.js
-/e2e/*.map
 
 # System Files
 .DS_Store
 Thumbs.db
 
-# Personally created files
-
 .env
-/reference
-seeds
-testDelete.js
-*.pem
-*.csr
-/database
-scripts/db/all.sql
+*.gql
+docker-compose.yml
+
+coverage/

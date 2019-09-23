@@ -1,0 +1,13 @@
+<div style="text-align:center">
+  <h1>Welcome to tabletop-companion!</h1>
+  <img
+    width="450"
+    src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png"
+  />
+</div>
+<div>
+  <input type="text" [formControl]="name" />
+  <tabletop-companion-message
+    [message]="hello$ | async"
+  ></tabletop-companion-message>
+</div>

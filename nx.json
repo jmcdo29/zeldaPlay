@@ -1,0 +1,24 @@
+{
+  "npmScope": "tabletop-companion",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "tabletop-companion": {
+      "tags": ["frontend"]
+    },
+    "tabletop-companion-e2e": {
+      "tags": ["frontend", "test"]
+    },
+    "api": {
+      "tags": ["backend"]
+    },
+    "api-interface": {
+      "tags": ["shared"]
+    }
+  }
+}

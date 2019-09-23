@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["jest"],
+    "lib": ["es2017", "dom", "esnext.asynciterable"]
+  },
+  "include": ["**/*.ts"]
+}
