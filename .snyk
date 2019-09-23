@@ -1,9 +1,24 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.3
+version: v1.13.5
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:mem:20180117':
     - '@nestjs/terminus > typeorm > cli-highlight > yargs > os-locale > mem':
         reason: No patch available
         expires: '2019-04-28T21:35:56.288Z'
+      '@nrwl/cli > yargs > os-locale > mem':
+        reason: None given
+        expires: '2019-10-23T21:27:59.579Z'
+    - '@nrwl/workspace > yargs > os-locale > mem':
+        reason: None given
+        expires: '2019-10-23T21:27:59.579Z'
+    - depcheck > yargs > os-locale > mem:
+        reason: None given
+        expires: '2019-10-23T21:27:59.579Z'
+    - '@nrwl/workspace > @nrwl/cli > yargs > os-locale > mem':
+        reason: None given
+        expires: '2019-10-23T21:27:59.580Z'
+    - npm-check > depcheck > yargs > os-locale > mem:
+        reason: None given
+        expires: '2019-10-23T21:27:59.580Z'
 patch: {}

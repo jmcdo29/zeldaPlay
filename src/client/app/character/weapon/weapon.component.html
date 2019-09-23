@@ -28,7 +28,7 @@
               placeholder="Weapon Type"
             >
               <mat-option
-                *ngFor="let weaponS of (allWeapons | enumToArray)"
+                *ngFor="let weaponS of allWeapons | enumToArray"
                 value="{{ weaponS }}"
                 >{{ weaponS }}</mat-option
               >
@@ -106,7 +106,7 @@
                 >--Select the Damage Modifier</mat-option
               >
               <mat-option
-                *ngFor="let attr of (attributes | enumToArray)"
+                *ngFor="let attr of attributes | enumToArray"
                 value="{{ attr }}"
                 >{{ attr }}</mat-option
               >
@@ -158,7 +158,7 @@
                 placeholder="Element Type"
               >
                 <mat-option
-                  *ngFor="let elem of (elements | enumToArray)"
+                  *ngFor="let elem of elements | enumToArray"
                   value="{{ elem }}"
                   >{{ elem }}</mat-option
                 >
