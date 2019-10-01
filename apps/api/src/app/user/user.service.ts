@@ -10,9 +10,10 @@ import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 
 @Injectable()
 export class UserService {
-  private readonly logger = new MyLogger(UserService.name);
-
-  constructor(private readonly db: DatabaseService) {}
+  constructor(
+    private readonly db: DatabaseService,
+    private readonly logger: MyLogger,
+  ) {}
 
   getByEmail(email: string): Observable<UserDTO> {
     const fields: string[] = [];

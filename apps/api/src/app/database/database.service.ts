@@ -9,14 +9,12 @@ import { DatabaseModuleOptions } from './interfaces/database-options.interface';
 @Injectable()
 export class DatabaseService implements OnModuleInit {
   private pool!: Pool;
-  private logger: MyLogger;
 
   constructor(
     @Inject(DATABASE_MODULE_OPTIONS)
     private readonly options: DatabaseModuleOptions,
-  ) {
-    this.logger = new MyLogger('Database');
-  }
+    private readonly logger: MyLogger,
+  ) {}
 
   onModuleInit() {
     this.pool = new Pool({

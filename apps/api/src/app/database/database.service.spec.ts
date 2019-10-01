@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Pool } from 'pg';
+import { MyLogger } from '../logger/logger.service';
 import { DatabaseService } from './database.service';
 jest.mock('pg');
 
@@ -16,16 +17,15 @@ const returnResult = [
   },
 ];
 
-const querySpy = jest.spyOn(Pool.prototype, 'query').mockImplementation(
-  () =>
-    Promise.resolve({
-      command: 'SELECT * FROM test.base',
-      rowCount: 0,
-      oid: 'something, I guess',
-      fields: ['id', 'name'],
-      rows: returnResult,
-    }) as any,
-);
+const querySpy = jest.spyOn(Pool.prototype, 'query').mockImplementation(() => {
+  return Promise.resolve({
+    command: 'SELECT * FROM test.base',
+    rowCount: 0,
+    oid: 'something, I guess',
+    fields: ['id', 'name'],
+    rows: returnResult,
+  });
+});
 
 describe('DatabaseService', () => {
   let module: TestingModule;
@@ -37,10 +37,13 @@ describe('DatabaseService', () => {
         {
           provide: DatabaseService,
           useFactory: () =>
-            new DatabaseService({
-              connectionUrl: 'connectionString',
-              ssl: false,
-            }),
+            new DatabaseService(
+              {
+                connectionUrl: 'connectionString',
+                ssl: false,
+              },
+              new MyLogger({ context: 'DATABASE_TEST' }),
+            ),
         },
       ],
     }).compile();

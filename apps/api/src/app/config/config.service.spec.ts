@@ -77,7 +77,7 @@ describe('ConfigService', () => {
       expect(service.isProd()).toBe(false);
     });
     it('should return 1000 for RATE_LIMIT', () => {
-      expect(service.getRateLimit()).toBe(100);
+      expect(service.getRateLimit()).toBe(1000);
     });
     it('should get back a blank string for a bad key name', () => {
       expect(service.get(':LKJASFJSDFLKJASDLKF')).toBe('');

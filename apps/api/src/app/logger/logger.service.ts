@@ -1,7 +1,15 @@
-import { Injectable, LoggerService, Optional } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  LoggerService,
+  Optional,
+  Scope,
+} from '@nestjs/common';
 import { scribe } from 'mc-scribe';
+import { LoggerModuleOptions } from './interfaces/logger-options.interface';
+import { LOGGER_MODULE_OPTIONS } from './logger.constants';
 
-@Injectable()
+@Injectable({ scope: Scope.TRANSIENT })
 export class MyLogger implements LoggerService {
   private context: string;
 
@@ -61,8 +69,12 @@ export class MyLogger implements LoggerService {
     scribe.fine(trace);
   }
 
-  constructor(@Optional() context?: string) {
-    this.context = context ? context : '';
+  constructor(
+    @Optional()
+    @Inject(LOGGER_MODULE_OPTIONS)
+    loggerOptions?: LoggerModuleOptions,
+  ) {
+    this.context = (loggerOptions && loggerOptions.context) || '';
   }
 
   error(message: string, trace: string, context?: string) {
