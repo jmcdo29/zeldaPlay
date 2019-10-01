@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { LoggerModule } from './logger.module';
 import { MyLogger } from './logger.service';
 
 jest.mock('mc-scribe').enableAutomock();
@@ -8,7 +9,7 @@ describe('LoggerService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MyLogger],
+      imports: [LoggerModule.forFeature({ context: 'TEST' })],
     }).compile();
     service = module.get<MyLogger>(MyLogger);
   });

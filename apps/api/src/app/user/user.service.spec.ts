@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
 
 import { DatabaseService } from '../database/database.service';
+import { MyLogger } from '../logger/logger.service';
 import { UserDTO } from './models';
 import { UserService } from './user.service';
 
@@ -34,6 +35,12 @@ describe('UserService', () => {
           provide: DatabaseService,
           useValue: {
             query: jest.fn(),
+          },
+        },
+        {
+          provide: MyLogger,
+          useValue: {
+            log: jest.fn(),
           },
         },
       ],

@@ -1,4 +1,5 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
+import { LoggerModule } from '../logger/logger.module';
 import { DATABASE_MODULE_OPTIONS } from './database.constants';
 import { createDatabaseProvider } from './database.provider';
 import { DatabaseService } from './database.service';
@@ -10,6 +11,7 @@ import {
 
 @Global()
 @Module({
+  imports: [LoggerModule.forFeature({ context: DatabaseService.name })],
   providers: [DatabaseService],
   exports: [DatabaseService],
 })
