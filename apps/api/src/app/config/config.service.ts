@@ -1,4 +1,3 @@
-import * as Joi from '@hapi/joi';
 import { Inject, Injectable } from '@nestjs/common';
 import { parse } from 'dotenv';
 import { readFileSync } from 'fs';
@@ -38,11 +37,9 @@ export class ConfigService {
   }
 
   private validateConfig(config: EnvConfig): EnvConfig {
-    const { error, value: validatedEnvConfig } = Joi.validate(
-      config,
-      envVarSchema,
-      { allowUnknown: true },
-    );
+    const { error, value: validatedEnvConfig } = envVarSchema.validate(config, {
+      allowUnknown: true,
+    });
     if (error) {
       throw new Error(`Config validation error: ${error.message}`);
     }
