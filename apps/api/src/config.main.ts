@@ -18,10 +18,10 @@ export function configure(app: INestApplication, config: ConfigService): void {
     session({
       store: new RedisStore({
         client: redis.createClient({
-          url: config.get('REDIS_URL'),
+          url: config.getRedisUrl(),
         }),
       }),
-      secret: config.get('SESSION_SECRET'),
+      secret: config.getSessionSecret(),
       resave: false,
       saveUninitialized: false,
     }),
@@ -40,7 +40,7 @@ export function configure(app: INestApplication, config: ConfigService): void {
     passport.initialize(),
     passport.session(),
   );
-  app.setGlobalPrefix(config.get('GLOBAL_PREFIX'));
+  app.setGlobalPrefix(config.getGlobalPrefix());
   app.useGlobalPipes(new ValidationPipe());
   MyLogger.log('Application Configuration complete', 'ApplicationConfig');
 }

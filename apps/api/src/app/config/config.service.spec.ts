@@ -35,7 +35,7 @@ describe('ConfigService', () => {
       service = module.get<ConfigService>(ConfigService);
     });
     it('should get the NODE_ENV', () => {
-      expect(service.get('NODE_ENV')).toBe('production');
+      expect(service.getNodeEnv()).toBe('production');
     });
     it('should return true for isProd', () => {
       expect(service.isProd()).toBe(true);
@@ -68,10 +68,10 @@ describe('ConfigService', () => {
       service = module.get<ConfigService>(ConfigService);
     });
     it('should get PORT', () => {
-      expect(service.get('PORT')).toBe(3333);
+      expect(service.getPort()).toBe(3333);
     });
     it('should return dev for NODE_ENV', () => {
-      expect(service.get('NODE_ENV')).toBe('dev');
+      expect(service.getNodeEnv()).toBe('dev');
     });
     it('should return false for isProd', () => {
       expect(service.isProd()).toBe(false);
@@ -79,8 +79,25 @@ describe('ConfigService', () => {
     it('should return 1000 for RATE_LIMIT', () => {
       expect(service.getRateLimit()).toBe(1000);
     });
-    it('should get back a blank string for a bad key name', () => {
-      expect(service.get(':LKJASFJSDFLKJASDLKF')).toBe('');
+    it('should return a redis url', () => {
+      expect(service.getRedisUrl()).toBe(
+        'redis://redis:redis@localhost:9999/testing',
+      );
+    });
+    it('should return the jwt secret', () => {
+      expect(service.getJwtSecret()).toBe('itsasecret');
+    });
+    it('should return the jwt expires in', () => {
+      expect(service.getJwtExpiresIn()).toBe(3600);
+    });
+    it('should return a session secret', () => {
+      expect(service.getSessionSecret()).toBe('itsasecret');
+    });
+    it('should return a global prefix', () => {
+      expect(service.getGlobalPrefix()).toBe('api');
+    });
+    it('should return a log level', () => {
+      expect(service.getLogLevel()).toBe('INFO');
     });
   });
 
