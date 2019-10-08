@@ -1,4 +1,4 @@
-import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
+import { DynamicModule, Module, Provider } from '@nestjs/common';
 import { CONFIG_MODULE_OPTIONS } from './config.constants';
 import { createConfigProvider } from './config.provider';
 import { ConfigService } from './config.service';
@@ -8,7 +8,6 @@ import {
   ConfigOptionsFactory,
 } from './interfaces/config-options.interface';
 
-@Global()
 @Module({
   providers: [ConfigService],
   exports: [ConfigService],

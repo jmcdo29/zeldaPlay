@@ -1,3 +1,4 @@
+import { ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
 import { GqlAuthGuard } from './gql-auth-guard.guard';
@@ -8,15 +9,18 @@ GqlExecutionContext.create = jest.fn().mockReturnValue({
   req: 'Request',
 });
 
-const mockContext = {
-  switchToHttp: jest.fn().mockReturnThis(),
+const mockContext: ExecutionContext = {
+  switchToHttp: jest.fn().mockReturnValue({
+    getResponse: jest.fn(),
+    getRequest: jest.fn(),
+  }),
   getClass: jest.fn().mockReturnThis(),
   getHandler: jest.fn().mockReturnThis(),
   getArgs: jest.fn().mockReturnThis(),
   getArgByIndex: jest.fn().mockReturnThis(),
   switchToRpc: jest.fn().mockReturnThis(),
   switchToWs: jest.fn().mockReturnThis(),
-  getResponse: jest.fn().mockReturnThis(),
+  getType: jest.fn().mockReturnThis(),
 };
 
 AuthGuard('jwt').prototype.canActivate = jest

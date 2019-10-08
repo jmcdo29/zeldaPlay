@@ -106,7 +106,7 @@ describe('ConfigService', () => {
       } catch (err) {
         expect(err).toBeTruthy();
         expect(err.message).toBe(
-          'Config validation error: child "DATABASE_URL" fails because ["DATABASE_URL" is not allowed to be empty]',
+          'Config validation error: "DATABASE_URL" is not allowed to be empty',
         );
       }
     });
