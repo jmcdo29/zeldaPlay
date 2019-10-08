@@ -1,24 +1,27 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as compression from 'compression';
-import * as redis from 'connect-redis';
+import * as store from 'connect-redis';
 import * as rateLimiter from 'express-rate-limit';
 import * as session from 'express-session';
 import * as helmet from 'helmet';
 import * as morgan from 'morgan';
 import * as passport from 'passport';
+import * as redis from 'redis';
 import { ConfigService } from './app/config/config.service';
 import { MyLogger } from './app/logger/logger.service';
 
-const RedisStore = redis(session);
+const RedisStore = store(session);
 
 export function configure(app: INestApplication, config: ConfigService): void {
   const morganFormat = config.isProd() ? 'combined' : 'dev';
   app.use(
     session({
       store: new RedisStore({
-        url: config.get('REDIS_URL'),
+        client: redis.createClient({
+          url: config.getRedisUrl(),
+        }),
       }),
-      secret: config.get('SESSION_SECRET'),
+      secret: config.getSessionSecret(),
       resave: false,
       saveUninitialized: false,
     }),
@@ -37,7 +40,7 @@ export function configure(app: INestApplication, config: ConfigService): void {
     passport.initialize(),
     passport.session(),
   );
-  app.setGlobalPrefix(config.get('GLOBAL_PREFIX'));
+  app.setGlobalPrefix(config.getGlobalPrefix());
   app.useGlobalPipes(new ValidationPipe());
   MyLogger.log('Application Configuration complete', 'ApplicationConfig');
 }

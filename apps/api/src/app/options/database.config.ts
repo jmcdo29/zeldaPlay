@@ -11,7 +11,7 @@ export class DatabaseModuleConfig implements DatabaseOptionsFactory {
 
   createDatabaseOptions(): DatabaseModuleOptions {
     return {
-      connectionUrl: this.configService.get('DATABASE_URL'),
+      connectionUrl: this.configService.getDatabaseUrl(),
       ssl: this.configService.isProd(),
     };
   }

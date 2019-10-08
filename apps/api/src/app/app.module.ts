@@ -6,11 +6,10 @@ import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CharacterModule } from './character/character.module';
-import { ConfigModule } from './config/config.module';
+import { CommonModule } from './common/common.module';
 import { DatabaseModule } from './database/database.module';
 import { LoggerModule } from './logger/logger.module';
 import {
-  ConfigModuleConfig,
   DatabaseModuleConfig,
   GraphQLModuleConfig,
   TerminusOptionsService,
@@ -20,13 +19,12 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    ConfigModule.forRootAsync({
-      useClass: ConfigModuleConfig,
-    }),
     DatabaseModule.forRootAsync({
+      imports: [CommonModule],
       useClass: DatabaseModuleConfig,
     }),
     GraphQLModule.forRootAsync({
+      imports: [CommonModule],
       useClass: GraphQLModuleConfig,
     }),
     TerminusModule.forRootAsync({
@@ -38,6 +36,7 @@ import { UserModule } from './user/user.module';
     UserModule,
     AbilityScoreModule,
     SpellModule,
+    CommonModule,
   ],
   providers: [AppService, AppResolver],
 })

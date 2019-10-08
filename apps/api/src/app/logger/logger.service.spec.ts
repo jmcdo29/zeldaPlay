@@ -11,7 +11,8 @@ describe('LoggerService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [LoggerModule.forFeature({ context: 'TEST' })],
     }).compile();
-    service = module.get<MyLogger>(MyLogger);
+    await module.init();
+    service = await module.resolve<MyLogger>(MyLogger);
   });
   it('should be defined', () => {
     expect(service).toBeDefined();
