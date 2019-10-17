@@ -1,13 +1,14 @@
-import { DynamicModule, Module } from '@nestjs/common';
-import { ConfigCoreModule } from './config-core.module';
+import { DynamicModule, Module, Provider } from '@nestjs/common';
+import { CONFIG_MODULE_OPTIONS } from './config.constants';
+import { createConfigProvider } from './config.provider';
 import { ConfigService } from './config.service';
 import {
   ConfigModuleAsyncOptions,
   ConfigModuleOptions,
+  ConfigOptionsFactory,
 } from './interfaces/config-options.interface';
 
 @Module({
-  imports: [ConfigCoreModule],
   providers: [ConfigService],
   exports: [ConfigService],
 })
@@ -15,15 +16,51 @@ export class ConfigModule {
   static forRoot(options: ConfigModuleOptions): DynamicModule {
     return {
       module: ConfigModule,
-      imports: [ConfigCoreModule.forRoot(options)],
+      providers: createConfigProvider(options),
     };
   }
 
   static forRootAsync(options: ConfigModuleAsyncOptions): DynamicModule {
-    console.log('Calling ConfigModule.forRootAsync');
     return {
       module: ConfigModule,
-      imports: [ConfigCoreModule.forRootAsync(options)],
+      imports: options.imports || [],
+      providers: this.createAsyncProviders(options),
+    };
+  }
+
+  private static createAsyncProviders(
+    options: ConfigModuleAsyncOptions,
+  ): Provider[] {
+    if (options.useExisting || options.useFactory) {
+      return [this.createAsyncOptionsProviders(options)];
+    }
+    if (options.useClass) {
+      return [
+        this.createAsyncOptionsProviders(options),
+        {
+          provide: options.useClass,
+          useClass: options.useClass,
+        },
+      ];
+    }
+    throw new Error('Invalid ConfigModule configuration.');
+  }
+
+  private static createAsyncOptionsProviders(
+    options: ConfigModuleAsyncOptions,
+  ): Provider {
+    if (options.useFactory) {
+      return {
+        provide: CONFIG_MODULE_OPTIONS,
+        useFactory: options.useFactory,
+        inject: options.inject || [],
+      };
+    }
+    return {
+      provide: CONFIG_MODULE_OPTIONS,
+      useFactory: async (optionsFactory: ConfigOptionsFactory) =>
+        await optionsFactory.createConfigOptions(),
+      inject: [options.useExisting || options.useClass || ''],
     };
   }
 }
