@@ -1,37 +1,38 @@
-import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
 import { LoggerModule } from '../logger/logger.module';
-import { DATABASE_MODULE_OPTIONS } from './database.constants';
-import { createDatabaseProvider } from './database.provider';
+import { DatabaseCoreModule } from './database-core.module';
+// import { DATABASE_MODULE_OPTIONS } from './database.constants';
+import { createDatabaseFeatureProvider } from './database.provider';
 import { DatabaseService } from './database.service';
 import {
+  DatabaseFeatureOptions,
   DatabaseModuleAsyncOptions,
   DatabaseModuleOptions,
-  DatabaseOptionsFactory,
+  // DatabaseOptionsFactory,
 } from './interfaces/database-options.interface';
 
-@Global()
 @Module({
   imports: [LoggerModule.forFeature({ context: DatabaseService.name })],
-  providers: [DatabaseService],
-  exports: [DatabaseService],
 })
 export class DatabaseModule {
   static forRoot(options: DatabaseModuleOptions): DynamicModule {
-    return {
-      module: DatabaseModule,
-      providers: createDatabaseProvider(options),
-    };
+    return DatabaseCoreModule.forRoot(options);
   }
 
   static forRootAsync(options: DatabaseModuleAsyncOptions): DynamicModule {
+    return DatabaseCoreModule.forRootAsync(options);
+  }
+
+  static forFeature(options: DatabaseFeatureOptions): DynamicModule {
     return {
       module: DatabaseModule,
-      imports: options.imports || [],
-      providers: this.createAsyncProviders(options),
+      imports: [DatabaseCoreModule.Deferred],
+      providers: [...createDatabaseFeatureProvider(options), DatabaseService],
+      exports: [DatabaseService],
     };
   }
 
-  private static createAsyncProviders(
+  /* private static createAsyncProviders(
     options: DatabaseModuleAsyncOptions,
   ): Provider[] {
     if (options.useExisting || options.useFactory) {
@@ -65,5 +66,5 @@ export class DatabaseModule {
         await optionsFactory.createDatabaseOptions(),
       inject: [options.useExisting || options.useClass || ''],
     };
-  }
+  } */
 }

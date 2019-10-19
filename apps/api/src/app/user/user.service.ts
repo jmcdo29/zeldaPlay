@@ -21,11 +21,12 @@ export class UserService {
     fields.push('email as email');
     fields.push('role as role');
     fields.push('password as password');
-    const query =
-      'SELECT ' + fields.join(', ') + ' FROM players WHERE email = $1;';
+    const query = fields.join(', ');
+    const where = 'email = $1;';
     return this.db
       .query<UserDTO>({
         query,
+        where,
         variables: [email],
       })
       .pipe(map((users) => users[0]));
@@ -42,11 +43,12 @@ export class UserService {
     fields.push('consent_to_email as "consentToEmail"');
     fields.push('is_active as "isActive"');
     fields.push('role as role');
-    const query =
-      'SELECT ' + fields.join(', ') + ' FROM players WHERE id = $1;';
+    const query = fields.join(', ');
+    const where = 'id = $1;';
     return this.db
       .query<UserDTO>({
         query,
+        where,
         variables: [userId.id],
       })
       .pipe(map((users) => users[0]));
@@ -58,7 +60,6 @@ export class UserService {
       values: [],
     };
     const userVariables: any[] = [];
-    let query = 'INSERT INTO players (';
     params.fields.push('email');
     userVariables.push(signupBody.email);
     params.fields.push('password');
@@ -74,13 +75,10 @@ export class UserService {
       params.values.push(`$${i}`);
     }
     userVariables.push(signupBody.role);
-    query += params.fields.join(', ');
-    query += ') VALUES (';
-    query += params.values.join(', ');
-    query += ') RETURNING id;';
     return this.db
-      .query<UserDTO>({
-        query,
+      .insert<UserDTO>({
+        query: params.fields.join(', '),
+        where: params.values.join(', '),
         variables: userVariables,
       })
       .pipe(

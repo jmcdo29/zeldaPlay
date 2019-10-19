@@ -20,3 +20,7 @@ export interface DatabaseModuleAsyncOptions
   ) => Promise<DatabaseModuleOptions> | DatabaseModuleOptions;
   inject?: any[];
 }
+
+export interface DatabaseFeatureOptions {
+  tableName: string;
+}

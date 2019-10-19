@@ -1,20 +1,41 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit, Scope } from '@nestjs/common';
 import { Pool } from 'pg';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MyLogger } from '../logger/logger.service';
-import { DATABASE_MODULE_OPTIONS } from './database.constants';
-import { DatabaseModuleOptions } from './interfaces/database-options.interface';
+import {
+  DATABASE_FEATURE,
+  DATABASE_MODULE_OPTIONS,
+} from './database.constants';
+import {
+  DatabaseFeatureOptions,
+  DatabaseModuleOptions,
+} from './interfaces/database-options.interface';
+import {
+  DatabaseInterface,
+  InsertParams,
+  QueryParams,
+  UpdateManyParams,
+  UpdateParams,
+} from './interfaces/database.interface';
 
-@Injectable()
-export class DatabaseService implements OnModuleInit {
-  private pool!: Pool;
+@Injectable({
+  scope: Scope.TRANSIENT,
+})
+export class DatabaseService implements OnModuleInit, DatabaseInterface {
+  private pool: Pool;
+
+  tableName: string;
 
   constructor(
     @Inject(DATABASE_MODULE_OPTIONS)
     private readonly options: DatabaseModuleOptions,
+    @Inject(DATABASE_FEATURE)
+    readonly feature: DatabaseFeatureOptions,
     private readonly logger: MyLogger,
-  ) {}
+  ) {
+    this.tableName = feature.tableName;
+  }
 
   onModuleInit() {
     this.pool = new Pool({
@@ -23,12 +44,12 @@ export class DatabaseService implements OnModuleInit {
     });
   }
 
-  query<T>(params: { query: string; variables: any[] }): Observable<T[]> {
+  private runQuery<T>(query: string, params: any[]): Observable<T[]> {
     const start = Date.now();
-    return from(this.pool.query(params.query, params.variables)).pipe(
+    return from(this.pool.query(query, params)).pipe(
       tap((qRes) => {
         this.logger.debug({
-          query: params.query,
+          query,
           time: Date.now() - start,
           rows: qRes.rowCount,
         });
@@ -39,5 +60,59 @@ export class DatabaseService implements OnModuleInit {
         return of([]);
       }),
     );
+  }
+
+  query<T>(params: QueryParams): Observable<T[]> {
+    const query =
+      'SELECT ' +
+      params.query +
+      ' ' +
+      this.tableName +
+      ' WHERE ' +
+      params.where;
+    return this.runQuery<T>(query, params.variables);
+  }
+
+  insert<T>(params: InsertParams): Observable<T[]> {
+    const query =
+      'INSERT INTO ' +
+      this.tableName +
+      ' (' +
+      params.query +
+      ') VALUES ( ' +
+      params.where +
+      ') RETURNING id;';
+    return this.runQuery<T>(query, params.variables);
+  }
+
+  update<T>(params: UpdateParams): Observable<T[]> {
+    const query =
+      'UPDATE ' +
+      this.tableName +
+      ' SET' +
+      params.query +
+      ' WHERE ' +
+      params.where +
+      ' RETURNING  id;';
+    return this.runQuery<T>(query, params.variables);
+  }
+
+  updateMany<T>(params: UpdateManyParams): Observable<T[]> {
+    const query =
+      'UPDATE ' +
+      this.tableName +
+      ' as ' +
+      params.tableAlias +
+      ' SET ' +
+      params.query +
+      ' FROM ' +
+      params.tempTable +
+      ' WHERE ' +
+      params.where;
+    return this.runQuery<T>(query, params.variables);
+  }
+
+  delete<T>(params: QueryParams): Observable<T[]> {
+    return of([]);
   }
 }

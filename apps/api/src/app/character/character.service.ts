@@ -35,11 +35,12 @@ export class CharacterService {
     fields.push('proficiencies as proficiencies');
     fields.push('languages as languages');
     fields.push('game as game');
-    const query =
-      'SELECT ' + fields.join(', ') + ' FROM characters WHERE id = $1;';
+    const query = fields.join(', ');
+    const where = 'id = $1;';
     return this.db
       .query<CharacterDTO>({
         query,
+        where,
         variables: [id.id],
       })
       .pipe(map((characters) => characters[0]));
@@ -66,10 +67,11 @@ export class CharacterService {
     fields.push('proficiencies as proficiencies');
     fields.push('languages as languages');
     fields.push('game as game');
-    const query =
-      'SELECT ' + fields.join(', ') + ' FROM characters WHERE player_id = $1;';
+    const query = fields.join(', ');
+    const where = 'player_id = $1;';
     return this.db.query<CharacterDTO>({
       query,
+      where,
       variables: [userId.id],
     });
   }
@@ -82,7 +84,6 @@ export class CharacterService {
       fields: [],
     };
     const charVariables: any[] = [];
-    let query = 'INSERT INTO characters (';
     params.fields.push('name');
     charVariables.push(characterData.name);
     params.fields.push('race');
@@ -122,12 +123,12 @@ export class CharacterService {
     for (let i = 1; i <= params.fields.length; i++) {
       params.values.push(`$${i}`);
     }
-    query += params.fields.join(', ');
-    query += ') VALUES (';
-    query += params.values.join(', ');
-    query += ') RETURNING id;';
     return this.db
-      .query<CharacterDTO>({ query, variables: charVariables })
+      .insert<CharacterDTO>({
+        query: params.fields.join(', '),
+        where: params.values.join(', '),
+        variables: charVariables,
+      })
       .pipe(
         map((characters) => characters[0]),
         map((character) => {
@@ -144,7 +145,7 @@ export class CharacterService {
     characterData: CharacterUpdateDataDTO,
   ): Observable<CharacterDTO> {
     return this.db
-      .query<CharacterDTO>({ query: '', variables: [] })
+      .update<CharacterDTO>({ query: '', variables: [] })
       .pipe(map((characters) => characters[0]));
   }
 }
