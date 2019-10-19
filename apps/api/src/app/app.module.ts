@@ -6,7 +6,6 @@ import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CharacterModule } from './character/character.module';
-// import { CommonModule } from './common/common.module';
 import { ConfigModule } from './config/config.module';
 import { DatabaseModule } from './database/database.module';
 import { LoggerModule } from './logger/logger.module';
@@ -25,11 +24,11 @@ import { UserModule } from './user/user.module';
       useClass: ConfigModuleConfig,
     }),
     DatabaseModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule.Deferred],
       useClass: DatabaseModuleConfig,
     }),
     GraphQLModule.forRootAsync({
-      imports: [ConfigModule],
+      imports: [ConfigModule.Deferred],
       useClass: GraphQLModuleConfig,
     }),
     TerminusModule.forRootAsync({
