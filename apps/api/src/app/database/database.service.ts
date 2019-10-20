@@ -7,11 +7,9 @@ import {
   DATABASE_FEATURE,
   DATABASE_MODULE_OPTIONS,
 } from './database.constants';
+import { DatabaseModuleOptions } from './interfaces/database-options.interface';
 import {
   DatabaseFeatureOptions,
-  DatabaseModuleOptions,
-} from './interfaces/database-options.interface';
-import {
   DatabaseInterface,
   InsertParams,
   QueryParams,

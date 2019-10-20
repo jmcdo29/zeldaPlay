@@ -1,5 +1,9 @@
 import { Observable } from 'rxjs';
 
+export interface DatabaseFeatureOptions {
+  tableName: string;
+}
+
 export interface QueryParams {
   /**
    * The query string using ? or $1 to mark parameters for a parameterized query
