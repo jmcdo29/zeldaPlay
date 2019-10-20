@@ -3,10 +3,8 @@ import {
   DATABASE_FEATURE,
   DATABASE_MODULE_OPTIONS,
 } from './database.constants';
-import {
-  DatabaseFeatureOptions,
-  DatabaseModuleOptions,
-} from './interfaces/database-options.interface';
+import { DatabaseModuleOptions } from './interfaces/database-options.interface';
+import { DatabaseFeatureOptions } from './interfaces/database.interface';
 
 export function createDatabaseProvider(
   options: DatabaseModuleOptions,

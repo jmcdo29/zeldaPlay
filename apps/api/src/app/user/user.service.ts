@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { hashSync } from 'bcrypt';
-import { Observable, of } from 'rxjs';
+import { empty, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SignupDTO } from '../auth/models';
@@ -100,12 +100,13 @@ export class UserService {
 
   deleteUser(userId: UserIdDTO): Observable<void> {
     this.db
-      .query({
-        query: 'UPDATE players SET is_active=$1 WHERE id = $2',
+      .update({
+        query: 'is_active = $1',
+        where: 'id = $2',
         variables: [false, userId.id],
       })
       .subscribe();
     this.logger.log(`User with id ${userId.id} deactivated.`);
-    return of();
+    return empty();
   }
 }

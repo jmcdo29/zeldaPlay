@@ -43,6 +43,11 @@ describe('ConfigService', () => {
     it('should return 4040 for RATE_LIMIT', () => {
       expect(service.getRateLimit()).toBe(4040);
     });
+    it('should get the Database url', () => {
+      expect(service.getDatabaseUrl()).toBe(
+        'postgres://postgres:postgres@localhost:5432/testing',
+      );
+    });
   });
 
   describe('.env config', () => {

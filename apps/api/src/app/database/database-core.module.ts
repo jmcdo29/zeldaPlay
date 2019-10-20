@@ -13,11 +13,11 @@ import {
 export class DatabaseCoreModule {
   private static moduleSubject = new Subject<DynamicModule>();
 
-  private static timeout$ = interval(2500).pipe(
+  private static timeout$ = interval(0).pipe(
     first(),
     map(() => {
       throw new Error(
-        'DatabaseCoreModule was never initialized. Make sure DatabaseModule.forRoot() or DatabaseModule.forRootAsync() is called.',
+        'Expected DatabaseModule to be configured by at last one Module but it was not configured.',
       );
     }),
   );
@@ -33,7 +33,9 @@ export class DatabaseCoreModule {
       providers: createDatabaseProvider(options),
       exports: [DATABASE_MODULE_OPTIONS],
     };
-    DatabaseCoreModule.moduleSubject.next(databaseCoreModuleConfig);
+
+    this.moduleSubject.next(databaseCoreModuleConfig);
+
     return databaseCoreModuleConfig;
   }
 
@@ -44,7 +46,9 @@ export class DatabaseCoreModule {
       providers: this.createAsyncProviders(options),
       exports: [DATABASE_MODULE_OPTIONS],
     };
-    DatabaseCoreModule.moduleSubject.next(databaseCoreModuleConfig);
+
+    this.moduleSubject.next(databaseCoreModuleConfig);
+
     return databaseCoreModuleConfig;
   }
 

@@ -140,7 +140,7 @@ export class AbilityScoreService {
     }
     tempTable.substring(0, query.length - 1);
     tempTable += ') AS incoming(values, id)';
-    const where = ' WHERE incoming.id = scores.id;';
+    const where = ' WHERE incoming.id = scores.id';
     return this.db
       .updateMany<AbilityScore>({
         tableAlias,

@@ -77,7 +77,7 @@ export class DatabaseService implements OnModuleInit, DatabaseInterface {
       this.tableName +
       ' (' +
       params.query +
-      ') VALUES ( ' +
+      ') VALUES (' +
       params.where +
       ') RETURNING id;';
     return this.runQuery<T>(query, params.variables);
@@ -87,11 +87,11 @@ export class DatabaseService implements OnModuleInit, DatabaseInterface {
     const query =
       'UPDATE ' +
       this.tableName +
-      ' SET' +
+      ' SET ' +
       params.query +
       ' WHERE ' +
       params.where +
-      ' RETURNING  id;';
+      ' RETURNING id;';
     return this.runQuery<T>(query, params.variables);
   }
 
@@ -99,14 +99,15 @@ export class DatabaseService implements OnModuleInit, DatabaseInterface {
     const query =
       'UPDATE ' +
       this.tableName +
-      ' as ' +
+      ' AS ' +
       params.tableAlias +
       ' SET ' +
       params.query +
       ' FROM ' +
       params.tempTable +
       ' WHERE ' +
-      params.where;
+      params.where +
+      ';';
     return this.runQuery<T>(query, params.variables);
   }
 

@@ -17,11 +17,11 @@ import {
 export class ConfigModule {
   private static moduleSubject = new Subject<DynamicModule>();
 
-  private static timeout$ = interval(2500).pipe(
+  private static timeout$ = interval(0).pipe(
     first(),
     map(() => {
       throw new Error(
-        `Expected Config Service to be configured by at last one Module but it was not configured within 2500ms`,
+        'Expected Config Module to be configured by at last one Module but it was not configured.',
       );
     }),
   );

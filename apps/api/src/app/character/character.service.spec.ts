@@ -44,6 +44,9 @@ describe('CharacterService', () => {
           provide: DatabaseService,
           useValue: {
             query: jest.fn(),
+            insert: jest.fn(),
+            update: jest.fn(),
+            updateMany: jest.fn(),
           },
         },
       ],
@@ -93,14 +96,14 @@ describe('CharacterService', () => {
       languages: ['Common', 'Dwarvish'],
       game: 'dd5',
     };
-    db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
+    db.insert = jest.fn().mockReturnValueOnce(of([mockCharacter]));
     service
       .insertNewCharacter(characterInput)
       .subscribe(characterObserver(done, characterInput))
       .unsubscribe();
   });
   it('should update the character and return the id', (done) => {
-    db.query = jest.fn().mockReturnValueOnce(of([mockCharacter]));
+    db.update = jest.fn().mockReturnValueOnce(of([mockCharacter]));
     service
       .updateCharacter({ level: 2, id: 'CHR-TEST' })
       .subscribe(characterObserver(done))

@@ -35,6 +35,9 @@ describe('UserService', () => {
           provide: DatabaseService,
           useValue: {
             query: jest.fn(),
+            insert: jest.fn(),
+            update: jest.fn(),
+            updateMany: jest.fn(),
           },
         },
         {
@@ -94,7 +97,7 @@ describe('UserService', () => {
   describe('insertUser', () => {
     it('should insert the user', (done) => {
       const dbSpy = jest
-        .spyOn(module.get(DatabaseService), 'query')
+        .spyOn(module.get(DatabaseService), 'insert')
         .mockReturnValueOnce(
           of([
             {
@@ -155,13 +158,13 @@ describe('UserService', () => {
   describe('deleteUser', () => {
     it('should deactivate the user', (done) => {
       const dbSpy = jest
-        .spyOn(module.get(DatabaseService), 'query')
+        .spyOn(module.get(DatabaseService), 'update')
         .mockReturnValueOnce(of([]));
       service
         .deleteUser({ id: 'USR-TEST' })
         .subscribe({
-          next(value) {
-            expect(dbSpy).toBeCalledTimes(2);
+          next() {
+            expect(dbSpy).toBeCalledTimes(1);
           },
           error(error) {
             throw new Error(error.message);
