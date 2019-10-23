@@ -1,33 +1,27 @@
-import {
-  Inject,
-  Injectable,
-  LoggerService,
-  Optional,
-  Scope,
-} from '@nestjs/common';
+import { Inject, Injectable, Optional, Scope } from '@nestjs/common';
 import { scribe } from 'mc-scribe';
 import { LoggerModuleOptions } from './interfaces/logger-options.interface';
 import { LOGGER_MODULE_OPTIONS } from './logger.constants';
 
 @Injectable({ scope: Scope.TRANSIENT })
-export class MyLogger implements LoggerService {
+export class LoggerService {
   private context: string;
 
   static error(message: string | object, trace: string, context?: string) {
-    MyLogger.printMyMessage('error', message, context);
-    MyLogger.printMyStackTrace(trace);
+    LoggerService.printMyMessage('error', message, context);
+    LoggerService.printMyStackTrace(trace);
   }
   static log(message: string | object, context?: string) {
-    MyLogger.printMyMessage('info', message, context);
+    LoggerService.printMyMessage('info', message, context);
   }
   static warn(message: string | object, context?: string) {
-    MyLogger.printMyMessage('warn', message, context);
+    LoggerService.printMyMessage('warn', message, context);
   }
   static debug(message: string | object, context?: string) {
-    MyLogger.printMyMessage('debug', message, context);
+    LoggerService.printMyMessage('debug', message, context);
   }
   static verbose(message: string | object, context?: string) {
-    MyLogger.printMyMessage('fine', message, context);
+    LoggerService.printMyMessage('fine', message, context);
   }
 
   private static printMyMessage(
@@ -79,22 +73,22 @@ export class MyLogger implements LoggerService {
 
   error(message: string, trace: string, context?: string) {
     context = context ? context : this.context;
-    MyLogger.error(message, trace, context);
+    LoggerService.error(message, trace, context);
   }
   log(message: string | object, context?: string) {
     context = context ? context : this.context;
-    MyLogger.log(message, context);
+    LoggerService.log(message, context);
   }
   warn(message: string | object, context?: string) {
     context = context ? context : this.context;
-    MyLogger.warn(message, context);
+    LoggerService.warn(message, context);
   }
   debug(message: string | object, context?: string) {
     context = context ? context : this.context;
-    MyLogger.debug(message, context);
+    LoggerService.debug(message, context);
   }
   verbose(message: string | object, context?: string) {
     context = context ? context : this.context;
-    MyLogger.verbose(message, context);
+    LoggerService.verbose(message, context);
   }
 }

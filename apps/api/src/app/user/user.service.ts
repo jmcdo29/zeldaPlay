@@ -5,14 +5,14 @@ import { map } from 'rxjs/operators';
 
 import { SignupDTO } from '../auth/models';
 import { DatabaseService } from '../database/database.service';
-import { MyLogger } from '../logger/logger.service';
+import { LoggerService } from '../logger/logger.service';
 import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly db: DatabaseService,
-    private readonly logger: MyLogger,
+    private readonly logger: LoggerService,
   ) {}
 
   getByEmail(email: string): Observable<UserDTO> {

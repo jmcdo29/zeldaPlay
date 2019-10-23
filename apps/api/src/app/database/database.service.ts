@@ -2,7 +2,7 @@ import { Inject, Injectable, OnModuleInit, Scope } from '@nestjs/common';
 import { Pool } from 'pg';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { MyLogger } from '../logger/logger.service';
+import { LoggerService } from '../logger/logger.service';
 import {
   DATABASE_FEATURE,
   DATABASE_MODULE_OPTIONS,
@@ -30,7 +30,7 @@ export class DatabaseService implements OnModuleInit, DatabaseInterface {
     private readonly options: DatabaseModuleOptions,
     @Inject(DATABASE_FEATURE)
     readonly feature: DatabaseFeatureOptions,
-    private readonly logger: MyLogger,
+    private readonly logger: LoggerService,
   ) {
     this.tableName = feature.tableName;
   }

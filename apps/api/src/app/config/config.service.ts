@@ -34,7 +34,6 @@ export class ConfigService {
 
   private validateConfig(config: Record<string, any>): EnvRunType {
     config = { ...defaults, ...config };
-    console.log(config);
     return EnvRunType.check(config);
   }
 

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Pool } from 'pg';
-import { MyLogger } from '../logger/logger.service';
+import { LoggerService } from '../logger/logger.service';
 import { DatabaseService } from './database.service';
 jest.mock('pg');
 
@@ -43,7 +43,7 @@ describe('DatabaseService', () => {
                 ssl: false,
               },
               { tableName: 'Testing' },
-              new MyLogger({ context: 'DATABASE_TEST' }),
+              new LoggerService({ context: 'DATABASE_TEST' }),
             ),
         },
       ],

@@ -1,18 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { LoggerModule } from './logger.module';
-import { MyLogger } from './logger.service';
+import { LoggerService } from './logger.service';
 
 jest.mock('mc-scribe').enableAutomock();
 
 describe('LoggerService', () => {
-  let service: MyLogger;
+  let service: LoggerService;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [LoggerModule.forFeature({ context: 'TEST' })],
     }).compile();
     await module.init();
-    service = await module.resolve<MyLogger>(MyLogger);
+    service = await module.resolve<LoggerService>(LoggerService);
   });
   it('should be defined', () => {
     expect(service).toBeDefined();

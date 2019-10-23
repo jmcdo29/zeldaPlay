@@ -8,7 +8,7 @@ import * as morgan from 'morgan';
 import * as passport from 'passport';
 import * as redis from 'redis';
 import { ConfigService } from './app/config/config.service';
-import { MyLogger } from './app/logger/logger.service';
+import { LoggerService } from './app/logger/logger.service';
 
 const RedisStore = store(session);
 
@@ -28,7 +28,7 @@ export function configure(app: INestApplication, config: ConfigService): void {
     morgan(morganFormat, {
       skip: (req: any, res: any) => config.isProd() && req.statusCode < 400,
       stream: {
-        write: (value: string) => MyLogger.log(value.trim(), 'Morgan'),
+        write: (value: string) => LoggerService.log(value.trim(), 'Morgan'),
       },
     }),
     helmet(),
@@ -42,5 +42,5 @@ export function configure(app: INestApplication, config: ConfigService): void {
   );
   app.setGlobalPrefix(config.getGlobalPrefix());
   app.useGlobalPipes(new ValidationPipe());
-  MyLogger.log('Application Configuration complete', 'ApplicationConfig');
+  LoggerService.log('Application Configuration complete', 'ApplicationConfig');
 }
