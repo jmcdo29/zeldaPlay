@@ -93,7 +93,7 @@ describe('ConfigService', () => {
       expect(service.getJwtSecret()).toBe('itsasecret');
     });
     it('should return the jwt expires in', () => {
-      expect(service.getJwtExpiresIn()).toBe(3600);
+      expect(service.getJwtExpiresIn()).toBe('3600');
     });
     it('should return a session secret', () => {
       expect(service.getSessionSecret()).toBe('itsasecret');

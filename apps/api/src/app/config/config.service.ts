@@ -4,24 +4,11 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import { CONFIG_MODULE_OPTIONS } from './config.constants';
 import { ConfigModuleOptions } from './interfaces/config-options.interface';
-import { envVarSchema } from './model/env.model';
-
-export interface EnvConfig {
-  DATABASE_URL: string;
-  REDIS_URL: string;
-  SESSION_SECRET: string;
-  JWT_SECRET: string;
-  JWT_EXPIRES: string;
-  RATE_LIMIT: string;
-  PORT: string;
-  GLOBAL_PREFIX: string;
-  LOG_LEVEL: string;
-  NODE_ENV: string;
-}
+import { defaults, EnvRunType } from './model/env.model';
 
 @Injectable()
 export class ConfigService {
-  private envConfig: EnvConfig;
+  private envConfig: EnvRunType;
 
   constructor(
     @Inject(CONFIG_MODULE_OPTIONS)
@@ -45,14 +32,10 @@ export class ConfigService {
     this.envConfig = this.validateConfig(config);
   }
 
-  private validateConfig(config: { [key: string]: any }): EnvConfig {
-    const { error, value: validatedEnvConfig } = envVarSchema.validate(config, {
-      allowUnknown: true,
-    });
-    if (error) {
-      throw new Error(`Config validation error: ${error.message}`);
-    }
-    return validatedEnvConfig as EnvConfig;
+  private validateConfig(config: Record<string, any>): EnvRunType {
+    config = { ...defaults, ...config };
+    console.log(config);
+    return EnvRunType.check(config);
   }
 
   /* get(key: string): string {
@@ -97,10 +80,12 @@ export class ConfigService {
   }
 
   getPort(): number {
-    return Number.parseInt(this.envConfig.PORT, 10);
+    return typeof this.envConfig.PORT === 'number'
+      ? this.envConfig.PORT
+      : Number.parseInt(this.envConfig.PORT, 10);
   }
 
-  getLogLevel(): string {
+  getLogLevel() {
     return this.envConfig.LOG_LEVEL;
   }
 }
