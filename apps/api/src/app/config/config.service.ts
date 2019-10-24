@@ -37,10 +37,6 @@ export class ConfigService {
     return EnvRunType.check(config);
   }
 
-  /* get(key: string): string {
-    return this.envConfig[key] || '';
-  } */
-
   getDatabaseUrl(): string {
     return this.envConfig.DATABASE_URL;
   }

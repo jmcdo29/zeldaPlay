@@ -40,6 +40,7 @@ export const defaults = {
   GLOBAL_PREFIX: 'api',
   LOG_LEVEL: 'INFO',
   JWT_EXPIRES: '3600',
+  PORT: 3333,
   RATE_LIMIT: '1000',
   NODE_ENV: 'development',
   GOOGLE_CALLBACK_URL: 'http://localhost:3333/api/auth/google/callback',

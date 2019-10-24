@@ -21,6 +21,8 @@ describe('ConfigService', () => {
       process.env.RATE_LIMIT = '4040';
       process.env.SESSION_SECRET = 'itsasecert';
       process.env.REDIS_URL = 'redis://redis:redis@localhost:9999/testing';
+      process.env.GOOGLE_SECRET = 'google_secret';
+      process.env.GOOGLE_CLIENT = 'google_client';
     });
     beforeEach(async () => {
       const module: TestingModule = await Test.createTestingModule({
@@ -52,12 +54,13 @@ describe('ConfigService', () => {
 
   describe('.env config', () => {
     jest.spyOn(dotenv, 'parse').mockReturnValue({
-      PORT: '3333',
       DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/testing',
       NODE_ENV: 'dev',
       JWT_SECRET: 'itsasecret',
       SESSION_SECRET: 'itsasecret',
       REDIS_URL: 'redis://redis:redis@localhost:9999/testing',
+      GOOGLE_CLIENT: 'google_client',
+      GOOGLE_SECRET: 'google_secret',
     });
     beforeEach(async () => {
       process.env.NODE_ENV = 'dev';
@@ -103,6 +106,17 @@ describe('ConfigService', () => {
     });
     it('should return a log level', () => {
       expect(service.getLogLevel()).toBe('INFO');
+    });
+    it('should return the google secret', () => {
+      expect(service.getGoogleSecret()).toBe('google_secret');
+    });
+    it('should return the google client', () => {
+      expect(service.getGoogleClient()).toBe('google_client');
+    });
+    it('should return the google callback', () => {
+      expect(service.getGoogleCallback()).toBe(
+        'http://localhost:3333/api/auth/google/callback',
+      );
     });
   });
 
