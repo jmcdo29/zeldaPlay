@@ -26,7 +26,9 @@ export function configure(app: INestApplication, config: ConfigService): void {
       saveUninitialized: false,
     }),
     morgan(morganFormat, {
-      skip: (req: any, res: any) => config.isProd() && req.statusCode < 400,
+      skip: (req: any, res: any) =>
+        (config.isProd() && req.statusCode < 400) ||
+        req.url.includes('callback'),
       stream: {
         write: (value: string) => LoggerService.log(value.trim(), 'Morgan'),
       },
