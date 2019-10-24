@@ -23,6 +23,9 @@ export const EnvRunType = Record({
   JWT_SECRET: String,
   SESSION_SECRET: String,
   REDIS_URL: String,
+  GOOGLE_CLIENT: String,
+  GOOGLE_SECRET: String,
+  GOOGLE_CALLBACK_URL: String,
   GLOBAL_PREFIX: String,
   RATE_LIMIT: String,
   NODE_ENV: NodeEnv,
@@ -39,4 +42,5 @@ export const defaults = {
   JWT_EXPIRES: '3600',
   RATE_LIMIT: '1000',
   NODE_ENV: 'development',
+  GOOGLE_CALLBACK_URL: 'http://localhost:3333/api/auth/google/callback',
 };

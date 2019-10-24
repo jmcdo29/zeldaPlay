@@ -87,4 +87,16 @@ export class ConfigService {
   getLogLevel() {
     return this.envConfig.LOG_LEVEL;
   }
+
+  getGoogleClient(): string {
+    return this.envConfig.GOOGLE_CLIENT;
+  }
+
+  getGoogleSecret(): string {
+    return this.envConfig.GOOGLE_SECRET;
+  }
+
+  getGoogleCallback(): string {
+    return this.envConfig.GOOGLE_CALLBACK_URL;
+  }
 }

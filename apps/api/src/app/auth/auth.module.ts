@@ -10,7 +10,7 @@ import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    PassportModule.register({ defaultStrategy: 'google' }),
     JwtModule.registerAsync({
       useClass: JwtModuleConfig,
       imports: [ConfigModule.Deferred],
