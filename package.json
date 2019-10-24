@@ -82,6 +82,7 @@
     "reflect-metadata": "^0.1.12",
     "runtypes": "^4.0.3",
     "rxjs": "^6.5.3",
+    "sqlite3": "^4.1.0",
     "type-graphql": "^0.17.5",
     "zone.js": "^0.10.2"
   },
@@ -116,6 +117,7 @@
     "@types/passport-jwt": "^3.0.2",
     "@types/pg": "^7.11.2",
     "@types/redis": "^2.8.14",
+    "@types/sqlite3": "^3.1.5",
     "@types/supertest": "^2.0.8",
     "codelyzer": "^5.1.2",
     "cypress": "^3.4.1",

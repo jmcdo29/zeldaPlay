@@ -7,7 +7,7 @@ export interface DatabaseTestOptions {
 export interface DatabaseTestOptionsFactory {
   createDatabaseOptions(): Promise<DatabaseTestOptions> | DatabaseTestOptions;
 }
-export interface DatabaseModuleAsyncOptions
+export interface DatabaseTestAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
   useExisting?: Type<DatabaseTestOptionsFactory>;
   useClass?: Type<DatabaseTestOptionsFactory>;

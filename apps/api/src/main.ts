@@ -1,5 +1,4 @@
 import { NestFactory } from '@nestjs/core';
-import { scribe } from 'mc-scribe';
 
 import { AppModule } from './app/app.module';
 import { ConfigService } from './app/config/config.service';
@@ -17,7 +16,10 @@ async function bootstrap() {
     : `http://localhost:${port}`;
   configure(app, config);
   await app.listen(port);
-  scribe.info(`Listening at ${location}/${config.getGlobalPrefix()}`);
+  LoggerService.log(
+    `Listening at ${location}/${config.getGlobalPrefix()}`,
+    'NestApplication',
+  );
 }
 
 bootstrap();
