@@ -12,8 +12,11 @@ import { LoggerService } from './app/logger/logger.service';
 
 const RedisStore = store(session);
 
-export function configure(app: INestApplication, config: ConfigService): void {
-  const morganFormat = config.isProd() ? 'combined' : 'dev';
+export function configure(
+  app: INestApplication,
+  config: ConfigService,
+  logger: LoggerService,
+): void {
   app.use(
     session({
       store: new RedisStore({
@@ -25,12 +28,12 @@ export function configure(app: INestApplication, config: ConfigService): void {
       resave: false,
       saveUninitialized: false,
     }),
-    morgan(morganFormat, {
+    morgan(config.getMorganString(), {
       skip: (req: any, res: any) =>
         (config.isProd() && req.statusCode < 400) ||
         req.url.includes('callback'),
       stream: {
-        write: (value: string) => LoggerService.log(value.trim(), 'Morgan'),
+        write: (value: string) => logger.log(value.trim(), 'Morgan'),
       },
     }),
     helmet(),
@@ -44,5 +47,5 @@ export function configure(app: INestApplication, config: ConfigService): void {
   );
   app.setGlobalPrefix(config.getGlobalPrefix());
   app.useGlobalPipes(new ValidationPipe());
-  LoggerService.log('Application Configuration complete', 'ApplicationConfig');
+  logger.log('Application Configuration complete', 'ApplicationConfig');
 }

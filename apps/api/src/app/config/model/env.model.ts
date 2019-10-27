@@ -1,4 +1,12 @@
-import { Literal, Number, Record, Static, String, Union } from 'runtypes';
+import {
+  Literal,
+  Number,
+  Record,
+  Static,
+  String,
+  Undefined,
+  Union,
+} from 'runtypes';
 
 const NodeEnv = Union(
   Literal('prod'),
@@ -32,6 +40,7 @@ export const EnvRunType = Record({
   PORT: Number.Or(String),
   LOG_LEVEL: LogLevel,
   JWT_EXPIRES: String,
+  MORGAN_STRING: Union(Literal('dev'), Literal('combined')).Or(Undefined),
 });
 
 export type EnvRunType = Static<typeof EnvRunType>;

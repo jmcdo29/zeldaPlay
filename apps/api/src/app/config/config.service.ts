@@ -95,4 +95,13 @@ export class ConfigService {
   getGoogleCallback(): string {
     return this.envConfig.GOOGLE_CALLBACK_URL;
   }
+
+  getMorganString(): string {
+    this.envConfig.MORGAN_STRING = this.envConfig.MORGAN_STRING
+      ? this.envConfig.MORGAN_STRING
+      : this.isProd()
+      ? 'combined'
+      : 'dev';
+    return this.envConfig.MORGAN_STRING;
+  }
 }

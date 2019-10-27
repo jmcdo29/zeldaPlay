@@ -10,13 +10,14 @@ async function bootstrap() {
     logger: new LoggerService(),
   });
   const config = app.get<ConfigService>(ConfigService);
+  const logger = await app.resolve<LoggerService>(LoggerService);
   const port = config.getPort();
   const location = config.isProd()
     ? 'https://zeldaplay.herokuapp.com'
     : `http://localhost:${port}`;
-  configure(app, config);
+  configure(app, config, logger);
   await app.listen(port);
-  LoggerService.log(
+  logger.log(
     `Listening at ${location}/${config.getGlobalPrefix()}`,
     'NestApplication',
   );
