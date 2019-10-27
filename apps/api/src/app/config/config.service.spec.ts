@@ -50,6 +50,14 @@ describe('ConfigService', () => {
         'postgres://postgres:postgres@localhost:5432/testing',
       );
     });
+    it('should get the morgan string', () => {
+      const configSpy = jest.spyOn(service, 'isProd');
+      expect(service.getMorganString()).toBe('combined');
+      expect(configSpy).toBeCalledTimes(1);
+      expect(service.getMorganString()).toBe('combined');
+      expect(configSpy).toBeCalledTimes(1);
+      configSpy.mockClear();
+    });
   });
 
   describe('.env config', () => {
@@ -117,6 +125,14 @@ describe('ConfigService', () => {
       expect(service.getGoogleCallback()).toBe(
         'http://localhost:3333/api/auth/google/callback',
       );
+    });
+    it('should get the morgan string', () => {
+      const configSpy = jest.spyOn(service, 'isProd');
+      expect(service.getMorganString()).toBe('dev');
+      expect(configSpy).toBeCalledTimes(1);
+      expect(service.getMorganString()).toBe('dev');
+      expect(configSpy).toBeCalledTimes(1);
+      configSpy.mockClear();
     });
   });
 

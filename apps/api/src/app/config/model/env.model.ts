@@ -1,12 +1,4 @@
-import {
-  Literal,
-  Number,
-  Record,
-  Static,
-  String,
-  Undefined,
-  Union,
-} from 'runtypes';
+import { Literal, Record, Static, String, Undefined, Union } from 'runtypes';
 
 const NodeEnv = Union(
   Literal('prod'),
@@ -37,7 +29,7 @@ export const EnvRunType = Record({
   GLOBAL_PREFIX: String,
   RATE_LIMIT: String,
   NODE_ENV: NodeEnv,
-  PORT: Number.Or(String),
+  PORT: String,
   LOG_LEVEL: LogLevel,
   JWT_EXPIRES: String,
   MORGAN_STRING: Union(Literal('dev'), Literal('combined')).Or(Undefined),
@@ -49,7 +41,7 @@ export const defaults = {
   GLOBAL_PREFIX: 'api',
   LOG_LEVEL: 'INFO',
   JWT_EXPIRES: '3600',
-  PORT: 3333,
+  PORT: '3333',
   RATE_LIMIT: '1000',
   NODE_ENV: 'development',
   GOOGLE_CALLBACK_URL: 'http://localhost:3333/api/auth/google/callback',

@@ -75,9 +75,7 @@ export class ConfigService {
   }
 
   getPort(): number {
-    return typeof this.envConfig.PORT === 'number'
-      ? this.envConfig.PORT
-      : Number.parseInt(this.envConfig.PORT, 10);
+    return Number.parseInt(this.envConfig.PORT, 10);
   }
 
   getLogLevel() {

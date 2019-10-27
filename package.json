@@ -16,7 +16,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "env LOG_LEVEL=OFF ng test",
+    "test": "env LOG_LEVEL=OFF ng test --passWithNoTests",
     "lint": "nx lint && ng lint",
     "e2e": "ng e2e",
     "affected:apps": "nx affected:apps",
