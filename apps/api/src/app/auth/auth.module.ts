@@ -20,10 +20,10 @@ import { SessionSerializer } from './session.serializer';
     }),
     JwtModule.registerAsync({
       useClass: JwtModuleConfig,
-      imports: [ConfigModule.Deferred],
+      imports: [ConfigModule.externallyConfigured(ConfigModule, 0)],
     }),
     forwardRef(() => UserModule),
-    ConfigModule.Deferred,
+    ConfigModule.externallyConfigured(ConfigModule, 0),
   ],
   providers: [
     AuthService,

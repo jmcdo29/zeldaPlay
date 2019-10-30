@@ -46,6 +46,7 @@
     "@angular/platform-browser-dynamic": "^8.2.12",
     "@angular/router": "^8.2.12",
     "@godaddy/terminus": "^4.2.1",
+    "@levelup-nestjs/modules": "^0.1.0",
     "@nestjs/common": "^6.8.4",
     "@nestjs/core": "^6.8.4",
     "@nestjs/graphql": "^6.5.3",

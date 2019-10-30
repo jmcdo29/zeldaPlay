@@ -1,15 +1,14 @@
+import { ModuleConfigFactory } from '@levelup-nestjs/modules';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '../config/config.service';
-import {
-  DatabaseModuleOptions,
-  DatabaseOptionsFactory,
-} from '../database/interfaces/database-options.interface';
+import { DatabaseModuleOptions } from '../database/interfaces/database-options.interface';
 
 @Injectable()
-export class DatabaseModuleConfig implements DatabaseOptionsFactory {
+export class DatabaseModuleConfig
+  implements ModuleConfigFactory<DatabaseModuleOptions> {
   constructor(private readonly configService: ConfigService) {}
 
-  createDatabaseOptions(): DatabaseModuleOptions {
+  createModuleConfig(): DatabaseModuleOptions {
     return {
       connectionUrl: this.configService.getDatabaseUrl(),
       ssl: this.configService.isProd(),
