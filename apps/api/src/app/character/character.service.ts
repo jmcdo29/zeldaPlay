@@ -12,7 +12,7 @@ import {
 
 @Injectable()
 export class CharacterService {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(private readonly db: DatabaseService<CharacterDTO>) {}
 
   getCharacterById(id: CharacterIdDTO): Observable<CharacterDTO> {
     const fields: string[] = [];
@@ -38,7 +38,7 @@ export class CharacterService {
     const query = fields.join(', ');
     const where = 'id = $1;';
     return this.db
-      .query<CharacterDTO>({
+      .query({
         query,
         where,
         variables: [id.id],
@@ -69,7 +69,7 @@ export class CharacterService {
     fields.push('game as game');
     const query = fields.join(', ');
     const where = 'player_id = $1;';
-    return this.db.query<CharacterDTO>({
+    return this.db.query({
       query,
       where,
       variables: [userId.id],
@@ -124,7 +124,7 @@ export class CharacterService {
       params.values.push(`$${i}`);
     }
     return this.db
-      .insert<CharacterDTO>({
+      .insert({
         query: params.fields.join(', '),
         where: params.values.join(', '),
         variables: charVariables,
@@ -145,7 +145,7 @@ export class CharacterService {
     characterData: CharacterUpdateDataDTO,
   ): Observable<CharacterDTO> {
     return this.db
-      .update<CharacterDTO>({ query: '', variables: [] })
+      .update({ query: '', variables: [] })
       .pipe(map((characters) => characters[0]));
   }
 }

@@ -4,7 +4,13 @@ import { LoggerService } from '../logger/logger.service';
 import { DatabaseService } from './database.service';
 jest.mock('pg');
 
-const returnResult = [
+interface MockResult {
+  id: number;
+  field1: string;
+  field2: string;
+}
+
+const returnResult: MockResult[] = [
   {
     id: 1,
     field1: 'value1',
@@ -29,7 +35,7 @@ const querySpy = jest.spyOn(Pool.prototype, 'query').mockImplementation(() => {
 
 describe('DatabaseService', () => {
   let module: TestingModule;
-  let service: DatabaseService;
+  let service: DatabaseService<MockResult>;
 
   beforeEach(async () => {
     module = await Test.createTestingModule({
@@ -49,7 +55,7 @@ describe('DatabaseService', () => {
       ],
     }).compile();
 
-    service = module.get<DatabaseService>(DatabaseService);
+    service = module.get<DatabaseService<MockResult>>(DatabaseService);
     await module.init();
   });
 
@@ -63,7 +69,7 @@ describe('DatabaseService', () => {
   });
   describe('queries', () => {
     it('should run the query for query', (done) => {
-      service.query<any>({ query: '*', variables: ['characterId'] }).subscribe({
+      service.query({ query: '*', variables: ['characterId'] }).subscribe({
         next(result) {
           expect(result).toBe(returnResult);
         },
@@ -79,7 +85,7 @@ describe('DatabaseService', () => {
       querySpy.mockImplementationOnce(
         () => Promise.reject(new Error('Error')) as any,
       );
-      service.query<any>({ query: '*', variables: ['characterId'] }).subscribe({
+      service.query({ query: '*', variables: ['characterId'] }).subscribe({
         next(result) {
           expect(result).toEqual([]);
         },
@@ -96,7 +102,7 @@ describe('DatabaseService', () => {
     it('should take an insert query successfully', (done) => {
       const insertSpy = jest.spyOn(service as any, 'runQuery');
       service
-        .insert<any>({
+        .insert({
           query: 'column1, column2',
           where: '$1, $2',
           variables: ['value1', 'value2'],
@@ -122,7 +128,7 @@ describe('DatabaseService', () => {
     it('should take an update query successfully', (done) => {
       const updateSpy = jest.spyOn(service as any, 'runQuery');
       service
-        .update<any>({
+        .update({
           query: 'column1 = $1',
           where: 'column2 = $2',
           variables: ['value1', 'value2'],

@@ -34,7 +34,7 @@ const charactersObserver = (done: () => void) => ({
 
 describe('CharacterService', () => {
   let service: CharacterService;
-  let db: DatabaseService;
+  let db: DatabaseService<CharacterDTO>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -53,7 +53,7 @@ describe('CharacterService', () => {
     }).compile();
 
     service = module.get<CharacterService>(CharacterService);
-    db = module.get<DatabaseService>(DatabaseService);
+    db = module.get<DatabaseService<CharacterDTO>>(DatabaseService);
   });
 
   it('should be defined', () => {

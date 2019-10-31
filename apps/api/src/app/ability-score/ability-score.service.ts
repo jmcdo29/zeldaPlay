@@ -12,7 +12,7 @@ import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class AbilityScoreService {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(private readonly db: DatabaseService<AbilityScore>) {}
 
   getAbilityScoresByCharId(charId: CharacterId): Observable<AbilityScore[]> {
     const fields = [];
@@ -22,7 +22,7 @@ export class AbilityScoreService {
     fields.push('character_id as "characterId"');
     const query = fields.join(', ');
     const where = 'character_id = $1;';
-    return this.db.query<AbilityScore>({
+    return this.db.query({
       query,
       where,
       variables: [charId.id],
@@ -38,7 +38,7 @@ export class AbilityScoreService {
     const query = fields.join(', ');
     const where = 'id = $1;';
     return this.db
-      .query<AbilityScore>({ query, where, variables: [abilityId.id] })
+      .query({ query, where, variables: [abilityId.id] })
       .pipe(map((abilityScores) => abilityScores[0]));
   }
 
@@ -58,7 +58,7 @@ export class AbilityScoreService {
       params.values.push(`$${i}`);
     }
     return this.db
-      .insert<AbilityScore>({
+      .insert({
         query: params.fields.join(', '),
         where: params.values.join(', '),
         variables: abilVariables,
@@ -92,7 +92,7 @@ export class AbilityScoreService {
       params.values.push(`$${i * 3 + 1}, $${i * 3 + 2}, $${i * 3 + 3}`);
     }
     return this.db
-      .insert<AbilityScore>({
+      .insert({
         query: params.fields.join(', '),
         where: params.values.join(', '),
         variables: abilVariables,
@@ -114,7 +114,7 @@ export class AbilityScoreService {
     const query = ' value = $1';
     const where = ' WHERE id = $2';
     return this.db
-      .update<AbilityScore>({
+      .update({
         query,
         where,
         variables: [ability.value, ability.id],
@@ -142,7 +142,7 @@ export class AbilityScoreService {
     tempTable += ') AS incoming(values, id)';
     const where = ' WHERE incoming.id = scores.id';
     return this.db
-      .updateMany<AbilityScore>({
+      .updateMany({
         tableAlias,
         query,
         tempTable,
@@ -155,7 +155,7 @@ export class AbilityScoreService {
           for (const abil of abilities) {
             ids.push(abil.id);
           }
-          return this.db.query<AbilityScore>({
+          return this.db.query({
             query: 'id, name, value, character_id as "characterId"',
             where: ' WHERE id IN $1;',
             variables: [ids],

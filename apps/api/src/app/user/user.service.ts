@@ -11,7 +11,7 @@ import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 @Injectable()
 export class UserService {
   constructor(
-    private readonly db: DatabaseService,
+    private readonly db: DatabaseService<UserDTO>,
     private readonly logger: LoggerService,
   ) {}
 
@@ -24,7 +24,7 @@ export class UserService {
     const query = fields.join(', ');
     const where = 'email = $1;';
     return this.db
-      .query<UserDTO>({
+      .query({
         query,
         where,
         variables: [email],
@@ -46,7 +46,7 @@ export class UserService {
     const query = fields.join(', ');
     const where = 'id = $1;';
     return this.db
-      .query<UserDTO>({
+      .query({
         query,
         where,
         variables: [userId.id],
@@ -76,7 +76,7 @@ export class UserService {
     }
     userVariables.push(signupBody.role);
     return this.db
-      .insert<UserDTO>({
+      .insert({
         query: params.fields.join(', '),
         where: params.values.join(', '),
         variables: userVariables,

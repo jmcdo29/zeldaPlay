@@ -16,7 +16,7 @@ import {
 @Injectable({
   scope: Scope.TRANSIENT,
 })
-export class DatabaseTestService implements DatabaseInterface {
+export class DatabaseTestService<T> implements DatabaseInterface<T> {
   private pool: Database;
 
   tableName: string;
@@ -29,7 +29,7 @@ export class DatabaseTestService implements DatabaseInterface {
     this.pool = new Database(':memory:');
   }
 
-  private sqLiteQuery<T>(query: string, params: any[]): Promise<T[]> {
+  private sqLiteQuery(query: string, params: any[]): Promise<T[]> {
     return new Promise<T[]>((resolve, reject) => {
       this.pool.all(query, params, (err: Error, rows: T[]) => {
         if (err) {
@@ -40,15 +40,15 @@ export class DatabaseTestService implements DatabaseInterface {
     });
   }
 
-  private runQuery<T>(query: string, params: any[]): Observable<T[]> {
-    return from(this.sqLiteQuery<T>(query, params)).pipe(
+  private runQuery(query: string, params: any[]): Observable<T[]> {
+    return from(this.sqLiteQuery(query, params)).pipe(
       catchError(() => {
         return of([]);
       }),
     );
   }
 
-  query<T>(params: QueryParams): Observable<T[]> {
+  query(params: QueryParams): Observable<T[]> {
     const query =
       'SELECT ' +
       params.query +
@@ -56,10 +56,10 @@ export class DatabaseTestService implements DatabaseInterface {
       this.tableName +
       ' WHERE ' +
       params.where;
-    return this.runQuery<T>(query, params.variables);
+    return this.runQuery(query, params.variables);
   }
 
-  insert<T>(params: InsertParams): Observable<T[]> {
+  insert(params: InsertParams): Observable<T[]> {
     const query =
       'INSERT INTO ' +
       this.tableName +
@@ -68,10 +68,10 @@ export class DatabaseTestService implements DatabaseInterface {
       ') VALUES (' +
       params.where +
       ') RETURNING id;';
-    return this.runQuery<T>(query, params.variables);
+    return this.runQuery(query, params.variables);
   }
 
-  update<T>(params: UpdateParams): Observable<T[]> {
+  update(params: UpdateParams): Observable<T[]> {
     const query =
       'UPDATE ' +
       this.tableName +
@@ -80,10 +80,10 @@ export class DatabaseTestService implements DatabaseInterface {
       ' WHERE ' +
       params.where +
       ' RETURNING id;';
-    return this.runQuery<T>(query, params.variables);
+    return this.runQuery(query, params.variables);
   }
 
-  updateMany<T>(params: UpdateManyParams): Observable<T[]> {
+  updateMany(params: UpdateManyParams): Observable<T[]> {
     const query =
       'UPDATE ' +
       this.tableName +
@@ -96,10 +96,10 @@ export class DatabaseTestService implements DatabaseInterface {
       ' WHERE ' +
       params.where +
       ';';
-    return this.runQuery<T>(query, params.variables);
+    return this.runQuery(query, params.variables);
   }
 
-  delete<T>(params: QueryParams): Observable<T[]> {
+  delete(params: QueryParams): Observable<T[]> {
     return of([]);
   }
 }

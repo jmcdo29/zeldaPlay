@@ -39,30 +39,30 @@ export interface UpdateManyParams {
   variables: any[];
 }
 
-export interface DatabaseInterface {
+export interface DatabaseInterface<T> {
   tableName: string;
 
   /**
    * method specifically for running queries
    * @param params object of string and any array for what query should be run and with what parameters for SQL injection protection
    */
-  query<T>(params: QueryParams): Observable<T[]>;
+  query(params: QueryParams): Observable<T[]>;
 
   /**
    * Method specifically for running inserts
    * @param params object of string and any array for what query should be run and with what parameters for SQL injection protection
    */
-  insert<T>(params: QueryParams): Observable<T[]>;
+  insert(params: QueryParams): Observable<T[]>;
 
   /**
    * Method specifically for running updates
    * @param params object of string and any array for what query should be run and with what parameters for SQL injection protection
    */
-  update<T>(params: QueryParams): Observable<T[]>;
+  update(params: QueryParams): Observable<T[]>;
 
   /**
    * Method specifically for running deletes
    * @param params object of string and any array for what query should be run and with what parameters for SQL injection protection
    */
-  delete<T>(params: QueryParams): Observable<T[]>;
+  delete(params: QueryParams): Observable<T[]>;
 }
