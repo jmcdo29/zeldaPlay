@@ -43,7 +43,7 @@ describe('DatabaseService', () => {
         {
           provide: DatabaseService,
           useFactory: () =>
-            new DatabaseService(
+            new DatabaseService<MockResult>(
               {
                 connectionUrl: 'connectionString',
                 ssl: false,
