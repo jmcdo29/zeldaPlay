@@ -95,6 +95,7 @@
     "@angular/language-service": "^8.2.13",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "@levelup-nestjs/testing": "0.0.1-rc.0",
     "@nestjs/schematics": "^6.7.0",
     "@nestjs/testing": "^6.9.0",
     "@nrwl/cypress": "^8.7.0",
