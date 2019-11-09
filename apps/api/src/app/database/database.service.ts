@@ -83,6 +83,7 @@ export class DatabaseService<T> implements OnModuleInit, DatabaseInterface<T> {
     return this.runQuery(query, params.variables);
   }
 
+  // tslint:disable-next-line: no-identical-functions
   update(params: UpdateParams): Observable<T[]> {
     const query =
       'UPDATE ' +

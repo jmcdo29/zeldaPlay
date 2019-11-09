@@ -71,6 +71,7 @@ export class DatabaseTestService<T> implements DatabaseInterface<T> {
     return this.runQuery(query, params.variables);
   }
 
+  // tslint:disable-next-line: no-identical-functions
   update(params: UpdateParams): Observable<T[]> {
     const query =
       'UPDATE ' +

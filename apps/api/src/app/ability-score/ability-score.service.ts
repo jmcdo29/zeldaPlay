@@ -138,7 +138,7 @@ export class AbilityScoreService {
       tempTable += `($${i * 2 + 1}, $${i * 2 + 2}),`;
       variables.push(abilities[i].value, abilities[i].id);
     }
-    tempTable.substring(0, query.length - 1);
+    tempTable = tempTable.substring(0, query.length - 1);
     tempTable += ') AS incoming(values, id)';
     const where = ' WHERE incoming.id = scores.id';
     return this.db

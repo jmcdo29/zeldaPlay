@@ -23,9 +23,7 @@ export class ConfigService {
     }
     let config: { [key: string]: any };
     if (options.fileName) {
-      config = parse(
-        readFileSync(join(process.env.PWD as string, options.fileName)),
-      );
+      config = parse(readFileSync(join(process.env.PWD, options.fileName)));
     } else {
       config = process.env;
     }

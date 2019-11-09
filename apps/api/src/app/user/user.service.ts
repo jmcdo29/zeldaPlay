@@ -42,7 +42,6 @@ export class UserService {
     fields.push('last_name as "lastName"');
     fields.push('consent_to_email as "consentToEmail"');
     fields.push('is_active as "isActive"');
-    fields.push('role as role');
     const query = fields.join(', ');
     const where = 'id = $1;';
     return this.db
