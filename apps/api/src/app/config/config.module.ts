@@ -1,4 +1,4 @@
-import { MakeConfigurableDynamicRootModule } from '@levelup-nestjs/modules';
+import { MakeConfigurableDynamicRootModule } from '@golevelup/nestjs-modules';
 import { Module } from '@nestjs/common';
 import { CONFIG_MODULE_OPTIONS } from './config.constants';
 import { ConfigService } from './config.service';

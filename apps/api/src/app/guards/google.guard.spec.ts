@@ -1,4 +1,4 @@
-import { makeMock } from '@levelup-nestjs/testing';
+import { createMock } from '@golevelup/nestjs-testing';
 import { ExecutionContext } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GoogleGuard } from './google.guard';
@@ -19,6 +19,8 @@ describe('GqlAuthGuard', () => {
     expect(guard).toBeDefined();
   });
   it('should return true for canActivate', async () => {
-    expect(await guard.canActivate(makeMock<ExecutionContext>())).toBeTruthy();
+    expect(
+      await guard.canActivate(createMock<ExecutionContext>()),
+    ).toBeTruthy();
   });
 });

@@ -1,4 +1,4 @@
-import { makeMock } from '@levelup-nestjs/testing';
+import { createMock } from '@golevelup/nestjs-testing';
 import { ExecutionContext } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GqlAuthGuard } from './gql-auth-guard.guard';
@@ -19,11 +19,13 @@ describe('GqlAuthGuard', () => {
     expect(guard).toBeDefined();
   });
   it('should run the functions', () => {
-    expect(guard.getRequest(makeMock<ExecutionContext>())).toBeTruthy();
+    expect(guard.getRequest(createMock<ExecutionContext>())).toBeTruthy();
   });
   it('should return true for canActivate', async () => {
     const getRequestSpy = jest.spyOn(guard, 'getRequest');
-    expect(await guard.canActivate(makeMock<ExecutionContext>())).toBeTruthy();
+    expect(
+      await guard.canActivate(createMock<ExecutionContext>()),
+    ).toBeTruthy();
     expect(getRequestSpy).toBeCalledTimes(1);
   });
 });

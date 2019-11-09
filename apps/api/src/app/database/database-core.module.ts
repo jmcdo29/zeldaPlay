@@ -1,4 +1,4 @@
-import { MakeConfigurableDynamicRootModule } from '@levelup-nestjs/modules';
+import { MakeConfigurableDynamicRootModule } from '@golevelup/nestjs-modules';
 import { Module } from '@nestjs/common';
 import { DATABASE_MODULE_OPTIONS } from './database.constants';
 import { DatabaseModuleOptions } from './interfaces/database-options.interface';

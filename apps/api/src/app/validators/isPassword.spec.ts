@@ -3,7 +3,7 @@ import { IsPassword, IsPasswordConstraint } from './';
 describe('isCustomId', () => {
   const validator = new IsPasswordConstraint();
   it('should return the function for isCustomId', () => {
-    const func = IsPassword({} as any);
+    const func = IsPassword();
     expect(typeof func).toBe('function');
     expect(func({}, '')).toBeFalsy();
   });

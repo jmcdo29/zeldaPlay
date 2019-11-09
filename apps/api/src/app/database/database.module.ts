@@ -1,4 +1,4 @@
-import { AsyncModuleConfig } from '@levelup-nestjs/modules';
+import { AsyncModuleConfig } from '@golevelup/nestjs-modules';
 import { DynamicModule, Module } from '@nestjs/common';
 import { LoggerModule } from '../logger/logger.module';
 import { DatabaseCoreModule } from './database-core.module';
