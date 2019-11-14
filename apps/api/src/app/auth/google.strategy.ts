@@ -27,7 +27,6 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy) {
     profile: GoogleSub,
     callback: (err: Error, user: any) => void,
   ) {
-    console.log('Google Strategy Validate invoked');
     return this.authService
       .findOrCreateGoogleUser(profile)
       .pipe(
