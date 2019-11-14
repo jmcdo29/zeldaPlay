@@ -6,6 +6,10 @@ import { of } from 'rxjs';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 
+const passVal = 'Pa$$w0rd';
+const badPassVal = 'Passw0rd';
+const email = 'test@test.com';
+
 const userObserver = (done: () => void) => ({
   next(token: { id: string; token: string }) {
     expect(token).toEqual({ id: 'USR-TEST', token: 'token' });
@@ -48,9 +52,9 @@ describe('AuthService', () => {
             getByEmail: jest.fn().mockReturnValue(
               of({
                 id: 'USR-TEST',
-                email: 'test@test.com',
+                email,
                 role: ['player'],
-                password: 'Pa$$w0rd',
+                password: passVal,
               }),
             ),
             insertUser: jest.fn().mockReturnValue(
@@ -76,32 +80,33 @@ describe('AuthService', () => {
     expect(service).toBeDefined();
   });
   describe('login', () => {
+    let compareSpy: jest.SpyInstance;
+    beforeEach(() => {
+      compareSpy = jest.spyOn(bcrypt, 'compare');
+    });
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
     it('should return a token', (done) => {
-      jest.spyOn(bcrypt, 'compareSync').mockReturnValueOnce(true);
-      service
-        .login({ email: 'test@test.com', password: 'Pa$$w0rd' })
-        .subscribe(userObserver(done))
-        .unsubscribe();
+      compareSpy.mockResolvedValueOnce(true);
+      service.login({ email, password: passVal }).subscribe(userObserver(done));
     });
     it('should throw an error', (done) => {
-      jest.spyOn(bcrypt, 'compareSync').mockReturnValueOnce(false);
-      service
-        .login({ email: 'test@test.com', password: 'Passw0rd' })
-        .subscribe(
-          errorObserver(done, {
-            statusCode: 401,
-            error: 'Unauthorized',
-            message: 'Invalid email or password.',
-          }),
-        )
-        .unsubscribe();
+      compareSpy.mockResolvedValueOnce(false);
+      service.login({ email, password: badPassVal }).subscribe(
+        errorObserver(done, {
+          statusCode: 401,
+          error: 'Unauthorized',
+          message: 'Invalid email or password.',
+        }),
+      );
     });
   });
   describe('signup', () => {
     const signupTest = {
-      email: 'test@test.com',
-      password: 'Pa$$w0rd',
-      confirmationPassword: 'Pa$$w0rd',
+      email,
+      password: passVal,
+      confirmationPassword: passVal,
       consentToEmail: true,
       role: ['player'],
       firstName: 'Tester',
@@ -132,14 +137,14 @@ describe('AuthService', () => {
     it('should get a user', (done) => {
       service
         .validateUser({
-          email: 'test@test.com',
+          email,
           role: ['player'],
           id: 'USR-TEST',
         })
         .subscribe({
           next(user) {
             expect(user.id).toBe('USR-TEST');
-            expect(user.email).toBe('test@test.com');
+            expect(user.email).toBe(email);
             expect(user.role).toEqual(['player']);
             expect(typeof user.password).toBe('string');
           },

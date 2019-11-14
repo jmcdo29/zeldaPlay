@@ -4,9 +4,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compareSync } from 'bcrypt';
+import { compare } from 'bcrypt';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { UserDTO } from '../user/models';
 import { UserService } from '../user/user.service';
 import { AuthDTO, JwtPayload, LoginDTO, SignupDTO } from './models';
@@ -20,8 +20,8 @@ export class AuthService {
 
   login(login: LoginDTO): Observable<AuthDTO> {
     return this.userService.getByEmail(login.email).pipe(
-      map((user) => {
-        if (compareSync(login.password, user.password)) {
+      mergeMap(async (user) => {
+        if (await compare(login.password, user.password)) {
           return {
             id: user.id,
             token: this.signToken({
