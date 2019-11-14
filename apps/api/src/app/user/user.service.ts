@@ -36,7 +36,7 @@ export class UserService {
     const fields: string[] = [];
     fields.push('id as id');
     fields.push('email as email');
-    fields.push('role as role');
+    fields.push('roles as roles');
     fields.push('password as password');
     fields.push('first_name as "firstName"');
     fields.push('last_name as "lastName"');
@@ -69,7 +69,7 @@ export class UserService {
     userVariables.push(signupBody.firstName);
     params.fields.push('last_name');
     userVariables.push(signupBody.lastName);
-    params.fields.push('role');
+    params.fields.push('roles');
     for (let i = 1; i <= params.fields.length; i++) {
       params.values.push(`$${i}`);
     }

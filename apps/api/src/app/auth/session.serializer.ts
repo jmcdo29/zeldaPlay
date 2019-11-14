@@ -1,18 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { PassportSerializer } from '@nestjs/passport';
-import { GoogleSub } from './models/google.payload';
+import { GoogleUser } from '../user/models/google-user.model';
 
 @Injectable()
 export class SessionSerializer extends PassportSerializer {
-  serializeUser(user: GoogleSub, done: (err: Error, user: any) => void) {
-    console.log('Trying to serialize');
-    console.log(user);
-    done(null, user.id);
+  serializeUser(user: GoogleUser, done: (err: Error, user: any) => void) {
+    if (user.id) {
+      return done(null, user.id);
+    }
+    done(null, null);
   }
 
   deserializeUser(user: any, done: (err: Error, user: any) => void) {
-    console.log('Trying to deserialize');
-    console.log(user);
     done(null, user);
   }
 }

@@ -54,6 +54,10 @@ export class DatabaseService<T> implements OnModuleInit, DatabaseInterface<T> {
       }),
       map((qRes) => qRes.rows),
       catchError((err) => {
+        this.logger.debug({
+          query,
+          time: Date.now() - start,
+        });
         this.logger.error(err.message, err.stack);
         return of([]);
       }),
@@ -64,7 +68,7 @@ export class DatabaseService<T> implements OnModuleInit, DatabaseInterface<T> {
     const query =
       'SELECT ' +
       params.query +
-      ' ' +
+      ' FROM ' +
       this.tableName +
       ' WHERE ' +
       params.where;
@@ -72,6 +76,9 @@ export class DatabaseService<T> implements OnModuleInit, DatabaseInterface<T> {
   }
 
   insert(params: InsertParams): Observable<T[]> {
+    this.logger.verbose({
+      message: `${DatabaseService.name}.${this.insert.name} was called`,
+    });
     const query =
       'INSERT INTO ' +
       this.tableName +
