@@ -20,13 +20,15 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    ConfigModule.forRootAsync({
+    ConfigModule.forRootAsync(ConfigModule, {
       useClass: ConfigModuleConfig,
     }),
     DatabaseModule.forRootAsync({
+      imports: [ConfigModule.Deferred],
       useClass: DatabaseModuleConfig,
     }),
     GraphQLModule.forRootAsync({
+      imports: [ConfigModule.Deferred],
       useClass: GraphQLModuleConfig,
     }),
     TerminusModule.forRootAsync({

@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { hashSync } from 'bcrypt';
-import { Observable, of } from 'rxjs';
+import { empty, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SignupDTO } from '../auth/models';
 import { DatabaseService } from '../database/database.service';
-import { MyLogger } from '../logger/logger.service';
+import { LoggerService } from '../logger/logger.service';
 import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 
 @Injectable()
 export class UserService {
-  private readonly logger = new MyLogger(UserService.name);
-
-  constructor(private readonly db: DatabaseService) {}
+  constructor(
+    private readonly db: DatabaseService<UserDTO>,
+    private readonly logger: LoggerService,
+  ) {}
 
   getByEmail(email: string): Observable<UserDTO> {
     const fields: string[] = [];
@@ -20,11 +21,12 @@ export class UserService {
     fields.push('email as email');
     fields.push('role as role');
     fields.push('password as password');
-    const query =
-      'SELECT ' + fields.join(', ') + ' FROM players WHERE email = $1;';
+    const query = fields.join(', ');
+    const where = 'email = $1;';
     return this.db
-      .query<UserDTO>({
+      .query({
         query,
+        where,
         variables: [email],
       })
       .pipe(map((users) => users[0]));
@@ -34,18 +36,18 @@ export class UserService {
     const fields: string[] = [];
     fields.push('id as id');
     fields.push('email as email');
-    fields.push('role as role');
+    fields.push('roles as roles');
     fields.push('password as password');
     fields.push('first_name as "firstName"');
     fields.push('last_name as "lastName"');
     fields.push('consent_to_email as "consentToEmail"');
     fields.push('is_active as "isActive"');
-    fields.push('role as role');
-    const query =
-      'SELECT ' + fields.join(', ') + ' FROM players WHERE id = $1;';
+    const query = fields.join(', ');
+    const where = 'id = $1;';
     return this.db
-      .query<UserDTO>({
+      .query({
         query,
+        where,
         variables: [userId.id],
       })
       .pipe(map((users) => users[0]));
@@ -57,7 +59,6 @@ export class UserService {
       values: [],
     };
     const userVariables: any[] = [];
-    let query = 'INSERT INTO players (';
     params.fields.push('email');
     userVariables.push(signupBody.email);
     params.fields.push('password');
@@ -68,18 +69,15 @@ export class UserService {
     userVariables.push(signupBody.firstName);
     params.fields.push('last_name');
     userVariables.push(signupBody.lastName);
-    params.fields.push('role');
+    params.fields.push('roles');
     for (let i = 1; i <= params.fields.length; i++) {
       params.values.push(`$${i}`);
     }
     userVariables.push(signupBody.role);
-    query += params.fields.join(', ');
-    query += ') VALUES (';
-    query += params.values.join(', ');
-    query += ') RETURNING id;';
     return this.db
-      .query<UserDTO>({
-        query,
+      .insert({
+        query: params.fields.join(', '),
+        where: params.values.join(', '),
         variables: userVariables,
       })
       .pipe(
@@ -101,12 +99,13 @@ export class UserService {
 
   deleteUser(userId: UserIdDTO): Observable<void> {
     this.db
-      .query({
-        query: 'UPDATE players SET is_active=$1 WHERE id = $2',
+      .update({
+        query: 'is_active = $1',
+        where: 'id = $2',
         variables: [false, userId.id],
       })
       .subscribe();
     this.logger.log(`User with id ${userId.id} deactivated.`);
-    return of();
+    return empty();
   }
 }

@@ -1,14 +1,13 @@
+import { ModuleConfigFactory } from '@golevelup/nestjs-modules';
 import { Injectable } from '@nestjs/common';
-import {
-  ConfigModuleOptions,
-  ConfigOptionsFactory,
-} from '../config/interfaces/config-options.interface';
+import { ConfigModuleOptions } from '../config/interfaces/config-options.interface';
 
 @Injectable()
-export class ConfigModuleConfig implements ConfigOptionsFactory {
+export class ConfigModuleConfig
+  implements ModuleConfigFactory<ConfigModuleOptions> {
   constructor() {}
 
-  createConfigOptions(): ConfigModuleOptions {
+  createModuleConfig(): ConfigModuleOptions {
     return {
       fileName: '.env',
       useProcess: false,

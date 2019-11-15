@@ -18,7 +18,6 @@
       "@tabletop-companion/api-interface": ["libs/api-interface/src/index.ts"]
     },
     "rootDir": ".",
-    "noUnusedLocals": true,
     "pretty": true
   },
   "exclude": ["node_modules", "tmp"]

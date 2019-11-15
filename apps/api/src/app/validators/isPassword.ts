@@ -1,9 +1,6 @@
-// tslint:disable
-
 import {
   registerDecorator,
   ValidationArguments,
-  ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
@@ -37,8 +34,8 @@ export class IsPasswordConstraint implements ValidatorConstraintInterface {
 /**
  * Checks that the password field contains at least one uppercase, lowercase, number, and special character.
  */
-export function IsPassword(validationOptions?: ValidationOptions) {
-  return function(object: Object, propertyName: string) {
+export function IsPassword() {
+  return (object: object, propertyName: string) => {
     registerDecorator({
       name: 'isPassword',
       target: object.constructor,

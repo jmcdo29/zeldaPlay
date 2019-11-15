@@ -1,9 +1,17 @@
-import { Global, Module } from '@nestjs/common';
-import { MyLogger } from './logger.service';
+import { DynamicModule, Module } from '@nestjs/common';
+import { LoggerModuleOptions } from './interfaces/logger-options.interface';
+import { createLoggerProvider } from './logger.provider';
+import { LoggerService } from './logger.service';
 
-@Global()
 @Module({
-  providers: [MyLogger],
-  exports: [MyLogger],
+  providers: [LoggerService],
+  exports: [LoggerService],
 })
-export class LoggerModule {}
+export class LoggerModule {
+  static forFeature(configs: LoggerModuleOptions): DynamicModule {
+    return {
+      module: LoggerModule,
+      providers: createLoggerProvider(configs),
+    };
+  }
+}

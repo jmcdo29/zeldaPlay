@@ -1,27 +1,13 @@
-import { GqlExecutionContext } from '@nestjs/graphql';
+import { createMock } from '@golevelup/nestjs-testing';
+import { ExecutionContext } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GqlAuthGuard } from './gql-auth-guard.guard';
 
-GqlExecutionContext.create = jest.fn().mockReturnValue({
-  getContext: jest.fn().mockReturnThis(),
-  value: 'something',
-  req: 'Request',
-});
-
-const mockContext = {
-  switchToHttp: jest.fn().mockReturnThis(),
-  getClass: jest.fn().mockReturnThis(),
-  getHandler: jest.fn().mockReturnThis(),
-  getArgs: jest.fn().mockReturnThis(),
-  getArgByIndex: jest.fn().mockReturnThis(),
-  switchToRpc: jest.fn().mockReturnThis(),
-  switchToWs: jest.fn().mockReturnThis(),
-  getResponse: jest.fn().mockReturnThis(),
-};
-
-AuthGuard('jwt').prototype.canActivate = jest
+AuthGuard('google').prototype.canActivate = jest
   .fn()
   .mockImplementation(() => true);
+
+AuthGuard('google').prototype.logIn = jest.fn().mockImplementation(() => true);
 
 describe('GqlAuthGuard', () => {
   let guard: GqlAuthGuard;
@@ -33,9 +19,13 @@ describe('GqlAuthGuard', () => {
     expect(guard).toBeDefined();
   });
   it('should run the functions', () => {
-    expect(guard.getRequest({} as any)).toBeTruthy();
+    expect(guard.getRequest(createMock<ExecutionContext>())).toBeTruthy();
   });
-  it('should return true for canActivate', () => {
-    expect(guard.canActivate(mockContext)).toBeTruthy();
+  it('should return true for canActivate', async () => {
+    const getRequestSpy = jest.spyOn(guard, 'getRequest');
+    expect(
+      await guard.canActivate(createMock<ExecutionContext>()),
+    ).toBeTruthy();
+    expect(getRequestSpy).toBeCalledTimes(1);
   });
 });

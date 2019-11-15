@@ -1,29 +1,38 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { ConfigService } from '../config/config.service';
+import { ConfigModule } from '../config/config.module';
+import { JwtModuleConfig } from '../options/jwt.config';
 import { UserModule } from '../user/user.module';
+import { AuthController } from './auth.controller';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
+import { GoogleStrategy } from './google.strategy';
 import { JwtStrategy } from './jwt.strategy';
-
-const jwtModuleAsyncOptions = {
-  useFactory: async (configService: ConfigService) => ({
-    secret: configService.get('JWT_SECRET'),
-    signOptions: {
-      expiresIn: configService.get('JWT_EXPIRES'),
-    },
-  }),
-  inject: [ConfigService],
-};
+import { SessionSerializer } from './session.serializer';
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.registerAsync(jwtModuleAsyncOptions),
+    PassportModule.register({
+      defaultStrategy: 'google',
+      authType: 'reauthenticate',
+      prompt: 'select_account',
+    }),
+    JwtModule.registerAsync({
+      useClass: JwtModuleConfig,
+      imports: [ConfigModule.externallyConfigured(ConfigModule, 0)],
+    }),
     forwardRef(() => UserModule),
+    ConfigModule.externallyConfigured(ConfigModule, 0),
   ],
-  providers: [AuthService, JwtStrategy, AuthResolver],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    AuthResolver,
+    SessionSerializer,
+    GoogleStrategy,
+  ],
   exports: [PassportModule, AuthService],
+  controllers: [AuthController],
 })
 export class AuthModule {}

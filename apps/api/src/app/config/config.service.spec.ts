@@ -19,6 +19,10 @@ describe('ConfigService', () => {
       process.env.PORT = '3333';
       process.env.JWT_SECRET = 'itsasecret';
       process.env.RATE_LIMIT = '4040';
+      process.env.SESSION_SECRET = 'itsasecert';
+      process.env.REDIS_URL = 'redis://redis:redis@localhost:9999/testing';
+      process.env.GOOGLE_SECRET = 'google_secret';
+      process.env.GOOGLE_CLIENT = 'google_client';
     });
     beforeEach(async () => {
       const module: TestingModule = await Test.createTestingModule({
@@ -33,7 +37,7 @@ describe('ConfigService', () => {
       service = module.get<ConfigService>(ConfigService);
     });
     it('should get the NODE_ENV', () => {
-      expect(service.get('NODE_ENV')).toBe('production');
+      expect(service.getNodeEnv()).toBe('production');
     });
     it('should return true for isProd', () => {
       expect(service.isProd()).toBe(true);
@@ -41,14 +45,30 @@ describe('ConfigService', () => {
     it('should return 4040 for RATE_LIMIT', () => {
       expect(service.getRateLimit()).toBe(4040);
     });
+    it('should get the Database url', () => {
+      expect(service.getDatabaseUrl()).toBe(
+        'postgres://postgres:postgres@localhost:5432/testing',
+      );
+    });
+    it('should get the morgan string', () => {
+      const configSpy = jest.spyOn(service, 'isProd');
+      expect(service.getMorganString()).toBe('combined');
+      expect(configSpy).toBeCalledTimes(1);
+      expect(service.getMorganString()).toBe('combined');
+      expect(configSpy).toBeCalledTimes(1);
+      configSpy.mockClear();
+    });
   });
 
   describe('.env config', () => {
     jest.spyOn(dotenv, 'parse').mockReturnValue({
-      PORT: '3333',
       DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/testing',
       NODE_ENV: 'dev',
       JWT_SECRET: 'itsasecret',
+      SESSION_SECRET: 'itsasecret',
+      REDIS_URL: 'redis://redis:redis@localhost:9999/testing',
+      GOOGLE_CLIENT: 'google_client',
+      GOOGLE_SECRET: 'google_secret',
     });
     beforeEach(async () => {
       process.env.NODE_ENV = 'dev';
@@ -64,19 +84,55 @@ describe('ConfigService', () => {
       service = module.get<ConfigService>(ConfigService);
     });
     it('should get PORT', () => {
-      expect(service.get('PORT')).toBe(3333);
+      expect(service.getPort()).toBe(3333);
     });
     it('should return dev for NODE_ENV', () => {
-      expect(service.get('NODE_ENV')).toBe('dev');
+      expect(service.getNodeEnv()).toBe('dev');
     });
     it('should return false for isProd', () => {
       expect(service.isProd()).toBe(false);
     });
     it('should return 1000 for RATE_LIMIT', () => {
-      expect(service.getRateLimit()).toBe(100);
+      expect(service.getRateLimit()).toBe(1000);
     });
-    it('should get back a blank string for a bad key name', () => {
-      expect(service.get(':LKJASFJSDFLKJASDLKF')).toBe('');
+    it('should return a redis url', () => {
+      expect(service.getRedisUrl()).toBe(
+        'redis://redis:redis@localhost:9999/testing',
+      );
+    });
+    it('should return the jwt secret', () => {
+      expect(service.getJwtSecret()).toBe('itsasecret');
+    });
+    it('should return the jwt expires in', () => {
+      expect(service.getJwtExpiresIn()).toBe('3600');
+    });
+    it('should return a session secret', () => {
+      expect(service.getSessionSecret()).toBe('itsasecret');
+    });
+    it('should return a global prefix', () => {
+      expect(service.getGlobalPrefix()).toBe('api');
+    });
+    it('should return a log level', () => {
+      expect(service.getLogLevel()).toBe('INFO');
+    });
+    it('should return the google secret', () => {
+      expect(service.getGoogleSecret()).toBe('google_secret');
+    });
+    it('should return the google client', () => {
+      expect(service.getGoogleClient()).toBe('google_client');
+    });
+    it('should return the google callback', () => {
+      expect(service.getGoogleCallback()).toBe(
+        'http://localhost:3333/api/auth/google/callback',
+      );
+    });
+    it('should get the morgan string', () => {
+      const configSpy = jest.spyOn(service, 'isProd');
+      expect(service.getMorganString()).toBe('dev');
+      expect(configSpy).toBeCalledTimes(1);
+      expect(service.getMorganString()).toBe('dev');
+      expect(configSpy).toBeCalledTimes(1);
+      configSpy.mockClear();
     });
   });
 
@@ -102,7 +158,7 @@ describe('ConfigService', () => {
       } catch (err) {
         expect(err).toBeTruthy();
         expect(err.message).toBe(
-          'Config validation error: child "DATABASE_URL" fails because ["DATABASE_URL" is not allowed to be empty]',
+          'Config validation error: "DATABASE_URL" is not allowed to be empty',
         );
       }
     });

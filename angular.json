@@ -164,7 +164,7 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": ["**/node_modules/**", "*/**/*.spec.ts"]
           }
         },
         "test": {
@@ -201,6 +201,32 @@
         }
       },
       "schematics": {}
+    },
+    "api-e2e": {
+      "root": "apps/api-e2e",
+      "sourceRoot": "apps/api-e2e/src",
+      "projectType": "application",
+      "prefix": "api-e2e",
+      "schematics": {},
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api-e2e/jest.config.js",
+            "tsConfig": "apps/api-e2e/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/api-e2e/tsconfig.app.json",
+              "apps/api-e2e/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/api-e2e/**"]
+          }
+        }
+      }
     }
   },
   "cli": {

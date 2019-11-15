@@ -4,24 +4,28 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compareSync } from 'bcrypt';
-import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { compare } from 'bcrypt';
+import { Observable, of } from 'rxjs';
+import { map, mergeMap, switchMap } from 'rxjs/operators';
+import { GoogleUserService } from '../user/google-user/google-user.service';
 import { UserDTO } from '../user/models';
+import { GoogleUser } from '../user/models/google-user.model';
 import { UserService } from '../user/user.service';
 import { AuthDTO, JwtPayload, LoginDTO, SignupDTO } from './models';
+import { GoogleSub } from './models/google.payload';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
+    private readonly googleUserService: GoogleUserService,
   ) {}
 
   login(login: LoginDTO): Observable<AuthDTO> {
     return this.userService.getByEmail(login.email).pipe(
-      map((user) => {
-        if (compareSync(login.password, user.password)) {
+      mergeMap(async (user) => {
+        if (await compare(login.password, user.password)) {
           return {
             id: user.id,
             token: this.signToken({
@@ -55,6 +59,17 @@ export class AuthService {
             role: signup.role,
           }),
         };
+      }),
+    );
+  }
+
+  findOrCreateGoogleUser(googleUser: GoogleSub): Observable<GoogleUser> {
+    return this.googleUserService.getByGoogleId(googleUser.id).pipe(
+      switchMap((user) => {
+        if (user) {
+          return of(user);
+        }
+        return this.googleUserService.createNewGoogleUser(googleUser);
       }),
     );
   }

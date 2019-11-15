@@ -106,7 +106,7 @@ const abilityScoresObserver = (done: () => void) => ({
 
 describe('AbilityScoreService', () => {
   let service: AbilityScoreService;
-  let db: DatabaseService;
+  let db: DatabaseService<AbilityScore>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -116,13 +116,16 @@ describe('AbilityScoreService', () => {
           provide: DatabaseService,
           useValue: {
             query: jest.fn(),
+            insert: jest.fn(),
+            update: jest.fn(),
+            updateMany: jest.fn(),
           },
         },
       ],
     }).compile();
 
     service = module.get<AbilityScoreService>(AbilityScoreService);
-    db = module.get<DatabaseService>(DatabaseService);
+    db = module.get<DatabaseService<AbilityScore>>(DatabaseService);
   });
 
   it('should be defined', () => {
@@ -143,7 +146,7 @@ describe('AbilityScoreService', () => {
       .unsubscribe();
   });
   it('should insert one ability score', (done) => {
-    db.query = jest.fn().mockReturnValueOnce(of([abilityInsertReturn]));
+    db.insert = jest.fn().mockReturnValueOnce(of([abilityInsertReturn]));
     service
       .insertOneAbilityScore(abilityScoreInput)
       .subscribe({
@@ -160,7 +163,7 @@ describe('AbilityScoreService', () => {
       .unsubscribe();
   });
   it('should insert multiple ability scores', (done) => {
-    db.query = jest
+    db.insert = jest
       .fn()
       .mockReturnValueOnce(
         of([{ id: 'ABL-TEST1' }, { id: 'ABL-TEST2' }, { id: 'ABL-TEST3' }]),
@@ -199,41 +202,39 @@ describe('AbilityScoreService', () => {
       .unsubscribe();
   });
   it('should update one ability score', (done) => {
-    db.query = jest
-      .fn()
-      .mockReturnValueOnce(of([abilityInsertReturn]))
-      .mockReturnValueOnce(of([abilityScore]));
+    db.update = jest.fn().mockReturnValueOnce(of([abilityInsertReturn]));
+    db.query = jest.fn().mockReturnValueOnce(of([abilityScore]));
     service
       .updateOneAbilityScore(abilityScoreUpdate)
       .subscribe(abilityScoreObserver(done))
       .unsubscribe();
   });
   it('should update multiple ability scores', (done) => {
-    db.query = jest
+    db.updateMany = jest
       .fn()
-      .mockReturnValueOnce(of(['ABL-TEST1', 'ABL-TEST2', 'ABL-TEST4']))
-      .mockReturnValueOnce(
-        of([
-          {
-            id: 'ABL-TEST1',
-            value: 10,
-            name: 'Strength',
-            characterId: 'CHR-TEST1',
-          },
-          {
-            id: 'ABL-TEST2',
-            value: 12,
-            name: 'Dexterity',
-            characterId: 'CHR-TEST1',
-          },
-          {
-            id: 'ABL-TEST4',
-            name: 'Intelligence',
-            value: 16,
-            characterId: 'CHR-TEST1',
-          },
-        ]),
-      );
+      .mockReturnValueOnce(of(['ABL-TEST1', 'ABL-TEST2', 'ABL-TEST4']));
+    db.query = jest.fn().mockReturnValueOnce(
+      of([
+        {
+          id: 'ABL-TEST1',
+          value: 10,
+          name: 'Strength',
+          characterId: 'CHR-TEST1',
+        },
+        {
+          id: 'ABL-TEST2',
+          value: 12,
+          name: 'Dexterity',
+          characterId: 'CHR-TEST1',
+        },
+        {
+          id: 'ABL-TEST4',
+          name: 'Intelligence',
+          value: 16,
+          characterId: 'CHR-TEST1',
+        },
+      ]),
+    );
     service
       .updateManyAbilityScores(abilityScoresUpdate)
       .subscribe({

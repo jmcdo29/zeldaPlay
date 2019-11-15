@@ -1,7 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
 import { of } from 'rxjs';
 
 import { DatabaseService } from '../database/database.service';
+import { LoggerService } from '../logger/logger.service';
 import { UserDTO } from './models';
 import { UserService } from './user.service';
 
@@ -24,22 +25,32 @@ const userObserver = (done: () => void) => ({
 
 describe('UserService', () => {
   let service: UserService;
-  let module: TestingModule;
+  let db: DatabaseService<UserDTO>;
 
   beforeEach(async () => {
-    module = await Test.createTestingModule({
+    const module = await Test.createTestingModule({
       providers: [
         UserService,
         {
           provide: DatabaseService,
           useValue: {
             query: jest.fn(),
+            insert: jest.fn(),
+            update: jest.fn(),
+            updateMany: jest.fn(),
+          },
+        },
+        {
+          provide: LoggerService,
+          useValue: {
+            log: jest.fn(),
           },
         },
       ],
     }).compile();
 
     service = module.get<UserService>(UserService);
+    db = module.get<DatabaseService<UserDTO>>(DatabaseService);
   });
 
   it('should be defined', () => {
@@ -47,7 +58,7 @@ describe('UserService', () => {
   });
   describe('getByEmail', () => {
     it('should get the first corresponding user', (done) => {
-      jest.spyOn(module.get(DatabaseService), 'query').mockReturnValueOnce(
+      db.query = jest.fn().mockReturnValueOnce(
         of([
           {
             id: 'USR-TEST1',
@@ -68,7 +79,7 @@ describe('UserService', () => {
   });
   describe('getById', () => {
     it('should return the user with the id', (done) => {
-      jest.spyOn(module.get(DatabaseService), 'query').mockReturnValueOnce(
+      db.query = jest.fn().mockReturnValueOnce(
         of([
           {
             id: 'USR-TEST1',
@@ -86,15 +97,13 @@ describe('UserService', () => {
   });
   describe('insertUser', () => {
     it('should insert the user', (done) => {
-      const dbSpy = jest
-        .spyOn(module.get(DatabaseService), 'query')
-        .mockReturnValueOnce(
-          of([
-            {
-              id: 'USR-TEST1',
-            },
-          ]),
-        );
+      const dbSpy = jest.spyOn(db, 'insert').mockReturnValueOnce(
+        of([
+          {
+            id: 'USR-TEST1',
+          },
+        ] as any),
+      );
       service
         .insertUser({
           email: 'test@test.com',
@@ -147,14 +156,12 @@ describe('UserService', () => {
   });
   describe('deleteUser', () => {
     it('should deactivate the user', (done) => {
-      const dbSpy = jest
-        .spyOn(module.get(DatabaseService), 'query')
-        .mockReturnValueOnce(of([]));
+      const dbSpy = jest.spyOn(db, 'update').mockReturnValueOnce(of([]));
       service
         .deleteUser({ id: 'USR-TEST' })
         .subscribe({
-          next(value) {
-            expect(dbSpy).toBeCalledTimes(2);
+          next() {
+            expect(dbSpy).toBeCalledTimes(1);
           },
           error(error) {
             throw new Error(error.message);

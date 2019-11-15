@@ -12,7 +12,7 @@ import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class AbilityScoreService {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(private readonly db: DatabaseService<AbilityScore>) {}
 
   getAbilityScoresByCharId(charId: CharacterId): Observable<AbilityScore[]> {
     const fields = [];
@@ -20,11 +20,13 @@ export class AbilityScoreService {
     fields.push('name as name');
     fields.push('value as value');
     fields.push('character_id as "characterId"');
-    const query =
-      'SELECT ' +
-      fields.join(', ') +
-      ' FROM ability_scores WHERE character_id = $1;';
-    return this.db.query<AbilityScore>({ query, variables: [charId.id] });
+    const query = fields.join(', ');
+    const where = 'character_id = $1;';
+    return this.db.query({
+      query,
+      where,
+      variables: [charId.id],
+    });
   }
 
   getAbilityScoreById(abilityId: AbilityScoreId): Observable<AbilityScore> {
@@ -33,15 +35,14 @@ export class AbilityScoreService {
     fields.push('name as name');
     fields.push('value as value');
     fields.push('character_id as "characterId"');
-    const query =
-      'SELECT ' + fields.join(', ') + ' FROM ability_scores WHERE id = $1;';
+    const query = fields.join(', ');
+    const where = 'id = $1;';
     return this.db
-      .query<AbilityScore>({ query, variables: [abilityId.id] })
+      .query({ query, where, variables: [abilityId.id] })
       .pipe(map((abilityScores) => abilityScores[0]));
   }
 
   insertOneAbilityScore(ability: AbilityScoreInput): Observable<AbilityScore> {
-    let query = 'INSERT INTO ability_scores (';
     const params: { fields: string[]; values: string[] } = {
       fields: [],
       values: [],
@@ -56,12 +57,12 @@ export class AbilityScoreService {
     for (let i = 1; i <= params.fields.length; i++) {
       params.values.push(`$${i}`);
     }
-    query += params.fields.join(', ');
-    query += ') VALUES (';
-    query += params.values.join(', ');
-    query += ') RETURNING id;';
     return this.db
-      .query<AbilityScore>({ query, variables: abilVariables })
+      .insert({
+        query: params.fields.join(', '),
+        where: params.values.join(', '),
+        variables: abilVariables,
+      })
       .pipe(
         map((abilityScores) => abilityScores[0]),
         map((abilityScore) => ({
@@ -74,7 +75,6 @@ export class AbilityScoreService {
   insertManyAbilityScores(
     abilities: AbilityScoreInput[],
   ): Observable<AbilityScore[]> {
-    let query = 'INSERT INTO ability_scores (';
     const params: { fields: string[]; values: string[] } = {
       fields: [],
       values: [],
@@ -91,12 +91,12 @@ export class AbilityScoreService {
       );
       params.values.push(`$${i * 3 + 1}, $${i * 3 + 2}, $${i * 3 + 3}`);
     }
-    query += params.fields.join(', ');
-    query += ') VALUES (';
-    query += params.values.join('), (');
-    query += ') RETURNING id;';
     return this.db
-      .query<AbilityScore>({ query, variables: abilVariables })
+      .insert({
+        query: params.fields.join(', '),
+        where: params.values.join(', '),
+        variables: abilVariables,
+      })
       .pipe(
         map((abs) => {
           for (let i = 0; i < abs.length; i++) {
@@ -111,12 +111,14 @@ export class AbilityScoreService {
   }
 
   updateOneAbilityScore(ability: AbilityScoreUpdate): Observable<AbilityScore> {
-    let query = 'UPDATE ability_scores SET';
-    query += ' value = $1';
-    query += ' WHERE id = $2';
-    query += ' RETURNING id;';
+    const query = ' value = $1';
+    const where = ' WHERE id = $2';
     return this.db
-      .query<AbilityScore>({ query, variables: [ability.value, ability.id] })
+      .update({
+        query,
+        where,
+        variables: [ability.value, ability.id],
+      })
       .pipe(
         map((abilityScores) => abilityScores[0]),
         mergeMap((abilityScore) => {
@@ -129,28 +131,36 @@ export class AbilityScoreService {
     abilities: AbilityScoreUpdate[],
   ): Observable<AbilityScore[]> {
     const variables = [];
-    let query = 'UPDATE ability_scores as scores SET ';
-    query += 'scores.value = incoming.value';
-    query += 'FROM (VALUES ';
+    const tableAlias = 'scores';
+    const query = 'scores.values = incoming.values';
+    let tempTable = '(VALUES ';
     for (let i = 0; i < abilities.length; i++) {
-      query += `($${i * 2 + 1}, $${i * 2 + 2}),`;
+      tempTable += `($${i * 2 + 1}, $${i * 2 + 2}),`;
       variables.push(abilities[i].value, abilities[i].id);
     }
-    query.substring(0, query.length - 1);
-    query += ') AS incoming(values, id)';
-    query += ' WHERE incoming.id = scores.id;';
-    return this.db.query<AbilityScore>({ query, variables }).pipe(
-      mergeMap(() => {
-        const ids = [];
-        for (const abil of abilities) {
-          ids.push(abil.id);
-        }
-        return this.db.query<AbilityScore>({
-          query:
-            'SELECT id, name, value, character_id as "characterId" FROM ability_scores WHERE id IN $1;',
-          variables: [ids],
-        });
-      }),
-    );
+    tempTable = tempTable.substring(0, query.length - 1);
+    tempTable += ') AS incoming(values, id)';
+    const where = ' WHERE incoming.id = scores.id';
+    return this.db
+      .updateMany({
+        tableAlias,
+        query,
+        tempTable,
+        where,
+        variables,
+      })
+      .pipe(
+        mergeMap(() => {
+          const ids = [];
+          for (const abil of abilities) {
+            ids.push(abil.id);
+          }
+          return this.db.query({
+            query: 'id, name, value, character_id as "characterId"',
+            where: ' WHERE id IN $1;',
+            variables: [ids],
+          });
+        }),
+      );
   }
 }
