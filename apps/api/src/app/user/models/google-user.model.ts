@@ -3,6 +3,6 @@ export class GoogleUser {
   email: string;
   firstName: string;
   lastName: string;
-  role: string[] = ['player'];
+  roles: string[] = ['player'];
   googleId: string;
 }

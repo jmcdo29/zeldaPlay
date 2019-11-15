@@ -5,5 +5,5 @@ ignore:
   SNYK-JS-MONGOOSE-472486:
     - '@nestjs/terminus > mongoose':
         reason: None given
-        expires: '2019-11-23T03:27:21.437Z'
+        expires: '2019-12-15T06:54:19.170Z'
 patch: {}

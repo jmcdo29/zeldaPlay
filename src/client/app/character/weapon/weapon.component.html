@@ -1,0 +1,312 @@
+<div class="modal" [class.showModal]="newWeapon">
+  <div class="modal-content smaller">
+    <div class="modal-header">
+      <span class="close" (click)="addWeapon()">&times;</span>
+      <h2>Add Weapon</h2>
+    </div>
+    <div class="modal-body">
+      <div class="table-holder">
+        <div class="improv-table">
+          <mat-form-field>
+            <input
+              matInput
+              id="weaponName"
+              type="text"
+              [(ngModel)]="weapon.name"
+              (blur)="validate('weaponName', 'name')"
+              placeholder="Weapon Name"
+            />
+          </mat-form-field>
+        </div>
+        <div class="improv-table">
+          <mat-form-field>
+            <mat-select
+              id="weaponType"
+              [(ngModel)]="weapon.type"
+              (selectionChange)="validate('weaponType', 'type')"
+              (selectionChange)="checkForRanged()"
+              placeholder="Weapon Type"
+            >
+              <mat-option
+                *ngFor="let weaponS of allWeapons | enumToArray"
+                value="{{ weaponS }}"
+                >{{ weaponS }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="improv-table">
+          <mat-form-field>
+            <mat-select
+              id="weaponMult"
+              [(ngModel)]="weapon.numberOfAttacks"
+              (selectionChange)="validate('weaponMult', 'numberOfAttacks')"
+              placeholder="How many dice?"
+            >
+              <mat-option value="1">1</mat-option>
+              <mat-option value="2">2</mat-option>
+              <mat-option value="3">3</mat-option>
+              <mat-option value="4">4</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="improv-table">
+          <mat-form-field>
+            <mat-select
+              id="weaponDam"
+              [(ngModel)]="weapon.attack"
+              (selectionChange)="validate('weaponDam', 'attack')"
+              placeholder="What kind of dice?"
+            >
+              <mat-option value="4">D4</mat-option>
+              <mat-option value="6">D6</mat-option>
+              <mat-option value="8">D8</mat-option>
+              <mat-option value="10">D10</mat-option>
+              <mat-option value="12">D12</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="improv-table">
+          <mat-form-field>
+            <mat-select
+              id="critRange"
+              [(ngModel)]="weapon.critRange"
+              (selectionChange)="validate('critRange', 'critRange')"
+              placeholder="What is the crit range?"
+            >
+              <mat-option value="[18,19,20]">18-20</mat-option>
+              <mat-option value="[19,20]">19-20</mat-option>
+              <mat-option value="[20]">20</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="improv-table">
+          <mat-form-field>
+            <mat-select
+              id="weaponCrit"
+              [(ngModel)]="weapon.critDamage"
+              (selectionChange)="validate('weaponCrit', 'critDamage')"
+              placeholder="What is the critical multiplier?"
+            >
+              <mat-option value="2">X 2</mat-option>
+              <mat-option value="3">X 3</mat-option>
+              <mat-option value="4">X 4</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="improv-table">
+          <mat-form-field>
+            <mat-select
+              id="weaponMod"
+              [(ngModel)]="weapon.modifier"
+              (selectionChange)="validate('weaponMod', 'modifier')"
+              placeholder="What is the damage modifier?"
+            >
+              <mat-option selected hidden
+                >--Select the Damage Modifier</mat-option
+              >
+              <mat-option
+                *ngFor="let attr of attributes | enumToArray"
+                value="{{ attr }}"
+                >{{ attr }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div *ngIf="isRangedWeapon">
+          <div class="improv-table rangedWeapon">
+            <mat-form-field>
+              <mat-label>Range</mat-label>
+              <input
+                matInput
+                id="weaponRange"
+                [(ngModel)]="weapon.range"
+                step="5"
+                (blur)="validate('weaponRange', 'range')"
+                placeholder="Range"
+              />
+            </mat-form-field>
+          </div>
+          <div class="improv-table rangedWeapon">
+            <mat-form-field>
+              <mat-label>Ammo</mat-label>
+              <input
+                matInput
+                id="weaponAmmo"
+                [(ngModel)]="weapon.ammo"
+                step="5"
+                (blur)="validate('weaponAmmo', 'ammo')"
+                placeholder="Ammo"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="improv-table">
+          Elemental:
+          <mat-checkbox
+            [(ngModel)]="isElemental"
+            (click)="makeElement()"
+          ></mat-checkbox>
+        </div>
+        <div *ngIf="isElemental">
+          <div class="improv-table">
+            <mat-form-field>
+              <mat-select
+                id="eType"
+                [(ngModel)]="elemental.type"
+                (selectionChange)="validateElement('eType', 'type')"
+                placeholder="Element Type"
+              >
+                <mat-option
+                  *ngFor="let elem of elements | enumToArray"
+                  value="{{ elem }}"
+                  >{{ elem }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="improv-table">
+            <mat-form-field>
+              <mat-select
+                id="elementalMult"
+                [(ngModel)]="elemental.numberOfAttacks"
+                (selectionChange)="
+                  validateElement('elementalMult', 'numberOfAttacks')
+                "
+                placeholder="Number of elemental hits."
+              >
+                <mat-option value="1">1</mat-option>
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+                <mat-option value="4">4</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="improv-table">
+            <mat-form-field>
+              <mat-select
+                id="elementDam"
+                [(ngModel)]="elemental.attack"
+                (selectionChange)="validateElement('elementDam', 'attack')"
+                placeholder="Elemental dice type"
+              >
+                <mat-option value="4">D4</mat-option>
+                <mat-option value="6">D6</mat-option>
+                <mat-option value="8">D8</mat-option>
+                <mat-option value="10">D10</mat-option>
+                <mat-option value="12">D12</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="submit-button">
+        <button mat-raised-button class="center" (click)="saveWeapon()">
+          Save Weapon
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button mat-flat-button (click)="addWeapon()">New Weapon</button>
+<div *ngIf="character.weapons" class="table">
+  <div class="spellRoll">
+    <div *ngIf="weaponName">
+      <h4>{{ weaponName }}</h4>
+      <span>Roll to hit:</span> <span id="rollToHit">{{ rollToHit }}</span>
+      <br />
+      <span>Damage Roll:</span> <span id="weaponDmg">{{ dmgRoll }}</span> <br />
+    </div>
+    <div *ngIf="elemRoll">
+      <span>Elemental Roll:</span>
+      <span id="elementalDmgRoll">{{ elemRoll }}</span>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Weapon Name</th>
+        <th>Weapon Type</th>
+        <th>Weapon Damage</th>
+        <th>Critical Hit Range</th>
+        <th>Critical Multiplier</th>
+        <th>Damage Modifier</th>
+        <th>Range</th>
+        <th>Ammo</th>
+        <th>Element</th>
+        <th>Elemental Damage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let weapon of character.weapons; index as i"
+        [class.din]="
+          weapon.modifier === 'Strength' || weapon.modifier === 'Intelligence'
+        "
+        [class.farore]="
+          weapon.modifier === 'Dexterity' || weapon.modifier === 'Charisma'
+        "
+        [class.nayru]="
+          weapon.modifier === 'Wisdom' || weapon.modifier === 'Constitution'
+        "
+      >
+        <td class="weaponName" (click)="attack(i)">{{ weapon.name }}</td>
+        <td>{{ weapon.type }}</td>
+        <td>{{ weapon.numberOfAttacks }}D{{ weapon.attack }}</td>
+        <td>{{ weapon.critRange }}</td>
+        <td>X{{ weapon.critDamage }}</td>
+        <td>{{ weapon.modifier }}</td>
+        <td>{{ weapon.range ? weapon.range : 'N/A' }}</td>
+        <td>{{ weapon.ammo ? weapon.ammo : 'N/A' }}</td>
+        <td>{{ weapon.element ? weapon.element.type : 'N/A' }}</td>
+        <td>
+          {{
+            weapon.element
+              ? weapon.element.numberOfAttacks !== null &&
+                weapon.element.attack !== null
+                ? weapon.element.numberOfAttacks + 'D' + weapon.element.attack
+                : 'N/A'
+              : 'N/A'
+          }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="weaponSkills">
+  <button mat-flat-button class="accordian" (click)="expandWeapon()">
+    <h2>{{ character.name | uppercase }} Weapon Skills</h2>
+  </button>
+  <div class="panel" [class.active]="showWeapon">
+    <div class="table">
+      <table>
+        <thead>
+          <tr>
+            <th>Trained</th>
+            <th>Weapon Type</th>
+            <th>Skill Ranks</th>
+            <th>Racial Bonus</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let weapon of character.weaponSkills" class="weapon">
+            <td>
+              <mat-checkbox
+                [checked]="weapon.trained"
+                disabled="true"
+              ></mat-checkbox>
+            </td>
+            <td class="name">{{ weapon.skillName }}</td>
+            <td>{{ weapon.ranks }}</td>
+            <td>{{ weapon.racial }}</td>
+            <td class="total">
+              {{ (weapon.trained ? 3 : 0) + weapon.ranks + weapon.racial }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
