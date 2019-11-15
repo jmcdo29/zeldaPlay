@@ -17,6 +17,7 @@ export class GoogleUserService {
       'email as email',
       'first_name as "firstName"',
       'last_name as "lastName"',
+      'google_id as "googleId"',
     );
     const query = fields.join(', ');
     const where = 'google_id = $1';

@@ -14,10 +14,10 @@ const passVal = 'Pa$$w0rd';
 const badPassVal = 'Passw0rd';
 const email = 'test@test.com';
 
-const mockGoogleUser = {
+const mockGoogleUser: GoogleUser = {
   id: 'USR-id',
   email,
-  role: ['player'],
+  roles: ['player'],
   googleId: 'Google Id',
   firstName: 'test',
   lastName: 'test',
