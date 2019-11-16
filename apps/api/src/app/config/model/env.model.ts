@@ -46,5 +46,5 @@ export const defaults = {
   RATE_LIMIT: '1000',
   NODE_ENV: 'development',
   GOOGLE_CALLBACK_URL: 'http://localhost:3333/api/auth/google/callback',
-  COOKIE_AGE: '60000',
+  COOKIE_AGE: '86400',
 };

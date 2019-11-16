@@ -27,9 +27,11 @@ export function configure(
       secret: config.getSessionSecret(),
       resave: false,
       saveUninitialized: false,
+      name: 'id',
       cookie: {
         sameSite: true,
         httpOnly: true,
+        secure: config.isProd(),
         maxAge: config.getCookieAge(),
       },
     }),
