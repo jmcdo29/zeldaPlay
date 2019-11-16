@@ -12,6 +12,6 @@ export class AuthController {
   @UseGuards(GoogleGuard)
   @Get('google/callback')
   async googleCallback(@Req() req: Request) {
-    return 'Logged in';
+    return req.user;
   }
 }

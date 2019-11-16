@@ -17,6 +17,7 @@ import { SessionSerializer } from './session.serializer';
       defaultStrategy: 'google',
       authType: 'reauthenticate',
       prompt: 'select_account',
+      session: true,
     }),
     JwtModule.registerAsync({
       useClass: JwtModuleConfig,
