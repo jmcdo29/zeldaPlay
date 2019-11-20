@@ -29,8 +29,8 @@ export function configure(
       saveUninitialized: false,
       name: 'id',
       cookie: {
-        sameSite: true,
-        httpOnly: true,
+        sameSite: config.isProd(),
+        httpOnly: config.isProd(),
         secure: config.isProd(),
         maxAge: config.getCookieAge(),
       },
