@@ -102,6 +102,6 @@ export class ConfigService {
   }
 
   getCookieAge(): number {
-    return Number.parseInt(this.envConfig.COOKIE_AGE, 10);
+    return Number.parseInt(this.envConfig.COOKIE_AGE, 10) * 1000;
   }
 }

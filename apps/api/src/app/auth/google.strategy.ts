@@ -4,7 +4,6 @@ import { OAuth2Strategy } from 'passport-google-oauth';
 import { throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConfigService } from '../config/config.service';
-import { GoogleUser } from '../user/models/google-user.model';
 import { AuthService } from './auth.service';
 import { GoogleSub } from './models/google.payload';
 
@@ -22,12 +21,7 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy) {
     });
   }
 
-  validate(
-    accessToken: string,
-    refreshToken: string,
-    profile: GoogleSub,
-    // callback: (err: Error, user: GoogleUser) => void,
-  ) {
+  validate(accessToken: string, refreshToken: string, profile: GoogleSub) {
     return this.authService.findOrCreateGoogleUser(profile).pipe(
       map((user) => {
         if (!user) {
