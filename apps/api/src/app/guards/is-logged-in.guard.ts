@@ -1,5 +1,4 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Request } from 'express';
 
 @Injectable()
 export class IsLoggedInGuard implements CanActivate {
@@ -8,7 +7,7 @@ export class IsLoggedInGuard implements CanActivate {
     return request.isAuthenticated();
   }
 
-  getRequest(context: ExecutionContext): Request {
+  getRequest(context: ExecutionContext) {
     return context.switchToHttp().getRequest();
   }
 }

@@ -34,7 +34,6 @@ import { UserModule } from './user/user.module';
     TerminusModule.forRootAsync({
       useClass: TerminusOptionsService,
     }),
-    LoggerModule,
     AuthModule,
     CharacterModule,
     UserModule,

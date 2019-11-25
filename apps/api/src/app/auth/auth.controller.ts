@@ -13,7 +13,7 @@ export class AuthController {
   @UseGuards(GoogleGuard)
   @Redirect('/api/auth/test-login')
   @Get('google/callback')
-  async googleCallback(@Req() req: Request) {
+  async googleCallback(@Req() req: any) {
     return req.user;
   }
 }
