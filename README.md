@@ -4,15 +4,7 @@
 
 <div align="center">
 
-[![code style: prettier](https://badgen.net/badge/Code%20style/prettier/cyan?icon=typescript)](https://github.com/prettier/prettier)
-[![Nx](https://badgen.net/badge/Built%20With/Nx/8A2BE2)](https://nx.dev/getting-started/what-is-nx)
-[![MIT license](https://badgen.net/badge/License/MIT/66CC00)](http://opensource.org/licenses/MIT)
-[![Jest](https://badgen.net/badge/Tested%20With/Jest/800000)](https://jestjs.io)
-[![Cypress](https://badgen.net/badge/Tested%20With/Cypress/2e3138)](https://www.cypress.io)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jmcdo29/zeldaPlay)](https://dependabot.com)
-[![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json)
-[![Discord Chat](https://badgen.net/badge/Chat%20on/Discord/blue?icon=discord)](https://discord.gg/hGuDEgG)
-[![Heroku](https://badgen.net/badge/Running%20on/Heroku/79589f)](https://heroku.com)
+[![code style: prettier](https://badgen.net/badge/Code%20style/prettier/cyan?icon=typescript)](https://github.com/prettier/prettier) [![Nx](https://badgen.net/badge/Built%20With/Nx/8A2BE2)](https://nx.dev/getting-started/what-is-nx) [![MIT license](https://badgen.net/badge/License/MIT/66CC00)](http://opensource.org/licenses/MIT) [![Jest](https://badgen.net/badge/Tested%20With/Jest/800000)](https://jestjs.io) [![Cypress](https://badgen.net/badge/Tested%20With/Cypress/2e3138)](https://www.cypress.io) [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=jmcdo29/zeldaPlay)](https://dependabot.com) [![Known Vulnerabilities](https://snyk.io/test/github/jmcdo29/zeldaPlay/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jmcdo29/zeldaPlay?targetFile=package.json) [![Discord Chat](https://badgen.net/badge/Chat%20on/Discord/blue?icon=discord)](https://discord.gg/hGuDEgG) [![Heroku](https://badgen.net/badge/Running%20on/Heroku/79589f)](https://heroku.com) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 </div>
 
@@ -20,6 +12,4 @@ The tabletop companion is a multi-use tool for Dungeon/Game Masters and players 
 
 ## Built With
 
-<a href="https://nx.dev/getting-started/what-is-nx" align="left"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="50" alt="Nx Logo"></a>
-<a href="https://angular.io"><img src="https://angular.io/assets/images/logos/angular/angular.svg" width=50 alt="Angular Logo"></a>
-<a href="https://docs.nestjs.com"><img src="https://d33wubrfki0l68.cloudfront.net/49c2be6f2607b5c12dd27f8ecc8521723447975d/f05c5/logo-small.cbbeba89.svg" width=50 alt="Nest Logo"></a>
+<a href="https://nx.dev/getting-started/what-is-nx" align="left"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="50" alt="Nx Logo"></a> <a href="https://angular.io"><img src="https://angular.io/assets/images/logos/angular/angular.svg" width=50 alt="Angular Logo"></a> <a href="https://docs.nestjs.com"><img src="https://d33wubrfki0l68.cloudfront.net/49c2be6f2607b5c12dd27f8ecc8521723447975d/f05c5/logo-small.cbbeba89.svg" width=50 alt="Nest Logo"></a>

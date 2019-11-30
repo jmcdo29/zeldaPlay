@@ -1,5 +1,6 @@
 import { Provider, Scope } from '@nestjs/common';
 import { Pool } from 'pg';
+import { LoggerService } from '../logger/logger.service';
 import {
   DATABASE_FEATURE,
   DATABASE_MODULE_OPTIONS,
@@ -22,12 +23,23 @@ export function createDatabaseFeatureProvider(
 export function createDatabasePoolConnection(): Provider {
   return {
     provide: DATABASE_POOL,
-    useFactory: (options: DatabaseModuleOptions) =>
-      new Pool({
+    useFactory: async (
+      options: DatabaseModuleOptions,
+      logger: LoggerService,
+    ) => {
+      const pool = new Pool({
         ssl: options.ssl,
         connectionString: options.connectionUrl,
-      }),
-    inject: [DATABASE_MODULE_OPTIONS],
+      });
+      try {
+        await pool.connect();
+      } catch (err) {
+        logger.error(err.message, err.stack);
+        process.exit(1);
+      }
+      return pool;
+    },
+    inject: [DATABASE_MODULE_OPTIONS, LoggerService],
   };
 }
 

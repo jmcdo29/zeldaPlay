@@ -18,10 +18,16 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy) {
       clientSecret: config.getGoogleSecret(),
       callbackURL: config.getGoogleCallback(),
       scope: ['profile', 'email'],
+      passReqToCallback: true,
     });
   }
 
-  validate(accessToken: string, refreshToken: string, profile: GoogleSub) {
+  validate(
+    req: any,
+    accessToken: string,
+    refreshToken: string,
+    profile: GoogleSub,
+  ) {
     return this.authService.findOrCreateGoogleUser(profile).pipe(
       map((user) => {
         if (!user) {

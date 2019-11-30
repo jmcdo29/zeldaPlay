@@ -7,6 +7,7 @@
     "url": "https://github.com/jmcdo29/zeldaplay"
   },
   "scripts": {
+    "commit": "git-cz",
     "docker:all": "npm run docker:build && npm run docker:api && npm run docker:client",
     "docker:build": "docker build -t jmcdo29/build -f Docker/build.Dockerfile .",
     "docker:api": "docker build -t jmcdo29/tabletop-companion-server -f Docker/api.Dockerfile .",
@@ -47,8 +48,8 @@
     "@angular/router": "^8.2.14",
     "@godaddy/terminus": "^4.2.1",
     "@golevelup/nestjs-modules": "^0.3.0",
-    "@nestjs/common": "^6.10.1",
-    "@nestjs/core": "^6.10.1",
+    "@nestjs/common": "^6.10.2",
+    "@nestjs/core": "^6.10.2",
     "@nestjs/graphql": "^6.5.3",
     "@nestjs/jwt": "^6.1.1",
     "@nestjs/passport": "^6.1.0",
@@ -124,6 +125,7 @@
     "@types/supertest": "^2.0.8",
     "codelyzer": "^5.2.0",
     "cypress": "^3.6.1",
+    "cz-conventional-changelog": "^3.0.2",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
     "jest-preset-angular": "^7.1.1",
@@ -158,5 +160,10 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
