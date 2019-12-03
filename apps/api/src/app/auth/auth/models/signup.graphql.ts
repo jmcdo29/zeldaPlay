@@ -8,8 +8,8 @@ import {
   MinLength,
 } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
-import { typeBoolean, typeStrings } from '../../models';
-import { IsPassword } from '../../validators';
+import { typeBoolean, typeStrings } from '../../../models';
+import { IsPassword } from '../../../validators';
 
 @InputType()
 export class SignupDTO implements Signup {

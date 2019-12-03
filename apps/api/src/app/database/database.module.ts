@@ -2,7 +2,11 @@ import { AsyncModuleConfig } from '@golevelup/nestjs-modules';
 import { DynamicModule, Module } from '@nestjs/common';
 import { LoggerModule } from '../logger/logger.module';
 import { DatabaseCoreModule } from './database-core.module';
-import { createDatabaseFeatureProvider } from './database.provider';
+import {
+  createDatabaseFeatureProvider,
+  createDatabasePoolConnection,
+  createDatabaseService,
+} from './database.provider';
 import { DatabaseService } from './database.service';
 import { DatabaseModuleOptions } from './interfaces/database-options.interface';
 import { DatabaseFeatureOptions } from './interfaces/database.interface';
@@ -25,7 +29,11 @@ export class DatabaseModule {
     return {
       module: DatabaseModule,
       imports: [DatabaseCoreModule.Deferred],
-      providers: [...createDatabaseFeatureProvider(options), DatabaseService],
+      providers: [
+        createDatabaseFeatureProvider(options),
+        createDatabaseService(),
+        createDatabasePoolConnection(),
+      ],
       exports: [DatabaseService],
     };
   }

@@ -3,9 +3,9 @@ import { hashSync } from 'bcrypt';
 import { empty, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { DatabaseService } from '../../database/database.service';
+import { LoggerService } from '../../logger/logger.service';
 import { SignupDTO } from '../auth/models';
-import { DatabaseService } from '../database/database.service';
-import { LoggerService } from '../logger/logger.service';
 import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 
 @Injectable()

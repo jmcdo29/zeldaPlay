@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UserIdDTO } from '../auth/user/models';
 import { DatabaseService } from '../database/database.service';
-import { UserIdDTO } from '../user/models';
 import {
   CharacterDTO,
   CharacterIdDTO,

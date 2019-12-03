@@ -3,11 +3,7 @@ import { Pool } from 'pg';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoggerService } from '../logger/logger.service';
-import {
-  DATABASE_FEATURE,
-  DATABASE_MODULE_OPTIONS,
-} from './database.constants';
-import { DatabaseModuleOptions } from './interfaces/database-options.interface';
+import { DATABASE_FEATURE, DATABASE_POOL } from './database.constants';
 import {
   DatabaseFeatureOptions,
   DatabaseInterface,
@@ -17,29 +13,18 @@ import {
   UpdateParams,
 } from './interfaces/database.interface';
 
-@Injectable({
-  scope: Scope.TRANSIENT,
-})
-export class DatabaseService<T> implements OnModuleInit, DatabaseInterface<T> {
-  private pool: Pool;
-
+@Injectable()
+export class DatabaseService<T> implements DatabaseInterface<T> {
   tableName: string;
 
   constructor(
-    @Inject(DATABASE_MODULE_OPTIONS)
-    private readonly options: DatabaseModuleOptions,
+    @Inject(DATABASE_POOL)
+    private readonly pool: Pool,
     @Inject(DATABASE_FEATURE)
     readonly feature: DatabaseFeatureOptions,
     private readonly logger: LoggerService,
   ) {
     this.tableName = feature.tableName;
-  }
-
-  onModuleInit() {
-    this.pool = new Pool({
-      connectionString: this.options.connectionUrl,
-      ssl: this.options.ssl,
-    });
   }
 
   private runQuery(query: string, params: any[]): Observable<T[]> {

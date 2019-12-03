@@ -1,8 +1,9 @@
+import { createMock, DeepMocked } from '@golevelup/nestjs-testing';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Pool } from 'pg';
 import { LoggerService } from '../logger/logger.service';
 import { DatabaseService } from './database.service';
-jest.mock('pg');
+import { DATABASE_POOL, DATABASE_FEATURE } from './database.constants';
 
 interface MockResult {
   id: number;
@@ -23,49 +24,46 @@ const returnResult: MockResult[] = [
   },
 ];
 
-const querySpy = jest.spyOn(Pool.prototype, 'query').mockImplementation(() => {
-  return Promise.resolve({
-    command: 'SELECT * FROM test.base',
-    rowCount: 0,
-    oid: 'something, I guess',
-    fields: ['id', 'name'],
-    rows: returnResult,
-  });
-});
-
 describe('DatabaseService', () => {
   let module: TestingModule;
   let service: DatabaseService<MockResult>;
+  let pool: DeepMocked<Pool>;
 
   beforeEach(async () => {
     module = await Test.createTestingModule({
       providers: [
+        DatabaseService,
         {
-          provide: DatabaseService,
-          useFactory: () =>
-            new DatabaseService<MockResult>(
-              {
-                connectionUrl: 'connectionString',
-                ssl: false,
-              },
-              { tableName: 'Testing' },
-              new LoggerService({ context: 'DATABASE_TEST' }),
-            ),
+          provide: DATABASE_POOL,
+          useValue: createMock<Pool>({
+            query: jest.fn().mockImplementation(() => {
+              return Promise.resolve({
+                command: 'SELECT * FROM test.base',
+                rowCount: 0,
+                oid: 'something, I guess',
+                fields: ['id', 'name'],
+                rows: returnResult,
+              });
+            }),
+          }),
+        },
+        {
+          provide: DATABASE_FEATURE,
+          useValue: { tableName: 'Testing' },
+        },
+        {
+          provide: LoggerService,
+          useValue: new LoggerService({ context: 'DATABASE_TEST' }),
         },
       ],
     }).compile();
 
     service = module.get<DatabaseService<MockResult>>(DatabaseService);
-    await module.init();
+    pool = module.get<DeepMocked<Pool>>(DATABASE_POOL);
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-  });
-  it('should initialize', async () => {
-    await module.init();
-    expect(service).toBeDefined();
-    await module.close();
   });
   describe('queries', () => {
     it('should run the query for query', (done) => {
@@ -82,7 +80,7 @@ describe('DatabaseService', () => {
       });
     });
     it('should return for an error in the query', (done) => {
-      querySpy.mockImplementationOnce(
+      pool.query.mockImplementationOnce(
         () => Promise.reject(new Error('Error')) as any,
       );
       service.query({ query: '*', variables: ['characterId'] }).subscribe({

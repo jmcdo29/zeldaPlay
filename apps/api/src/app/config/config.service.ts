@@ -100,4 +100,8 @@ export class ConfigService {
       : 'dev';
     return this.envConfig.MORGAN_STRING;
   }
+
+  getCookieAge(): number {
+    return Number.parseInt(this.envConfig.COOKIE_AGE, 10) * 1000;
+  }
 }

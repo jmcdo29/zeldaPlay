@@ -8,7 +8,6 @@ import { AuthModule } from './auth/auth.module';
 import { CharacterModule } from './character/character.module';
 import { ConfigModule } from './config/config.module';
 import { DatabaseModule } from './database/database.module';
-import { LoggerModule } from './logger/logger.module';
 import {
   ConfigModuleConfig,
   DatabaseModuleConfig,
@@ -16,7 +15,6 @@ import {
   TerminusOptionsService,
 } from './options';
 import { SpellModule } from './spell/spell.module';
-import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -34,10 +32,8 @@ import { UserModule } from './user/user.module';
     TerminusModule.forRootAsync({
       useClass: TerminusOptionsService,
     }),
-    LoggerModule,
     AuthModule,
     CharacterModule,
-    UserModule,
     AbilityScoreModule,
     SpellModule,
   ],

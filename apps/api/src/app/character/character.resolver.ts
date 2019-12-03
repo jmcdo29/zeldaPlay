@@ -1,8 +1,8 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Observable } from 'rxjs';
+import { UserIdDTO } from '../auth/user/models';
 import { GqlAuthGuard } from '../guards/gql-auth-guard.guard';
-import { UserIdDTO } from '../user/models';
 import { CharacterService } from './character.service';
 import {
   CharacterDTO,

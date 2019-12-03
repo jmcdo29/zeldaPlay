@@ -27,6 +27,13 @@ export function configure(
       secret: config.getSessionSecret(),
       resave: false,
       saveUninitialized: false,
+      name: 'id',
+      cookie: {
+        sameSite: config.isProd(),
+        httpOnly: config.isProd(),
+        secure: config.isProd(),
+        maxAge: config.getCookieAge(),
+      },
     }),
     morgan(config.getMorganString(), {
       skip: (req: any, res: any) =>

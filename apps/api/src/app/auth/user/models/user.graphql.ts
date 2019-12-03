@@ -1,6 +1,6 @@
 import { User } from '@tabletop-companion/api-interface';
 import { Field, ObjectType } from 'type-graphql';
-import { typeBoolean, typeStrings } from '../../models';
+import { typeBoolean, typeStrings } from '../../../models';
 
 @ObjectType()
 export class UserDTO implements User {
