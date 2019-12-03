@@ -12,17 +12,14 @@ export class LoggerService {
     message: string | object,
     context?: string,
   ) {
+    context = context || this.context;
     context = context ? '[' + context + ']' : '';
     const colorStart = '\x1b';
     const reset = colorStart + '[0m';
     const green = colorStart + '[32m';
     const yellow = colorStart + '[33m';
     const nest = this.useColor() ? green + '[Nest]' + reset : '[Nest]';
-    const con = context
-      ? this.useColor()
-        ? yellow + context + reset
-        : context
-      : '';
+    const con = this.useColor() ? yellow + context + reset : context;
     if (typeof message === 'object') {
       scribe[level](`${nest} ${process.pid} ${con} `, message);
     } else {
@@ -56,24 +53,19 @@ export class LoggerService {
   }
 
   error(message: string, trace: string, context?: string) {
-    context = context ? context : this.context;
     this.printMyMessage('error', message, context);
     this.printMyStackTrace(trace);
   }
   log(message: string | object, context?: string) {
-    context = context ? context : this.context;
     this.printMyMessage('info', message, context);
   }
   warn(message: string | object, context?: string) {
-    context = context ? context : this.context;
     this.printMyMessage('warn', message, context);
   }
   debug(message: string | object, context?: string) {
-    context = context ? context : this.context;
     this.printMyMessage('debug', message, context);
   }
   verbose(message: string | object, context?: string) {
-    context = context ? context : this.context;
     this.printMyMessage('fine', message, context);
   }
 }

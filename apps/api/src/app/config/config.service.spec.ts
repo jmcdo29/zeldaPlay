@@ -4,6 +4,9 @@ import { ConfigService } from './config.service';
 jest.mock('fs');
 jest.mock('path');
 
+const postgresURL = 'postgres://postgres:postgres@localhost:5432/testing';
+const redisURL = 'redis://redis:redis@localhost:9999/testing';
+
 describe('ConfigService', () => {
   let service: ConfigService;
 
@@ -14,13 +17,12 @@ describe('ConfigService', () => {
   describe('process.env config', () => {
     beforeAll(() => {
       process.env.NODE_ENV = 'production';
-      process.env.DATABASE_URL =
-        'postgres://postgres:postgres@localhost:5432/testing';
+      process.env.DATABASE_URL = postgresURL;
       process.env.PORT = '3333';
       process.env.JWT_SECRET = 'itsasecret';
       process.env.RATE_LIMIT = '4040';
       process.env.SESSION_SECRET = 'itsasecert';
-      process.env.REDIS_URL = 'redis://redis:redis@localhost:9999/testing';
+      process.env.REDIS_URL = redisURL;
       process.env.GOOGLE_SECRET = 'google_secret';
       process.env.GOOGLE_CLIENT = 'google_client';
     });
@@ -46,27 +48,23 @@ describe('ConfigService', () => {
       expect(service.getRateLimit()).toBe(4040);
     });
     it('should get the Database url', () => {
-      expect(service.getDatabaseUrl()).toBe(
-        'postgres://postgres:postgres@localhost:5432/testing',
-      );
+      expect(service.getDatabaseUrl()).toBe(postgresURL);
     });
     it('should get the morgan string', () => {
-      const configSpy = jest.spyOn(service, 'isProd');
-      expect(service.getMorganString()).toBe('combined');
-      expect(configSpy).toBeCalledTimes(1);
-      expect(service.getMorganString()).toBe('combined');
-      expect(configSpy).toBeCalledTimes(1);
-      configSpy.mockClear();
+      morganTest('combined', service);
+    });
+    it('should get the cookie age', () => {
+      expect(service.getCookieAge()).toBe(86400 * 1000);
     });
   });
 
   describe('.env config', () => {
     jest.spyOn(dotenv, 'parse').mockReturnValue({
-      DATABASE_URL: 'postgres://postgres:postgres@localhost:5432/testing',
+      DATABASE_URL: postgresURL,
       NODE_ENV: 'dev',
       JWT_SECRET: 'itsasecret',
       SESSION_SECRET: 'itsasecret',
-      REDIS_URL: 'redis://redis:redis@localhost:9999/testing',
+      REDIS_URL: redisURL,
       GOOGLE_CLIENT: 'google_client',
       GOOGLE_SECRET: 'google_secret',
     });
@@ -96,9 +94,7 @@ describe('ConfigService', () => {
       expect(service.getRateLimit()).toBe(1000);
     });
     it('should return a redis url', () => {
-      expect(service.getRedisUrl()).toBe(
-        'redis://redis:redis@localhost:9999/testing',
-      );
+      expect(service.getRedisUrl()).toBe(redisURL);
     });
     it('should return the jwt secret', () => {
       expect(service.getJwtSecret()).toBe('itsasecret');
@@ -127,12 +123,7 @@ describe('ConfigService', () => {
       );
     });
     it('should get the morgan string', () => {
-      const configSpy = jest.spyOn(service, 'isProd');
-      expect(service.getMorganString()).toBe('dev');
-      expect(configSpy).toBeCalledTimes(1);
-      expect(service.getMorganString()).toBe('dev');
-      expect(configSpy).toBeCalledTimes(1);
-      configSpy.mockClear();
+      morganTest('dev', service);
     });
   });
 
@@ -182,3 +173,12 @@ describe('ConfigService', () => {
     });
   });
 });
+
+const morganTest = (morganString: string, service: ConfigService) => {
+  const configSpy = jest.spyOn(service, 'isProd');
+  expect(service.getMorganString()).toBe(morganString);
+  expect(configSpy).toBeCalledTimes(1);
+  expect(service.getMorganString()).toBe(morganString);
+  expect(configSpy).toBeCalledTimes(1);
+  configSpy.mockClear();
+};

@@ -1,7 +1,7 @@
 import { createMock } from '@golevelup/nestjs-testing';
 import { ExecutionContext } from '@nestjs/common';
-import { GqlAuthGuard } from './gql-auth-guard.guard';
 import { GqlExecutionContext } from '@nestjs/graphql';
+import { GqlAuthGuard } from './gql-auth-guard.guard';
 
 describe('GqlAuthGuard', () => {
   let guard: GqlAuthGuard;

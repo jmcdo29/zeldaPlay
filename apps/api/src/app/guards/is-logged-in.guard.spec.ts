@@ -1,6 +1,6 @@
-import { IsLoggedInGuard } from './is-logged-in.guard';
 import { createMock } from '@golevelup/nestjs-testing';
 import { ExecutionContext } from '@nestjs/common';
+import { IsLoggedInGuard } from './is-logged-in.guard';
 
 describe('IsLoggedInGuard', () => {
   let guard: IsLoggedInGuard;

@@ -1,110 +1,20 @@
 import { Test } from '@nestjs/testing';
-import { LoggerModule } from './logger.module';
+import { LOGGER_MODULE_OPTIONS } from './logger.constants';
 import { LoggerService } from './logger.service';
 
 jest.mock('mc-scribe').enableAutomock();
 
-describe('LoggerService', () => {
-  let service: LoggerService;
+const shouldLog = (level: string): string => `Should log ${level}`;
+const stackTrace = 'Stack Trace';
 
-  beforeAll(async () => {
-    service = new LoggerService({ context: 'TEST' });
-  });
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-  it('should have context TEST', () => {
-    expect((service as any).context).toBe('TEST');
-  });
-  describe('dev env', () => {
-    beforeAll(() => {
-      process.env.NODE_ENV = 'dev';
-    });
-    describe('without context', () => {
-      it('should log error', () => {
-        service.error('Error!', 'Stack trace');
-      });
-      it('should log log', () => {
-        service.log('logs here');
-      });
-      it('should log warn', () => {
-        service.warn('Warning!');
-      });
-      it('should log debug messages', () => {
-        service.debug('Debug');
-        service.debug({ debug: 'DEBUG' });
-      });
-      it('should log verbose', () => {
-        service.verbose('verbose!');
-      });
-    });
-    describe('with context', () => {
-      it('should log error', () => {
-        service.error('Error!', 'Stack trace', 'TEST');
-      });
-      it('should log log', () => {
-        service.log('logs here', 'TEST');
-      });
-      it('should log warn', () => {
-        service.warn('Warning!', 'TEST');
-      });
-      it('should log debug messages', () => {
-        service.debug('Debug', 'TEST');
-        service.debug({ debug: 'DEBUG' }, 'TEST');
-      });
-      it('should log verbose', () => {
-        service.verbose('verbose!', 'TEST');
-      });
-    });
-  });
-  describe('development env', () => {
-    beforeAll(() => {
-      process.env.NODE_ENV = 'development';
-    });
-    it('should log error', () => {
-      service.error('Error!', 'Stack trace');
-    });
-    it('should log log', () => {
-      service.log('logs here', 'Test');
-    });
-    it('should log warn', () => {
-      service.warn('Warning!');
-    });
-    it('should log debug messages', () => {
-      service.debug('Debug');
-      service.debug({ debug: 'DEBUG' });
-    });
-    it('should log verbose', () => {
-      service.verbose('verbose!');
-    });
-  });
-  describe('prod env', () => {
-    beforeAll(() => {
-      process.env.NODE_ENV = 'production';
-    });
-    it('should log error', () => {
-      service.error('Error!', 'Stack trace');
-      service.error('ERROR!', '');
-    });
-    it('should log log', () => {
-      service.log('logs here', 'Test');
-    });
-    it('should log warn', () => {
-      service.warn('Warning!');
-    });
-    it('should log debug messages', () => {
-      service.debug('Debug');
-    });
-    it('should log verbose', () => {
-      service.verbose('verbose!');
-    });
-  });
-});
 describe('LoggerService (no context)', () => {
   let service: LoggerService;
 
   beforeAll(async () => {
-    service = new LoggerService();
+    const module = await Test.createTestingModule({
+      providers: [LoggerService],
+    }).compile();
+    service = await module.resolve<LoggerService>(LoggerService);
   });
   it('should be defined', () => {
     expect(service).toBeDefined();
@@ -112,57 +22,68 @@ describe('LoggerService (no context)', () => {
   it('should have an blank context', () => {
     expect((service as any).context).toBeFalsy();
   });
+  it('should be able to log', () => {
+    service.log('something');
+  });
 });
 describe('LoggerModule LoggerService', () => {
   let service: LoggerService;
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [LoggerModule.forFeature({ context: 'TEST' })],
+      providers: [
+        LoggerService,
+        {
+          provide: LOGGER_MODULE_OPTIONS,
+          useValue: {
+            context: 'Test',
+          },
+        },
+      ],
     }).compile();
-    await module.init();
     service = await module.resolve<LoggerService>(LoggerService);
   });
   it('should have a defined service', () => {
     expect(service).toBeDefined();
+    expect((service as any).context).toBeTruthy();
   });
   describe('dev env', () => {
     beforeAll(() => {
       process.env.NODE_ENV = 'dev';
     });
     describe('without context', () => {
-      it('should log error', () => {
-        service.error('Error!', 'Stack trace');
+      it(shouldLog('error'), () => {
+        service.error('Error!', stackTrace);
       });
-      it('should log log', () => {
+      it(shouldLog('log'), () => {
         service.log('logs here');
       });
-      it('should log warn', () => {
+      it(shouldLog('warn'), () => {
         service.warn('Warning!');
       });
-      it('should log debug messages', () => {
+      it(shouldLog('debug'), () => {
         service.debug('Debug');
         service.debug({ debug: 'DEBUG' });
       });
-      it('should log verbose', () => {
+      it(shouldLog('verbose'), () => {
         service.verbose('verbose!');
       });
     });
     describe('with context', () => {
-      it('should log error', () => {
-        service.error('Error!', 'Stack trace', 'TEST');
+      it(shouldLog('error'), () => {
+        service.error('Error!', stackTrace, 'TEST');
       });
-      it('should log log', () => {
+      it(shouldLog('log'), () => {
         service.log('logs here', 'TEST');
       });
-      it('should log warn', () => {
+      it(shouldLog('warn'), () => {
         service.warn('Warning!', 'TEST');
       });
-      it('should log debug messages', () => {
+      it(shouldLog('debug'), () => {
         service.debug('Debug', 'TEST');
         service.debug({ debug: 'DEBUG' }, 'TEST');
       });
-      it('should log verbose', () => {
+      it(shouldLog('verbose'), () => {
         service.verbose('verbose!', 'TEST');
       });
     });
@@ -171,20 +92,20 @@ describe('LoggerModule LoggerService', () => {
     beforeAll(() => {
       process.env.NODE_ENV = 'development';
     });
-    it('should log error', () => {
-      service.error('Error!', 'Stack trace');
+    it(shouldLog('error'), () => {
+      service.error('Error!', stackTrace);
     });
-    it('should log log', () => {
+    it(shouldLog('log'), () => {
       service.log('logs here', 'Test');
     });
-    it('should log warn', () => {
+    it(shouldLog('warn'), () => {
       service.warn('Warning!');
     });
-    it('should log debug messages', () => {
+    it(shouldLog('debug'), () => {
       service.debug('Debug');
       service.debug({ debug: 'DEBUG' });
     });
-    it('should log verbose', () => {
+    it(shouldLog('verbose'), () => {
       service.verbose('verbose!');
     });
   });
@@ -192,20 +113,20 @@ describe('LoggerModule LoggerService', () => {
     beforeAll(() => {
       process.env.NODE_ENV = 'production';
     });
-    it('should log error', () => {
-      service.error('Error!', 'Stack trace');
+    it(shouldLog('error'), () => {
+      service.error('Error!', stackTrace);
       service.error('ERROR!', '');
     });
-    it('should log log', () => {
+    it(shouldLog('log'), () => {
       service.log('logs here', 'Test');
     });
-    it('should log warn', () => {
+    it(shouldLog('warn'), () => {
       service.warn('Warning!');
     });
-    it('should log debug messages', () => {
+    it(shouldLog('debug'), () => {
       service.debug('Debug');
     });
-    it('should log verbose', () => {
+    it(shouldLog('verbose'), () => {
       service.verbose('verbose!');
     });
   });

@@ -20,7 +20,6 @@ export class AppService {
   constructor(private readonly apollo: Apollo) {}
 
   getHello(name?: string | number): Observable<Message> {
-    console.log('calling for graphql sayHello');
     return this.apollo
       .watchQuery<{ sayHello: Message }>({
         query: sayHello,
@@ -30,7 +29,6 @@ export class AppService {
       })
       .valueChanges.pipe(
         map((result) => ({ message: result.data.sayHello.message })),
-        tap((data) => console.log(data)),
       );
   }
 }
