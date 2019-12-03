@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GoogleSub } from '../../auth/models/google.payload';
 import { DatabaseService } from '../../database/database.service';
-import { GoogleUser } from '../models/google-user.model';
+import { GoogleSub } from '../auth/models/google.payload';
+import { GoogleUser } from '../user/models/google-user.model';
 
 @Injectable()
 export class GoogleUserService {

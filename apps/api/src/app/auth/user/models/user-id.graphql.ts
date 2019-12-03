@@ -1,6 +1,6 @@
 import { UserId } from '@tabletop-companion/api-interface';
 import { ArgsType, Field, InputType } from 'type-graphql';
-import { IsCustomId } from '../../validators';
+import { IsCustomId } from '../../../validators';
 
 @InputType()
 @ArgsType()

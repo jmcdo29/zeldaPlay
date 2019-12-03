@@ -1,9 +1,9 @@
 import { createMock } from '@golevelup/nestjs-testing';
 import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
-import { GoogleSub } from '../../auth/models/google.payload';
 import { DatabaseService } from '../../database/database.service';
-import { GoogleUser } from '../models/google-user.model';
+import { GoogleSub } from '../auth/models/google.payload';
+import { GoogleUser } from '../user/models/google-user.model';
 import { GoogleUserService } from './google-user.service';
 
 const googleUser: GoogleUser = {

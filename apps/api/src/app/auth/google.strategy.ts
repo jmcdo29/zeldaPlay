@@ -4,8 +4,8 @@ import { OAuth2Strategy } from 'passport-google-oauth';
 import { throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ConfigService } from '../config/config.service';
-import { AuthService } from './auth.service';
-import { GoogleSub } from './models/google.payload';
+import { AuthService } from './auth/auth.service';
+import { GoogleSub } from './auth/models/google.payload';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(OAuth2Strategy) {

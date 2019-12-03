@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
 import { of } from 'rxjs';
 
-import { DatabaseService } from '../database/database.service';
-import { LoggerService } from '../logger/logger.service';
+import { DatabaseService } from '../../database/database.service';
+import { LoggerService } from '../../logger/logger.service';
 import { UserDTO } from './models';
 import { UserService } from './user.service';
 

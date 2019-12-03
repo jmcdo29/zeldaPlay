@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
 import { of } from 'rxjs';
 
-import { GoogleUserService } from '../user/google-user/google-user.service';
+import { GoogleUserService } from '../google-user/google-user.service';
 import { GoogleUser } from '../user/models/google-user.model';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';

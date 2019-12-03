@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PassportSerializer } from '@nestjs/passport';
 import { Observable } from 'rxjs';
-import { UserDTO } from '../user/models';
-import { GoogleUser } from '../user/models/google-user.model';
-import { UserService } from '../user/user.service';
+import { UserDTO } from './user/models';
+import { GoogleUser } from './user/models/google-user.model';
+import { UserService } from './user/user.service';
 
 @Injectable()
 export class SessionSerializer extends PassportSerializer {

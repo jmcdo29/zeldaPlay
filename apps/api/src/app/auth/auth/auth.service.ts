@@ -7,7 +7,7 @@ import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 import { Observable, of } from 'rxjs';
 import { map, mergeMap, switchMap } from 'rxjs/operators';
-import { GoogleUserService } from '../user/google-user/google-user.service';
+import { GoogleUserService } from '../google-user/google-user.service';
 import { UserDTO } from '../user/models';
 import { GoogleUser } from '../user/models/google-user.model';
 import { UserService } from '../user/user.service';

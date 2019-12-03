@@ -8,8 +8,8 @@ import {
   IsString,
 } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
-import { nullable, typeBoolean, typeStrings } from '../../models';
-import { IsCustomId } from '../../validators';
+import { nullable, typeBoolean, typeStrings } from '../../../models';
+import { IsCustomId } from '../../../validators';
 
 @InputType()
 export class UserUpdateDataDTO implements UserUpdateData {
