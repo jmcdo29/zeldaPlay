@@ -10,9 +10,9 @@ const testCase = (password: string, error: string) => () => {
   }
 };
 
-describe('isCustomId', () => {
+describe('isPassword', () => {
   const validator = new IsPasswordConstraint();
-  it('should return the function for isCustomId', () => {
+  it('should return the function for isPassword', () => {
     const func = IsPassword();
     expect(typeof func).toBe('function');
   });

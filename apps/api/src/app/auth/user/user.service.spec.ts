@@ -6,13 +6,18 @@ import { LoggerService } from '../../logger/logger.service';
 import { UserDTO } from './models';
 import { UserService } from './user.service';
 
+const mockEmail = 'test@test.com';
+const mockHashPass = 'someHashedPassword';
+const mockPass = 'password';
+const mockOtherHashPass = 'SomeOtherHashedPassword';
+
 const userObserver = (done: () => void) => ({
   next(value: UserDTO) {
     expect(value).toEqual({
       id: 'USR-TEST1',
-      email: 'test@test.com',
+      email: mockEmail,
       role: ['player'],
-      password: 'someHashedPassword',
+      password: mockHashPass,
     });
   },
   error(error: Error) {
@@ -62,19 +67,19 @@ describe('UserService', () => {
         of([
           {
             id: 'USR-TEST1',
-            email: 'test@test.com',
+            email: mockEmail,
             role: ['player'],
-            password: 'someHashedPassword',
+            password: mockHashPass,
           },
           {
             id: 'USR-TEST2',
             email: 'test@test.org',
             role: ['player'],
-            password: 'SomeOtherHashedPassword',
+            password: mockOtherHashPass,
           },
         ]),
       );
-      service.getByEmail('test@test.com').subscribe(userObserver(done));
+      service.getByEmail(mockEmail).subscribe(userObserver(done));
     });
   });
   describe('getById', () => {
@@ -83,9 +88,9 @@ describe('UserService', () => {
         of([
           {
             id: 'USR-TEST1',
-            email: 'test@test.com',
+            email: mockEmail,
             role: ['player'],
-            password: 'someHashedPassword',
+            password: mockHashPass,
           },
         ]),
       );
@@ -106,9 +111,9 @@ describe('UserService', () => {
       );
       service
         .insertUser({
-          email: 'test@test.com',
-          password: 'password',
-          confirmationPassword: 'password',
+          email: mockEmail,
+          password: mockPass,
+          confirmationPassword: mockPass,
           consentToEmail: true,
           firstName: 'Test',
           lastName: 'McTesting',
@@ -118,9 +123,9 @@ describe('UserService', () => {
           next(value) {
             expect(dbSpy).toBeCalledTimes(1);
             expect(value).toEqual({
-              email: 'test@test.com',
-              password: 'password',
-              confirmationPassword: 'password',
+              email: mockEmail,
+              password: mockPass,
+              confirmationPassword: mockPass,
               consentToEmail: true,
               firstName: 'Test',
               lastName: 'McTesting',

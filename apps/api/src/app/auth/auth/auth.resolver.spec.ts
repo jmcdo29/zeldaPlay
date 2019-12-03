@@ -4,6 +4,8 @@ import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 import { AuthDTO } from './models';
 
+const mockPass = 'testPassword';
+
 const tokenObserver = (done: () => void) => ({
   next(result: AuthDTO) {
     expect(typeof result).toBe('string');
@@ -49,7 +51,7 @@ describe('AuthResolver', () => {
   });
   it('should return a value for login', (done) => {
     resolver
-      .login({ email: 'testEmail', password: 'testPassword' })
+      .login({ email: 'testEmail', password: mockPass })
       .subscribe(tokenObserver(done))
       .unsubscribe();
   });
@@ -57,8 +59,8 @@ describe('AuthResolver', () => {
     resolver
       .signup({
         email: 'testEmail',
-        password: 'testPassword',
-        confirmationPassword: 'testPassword',
+        password: mockPass,
+        confirmationPassword: mockPass,
         consentToEmail: false,
         firstName: 'Test',
         lastName: 'Test',

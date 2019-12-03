@@ -2,8 +2,8 @@ import { createMock, DeepMocked } from '@golevelup/nestjs-testing';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Pool } from 'pg';
 import { LoggerService } from '../logger/logger.service';
+import { DATABASE_FEATURE, DATABASE_POOL } from './database.constants';
 import { DatabaseService } from './database.service';
-import { DATABASE_POOL, DATABASE_FEATURE } from './database.constants';
 
 interface MockResult {
   id: number;
