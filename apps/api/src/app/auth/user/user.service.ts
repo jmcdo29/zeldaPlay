@@ -19,7 +19,7 @@ export class UserService {
     const fields: string[] = [];
     fields.push('id as id');
     fields.push('email as email');
-    fields.push('role as role');
+    fields.push('roles as roles');
     fields.push('password as password');
     const query = fields.join(', ');
     const where = 'email = $1;';

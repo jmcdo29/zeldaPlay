@@ -5,7 +5,4 @@ import { Field, ObjectType } from 'type-graphql';
 export class AuthDTO implements Auth {
   @Field()
   id!: string;
-
-  @Field()
-  token!: string;
 }

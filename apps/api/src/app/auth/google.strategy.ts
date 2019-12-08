@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
+import { Request } from 'express';
 import { OAuth2Strategy } from 'passport-google-oauth';
 import { throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -23,7 +24,7 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy) {
   }
 
   validate(
-    req: any,
+    req: Request,
     accessToken: string,
     refreshToken: string,
     profile: GoogleSub,

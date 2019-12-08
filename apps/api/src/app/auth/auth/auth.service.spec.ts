@@ -1,5 +1,4 @@
 import { createMock } from '@golevelup/nestjs-testing';
-import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
 import { of } from 'rxjs';
@@ -25,7 +24,7 @@ const mockGoogleUser: GoogleUser = {
 
 const userObserver = (done: () => void) => ({
   next(token: { id: string; token: string }) {
-    expect(token).toEqual({ id: 'USR-TEST', token: 'token' });
+    expect(token).toEqual({ id: 'USR-TEST' });
   },
   error(error: Error) {
     throw error;
@@ -99,12 +98,6 @@ describe('AuthService', () => {
           useValue: {
             getByGoogleId: jest.fn().mockReturnValue(of({})),
             createNewGoogleUser: jest.fn().mockReturnValue(of({})),
-          },
-        },
-        {
-          provide: JwtService,
-          useValue: {
-            sign: jest.fn().mockReturnValue('token'),
           },
         },
       ],
@@ -206,31 +199,6 @@ describe('AuthService', () => {
           .findOrCreateGoogleUser(createMock<GoogleSub>())
           .subscribe(googleSubscriber(done, createSpy, 1));
       });
-    });
-  });
-  describe('validateUser', () => {
-    it('should get a user', (done) => {
-      service
-        .validateUser({
-          email,
-          role: ['player'],
-          id: 'USR-TEST',
-        })
-        .subscribe({
-          next(user) {
-            expect(user.id).toBe('USR-TEST');
-            expect(user.email).toBe(email);
-            expect(user.role).toEqual(['player']);
-            expect(typeof user.password).toBe('string');
-          },
-          error(error: Error) {
-            throw error;
-          },
-          complete() {
-            done();
-          },
-        })
-        .unsubscribe();
     });
   });
 });
