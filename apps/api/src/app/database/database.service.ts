@@ -13,7 +13,7 @@ import {
   UpdateParams,
 } from './interfaces/database.interface';
 
-@Injectable()
+@Injectable({ scope: Scope.TRANSIENT })
 export class DatabaseService<T> implements DatabaseInterface<T> {
   tableName: string;
 
@@ -61,9 +61,6 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
   }
 
   insert(params: InsertParams): Observable<T[]> {
-    this.logger.verbose({
-      message: `${DatabaseService.name}.${this.insert.name} was called`,
-    });
     const query =
       'INSERT INTO ' +
       this.tableName +

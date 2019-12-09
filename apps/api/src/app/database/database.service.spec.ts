@@ -58,7 +58,9 @@ describe('DatabaseService', () => {
       ],
     }).compile();
 
-    service = module.get<DatabaseService<MockResult>>(DatabaseService);
+    service = await module.resolve<DatabaseService<MockResult>>(
+      DatabaseService,
+    );
     pool = module.get<DeepMocked<Pool>>(DATABASE_POOL);
   });
 

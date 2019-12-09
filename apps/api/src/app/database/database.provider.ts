@@ -42,11 +42,3 @@ export function createDatabasePoolConnection(): Provider {
     inject: [DATABASE_MODULE_OPTIONS, LoggerService],
   };
 }
-
-export function createDatabaseService(): Provider {
-  return {
-    provide: DatabaseService,
-    useClass: DatabaseService,
-    scope: Scope.TRANSIENT,
-  };
-}

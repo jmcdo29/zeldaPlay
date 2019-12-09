@@ -5,7 +5,6 @@ import { DatabaseCoreModule } from './database-core.module';
 import {
   createDatabaseFeatureProvider,
   createDatabasePoolConnection,
-  createDatabaseService,
 } from './database.provider';
 import { DatabaseService } from './database.service';
 import { DatabaseModuleOptions } from './interfaces/database-options.interface';
@@ -31,7 +30,7 @@ export class DatabaseModule {
       imports: [DatabaseCoreModule.Deferred],
       providers: [
         createDatabaseFeatureProvider(options),
-        createDatabaseService(),
+        DatabaseService,
         createDatabasePoolConnection(),
       ],
       exports: [DatabaseService],
