@@ -1,6 +1,6 @@
 # Tabletop Companion
 
-<p align="center"><a href="/"><img src="./d20.png" width=300 height=300 alt="d20 logo" align="center"></a></p>
+<p align="center"><a href="/"><img src="./d20.svg" width=300 height=300 alt="d20 logo" align="center"></a></p>
 
 <div align="center">
 
