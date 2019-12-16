@@ -17,7 +17,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test --passWithNoTests",
+    "test": "env LOG_LEVEL=OFF ng test --passWithNoTests",
     "lint": "nx lint",
     "e2e": "ng e2e",
     "affected:apps": "nx affected:apps",
@@ -35,7 +35,9 @@
     "update:check": "ng update",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@angular/animations": "^8.2.14",
@@ -76,6 +78,7 @@
     "helmet": "^3.21.2",
     "mc-scribe": "^4.0.0",
     "morgan": "^1.9.1",
+    "nestjs-ogma": "0.0.5",
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",
     "passport-local": "^1.0.0",
@@ -84,6 +87,7 @@
     "reflect-metadata": "^0.1.12",
     "runtypes": "^4.0.3",
     "rxjs": "^6.5.3",
+    "snyk": "^1.260.0",
     "sqlite3": "^4.1.1",
     "type-graphql": "^0.17.5",
     "zone.js": "^0.10.2"
@@ -131,7 +135,6 @@
     "lint-staged": "^9.5.0",
     "npm-check": "^5.9.0",
     "prettier": "^1.19.1",
-    "snyk": "^1.258.1",
     "supertest": "^4.0.2",
     "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",
@@ -164,5 +167,6 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "snyk": true
 }

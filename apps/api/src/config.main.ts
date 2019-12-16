@@ -5,17 +5,17 @@ import * as rateLimiter from 'express-rate-limit';
 import * as session from 'express-session';
 import * as helmet from 'helmet';
 import * as morgan from 'morgan';
+import { OgmaService } from 'nestjs-ogma';
 import * as passport from 'passport';
 import * as redis from 'redis';
 import { ConfigService } from './app/config/config.service';
-import { LoggerService } from './app/logger/logger.service';
 
 const RedisStore = store(session);
 
 export function configure(
   app: INestApplication,
   config: ConfigService,
-  logger: LoggerService,
+  logger: OgmaService,
 ): void {
   app.use(
     session({

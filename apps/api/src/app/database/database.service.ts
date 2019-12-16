@@ -1,8 +1,8 @@
 import { Inject, Injectable, OnModuleInit, Scope } from '@nestjs/common';
+import { OgmaService } from 'nestjs-ogma';
 import { Pool } from 'pg';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { LoggerService } from '../logger/logger.service';
 import { DATABASE_FEATURE, DATABASE_POOL } from './database.constants';
 import {
   DatabaseFeatureOptions,
@@ -22,7 +22,7 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
     private readonly pool: Pool,
     @Inject(DATABASE_FEATURE)
     readonly feature: DatabaseFeatureOptions,
-    private readonly logger: LoggerService,
+    private readonly logger: OgmaService,
   ) {
     this.tableName = feature.tableName;
   }

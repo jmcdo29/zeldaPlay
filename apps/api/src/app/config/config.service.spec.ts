@@ -10,10 +10,6 @@ const redisURL = 'redis://redis:redis@localhost:9999/testing';
 describe('ConfigService', () => {
   let service: ConfigService;
 
-  beforeEach(() => {
-    service = null as any;
-  });
-
   describe('process.env config', () => {
     beforeAll(() => {
       process.env.NODE_ENV = 'production';

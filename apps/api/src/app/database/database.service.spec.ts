@@ -1,7 +1,7 @@
 import { createMock, DeepMocked } from '@golevelup/nestjs-testing';
 import { Test, TestingModule } from '@nestjs/testing';
+import { OgmaService } from 'nestjs-ogma';
 import { Pool } from 'pg';
-import { LoggerService } from '../logger/logger.service';
 import { DATABASE_FEATURE, DATABASE_POOL } from './database.constants';
 import { DatabaseService } from './database.service';
 
@@ -52,8 +52,8 @@ describe('DatabaseService', () => {
           useValue: { tableName: 'Testing' },
         },
         {
-          provide: LoggerService,
-          useValue: new LoggerService({ context: 'DATABASE_TEST' }),
+          provide: OgmaService,
+          useValue: createMock<OgmaService>(),
         },
       ],
     }).compile();

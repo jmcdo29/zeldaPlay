@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
+import { OgmaModule } from 'nestjs-ogma';
 import { ConfigModule } from '../config/config.module';
 import { DatabaseModule } from '../database/database.module';
-import { LoggerModule } from '../logger/logger.module';
 import { PassportModuleConfig } from '../options/passport.config';
 import { AuthController } from './auth/auth.controller';
 import { AuthResolver } from './auth/auth.resolver';
@@ -20,7 +20,7 @@ import { UserService } from './user/user.service';
     }),
     ConfigModule.Deferred,
     DatabaseModule.forFeature({ tableName: 'players' }),
-    LoggerModule.forFeature({ context: UserService.name }),
+    OgmaModule.forFeature(UserService.name),
   ],
   providers: [
     AuthService,

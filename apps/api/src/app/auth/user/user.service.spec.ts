@@ -1,8 +1,9 @@
+import { createMock } from '@golevelup/nestjs-testing';
 import { Test } from '@nestjs/testing';
+import { OgmaService } from 'nestjs-ogma';
 import { of } from 'rxjs';
 
 import { DatabaseService } from '../../database/database.service';
-import { LoggerService } from '../../logger/logger.service';
 import { UserDTO } from './models';
 import { UserService } from './user.service';
 
@@ -46,10 +47,8 @@ describe('UserService', () => {
           },
         },
         {
-          provide: LoggerService,
-          useValue: {
-            log: jest.fn(),
-          },
+          provide: OgmaService,
+          useValue: createMock<OgmaService>(),
         },
       ],
     }).compile();

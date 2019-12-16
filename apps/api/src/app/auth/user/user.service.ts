@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { hashSync } from 'bcrypt';
+import { OgmaService } from 'nestjs-ogma';
 import { empty, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { DatabaseService } from '../../database/database.service';
-import { LoggerService } from '../../logger/logger.service';
 import { SignupDTO } from '../auth/models';
 import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 
@@ -12,7 +12,7 @@ import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 export class UserService {
   constructor(
     private readonly db: DatabaseService<UserDTO>,
-    private readonly logger: LoggerService,
+    private readonly logger: OgmaService,
   ) {}
 
   getByEmail(email: string): Observable<UserDTO> {

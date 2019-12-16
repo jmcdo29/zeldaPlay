@@ -1,12 +1,11 @@
 import { Provider, Scope } from '@nestjs/common';
+import { OgmaService } from 'nestjs-ogma';
 import { Pool } from 'pg';
-import { LoggerService } from '../logger/logger.service';
 import {
   DATABASE_FEATURE,
   DATABASE_MODULE_OPTIONS,
   DATABASE_POOL,
 } from './database.constants';
-import { DatabaseService } from './database.service';
 import { DatabaseModuleOptions } from './interfaces/database-options.interface';
 import { DatabaseFeatureOptions } from './interfaces/database.interface';
 
@@ -23,10 +22,7 @@ export function createDatabaseFeatureProvider(
 export function createDatabasePoolConnection(): Provider {
   return {
     provide: DATABASE_POOL,
-    useFactory: async (
-      options: DatabaseModuleOptions,
-      logger: LoggerService,
-    ) => {
+    useFactory: async (options: DatabaseModuleOptions, logger: OgmaService) => {
       const pool = new Pool({
         ssl: options.ssl,
         connectionString: options.connectionUrl,
@@ -39,6 +35,6 @@ export function createDatabasePoolConnection(): Provider {
       }
       return pool;
     },
-    inject: [DATABASE_MODULE_OPTIONS, LoggerService],
+    inject: [DATABASE_MODULE_OPTIONS, OgmaService],
   };
 }
