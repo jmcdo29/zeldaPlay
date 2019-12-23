@@ -30,7 +30,7 @@ export function createDatabasePoolConnection(): Provider {
       try {
         await pool.connect();
       } catch (err) {
-        logger.error(err.message, err.stack);
+        logger.printError(err);
         process.exit(1);
       }
       return pool;

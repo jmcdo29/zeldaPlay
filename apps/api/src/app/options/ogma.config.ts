@@ -11,7 +11,9 @@ export class OgmaModuleConfig
   createModuleConfig(): OgmaModuleOptions {
     return {
       logLevel: this.configService.getLogLevel(),
-      color: true,
+      color: !this.configService.isProd(),
+      application: this.configService.getApplicationName(),
+      json: this.configService.isProd(),
     };
   }
 }

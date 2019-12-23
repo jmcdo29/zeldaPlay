@@ -7,10 +7,11 @@ import { configure } from './config.main';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: new OgmaService(undefined),
+    logger: false,
   });
   const config = app.get<ConfigService>(ConfigService);
   const logger = await app.resolve<OgmaService>(OgmaService);
+  app.useLogger(logger);
   const port = config.getPort();
   configure(app, config, logger);
   await app.listen(port);

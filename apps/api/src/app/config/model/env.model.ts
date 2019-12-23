@@ -34,6 +34,7 @@ export const EnvRunType = Record({
   JWT_EXPIRES: String,
   MORGAN_STRING: Union(Literal('dev'), Literal('combined')).Or(Undefined),
   COOKIE_AGE: String,
+  APPLICATION: String,
 });
 
 export type EnvRunType = Static<typeof EnvRunType>;
@@ -47,4 +48,5 @@ export const defaults = {
   NODE_ENV: 'development',
   GOOGLE_CALLBACK_URL: 'http://localhost:3333/api/auth/google/callback',
   COOKIE_AGE: '86400',
+  APPLICATION: 'tabletop',
 };

@@ -27,7 +27,6 @@ export function configure(
       secret: config.getSessionSecret(),
       resave: false,
       saveUninitialized: false,
-      name: 'id',
       cookie: {
         sameSite: config.isProd(),
         httpOnly: config.isProd(),
@@ -40,7 +39,7 @@ export function configure(
         (config.isProd() && req.statusCode < 400) ||
         req.url.includes('callback'),
       stream: {
-        write: (value: string) => logger.log(value.trim(), 'Morgan'),
+        write: (value: string) => logger.log(value.trim(), morgan.name),
       },
     }),
     helmet(),

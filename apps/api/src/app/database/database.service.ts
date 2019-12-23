@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnModuleInit, Scope } from '@nestjs/common';
+import { Inject, Injectable, Scope } from '@nestjs/common';
 import { OgmaService } from 'nestjs-ogma';
 import { Pool } from 'pg';
 import { from, Observable, of } from 'rxjs';
@@ -43,7 +43,7 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
           query,
           time: Date.now() - start,
         });
-        this.logger.error(err.message, err.stack);
+        this.logger.printError(err);
         return of([]);
       }),
     );
