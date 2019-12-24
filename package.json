@@ -85,7 +85,7 @@
     "runtypes": "^4.0.3",
     "rxjs": "^6.5.3",
     "sqlite3": "^4.1.1",
-    "type-graphql": "^0.17.5",
+    "type-graphql": "^0.17.6",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
