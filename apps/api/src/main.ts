@@ -12,7 +12,7 @@ async function bootstrap() {
   const config = app.get<ConfigService>(ConfigService);
   const logger = await app.resolve<OgmaService>(OgmaService);
   app.useLogger(logger);
-  const port = config.getPort();
+  const port = config.port;
   configure(app, config, logger);
   await app.listen(port);
   logger.log(`Listening at ${await app.getUrl()}`, 'NestApplication');

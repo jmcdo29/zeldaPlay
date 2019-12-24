@@ -21,23 +21,22 @@ export function configure(
     session({
       store: new RedisStore({
         client: redis.createClient({
-          url: config.getRedisUrl(),
+          url: config.redisUrl,
         }),
       }),
-      secret: config.getSessionSecret(),
+      secret: config.sessionSecret,
       resave: false,
       saveUninitialized: false,
       cookie: {
-        sameSite: config.isProd(),
-        httpOnly: config.isProd(),
-        secure: config.isProd(),
-        maxAge: config.getCookieAge(),
+        sameSite: config.isProd,
+        httpOnly: config.isProd,
+        secure: config.isProd,
+        maxAge: config.cookieAge,
       },
     }),
-    morgan(config.getMorganString(), {
+    morgan(config.morganString, {
       skip: (req: any, res: any) =>
-        (config.isProd() && req.statusCode < 400) ||
-        req.url.includes('callback'),
+        (config.isProd && req.statusCode < 400) || req.url.includes('callback'),
       stream: {
         write: (value: string) => logger.log(value.trim(), morgan.name),
       },
@@ -46,12 +45,12 @@ export function configure(
     compression(),
     new rateLimiter({
       windowMs: 10 * 60 * 1000,
-      max: config.getRateLimit(),
+      max: config.rateLimit,
     }),
     passport.initialize(),
     passport.session(),
   );
-  app.setGlobalPrefix(config.getGlobalPrefix());
+  app.setGlobalPrefix(config.globalPrefix);
   app.useGlobalPipes(new ValidationPipe());
   logger.log('Application Configuration complete', 'ApplicationConfig');
 }

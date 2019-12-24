@@ -35,22 +35,25 @@ describe('ConfigService', () => {
       service = module.get<ConfigService>(ConfigService);
     });
     it('should get the NODE_ENV', () => {
-      expect(service.getNodeEnv()).toBe('production');
+      expect(service.nodeEnv).toBe('production');
     });
     it('should return true for isProd', () => {
-      expect(service.isProd()).toBe(true);
+      expect(service.isProd).toBe(true);
     });
     it('should return 4040 for RATE_LIMIT', () => {
-      expect(service.getRateLimit()).toBe(4040);
+      expect(service.rateLimit).toBe(4040);
     });
     it('should get the Database url', () => {
-      expect(service.getDatabaseUrl()).toBe(postgresURL);
+      expect(service.databaseUrl).toBe(postgresURL);
     });
     it('should get the morgan string', () => {
       morganTest('combined', service);
     });
     it('should get the cookie age', () => {
-      expect(service.getCookieAge()).toBe(86400 * 1000);
+      expect(service.cookieAge).toBe(86400 * 1000);
+    });
+    it('should get the application name', () => {
+      expect(service.applicationName).toBe('tabletop');
     });
   });
 
@@ -78,43 +81,43 @@ describe('ConfigService', () => {
       service = module.get<ConfigService>(ConfigService);
     });
     it('should get PORT', () => {
-      expect(service.getPort()).toBe(3333);
+      expect(service.port).toBe(3333);
     });
     it('should return dev for NODE_ENV', () => {
-      expect(service.getNodeEnv()).toBe('dev');
+      expect(service.nodeEnv).toBe('dev');
     });
     it('should return false for isProd', () => {
-      expect(service.isProd()).toBe(false);
+      expect(service.isProd).toBe(false);
     });
     it('should return 1000 for RATE_LIMIT', () => {
-      expect(service.getRateLimit()).toBe(1000);
+      expect(service.rateLimit).toBe(1000);
     });
     it('should return a redis url', () => {
-      expect(service.getRedisUrl()).toBe(redisURL);
+      expect(service.redisUrl).toBe(redisURL);
     });
     it('should return the jwt secret', () => {
-      expect(service.getJwtSecret()).toBe('itsasecret');
+      expect(service.jwtSecret).toBe('itsasecret');
     });
     it('should return the jwt expires in', () => {
-      expect(service.getJwtExpiresIn()).toBe('3600');
+      expect(service.jwtExpiresIn).toBe('3600');
     });
     it('should return a session secret', () => {
-      expect(service.getSessionSecret()).toBe('itsasecret');
+      expect(service.sessionSecret).toBe('itsasecret');
     });
     it('should return a global prefix', () => {
-      expect(service.getGlobalPrefix()).toBe('api');
+      expect(service.globalPrefix).toBe('api');
     });
     it('should return a log level', () => {
-      expect(service.getLogLevel()).toBe('INFO');
+      expect(service.logLevel).toBe('INFO');
     });
     it('should return the google secret', () => {
-      expect(service.getGoogleSecret()).toBe('google_secret');
+      expect(service.googleSecret).toBe('google_secret');
     });
     it('should return the google client', () => {
-      expect(service.getGoogleClient()).toBe('google_client');
+      expect(service.googleClient).toBe('google_client');
     });
     it('should return the google callback', () => {
-      expect(service.getGoogleCallback()).toBe(
+      expect(service.googleCallback).toBe(
         'http://localhost:3333/api/auth/google/callback',
       );
     });
@@ -171,10 +174,10 @@ describe('ConfigService', () => {
 });
 
 const morganTest = (morganString: string, service: ConfigService) => {
-  const configSpy = jest.spyOn(service, 'isProd');
-  expect(service.getMorganString()).toBe(morganString);
+  const configSpy = jest.spyOn(service, 'isProd', 'get');
+  expect(service.morganString).toBe(morganString);
   expect(configSpy).toBeCalledTimes(1);
-  expect(service.getMorganString()).toBe(morganString);
+  expect(service.morganString).toBe(morganString);
   expect(configSpy).toBeCalledTimes(1);
   configSpy.mockClear();
 };

@@ -35,77 +35,77 @@ export class ConfigService {
     return EnvRunType.check(config);
   }
 
-  getDatabaseUrl(): string {
+  get databaseUrl(): string {
     return this.envConfig.DATABASE_URL;
   }
 
-  isProd(): boolean {
-    const env = this.getNodeEnv().toLowerCase();
+  get isProd(): boolean {
+    const env = this.nodeEnv.toLowerCase();
     return env === 'production' || env === 'prod';
   }
 
-  getNodeEnv(): string {
+  get nodeEnv(): string {
     return this.envConfig.NODE_ENV;
   }
 
-  getRateLimit(): number {
+  get rateLimit(): number {
     return Number.parseInt(this.envConfig.RATE_LIMIT, 10);
   }
 
-  getRedisUrl(): string {
+  get redisUrl(): string {
     return this.envConfig.REDIS_URL;
   }
 
-  getSessionSecret(): string {
+  get sessionSecret(): string {
     return this.envConfig.SESSION_SECRET;
   }
 
-  getJwtSecret(): string {
+  get jwtSecret(): string {
     return this.envConfig.JWT_SECRET;
   }
 
-  getJwtExpiresIn(): string {
+  get jwtExpiresIn(): string {
     return this.envConfig.JWT_EXPIRES;
   }
 
-  getGlobalPrefix(): string {
+  get globalPrefix(): string {
     return this.envConfig.GLOBAL_PREFIX;
   }
 
-  getPort(): number {
+  get port(): number {
     return Number.parseInt(this.envConfig.PORT, 10);
   }
 
-  getLogLevel() {
+  get logLevel() {
     return this.envConfig.LOG_LEVEL;
   }
 
-  getGoogleClient(): string {
+  get googleClient(): string {
     return this.envConfig.GOOGLE_CLIENT;
   }
 
-  getGoogleSecret(): string {
+  get googleSecret(): string {
     return this.envConfig.GOOGLE_SECRET;
   }
 
-  getGoogleCallback(): string {
+  get googleCallback(): string {
     return this.envConfig.GOOGLE_CALLBACK_URL;
   }
 
-  getMorganString(): string {
+  get morganString(): string {
     this.envConfig.MORGAN_STRING = this.envConfig.MORGAN_STRING
       ? this.envConfig.MORGAN_STRING
-      : this.isProd()
+      : this.isProd
       ? 'combined'
       : 'dev';
     return this.envConfig.MORGAN_STRING;
   }
 
-  getCookieAge(): number {
+  get cookieAge(): number {
     return Number.parseInt(this.envConfig.COOKIE_AGE, 10) * 1000;
   }
 
-  getApplicationName(): string {
+  get applicationName(): string {
     return this.envConfig.APPLICATION;
   }
 }

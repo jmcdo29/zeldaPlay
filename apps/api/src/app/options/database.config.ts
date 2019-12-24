@@ -10,8 +10,8 @@ export class DatabaseModuleConfig
 
   createModuleConfig(): DatabaseModuleOptions {
     return {
-      connectionUrl: this.configService.getDatabaseUrl(),
-      ssl: this.configService.isProd(),
+      connectionUrl: this.configService.databaseUrl,
+      ssl: this.configService.isProd,
     };
   }
 }

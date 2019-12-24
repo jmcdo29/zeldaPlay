@@ -10,10 +10,10 @@ export class OgmaModuleConfig
 
   createModuleConfig(): OgmaModuleOptions {
     return {
-      logLevel: this.configService.getLogLevel(),
-      color: !this.configService.isProd(),
-      application: this.configService.getApplicationName(),
-      json: this.configService.isProd(),
+      logLevel: this.configService.logLevel,
+      color: !this.configService.isProd,
+      application: this.configService.applicationName,
+      json: this.configService.isProd,
     };
   }
 }

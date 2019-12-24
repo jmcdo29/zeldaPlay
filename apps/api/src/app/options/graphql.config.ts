@@ -7,7 +7,7 @@ export class GraphQLModuleConfig implements GqlOptionsFactory {
   constructor(private readonly configService: ConfigService) {}
 
   createGqlOptions(): GqlModuleOptions {
-    const isProd = this.configService.isProd();
+    const isProd = this.configService.isProd;
     return {
       playground: !isProd,
       debug: !isProd,
