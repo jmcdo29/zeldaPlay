@@ -4,7 +4,6 @@ import * as store from 'connect-redis';
 import * as rateLimiter from 'express-rate-limit';
 import * as session from 'express-session';
 import * as helmet from 'helmet';
-import * as morgan from 'morgan';
 import { OgmaService } from 'nestjs-ogma';
 import * as passport from 'passport';
 import * as redis from 'redis';
@@ -32,13 +31,6 @@ export function configure(
         httpOnly: config.isProd,
         secure: config.isProd,
         maxAge: config.cookieAge,
-      },
-    }),
-    morgan(config.morganString, {
-      skip: (req: any, res: any) =>
-        (config.isProd && req.statusCode < 400) || req.url.includes('callback'),
-      stream: {
-        write: (value: string) => logger.log(value.trim(), morgan.name),
       },
     }),
     helmet(),

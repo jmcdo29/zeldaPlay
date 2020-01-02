@@ -34,7 +34,7 @@ import { SpellModule } from './spell/spell.module';
     TerminusModule.forRootAsync({
       useClass: TerminusOptionsService,
     }),
-    OgmaModule.forRootAsync({
+    OgmaModule.forRootAsync(OgmaModule, {
       useClass: OgmaModuleConfig,
       imports: [ConfigModule.Deferred],
     }),

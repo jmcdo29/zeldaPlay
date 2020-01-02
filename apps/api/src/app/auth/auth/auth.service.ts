@@ -22,6 +22,9 @@ export class AuthService {
   login(login: LoginDTO): Observable<AuthDTO> {
     return this.userService.getByEmail(login.email).pipe(
       mergeMap(async (user) => {
+        if (!user) {
+          throw new UnauthorizedException('Invalid email or password.');
+        }
         if (user.password && (await compare(login.password, user.password))) {
           return {
             id: user.id,
