@@ -86,7 +86,7 @@
     "reflect-metadata": "^0.1.12",
     "runtypes": "^4.0.3",
     "rxjs": "^6.5.3",
-    "snyk": "^1.260.0",
+    "snyk": "^1.278.2",
     "sqlite3": "^4.1.1",
     "type-graphql": "^0.17.6",
     "zone.js": "^0.10.2"
