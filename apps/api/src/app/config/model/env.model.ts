@@ -9,6 +9,7 @@ const NodeEnv = Union(
 );
 
 const LogLevel = Union(
+  Literal('ALL'),
   Literal('INFO'),
   Literal('FATAL'),
   Literal('DEBUG'),
