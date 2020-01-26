@@ -19,7 +19,7 @@ export class OgmaModuleConfig
         json: this.configService.isProd,
       },
       interceptor: {
-        format: 'dev',
+        format: this.configService.isProd ? 'prod' : 'dev',
         skip: (req: Request, res: Response) =>
           this.configService.isProd && res.statusCode < 400,
         getRequest: (context: ExecutionContext) => {
