@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
-import { AbilityScoreResolver } from './ability-score.resolver';
+import { AbilityScoresController } from './ability-score.controller';
 import { AbilityScoreService } from './ability-score.service';
 
 @Module({
   imports: [DatabaseModule.forFeature({ tableName: 'ability_scores' })],
-  providers: [AbilityScoreResolver, AbilityScoreService],
+  controllers: [AbilityScoresController],
+  providers: [AbilityScoreService],
 })
 export class AbilityScoreModule {}
