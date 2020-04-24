@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Int } from 'type-graphql';
+import { Int } from '@nestjs/graphql';
 import * as returns from './gqlReturns';
 import { MessageDTO } from './message.graphql';
 

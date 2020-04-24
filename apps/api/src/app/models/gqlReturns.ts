@@ -1,4 +1,4 @@
-import { Int } from 'type-graphql';
+import { Int } from '@nestjs/graphql';
 import { MessageDTO } from './message.graphql';
 
 // For @Resolver() decorators

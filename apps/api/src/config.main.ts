@@ -1,10 +1,10 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { OgmaService } from '@ogma/nestjs-module';
 import * as compression from 'compression';
 import * as store from 'connect-redis';
 import * as rateLimiter from 'express-rate-limit';
 import * as session from 'express-session';
 import * as helmet from 'helmet';
-import { OgmaService } from 'nestjs-ogma';
 import * as passport from 'passport';
 import * as redis from 'redis';
 import { ConfigService } from './app/config/config.service';
@@ -35,7 +35,7 @@ export function configure(
     }),
     helmet(),
     compression(),
-    new rateLimiter({
+    rateLimiter({
       windowMs: 10 * 60 * 1000,
       max: config.rateLimit,
     }),

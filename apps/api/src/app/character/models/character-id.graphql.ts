@@ -1,5 +1,5 @@
 import { CharacterId } from '@tabletop-companion/api-interface';
-import { ArgsType, Field, InputType } from 'type-graphql';
+import { ArgsType, Field, InputType } from '@nestjs/graphql';
 import { IsCustomId } from '../../validators';
 
 @InputType()

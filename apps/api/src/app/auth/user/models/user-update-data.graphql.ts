@@ -7,7 +7,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { Field, InputType } from 'type-graphql';
+import { Field, InputType } from '@nestjs/graphql';
 import { nullable, typeBoolean, typeStrings } from '../../../models';
 import { IsCustomId } from '../../../validators';
 

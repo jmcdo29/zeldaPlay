@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
-import { OgmaModule } from 'nestjs-ogma';
+import { OgmaModule } from '@ogma/nestjs-module';
 import { ConfigModule } from '../config/config.module';
 import { DatabaseModule } from '../database/database.module';
 import { PassportModuleConfig } from '../options/passport.config';
@@ -20,7 +20,7 @@ import { UserService } from './user/user.service';
     }),
     ConfigModule.Deferred,
     DatabaseModule.forFeature({ tableName: 'players' }),
-    OgmaModule.forFeature(UserService.name),
+    OgmaModule.forFeature(UserService),
   ],
   providers: [
     AuthService,

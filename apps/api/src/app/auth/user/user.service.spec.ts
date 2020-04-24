@@ -1,6 +1,6 @@
 import { createMock } from '@golevelup/nestjs-testing';
 import { Test } from '@nestjs/testing';
-import { OgmaService } from 'nestjs-ogma';
+import { OgmaService } from '@ogma/nestjs-module';
 import { of } from 'rxjs';
 
 import { DatabaseService } from '../../database/database.service';

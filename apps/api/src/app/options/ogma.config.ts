@@ -1,8 +1,7 @@
 import { ModuleConfigFactory } from '@golevelup/nestjs-modules';
-import { ExecutionContext, Injectable } from '@nestjs/common';
-import { GqlExecutionContext } from '@nestjs/graphql';
-import { Request, Response } from 'express';
-import { OgmaModuleOptions } from 'nestjs-ogma';
+import { Injectable } from '@nestjs/common';
+import { OgmaModuleOptions } from '@ogma/nestjs-module';
+import { ExpressParser } from '@ogma/platform-express';
 import { ConfigService } from '../config/config.service';
 
 @Injectable()
@@ -19,23 +18,7 @@ export class OgmaModuleConfig
         json: this.configService.isProd,
       },
       interceptor: {
-        format: this.configService.isProd ? 'prod' : 'dev',
-        skip: (req: Request, res: Response) =>
-          this.configService.isProd && res.statusCode < 400,
-        getRequest: (context: ExecutionContext) => {
-          if (context.getClass().name.includes('Controller')) {
-            return context.switchToHttp().getRequest();
-          }
-          const ctx = GqlExecutionContext.create(context);
-          return ctx.getContext().req;
-        },
-        getResponse: (context: ExecutionContext) => {
-          if (context.getClass().name.includes('Controller')) {
-            return context.switchToHttp().getResponse();
-          }
-          const ctx = GqlExecutionContext.create(context);
-          return ctx.getContext().res;
-        },
+        http: ExpressParser,
       },
     };
   }

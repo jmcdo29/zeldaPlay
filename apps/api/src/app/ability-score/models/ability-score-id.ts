@@ -1,6 +1,6 @@
 import { AbilityScoreId } from '@tabletop-companion/api-interface';
 import { IsNotEmpty, IsString } from 'class-validator';
-import { ArgsType, Field, InputType } from 'type-graphql';
+import { ArgsType, Field, InputType } from '@nestjs/graphql';
 import { IsCustomId } from '../../validators';
 
 @InputType()

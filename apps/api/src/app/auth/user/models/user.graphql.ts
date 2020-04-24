@@ -1,5 +1,5 @@
 import { User } from '@tabletop-companion/api-interface';
-import { Field, ObjectType } from 'type-graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { typeBoolean, typeStrings } from '../../../models';
 
 @ObjectType()

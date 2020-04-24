@@ -7,7 +7,7 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { Field, InputType } from 'type-graphql';
+import { Field, InputType } from '@nestjs/graphql';
 import { typeBoolean, typeStrings } from '../../../models';
 import { IsPassword } from '../../../validators';
 

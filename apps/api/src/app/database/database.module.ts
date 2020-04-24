@@ -1,6 +1,6 @@
 import { AsyncModuleConfig } from '@golevelup/nestjs-modules';
 import { DynamicModule, Module } from '@nestjs/common';
-import { OgmaModule } from 'nestjs-ogma';
+import { OgmaModule } from '@ogma/nestjs-module';
 import { DatabaseCoreModule } from './database-core.module';
 import {
   createDatabaseFeatureProvider,
@@ -11,7 +11,7 @@ import { DatabaseModuleOptions } from './interfaces/database-options.interface';
 import { DatabaseFeatureOptions } from './interfaces/database.interface';
 
 @Module({
-  imports: [OgmaModule.forFeature(DatabaseService.name)],
+  imports: [OgmaModule.forFeature(DatabaseService)],
 })
 export class DatabaseModule {
   static forRoot(options: DatabaseModuleOptions): DynamicModule {
@@ -27,7 +27,7 @@ export class DatabaseModule {
   static forFeature(options: DatabaseFeatureOptions): DynamicModule {
     return {
       module: DatabaseModule,
-      imports: [DatabaseCoreModule.Deferred],
+      imports: [DatabaseCoreModule.Deferred, OgmaModule.forFeature('DatabaseConnectionProvider')],
       providers: [
         createDatabaseFeatureProvider(options),
         DatabaseService,

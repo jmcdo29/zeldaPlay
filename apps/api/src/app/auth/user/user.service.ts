@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { hashSync } from 'bcrypt';
-import { OgmaService } from 'nestjs-ogma';
+import { OgmaService, OgmaLogger } from '@ogma/nestjs-module';
 import { empty, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -12,6 +12,7 @@ import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 export class UserService {
   constructor(
     private readonly db: DatabaseService<UserDTO>,
+    @OgmaLogger(UserService)
     private readonly logger: OgmaService,
   ) {}
 

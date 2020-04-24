@@ -1,5 +1,5 @@
 import { Provider, Scope } from '@nestjs/common';
-import { OgmaService } from 'nestjs-ogma';
+import { OgmaService } from '@ogma/nestjs-module';
 import { Pool } from 'pg';
 import {
   DATABASE_FEATURE,
@@ -35,6 +35,6 @@ export function createDatabasePoolConnection(): Provider {
       }
       return pool;
     },
-    inject: [DATABASE_MODULE_OPTIONS, OgmaService],
+    inject: [DATABASE_MODULE_OPTIONS, 'OGMA_SERVICE:DatabaseConnectionProvider'],
   };
 }
