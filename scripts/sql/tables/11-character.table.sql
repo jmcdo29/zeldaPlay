@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS characters (
   ,health INTEGER CHECK (health <= max_health)
   ,is_dead BOOLEAN DEFAULT false
   ,player_id TEXT REFERENCES players (id)
-  ,created_atTIMESTAMP WITH OUT TIME ZONE DEFAULT NOW()
+  ,created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
   ,level INTEGER NOT NULL DEFAULT 1 CHECK (level > 0)
   ,alignment TEXT NOT NULL
   ,background TEXT NOT NULL
@@ -17,5 +17,6 @@ CREATE TABLE IF NOT EXISTS characters (
   ,flaw TEXT NOT NULL
   ,personality_traits TEXT[] NOT NULL
   ,proficiencies TEXT[] NOT NULL
+  ,languages TEXT[] NOT NULL
   ,game TEXT NOT NULL
 );

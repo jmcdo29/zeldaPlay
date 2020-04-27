@@ -228,7 +228,8 @@
       "versionMismatch": false
     },
     "defaultCollection": "@nrwl/angular",
-    "packageManager": "npm"
+    "packageManager": "yarn",
+    "analytics": false
   },
   "schematics": {
     "@nrwl/schematics:application": {

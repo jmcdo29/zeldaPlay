@@ -1,6 +1,6 @@
 import { createMock, DeepMocked } from '@golevelup/nestjs-testing';
 import { Test, TestingModule } from '@nestjs/testing';
-import { OgmaService } from 'nestjs-ogma';
+import { OgmaService } from '@ogma/nestjs-module';
 import { Pool } from 'pg';
 import { DATABASE_FEATURE, DATABASE_POOL } from './database.constants';
 import { DatabaseService } from './database.service';

@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import { TerminusModule } from '@nestjs/terminus';
-import { OgmaModule } from 'nestjs-ogma';
+import { OgmaModule } from '@ogma/nestjs-module';
 import { AbilityScoreModule } from './ability-score/ability-score.module';
-import { AppResolver } from './app.resolver';
+import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CharacterModule } from './character/character.module';
@@ -12,9 +10,7 @@ import { DatabaseModule } from './database/database.module';
 import {
   ConfigModuleConfig,
   DatabaseModuleConfig,
-  GraphQLModuleConfig,
   OgmaModuleConfig,
-  TerminusOptionsService,
 } from './options';
 import { SpellModule } from './spell/spell.module';
 
@@ -27,14 +23,7 @@ import { SpellModule } from './spell/spell.module';
       imports: [ConfigModule.Deferred],
       useClass: DatabaseModuleConfig,
     }),
-    GraphQLModule.forRootAsync({
-      imports: [ConfigModule.Deferred],
-      useClass: GraphQLModuleConfig,
-    }),
-    TerminusModule.forRootAsync({
-      useClass: TerminusOptionsService,
-    }),
-    OgmaModule.forRootAsync(OgmaModule, {
+    OgmaModule.forRootAsync({
       useClass: OgmaModuleConfig,
       imports: [ConfigModule.Deferred],
     }),
@@ -43,6 +32,7 @@ import { SpellModule } from './spell/spell.module';
     AbilityScoreModule,
     SpellModule,
   ],
-  providers: [AppService, AppResolver],
+  providers: [AppService],
+  controllers: [AppController],
 })
 export class AppModule {}
