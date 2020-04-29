@@ -1,44 +1,26 @@
+import { f } from '@marcj/marshal';
 import { Signup } from '@tabletop-companion/api-interface';
-import {
-  IsBoolean,
-  IsEmail,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  MinLength,
-} from 'class-validator';
-import { IsPassword } from '../../../validators';
+import { IsEmail, IsPassword } from '../../../validators';
 
 export class SignupDTO implements Signup {
-  @IsEmail()
-  @IsString()
-  @IsNotEmpty()
+  @f.validator(IsEmail)
   email!: string;
 
-  @IsString()
-  @MinLength(8)
-  @IsNotEmpty()
-  @IsPassword()
+  @f.validator(IsPassword)
   password!: string;
 
-  @IsNotEmpty()
-  @IsString()
-  @MinLength(8)
-  @IsPassword()
+  @f.validator(IsPassword)
   confirmationPassword!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @f
   firstName!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @f
   lastName!: string;
 
-  @IsBoolean()
-  @IsOptional()
-  consentToEmail = false;
+  @f
+  consentToEmail: boolean = false;
 
-  @IsOptional()
+  @f.array(String).optional()
   role: string[] = ['player'];
 }

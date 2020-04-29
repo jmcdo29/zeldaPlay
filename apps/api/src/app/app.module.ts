@@ -1,4 +1,6 @@
+import { ValidationPipe } from '@marcj/marshal-nest';
 import { Module } from '@nestjs/common';
+import { APP_PIPE } from '@nestjs/core';
 import { OgmaModule } from '@ogma/nestjs-module';
 import { AbilityScoreModule } from './ability-score/ability-score.module';
 import { AppController } from './app.controller';
@@ -32,7 +34,13 @@ import { SpellModule } from './spell/spell.module';
     AbilityScoreModule,
     SpellModule,
   ],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_PIPE,
+      useValue: new ValidationPipe({ transform: true }),
+    },
+  ],
   controllers: [AppController],
 })
 export class AppModule {}

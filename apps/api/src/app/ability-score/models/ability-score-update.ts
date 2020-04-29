@@ -1,16 +1,11 @@
+import { f } from '@marcj/marshal';
 import { AbilityScoreUpdate } from '@tabletop-companion/api-interface';
-import { IsNotEmpty, IsNumber, IsString, Max, Min } from 'class-validator';
-import { IsCustomId } from '../../validators';
+import { CustomId, AbilityScoreValidator } from '../../validators';
 
 export class AbilityScoreUpdateDTO implements AbilityScoreUpdate {
-  @IsCustomId('ABL')
-  @IsNotEmpty()
-  @IsString()
+  @f.validator(CustomId('ABL'))
   id!: string;
 
-  @Max(20)
-  @Min(0)
-  @IsNumber()
-  @IsNotEmpty()
+  @f.validator(AbilityScoreValidator)
   value!: number;
 }
