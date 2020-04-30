@@ -7,10 +7,12 @@ import { map, mergeMap } from 'rxjs/operators';
 import { DatabaseService } from '../../database/database.service';
 import { SignupDTO } from '../auth/models';
 import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
+import { DatabaseTable } from '../../database/database.decorator';
 
 @Injectable()
 export class UserService {
   constructor(
+    @DatabaseTable('players')
     private readonly db: DatabaseService<UserDTO>,
     @OgmaLogger(UserService)
     private readonly logger: OgmaService,

@@ -9,10 +9,14 @@ import {
 import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { DatabaseService } from '../database/database.service';
+import { DatabaseTable } from '../database/database.decorator';
 
 @Injectable()
 export class AbilityScoreService {
-  constructor(private readonly db: DatabaseService<AbilityScore>) {}
+  constructor(
+    @DatabaseTable('ability_scores')
+    private readonly db: DatabaseService<AbilityScore>,
+  ) {}
 
   getAbilityScoresByCharId(charId: CharacterId): Observable<AbilityScore[]> {
     const fields = [];

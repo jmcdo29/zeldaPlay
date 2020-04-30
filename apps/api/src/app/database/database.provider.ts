@@ -1,4 +1,4 @@
-import { Provider, Scope } from '@nestjs/common';
+import { Provider } from '@nestjs/common';
 import { OgmaService } from '@ogma/nestjs-module';
 import { Pool } from 'pg';
 import {
@@ -6,18 +6,9 @@ import {
   DATABASE_MODULE_OPTIONS,
   DATABASE_POOL,
 } from './database.constants';
+import { DatabaseService } from './database.service';
 import { DatabaseModuleOptions } from './interfaces/database-options.interface';
 import { DatabaseFeatureOptions } from './interfaces/database.interface';
-
-export function createDatabaseFeatureProvider(
-  options: DatabaseFeatureOptions,
-): Provider {
-  return {
-    provide: DATABASE_FEATURE,
-    useValue: options,
-    scope: Scope.TRANSIENT,
-  };
-}
 
 export function createDatabasePoolConnection(): Provider {
   return {
@@ -40,4 +31,23 @@ export function createDatabasePoolConnection(): Provider {
       'OGMA_SERVICE:DatabaseConnectionProvider',
     ],
   };
+}
+
+export function createDatabaseProviderToken(tableName: string): string {
+  return `${DATABASE_FEATURE}:${tableName}`;
+}
+
+export function createDatabaseProviders(
+  feature: DatabaseFeatureOptions,
+): Provider[] {
+  const token = createDatabaseProviderToken(feature.tableName);
+  return [
+    {
+      inject: [DATABASE_POOL, 'OGMA_SERVICE:DatabaseService'],
+      provide: token,
+      useFactory: (pool: Pool, ogmaService: OgmaService) => {
+        return new DatabaseService(pool, feature, ogmaService);
+      },
+    },
+  ];
 }

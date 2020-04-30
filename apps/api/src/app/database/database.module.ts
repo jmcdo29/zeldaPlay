@@ -3,8 +3,8 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { OgmaModule } from '@ogma/nestjs-module';
 import { DatabaseCoreModule } from './database-core.module';
 import {
-  createDatabaseFeatureProvider,
   createDatabasePoolConnection,
+  createDatabaseProviders,
 } from './database.provider';
 import { DatabaseService } from './database.service';
 import { DatabaseModuleOptions } from './interfaces/database-options.interface';
@@ -25,18 +25,15 @@ export class DatabaseModule {
   }
 
   static forFeature(options: DatabaseFeatureOptions): DynamicModule {
+    const databaseProvider = createDatabaseProviders(options);
     return {
       module: DatabaseModule,
       imports: [
         DatabaseCoreModule.Deferred,
         OgmaModule.forFeature('DatabaseConnectionProvider'),
       ],
-      providers: [
-        createDatabaseFeatureProvider(options),
-        DatabaseService,
-        createDatabasePoolConnection(),
-      ],
-      exports: [DatabaseService],
+      providers: [createDatabasePoolConnection(), ...databaseProvider],
+      exports: [...databaseProvider],
     };
   }
 }
