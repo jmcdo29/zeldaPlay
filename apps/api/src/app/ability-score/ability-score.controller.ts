@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Patch, Body } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { CharacterIdDTO } from '../character/models';
 import { AbilityScoreService } from './ability-score.service';

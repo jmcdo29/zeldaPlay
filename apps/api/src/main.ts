@@ -15,7 +15,7 @@ async function bootstrap() {
   app.useLogger(logger);
   const port = config.port;
   configure(app, config, logger);
-  // SpelunkerModule.explore(app, logger);
+  SpelunkerModule.explore(app, logger);
   await app.listen(port);
   logger.log(`Listening at ${await app.getUrl()}`, 'NestApplication');
 }

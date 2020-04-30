@@ -1,10 +1,10 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
   Patch,
   Post,
-  Body,
   UseGuards,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
@@ -22,7 +22,7 @@ import { IsLoggedInGuard } from '../guards/is-logged-in.guard';
 export class CharactersController {
   constructor(private readonly charactersService: CharacterService) {}
 
-  @Get(':charId')
+  @Get(':id')
   getCharacter(@Param() charParams: CharacterIdDTO): Observable<CharacterDTO> {
     return this.charactersService.getCharacterById(charParams);
   }

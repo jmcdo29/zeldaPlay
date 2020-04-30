@@ -150,10 +150,7 @@ describe('AuthService', () => {
         jest
           .spyOn(userService, 'getByEmail')
           .mockReturnValueOnce(of(undefined));
-        service
-          .signup(signupTest)
-          .subscribe(userObserver(done))
-          .unsubscribe();
+        service.signup(signupTest).subscribe(userObserver(done)).unsubscribe();
       });
       it('should throw an error for same email address', (done) => {
         service

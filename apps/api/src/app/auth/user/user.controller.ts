@@ -1,12 +1,19 @@
-import { Controller, Get, Param, Patch, Body, Delete, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { UserIdDTO, UserDTO, UserUpdateDataDTO } from './models';
+import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 import { IsLoggedInGuard } from '../../guards/is-logged-in.guard';
 import { UserService } from './user.service';
 
 @Controller('users')
 export class UsersController {
-
   constructor(private readonly usersService: UserService) {}
 
   @Get(':id')

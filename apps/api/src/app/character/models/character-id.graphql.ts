@@ -1,7 +1,8 @@
+import { f } from '@marcj/marshal';
 import { CharacterId } from '@tabletop-companion/api-interface';
-import { IsCustomId } from '../../validators';
+import { CustomId } from '../../validators';
 
 export class CharacterIdDTO implements CharacterId {
-  @IsCustomId('CHR')
+  @f.validator(CustomId('CHR'))
   id!: string;
 }

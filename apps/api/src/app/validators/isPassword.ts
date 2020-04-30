@@ -1,47 +1,33 @@
+import { PropertyValidator, PropertyValidatorError } from '@marcj/marshal';
 import {
-  registerDecorator,
-  ValidationArguments,
-  ValidatorConstraint,
-  ValidatorConstraintInterface,
-} from 'class-validator';
+  noCapital,
+  noLowercase,
+  noNumber,
+  noSpecial,
+  passwordTooShort,
+} from './messages';
 
-@ValidatorConstraint()
-export class IsPasswordConstraint implements ValidatorConstraintInterface {
-  validate(value: string, args: ValidationArguments) {
-    let error = '';
+export class IsPassword implements PropertyValidator {
+  validate<T>(value: string): PropertyValidatorError | void {
+    const errors = [];
     if (value.length < 8) {
-      error += 'Password must be at least 8 characters long. ';
+      errors.push(passwordTooShort);
+    }
+    if (value === value.toLowerCase()) {
+      errors.push(noCapital);
+    }
+    if (value === value.toUpperCase()) {
+      errors.push(noLowercase);
     }
     if (!/\d+/.test(value)) {
-      error += 'Password must contain at least one number. ';
+      errors.push(noNumber);
     }
-    if (!/[A-Z]+/.test(value)) {
-      error += 'Password must contain at least one uppercase character. ';
+    if (!/[!@#$%^&*]/.test(value)) {
+      errors.push(noSpecial);
     }
-    if (!/[a-z]+/.test(value)) {
-      error += 'Password must contain at least one lowercase character. ';
-    }
-    if (!/[!@#$%^&*]+/.test(value)) {
-      error += 'Password must contain at least one special character. ';
-    }
+    const error = errors.join('. ');
     if (error) {
-      throw new Error('Invalid password. ' + error.trim());
+      return new PropertyValidatorError('bad_pass', error);
     }
-    return true;
   }
-}
-
-/**
- * Checks that the password field contains at least one uppercase, lowercase, number, and special character.
- */
-export function IsPassword() {
-  return (object: object, propertyName: string) => {
-    registerDecorator({
-      name: 'isPassword',
-      target: object.constructor,
-      propertyName,
-      constraints: [],
-      validator: IsPasswordConstraint,
-    });
-  };
 }

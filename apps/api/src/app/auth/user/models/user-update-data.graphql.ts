@@ -1,38 +1,23 @@
+import { f } from '@marcj/marshal';
 import { UserUpdateData } from '@tabletop-companion/api-interface';
-import {
-  ArrayContains,
-  IsArray,
-  IsBoolean,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-} from 'class-validator';
-import { IsCustomId } from '../../../validators';
+import { CustomId } from '../../../validators';
 
 export class UserUpdateDataDTO implements UserUpdateData {
-  @IsCustomId('USR')
-  @IsNotEmpty()
-  @IsString()
+  @f.validator(CustomId('USR'))
   id!: string;
 
-  @IsOptional()
-  @IsString()
+  @f.optional()
   email?: string;
 
-  @IsOptional()
-  @IsString()
+  @f.optional()
   firstName?: string;
 
-  @IsOptional()
-  @IsString()
+  @f.optional()
   lastName?: string;
 
-  @IsOptional()
-  @IsBoolean()
+  @f.optional()
   consentToEmail?: boolean;
 
-  @IsOptional()
-  @IsArray()
-  @ArrayContains(['player', 'dm', 'admin'])
+  @(f.array(String).optional())
   role?: string[];
 }

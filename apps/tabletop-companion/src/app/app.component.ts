@@ -18,10 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private readonly appService: AppService) {
     this.name = new FormControl('');
     this.formChange$ = this.name.valueChanges
-      .pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-      )
+      .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe({
         next: (value) => {
           this.hello$ = this.appService.getHello(value);

@@ -27,7 +27,10 @@ export class DatabaseModule {
   static forFeature(options: DatabaseFeatureOptions): DynamicModule {
     return {
       module: DatabaseModule,
-      imports: [DatabaseCoreModule.Deferred, OgmaModule.forFeature('DatabaseConnectionProvider')],
+      imports: [
+        DatabaseCoreModule.Deferred,
+        OgmaModule.forFeature('DatabaseConnectionProvider'),
+      ],
       providers: [
         createDatabaseFeatureProvider(options),
         DatabaseService,

@@ -76,8 +76,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": ".eslintrc.js",
             "tsConfig": [
               "apps/tabletop-companion/tsconfig.app.json",
               "apps/tabletop-companion/tsconfig.spec.json"
@@ -114,8 +115,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": ".eslintrc.js",
             "tsConfig": "apps/tabletop-companion-e2e/tsconfig.e2e.json",
             "exclude": ["**/node_modules/**"]
           }
@@ -151,8 +153,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": ".eslintrc.js",
             "tsConfig": [
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
@@ -176,8 +179,9 @@
       "prefix": "tabletop-companion",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": ".eslintrc.js",
             "tsConfig": [
               "libs/api-interface/tsconfig.lib.json",
               "libs/api-interface/tsconfig.spec.json"
@@ -210,8 +214,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
+            "eslintConfig": ".eslintrc.js",
             "tsConfig": [
               "apps/api-e2e/tsconfig.app.json",
               "apps/api-e2e/tsconfig.spec.json"

@@ -1,4 +1,4 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
 import { OgmaService } from '@ogma/nestjs-module';
 import * as compression from 'compression';
 import * as store from 'connect-redis';
@@ -43,6 +43,5 @@ export function configure(
     passport.session(),
   );
   app.setGlobalPrefix(config.globalPrefix);
-  app.useGlobalPipes(new ValidationPipe());
   logger.log('Application Configuration complete', 'ApplicationConfig');
 }

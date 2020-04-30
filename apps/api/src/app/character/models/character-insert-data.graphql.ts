@@ -1,84 +1,59 @@
+import { f } from '@marcj/marshal';
 import { CharacterInsertData } from '@tabletop-companion/api-interface';
-import {
-  ArrayNotEmpty,
-  IsArray,
-  IsBoolean,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-  Min,
-} from 'class-validator';
-import { IsCustomId } from '../../validators';
+import { CustomId } from '../../validators';
 
 export class CharacterInsertDataDTO implements CharacterInsertData {
-  @IsString()
-  @IsNotEmpty()
+  @f
   name!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @f
   race!: string;
 
-  @IsString()
+  @f
   subrace!: string;
 
-  @IsNumber()
-  @Min(0)
+  @f
   experience!: number;
 
-  @IsNumber()
-  @Min(1)
+  @f
   maxHealth!: number;
 
-  @IsNumber()
-  @Min(0)
+  @f
   health!: number;
 
-  @IsBoolean()
-  @IsOptional()
-  isDead = false;
+  @f
+  isDead: boolean = false;
 
-  @IsCustomId('USR')
+  @f.validator(CustomId('USR'))
   playerId!: string;
 
-  @IsNumber()
-  @Min(1)
-  level = 1;
+  @f
+  level: number = 1;
 
-  @IsString()
-  @IsNotEmpty()
+  @f
   alignment!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @f
   background!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @f
   ideal!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @f
   bond!: string;
 
-  @IsString()
-  @IsNotEmpty()
+  @f
   flaw!: string;
 
-  @IsArray()
-  @ArrayNotEmpty()
+  @f.array(String)
   personalityTraits!: string[];
 
-  @IsArray()
-  @ArrayNotEmpty()
+  @f.array(String)
   proficiencies!: string[];
 
-  @IsArray()
-  @ArrayNotEmpty()
+  @f.array(String)
   languages!: string[];
 
-  @IsString()
-  @IsNotEmpty()
-  game = 'dd5';
+  @f
+  game: string = 'dd5';
 }

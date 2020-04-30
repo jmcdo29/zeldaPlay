@@ -1,47 +1,29 @@
+import { f } from '@marcj/marshal';
 import { CharacterUpdateData } from '@tabletop-companion/api-interface';
-import {
-  IsArray,
-  IsBoolean,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-  Min,
-} from 'class-validator';
-import { IsCustomId } from '../../validators/isCustomId';
+import { CustomId } from '../../validators/isCustomId';
 
 export class CharacterUpdateDataDTO implements CharacterUpdateData {
-  @IsCustomId('CHR')
-  @IsNotEmpty()
-  @IsString()
+  @f.validator(CustomId('CHR'))
   id!: string;
 
-  @IsNumber()
-  @IsOptional()
+  @f.optional()
   experience?: number;
 
-  @IsNumber()
-  @IsOptional()
+  @f.optional()
   maxHealth?: number;
 
-  @IsNumber()
-  @IsOptional()
+  @f.optional()
   health?: number;
 
-  @IsBoolean()
-  @IsOptional()
+  @f.optional()
   isDead?: boolean;
 
-  @IsNumber()
-  @Min(1)
-  @IsOptional()
+  @f.optional()
   level?: number;
 
-  @IsArray()
-  @IsOptional()
+  @(f.array(String).optional())
   languages?: string[];
 
-  @IsArray()
-  @IsOptional()
+  @(f.array(String).optional())
   proficiencies?: string[];
 }

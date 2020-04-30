@@ -100,6 +100,7 @@ export class DatabaseTestService<T> implements DatabaseInterface<T> {
     return this.runQuery(query, params.variables);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   delete(params: QueryParams): Observable<T[]> {
     return of([]);
   }

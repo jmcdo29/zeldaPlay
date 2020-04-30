@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { hashSync } from 'bcrypt';
-import { OgmaService, OgmaLogger } from '@ogma/nestjs-module';
-import { empty, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
+import { empty, iif, Observable, of, throwError } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
 
 import { DatabaseService } from '../../database/database.service';
 import { SignupDTO } from '../auth/models';
@@ -82,7 +82,17 @@ export class UserService {
         variables: userVariables,
       })
       .pipe(
-        map((newUsers) => newUsers[0]),
+        mergeMap((newUsers) =>
+          iif(
+            () => newUsers.length !== 0,
+            of(newUsers[0]),
+            throwError(
+              new BadRequestException(
+                `No user was created. Please contact your system administrator for details.`,
+              ),
+            ),
+          ),
+        ),
         map((user) => {
           user = {
             id: user.id,
@@ -94,6 +104,7 @@ export class UserService {
       );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateUser(updateBody: UserUpdateDataDTO): Observable<any> {
     return of();
   }

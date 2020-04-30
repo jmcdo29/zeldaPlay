@@ -142,6 +142,7 @@ export class CharacterService {
   }
 
   updateCharacter(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     characterData: CharacterUpdateDataDTO,
   ): Observable<CharacterDTO> {
     return this.db
