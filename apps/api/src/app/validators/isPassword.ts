@@ -1,11 +1,17 @@
 import { PropertyValidator, PropertyValidatorError } from '@marcj/marshal';
-import { passwordTooShort, noCapital, noLowercase, noNumber, noSpecial } from './messages';
+import {
+  noCapital,
+  noLowercase,
+  noNumber,
+  noSpecial,
+  passwordTooShort,
+} from './messages';
 
 export class IsPassword implements PropertyValidator {
   validate<T>(value: string): PropertyValidatorError | void {
     const errors = [];
     if (value.length < 8) {
-      errors.push(passwordTooShort)
+      errors.push(passwordTooShort);
     }
     if (value === value.toLowerCase()) {
       errors.push(noCapital);

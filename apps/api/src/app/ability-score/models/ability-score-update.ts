@@ -1,6 +1,6 @@
 import { f } from '@marcj/marshal';
 import { AbilityScoreUpdate } from '@tabletop-companion/api-interface';
-import { CustomId, AbilityScoreValidator } from '../../validators';
+import { AbilityScoreValidator, CustomId } from '../../validators';
 
 export class AbilityScoreUpdateDTO implements AbilityScoreUpdate {
   @f.validator(CustomId('ABL'))

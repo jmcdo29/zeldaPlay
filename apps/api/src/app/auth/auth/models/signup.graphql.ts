@@ -21,6 +21,6 @@ export class SignupDTO implements Signup {
   @f
   consentToEmail: boolean = false;
 
-  @f.array(String).optional()
+  @(f.array(String).optional())
   role: string[] = ['player'];
 }

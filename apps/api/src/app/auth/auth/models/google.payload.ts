@@ -2,9 +2,9 @@ export interface GoogleSub {
   id: string;
   displayName: string;
   name: { familyName: string; givenName: string };
-  photos: Array<{ value: string }>;
+  photos: { value: string }[];
   provider: string;
-  emails: Array<{ value: string; verified: boolean }>;
+  emails: { value: string; verified: boolean }[];
   _raw: string;
   _json: {
     sub: string;

@@ -1,3 +1,4 @@
+// tslint:disable:no-hardcoded-credentials
 export const passwordTooShort = 'Password must be at least 8 characters long';
 export const noCapital = 'Password must contain at least one capital letter';
 export const noLowercase =

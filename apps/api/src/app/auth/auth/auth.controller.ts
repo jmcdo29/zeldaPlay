@@ -1,19 +1,20 @@
-import { Controller, Get, Req, UseGuards, Post, Body } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { OgmaSkip } from '@ogma/nestjs-module';
 import { GoogleGuard } from '../../guards/google.guard';
-import { LoginDTO, AuthDTO, SignupDTO } from './models';
+import { AuthDTO, LoginDTO, SignupDTO } from './models';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(AuthGuard('google'))
   @Get('google/login')
-  async googleLogin() {}
+  async googleLogin() {
+    return;
+  }
 
   @OgmaSkip()
   @UseGuards(GoogleGuard)

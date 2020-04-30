@@ -4,8 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { AppService } from './app.service';
-import { GraphQLModule } from './graphql.module';
 import { MessageModule } from './message/message.module';
 
 @NgModule({
@@ -13,11 +11,9 @@ import { MessageModule } from './message/message.module';
   imports: [
     BrowserModule,
     HttpClientModule,
-    GraphQLModule,
     MessageModule,
     ReactiveFormsModule,
   ],
-  providers: [AppService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

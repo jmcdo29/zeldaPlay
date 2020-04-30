@@ -35,6 +35,9 @@ export function createDatabasePoolConnection(): Provider {
       }
       return pool;
     },
-    inject: [DATABASE_MODULE_OPTIONS, 'OGMA_SERVICE:DatabaseConnectionProvider'],
+    inject: [
+      DATABASE_MODULE_OPTIONS,
+      'OGMA_SERVICE:DatabaseConnectionProvider',
+    ],
   };
 }

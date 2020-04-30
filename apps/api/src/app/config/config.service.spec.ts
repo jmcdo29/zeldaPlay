@@ -46,9 +46,6 @@ describe('ConfigService', () => {
     it('should get the Database url', () => {
       expect(service.databaseUrl).toBe(postgresURL);
     });
-    it('should get the morgan string', () => {
-      morganTest('combined', service);
-    });
     it('should get the cookie age', () => {
       expect(service.cookieAge).toBe(86400 * 1000);
     });
@@ -121,9 +118,6 @@ describe('ConfigService', () => {
         'http://localhost:3333/api/auth/google/callback',
       );
     });
-    it('should get the morgan string', () => {
-      morganTest('dev', service);
-    });
   });
 
   describe('failing config', () => {
@@ -172,12 +166,3 @@ describe('ConfigService', () => {
     });
   });
 });
-
-const morganTest = (morganString: string, service: ConfigService) => {
-  const configSpy = jest.spyOn(service, 'isProd', 'get');
-  expect(service.morganString).toBe(morganString);
-  expect(configSpy).toBeCalledTimes(1);
-  expect(service.morganString).toBe(morganString);
-  expect(configSpy).toBeCalledTimes(1);
-  configSpy.mockClear();
-};

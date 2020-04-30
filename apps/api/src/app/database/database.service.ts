@@ -1,5 +1,5 @@
 import { Inject, Injectable, Scope } from '@nestjs/common';
-import { OgmaService, OgmaLogger } from '@ogma/nestjs-module';
+import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 import { Pool } from 'pg';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -102,6 +102,7 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
     return this.runQuery(query, params.variables);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   delete(params: QueryParams): Observable<T[]> {
     return of([]);
   }

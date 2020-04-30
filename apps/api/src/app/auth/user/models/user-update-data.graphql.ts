@@ -18,6 +18,6 @@ export class UserUpdateDataDTO implements UserUpdateData {
   @f.optional()
   consentToEmail?: boolean;
 
-  @f.array(String).optional()
+  @(f.array(String).optional())
   role?: string[];
 }

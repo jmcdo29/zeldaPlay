@@ -5,8 +5,6 @@ import { ConfigModuleOptions } from '../config/interfaces/config-options.interfa
 @Injectable()
 export class ConfigModuleConfig
   implements ModuleConfigFactory<ConfigModuleOptions> {
-  constructor() {}
-
   createModuleConfig(): ConfigModuleOptions {
     return {
       fileName: '.env',
