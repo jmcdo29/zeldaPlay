@@ -4,10 +4,13 @@ import { map } from 'rxjs/operators';
 import { DatabaseService } from '../../database/database.service';
 import { GoogleSub } from '../auth/models/google.payload';
 import { GoogleUser } from '../user/models/google-user.model';
+import { DatabaseTable } from '../../database/database.decorator';
 
 @Injectable()
 export class GoogleUserService {
-  constructor(private readonly db: DatabaseService<GoogleUser>) {}
+  constructor(
+    @DatabaseTable('players') private readonly db: DatabaseService<GoogleUser>,
+  ) {}
 
   getByGoogleId(id: string): Observable<GoogleUser> {
     const fields: string[] = [];

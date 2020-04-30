@@ -9,10 +9,14 @@ import {
   CharacterInsertDataDTO,
   CharacterUpdateDataDTO,
 } from './models';
+import { DatabaseTable } from '../database/database.decorator';
 
 @Injectable()
 export class CharacterService {
-  constructor(private readonly db: DatabaseService<CharacterDTO>) {}
+  constructor(
+    @DatabaseTable('characters')
+    private readonly db: DatabaseService<CharacterDTO>,
+  ) {}
 
   getCharacterById(id: CharacterIdDTO): Observable<CharacterDTO> {
     const fields: string[] = [];
