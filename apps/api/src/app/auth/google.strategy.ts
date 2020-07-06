@@ -1,9 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
-import { Request } from 'express';
 import { OAuth2Strategy } from 'passport-google-oauth';
 import { throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ReqWithCookies } from '../interfaces/req-with-cookies.interface';
 import { ConfigService } from '../config/config.service';
 import { AuthService } from './auth/auth.service';
 import { GoogleSub } from './auth/models/google.payload';
@@ -20,16 +20,20 @@ export class GoogleStrategy extends PassportStrategy(OAuth2Strategy) {
       callbackURL: config.googleCallback,
       scope: ['profile', 'email'],
       passReqToCallback: true,
+      prompt: 'select_account',
     });
   }
 
   validate(
-    req: Request,
+    req: ReqWithCookies,
     accessToken: string,
     refreshToken: string,
     profile: GoogleSub,
   ) {
-    return this.authService.findOrCreateGoogleUser(profile).pipe(
+    console.log(req);
+    console.log(`Access Token: ${accessToken}`);
+    console.log(`Refresh Token: ${refreshToken}`);
+    return this.authService.findOrCreateGoogleUser({ user: profile, req }).pipe(
       map((user) => {
         if (!user) {
           throwError(new UnauthorizedException());

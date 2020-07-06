@@ -1,19 +1,20 @@
 export interface GoogleSub {
+  id_token: string;
   id: string;
-  displayName: string;
-  name: { familyName: string; givenName: string };
-  photos: { value: string }[];
-  provider: string;
-  emails: { value: string; verified: boolean }[];
-  _raw: string;
-  _json: {
-    sub: string;
-    name: string;
-    given_name: string;
-    family_name: string;
-    picture: string;
-    locale: string;
-    email: string;
-    email_verified: boolean;
-  };
+  email: string;
+  verified_email: boolean;
+  name: string;
+  given_name: string;
+  family_name: string;
+  picture: string;
+  locale: string;
+  [index: string]: any;
+}
+
+export interface GoogleToken {
+  access_token: string;
+  expires_in: number;
+  scope: string;
+  token_type: string;
+  id_token: string;
 }

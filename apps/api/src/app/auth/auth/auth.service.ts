@@ -5,18 +5,18 @@ import {
 } from '@nestjs/common';
 import { compare } from 'bcrypt';
 import { Observable, of } from 'rxjs';
-import { map, mergeMap, switchMap } from 'rxjs/operators';
-import { GoogleUserService } from '../google-user/google-user.service';
+import { map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { ReqWithCookies } from '../../interfaces/req-with-cookies.interface';
+import { GoogleService } from '../google/google.service';
 import { GoogleUser } from '../user/models/google-user.model';
 import { UserService } from '../user/user.service';
-import { AuthDTO, LoginDTO, SignupDTO } from './models';
-import { GoogleSub } from './models/google.payload';
+import { AuthDTO, GoogleSub, LoginDTO, SignupDTO } from './models';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
-    private readonly googleUserService: GoogleUserService,
+    private readonly googleService: GoogleService,
   ) {}
 
   login(login: LoginDTO): Observable<AuthDTO> {
@@ -57,14 +57,38 @@ export class AuthService {
     );
   }
 
-  findOrCreateGoogleUser(googleUser: GoogleSub): Observable<GoogleUser> {
-    return this.googleUserService.getByGoogleId(googleUser.id).pipe(
+  findOrCreateGoogleUser(googleUser: {
+    user: GoogleSub;
+    req: ReqWithCookies;
+  }): Observable<GoogleUser> {
+    const { req } = googleUser;
+    console.log(googleUser.user);
+    return this.googleService.getByGoogleId(googleUser.user.id).pipe(
       switchMap((user) => {
         if (user) {
           return of(user);
         }
-        return this.googleUserService.createNewGoogleUser(googleUser);
+        return this.googleService.createNewGoogleUser(googleUser.user);
       }),
+      /* tap((user) => {
+        this.setCookie(req, user);
+      }), */
     );
+  }
+
+  private setCookie(req: ReqWithCookies, user: GoogleUser): void {
+    console.log('Setting _cookie on req');
+    req._cookies?.length
+      ? req._cookies.push({
+          name: 'user_cookie',
+          val: user.id,
+        })
+      : (req._cookies = [
+          {
+            name: 'user_cookie',
+            val: user.id,
+          },
+        ]);
+    console.log(`req._cookies: ${JSON.stringify(req._cookies)}`);
   }
 }

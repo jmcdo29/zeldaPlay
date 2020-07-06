@@ -10,19 +10,6 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(AuthGuard('google'))
-  @Get('google/login')
-  async googleLogin() {
-    return;
-  }
-
-  @OgmaSkip()
-  @UseGuards(GoogleGuard)
-  @Get('google/callback')
-  async googleCallback(@Req() req: any) {
-    return req.user;
-  }
-
   @UseGuards(AuthGuard('local'))
   @Post('login')
   localLogin(@Body() loginBody: LoginDTO): Observable<AuthDTO> {
@@ -32,5 +19,10 @@ export class AuthController {
   @Post('signup')
   signup(@Body() signupBody: SignupDTO): Observable<AuthDTO> {
     return this.authService.signup(signupBody);
+  }
+
+  @Get('logout')
+  logout(@Req() req: any) {
+    return 'logged out';
   }
 }

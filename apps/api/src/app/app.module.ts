@@ -36,10 +36,10 @@ import { SpellModule } from './spell/spell.module';
   ],
   providers: [
     AppService,
-    {
+    /* {
       provide: APP_PIPE,
       useValue: new ValidationPipe({ transform: true }),
-    },
+    }, */
   ],
   controllers: [AppController],
 })

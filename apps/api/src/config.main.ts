@@ -21,7 +21,7 @@ export function configure(
       store: new RedisStore({
         client: redis.createClient({
           url: config.redisUrl,
-        }),
+        }) as any,
       }),
       secret: config.sessionSecret,
       resave: false,
