@@ -19,7 +19,7 @@ async function bootstrap() {
   configure(app, config, logger);
   writeFileSync(
     join(process.cwd(), 'server.json'),
-    Buffer.from(JSON.stringify(SpelunkerModule.explore(app))),
+    Buffer.from(JSON.stringify(SpelunkerModule.explore(app), null, 2)),
   );
   await app.listen(port);
   logger.log(`Listening at ${await app.getUrl()}`, 'NestApplication');

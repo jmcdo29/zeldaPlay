@@ -13,8 +13,10 @@ import {
   ConfigModuleConfig,
   DatabaseModuleConfig,
   OgmaModuleConfig,
+  RedisModuleConfig,
 } from './options';
 import { SpellModule } from './spell/spell.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -29,10 +31,15 @@ import { SpellModule } from './spell/spell.module';
       useClass: OgmaModuleConfig,
       imports: [ConfigModule.Deferred],
     }),
+    RedisModule.forRootAsync({
+      useClass: RedisModuleConfig,
+      imports: [ConfigModule.Deferred],
+    }),
     AuthModule,
     CharacterModule,
     AbilityScoreModule,
     SpellModule,
+    RedisModule,
   ],
   providers: [
     AppService,
