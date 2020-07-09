@@ -62,7 +62,7 @@
     "@ogma/logger": "^0.1.0",
     "@ogma/nestjs-module": "^0.1.0",
     "@ogma/platform-express": "^0.1.0",
-    "bcrypt": "^4.0.0",
+    "bcrypt": "^5.0.0",
     "compression": "^1.7.4",
     "connect-redis": "^4.0.4",
     "core-js": "^3.6.4",
