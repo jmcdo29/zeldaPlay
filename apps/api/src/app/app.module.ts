@@ -17,6 +17,7 @@ import {
 } from './options';
 import { SpellModule } from './spell/spell.module';
 import { RedisModule } from './redis/redis.module';
+import { CookieModule } from './cookie/cookie.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { RedisModule } from './redis/redis.module';
     AbilityScoreModule,
     SpellModule,
     RedisModule,
+    CookieModule,
   ],
   providers: [
     AppService,

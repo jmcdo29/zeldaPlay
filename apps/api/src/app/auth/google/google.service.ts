@@ -1,5 +1,4 @@
 import { HttpService, Injectable } from '@nestjs/common';
-import { randomBytes } from 'crypto';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { ConfigService } from '../../config/config.service';
@@ -7,8 +6,6 @@ import { DatabaseTable } from '../../database/database.decorator';
 import { DatabaseService } from '../../database/database.service';
 import { GoogleSub, GoogleToken } from '../auth/models';
 import { GoogleUser } from '../user/models/google-user.model';
-import { ReqWithCookies } from '../../interfaces/req-with-cookies.interface';
-import { RedisService } from '../../redis/redis.service';
 
 @Injectable()
 export class GoogleService {
@@ -16,16 +13,14 @@ export class GoogleService {
     @DatabaseTable('players') private readonly db: DatabaseService<GoogleUser>,
     private readonly config: ConfigService,
     private readonly http: HttpService,
-    private readonly redis: RedisService,
   ) {}
 
   getLoginUrl(): string {
     return `https://accounts.google.com/o/oauth2/v2/auth?scope=profile email&client_id=${this.config.googleClient}&response_type=code&redirect_uri=${this.config.googleCallback}&access_type=online&prompt=select_account&state=some_state_token`;
   }
 
-  getUserProfile(req: ReqWithCookies, code: string): Observable<any> {
+  getUserProfile(code: string): Observable<any> {
     let googleUserData: GoogleSub;
-    let googleUser: GoogleUser;
     return this.getGoogleToken(code).pipe(
       switchMap((tokenData) => {
         return this.getGoogleUser(tokenData);
@@ -40,12 +35,6 @@ export class GoogleService {
         }
         return this.createNewGoogleUser(googleUserData);
       }),
-      switchMap((user) => {
-        googleUser = user;
-        const sessionId = this.setCookie(req);
-        return this.redis.set(sessionId, user.id);
-      }),
-      switchMap(() => of(googleUser)),
     );
   }
 
@@ -78,23 +67,6 @@ export class GoogleService {
         },
       })
       .pipe(map((userDataResp) => userDataResp.data));
-  }
-
-  private setCookie(req: ReqWithCookies): string {
-    const sessionId = randomBytes(8).toString('hex');
-    console.log(sessionId);
-    req._cookies?.length
-      ? req._cookies.push({
-          name: 'user_cookie',
-          val: sessionId,
-        })
-      : (req._cookies = [
-          {
-            name: 'user_cookie',
-            val: sessionId,
-          },
-        ]);
-    return sessionId;
   }
 
   getByGoogleId(id: string): Observable<GoogleUser> {
