@@ -1,22 +1,29 @@
-import { HttpService, Injectable } from '@nestjs/common';
+import { HttpService, Inject, Injectable } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { ConfigService } from '../../config/config.service';
 import { DatabaseTable } from '../../database/database.decorator';
 import { DatabaseService } from '../../database/database.service';
 import { GoogleSub, GoogleToken } from '../auth/models';
 import { GoogleUser } from '../user/models/google-user.model';
+import { GOOGLE_OPTIONS } from './google.constants';
+import { GoogleModuleOptions } from './google.interface';
 
 @Injectable()
 export class GoogleService {
   constructor(
     @DatabaseTable('players') private readonly db: DatabaseService<GoogleUser>,
-    private readonly config: ConfigService,
+    @Inject(GOOGLE_OPTIONS) private readonly options: GoogleModuleOptions,
     private readonly http: HttpService,
   ) {}
 
   getLoginUrl(): string {
-    return `https://accounts.google.com/o/oauth2/v2/auth?scope=profile email&client_id=${this.config.googleClient}&response_type=code&redirect_uri=${this.config.googleCallback}&access_type=online&prompt=select_account&state=some_state_token`;
+    return `https://accounts.google.com/o/oauth2/v2/auth?scope=${this.options.scope.join(
+      ' ',
+    )}&client_id=${this.options.clientId}&response_type=${
+      this.options.responseType
+    }&redirect_uri=${this.options.callbackUrl}&access_type=online&prompt=${
+      this.options.prompt
+    }&state=${this.options.state}`;
   }
 
   getUserProfile(code: string): Observable<any> {
@@ -43,11 +50,11 @@ export class GoogleService {
       .post<GoogleToken>(
         `https://oauth2.googleapis.com/token`,
         {
-          client_id: this.config.googleClient,
-          client_secret: this.config.googleSecret,
+          client_id: this.options.clientId,
+          client_secret: this.options.clientSecret,
           code,
           grant_type: 'authorization_code',
-          redirect_uri: this.config.googleCallback,
+          redirect_uri: this.options.callbackUrl,
         },
         {
           headers: {

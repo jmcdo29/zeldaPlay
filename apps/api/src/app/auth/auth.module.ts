@@ -1,19 +1,23 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '../config/config.module';
 import { CookieModule } from '../cookie/cookie.module';
+import { GoogleModuleConfig } from '../options/google.config';
 import { RedisModule } from '../redis/redis.module';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { GoogleModule } from './google/google.module';
+import { LocalModule } from './local/local.module';
 import { OauthController } from './oauth.controller';
 import { UsersController } from './user/user.controller';
-import { LocalModule } from './local/local.module';
 
 @Module({
   imports: [
     ConfigModule.Deferred,
     RedisModule.Deferred,
-    GoogleModule,
+    GoogleModule.forRootAsync({
+      imports: [ConfigModule.Deferred],
+      useClass: GoogleModuleConfig,
+    }),
     CookieModule,
     LocalModule,
   ],

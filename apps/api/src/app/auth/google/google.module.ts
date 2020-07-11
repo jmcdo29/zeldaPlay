@@ -1,15 +1,19 @@
-import { HttpModule, Module } from '@nestjs/common';
-import { GoogleService } from './google.service';
-import { ConfigModule } from '../../config/config.module';
-import { DatabaseModule } from '../../database/database.module';
+import { AsyncModuleConfig } from '@golevelup/nestjs-modules';
+import { DynamicModule, Module } from '@nestjs/common';
+import { GoogleCoreModule } from './google-core.module';
+import { GoogleModuleOptions } from './google.interface';
 
-@Module({
-  imports: [
-    ConfigModule.Deferred,
-    DatabaseModule.forFeature({ tableName: 'players' }),
-    HttpModule,
-  ],
-  providers: [GoogleService],
-  exports: [GoogleService],
-})
-export class GoogleModule {}
+@Module({})
+export class GoogleModule {
+  static forRoot(options: GoogleModuleOptions): DynamicModule {
+    return GoogleCoreModule.forRoot(GoogleCoreModule, options);
+  }
+
+  static forRootAsync(
+    options: AsyncModuleConfig<GoogleModuleOptions>,
+  ): DynamicModule {
+    return GoogleCoreModule.forRootAsync(GoogleCoreModule, options);
+  }
+
+  static Deferred = GoogleCoreModule.Deferred;
+}
