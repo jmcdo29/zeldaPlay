@@ -17,9 +17,11 @@ export class CookieInterceptor implements NestInterceptor {
     return next.handle().pipe(
       tap(() => {
         const cookies = req._cookies;
-        cookies.forEach((cookie) => {
-          res.cookie(cookie.name, cookie.val, cookie.options);
-        });
+        if (cookies?.length) {
+          cookies.forEach((cookie) => {
+            res.cookie(cookie.name, cookie.val, cookie.options);
+          });
+        }
       }),
     );
   }

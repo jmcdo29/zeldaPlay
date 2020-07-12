@@ -1,4 +1,4 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { MessageDTO } from './models';
 import { CookieGuard } from './guards/cookie.guard';
@@ -9,7 +9,7 @@ export class AppController {
 
   @Get()
   @UseGuards(CookieGuard)
-  sayHello(@Query('name') name: string): MessageDTO {
-    return this.appService.getData(name);
+  sayHello(@Query('name') name: string, @Req() req: any): MessageDTO {
+    return this.appService.getData(name || req.user?.firstName || undefined);
   }
 }
