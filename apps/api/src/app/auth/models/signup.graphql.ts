@@ -1,6 +1,6 @@
 import { f } from '@marcj/marshal';
 import { Signup } from '@tabletop-companion/api-interface';
-import { IsEmail, IsPassword } from '../../../validators';
+import { IsEmail, IsPassword } from '../../validators';
 
 export class SignupDTO implements Signup {
   @f.validator(IsEmail)

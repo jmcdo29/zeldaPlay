@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { AuthService } from '../auth/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class CookieGuard implements CanActivate {
@@ -12,12 +12,9 @@ export class CookieGuard implements CanActivate {
     const req = context.switchToHttp().getRequest();
     const cookie = req.cookies['session.id'] || '';
     const refresh = req.cookies['session.refresh'] || '';
-    console.log(req.cookies);
-    console.log(refresh);
     let refreshed = false;
     return this.authService.getUserByCookie(cookie).pipe(
       switchMap((user) => {
-        console.log(user);
         if (user) {
           return of(user);
         }

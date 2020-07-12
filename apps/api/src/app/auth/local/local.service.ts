@@ -6,7 +6,7 @@ import {
 import { compare } from 'bcrypt';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { AuthDTO, LoginDTO, SignupDTO } from '../auth/models';
+import { AuthDTO, LoginDTO, SignupDTO } from '../models';
 import { UserService } from '../user/user.service';
 
 @Injectable()

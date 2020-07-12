@@ -1,13 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { hashSync } from 'bcrypt';
 import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
+import { hashSync } from 'bcrypt';
 import { empty, iif, Observable, of, throwError } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
-import { DatabaseService } from '../../database/database.service';
-import { SignupDTO } from '../auth/models';
-import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 import { DatabaseTable } from '../../database/database.decorator';
+import { DatabaseService } from '../../database/database.service';
+import { SignupDTO } from '../models';
+import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
 
 @Injectable()
 export class UserService {

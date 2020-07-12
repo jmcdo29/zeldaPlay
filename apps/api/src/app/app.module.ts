@@ -50,10 +50,10 @@ import { RedisModule } from './redis/redis.module';
       provide: APP_INTERCEPTOR,
       useClass: CookieInterceptor,
     },
-    /* {
+    {
       provide: APP_PIPE,
       useValue: new ValidationPipe({ transform: true }),
-    }, */
+    },
   ],
   controllers: [AppController],
 })

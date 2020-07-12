@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post, Req } from '@nestjs/common';
-import { AuthDTO, LoginDTO, SignupDTO } from './models';
 import { Observable } from 'rxjs';
+import { ReqWithCookies } from '../interfaces/req-with-cookies.interface';
 import { AuthService } from './auth.service';
-import { ReqWithCookies } from '../../interfaces/req-with-cookies.interface';
+import { AuthDTO, LoginDTO, SignupDTO } from './models';
 
 @Controller('auth')
 export class AuthController {

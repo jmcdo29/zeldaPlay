@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { CookieService } from '../../cookie/cookie.service';
-import { ReqWithCookies } from '../../interfaces/req-with-cookies.interface';
-import { RedisService } from '../../redis/redis.service';
-import { GoogleService } from '../google/google.service';
-import { LocalService } from '../local/local.service';
-import { GoogleUser } from '../user/models/google-user.model';
-import { UserService } from '../user/user.service';
+import { CookieService } from '../cookie/cookie.service';
+import { ReqWithCookies } from '../interfaces/req-with-cookies.interface';
+import { RedisService } from '../redis/redis.service';
+import { GoogleService } from './google/google.service';
+import { LocalService } from './local/local.service';
 import { AuthDTO, LoginDTO, SignupDTO } from './models';
-import { UserDTO } from '../user/models';
+import { GoogleUser, UserDTO } from './user/models';
+import { UserService } from './user/user.service';
 
 const hour = 60 * 60 * 1000;
 const day = 24 * hour;
@@ -49,8 +48,12 @@ export class AuthService {
     );
   }
 
-  getGoogleUser(req: ReqWithCookies, code: string): Observable<GoogleUser> {
-    return this.googleService.getUserProfile(code).pipe(
+  getGoogleUser(
+    req: ReqWithCookies,
+    code: string,
+    state: string,
+  ): Observable<GoogleUser> {
+    return this.googleService.getUserProfile(code, state).pipe(
       switchMap((user) => {
         return this.setCookie(req, user);
       }),

@@ -1,9 +1,14 @@
-import { HttpService, Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpService,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { DatabaseTable } from '../../database/database.decorator';
 import { DatabaseService } from '../../database/database.service';
-import { GoogleSub, GoogleToken } from '../auth/models';
+import { GoogleSub, GoogleToken } from '../models';
 import { GoogleUser } from '../user/models/google-user.model';
 import { GOOGLE_OPTIONS } from './google.constants';
 import { GoogleModuleOptions } from './google.interface';
@@ -26,8 +31,11 @@ export class GoogleService {
     }&state=${this.options.state}`;
   }
 
-  getUserProfile(code: string): Observable<any> {
+  getUserProfile(code: string, state: string): Observable<any> {
     let googleUserData: GoogleSub;
+    if (state !== this.options.state) {
+      throw new BadRequestException();
+    }
     return this.getGoogleToken(code).pipe(
       switchMap((tokenData) => {
         return this.getGoogleUser(tokenData);

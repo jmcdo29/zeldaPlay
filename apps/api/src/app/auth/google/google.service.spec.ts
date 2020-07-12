@@ -2,7 +2,7 @@ import { createMock } from '@golevelup/nestjs-testing';
 import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
 import { DatabaseService } from '../../database/database.service';
-import { GoogleSub } from '../auth/models/google.payload';
+import { GoogleSub } from '../models/google.payload';
 import { GoogleUser } from '../user/models/google-user.model';
 import { GoogleService } from './google.service';
 

@@ -1,7 +1,7 @@
 import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
-import { MessageDTO } from './models';
 import { CookieGuard } from './guards/cookie.guard';
+import { AppControllerQuery, MessageDTO } from './models';
 
 @Controller()
 export class AppController {
@@ -9,7 +9,7 @@ export class AppController {
 
   @Get()
   @UseGuards(CookieGuard)
-  sayHello(@Query('name') name: string, @Req() req: any): MessageDTO {
+  sayHello(@Query() { name }: AppControllerQuery, @Req() req: any): MessageDTO {
     return this.appService.getData(name || req.user?.firstName || undefined);
   }
 }
