@@ -27,8 +27,7 @@ export class CookieGuard implements CanActivate {
           return isAuthenticated;
         }
         req.user = user;
-        isAuthenticated = true;
-        return isAuthenticated;
+        return true;
       }),
       catchError(() => {
         return of(false);
