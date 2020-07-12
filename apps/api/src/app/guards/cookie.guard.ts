@@ -1,8 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { AuthService } from '../auth/auth/auth.service';
-import { AuthDTO } from '../auth/auth/models';
 
 @Injectable()
 export class CookieGuard implements CanActivate {
