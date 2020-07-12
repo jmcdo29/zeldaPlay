@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Observable, of, throwError } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { CookieService } from '../../cookie/cookie.service';
 import { ReqWithCookies } from '../../interfaces/req-with-cookies.interface';
@@ -7,7 +7,9 @@ import { RedisService } from '../../redis/redis.service';
 import { GoogleService } from '../google/google.service';
 import { LocalService } from '../local/local.service';
 import { GoogleUser } from '../user/models/google-user.model';
+import { UserService } from '../user/user.service';
 import { AuthDTO, LoginDTO, SignupDTO } from './models';
+import { UserDTO } from '../user/models';
 
 @Injectable()
 export class AuthService {
@@ -16,6 +18,7 @@ export class AuthService {
     private readonly googleService: GoogleService,
     private readonly cookieService: CookieService,
     private readonly redis: RedisService,
+    private readonly userService: UserService,
   ) {}
 
   getOauthLoginUrl(type: 'google'): string {
@@ -58,5 +61,19 @@ export class AuthService {
     return this.redis
       .set(this.cookieService.setCookie(req), user.id)
       .pipe(map(() => user));
+  }
+
+  getUserByCookie(cookie: string): Observable<UserDTO> {
+    return this.redis.get(cookie).pipe(
+      switchMap((userId) => {
+        if (!userId) {
+          return throwError(new UnauthorizedException());
+        }
+        return of(userId);
+      }),
+      switchMap((userId: string) => {
+        return this.userService.getById({ id: userId });
+      }),
+    );
   }
 }
