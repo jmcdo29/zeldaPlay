@@ -1,5 +1,5 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { Observable, of, throwError } from 'rxjs';
+import { Injectable } from '@nestjs/common';
+import { Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { CookieService } from '../../cookie/cookie.service';
 import { ReqWithCookies } from '../../interfaces/req-with-cookies.interface';
@@ -57,41 +57,42 @@ export class AuthService {
     );
   }
 
-  private setCookie<T extends { id: string }>(
+  private setCookie<T extends AuthDTO>(
     req: ReqWithCookies,
     user: T,
   ): Observable<T> {
     return this.redis
       .set(
         this.cookieService.setCookie(req, 'session.id', undefined, {
-          expires: new Date(Date.now() + hour),
+          expires: new Date(Date.now() + hour / 60),
         }),
         user.id,
         hour,
       )
       .pipe(
-        tap(() => {
-          this.redis.set(
+        switchMap(() => {
+          return this.redis.set(
             this.cookieService.setCookie(req, 'session.refresh', undefined, {
               expires: new Date(Date.now() + 14 * day),
             }),
             user.id,
-            14 * day,
+            (5 * hour) / 60,
           );
         }),
         map(() => user),
       );
   }
 
-  getUserByCookie(cookie: string): Observable<UserDTO> {
+  refreshSession(req: ReqWithCookies, user: AuthDTO): Observable<AuthDTO> {
+    return this.setCookie(req, user);
+  }
+
+  getUserByCookie(cookie: string): Observable<UserDTO | undefined> {
     return this.redis.get(cookie).pipe(
-      switchMap((userId) => {
-        if (!userId) {
-          return throwError(new UnauthorizedException());
-        }
-        return of(userId);
-      }),
       switchMap((userId: string) => {
+        if (!userId) {
+          return of(undefined);
+        }
         return this.userService.getById({ id: userId });
       }),
     );
