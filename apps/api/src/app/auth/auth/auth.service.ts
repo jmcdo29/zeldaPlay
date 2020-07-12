@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { CookieService } from '../../cookie/cookie.service';
 import { ReqWithCookies } from '../../interfaces/req-with-cookies.interface';
 import { RedisService } from '../../redis/redis.service';
