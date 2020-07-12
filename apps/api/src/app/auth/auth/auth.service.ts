@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { Observable, of, throwError } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { CookieService } from '../../cookie/cookie.service';
 import { ReqWithCookies } from '../../interfaces/req-with-cookies.interface';
 import { RedisService } from '../../redis/redis.service';
@@ -10,6 +10,9 @@ import { GoogleUser } from '../user/models/google-user.model';
 import { UserService } from '../user/user.service';
 import { AuthDTO, LoginDTO, SignupDTO } from './models';
 import { UserDTO } from '../user/models';
+
+const hour = 60 * 60 * 1000;
+const day = 24 * hour;
 
 @Injectable()
 export class AuthService {
@@ -59,8 +62,25 @@ export class AuthService {
     user: T,
   ): Observable<T> {
     return this.redis
-      .set(this.cookieService.setCookie(req), user.id)
-      .pipe(map(() => user));
+      .set(
+        this.cookieService.setCookie(req, 'session.id', undefined, {
+          expires: new Date(Date.now() + hour),
+        }),
+        user.id,
+        hour,
+      )
+      .pipe(
+        tap(() => {
+          this.redis.set(
+            this.cookieService.setCookie(req, 'session.refresh', undefined, {
+              expires: new Date(Date.now() + 14 * day),
+            }),
+            'true',
+            14 * day,
+          );
+        }),
+        map(() => user),
+      );
   }
 
   getUserByCookie(cookie: string): Observable<UserDTO> {

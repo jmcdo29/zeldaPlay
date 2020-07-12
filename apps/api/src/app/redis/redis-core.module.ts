@@ -3,12 +3,14 @@ import { Module } from '@nestjs/common';
 import { ClientOpts, createClient } from 'redis';
 import { REDIS_INSTANCE, REDIS_OPTIONS } from './redis.constants';
 import { RedisService } from './redis.service';
+import { OgmaModule } from '@ogma/nestjs-module';
 
 @Module({})
 export class RedisCoreModule extends createConfigurableDynamicRootModule<
   RedisCoreModule,
   ClientOpts
 >(REDIS_OPTIONS, {
+  imports: [OgmaModule.forFeature('Redis')],
   providers: [
     {
       provide: REDIS_INSTANCE,
