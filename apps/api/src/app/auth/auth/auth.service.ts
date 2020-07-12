@@ -75,7 +75,7 @@ export class AuthService {
             this.cookieService.setCookie(req, 'session.refresh', undefined, {
               expires: new Date(Date.now() + 14 * day),
             }),
-            'true',
+            user.id,
             14 * day,
           );
         }),
