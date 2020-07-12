@@ -47,7 +47,7 @@ export const defaults = {
   PORT: '3333',
   RATE_LIMIT: '1000',
   NODE_ENV: 'development',
-  GOOGLE_CALLBACK_URL: 'http://localhost:3333/api/auth/google/callback',
+  GOOGLE_CALLBACK_URL: 'http://localhost:3333/api/oauth/google/callback',
   COOKIE_AGE: '86400',
   APPLICATION: 'tabletop',
 };

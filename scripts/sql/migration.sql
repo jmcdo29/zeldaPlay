@@ -3,9 +3,9 @@
 -- Databases to be used.
 SELECT 'CREATE DATABASE tabletop'
 WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'tabletop')\gexec
-\c tabletop;.
+\c tabletop;
 -- Extensions to be used.
-CREATE EXTENSION IF NOT EXISTS pgcrypto;.
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 -- Tables to be used.
 CREATE TABLE IF NOT EXISTS players (
   id TEXT PRIMARY KEY DEFAULT CONCAT('USR', gen_random_uuid())
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS characters (
   ,health INTEGER CHECK (health <= max_health)
   ,is_dead BOOLEAN DEFAULT false
   ,player_id TEXT REFERENCES players (id)
-  ,created_atTIMESTAMP WITH OUT TIME ZONE DEFAULT NOW()
+  ,created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
   ,level INTEGER NOT NULL DEFAULT 1 CHECK (level > 0)
   ,alignment TEXT NOT NULL
   ,background TEXT NOT NULL
@@ -63,14 +63,14 @@ CREATE TABLE IF NOT EXISTS classes (
   id TEXT PRIMARY KEY DEFAULT CONCAT('CLS', gen_random_uuid())
   ,name TEXT NOT NULL
   ,edition TEXT NOT NULL
-)
+);
 CREATE TABLE IF NOT EXISTS items (
-  id TEXT PRIMARY KEY DEFAULT COCNAT('ITM', gen_random_uuid())
+  id TEXT PRIMARY KEY DEFAULT CONCAT('ITM', gen_random_uuid())
   ,name TEXT NOT NULL
   ,description TEXT NOT NULL
   ,weight FLOAT CHECK (weight >= 0)
   ,character_id TEXT REFERENCES characters (id)
-)
+);
 CREATE TABLE IF NOT EXISTS races (
   id TEXT PRIMARY KEY DEFAULT CONCAT('RAC', gen_random_uuid())
   ,name TEXT NOT NULL
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS spells (
   ,focus TEXT NOT NULL
   ,level INTEGER CONSTRAINT not_below_zero CHECK (level >= 0)
   ,school TEXT NOT NULL
-)
+);
 CREATE TABLE IF NOT EXISTS subraces (
   id TEXT PRIMARY KEY DEFAULT CONCAT('SBR', gen_random_uuid())
   ,name TEXT NOT NULL

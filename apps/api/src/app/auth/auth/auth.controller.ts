@@ -1,36 +1,41 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { OgmaSkip } from '@ogma/nestjs-module';
-import { GoogleGuard } from '../../guards/google.guard';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  UseInterceptors,
+} from '@nestjs/common';
 import { AuthDTO, LoginDTO, SignupDTO } from './models';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { ReqWithCookies } from '../../interfaces/req-with-cookies.interface';
+import { CookieInterceptor } from '../../interceptors/cookie.interceptor';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(AuthGuard('google'))
-  @Get('google/login')
-  async googleLogin() {
-    return;
-  }
-
-  @OgmaSkip()
-  @UseGuards(GoogleGuard)
-  @Get('google/callback')
-  async googleCallback(@Req() req: any) {
-    return req.user;
-  }
-
-  @UseGuards(AuthGuard('local'))
+  @UseInterceptors(CookieInterceptor)
   @Post('login')
-  localLogin(@Body() loginBody: LoginDTO): Observable<AuthDTO> {
-    return this.authService.login(loginBody);
+  localLogin(
+    @Req() req: ReqWithCookies,
+    @Body() loginBody: LoginDTO,
+  ): Observable<AuthDTO> {
+    return this.authService.login(req, loginBody);
   }
 
+  @UseInterceptors(CookieInterceptor)
   @Post('signup')
-  signup(@Body() signupBody: SignupDTO): Observable<AuthDTO> {
-    return this.authService.signup(signupBody);
+  signup(
+    @Req() req: ReqWithCookies,
+    @Body() signupBody: SignupDTO,
+  ): Observable<AuthDTO> {
+    return this.authService.signup(req, signupBody);
+  }
+
+  @Get('logout')
+  logout() {
+    return 'logged out';
   }
 }

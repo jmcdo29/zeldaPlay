@@ -13,8 +13,11 @@ import {
   ConfigModuleConfig,
   DatabaseModuleConfig,
   OgmaModuleConfig,
+  RedisModuleConfig,
 } from './options';
 import { SpellModule } from './spell/spell.module';
+import { RedisModule } from './redis/redis.module';
+import { CookieModule } from './cookie/cookie.module';
 
 @Module({
   imports: [
@@ -29,17 +32,23 @@ import { SpellModule } from './spell/spell.module';
       useClass: OgmaModuleConfig,
       imports: [ConfigModule.Deferred],
     }),
+    RedisModule.forRootAsync({
+      useClass: RedisModuleConfig,
+      imports: [ConfigModule.Deferred],
+    }),
     AuthModule,
     CharacterModule,
     AbilityScoreModule,
     SpellModule,
+    RedisModule,
+    CookieModule,
   ],
   providers: [
     AppService,
-    {
+    /* {
       provide: APP_PIPE,
       useValue: new ValidationPipe({ transform: true }),
-    },
+    }, */
   ],
   controllers: [AppController],
 })

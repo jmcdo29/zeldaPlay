@@ -1,36 +1,28 @@
 import { Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
-import { OgmaModule } from '@ogma/nestjs-module';
 import { ConfigModule } from '../config/config.module';
-import { DatabaseModule } from '../database/database.module';
-import { PassportModuleConfig } from '../options/passport.config';
+import { CookieModule } from '../cookie/cookie.module';
+import { GoogleModuleConfig } from '../options/google.config';
+import { RedisModule } from '../redis/redis.module';
 import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
-import { GoogleUserService } from './google-user/google-user.service';
-import { GoogleStrategy } from './google.strategy';
-import { LocalStrategy } from './local.strategy';
-import { SessionSerializer } from './session.serializer';
-import { UserService } from './user/user.service';
+import { GoogleModule } from './google/google.module';
+import { LocalModule } from './local/local.module';
+import { OauthController } from './oauth.controller';
 import { UsersController } from './user/user.controller';
 
 @Module({
   imports: [
-    PassportModule.registerAsync({
-      useClass: PassportModuleConfig,
-    }),
     ConfigModule.Deferred,
-    DatabaseModule.forFeature({ tableName: 'players' }),
-    OgmaModule.forFeature(UserService),
+    RedisModule.Deferred,
+    GoogleModule.forRootAsync({
+      imports: [ConfigModule.Deferred],
+      useClass: GoogleModuleConfig,
+    }),
+    CookieModule,
+    LocalModule,
   ],
-  providers: [
-    AuthService,
-    LocalStrategy,
-    SessionSerializer,
-    GoogleStrategy,
-    GoogleUserService,
-    UserService,
-  ],
-  exports: [PassportModule, AuthService],
-  controllers: [AuthController, UsersController],
+  providers: [AuthService],
+  exports: [AuthService],
+  controllers: [AuthController, OauthController, UsersController],
 })
 export class AuthModule {}

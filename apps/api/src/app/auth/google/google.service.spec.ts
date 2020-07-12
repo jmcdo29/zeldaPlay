@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { DatabaseService } from '../../database/database.service';
 import { GoogleSub } from '../auth/models/google.payload';
 import { GoogleUser } from '../user/models/google-user.model';
-import { GoogleUserService } from './google-user.service';
+import { GoogleService } from './google.service';
 
 const googleUser: GoogleUser = {
   id: 'some id',
@@ -15,14 +15,14 @@ const googleUser: GoogleUser = {
   googleId: 'googleId',
 };
 
-describe('GoogleUserService', () => {
-  let service: GoogleUserService;
+describe('GoogleService', () => {
+  let service: GoogleService;
   let db: DatabaseService<GoogleUser>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        GoogleUserService,
+        GoogleService,
         {
           provide: DatabaseService,
           useValue: {
@@ -33,7 +33,7 @@ describe('GoogleUserService', () => {
       ],
     }).compile();
 
-    service = module.get<GoogleUserService>(GoogleUserService);
+    service = module.get<GoogleService>(GoogleService);
     db = module.get<DatabaseService<GoogleUser>>(DatabaseService);
   });
 
