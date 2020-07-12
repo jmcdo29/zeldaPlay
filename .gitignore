@@ -45,3 +45,4 @@ docker-compose.yml
 
 coverage/
 server.json
+*.txt
