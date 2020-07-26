@@ -4,10 +4,13 @@ import { LogLevel } from '@ogma/logger';
 import { parse } from 'dotenv';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { ClientOpts } from 'redis';
 import { GoogleModuleOptions } from '../auth/google/google.interface';
+import { DatabaseModuleOptions } from '../database/interfaces/database-options.interface';
 import { CONFIG_MODULE_OPTIONS } from './config.constants';
 import { ConfigModuleOptions } from './interfaces/config-options.interface';
 import { EnvConfig } from './model/env.model';
+import { OgmaModuleOptions } from '@ogma/nestjs-module';
 
 @Injectable()
 export class ConfigService {
@@ -52,6 +55,13 @@ export class ConfigService {
     return env === 'production' || env === 'prod';
   }
 
+  get databaseConfig(): DatabaseModuleOptions {
+    return {
+      connectionUrl: this.databaseUrl,
+      ssl: this.isProd,
+    };
+  }
+
   get nodeEnv(): string {
     return this.envConfig.NODE_ENV;
   }
@@ -60,12 +70,10 @@ export class ConfigService {
     return this.envConfig.REDIS_URL;
   }
 
-  get sessionSecret(): string {
-    return this.envConfig.SESSION_SECRET;
-  }
-
-  get jwtSecret(): string {
-    return this.envConfig.JWT_SECRET;
+  get redisConfig(): ClientOpts {
+    return {
+      url: this.redisUrl,
+    };
   }
 
   get globalPrefix(): string {
@@ -92,11 +100,18 @@ export class ConfigService {
     };
   }
 
-  get cookieAge(): number {
-    return this.envConfig.COOKIE_AGE;
-  }
-
   get applicationName(): string {
     return this.envConfig.APPLICATION;
+  }
+
+  get ogmaConfig(): Pick<OgmaModuleOptions, 'service'> {
+    return {
+      service: {
+        logLevel: this.logLevel,
+        json: this.isProd,
+        color: !this.isProd,
+        application: this.applicationName,
+      },
+    };
   }
 }

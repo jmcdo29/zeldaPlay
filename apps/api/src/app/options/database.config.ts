@@ -9,9 +9,6 @@ export class DatabaseModuleConfig
   constructor(private readonly configService: ConfigService) {}
 
   createModuleConfig(): DatabaseModuleOptions {
-    return {
-      connectionUrl: this.configService.databaseUrl,
-      ssl: this.configService.isProd,
-    };
+    return this.configService.databaseConfig;
   }
 }

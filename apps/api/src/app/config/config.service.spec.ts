@@ -40,14 +40,8 @@ describe('ConfigService', () => {
     it('should return true for isProd', () => {
       expect(service.isProd).toBe(true);
     });
-    it('should return 4040 for RATE_LIMIT', () => {
-      expect(service.rateLimit).toBe(4040);
-    });
     it('should get the Database url', () => {
       expect(service.databaseUrl).toBe(postgresURL);
-    });
-    it('should get the cookie age', () => {
-      expect(service.cookieAge).toBe(86400 * 1000);
     });
     it('should get the application name', () => {
       expect(service.applicationName).toBe('tabletop');
@@ -86,37 +80,14 @@ describe('ConfigService', () => {
     it('should return false for isProd', () => {
       expect(service.isProd).toBe(false);
     });
-    it('should return 1000 for RATE_LIMIT', () => {
-      expect(service.rateLimit).toBe(1000);
-    });
     it('should return a redis url', () => {
       expect(service.redisUrl).toBe(redisURL);
-    });
-    it('should return the jwt secret', () => {
-      expect(service.jwtSecret).toBe('itsasecret');
-    });
-    it('should return the jwt expires in', () => {
-      expect(service.jwtExpiresIn).toBe('3600');
-    });
-    it('should return a session secret', () => {
-      expect(service.sessionSecret).toBe('itsasecret');
     });
     it('should return a global prefix', () => {
       expect(service.globalPrefix).toBe('api');
     });
     it('should return a log level', () => {
       expect(service.logLevel).toBe('INFO');
-    });
-    it('should return the google secret', () => {
-      expect(service.googleSecret).toBe('google_secret');
-    });
-    it('should return the google client', () => {
-      expect(service.googleClient).toBe('google_client');
-    });
-    it('should return the google callback', () => {
-      expect(service.googleCallback).toBe(
-        'http://localhost:3333/api/auth/google/callback',
-      );
     });
   });
 

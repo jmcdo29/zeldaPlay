@@ -8,8 +8,6 @@ export class RedisModuleConfig implements ModuleConfigFactory<ClientOpts> {
   constructor(private readonly config: ConfigService) {}
 
   createModuleConfig(): ClientOpts {
-    return {
-      url: this.config.redisUrl,
-    };
+    return this.config.redisConfig;
   }
 }

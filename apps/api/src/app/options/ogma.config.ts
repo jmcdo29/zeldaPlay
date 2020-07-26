@@ -11,12 +11,7 @@ export class OgmaModuleConfig
 
   createModuleConfig(): OgmaModuleOptions {
     return {
-      service: {
-        logLevel: this.configService.logLevel,
-        color: !this.configService.isProd,
-        application: this.configService.applicationName,
-        json: this.configService.isProd,
-      },
+      ...this.configService.ogmaConfig,
       interceptor: {
         http: ExpressParser,
       },
