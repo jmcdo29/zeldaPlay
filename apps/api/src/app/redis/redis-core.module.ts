@@ -1,9 +1,9 @@
 import { createConfigurableDynamicRootModule } from '@golevelup/nestjs-modules';
 import { Module } from '@nestjs/common';
+import { OgmaModule } from '@ogma/nestjs-module';
 import { ClientOpts, createClient } from 'redis';
 import { REDIS_INSTANCE, REDIS_OPTIONS } from './redis.constants';
 import { RedisService } from './redis.service';
-import { OgmaModule } from '@ogma/nestjs-module';
 
 @Module({})
 export class RedisCoreModule extends createConfigurableDynamicRootModule<

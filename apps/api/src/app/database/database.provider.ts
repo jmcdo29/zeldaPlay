@@ -1,6 +1,8 @@
 import { Provider } from '@nestjs/common';
 import { createProviderToken, OgmaService } from '@ogma/nestjs-module';
 import { Pool } from 'pg';
+import { from } from 'rxjs';
+import { delay, retryWhen, scan } from 'rxjs/operators';
 import {
   DATABASE_FEATURE,
   DATABASE_MODULE_OPTIONS,
@@ -18,13 +20,26 @@ export function createDatabasePoolConnection(): Provider {
         ssl: options.ssl,
         connectionString: options.connectionUrl,
       });
-      try {
-        await pool.connect();
-      } catch (err) {
-        logger.printError(err);
-        process.exit(1);
-      }
-      return pool;
+      return from(pool.connect())
+        .pipe(
+          retryWhen((e) =>
+            e.pipe(
+              scan((errorCount: number, error: Error) => {
+                logger.warn(
+                  `Unable to connect to database. ${error.message}. Retrying ${
+                    errorCount + 1
+                  }...`,
+                );
+                if (errorCount + 1 > 9) {
+                  throw error;
+                }
+                return errorCount + 1;
+              }, 0),
+              delay(1 * 1000),
+            ),
+          ),
+        )
+        .toPromise();
     },
     inject: [
       DATABASE_MODULE_OPTIONS,
