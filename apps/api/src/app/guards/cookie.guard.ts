@@ -25,7 +25,9 @@ export class CookieGuard implements CanActivate {
         if (!user) {
           return of(false);
         }
-        req.user = user;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...reqUser } = user;
+        req.user = reqUser;
         if (refreshed) {
           return this.authService.refreshSession(req, user);
         }

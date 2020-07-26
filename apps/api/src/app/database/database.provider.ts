@@ -1,5 +1,5 @@
 import { Provider } from '@nestjs/common';
-import { OgmaService } from '@ogma/nestjs-module';
+import { createProviderToken, OgmaService } from '@ogma/nestjs-module';
 import { Pool } from 'pg';
 import {
   DATABASE_FEATURE,
@@ -28,7 +28,7 @@ export function createDatabasePoolConnection(): Provider {
     },
     inject: [
       DATABASE_MODULE_OPTIONS,
-      'OGMA_SERVICE:DatabaseConnectionProvider',
+      createProviderToken('DatabaseConnectionProvider'),
     ],
   };
 }
@@ -43,7 +43,7 @@ export function createDatabaseProviders(
   const token = createDatabaseProviderToken(feature.tableName);
   return [
     {
-      inject: [DATABASE_POOL, 'OGMA_SERVICE:DatabaseService'],
+      inject: [DATABASE_POOL, createProviderToken(DatabaseService.name)],
       provide: token,
       useFactory: (pool: Pool, ogmaService: OgmaService) => {
         return new DatabaseService(pool, feature, ogmaService);
