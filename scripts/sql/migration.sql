@@ -10,7 +10,7 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto;
 CREATE TABLE IF NOT EXISTS players (
   id TEXT PRIMARY KEY DEFAULT CONCAT('USR', gen_random_uuid())
   ,email TEXT NOT NULL UNIQUE CONSTRAINT contains_at_symbol CHECK (POSITION('@' IN email) > 0)
-  ,password TEXT NOT NULL
+  ,password TEXT
   ,created_date timestamp without time zone DEFAULT now()
   ,first_name TEXT NOT NULL
   ,last_name TEXT NOT NULL
@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS players (
   ,recovery_token TEXT
   ,is_active BOOLEAN DEFAULT true
   ,roles TEXT[] DEFAULT '{"player"}'
+  ,google_id TEXT
 );
 CREATE TABLE IF NOT EXISTS characters (
   id TEXT PRIMARY KEY DEFAULT CONCAT('CHR', gen_random_uuid())
@@ -38,6 +39,7 @@ CREATE TABLE IF NOT EXISTS characters (
   ,flaw TEXT NOT NULL
   ,personality_traits TEXT[] NOT NULL
   ,proficiencies TEXT[] NOT NULL
+  ,languages TEXT[] NOT NULL
   ,game TEXT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS ability_scores (

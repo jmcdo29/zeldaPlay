@@ -9,14 +9,6 @@ export class GoogleModuleConfig
   constructor(private readonly config: ConfigService) {}
 
   createModuleConfig(): GoogleModuleOptions {
-    return {
-      clientSecret: this.config.googleSecret,
-      clientId: this.config.googleClient,
-      state: 'some_state_token',
-      scope: ['email', 'profile'],
-      responseType: 'code',
-      callbackUrl: this.config.googleCallback,
-      prompt: 'select_account',
-    };
+    return this.config.googleConfig;
   }
 }

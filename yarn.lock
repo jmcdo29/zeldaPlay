@@ -13472,11 +13472,6 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
-runtypes@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/runtypes/-/runtypes-4.3.0.tgz#7332acd86cb8332982e00d134d27a2e4fe701779"
-  integrity sha512-LXPlqYo6o72vpJcLrmcf9TMlGUxIYwM6cK0xwZU+ILdytXL+eMdFfHRl3me3Ylowuu9X3uCepDN9inmQrIeFHA==
-
 rx-lite@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-3.1.2.tgz#19ce502ca572665f3b647b10939f97fd1615f102"

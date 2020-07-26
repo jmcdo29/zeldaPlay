@@ -1,14 +1,17 @@
+import { validatedPlainToClass, ValidationError } from '@marcj/marshal';
 import { Inject, Injectable } from '@nestjs/common';
+import { LogLevel } from '@ogma/logger';
 import { parse } from 'dotenv';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { GoogleModuleOptions } from '../auth/google/google.interface';
 import { CONFIG_MODULE_OPTIONS } from './config.constants';
 import { ConfigModuleOptions } from './interfaces/config-options.interface';
-import { defaults, EnvRunType } from './model/env.model';
+import { EnvConfig } from './model/env.model';
 
 @Injectable()
 export class ConfigService {
-  private envConfig: EnvRunType;
+  private envConfig: EnvConfig;
 
   constructor(
     @Inject(CONFIG_MODULE_OPTIONS)
@@ -30,9 +33,14 @@ export class ConfigService {
     this.envConfig = this.validateConfig(config);
   }
 
-  private validateConfig(config: Record<string, any>): EnvRunType {
-    config = { ...defaults, ...config };
-    return EnvRunType.check(config);
+  private validateConfig(config: Record<string, any>): EnvConfig {
+    try {
+      return validatedPlainToClass(EnvConfig, config);
+    } catch (err) {
+      throw new Error(
+        err.errors.map((err: ValidationError) => JSON.stringify(err)).join(' '),
+      );
+    }
   }
 
   get databaseUrl(): string {
@@ -48,10 +56,6 @@ export class ConfigService {
     return this.envConfig.NODE_ENV;
   }
 
-  get rateLimit(): number {
-    return Number.parseInt(this.envConfig.RATE_LIMIT, 10);
-  }
-
   get redisUrl(): string {
     return this.envConfig.REDIS_URL;
   }
@@ -64,45 +68,32 @@ export class ConfigService {
     return this.envConfig.JWT_SECRET;
   }
 
-  get jwtExpiresIn(): string {
-    return this.envConfig.JWT_EXPIRES;
-  }
-
   get globalPrefix(): string {
     return this.envConfig.GLOBAL_PREFIX;
   }
 
   get port(): number {
-    return Number.parseInt(this.envConfig.PORT, 10);
+    return this.envConfig.PORT;
   }
 
-  get logLevel() {
-    return this.envConfig.LOG_LEVEL;
+  get logLevel(): keyof typeof LogLevel {
+    return LogLevel[this.envConfig.LOG_LEVEL] as keyof typeof LogLevel;
   }
 
-  get googleClient(): string {
-    return this.envConfig.GOOGLE_CLIENT;
-  }
-
-  get googleSecret(): string {
-    return this.envConfig.GOOGLE_SECRET;
-  }
-
-  get googleCallback(): string {
-    return this.envConfig.GOOGLE_CALLBACK_URL;
-  }
-
-  get morganString(): string {
-    this.envConfig.MORGAN_STRING = this.envConfig.MORGAN_STRING
-      ? this.envConfig.MORGAN_STRING
-      : this.isProd
-      ? 'combined'
-      : 'dev';
-    return this.envConfig.MORGAN_STRING;
+  get googleConfig(): GoogleModuleOptions {
+    return {
+      clientId: this.envConfig.GOOGLE_CLIENT,
+      clientSecret: this.envConfig.GOOGLE_SECRET,
+      callbackUrl: this.envConfig.GOOGLE_CALLBACK_URL,
+      prompt: this.envConfig.GOOGLE_PROMPT,
+      responseType: this.envConfig.GOOGLE_RESPONSE_TYPE,
+      scope: this.envConfig.GOOGLE_SCOPE.split(' '),
+      state: this.envConfig.GOOGLE_STATE,
+    };
   }
 
   get cookieAge(): number {
-    return Number.parseInt(this.envConfig.COOKIE_AGE, 10) * 1000;
+    return this.envConfig.COOKIE_AGE;
   }
 
   get applicationName(): string {

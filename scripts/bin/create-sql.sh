@@ -14,14 +14,14 @@ for i in $(ls database/); do
   cat database/$i >> $file
 done;
 
-echo . >> $file
+echo  >> $file
 echo "-- Extensions to be used." >> $file
 
 for i in $(ls extensions); do
   cat extensions/$i >> $file
 done;
 
-echo . >> $file
+echo  >> $file
 echo "-- Tables to be used." >> $file
 
 for i in $(ls tables); do

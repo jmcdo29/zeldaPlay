@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS spells (
   ,focus TEXT NOT NULL
   ,level INTEGER CONSTRAINT not_below_zero CHECK (level >= 0)
   ,school TEXT NOT NULL
-)
+);
