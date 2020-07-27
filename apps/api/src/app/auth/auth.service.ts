@@ -86,8 +86,23 @@ export class AuthService {
       );
   }
 
+  private setSessionCookie(
+    req: ReqWithCookies,
+    user: AuthDTO,
+  ): Observable<AuthDTO> {
+    return this.redis
+      .set(
+        this.cookieService.setCookie(req, 'session.id', undefined, {
+          expires: new Date(Date.now() + hour / 60),
+        }),
+        user.id,
+        hour,
+      )
+      .pipe(map(() => user));
+  }
+
   refreshSession(req: ReqWithCookies, user: AuthDTO): Observable<AuthDTO> {
-    return this.setCookie(req, user);
+    return this.setSessionCookie(req, user);
   }
 
   getUserByCookie(cookie: string): Observable<UserDTO | undefined> {
