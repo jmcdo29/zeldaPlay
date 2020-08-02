@@ -27,8 +27,7 @@
               "apps/tabletop-companion/src/assets"
             ],
             "styles": ["apps/tabletop-companion/src/styles.scss"],
-            "scripts": [],
-            "es5BrowserSupport": true
+            "scripts": []
           },
           "configurations": {
             "production": {

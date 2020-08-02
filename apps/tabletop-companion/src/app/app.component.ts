@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Message } from '@tabletop-companion/api-interface';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { AppService } from './app.service';
 
 @Component({
   selector: 'tabletop-companion-root',
@@ -15,19 +14,19 @@ export class AppComponent implements OnInit, OnDestroy {
   public name: FormControl;
   private formChange$: Subscription;
 
-  constructor(private readonly appService: AppService) {
+  constructor() {
     this.name = new FormControl('');
     this.formChange$ = this.name.valueChanges
       .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe({
         next: (value) => {
-          this.hello$ = this.appService.getHello(value);
+          this.hello$ = of(value);
         },
       });
   }
 
   ngOnInit() {
-    this.hello$ = this.appService.getHello();
+    this.hello$ = of();
   }
 
   ngOnDestroy() {
