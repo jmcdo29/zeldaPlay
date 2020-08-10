@@ -10,18 +10,27 @@ import { DatabaseService } from './database.service';
 import { DatabaseModuleOptions } from './interfaces/database-options.interface';
 import { DatabaseFeatureOptions } from './interfaces/database.interface';
 
-@Module({
-  imports: [OgmaModule.forFeature(DatabaseService)],
-})
+@Module({})
 export class DatabaseModule {
   static forRoot(options: DatabaseModuleOptions): DynamicModule {
-    return DatabaseCoreModule.forRoot(DatabaseCoreModule, options);
+    const dbModule = DatabaseCoreModule.forRoot(DatabaseCoreModule, options);
+    dbModule.imports = dbModule.imports.concat(
+      OgmaModule.forFeature(DatabaseService),
+    );
+    return dbModule;
   }
 
   static forRootAsync(
     options: AsyncModuleConfig<DatabaseModuleOptions>,
   ): DynamicModule {
-    return DatabaseCoreModule.forRootAsync(DatabaseCoreModule, options);
+    const dbModule = DatabaseCoreModule.forRootAsync(
+      DatabaseCoreModule,
+      options,
+    );
+    dbModule.imports = dbModule.imports.concat(
+      OgmaModule.forFeature(DatabaseService),
+    );
+    return dbModule;
   }
 
   static forFeature(options: DatabaseFeatureOptions): DynamicModule {
@@ -30,6 +39,7 @@ export class DatabaseModule {
       module: DatabaseModule,
       imports: [
         DatabaseCoreModule.Deferred,
+        OgmaModule.forFeature(DatabaseService),
         OgmaModule.forFeature('DatabaseConnectionProvider'),
       ],
       providers: [createDatabasePoolConnection(), ...databaseProvider],

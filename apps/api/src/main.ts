@@ -9,17 +9,21 @@ import { ConfigService } from './app/config/config.service';
 import { configure } from './config.main';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    // logger: false,
-  });
+  const debugOutput = await SpelunkerModule.debug(AppModule);
+  const app = await NestFactory.create(
+    AppModule,
+    process.env.NODE_ENV === 'production' ? { logger: false } : {},
+  );
   const config = app.get<ConfigService>(ConfigService);
   const logger = app.get<OgmaService>(OgmaService);
   app.useLogger(logger);
   const port = config.port;
   configure(app, config, logger);
+  const exploreOutput = SpelunkerModule.explore(app);
+  writeFileSync(join(process.cwd(), 'debug.json'), JSON.stringify(debugOutput));
   writeFileSync(
     join(process.cwd(), 'server.json'),
-    Buffer.from(JSON.stringify(SpelunkerModule.explore(app), null, 2)),
+    JSON.stringify(exploreOutput),
   );
   await app.listen(port);
   logger.log(`Listening at ${await app.getUrl()}`, 'NestApplication');

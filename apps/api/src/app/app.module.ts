@@ -41,7 +41,6 @@ import { RedisModule } from './redis/redis.module';
     CharacterModule,
     AbilityScoreModule,
     SpellModule,
-    RedisModule,
     CookieModule,
   ],
   providers: [

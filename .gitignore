@@ -45,4 +45,6 @@ docker-compose.yml
 
 coverage/
 server.json
+debug.json
+*-local.conf
 *.txt
