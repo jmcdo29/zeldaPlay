@@ -78,10 +78,7 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "eslintConfig": ".eslintrc.js",
-            "tsConfig": [
-              "apps/tabletop-companion/tsconfig.app.json",
-              "apps/tabletop-companion/tsconfig.spec.json"
-            ],
+            "lintFilePatterns": ["apps/tabletop-companion/**/*.ts"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -117,7 +114,7 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "eslintConfig": ".eslintrc.js",
-            "tsConfig": "apps/tabletop-companion-e2e/tsconfig.e2e.json",
+            "lintFilePatterns": ["apps/tabletop-companion-e2e/**/*.ts"],
             "exclude": ["**/node_modules/**"]
           }
         }
@@ -156,10 +153,7 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "eslintConfig": ".eslintrc.js",
-            "tsConfig": [
-              "apps/api/tsconfig.app.json",
-              "apps/api/tsconfig.spec.json"
-            ],
+            "lintFilePatterns": ["apps/api/**/*.ts"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -181,11 +175,8 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
+            "lintFilePatterns": ["libs/api-interface/**/*.ts"],
             "eslintConfig": ".eslintrc.js",
-            "tsConfig": [
-              "libs/api-interface/tsconfig.lib.json",
-              "libs/api-interface/tsconfig.spec.json"
-            ],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -217,10 +208,7 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "eslintConfig": ".eslintrc.js",
-            "tsConfig": [
-              "apps/api-e2e/tsconfig.app.json",
-              "apps/api-e2e/tsconfig.spec.json"
-            ],
+            "lintFilePatterns": ["apps/api-e2e/**/*.ts"],
             "exclude": ["**/node_modules/**", "!apps/api-e2e/**"]
           }
         }
@@ -233,7 +221,7 @@
       "versionMismatch": false
     },
     "defaultCollection": "@nrwl/angular",
-    "packageManager": "yarn",
+    "packageManager": "pnpm",
     "analytics": false
   },
   "schematics": {
