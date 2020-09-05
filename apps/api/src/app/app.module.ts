@@ -1,7 +1,7 @@
 import { ValidationPipe } from '@marcj/marshal-nest';
 import { Module } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
-import { OgmaModule } from '@ogma/nestjs-module';
+import { OgmaInterceptor, OgmaModule } from '@ogma/nestjs-module';
 import { AbilityScoreModule } from './ability-score/ability-score.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -45,6 +45,10 @@ import { RedisModule } from './redis/redis.module';
   ],
   providers: [
     AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: OgmaInterceptor,
+    },
     {
       provide: APP_INTERCEPTOR,
       useClass: CookieInterceptor,
