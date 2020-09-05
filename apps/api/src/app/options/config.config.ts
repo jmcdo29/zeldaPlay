@@ -8,7 +8,9 @@ export class ConfigModuleConfig
   createModuleConfig(): ConfigModuleOptions {
     return {
       fileName: '.env',
-      useProcess: false,
+      useProcess: process.env.USE_PROCESS
+        ? JSON.parse(process.env.USE_PROCESS)
+        : false,
     };
   }
 }
