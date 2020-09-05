@@ -1,3 +1,4 @@
+import { validatedPlainToClass } from '@marcj/marshal';
 import { Injectable } from '@nestjs/common';
 import {
   AbilityScore,
@@ -10,6 +11,7 @@ import { Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 import { DatabaseService } from '../database/database.service';
 import { DatabaseTable } from '../database/database.decorator';
+import { AbilityScoreDTO } from './models';
 
 @Injectable()
 export class AbilityScoreService {
@@ -26,11 +28,19 @@ export class AbilityScoreService {
     fields.push('character_id as "characterId"');
     const query = fields.join(', ');
     const where = 'character_id = $1;';
-    return this.db.query({
-      query,
-      where,
-      variables: [charId.id],
-    });
+    return this.db
+      .query({
+        query,
+        where,
+        variables: [charId.id],
+      })
+      .pipe(
+        map((dbScores) => {
+          return dbScores.map((score) =>
+            validatedPlainToClass(AbilityScoreDTO, score),
+          );
+        }),
+      );
   }
 
   getAbilityScoreById(abilityId: AbilityScoreId): Observable<AbilityScore> {
@@ -43,7 +53,11 @@ export class AbilityScoreService {
     const where = 'id = $1;';
     return this.db
       .query({ query, where, variables: [abilityId.id] })
-      .pipe(map((abilityScores) => abilityScores[0]));
+      .pipe(
+        map((abilityScores) =>
+          validatedPlainToClass(AbilityScoreDTO, abilityScores[0]),
+        ),
+      );
   }
 
   insertOneAbilityScore(ability: AbilityScoreInput): Observable<AbilityScore> {
@@ -73,6 +87,9 @@ export class AbilityScoreService {
           id: abilityScore.id,
           ...ability,
         })),
+        map((abilityScore) =>
+          validatedPlainToClass(AbilityScoreDTO, abilityScore as any),
+        ),
       );
   }
 
@@ -111,6 +128,9 @@ export class AbilityScoreService {
           }
           return abs;
         }),
+        map((scores) =>
+          scores.map((score) => validatedPlainToClass(AbilityScoreDTO, score)),
+        ),
       );
   }
 
@@ -165,6 +185,11 @@ export class AbilityScoreService {
             variables: [ids],
           });
         }),
+        map((abilityScores) =>
+          abilityScores.map((score) =>
+            validatedPlainToClass(AbilityScoreDTO, score),
+          ),
+        ),
       );
   }
 }
