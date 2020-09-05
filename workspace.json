@@ -22,6 +22,7 @@
             "main": "apps/tabletop-companion/src/main.ts",
             "polyfills": "apps/tabletop-companion/src/polyfills.ts",
             "tsConfig": "apps/tabletop-companion/tsconfig.app.json",
+            "preserveSymlinks": true,
             "assets": [
               "apps/tabletop-companion/src/favicon.ico",
               "apps/tabletop-companion/src/assets"
