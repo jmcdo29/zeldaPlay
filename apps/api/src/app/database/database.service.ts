@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { plainToClass } from '@marcj/marshal';
+import { Injectable, Type } from '@nestjs/common';
 import { OgmaService } from '@ogma/nestjs-module';
 import { Pool } from 'pg';
 import { from, Observable, of } from 'rxjs';
@@ -24,7 +25,11 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
     this.tableName = feature.tableName;
   }
 
-  private runQuery(query: string, params: any[]): Observable<T[]> {
+  private runQuery(
+    query: string,
+    params: any[],
+    type: Type<T>,
+  ): Observable<T[]> {
     const start = Date.now();
     return from(this.pool.query(query, params)).pipe(
       tap((qRes) => {
@@ -34,7 +39,11 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
           rows: qRes.rowCount,
         });
       }),
-      map((qRes) => qRes.rows),
+      map((qRes) =>
+        qRes.rows
+          .map(this.underScoreToCamelCase)
+          .map((row) => plainToClass(type, row)),
+      ),
       catchError((err) => {
         this.logger.debug({
           query,
@@ -46,7 +55,23 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
     );
   }
 
-  query(params: QueryParams): Observable<T[]> {
+  private underScoreToCamelCase(
+    record: Record<string, any>,
+  ): Record<string, any> {
+    const newObj = {};
+    Object.keys(record).forEach((key) => {
+      const origKey = key;
+      while (key.indexOf('_') > -1) {
+        const _index = key.indexOf('_');
+        const nextChar = key.charAt(_index + 1);
+        key = key.replace(`_${nextChar}`, nextChar.toUpperCase());
+      }
+      newObj[key] = record[origKey];
+    });
+    return newObj;
+  }
+
+  query(params: QueryParams, type: Type<T>): Observable<T[]> {
     const query =
       'SELECT ' +
       params.query +
@@ -54,10 +79,10 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
       this.tableName +
       ' WHERE ' +
       params.where;
-    return this.runQuery(query, params.variables);
+    return this.runQuery(query, params.variables, type);
   }
 
-  insert(params: InsertParams): Observable<T[]> {
+  insert(params: InsertParams, type: Type<T>): Observable<T[]> {
     const query =
       'INSERT INTO ' +
       this.tableName +
@@ -65,12 +90,12 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
       params.query +
       ') VALUES (' +
       params.where +
-      ') RETURNING id;';
-    return this.runQuery(query, params.variables);
+      ') RETURNING *;';
+    return this.runQuery(query, params.variables, type);
   }
 
   // tslint:disable-next-line: no-identical-functions
-  update(params: UpdateParams): Observable<T[]> {
+  update(params: UpdateParams, type: Type<T>): Observable<T[]> {
     const query =
       'UPDATE ' +
       this.tableName +
@@ -78,11 +103,11 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
       params.query +
       ' WHERE ' +
       params.where +
-      ' RETURNING id;';
-    return this.runQuery(query, params.variables);
+      ' RETURNING *;';
+    return this.runQuery(query, params.variables, type);
   }
 
-  updateMany(params: UpdateManyParams): Observable<T[]> {
+  updateMany(params: UpdateManyParams, type: Type<T>): Observable<T[]> {
     const query =
       'UPDATE ' +
       this.tableName +
@@ -94,8 +119,8 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
       params.tempTable +
       ' WHERE ' +
       params.where +
-      ';';
-    return this.runQuery(query, params.variables);
+      ' RETURNING *;';
+    return this.runQuery(query, params.variables, type);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

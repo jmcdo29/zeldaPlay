@@ -1,3 +1,4 @@
+import { Type } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
 export interface DatabaseFeatureOptions {
@@ -46,19 +47,19 @@ export interface DatabaseInterface<T> {
    * method specifically for running queries
    * @param params object of string and any array for what query should be run and with what parameters for SQL injection protection
    */
-  query(params: QueryParams): Observable<T[]>;
+  query(params: QueryParams, type: Type<T>): Observable<T[]>;
 
   /**
    * Method specifically for running inserts
    * @param params object of string and any array for what query should be run and with what parameters for SQL injection protection
    */
-  insert(params: QueryParams): Observable<T[]>;
+  insert(params: QueryParams, type: Type<T>): Observable<T[]>;
 
   /**
    * Method specifically for running updates
    * @param params object of string and any array for what query should be run and with what parameters for SQL injection protection
    */
-  update(params: QueryParams): Observable<T[]>;
+  update(params: QueryParams, type: Type<T>): Observable<T[]>;
 
   /**
    * Method specifically for running deletes

@@ -9,6 +9,7 @@ import { LocalService } from './local/local.service';
 import { AuthDTO, LoginDTO, SignupDTO } from './models';
 import { GoogleUser, UserDTO } from './user/models';
 import { UserService } from './user/user.service';
+import { plainToClass } from '@marcj/marshal';
 
 const hour = 60 * 60 * 1000;
 const day = 24 * hour;
@@ -34,6 +35,7 @@ export class AuthService {
 
   login(req: ReqWithCookies, login: LoginDTO): Observable<AuthDTO> {
     return this.localService.login(login).pipe(
+      map((user) => plainToClass(AuthDTO, user)),
       switchMap((user) => {
         return this.setCookie(req, user);
       }),

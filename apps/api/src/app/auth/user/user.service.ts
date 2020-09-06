@@ -20,39 +20,45 @@ export class UserService {
 
   getByEmail(email: string): Observable<UserDTO> {
     const fields: string[] = [];
-    fields.push('id as id');
-    fields.push('email as email');
-    fields.push('roles as roles');
-    fields.push('password as password');
+    fields.push('id');
+    fields.push('email');
+    fields.push('roles');
+    fields.push('password');
     const query = fields.join(', ');
     const where = 'email = $1;';
     return this.db
-      .query({
-        query,
-        where,
-        variables: [email],
-      })
+      .query(
+        {
+          query,
+          where,
+          variables: [email],
+        },
+        UserDTO,
+      )
       .pipe(map((users) => users[0]));
   }
 
   getById(userId: UserIdDTO): Observable<UserDTO> {
     const fields: string[] = [];
-    fields.push('id as id');
-    fields.push('email as email');
-    fields.push('roles as roles');
-    fields.push('password as password');
-    fields.push('first_name as "firstName"');
-    fields.push('last_name as "lastName"');
-    fields.push('consent_to_email as "consentToEmail"');
-    fields.push('is_active as "isActive"');
+    fields.push('id');
+    fields.push('email');
+    fields.push('roles');
+    fields.push('password');
+    fields.push('first_name');
+    fields.push('last_name');
+    fields.push('consent_to_email');
+    fields.push('is_active');
     const query = fields.join(', ');
     const where = 'id = $1;';
     return this.db
-      .query({
-        query,
-        where,
-        variables: [userId.id],
-      })
+      .query(
+        {
+          query,
+          where,
+          variables: [userId.id],
+        },
+        UserDTO,
+      )
       .pipe(map((users) => users[0]));
   }
 
@@ -78,11 +84,14 @@ export class UserService {
     }
     userVariables.push(signupBody.role);
     return this.db
-      .insert({
-        query: params.fields.join(', '),
-        where: params.values.join(', '),
-        variables: userVariables,
-      })
+      .insert(
+        {
+          query: params.fields.join(', '),
+          where: params.values.join(', '),
+          variables: userVariables,
+        },
+        UserDTO,
+      )
       .pipe(
         mergeMap((newUsers) =>
           iif(
@@ -95,14 +104,6 @@ export class UserService {
             ),
           ),
         ),
-        map((user) => {
-          user = {
-            id: user.id,
-            isActive: true,
-            ...signupBody,
-          };
-          return user;
-        }),
       );
   }
 
@@ -113,11 +114,14 @@ export class UserService {
 
   deleteUser(userId: UserIdDTO): Observable<void> {
     this.db
-      .update({
-        query: 'is_active = $1',
-        where: 'id = $2',
-        variables: [false, userId.id],
-      })
+      .update(
+        {
+          query: 'is_active = $1',
+          where: 'id = $2',
+          variables: [false, userId.id],
+        },
+        UserDTO,
+      )
       .subscribe();
     this.logger.log(`User with id ${userId.id} deactivated.`);
     return empty();

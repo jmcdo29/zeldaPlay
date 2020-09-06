@@ -1,4 +1,3 @@
-import { validatedPlainToClass } from '@marcj/marshal';
 import { Injectable } from '@nestjs/common';
 import {
   AbilityScore,
@@ -28,19 +27,14 @@ export class AbilityScoreService {
     fields.push('character_id as "characterId"');
     const query = fields.join(', ');
     const where = 'character_id = $1;';
-    return this.db
-      .query({
+    return this.db.query(
+      {
         query,
         where,
         variables: [charId.id],
-      })
-      .pipe(
-        map((dbScores) => {
-          return dbScores.map((score) =>
-            validatedPlainToClass(AbilityScoreDTO, score),
-          );
-        }),
-      );
+      },
+      AbilityScoreDTO,
+    );
   }
 
   getAbilityScoreById(abilityId: AbilityScoreId): Observable<AbilityScore> {
@@ -52,12 +46,8 @@ export class AbilityScoreService {
     const query = fields.join(', ');
     const where = 'id = $1;';
     return this.db
-      .query({ query, where, variables: [abilityId.id] })
-      .pipe(
-        map((abilityScores) =>
-          validatedPlainToClass(AbilityScoreDTO, abilityScores[0]),
-        ),
-      );
+      .query({ query, where, variables: [abilityId.id] }, AbilityScoreDTO)
+      .pipe(map((abilityScores) => abilityScores[0]));
   }
 
   insertOneAbilityScore(ability: AbilityScoreInput): Observable<AbilityScore> {
@@ -76,20 +66,20 @@ export class AbilityScoreService {
       params.values.push(`$${i}`);
     }
     return this.db
-      .insert({
-        query: params.fields.join(', '),
-        where: params.values.join(', '),
-        variables: abilVariables,
-      })
+      .insert(
+        {
+          query: params.fields.join(', '),
+          where: params.values.join(', '),
+          variables: abilVariables,
+        },
+        AbilityScoreDTO,
+      )
       .pipe(
         map((abilityScores) => abilityScores[0]),
         map((abilityScore) => ({
           id: abilityScore.id,
           ...ability,
         })),
-        map((abilityScore) =>
-          validatedPlainToClass(AbilityScoreDTO, abilityScore as any),
-        ),
       );
   }
 
@@ -112,37 +102,28 @@ export class AbilityScoreService {
       );
       params.values.push(`$${i * 3 + 1}, $${i * 3 + 2}, $${i * 3 + 3}`);
     }
-    return this.db
-      .insert({
+    return this.db.insert(
+      {
         query: params.fields.join(', '),
         where: params.values.join(', '),
         variables: abilVariables,
-      })
-      .pipe(
-        map((abs) => {
-          for (let i = 0; i < abs.length; i++) {
-            abs[i] = {
-              id: abs[i].id,
-              ...abilities[i],
-            };
-          }
-          return abs;
-        }),
-        map((scores) =>
-          scores.map((score) => validatedPlainToClass(AbilityScoreDTO, score)),
-        ),
-      );
+      },
+      AbilityScoreDTO,
+    );
   }
 
   updateOneAbilityScore(ability: AbilityScoreUpdate): Observable<AbilityScore> {
     const query = ' value = $1';
     const where = ' WHERE id = $2';
     return this.db
-      .update({
-        query,
-        where,
-        variables: [ability.value, ability.id],
-      })
+      .update(
+        {
+          query,
+          where,
+          variables: [ability.value, ability.id],
+        },
+        AbilityScoreDTO,
+      )
       .pipe(
         map((abilityScores) => abilityScores[0]),
         mergeMap((abilityScore) => {
@@ -165,31 +146,15 @@ export class AbilityScoreService {
     tempTable = tempTable.substring(0, query.length - 1);
     tempTable += ') AS incoming(values, id)';
     const where = ' WHERE incoming.id = scores.id';
-    return this.db
-      .updateMany({
+    return this.db.updateMany(
+      {
         tableAlias,
         query,
         tempTable,
         where,
         variables,
-      })
-      .pipe(
-        mergeMap(() => {
-          const ids = [];
-          for (const abil of abilities) {
-            ids.push(abil.id);
-          }
-          return this.db.query({
-            query: 'id, name, value, character_id as "characterId"',
-            where: ' WHERE id IN $1;',
-            variables: [ids],
-          });
-        }),
-        map((abilityScores) =>
-          abilityScores.map((score) =>
-            validatedPlainToClass(AbilityScoreDTO, score),
-          ),
-        ),
-      );
+      },
+      AbilityScoreDTO,
+    );
   }
 }
