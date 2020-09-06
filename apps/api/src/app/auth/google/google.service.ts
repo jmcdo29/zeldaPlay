@@ -86,22 +86,18 @@ export class GoogleService {
 
   getByGoogleId(id: string): Observable<GoogleUser> {
     const fields: string[] = [];
-    fields.push(
-      'id as id',
-      'roles as roles',
-      'email as email',
-      'first_name as "firstName"',
-      'last_name as "lastName"',
-      'google_id as "googleId"',
-    );
+    fields.push('id', 'roles', 'email', 'first_name', 'last_name', 'google_id');
     const query = fields.join(', ');
     const where = 'google_id = $1';
     return this.db
-      .query({
-        query,
-        where,
-        variables: [id],
-      })
+      .query(
+        {
+          query,
+          where,
+          variables: [id],
+        },
+        GoogleUser,
+      )
       .pipe(map((users) => users[0]));
   }
 
@@ -127,21 +123,14 @@ export class GoogleService {
       params.values.push(`$${i}`);
     }
     return this.db
-      .insert({
-        query: params.fields.join(', '),
-        where: params.values.join(', '),
-        variables,
-      })
-      .pipe(
-        map((users) => users[0]),
-        map((user) => ({
-          email: profile.email,
-          firstName: profile.given_name,
-          lastName: profile.family_name,
-          googleId: profile.id,
-          roles: ['player'],
-          ...user,
-        })),
-      );
+      .insert(
+        {
+          query: params.fields.join(', '),
+          where: params.values.join(', '),
+          variables,
+        },
+        GoogleUser,
+      )
+      .pipe(map((users) => users[0]));
   }
 }
