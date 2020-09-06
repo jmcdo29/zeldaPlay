@@ -21,63 +21,69 @@ export class CharacterService {
   getCharacterById(id: CharacterIdDTO): Observable<CharacterDTO> {
     const fields: string[] = [];
     fields.push('id as id');
-    fields.push('name as name');
-    fields.push('race as race');
-    fields.push('subrace as subrace');
-    fields.push('experience as experience');
-    fields.push('max_health as "maxHealth"');
-    fields.push('health as health');
-    fields.push('is_dead as "isDead"');
-    fields.push('player_id as "playerId"');
-    fields.push('level as level');
-    fields.push('alignment as alignment');
-    fields.push('background as background');
-    fields.push('ideal as ideal');
-    fields.push('bond as bond');
-    fields.push('flaw as flaw');
-    fields.push('personality_traits as "personalityTraits"');
-    fields.push('proficiencies as proficiencies');
-    fields.push('languages as languages');
-    fields.push('game as game');
+    fields.push('name');
+    fields.push('race');
+    fields.push('subrace');
+    fields.push('experience');
+    fields.push('max_health');
+    fields.push('health');
+    fields.push('is_dead');
+    fields.push('player_id');
+    fields.push('level');
+    fields.push('alignment');
+    fields.push('background');
+    fields.push('ideal');
+    fields.push('bond');
+    fields.push('flaw');
+    fields.push('personality_traits');
+    fields.push('proficiencies');
+    fields.push('languages');
+    fields.push('game');
     const query = fields.join(', ');
     const where = 'id = $1;';
     return this.db
-      .query({
-        query,
-        where,
-        variables: [id.id],
-      })
+      .query(
+        {
+          query,
+          where,
+          variables: [id.id],
+        },
+        CharacterDTO,
+      )
       .pipe(map((characters) => characters[0]));
   }
 
   getCharactersByUserId(userId: UserIdDTO): Observable<CharacterDTO[]> {
     const fields: string[] = [];
-    fields.push('id as id');
-    fields.push('name as name');
-    fields.push('race as race');
-    fields.push('subrace as subrace');
-    fields.push('experience as experience');
-    fields.push('max_health as "maxHealth"');
-    fields.push('health as health');
-    fields.push('is_dead as "isDead"');
-    fields.push('player_id as "playerId"');
-    fields.push('level as level');
-    fields.push('alignment as alignment');
-    fields.push('background as background');
-    fields.push('ideal as ideal');
-    fields.push('bond as bond');
-    fields.push('flaw as flaw');
-    fields.push('personality_traits as "personalityTraits"');
-    fields.push('proficiencies as proficiencies');
-    fields.push('languages as languages');
-    fields.push('game as game');
+    fields.push('id');
+    fields.push('name');
+    fields.push('race');
+    fields.push('subrace');
+    fields.push('experience');
+    fields.push('max_health');
+    fields.push('health');
+    fields.push('is_dead');
+    fields.push('player_id');
+    fields.push('level');
+    fields.push('alignment');
+    fields.push('background');
+    fields.push('ideal');
+    fields.push('bond');
+    fields.push('flaw');
+    fields.push('personality_traits');
+    fields.push('proficiencies');
+    fields.push('languages');
+    fields.push('game');
     const query = fields.join(', ');
     const where = 'player_id = $1;';
-    return this.db.query({
-      query,
-      where,
-      variables: [userId.id],
-    });
+    return this.db.query(
+      {
+        query,
+        where,
+        variables: [userId.id],
+      },
+      CharacterDTO,
+    );
   }
 
   insertNewCharacter(
@@ -128,21 +134,15 @@ export class CharacterService {
       params.values.push(`$${i}`);
     }
     return this.db
-      .insert({
-        query: params.fields.join(', '),
-        where: params.values.join(', '),
-        variables: charVariables,
-      })
-      .pipe(
-        map((characters) => characters[0]),
-        map((character) => {
-          character = {
-            id: character.id,
-            ...characterData,
-          };
-          return character;
-        }),
-      );
+      .insert(
+        {
+          query: params.fields.join(', '),
+          where: params.values.join(', '),
+          variables: charVariables,
+        },
+        CharacterDTO,
+      )
+      .pipe(map((characters) => characters[0]));
   }
 
   updateCharacter(
@@ -150,7 +150,7 @@ export class CharacterService {
     characterData: CharacterUpdateDataDTO,
   ): Observable<CharacterDTO> {
     return this.db
-      .update({ query: '', variables: [] })
+      .update({ query: '', variables: [] }, CharacterDTO)
       .pipe(map((characters) => characters[0]));
   }
 }
