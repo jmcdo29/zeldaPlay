@@ -79,10 +79,6 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "eslintConfig": ".eslintrc.js",
-            "tsConfig": [
-              "apps/tabletop-companion/tsconfig.app.json",
-              "apps/tabletop-companion/tsconfig.spec.json"
-            ],
             "lintFilePatterns": ["apps/tabletop-companion/**/*.ts"],
             "exclude": ["**/node_modules/**"]
           }
@@ -159,10 +155,6 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "eslintConfig": ".eslintrc.js",
-            "tsConfig": [
-              "apps/api/tsconfig.app.json",
-              "apps/api/tsconfig.spec.json"
-            ],
             "lintFilePatterns": ["apps/api/**/*.ts"],
             "exclude": ["**/node_modules/**"]
           }
