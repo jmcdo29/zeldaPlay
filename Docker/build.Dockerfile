@@ -12,13 +12,14 @@ RUN pnpm install -s
 COPY . .
 
 FROM dependencies AS lint
-RUN pnpm affected:lint
+RUN pnpm lint
 
 # FROM dependencies AS test
 # RUN pnpm affected:test
 
 FROM dependencies AS build
-RUN pnpm affected:build -- --prod
+RUN pnpm build -- --prod
+RUN pnpm build -- api --prod
 
 FROM node:slim as final
 COPY --from=build /app/dist ./app/dist
