@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { UserDTO, UserIdDTO, UserUpdateDataDTO } from './models';
-import { IsLoggedInGuard } from '../../guards/is-logged-in.guard';
+import { CookieGuard } from '../../guards/cookie.guard';
 import { UserService } from './user.service';
 
 @Controller('users')
@@ -21,13 +21,13 @@ export class UsersController {
     return this.usersService.getById(userId);
   }
 
-  @UseGuards(IsLoggedInGuard)
+  @UseGuards(CookieGuard)
   @Patch(':id')
   updateUser(@Body() userData: UserUpdateDataDTO): Observable<UserDTO> {
     return this.usersService.updateUser(userData);
   }
 
-  @UseGuards(IsLoggedInGuard)
+  @UseGuards(CookieGuard)
   @Delete(':id')
   deleteUser(@Body() userId: UserIdDTO): Observable<any> {
     return this.usersService.deleteUser(userId);

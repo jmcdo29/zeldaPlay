@@ -16,7 +16,7 @@ import {
   CharacterUpdateDataDTO,
 } from './models';
 import { UserIdDTO } from '../auth/user/models';
-import { IsLoggedInGuard } from '../guards/is-logged-in.guard';
+import { CookieGuard } from '../guards/cookie.guard';
 
 @Controller('character')
 export class CharactersController {
@@ -34,7 +34,7 @@ export class CharactersController {
     return this.charactersService.getCharactersByUserId(userParams);
   }
 
-  @UseGuards(IsLoggedInGuard)
+  @UseGuards(CookieGuard)
   @Post('new')
   insertCharacter(
     @Body() characterInsert: CharacterInsertDataDTO,
@@ -42,7 +42,7 @@ export class CharactersController {
     return this.charactersService.insertNewCharacter(characterInsert);
   }
 
-  @UseGuards(IsLoggedInGuard)
+  @UseGuards(CookieGuard)
   @Patch('update')
   updateCharacter(
     @Body() characterUpdate: CharacterUpdateDataDTO,

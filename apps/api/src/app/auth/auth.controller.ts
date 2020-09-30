@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { ReqWithCookies } from '../interfaces/req-with-cookies.interface';
+import { ReqWithUser } from '../interfaces/req-with-user.interface';
 import { AuthService } from './auth.service';
 import { AuthDTO, LoginDTO, SignupDTO } from './models';
 
@@ -10,7 +10,7 @@ export class AuthController {
 
   @Post('login')
   localLogin(
-    @Req() req: ReqWithCookies,
+    @Req() req: ReqWithUser,
     @Body() loginBody: LoginDTO,
   ): Observable<AuthDTO> {
     return this.authService.login(req, loginBody);
@@ -18,7 +18,7 @@ export class AuthController {
 
   @Post('signup')
   signup(
-    @Req() req: ReqWithCookies,
+    @Req() req: ReqWithUser,
     @Body() signupBody: SignupDTO,
   ): Observable<AuthDTO> {
     return this.authService.signup(req, signupBody);

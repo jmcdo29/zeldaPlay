@@ -16,6 +16,7 @@ dependencies:
   core-js: 3.6.5
   dotenv: 8.2.0
   helmet: 4.1.0
+  nest-cookies: 1.0.0_@nestjs+common@7.4.3
   nestjs-spelunker: 0.4.1_f6f37265febba553537c8e7f27a20e08
   pg: 8.3.3_pg@8.3.3
   redis: 3.0.2
@@ -11540,6 +11541,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
+  /nest-cookies/1.0.0_@nestjs+common@7.4.3:
+    dependencies:
+      '@nestjs/common': 7.4.3_3fc8e5d1ac4b40f7ed362ccb24665f79
+    dev: false
+    peerDependencies:
+      '@nestjs/common': ^7.0.0
+    resolution:
+      integrity: sha512-mvCdUzXKVcBBzLvvcVYQOrpx20pCiW1AuNY2nOtxrCey2MA+QgNteGs5Wz2SEkO/hnyS84+ontvRHLspET21bw==
   /nestjs-spelunker/0.4.1_f6f37265febba553537c8e7f27a20e08:
     dependencies:
       '@nestjs/common': 7.4.3_3fc8e5d1ac4b40f7ed362ccb24665f79
@@ -17516,6 +17525,7 @@ specifiers:
   jest: ^26.2.2
   jest-preset-angular: ^8.2.1
   lint-staged: ^10.2.11
+  nest-cookies: ^1.0.0
   nestjs-spelunker: ^0.4.0
   npm-check: ^5.9.0
   pg: ^8.3.0
