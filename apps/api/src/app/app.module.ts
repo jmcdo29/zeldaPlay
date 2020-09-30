@@ -2,6 +2,10 @@ import { ValidationPipe } from '@marcj/marshal-nest';
 import { Module } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { OgmaInterceptor, OgmaModule } from '@ogma/nestjs-module';
+import {
+  CookiesInterceptor,
+  CookieModule as NestCookieModule,
+} from 'nest-cookies';
 import { AbilityScoreModule } from './ability-score/ability-score.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,7 +14,6 @@ import { CharacterModule } from './character/character.module';
 import { ConfigModule } from './config/config.module';
 import { CookieModule } from './cookie/cookie.module';
 import { DatabaseModule } from './database/database.module';
-import { CookieInterceptor } from './interceptors/cookie.interceptor';
 import {
   ConfigModuleConfig,
   DatabaseModuleConfig,
@@ -22,6 +25,7 @@ import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
+    NestCookieModule,
     ConfigModule.forRootAsync(ConfigModule, {
       useClass: ConfigModuleConfig,
     }),
@@ -51,7 +55,7 @@ import { RedisModule } from './redis/redis.module';
     },
     {
       provide: APP_INTERCEPTOR,
-      useClass: CookieInterceptor,
+      useClass: CookiesInterceptor,
     },
     {
       provide: APP_PIPE,

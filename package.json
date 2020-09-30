@@ -55,6 +55,7 @@
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "helmet": "^4.1.0",
+    "nest-cookies": "^1.0.0",
     "nestjs-spelunker": "^0.4.0",
     "pg": "^8.3.0",
     "redis": "^3.0.2",

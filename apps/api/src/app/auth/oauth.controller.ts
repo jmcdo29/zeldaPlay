@@ -1,5 +1,5 @@
 import { Controller, Get, Query, Req } from '@nestjs/common';
-import { ReqWithCookies } from '../interfaces/req-with-cookies.interface';
+import { ReqWithUser } from '../interfaces/req-with-user.interface';
 import { AuthService } from './auth.service';
 import { OauthQueryParams } from './models/oauth.model';
 
@@ -13,7 +13,7 @@ export class OauthController {
 
   @Get('google/callback')
   async googleCallback(
-    @Req() req: ReqWithCookies,
+    @Req() req: ReqWithUser,
     @Query() queryParams: OauthQueryParams,
   ) {
     return this.authService.getGoogleUser(

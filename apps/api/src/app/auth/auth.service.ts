@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
+import { ExpressCookieRequest } from 'nest-cookies';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { CookieService } from '../cookie/cookie.service';
-import { ReqWithCookies } from '../interfaces/req-with-cookies.interface';
 import { RedisService } from '../redis/redis.service';
 import { GoogleService } from './google/google.service';
 import { LocalService } from './local/local.service';
@@ -32,7 +32,7 @@ export class AuthService {
     return loginUrl;
   }
 
-  login(req: ReqWithCookies, login: LoginDTO): Observable<AuthDTO> {
+  login(req: ExpressCookieRequest, login: LoginDTO): Observable<AuthDTO> {
     return this.localService.login(login).pipe(
       switchMap((user) => {
         return this.setCookie(req, user);
@@ -40,7 +40,7 @@ export class AuthService {
     );
   }
 
-  signup(req: ReqWithCookies, signup: SignupDTO): Observable<AuthDTO> {
+  signup(req: ExpressCookieRequest, signup: SignupDTO): Observable<AuthDTO> {
     return this.localService.signup(signup).pipe(
       switchMap((user) => {
         return this.setCookie(req, user);
@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   getGoogleUser(
-    req: ReqWithCookies,
+    req: ExpressCookieRequest,
     code: string,
     state: string,
   ): Observable<GoogleUser> {
@@ -61,13 +61,14 @@ export class AuthService {
   }
 
   private setCookie<T extends AuthDTO>(
-    req: ReqWithCookies,
+    req: ExpressCookieRequest,
     user: T,
   ): Observable<T> {
     return this.redis
       .set(
         this.cookieService.setCookie(req, 'session.id', undefined, {
           expires: new Date(Date.now() + hour / 60),
+          path: '/',
         }),
         user.id,
         hour,
@@ -77,6 +78,7 @@ export class AuthService {
           return this.redis.set(
             this.cookieService.setCookie(req, 'session.refresh', undefined, {
               expires: new Date(Date.now() + 14 * day),
+              path: '/',
             }),
             user.id,
             (5 * hour) / 60,
@@ -87,13 +89,14 @@ export class AuthService {
   }
 
   private setSessionCookie(
-    req: ReqWithCookies,
+    req: ExpressCookieRequest,
     user: AuthDTO,
   ): Observable<AuthDTO> {
     return this.redis
       .set(
         this.cookieService.setCookie(req, 'session.id', undefined, {
           expires: new Date(Date.now() + hour / 60),
+          path: '/',
         }),
         user.id,
         hour,
@@ -101,7 +104,10 @@ export class AuthService {
       .pipe(map(() => user));
   }
 
-  refreshSession(req: ReqWithCookies, user: AuthDTO): Observable<AuthDTO> {
+  refreshSession(
+    req: ExpressCookieRequest,
+    user: AuthDTO,
+  ): Observable<AuthDTO> {
     return this.setSessionCookie(req, user);
   }
 
