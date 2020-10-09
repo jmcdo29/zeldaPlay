@@ -3,8 +3,10 @@ RUN curl -L https://raw.githubusercontent.com/pnpm/self-installer/master/install
 WORKDIR /app
 
 FROM base AS prodDeps
+RUN curl -sf https://gobinaries.com/tj/node-prune | sh
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm i -Ps
+RUN node-prune
 
 FROM base AS dependencies
 COPY package.json pnpm-lock.yaml ./

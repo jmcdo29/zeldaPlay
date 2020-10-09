@@ -24,4 +24,6 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v1
       - name: Run Docker
-        run: npm run docker:all
+        run: pnpm run docker:all
+      - name: Docker Report
+        run: docker image ls
