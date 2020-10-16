@@ -10,7 +10,7 @@ RUN node-prune
 
 FROM base AS dependencies
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install
+RUN pnpm install -s
 COPY tsconfig.* \
   workspace.json \
   nginx.conf \
