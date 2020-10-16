@@ -42,3 +42,11 @@ Docker/
 scheam.gql
 docker-compose.yml
 .cache
+*.txt
+debug.json
+server.json
+nginx-local.conf
+*.svg
+LICENSE
+*.md
+.git
