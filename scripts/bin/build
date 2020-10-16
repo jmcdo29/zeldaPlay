@@ -1,0 +1,8 @@
+#! /bin/sh
+
+echo "docker build -t jmcdo29/build -f Docker/build.Dockerfile --rm ."
+docker build -t jmcdo29/build -f Docker/build.Dockerfile --rm .
+echo "docker build -t jmcdo29/tabletop-companion-server -f Docker/api.Dockerfile --rm ."
+docker build -t jmcdo29/tabletop-companion-server -f Docker/api.Dockerfile --rm .
+echo "docker build -t jmcdo29/tabletop-companion -f Docker/tabletop-companion.Dockerfile --rm ."
+docker build -t jmcdo29/tabletop-companion -f Docker/tabletop-companion.Dockerfile --rm .
