@@ -35,21 +35,17 @@
     "nx": "nx"
   },
   "dependencies": {
-    "@godaddy/terminus": "^4.4.1",
     "@golevelup/nestjs-modules": "^0.4.1",
     "@marcj/marshal": "^2.1.13",
     "@marcj/marshal-nest": "^2.1.13",
     "@nestjs/common": "^7.4.2",
     "@nestjs/core": "^7.4.2",
     "@nestjs/platform-express": "^7.4.2",
-    "@nestjs/terminus": "^7.0.1",
     "@ogma/logger": "^0.3.0",
     "@ogma/nestjs-module": "^0.3.0",
     "@ogma/platform-express": "^0.3.0",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.4",
-    "cookie-parser": "^1.4.5",
-    "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "helmet": "^4.1.0",
     "nest-cookies": "^1.0.0",
@@ -58,9 +54,7 @@
     "redis": "^3.0.2",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.6.2",
-    "snyk": "^1.370.1",
-    "tslib": "^2.0.1",
-    "zone.js": "^0.11.1"
+    "tslib": "^2.0.1"
   },
   "devDependencies": {
     "@abraham/reflection": "^0.7.0",
@@ -110,6 +104,7 @@
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",
+    "core-js": "^3.6.5",
     "cypress": "^5.0.0",
     "cz-conventional-changelog": "^3.2.0",
     "eslint": "^7.6.0",
@@ -123,11 +118,13 @@
     "npm-check": "^5.9.0",
     "nx": "^10.3.0",
     "prettier": "^2.0.5",
+    "snyk": "^1.414.1",
     "sqlite3": "^5.0.0",
     "supertest": "^4.0.2",
     "ts-jest": "^26.1.4",
     "typescript": "3.9.7",
-    "webpack": "^4.44.1"
+    "webpack": "^4.44.1",
+    "zone.js": "^0.11.2"
   },
   "engines": {
     "node": ">=10"
