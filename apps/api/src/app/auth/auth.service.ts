@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ExpressCookieRequest } from 'nest-cookies';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { CookieService } from '../cookie/cookie.service';
+import { ReqWithUser } from '../interfaces/req-with-user.interface';
 import { RedisService } from '../redis/redis.service';
 import { GoogleService } from './google/google.service';
 import { LocalService } from './local/local.service';
@@ -32,7 +32,7 @@ export class AuthService {
     return loginUrl;
   }
 
-  login(req: ExpressCookieRequest, login: LoginDTO): Observable<AuthDTO> {
+  login(req: ReqWithUser, login: LoginDTO): Observable<AuthDTO> {
     return this.localService.login(login).pipe(
       switchMap((user) => {
         return this.setCookie(req, user);
@@ -40,7 +40,7 @@ export class AuthService {
     );
   }
 
-  signup(req: ExpressCookieRequest, signup: SignupDTO): Observable<AuthDTO> {
+  signup(req: ReqWithUser, signup: SignupDTO): Observable<AuthDTO> {
     return this.localService.signup(signup).pipe(
       switchMap((user) => {
         return this.setCookie(req, user);
@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   getGoogleUser(
-    req: ExpressCookieRequest,
+    req: ReqWithUser,
     code: string,
     state: string,
   ): Observable<GoogleUser> {
@@ -61,7 +61,7 @@ export class AuthService {
   }
 
   private setCookie<T extends AuthDTO>(
-    req: ExpressCookieRequest,
+    req: ReqWithUser,
     user: T,
   ): Observable<T> {
     return this.redis
@@ -89,7 +89,7 @@ export class AuthService {
   }
 
   private setSessionCookie(
-    req: ExpressCookieRequest,
+    req: ReqWithUser,
     user: AuthDTO,
   ): Observable<AuthDTO> {
     return this.redis
@@ -104,10 +104,7 @@ export class AuthService {
       .pipe(map(() => user));
   }
 
-  refreshSession(
-    req: ExpressCookieRequest,
-    user: AuthDTO,
-  ): Observable<AuthDTO> {
+  refreshSession(req: ReqWithUser, user: AuthDTO): Observable<AuthDTO> {
     return this.setSessionCookie(req, user);
   }
 

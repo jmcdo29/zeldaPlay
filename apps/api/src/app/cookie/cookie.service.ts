@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { randomBytes } from 'crypto';
-import { Cookie, ExpressCookieRequest } from 'nest-cookies';
+import type { Request } from 'express';
+import { Cookie, NestCookieRequest } from 'nest-cookies';
 
 @Injectable()
 export class CookieService {
   setCookie(
-    req: ExpressCookieRequest,
+    req: NestCookieRequest<Request>,
     cookieName: string,
     value?: string,
     options?: Cookie['options'],
