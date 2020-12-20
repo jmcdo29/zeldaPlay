@@ -1,6 +1,6 @@
-import { f } from '@marcj/marshal';
+import { t } from '@deepkit/type';
 
 export class AppControllerQuery {
-  @f.optional()
+  @t.optional
   name: string;
 }

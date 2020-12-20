@@ -1,59 +1,59 @@
-import { f } from '@marcj/marshal';
+import { t } from '@deepkit/type';
 import { CharacterInsertData } from '@tabletop-companion/api-interface';
 import { CustomId } from '../../validators';
 
 export class CharacterInsertDataDTO implements CharacterInsertData {
-  @f
+  @t
   name!: string;
 
-  @f
+  @t
   race!: string;
 
-  @f
+  @t
   subrace!: string;
 
-  @f
+  @t
   experience!: number;
 
-  @f
+  @t
   maxHealth!: number;
 
-  @f
+  @t
   health!: number;
 
-  @f
+  @t
   isDead: boolean = false;
 
-  @f.validator(CustomId('USR'))
+  @t.validator(CustomId('USR'))
   playerId!: string;
 
-  @f
+  @t
   level: number = 1;
 
-  @f
+  @t
   alignment!: string;
 
-  @f
+  @t
   background!: string;
 
-  @f
+  @t
   ideal!: string;
 
-  @f
+  @t
   bond!: string;
 
-  @f
+  @t
   flaw!: string;
 
-  @f.array(String)
+  @t.array(String)
   personalityTraits!: string[];
 
-  @f.array(String)
+  @t.array(String)
   proficiencies!: string[];
 
-  @f.array(String)
+  @t.array(String)
   languages!: string[];
 
-  @f
+  @t
   game: string = 'dd5';
 }

@@ -1,4 +1,3 @@
-import { ValidationPipe } from '@marcj/marshal-nest';
 import { Module } from '@nestjs/common';
 import { APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { OgmaInterceptor, OgmaModule } from '@ogma/nestjs-module';
@@ -56,10 +55,6 @@ import { RedisModule } from './redis/redis.module';
     {
       provide: APP_INTERCEPTOR,
       useClass: CookiesInterceptor,
-    },
-    {
-      provide: APP_PIPE,
-      useValue: new ValidationPipe({ transform: true }),
     },
   ],
   controllers: [AppController],

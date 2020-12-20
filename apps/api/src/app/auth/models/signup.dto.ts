@@ -1,26 +1,26 @@
-import { f } from '@marcj/marshal';
+import { t } from '@deepkit/type';
 import { Signup } from '@tabletop-companion/api-interface';
 import { IsEmail, IsPassword } from '../../validators';
 
 export class SignupDTO implements Signup {
-  @f.validator(IsEmail)
+  @t.validator(IsEmail)
   email!: string;
 
-  @f.validator(IsPassword)
+  @t.validator(IsPassword)
   password!: string;
 
-  @f.validator(IsPassword)
+  @t.validator(IsPassword)
   confirmationPassword!: string;
 
-  @f
+  @t
   firstName!: string;
 
-  @f
+  @t
   lastName!: string;
 
-  @f
+  @t
   consentToEmail: boolean = false;
 
-  @(f.array(String).optional())
+  @(t.array(String).optional)
   role: string[] = ['player'];
 }

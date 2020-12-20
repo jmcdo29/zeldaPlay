@@ -1,4 +1,4 @@
-import { PropertyValidator, PropertyValidatorError } from '@marcj/marshal';
+import { PropertyValidator, PropertyValidatorError } from '@deepkit/type';
 import { emailError } from './messages';
 
 export class IsEmail implements PropertyValidator {

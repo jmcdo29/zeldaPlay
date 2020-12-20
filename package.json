@@ -35,6 +35,7 @@
     "nx": "nx"
   },
   "dependencies": {
+    "@deepkit/type": "^1.0.1-alpha.1",
     "@golevelup/nestjs-modules": "^0.4.1",
     "@marcj/marshal": "^2.1.13",
     "@marcj/marshal-nest": "^2.1.13",

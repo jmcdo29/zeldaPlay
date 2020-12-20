@@ -1,57 +1,57 @@
-import { f } from '@marcj/marshal';
+import { t } from '@deepkit/type';
 import { LogLevel } from '@ogma/logger';
 
 export class EnvConfig {
-  @f
+  @t
   NODE_ENV: 'production' | 'prod' | 'development' | 'dev' | 'test' =
     'development';
 
-  @f.enum(LogLevel, true)
+  @t.enum(LogLevel, true)
   LOG_LEVEL: LogLevel = LogLevel.INFO;
 
-  @f
+  @t
   DATABASE_URL: string;
 
-  @f
+  @t
   JWT_SECRET: string;
 
-  @f
+  @t
   SESSION_SECRET: string;
 
-  @f
+  @t
   REDIS_URL: string;
 
-  @f
+  @t
   GOOGLE_CLIENT: string;
 
-  @f
+  @t
   GOOGLE_SECRET: string;
 
-  @f
+  @t
   GOOGLE_CALLBACK_URL: string =
     'http://localhost:3333/api/oauth/google/callback';
 
-  @f
+  @t
   PORT: number = 3333;
 
-  @f
+  @t
   COOKIE_AGE: number = 86400;
 
-  @f
+  @t
   APPLICATION: string = 'tabletop';
 
-  @f
+  @t
   GLOBAL_PREFIX: string = 'api';
 
-  @f
+  @t
   GOOGLE_PROMPT: string = 'select_account';
 
-  @f
+  @t
   GOOGLE_RESPONSE_TYPE: string = 'code';
 
-  @f
+  @t
   GOOGLE_SCOPE: string = 'email profile';
 
-  @f
+  @t
   GOOGLE_STATE: string = 'some_state_token';
 }

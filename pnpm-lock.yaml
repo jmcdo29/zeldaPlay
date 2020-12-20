@@ -1,4 +1,5 @@
 dependencies:
+  '@deepkit/type': 1.0.1-alpha.1
   '@golevelup/nestjs-modules': 0.4.1
   '@marcj/marshal': 2.1.13
   '@marcj/marshal-nest': 2.1.13_e9bd6039675039f6de5d22c86123aa03
@@ -2469,6 +2470,27 @@ packages:
     dev: true
     resolution:
       integrity: sha512-skbBzPggOVYCbnGgV+0dmBdW/s77ZkAOXIC1knS8NagwDjBrNC1LuXtQJeiN6l+m7lzmHtaoUw/ctJKdqkG57Q==
+  /@deepkit/core/1.0.1-alpha.1:
+    dependencies:
+      dot-prop: 5.3.0
+      to-fast-properties: 3.0.1
+    dev: false
+    resolution:
+      integrity: sha512-DzbV38KwFESroTLpoe8kkAsIldy6p9ciGkONOKhbgyQ9E4WwqgMFaZX7dTdHn4eajTj6ZYNtuIruvae02AOJaw==
+  /@deepkit/type/1.0.1-alpha.1:
+    dependencies:
+      '@deepkit/core': 1.0.1-alpha.1
+      '@types/validator': 13.1.1
+      buffer: 5.7.1
+      clone: 2.1.2
+      get-parameter-names: 0.3.0
+      uuid: 3.4.0
+      validator: 13.5.2
+    dev: false
+    optionalDependencies:
+      moment: 2.29.1
+    resolution:
+      integrity: sha512-lei2eao39TIe/md78hdR0WcgRWmCpJaCqsTDPmocY3/fsRuQAnVhj7tWjsb13M+YJJoMr3wB9QVdcz67Ea+X3A==
   /@eslint/eslintrc/0.2.1:
     dependencies:
       ajv: 6.12.6
@@ -3633,6 +3655,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Xt8TbEyZTnD5Xulw95GLMOkmjGICrOQyJ2jqgkSjAUR3mm7pAIzSR0NFBaMcwlzVvlpCjNwbATcWWwjNiZiFrQ==
+  /@types/validator/13.1.1:
+    dev: false
+    resolution:
+      integrity: sha512-/39uXOKe1KV4ElXb8cp0RVyeRn9X1QRwllComMMql+FQ9nhmTx0Yhw+kJtccPSShsjma+KXjW/TiXyGUNqNn+w==
   /@types/webpack-sources/0.1.8:
     dependencies:
       '@types/node': 14.14.9
@@ -6962,7 +6988,6 @@ packages:
   /dot-prop/5.3.0:
     dependencies:
       is-obj: 2.0.0
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -9477,7 +9502,6 @@ packages:
     resolution:
       integrity: sha1-PkcprB9f3gJc19g6iW2rn09n2w8=
   /is-obj/2.0.0:
-    dev: true
     engines:
       node: '>=8'
     resolution:
@@ -16009,6 +16033,12 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4=
+  /to-fast-properties/3.0.1:
+    dev: false
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-/wtNi1tW1F3nf0OL6AqVxGw9Tr1ET70InMhJuVxPwFdGqparF0nQ4UWGLf2DsoI2bFDtthlBnALncZpUzOnsUw==
   /to-object-path/0.3.0:
     dependencies:
       kind-of: 3.2.2
@@ -16591,6 +16621,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-X6kS2B630MdK/BQN5zF/DKffQ34=
+  /validator/13.5.2:
+    dev: false
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha512-mD45p0rvHVBlY2Zuy3F3ESIe1h5X58GPfAtslBjY7EtTqGquZTj+VX/J4RnHWN8FKq0C9WRVt1oWAcytWRuYLQ==
   /vary/1.1.2:
     engines:
       node: '>= 0.8'
@@ -17421,6 +17457,7 @@ specifiers:
   '@angular/router': ^10.2.3
   '@commitlint/cli': ^9.1.2
   '@commitlint/config-conventional': ^9.1.2
+  '@deepkit/type': ^1.0.1-alpha.1
   '@golevelup/nestjs-modules': ^0.4.1
   '@golevelup/nestjs-testing': ^0.1.2
   '@marcj/marshal': ^2.1.13

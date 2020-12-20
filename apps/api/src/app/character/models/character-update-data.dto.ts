@@ -1,29 +1,29 @@
-import { f } from '@marcj/marshal';
+import { t } from '@deepkit/type';
 import { CharacterUpdateData } from '@tabletop-companion/api-interface';
 import { CustomId } from '../../validators/isCustomId';
 
 export class CharacterUpdateDataDTO implements CharacterUpdateData {
-  @f.validator(CustomId('CHR'))
+  @t.validator(CustomId('CHR'))
   id!: string;
 
-  @f.optional()
+  @t.optional
   experience?: number;
 
-  @f.optional()
+  @t.optional
   maxHealth?: number;
 
-  @f.optional()
+  @t.optional
   health?: number;
 
-  @f.optional()
+  @t.optional
   isDead?: boolean;
 
-  @f.optional()
+  @t.optional
   level?: number;
 
-  @(f.array(String).optional())
+  @(t.array(String).optional)
   languages?: string[];
 
-  @(f.array(String).optional())
+  @(t.array(String).optional)
   proficiencies?: string[];
 }
