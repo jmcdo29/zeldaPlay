@@ -1,23 +1,23 @@
-import { f } from '@marcj/marshal';
+import { t } from '@deepkit/type';
 import { UserUpdateData } from '@tabletop-companion/api-interface';
 import { CustomId } from '../../../validators';
 
 export class UserUpdateDataDTO implements UserUpdateData {
-  @f.validator(CustomId('USR'))
+  @t.validator(CustomId('USR'))
   id!: string;
 
-  @f.optional()
+  @t.optional
   email?: string;
 
-  @f.optional()
+  @t.optional
   firstName?: string;
 
-  @f.optional()
+  @t.optional
   lastName?: string;
 
-  @f.optional()
+  @t.optional
   consentToEmail?: boolean;
 
-  @(f.array(String).optional())
+  @(t.array(String).optional)
   role?: string[];
 }

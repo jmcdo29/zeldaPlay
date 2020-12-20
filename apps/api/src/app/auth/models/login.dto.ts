@@ -1,10 +1,10 @@
-import { f } from '@marcj/marshal';
+import { t } from '@deepkit/type';
 import { Login } from '@tabletop-companion/api-interface';
 
 export class LoginDTO implements Login {
-  @f
+  @t
   email!: string;
 
-  @f
+  @t
   password!: string;
 }

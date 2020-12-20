@@ -1,23 +1,23 @@
 import { User } from '@tabletop-companion/api-interface';
-import { f } from '@marcj/marshal';
+import { t } from '@deepkit/type';
 
 export class UserDTO implements User {
-  @f
+  @t
   id!: string;
-  @f
+  @t
   email!: string;
-  @f
+  @t
   password!: string;
-  @f
+  @t
   firstName!: string;
-  @f
+  @t
   lastName!: string;
-  @f.optional()
+  @t.optional
   consentToEmail: boolean = false;
-  @f.optional()
+  @t.optional
   recoveryToken?: string;
-  @f.optional()
+  @t.optional
   isActive: boolean = true;
-  @(f.array(String).optional())
+  @(t.array(String).optional)
   role: string[] = ['player'];
 }

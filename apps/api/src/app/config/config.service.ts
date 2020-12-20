@@ -1,4 +1,4 @@
-import { validatedPlainToClass, ValidationError } from '@marcj/marshal';
+import { jsonSerializer } from '@deepkit/type';
 import { Inject, Injectable } from '@nestjs/common';
 import { LogLevel } from '@ogma/logger';
 import { parse } from 'dotenv';
@@ -38,10 +38,10 @@ export class ConfigService {
 
   private validateConfig(config: Record<string, any>): EnvConfig {
     try {
-      return validatedPlainToClass(EnvConfig, config);
+      return jsonSerializer.for(EnvConfig).validatedDeserialize(config);
     } catch (err) {
       throw new Error(
-        err.errors.map((err: ValidationError) => JSON.stringify(err)).join(' '),
+        err.errors.map((err: Error) => JSON.stringify(err)).join(' '),
       );
     }
   }

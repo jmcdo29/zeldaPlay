@@ -1,16 +1,16 @@
-import { f } from '@marcj/marshal';
+import { t } from '@deepkit/type';
 
 export class GoogleUser {
-  @f
+  @t
   id: string;
-  @f
+  @t
   email: string;
-  @f
+  @t
   firstName: string;
-  @f
+  @t
   lastName: string;
-  @f.array(String)
+  @t.array(String)
   roles: string[] = ['player'];
-  @f
+  @t
   googleId: string;
 }

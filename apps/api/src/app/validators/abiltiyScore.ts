@@ -1,4 +1,4 @@
-import { PropertyValidator, PropertyValidatorError } from '@marcj/marshal';
+import { PropertyValidator, PropertyValidatorError } from '@deepkit/type';
 import { abilityScoreError } from './messages';
 
 export class AbilityScoreValidator implements PropertyValidator {

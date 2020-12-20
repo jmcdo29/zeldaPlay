@@ -1,9 +1,9 @@
-import { f } from '@marcj/marshal';
+import { t } from '@deepkit/type';
 
 export class OauthQueryParams {
-  @f
+  @t
   code: string;
 
-  @f.optional()
+  @t.optional
   state: string;
 }

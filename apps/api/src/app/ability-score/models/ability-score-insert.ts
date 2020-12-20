@@ -1,14 +1,14 @@
-import { f } from '@marcj/marshal';
+import { t } from '@deepkit/type';
 import { AbilityScoreInput } from '@tabletop-companion/api-interface';
 import { AbilityScoreValidator, CustomId } from '../../validators';
 
 export class AbilityScoreInputDTO implements AbilityScoreInput {
-  @f.validator(AbilityScoreValidator)
+  @t.validator(AbilityScoreValidator)
   value!: number;
 
-  @f
+  @t
   name!: string;
 
-  @f.validator(CustomId('CHR'))
+  @t.validator(CustomId('CHR'))
   characterId!: string;
 }

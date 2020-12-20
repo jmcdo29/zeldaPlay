@@ -1,4 +1,4 @@
-import { plainToClass } from '@marcj/marshal';
+import { jsonSerializer } from '@deepkit/type';
 import { Injectable, Type } from '@nestjs/common';
 import { OgmaService } from '@ogma/nestjs-module';
 import { Pool } from 'pg';
@@ -42,7 +42,7 @@ export class DatabaseService<T> implements DatabaseInterface<T> {
       map((qRes) =>
         qRes.rows
           .map(this.underScoreToCamelCase)
-          .map((row) => plainToClass(type, row)),
+          .map((row) => jsonSerializer.for(type).deserialize(row)),
       ),
       catchError((err) => {
         this.logger.debug({
